@@ -6,6 +6,7 @@ import { ItemsRoutes } from "./items.routing";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { ItemComponent } from "./item/item.component";
+import { ItemCardModule } from "./items/item-card/item-card.module";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ItemComponent } from "./item/item.component";
         RouterModule.forChild(ItemsRoutes),
         SharedModule,
         MatIconModule,
-        MatMenuModule
+        MatMenuModule,
+        ItemCardModule
     ],
     exports: [RouterModule,]
 })

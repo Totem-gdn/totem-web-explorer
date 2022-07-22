@@ -57,11 +57,17 @@ export class UserService
     }
 
     guestUser(): Observable<User> {
-        const user = { name: 'Guest' };
+        const user = this.getUserFromStorage;
 
-        this.user = user;
+        if(!user) {
+            const user = { name: 'Guest' };
 
-        return of(user);
+            this.user = user;
+
+            return of(user);
+        };
+        
+        return of(this.user);
     }
 
 }

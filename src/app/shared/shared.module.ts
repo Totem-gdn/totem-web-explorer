@@ -1,8 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ItemCardComponent } from "./items/item-card/item-card.component";
-import { ItemCardModule } from "./items/item-card/item-card.module";
 import { LoadingSpinner } from "./loading-spinner/locading-spinner.component";
 import { UserAvatar } from "./user-avatar/user.avatar.component";
 
@@ -16,7 +14,6 @@ import { UserAvatar } from "./user-avatar/user.avatar.component";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        ItemCardModule
         
     ],
     exports: [
@@ -25,7 +22,6 @@ import { UserAvatar } from "./user-avatar/user.avatar.component";
         ReactiveFormsModule,
         UserAvatar,
         LoadingSpinner,
-        ItemCardModule
     ]
 })
 

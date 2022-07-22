@@ -13,10 +13,10 @@ app.use('*', function(req, res, next) {
     }
 })
 
-app.use(express.static(path.join(__dirname + '/dist/core')));
+app.use(express.static(path.join(__dirname + '/dist/totem-gdn-web3auth')));
 app.get('*', (req, res) => {
 
-    res.sendFile(path.join(__dirname + '/dist/core/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/totem-gdn-web3auth/index.html'));
 
 });
 

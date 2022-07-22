@@ -38,7 +38,7 @@
         </div>
 
         <!-- Navigation Items -->
-        <div class="h-full w-full text-black py-5">
+        <div *ngIf="isAuthenticated" class="h-full w-full text-black py-5">
 
             <div 
             class="px-3 py-2 mb-4 bg-yellow rounded text-2xl leading-5 items-center flex cursor-pointer"
@@ -67,7 +67,7 @@
             <mat-icon class="text-black-2" [svgIcon]="'heroicons_outline:menu'"></mat-icon>
         </button>
 
-        <a routerLink="/sign-in" class="font-totem text-3xl ml-auto text-black-2 px-4">Sign In</a>
+        <a *ngIf="isAuthenticated === false" routerLink="/sign-in" class="font-totem text-3xl ml-auto text-black-2 px-4">Sign In</a>
     </div>
 
     <!-- Content -->

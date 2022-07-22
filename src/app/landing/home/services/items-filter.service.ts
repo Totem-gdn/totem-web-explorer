@@ -10,8 +10,8 @@ export class ItemsFilterService {
 
     }
 
-    mostPopularItems() {
-        return this.itemsService.fetchItems();
-    }
+    // mostPopularItems() {
+    //     return this.itemsService.fetchItems();
+    // }
 
 }

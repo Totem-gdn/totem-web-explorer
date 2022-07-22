@@ -6,14 +6,14 @@
         <img
             class="w-7 h-7 rounded-full"
             *ngIf="user?.avatar"
-            [src]="user?.avatar">
+            [src]="user.avatar">
         <mat-icon
             *ngIf="!user?.avatar"
             [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
         <span
             *ngIf="user?.avatar"
             class="absolute right-0 bottom-0 w-2 h-2 rounded-full"
-            [ngClass]="{'mr-px mb-px': !user?.avatar}"
+            [ngClass]="{'mr-px mb-px': !user.avatar}"
         ></span>
     </span>
 </button>
@@ -26,7 +26,7 @@
     <button mat-menu-item>
         <span class="flex flex-col leading-none">
             <span>Signed in as</span>
-            <span class="mt-1.5 text-md font-medium">{{user?.email}}</span>
+            <span class="mt-1.5 text-md font-medium">{{user?.name || user?.email}}</span>
         </span>
     </button>
     <mat-divider class="my-2"></mat-divider>
@@ -39,12 +39,23 @@
         <span>Settings</span>
     </button>
     <mat-divider class="my-2"></mat-divider>
+
     <button
+        *ngIf="isAuthenticated"
         mat-menu-item
         (click)="signOut()">
         <mat-icon [svgIcon]="'heroicons_outline:logout'"></mat-icon>
         <span>Sign out</span>
     </button>
+
+    <button
+        *ngIf="!isAuthenticated"
+        mat-menu-item
+        (click)="signIn()">
+        <mat-icon [svgIcon]="'heroicons_outline:login'"></mat-icon>
+        <span>Sign In</span>
+    </button>
+
 </mat-menu>
 
 

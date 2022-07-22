@@ -3,6 +3,7 @@ import {  Router } from '@angular/router';
 import { NavigationService } from '@app/core/services/navigation/navigation.service';
 import { NavigationItem } from '@app/core/services/navigation/navigation.types';
 import { UserService } from '@app/core/services/user/user.service';
+import { AuthService } from '@app/core/auth/auth.service';
 import { User } from '@app/core/services/user/user.types';
 import { Subject, take, takeUntil } from 'rxjs';
 
@@ -21,10 +22,12 @@ export class GuestLayoutComponent implements OnInit, OnDestroy
     constructor(
         private userService: UserService,
         private router: Router,
-        private navigationService: NavigationService
+        private navigationService: NavigationService,
+        private authService: AuthService
     ){}
 
 
+    isAuthenticated!: boolean;
     toggle = false;
     navigationItems: NavigationItem[] = [];
     user!: User;
@@ -32,6 +35,14 @@ export class GuestLayoutComponent implements OnInit, OnDestroy
 
     ngOnInit(): void
     {   
+        // Check if user authenticated
+        this.authService.check()
+        .pipe(takeUntil(this._subscriptions))
+        .subscribe(isAuthenticated => {
+            this.isAuthenticated = isAuthenticated;
+        })
+
+
         // Subscribe to navigation service
         this.navigationService.guestNavigation()
             .pipe(takeUntil(this._subscriptions))
@@ -39,11 +50,18 @@ export class GuestLayoutComponent implements OnInit, OnDestroy
                 this.navigationItems = navigation;
             })
 
+
         // Subscribe to the user service
         this.userService.user$
             .pipe(takeUntil(this._subscriptions))
             .subscribe((user: User) => {
-                this.user = user;
+                if(user) {
+                    this.user = user;
+                }
+
+                if(!user) {
+                    this.user = { name: 'Guest'};
+                }   
             });
     }
 

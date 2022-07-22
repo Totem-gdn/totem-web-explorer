@@ -9,8 +9,8 @@ export class AvatarsFilterService {
     constructor(private itemsService: ItemsService) {
 
     }
-    mostPopularAvatars() {
-        return this.itemsService.fetchItems();
-    }
+    // mostPopularAvatars() {
+    //     return this.itemsService.fetchItems();
+    // }
 
 }
