@@ -2,16 +2,15 @@
 import { Injectable } from '@angular/core';
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from '@web3auth/base';
 import { Web3Auth } from '@web3auth/web3auth';
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import RPC from "./evm";
 
-const clientId = environment.CLIENT_ID;
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { CryptoService } from '../crypto.service';
 import { AuthService } from '@app/core/auth/auth.service';
 import { UserService } from '../../user/user.service';
 
+const clientId = environment.CLIENT_ID;
 
 @Injectable({ providedIn: 'root' })
 
