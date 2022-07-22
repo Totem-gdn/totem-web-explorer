@@ -1,0 +1,93 @@
+
+<div class="relative flex flex-col h-full overflow-y-auto w-full">
+
+    <!-- Arrow Back -->
+    <div class="fixed z-30 flex items-center p-3 pr-6 cursor-pointer" (click)="onClickBack()">
+        <mat-icon class="text-white p-1 w-12 h-12 ml-auto sm:my-auto" [svgIcon]="'arrow_back'"></mat-icon>
+    </div>
+
+    <!-- Avatar data in table -->
+    <div class="w-full bg-space flex flex-col text-yellow justify-center max-w-7xl">
+
+        <div class="bg-indigo-100 rounded-2xl w-48 sm:w-72 mt-10 m-auto">
+            <div class="m-auto p-4">
+                <svg-avatar *ngIf="currentAvatar" [avatar]="currentAvatar.avatar"></svg-avatar>
+            </div>
+        </div>
+
+        <div class="scroll-x-yellow w-full flex flex-col text-yellow py-4 mt-3 overflow-x-auto whitespace-nowrap scroll-x-yellow">
+    
+            <div class="text-center grid w-full grid-cols-7 border-b border-b-solid border-yellow font-bold py-2 mt-auto min-w-4xl">
+    
+                <h4>Body Fat</h4>
+                <h4>Body Muscles</h4>
+                <h4>Eye Color</h4>
+                <h4>Hair Color</h4>
+                <h4>Hair Style</h4>
+                <h4>Sex</h4>
+                <h4>Skin Color</h4>
+    
+            </div>
+
+            <div class="text-center grid w-full grid-cols-7 my-row my-2 cursor-pointer min-w-4xl">
+    
+                <h4>{{currentAvatar?.avatar.bodyFat}}</h4>
+                <h4>{{currentAvatar?.avatar.bodyMuscles}}</h4>
+                <h4>{{currentAvatar?.avatar.eyeColor}}</h4>
+                <h4>{{currentAvatar?.avatar.hairColor}}</h4>
+                <h4>{{currentAvatar?.avatar.hairStyle}}</h4>
+                <h4>{{currentAvatar?.avatar.sex}}</h4>
+                <h4>{{currentAvatar?.avatar.skinColor}}</h4>
+    
+            </div>
+        </div>
+
+        <h3 class="text-5xl p-4 mt-4 text-center text-yellow">Achievements</h3>
+
+    </div>
+
+    <!-- Legacies wrapper -->
+    <div class="w-full h-full bg-yellow">
+        <div class="flex h-full justify-center max-w-7xl">
+
+            <!-- List of Legacies -->
+            <div *ngIf="legacyRecords && legacyRecords.length > 0" class="relative">
+    
+                <div class="py-2 sm:overflow-y-auto w-full">
+    
+                    <div class="mx-auto p-4 text-black-2 border-black-2 border-b-solid border-b my-3 truncate w-72 sm:w-96"
+                        *ngFor="let legacy of legacyRecords; let i = index">
+    
+                        <!-- Show popup with decoded data -->
+                        <div class="ellipsis-center cursor-pointer flex" [matMenuTriggerFor]="avatarData"
+                            (click)="onClickData(legacy.data)">
+                            <h4 class="ellipsis"><span class="font-bold">Data: </span>{{legacy.data}}</h4>
+                            <h4 class="indent">{{legacy.data}}</h4>
+                        </div>
+    
+                        <mat-menu #avatarData="matMenu">
+                            <h4 class="p-3 top-0 left-0 text-black-2 z-15 break-words" *ngIf="currentData">{{ currentData }}</h4>
+                        </mat-menu>
+    
+                        <h4><span class="font-bold">Game Id: </span>{{legacy.gameId}}</h4>
+                        <h4><span class="font-bold">Timestamp: </span>{{legacy.timestamp}}</h4>
+    
+                    </div>
+    
+                </div>
+            </div>
+    
+            <h3 class="py-6 text-center rounded-2xl" *ngIf="legacyRecords?.length === 0">
+                There is no Achievements
+            </h3>
+    
+            <div *ngIf="!legacyRecords" class="text-center">
+                <loading-spinner [color]="'white'"></loading-spinner>
+            </div>
+
+        </div> 
+    </div>
+
+
+
+</div>

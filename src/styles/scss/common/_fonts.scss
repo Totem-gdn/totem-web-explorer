@@ -1,0 +1,18 @@
+
+
+
+
+%font-totem {
+    font-weight: 400;
+    font-family: Totem, sans-serif;
+    letter-spacing: 0.3px;
+}
+
+.font-totem {
+    @extend %font-totem;
+}
+
+.font-assistant {
+    font-family: Assistant;
+    font-size: 18px;
+}

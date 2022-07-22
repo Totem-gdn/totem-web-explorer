@@ -1,0 +1,53 @@
+
+@import '../../../../../styles/scss/variables';
+
+
+h4 {
+    font-size: 18px;
+}
+
+.font-bold > h4 {
+  font-weight: 700;
+}
+
+.ellipsis-center {
+    white-space:nowrap;
+}
+
+.ellipsis-center:hover {
+    background-color: $black-2;
+    color: $yellow;
+}
+
+.ellipsis-center > h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align:middle;
+  }
+  
+  .ellipsis {
+    display: inline-block;
+    width: calc(50% + 1.2em);
+    text-overflow: ellipsis;
+  }
+  
+  .indent {
+    display:inline-flex;
+    width: calc(50% - 1.2em);
+    justify-content:flex-end;
+  }
+
+.test {
+  overflow-wrap: break-word;
+}
+
+.grid {
+  display: grid;
+grid-gap: 16px;
+padding: 16px;
+grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+grid-auto-flow: column;
+grid-auto-columns: minmax(160px,1fr);
+overflow-x: auto;
+}
+

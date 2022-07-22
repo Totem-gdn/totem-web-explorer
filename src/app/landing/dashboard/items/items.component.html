@@ -1,0 +1,23 @@
+
+<!-- Wrapper -->
+<div class="relative w-full h-full flex flex-wrap py-4 sm:py-9 px-0 sm:px-6 justify-center min-w-xs max-w-7xl min-w-21rem">
+
+    <div class="w-full flex flex-col text-yellow justify-center">
+        <h2 class="pl-8 py-4 font-totem uppercase">Items</h2>
+    </div>
+
+    <!-- List of Items  -->
+    <div *ngFor="let item of items; let i = index"
+        class="max-w-xl h-auto">
+
+        <app-item-card [item]="item" (click)="onClickMore(item._id)"></app-item-card>
+        
+
+    </div>
+
+    <!-- Spinner -->
+    <div *ngIf="!items" class="text-center spinner-center">
+            <loading-spinner [color]="'white'"></loading-spinner>
+    </div>
+
+</div>

@@ -1,0 +1,56 @@
+<div class="relative w-full h-full flex flex-col text-yellow max-w-7xl min-w-21rem">
+
+    <div class="p-10">
+        <div class="flex flex-auto items-end mb-4 justify-center">
+            <div class="relative w-32 h-32 cursor-pointer">
+                <div class="w-full h-full rounded-full justify-center">
+                    <img class="rounded-full" *ngIf="!user.avatar" src="assets/avatardefault_92824.png" alt="">
+                    <img class="rounded-full" *ngIf="user.avatar" [src]="user.avatar" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-center">
+            <h3>{{user?.name}}</h3>
+        </div>
+
+        <div class="flex items-center justify-center mt-4">
+            <mat-icon class="text-yellow mr-4" [svgIcon]="'email'"></mat-icon>
+            <h4>{{user?.email}}</h4>
+        </div>
+    </div>
+
+    <h2 class="font-totem uppercase pt-5 text-center">Avatars</h2>
+
+
+    <div class="flex flex-wrap relative justify-center pb-10">
+        <div *ngFor="let avatar of avatars; let i = index" class="max-w-xl h-auto">
+
+            <div class="flex flex-col bg-neutral-900 border border-solid border-neutral-800 text-yellow cursor-pointer m-1 mx-6 sm:mx-8"
+                (click)="onClickAvatar(avatar._id)">
+
+
+                <div class="bg-indigo-100 w-40 sm:w-48 h-auto sm:h-48 overflow-hidden">
+                    <div class="rounded-full bg-indigo-100">
+
+                        <svg-avatar [avatar]="avatar.avatar"></svg-avatar>
+
+                    </div>
+                </div>
+
+                <div class="ml-auto flex items-center pr-5 pt-2 p-2">
+                    <h3 class="text-lg sm:text-3xl font-totem uppercase">More</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+    </div>
+    <!-- <div *ngIf="!avatars" class="text-center spinner-center">
+        <loading-spinner [color]="'white'"></loading-spinner>
+    </div> -->
+
+</div>

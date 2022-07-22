@@ -1,0 +1,15 @@
+@import '../../../../styles/scss/variables';
+
+.my-row {
+    text-align: center;
+
+    &:hover {
+        background-color: $black-2;
+        color: $yellow;
+    }
+}
+
+h3 {
+    font-size: 28px;
+}
+

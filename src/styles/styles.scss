@@ -1,0 +1,38 @@
+
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import 'scss/_main';
+
+
+@font-face {
+    font-family: "Totem";
+    src: local("Totem"), url('../assets/fonts/TOTEM.TTF') format("truetype");
+}
+
+.light {
+    background-color: black !important;
+}
+
+.mat-progress-bar-primary::after, .mat-progress-bar-secondary::after {
+    background-color: #ffd013 !important;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 2px solid transparent; 
+    border-radius: 20px; 
+    box-shadow: inset 0 0 0 20px rgb(0 0 0 / 24%);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Inter var;
+    font-weight: 500;
+}
+
+

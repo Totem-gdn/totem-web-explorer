@@ -1,0 +1,31 @@
+<div class="flex flex-col bg-neutral-900 border border-solid border-neutral-800 text-yellow cursor-pointer m-1 sm:m-3">
+
+    <!-- Image -->
+    <div class="my-3 sm:my-6 mx-5 sm:mx-10 bg-yellow w-24 sm:w-32 h-auto sm:h-32 p-2 rounded-2xl">
+        <div class="rounded-full bg-indigo-100">
+
+            <item-spear *ngIf="item.itemType === 'spear'" [shaftColor]="item?.item.shaftColor"></item-spear>
+
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="flex flex-col m-auto truncate">
+
+        <div class="mx-auto items-center">
+            <h3 class="text-lg sm:text-3xl font-totem uppercase">{{item?.itemType}}</h3>
+        </div>
+
+        <div class="mx-auto flex flex-col justify-between whitespace-nowrap my-2 sm:my-3">
+            <span class="text-base sm:text-xl">Damage: {{item?.item?.damage}}</span>
+            <span class="text-base sm:text-xl">Range: {{item?.item?.range}}</span>
+
+        </div>
+
+    </div>
+
+    <div class="ml-auto flex items-center pr-5 pt-2 p-2 mt-3">
+        <h3 class="text-lg sm:text-3xl font-totem uppercase">More</h3>
+    </div>
+
+</div>

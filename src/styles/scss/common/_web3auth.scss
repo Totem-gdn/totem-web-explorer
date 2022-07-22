@@ -1,0 +1,47 @@
+
+
+  .w3a-modal__content, .w3a-modal__header, .w3a-modal__footer, .w3a-modal__loader {
+    background-color: rgb(23 23 23) !important;
+    color: $yellow !important;
+  }
+
+  .w3a-header, .w3ajs-button-expand-text, .w3ajs-button-expand-text, .w3a-adapter-item__label, .w3a-group__title {
+    color: $yellow !important;
+  }
+
+  .w3a-spinner__mask {
+    background-color: rgb(23 23 23) !important;
+  }
+
+  .w3a-header__logo, .w3a-footer__secured, .w3a-spinner-power {
+    display: none;
+  }
+
+  .w3a-footer {
+    justify-content: center !important;
+  }
+
+  .w3a-modal__loader-content {
+    margin: auto !important;
+  }
+
+  .w3a-spinner {
+    background: conic-gradient(transparent, $yellow) !important;
+  }
+
+  .w3a-spinner__head {
+    background-color: $yellow !important;
+  }
+
+  .w3a-group {
+    border-bottom: 1px solid $yellow !important;
+  }
+
+  .w3a-footer a {
+    color: $yellow !important;
+  }
+
+  .w3ajs-external-wallet {
+    border: none !important;
+  }
+  

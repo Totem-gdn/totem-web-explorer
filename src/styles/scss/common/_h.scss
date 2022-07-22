@@ -1,0 +1,26 @@
+
+
+ h2 {
+
+    @extend %font-totem;
+
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 45px;
+    
+    // text-transform: lowercase;
+ }
+
+ h3 {
+   font-weight: 500;
+   font-size: 24px;
+   margin: 0;
+   line-height: 150%;
+ }
+
+ h4 {
+   font-weight: 500;
+   font-size: 20px;
+   margin: 0;
+   line-height: 120%;
+ }

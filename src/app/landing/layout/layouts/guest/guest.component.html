@@ -1,0 +1,87 @@
+<loading-bar></loading-bar>
+
+<!-- Show navigation if toggle === true -->
+<div class="fixed md:sticky text-white h-screen w-64 min-w-64 bg-space z-90 bottom-0 top-0" 
+[ngClass]="toggle ? 'spread' : 'squeeze'">
+
+
+    <!-- User Menu -->
+    <div class="flex items-center w-full p-4 pl-6 box-border">
+        <div class="flex items-center ml-auto">
+            <user></user>
+        </div>
+    </div>
+
+    <!-- User -->
+    <div class="flex flex-col items-center w-full p-4 pt-0 box-border">
+
+        <!-- Avatar -->
+        <div class="relative w-24 h-24 cursor-pointer" (click)="onSelectUser()">
+            <div class="w-full h-full rounded-full">
+                <img class="rounded-full" *ngIf="!user?.avatar" src="../../../../../../assets/avatardefault_92824.png"
+                    alt="">
+                <img class="rounded-full" *ngIf="user?.avatar" [src]="user.avatar" alt="">
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="flex flex-col items-center justify-center w-full mt-6">
+            <div class="text-lg w-full whitespace-nowrap text-ellipsis overflow-hidden text-center leading-normal font-medium">
+                {{user?.name}}
+            </div>
+            <div
+                class="flex items-center justify-center w-full my-3 whitespace-nowrap text-ellipsis overflow-hidden text-center text-md leading-normal font-medium"
+                *ngIf="user?.email">
+                <mat-icon class="text-white mr-4" [svgIcon]="'email'"></mat-icon>
+                {{user?.email}}
+            </div>
+        </div>
+
+        <!-- Navigation Items -->
+        <div class="h-full w-full text-black py-5">
+
+            <div 
+            class="px-3 py-2 mb-4 bg-yellow rounded text-2xl leading-5 items-center flex cursor-pointer"
+            *ngFor="let navItem of navigationItems"
+            (click)="onClickNavItem(navItem.link)">
+
+                <mat-icon class="mr-4" [svgIcon]="navItem.icon!"></mat-icon>
+                <span>{{navItem.title}}</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Wrapper -->
+<div class="relative flex flex-col h-screen flex-auto w-full min-w-0 border-0 overflow-y-auto">
+
+    <!-- Navbar -->
+    <div
+        class="box-border header flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <!-- Navigation toggle button -->
+        <button mat-icon-button (click)="toggleNavigation('largeScreen')">
+            <mat-icon class="text-black-2" [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+        </button>
+
+        <a routerLink="/sign-in" class="font-totem text-3xl ml-auto text-black-2 px-4">Sign In</a>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Overlay if toggle === true -->
+    <div
+    class="absolute w-full h-full md:h-0 md:w-0 z-50 bg-animation"
+    [ngClass]="toggle ? 'bg-semi-transparent visible' : 'bg-transparent invisible'"
+    (click)="toggleNavigation('smallScreen')">
+    </div>
+
+</div>

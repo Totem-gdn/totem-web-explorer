@@ -1,0 +1,37 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+import { environment } from '@env/environment';
+import { Web3Auth } from "@web3auth/web3auth";
+import { CHAIN_NAMESPACES } from "@web3auth/base";
+
+import { Router } from '@angular/router';
+import { Auth3Service } from '@app/core/services/crypto/web3auth/web3auth.service';
+
+@Component({
+    selector     : 'auth-sign-in',
+    templateUrl  : './sign-in.component.html',
+    styleUrls    : ['./sign-in.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+})
+export class AuthSignInComponent
+{
+
+    constructor(private auth3Service: Auth3Service,
+                private router: Router) {
+
+    }
+
+    async ngOnInit() {
+      await this.auth3Service.initAuth3();
+    }  
+    
+    onClickLogin = async () => {
+
+      await this.auth3Service.login();
+      await this.auth3Service.handleAuth();
+      this.router.navigate(['/dashboard']);
+
+    }
+
+
+
+}

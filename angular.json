@@ -28,7 +28,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/app/core/styles/tailwind.scss",
+              "src/app/core/styles/themes.scss",
+              "src/styles/styles.scss",
+              "src/styles/tailwind.scss"
             ],
             "scripts": []
           },
@@ -96,6 +100,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -103,5 +108,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "871a1834-4845-452e-b7eb-8b926bd1112c"
   }
 }

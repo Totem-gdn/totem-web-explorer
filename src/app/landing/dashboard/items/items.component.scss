@@ -1,0 +1,19 @@
+@import '../../../../styles/scss/variables';
+@import '../../../../styles/scss/common/fonts';
+
+h3 {
+    @extend %font-totem;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.my-row {
+    text-align: center;
+
+    &:hover {
+        background-color: $black-2;
+        color: $yellow;
+    }
+}
+
+

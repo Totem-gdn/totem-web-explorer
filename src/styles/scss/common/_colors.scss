@@ -1,0 +1,28 @@
+
+@import '../variables';
+
+.bg-yellow {
+    background-color: $yellow;
+}
+
+
+.bg-black-2 {
+    background-color: $black-2 !important;
+}
+
+.text-yellow {
+    color: $yellow;
+}
+
+.text-black-2 {
+    color: $black-2 !important;
+}
+
+.bg-space {
+    background-color: black;
+    background-image: url('../../../assets/background-space.png');
+}
+
+.bg-semi-transparent {
+    background-color: $semi-transparent;
+}
