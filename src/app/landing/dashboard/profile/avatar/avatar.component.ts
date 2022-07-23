@@ -35,9 +35,6 @@ export class AvatarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Subscribe to route params
     this.handleQuery();
-
-    // Subscribe to Legacies
-    this.handleLegacies();
   }
 
 
@@ -56,13 +53,16 @@ export class AvatarComponent implements OnInit, OnDestroy {
         this.router.navigate(['dashboard/items']);
       };
 
+      // Subscribe to Legacies
+      this.handleLegacies(id);
+
       this.currentAvatar = avatar;
     })
   }
 
   // Fetch legacies
-  handleLegacies() {
-    return this.legaciesService.fetchLegacies().subscribe(legacies => {
+  handleLegacies(id: string) {
+    this.legaciesService.fetchLegacies(id).subscribe(legacies => {
       this.legacyRecords = legacies;
     })
   }

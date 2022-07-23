@@ -32,18 +32,11 @@ export class ItemComponent implements OnInit {
   ngOnInit(): void {
     this.sub = this.handleQuery();
 
-    this.handleLegacies();
   }
 
 
-  // Fetch legacies
-  handleLegacies() {
-    return this.legaciesService.fetchLegacies().subscribe((legacies: any) => {
-      this.legacyRecords = legacies;
-    })
-  }
-
-
+  
+  // Handle query
   handleQuery() {
     return this.route.queryParams.subscribe(query => {
       if(!query['id']) {
@@ -56,8 +49,16 @@ export class ItemComponent implements OnInit {
       if(!item) {
         this.router.navigate(['dashboard/items']);
       };
+      this.handleLegacies(id);
 
       this.currentItem = item;
+    })
+  }
+
+  // Fetch legacies
+  handleLegacies(id: string) {
+    this.legaciesService.fetchLegacies(id).subscribe((legacies: any) => {
+      this.legacyRecords = legacies;
     })
   }
 

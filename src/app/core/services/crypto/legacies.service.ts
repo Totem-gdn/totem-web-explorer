@@ -11,8 +11,8 @@ export class LegaciesService {
     }
 
 
-    fetchLegacies() {
-        return this.http.get<any>('https://legacy-api.totem.gdn/itemId-000000').pipe(
+    fetchLegacies(id: string) {
+        return this.http.get<any>(`https://legacy-api.totem.gdn/${id}`).pipe(
             take(1),
             map(legacies => this.formatLegacies(legacies.achievements)));
     }
@@ -29,10 +29,6 @@ export class LegaciesService {
         }
 
         return formattedLegacies;
-    }
-
-    updateLegacies() {
-        this.fetchLegacies().pipe(take(1)).subscribe();
     }
 
 }
