@@ -22,15 +22,9 @@ h4 {
   
   .ellipsis {
     display: inline-block;
-    width: calc(50% + 1.2em);
     text-overflow: ellipsis;
   }
   
-  .indent {
-    display:inline-flex;
-    width: calc(50% - 1.2em);
-    justify-content:flex-end;
-  }
 
 .test {
   overflow-wrap: break-word;

@@ -22,8 +22,10 @@ export class LegaciesService {
 
         let formattedLegacies: any = [];
 
+        legacies.sort((a: any, b: any) => (a.timestamp > b.timestamp) ? -1 : 1);
+
         for(let legacy of legacies) {
-            let date = new Date(legacy.timestamp).toLocaleDateString();
+            let date = new Date(legacy.timestamp).toLocaleString();;
             legacy.timestamp = date;
             formattedLegacies.push(legacy); 
         }
