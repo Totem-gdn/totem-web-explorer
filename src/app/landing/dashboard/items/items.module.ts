@@ -6,7 +6,7 @@ import { ItemsRoutes } from "./items.routing";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { ItemComponent } from "./item/item.component";
-import { ItemCardModule } from "./items/item-card/item-card.module";
+import { ItemCardModule } from "./item-card/item-card.module";
 
 
 @NgModule({
