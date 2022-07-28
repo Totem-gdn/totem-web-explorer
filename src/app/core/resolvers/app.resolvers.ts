@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { forkJoin, Observable } from "rxjs";
 import { AvatarService } from "../services/crypto/avatar.service";
+import { Web3Service } from "../services/crypto/web3auth/web3auth.service";
 import { NavigationService } from "../services/navigation/navigation.service";
 import { UserService } from "../services/user/user.service";
 
@@ -18,6 +19,7 @@ export class InitialDataResolver implements Resolve<any>
         private navigationService: NavigationService,
         private userService: UserService,
         private avatarService: AvatarService,
+        private web3Service: Web3Service
     )
     {
     }
@@ -35,6 +37,7 @@ export class InitialDataResolver implements Resolve<any>
             this.navigationService.get(),
             this.userService.get(),
             this.avatarService.get(),
+            this.web3Service.get()
         ]);
     }
 }

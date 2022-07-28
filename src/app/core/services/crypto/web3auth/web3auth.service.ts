@@ -14,7 +14,7 @@ const clientId = environment.CLIENT_ID;
 
 @Injectable({ providedIn: 'root' })
 
-export class Auth3Service {
+export class Web3Service {
 
     web3auth: Web3Auth | null = null;
     provider: SafeEventEmitterProvider | null = null;
@@ -55,9 +55,9 @@ export class Auth3Service {
 
       console.log('user: ', user);
       console.log('wallet: ', account);
+      this.cryptoService.publicKey = account;
       if(!token) return;
       this.authService.accessToken = token;
-      this.cryptoService.publicKey = account;
 
       this.userService.saveUserToStorage = {
         email: email,
@@ -92,7 +92,15 @@ export class Auth3Service {
     }
 
 
-
+    buy = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        const rpc = new RPC(this.provider);
+        const mintNft = await rpc.mintNft();
+        return mintNft;
+    }
 
 
     getAccounts = async () => {
@@ -135,13 +143,13 @@ export class Auth3Service {
         console.log(result);
     };
 
-    sendTransaction = async () => {
+    sendTransaction = async (wallet: string, contract: string) => {
         if (!this.provider) {
             console.log("provider not initialized yet");
             return;
         }
         const rpc = new RPC(this.provider);
-        const result = await rpc.signAndSendTransaction();
+        const result = await rpc.signAndSendTransaction(wallet, contract);
         console.log(result);
     };
 
@@ -154,5 +162,7 @@ export class Auth3Service {
         this.provider = null;
         console.log("logged out");
     };
+
+
 
 }

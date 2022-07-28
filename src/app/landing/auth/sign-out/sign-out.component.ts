@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
-import { Auth3Service } from '@app/core/services/crypto/web3auth/web3auth.service';
+import { Web3Service } from '@app/core/services/crypto/web3auth/web3auth.service';
 import { take } from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ import { take } from 'rxjs';
 export class AuthSignOutComponent implements OnInit
 {
     constructor(private _authService: AuthService,
-                private auth3Service: Auth3Service,
+                private auth3Service: Web3Service,
                 private router: Router){}
 
     async ngOnInit()

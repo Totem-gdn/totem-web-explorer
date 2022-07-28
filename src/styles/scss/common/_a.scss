@@ -1,0 +1,23 @@
+
+
+.a-hov-black {
+    text-decoration: none;
+    color: $yellow;
+}
+
+
+.a-hov-black:hover {
+    color: $yellow;
+    background-color: $black-2;
+}    
+
+.a-hov-yellow {
+    text-decoration: none;
+    color: $yellow;
+}
+
+
+.a-hov-yellow:hover {
+    color: $black-2;
+    background-color: $yellow;
+}  

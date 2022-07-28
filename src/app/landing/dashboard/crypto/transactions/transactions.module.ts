@@ -3,16 +3,16 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
 import { TransactionsComponent } from "./transactions.component";
 import { TransactionsRoutes } from './transactions.routing';
-import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
     declarations: [
         TransactionsComponent,
-        TransactionDetailComponent
     ],
     imports: [
         SharedModule,
-        RouterModule.forChild(TransactionsRoutes)
+        RouterModule.forChild(TransactionsRoutes),
+        MatIconModule
     ]
 })
 

@@ -1,0 +1,46 @@
+<div class="w-full h-full text-yellow bg-neutral-900 relative">
+
+    <div class="px-10 py-15 flex justify-between text-center">
+            <h2 class="pt-5 text-center">NFTs</h2>
+            <button class="button-style-1" (click)="onClickGenerate()" disabled>Generate Nft</button>
+    </div>
+
+    <div class="flex flex-wrap justify-center p-10">
+        <div *ngFor="let nft of nfts" class="bg-zinc-900 flex flex-col w-[calc(13rem+3px)] h-72 bg-neutral-900 border border-solid border-neutral-800 m-2">
+
+            <div class="w-52">
+                <img *ngIf="nft.metadata.image" [src]="nft.metadata.image" alt="">
+                <img *ngIf="!nft.metadata.image" src="../../../../assets/default.png" alt="">
+            </div>
+
+            <div class="w-full m-auto text-yellow flex">
+                <h4 class="w-1/2 p-2 my-auto text-yellow truncate">{{nft.metadata.name}}</h4>
+                <h5 class="w-1/2 p-2 truncate m-auto">{{ nft.timeLastUpdated }}</h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="z-90 w-full absolute flex flex-col justify-center" *ngIf="error === true">
+        <!-- Arrow Back -->
+        <div class="relative m-auto border border-solid border-neutral-800 bg-black px-10 py-15">
+            <div class="absolute z-30 flex items-center p-3 pr-6 cursor-pointer top-0 left-0" (click)="onClickBack()">
+                <mat-icon class="text-white p-1 w-12 h-12 ml-auto sm:my-auto" [svgIcon]="'arrow_back'"></mat-icon>
+            </div>
+    
+            <div class="w">
+                <h3>Insufficient funds</h3>
+                <br>
+                <h4 class="text-blue">My wallet:</h4>
+                <h4 class="truncate">{{wallet}}</h4>
+                <br>
+                <h4><a href="https://mumbaifaucet.com/" target="_blank">Get funds</a></h4>
+            </div>
+        </div>
+    </div>
+
+     <!-- Spinner -->
+     <div *ngIf="!nfts" class="text-center spinner-center top-0">
+        <loading-spinner [color]="'white'"></loading-spinner>
+     </div>
+</div>

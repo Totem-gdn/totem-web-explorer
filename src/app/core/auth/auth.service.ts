@@ -35,6 +35,9 @@ export class AuthService
     }
 
     
+    private get wallet() {
+        return localStorage.getItem('publicKey');
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -64,6 +67,10 @@ export class AuthService
         // Check if the user is logged in
         if ( this._authenticated )
         {
+            return of(true);
+        }
+
+        if( this.wallet ) {
             return of(true);
         }
 

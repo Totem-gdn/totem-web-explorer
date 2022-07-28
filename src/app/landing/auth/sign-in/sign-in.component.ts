@@ -2,9 +2,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { environment } from '@env/environment';
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES } from "@web3auth/base";
-
+import { Web3Service } from '@app/core/services/crypto/web3auth/web3auth.service';
 import { Router } from '@angular/router';
-import { Auth3Service } from '@app/core/services/crypto/web3auth/web3auth.service';
+
 
 @Component({
     selector     : 'auth-sign-in',
@@ -15,7 +15,7 @@ import { Auth3Service } from '@app/core/services/crypto/web3auth/web3auth.servic
 export class AuthSignInComponent
 {
 
-    constructor(private auth3Service: Auth3Service,
+    constructor(private auth3Service: Web3Service,
                 private router: Router) {
 
     }

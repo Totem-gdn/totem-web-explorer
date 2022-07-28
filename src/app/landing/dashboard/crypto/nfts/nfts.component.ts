@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { NftService } from '@app/core/services/crypto/nft.service';
-import { Web3Service } from '@app/core/services/crypto/web3auth/web3auth.service';
-import { Web3Auth } from '@web3auth/web3auth';
+import { Component, OnInit } from "@angular/core";
+import { NftService } from "@app/core/services/crypto/nft.service";
+import { Web3Service } from "@app/core/services/crypto/web3auth/web3auth.service";
 
 @Component({
-  selector: 'app-transactions',
-  templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss'],
-  host: {
-    class: 'h-full'
-  }
+    selector: 'app-nfts',
+    templateUrl: './nfts.component.html',
+    host: {
+        class: 'h-full'
+    }
 })
-export class TransactionsComponent implements OnInit {
 
+export class NftsComponent implements OnInit {
 
-  constructor(private nftService: NftService,
+    constructor(private nftService: NftService,
                 private web3Service: Web3Service) {}
 
     error = false;
@@ -24,7 +22,6 @@ export class TransactionsComponent implements OnInit {
     async ngOnInit() {
         const accounts = await this.web3Service.getAccounts();
 
-        console.log(accounts);
         if(!accounts) return;
         this.wallet = accounts[0];
 
@@ -38,6 +35,14 @@ export class TransactionsComponent implements OnInit {
         }).catch(err => {
             console.log(err);
         })
+    }
+
+    onClickBack() {
+        this.error = false;
+    }
+
+    onClickGenerate() {
+        this.error = !this.error;
     }
 
 }

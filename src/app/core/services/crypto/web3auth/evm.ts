@@ -1,3 +1,4 @@
+
 import type { SafeEventEmitterProvider } from "@web3auth/base";
 import Web3 from "web3";
 
@@ -67,15 +68,31 @@ export default class EthereumRpc {
     }
   }
 
-  async signAndSendTransaction(): Promise<string> {
+  async mintNft(): Promise<string> {
+
+    const web3 = new Web3(this.provider as any);
+    const accounts = await web3.eth.getAccounts();
+
+    const wallet = accounts[0];
+    const contractAddress = '0x2ed437BECc3EAEC833deA9fBe546aC1C03fc913d';
+
+    // const res = await web3.eth.
+    // console.log(res);
+
+    return 'Ok';
+  }
+
+  async signAndSendTransaction(wallet: string, contract: string): Promise<string> {
     try {
       const web3 = new Web3(this.provider as any);
       const accounts = await web3.eth.getAccounts();
 
       const txRes = await web3.eth.sendTransaction({
-        from: accounts[0],
-        to: accounts[0],
+        from: wallet,
+        to: contract,
         value: web3.utils.toWei("0.01"),
+        maxPriorityFeePerGas: "5000000000",
+        maxFeePerGas: "6000000000000",
       });
       return txRes.transactionHash;
     } catch (error) {
