@@ -34,7 +34,13 @@ export class NavigationService {
                 title: 'items',
                 icon: 'view_headline',
                 link: '/dashboard/items'
-            }
+            },
+            {
+                id: 'transactions',
+                title: 'transactions',
+                icon: 'view_headline',
+                link: '/dashboard/crypto/transactions'
+            },
         ];
 
         this._navigation.next(items);
