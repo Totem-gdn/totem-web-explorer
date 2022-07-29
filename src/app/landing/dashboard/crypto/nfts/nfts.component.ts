@@ -27,11 +27,7 @@ export class NftsComponent implements OnInit {
 
         this.nftService.getNft(this.wallet).then((nfts: any) => {
             this.nfts = nfts.ownedNfts;
-            console.log(nfts.ownedNfts);
-            console.log(nfts.ownedNfts[8].id.tokenMetadata.tokenType)
-            console.log(nfts.ownedNfts[8].metadata.name)
-            console.log(nfts.ownedNfts[8].metadata.description)
-            console.log(nfts.ownedNfts[8].metadata.image)
+            console.log('nfts: ',nfts.ownedNfts);
         }).catch(err => {
             console.log(err);
         })
@@ -42,8 +38,29 @@ export class NftsComponent implements OnInit {
     }
 
     async onClickGenerate() {
-        // this.error = !this.error;
-        await this.web3Service.mintNft();
+        const balance = await this.web3Service.getBalance();
+        if(balance === '0') {
+            console.log(balance);
+            this.error = true;
+            return;
+        }
+        const res = await this.web3Service.mintNft().catch(err => {
+            console.log(err);
+        });
+        console.log(res);
+    }
+
+    async onClickDeploy() {
+        const balance = await this.web3Service.getBalance();
+        if(balance === '0') {
+            console.log(balance);
+            this.error = true;
+            return;
+        }
+        const res = await this.web3Service.deployNft().catch(err => {
+            console.log(err);
+        });
+        console.log(res);
     }
 
 }

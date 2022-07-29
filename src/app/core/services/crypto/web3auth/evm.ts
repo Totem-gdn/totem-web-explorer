@@ -69,31 +69,58 @@ export default class EthereumRpc {
     }
   }
 
-  async mintNft(): Promise<string> {
+  async mintNft(): Promise<any> {
 
     const web3 = new Web3(this.provider as any);
     const accounts = await web3.eth.getAccounts();
-
-    
-      
 
     const wallet = accounts[0];
     const contractAddress = '0x2ed437BECc3EAEC833deA9fBe546aC1C03fc913d';
     const ABI = contractABI;
 
-    const contract = new web3.eth.Contract(contractABI, contractAddress);
+    console.log(ABI)
+    const contract = new web3.eth.Contract(ABI.abi, contractAddress);
 
+    // https://bafybeigrfsyjsgjcapbehtpfttm3z5arfs6amwo2ni4nz2pgcs65fb65di.ipfs.nftstorage.link/1.json
     const tx = await web3.eth.sendTransaction({
       from: wallet,
       to: contractAddress,
-      maxPriorityFeePerGas: "5000000000",
-      maxFeePerGas: "6000000000000",
-      data: contract.methods.mintERC1155('Test NFT', 1).encodeABI(),
+      maxPriorityFeePerGas: "1000000000",
+      maxFeePerGas: "1000000000",
+      data: contract.methods.mintERC1155('Planet Mercury', 1).encodeABI(),
     });
 
-    console.log(tx);
+    return tx;
+  }
 
-    return 'Ok';
+  async deployNft(): Promise<any> {
+
+    const web3 = new Web3(this.provider as any);
+    const accounts = await web3.eth.getAccounts();
+
+    const wallet = accounts[0];
+    const contractAddress = '0x2ed437BECc3EAEC833deA9fBe546aC1C03fc913d';
+    const ABI = contractABI;
+
+    const link = 'https://bafybeigrfsyjsgjcapbehtpfttm3z5arfs6amwo2ni4nz2pgcs65fb65di.ipfs.nftstorage.link/';
+    const names = ['Planet Mercury'];
+    const ids = [1];
+
+    console.log(ABI)
+    const contract = new web3.eth.Contract(ABI.abi, contractAddress);
+
+    // https://bafybeigrfsyjsgjcapbehtpfttm3z5arfs6amwo2ni4nz2pgcs65fb65di.ipfs.nftstorage.link/1.json
+    const tx = await web3.eth.sendTransaction({
+      from: wallet,
+      to: contractAddress,
+      maxPriorityFeePerGas: "10000000000",
+      maxFeePerGas: "10000000000",
+      data: contract.methods.deployERC1155('Planet', link, ids, names).encodeABI(),
+    }).catch(err => console.log(err));
+
+    
+
+    return tx;
   }
 
   async signAndSendTransaction(wallet: string, contract: string): Promise<string> {
@@ -105,8 +132,8 @@ export default class EthereumRpc {
         from: wallet,
         to: contract,
         value: web3.utils.toWei("0.01"),
-        maxPriorityFeePerGas: "5000000000",
-        maxFeePerGas: "6000000000000",
+        maxPriorityFeePerGas: "50000000000",
+        maxFeePerGas: "60000000000000",
       });
       return txRes.transactionHash;
     } catch (error) {

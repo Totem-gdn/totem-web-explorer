@@ -97,9 +97,21 @@ export class Web3Service {
             console.log("provider not initialized yet");
             return;
         }
+        console.log('web3 mint')
         const rpc = new RPC(this.provider);
         const mintNft = await rpc.mintNft();
         return mintNft;
+    }
+
+    deployNft = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        console.log('web3 deploy')
+        const rpc = new RPC(this.provider);
+        const deployNft = await rpc.deployNft();
+        return deployNft;
     }
 
 
@@ -120,7 +132,7 @@ export class Web3Service {
         }
         const rpc = new RPC(this.provider);
         const balance = await rpc.getBalance();
-        console.log(balance);
+        return balance;
     };
 
     signMessage = async () => {
