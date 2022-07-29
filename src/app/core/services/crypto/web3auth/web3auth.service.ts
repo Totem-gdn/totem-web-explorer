@@ -82,7 +82,9 @@ export class Web3Service {
             return;
         }
         const web3auth = this.web3auth;
+        console.log('connect')
         this.provider = await web3auth.connect();
+        console.log('connected')
     };
 
     get = async () => {

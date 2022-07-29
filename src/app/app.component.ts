@@ -14,9 +14,9 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.web3Service.initAuth3();
+    // await this.web3Service.initAuth3();
 
-    await this.web3Service.login();
+    // await this.web3Service.login();
   }
   
 }

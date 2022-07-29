@@ -11,7 +11,7 @@ body splash-screen {
   bottom: 0;
   pointer-events: none;
   background-color: rgb(23 23 23);
-    z-index: 999999;
+    z-index: 9999;
     opacity: 1;
     visibility: visible;
   
