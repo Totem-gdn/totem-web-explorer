@@ -1,6 +1,7 @@
 
 import type { SafeEventEmitterProvider } from "@web3auth/base";
 import Web3 from "web3";
+import { contractABI } from "../abi/FactoryERC1155";
 
 export default class EthereumRpc {
   private provider: SafeEventEmitterProvider;
@@ -73,11 +74,24 @@ export default class EthereumRpc {
     const web3 = new Web3(this.provider as any);
     const accounts = await web3.eth.getAccounts();
 
+    
+      
+
     const wallet = accounts[0];
     const contractAddress = '0x2ed437BECc3EAEC833deA9fBe546aC1C03fc913d';
+    const ABI = contractABI;
 
-    // const res = await web3.eth.
-    // console.log(res);
+    const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+    const tx = await web3.eth.sendTransaction({
+      from: wallet,
+      to: contractAddress,
+      maxPriorityFeePerGas: "5000000000",
+      maxFeePerGas: "6000000000000",
+      data: contract.methods.mintERC1155('Test NFT', 1).encodeABI(),
+    });
+
+    console.log(tx);
 
     return 'Ok';
   }

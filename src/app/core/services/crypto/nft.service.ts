@@ -5,6 +5,7 @@ import { environment } from "@env/environment";
 import { HttpClient } from "@angular/common/http";
 import { from, map, take } from "rxjs";
 
+
 const ALCHEMY_KEY = environment.ALCHEMY_KEY;
 const web3 = createAlchemyWeb3(ALCHEMY_KEY)
 

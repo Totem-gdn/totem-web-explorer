@@ -41,8 +41,9 @@ export class NftsComponent implements OnInit {
         this.error = false;
     }
 
-    onClickGenerate() {
-        this.error = !this.error;
+    async onClickGenerate() {
+        // this.error = !this.error;
+        await this.web3Service.mintNft();
     }
 
 }

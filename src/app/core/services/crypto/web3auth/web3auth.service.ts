@@ -92,7 +92,7 @@ export class Web3Service {
     }
 
 
-    buy = async () => {
+    mintNft = async () => {
         if (!this.provider) {
             console.log("provider not initialized yet");
             return;
