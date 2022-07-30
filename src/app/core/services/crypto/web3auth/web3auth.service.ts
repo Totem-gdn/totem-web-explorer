@@ -53,7 +53,7 @@ export class Web3Service {
       const avatar = user.profileImage;
       const name = user.name;
 
-      console.log('user: ', user);
+    //   console.log('user: ', user);
       console.log('wallet: ', account);
       this.cryptoService.publicKey = account;
       if(!token) return;
@@ -82,9 +82,7 @@ export class Web3Service {
             return;
         }
         const web3auth = this.web3auth;
-        console.log('connect')
         this.provider = await web3auth.connect();
-        console.log('connected')
     };
 
     get = async () => {
@@ -115,6 +113,8 @@ export class Web3Service {
         const deployNft = await rpc.deployNft();
         return deployNft;
     }
+
+
 
 
     getAccounts = async () => {

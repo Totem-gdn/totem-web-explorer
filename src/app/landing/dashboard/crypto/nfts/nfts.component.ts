@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { NftService } from "@app/core/services/crypto/nft.service";
+import { AlchemyApiService } from "@app/core/services/crypto/alchemy-api.service";
 import { Web3Service } from "@app/core/services/crypto/web3auth/web3auth.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-nfts',
@@ -12,7 +13,7 @@ import { Web3Service } from "@app/core/services/crypto/web3auth/web3auth.service
 
 export class NftsComponent implements OnInit {
 
-    constructor(private nftService: NftService,
+    constructor(private alchemyService: AlchemyApiService,
                 private web3Service: Web3Service) {}
 
     error = false;
@@ -25,12 +26,13 @@ export class NftsComponent implements OnInit {
         if(!accounts) return;
         this.wallet = accounts[0];
 
-        this.nftService.getNft(this.wallet).then((nfts: any) => {
+        this.alchemyService.getNft(this.wallet).then((nfts: any) => {
             this.nfts = nfts.ownedNfts;
             console.log('nfts: ',nfts.ownedNfts);
         }).catch(err => {
             console.log(err);
         })
+
     }
 
     onClickBack() {

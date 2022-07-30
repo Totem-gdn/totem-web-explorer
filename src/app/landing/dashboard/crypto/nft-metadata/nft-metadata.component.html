@@ -1,0 +1,43 @@
+
+
+<div class="w-full h-full text-yellow bg-neutral-900 relative">
+
+    <div class="px-10 py-15 flex justify-between text-center">
+            <h2 class="pt-5 text-center">Metadata</h2>
+            <!-- <button class="button-style-1" (click)="onClickGenerate()">Generate Nft</button> -->
+    </div>
+
+    <div class="w-full flex flex-col text-yellow py-4 mt-3 overflow-x-auto whitespace-nowrap scroll-x-yellow  max-w-7xl mx-auto mb-16">
+    
+        <div class="text-center grid w-full grid-cols-8 font-bold py-2 border-b border-b-solid border-yellow min-w-4xl">
+            <h4>Order</h4>
+            <h4>Balance</h4>
+            <h4>Address</h4>
+            <h4>Id</h4>
+            <h4>Token type</h4>
+            <h4>Media address</h4>
+            <h4>Last updated</h4>
+            <h4>Metadata</h4>
+
+        </div>
+
+        <div *ngFor="let nft of nfts; let i = index" class="text-center grid w-full grid-cols-8 my-row my-2 min-w-4xl truncate">
+
+            <h4 class="truncate px-1">{{ i + 1 }}</h4>
+            <h4 class="truncate px-1">{{ nft.balance }}</h4>
+            <h4 class="truncate px-1"><a class="a-hov-black" href="{{'https://mumbai.polygonscan.com/address/' + nft.contract.address}}" target="_blank">{{ nft.contract.address }}</a></h4>
+            <h4 class="truncate px-1">{{ nft.id.tokenId }}</h4>
+            <h4 class="truncate px-1">{{ nft.id.tokenMetadata.tokenType }}</h4>
+            <h4 class="truncate px-1"><a class="a-hov-black" href="{{nft.media[0].gateway}}" target="_blank">{{ nft.media[0].gateway }}</a></h4>
+            <h4 class="truncate px-1">{{ nft.timeLastUpdated }}</h4>
+            <h4 class="truncate px-1"><a class="a-hov-black" href="{{nft.tokenUri.gateway}}" target="_blank">{{ nft.tokenUri.gateway }}</a></h4>
+
+        </div>
+    </div>
+
+
+     <!-- Spinner -->
+     <div *ngIf="!nfts" class="text-center spinner-center top-0">
+        <loading-spinner [color]="'white'"></loading-spinner>
+     </div>
+</div>

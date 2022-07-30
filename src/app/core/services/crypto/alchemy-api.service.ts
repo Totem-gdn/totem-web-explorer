@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { createAlchemyWeb3 } from"@alch/alchemy-web3";
+import { AssetTransfersCategory, createAlchemyWeb3 } from"@alch/alchemy-web3";
 import { environment } from "@env/environment";
 import { HttpClient } from "@angular/common/http";
 import { from, map, take } from "rxjs";
@@ -11,7 +11,7 @@ const web3 = createAlchemyWeb3(ALCHEMY_KEY)
 
 @Injectable({ providedIn: 'root' })
 
-export class NftService {
+export class AlchemyApiService {
 
     constructor(private http: HttpClient) {}
 
@@ -21,9 +21,8 @@ export class NftService {
 
     }
 
-    createNft(items: any) {
-
-        
+    async getTransactionHistory(wallet: string) {
+        return web3.alchemy.getAssetTransfers({toAddress: wallet, category: [AssetTransfersCategory.ERC721, AssetTransfersCategory.ERC1155]})
     }
 
 }

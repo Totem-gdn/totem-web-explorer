@@ -42,8 +42,14 @@ export class NavigationService {
                 link: '/dashboard/crypto/nfts'
             },
             {
-                id: 'nfts data',
-                title: 'metadata',
+                id: 'nfts meta',
+                title: 'nfts meta',
+                icon: 'view_headline',
+                link: '/dashboard/crypto/meta'
+            },
+            {
+                id: 'transactions',
+                title: 'transactions',
                 icon: 'view_headline',
                 link: '/dashboard/crypto/transactions'
             },

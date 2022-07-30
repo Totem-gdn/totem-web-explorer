@@ -78,7 +78,7 @@ export default class EthereumRpc {
     const contractAddress = '0x2ed437BECc3EAEC833deA9fBe546aC1C03fc913d';
     const ABI = contractABI;
 
-    console.log(ABI)
+    // console.log(ABI)
     const contract = new web3.eth.Contract(ABI.abi, contractAddress);
 
     // https://bafybeigrfsyjsgjcapbehtpfttm3z5arfs6amwo2ni4nz2pgcs65fb65di.ipfs.nftstorage.link/1.json
@@ -140,4 +140,6 @@ export default class EthereumRpc {
       return error as string;
     }
   }
+
+
 }
