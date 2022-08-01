@@ -1,16 +1,49 @@
-
-
 <div class="w-full h-full text-yellow bg-neutral-900 relative">
 
-    <div class="px-10 py-15 flex justify-between text-center">
-            <h2 class="pt-5 text-center">Transactions</h2>
-            <!-- <button class="button-style-1" (click)="onClickGenerate()">Generate Nft</button> -->
+    <div class="ml-5p my-10 flex flex-wrap flex-col">
+        <h3 class="mb-8">Wallet address: <span class="text-white truncate">{{wallet}}</span></h3>
+
+        <div class="flex flex-wrap">
+            <div class="flex flex-col justify-center mr-8">
+                <h3>Matic Balance: <span class="text-white">{{maticBalance}}</span></h3>
+                <h3>Token Balance: <span class="text-white">{{tokenBalance}}</span></h3>
+            </div>
+    
+            <div class="flex my-2">
+                <button class="button-style-1 m-1" (click)="updateBalance()">Update Balance</button>
+            </div>
+        </div>
     </div>
 
-    <div class="w-full flex flex-col text-yellow py-4 mt-3 overflow-x-auto whitespace-nowrap scroll-x-yellow  max-w-7xl mx-auto mb-16">
+
     
-        <div class="text-center grid w-full grid-cols-5 font-bold py-2 border-b border-b-solid border-yellow min-w-4xl">
+    <div class="flex my-2 ml-5p mb-10">
+        <a class="button-style-1 m-1 mr-5" href="https://mumbaifaucet.com/" target="_blank">Get Matic</a>
+        <button class="button-style-1 m-1" (click)="onGetTokens()" [disabled]="!maticBalance && +maticBalance! === 0">Get tokens</button>
+    </div>
+    <div class="flex my-2 ml-5p flex-wrap">
+        <button 
+        class="button-style-1 m-1 mr-3" 
+        (click)="onSendTransaction(+amountToSend.value)"
+        [disabled]="!amountToSend.value || !tokenBalance || !maticBalance">Send Tokens</button>
+
+        <div class="flex flex-col justify-center">
+            <h3 class="text-xl text-white">Amount: </h3>
+            <input class="text-lg p-2" type="number" #amountToSend>
+        </div>
+    </div>
+
+    <div class="pt-10 pb-5 ml-5p flex justify-between text-center">
+        <span class="pt-5 text-center text-6xl">Transactions</span>
+    </div>
+
+
+    <div
+        class="w-full flex flex-col text-yellow py-4 mt-3 overflow-x-auto whitespace-nowrap scroll-x-yellow  max-w-7xl mx-auto mb-16">
+
+        <div class="text-center grid w-full grid-cols-6 font-bold py-2 border-b border-b-solid border-yellow min-w-4xl">
             <h4>Order</h4>
+            <h4>Hash</h4>
             <h4>From</h4>
             <h4>To</h4>
             <h4>Value</h4>
@@ -18,20 +51,28 @@
 
         </div>
 
-        <div *ngFor="let transaction of transactions; let i = index" class="text-center grid w-full grid-cols-5 my-row my-2 min-w-4xl truncate">
+        <div *ngFor="let transaction of transactions; let i = index"
+            class="text-center grid w-full grid-cols-6 my-row my-2 min-w-4xl truncate">
 
             <h4 class="truncate px-1">{{ i + 1 }}</h4>
-            <h4 class="truncate px-1"><a class="a-hov-black" href="{{'https://mumbai.polygonscan.com/address/' + transaction.from}}" target="_blank">{{ transaction.from }}</a></h4>
-            <h4 class="truncate px-1"><a class="a-hov-black" href="{{'https://mumbai.polygonscan.com/address/' + transaction.to}}" target="_blank">{{ transaction.to }}</a></h4>
-            <h4 class="truncate px-1">{{ transaction.value }}</h4>
+            <h4 class="truncate px-1"><a class="a-hov-black"
+                    href="{{'https://mumbai.polygonscan.com/tx/' + transaction.hash}}" target="_blank">{{
+                    transaction.hash }}</a></h4>
+            <h4 class="truncate px-1"><a class="a-hov-black"
+                    href="{{'https://mumbai.polygonscan.com/address/' + transaction.from}}" target="_blank">{{
+                    transaction.from }}</a></h4>
+            <h4 class="truncate px-1"><a class="a-hov-black"
+                    href="{{'https://mumbai.polygonscan.com/address/' + transaction.to}}" target="_blank">{{
+                    transaction.to }}</a></h4>
+            <h4 class="truncate px-1">{{ transaction.rawContract.value }}</h4>
             <h4 class="truncate px-1">{{ transaction.tokenId }}</h4>
 
         </div>
     </div>
 
 
-     <!-- Spinner -->
-     <div *ngIf="!transactions" class="text-center spinner-center top-0">
+    <!-- Spinner -->
+    <div *ngIf="!transactions" class="text-center spinner-center top-0">
         <loading-spinner [color]="'white'"></loading-spinner>
-     </div>
+    </div>
 </div>

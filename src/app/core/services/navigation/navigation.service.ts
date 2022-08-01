@@ -36,6 +36,12 @@ export class NavigationService {
                 link: '/dashboard/items'
             },
             {
+                id: 'transactions',
+                title: 'transactions',
+                icon: 'view_headline',
+                link: '/dashboard/crypto/transactions'
+            },
+            {
                 id: 'nfts',
                 title: 'nfts',
                 icon: 'view_headline',
@@ -47,12 +53,7 @@ export class NavigationService {
                 icon: 'view_headline',
                 link: '/dashboard/crypto/meta'
             },
-            {
-                id: 'transactions',
-                title: 'transactions',
-                icon: 'view_headline',
-                link: '/dashboard/crypto/transactions'
-            },
+            
         ];
 
         this._navigation.next(items);

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { AssetTransfersCategory, createAlchemyWeb3 } from"@alch/alchemy-web3";
+import { AssetTransfersCategory, AssetTransfersOrder, createAlchemyWeb3 } from"@alch/alchemy-web3";
 import { environment } from "@env/environment";
 import { HttpClient } from "@angular/common/http";
 import { from, map, take } from "rxjs";
@@ -22,7 +22,23 @@ export class AlchemyApiService {
     }
 
     async getTransactionHistory(wallet: string) {
-        return web3.alchemy.getAssetTransfers({toAddress: wallet, category: [AssetTransfersCategory.ERC721, AssetTransfersCategory.ERC1155]})
+        let transactions: any[] = [];
+
+        const from = await web3.alchemy.getAssetTransfers({
+            fromAddress: wallet,
+            category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.ERC20, AssetTransfersCategory.ERC721, AssetTransfersCategory.ERC1155],
+        })      
+
+        const to = await web3.alchemy.getAssetTransfers({
+            toAddress: wallet,
+            category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.ERC20, AssetTransfersCategory.ERC721, AssetTransfersCategory.ERC1155],
+        })     
+
+        transactions = transactions.concat(from.transfers);
+        transactions = transactions.concat(to.transfers);
+
+        return transactions;
     }
+    
 
 }

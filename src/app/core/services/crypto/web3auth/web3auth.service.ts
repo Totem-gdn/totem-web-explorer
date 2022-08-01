@@ -114,7 +114,27 @@ export class Web3Service {
         return deployNft;
     }
 
+    getTokens = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        console.log('Get tokens');
+        const rpc = new RPC(this.provider);
+        const getTokens = await rpc.getTokens();
+        return getTokens;
+    }
 
+    checkBalance = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        console.log('CheckBalance');
+        const rpc = new RPC(this.provider);
+        const checkBalance = await rpc.checkBalance();
+        return checkBalance;
+    }
 
 
     getAccounts = async () => {
@@ -157,14 +177,14 @@ export class Web3Service {
         console.log(result);
     };
 
-    sendTransaction = async (wallet: string, contract: string) => {
+    sendTransaction = async (amount: number) => {
         if (!this.provider) {
             console.log("provider not initialized yet");
             return;
         }
         const rpc = new RPC(this.provider);
-        const result = await rpc.signAndSendTransaction(wallet, contract);
-        console.log(result);
+        const tx = await rpc.sendTransaction(amount);
+        return tx;
     };
 
     logout = async () => {

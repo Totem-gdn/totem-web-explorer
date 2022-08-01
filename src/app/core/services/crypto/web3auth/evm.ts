@@ -1,7 +1,9 @@
 
 import type { SafeEventEmitterProvider } from "@web3auth/base";
+import { text } from "stream/consumers";
 import Web3 from "web3";
 import { contractABI } from "../abi/FactoryERC1155";
+import { GetTokens } from "../abi/getTokens";
 
 export default class EthereumRpc {
   private provider: SafeEventEmitterProvider;
@@ -106,7 +108,7 @@ export default class EthereumRpc {
     const names = ['Planet Mercury'];
     const ids = [1];
 
-    console.log(ABI)
+
     const contract = new web3.eth.Contract(ABI.abi, contractAddress);
 
     // https://bafybeigrfsyjsgjcapbehtpfttm3z5arfs6amwo2ni4nz2pgcs65fb65di.ipfs.nftstorage.link/1.json
@@ -133,7 +135,7 @@ export default class EthereumRpc {
         to: contract,
         value: web3.utils.toWei("0.01"),
         maxPriorityFeePerGas: "50000000000",
-        maxFeePerGas: "60000000000000",
+        maxFeePerGas: "6000000000000",
       });
       return txRes.transactionHash;
     } catch (error) {
@@ -141,5 +143,55 @@ export default class EthereumRpc {
     }
   }
 
+
+  async getTokens() {
+    const web3 = new Web3(this.provider as any);
+    const accounts = await web3.eth.getAccounts();
+
+    const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+    const wallet = accounts[0]
+    const tokenContract = GetTokens;
+    const contract = new web3.eth.Contract(tokenContract, contractAddress);
+
+    const tx = await contract.methods.claim().send({ 
+      from: wallet,
+      maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+      maxFeePerGas: "200000000000"
+    })
+    return tx;
+  }
+
+  async checkBalance() {
+    const web3 = new Web3(this.provider as any);
+    const accounts = await web3.eth.getAccounts();
+
+    const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+    const wallet = accounts[0]
+    const price = 100;
+    const tokenContract = GetTokens;
+    const contract = new web3.eth.Contract(tokenContract, contractAddress);
+
+    const tx = await contract.methods.balanceOf(wallet).call()
+    return tx;
+  }
+
+  async sendTransaction(amount: number) {
+    const web3 = new Web3(this.provider as any);
+    const accounts = await web3.eth.getAccounts();
+
+    const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+    const wallet = accounts[0]
+    console.log(wallet);
+    const price = 5;
+    const tokenContract = GetTokens;
+    const contract = new web3.eth.Contract(tokenContract, contractAddress);
+
+    const tx = await contract.methods.transfer(contractAddress, amount).send({ 
+      from: wallet,
+      maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+      maxFeePerGas: "200000000000"
+    })
+    return tx;
+  }
 
 }

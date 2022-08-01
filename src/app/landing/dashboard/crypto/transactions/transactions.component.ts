@@ -19,6 +19,8 @@ export class TransactionsComponent implements OnInit {
 
     wallet!: string;
     transactions!: any[];
+    maticBalance!: string | undefined;
+    tokenBalance!: number;
 
     async ngOnInit() {
         const accounts = await this.web3Service.getAccounts();
@@ -26,12 +28,62 @@ export class TransactionsComponent implements OnInit {
         if(!accounts) return;
         this.wallet = accounts[0];
 
-        this.alchemyService.getTransactionHistory(this.wallet).then(transactions => {
-          this.transactions = transactions.transfers;
-          console.log(transactions.transfers);
-        }).catch(err => {
-          console.log(err);
-        });
+        this.updateBalance();
+        this.updateTransactionHistory();
+        
+    }
+
+    async onGetTokens() {
+      const transfer = await this.web3Service.getTokens();
+      console.log('transfer', transfer);
+      this.updateTransactionHistory();
+      this.updateBalance();
+    }
+
+    updateBalance() {
+      this.web3Service.checkBalance().then(balance => {
+        this.tokenBalance = balance;
+      });
+      
+      this.web3Service.getBalance().then(balance => {
+        this.maticBalance = balance;
+      })
+      
+      this.updateTransactionHistory();
+    }
+
+    async onSendTransaction(amount: number) {
+      const transaction = await this.web3Service.sendTransaction(amount);
+      console.log('transaction', transaction);
+      this.updateTransactionHistory();
+      this.updateBalance();
+    }
+
+
+    formatTransactions(rawTransfers: any) {
+      const transfers: any[] = [];
+      console.log(rawTransfers);
+      for(let transfer of rawTransfers) {
+
+        // Convert hex value to decimal
+        const value = transfer.rawContract.value;
+        transfer.rawContract.value = parseInt(value, 16);
+
+        transfers.push(transfer);
+      }
+
+      transfers.reverse();
+
+      this.transactions = transfers;
+    }
+
+    updateTransactionHistory() {
+      this.alchemyService.getTransactionHistory(this.wallet).then(transactions => {
+        this.formatTransactions(transactions);
+        console.log('transactions',transactions);
+      }).catch(err => {
+        console.log(err);
+      });
     }
 
 }
