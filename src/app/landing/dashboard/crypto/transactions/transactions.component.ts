@@ -20,6 +20,7 @@ export class TransactionsComponent implements OnInit {
                 private paymentService: PaymentService) {}
 
     wallet!: string;
+    message = false;
     transactions!: any[];
     maticBalance!: string | undefined;
     tokenBalance!: number;
@@ -46,6 +47,11 @@ export class TransactionsComponent implements OnInit {
     }
 
     async onGetTokens() {
+      this.message = true;
+      setTimeout(() => {
+        this.message = false;
+      }, 1500)
+
       const transfer = await this.web3Service.getTokens();
       console.log('transfer', transfer);
       this.updateTransactionHistory();
@@ -71,6 +77,11 @@ export class TransactionsComponent implements OnInit {
     }
 
     async onSendTransaction(address: string, amount: any) {
+      this.message = true;
+      setTimeout(() => {
+        this.message = false;
+      }, 1500)
+
       const transaction = await this.web3Service.sendTransaction(address, amount);
       console.log('transaction', transaction);
       this.updateTransactionHistory();
@@ -102,6 +113,10 @@ export class TransactionsComponent implements OnInit {
       }).catch(err => {
         console.log(err);
       });
+    }
+
+    onClickBack() {
+      this.message = false;
     }
 
 }

@@ -84,6 +84,19 @@
         </div>
     </div>
 
+    <div class="z-90 w-full absolute flex flex-col justify-center top-100" *ngIf="message === true">
+        <!-- Arrow Back -->
+        <div class="relative m-auto border border-solid border-yellow bg-neutral-800 px-10 py-15">
+            <div class="absolute z-30 flex items-center p-3 pr-6 cursor-pointer top-0 left-0" (click)="onClickBack()">
+                <mat-icon class="text-white p-1 w-12 h-12 ml-auto sm:my-auto" [svgIcon]="'arrow_back'"></mat-icon>
+            </div>
+    
+            <div class="w">
+                <h3>The transfer is on the way</h3>
+                <h3>Wait for 1-2 minutes</h3>
+            </div>
+        </div>
+    </div>
 
     <!-- Spinner -->
     <div *ngIf="!transactions" class="text-center spinner-center top-0">
