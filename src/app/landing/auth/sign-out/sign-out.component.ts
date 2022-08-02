@@ -19,7 +19,6 @@ export class AuthSignOutComponent implements OnInit
     {
         await this.auth3Service.logout();
 
-        //
         this._authService.signOut().pipe(take(1)).subscribe(() => {
             this.router.navigate(['/sign-in']);
         });
