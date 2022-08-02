@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlchemyApiService } from '@app/core/services/crypto/alchemy-api.service';
+import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3Service } from '@app/core/services/crypto/web3auth/web3auth.service';
 import { Web3Auth } from '@web3auth/web3auth';
 
@@ -15,12 +16,15 @@ export class TransactionsComponent implements OnInit {
 
 
   constructor(private alchemyService: AlchemyApiService,
-                private web3Service: Web3Service) {}
+                private web3Service: Web3Service,
+                private paymentService: PaymentService) {}
 
     wallet!: string;
     transactions!: any[];
     maticBalance!: string | undefined;
     tokenBalance!: number;
+    paymentInfo!: any;
+    assets!: any[];
 
     async ngOnInit() {
         const accounts = await this.web3Service.getAccounts();
@@ -30,7 +34,15 @@ export class TransactionsComponent implements OnInit {
 
         this.updateBalance();
         this.updateTransactionHistory();
+        this.updateAssets();
         
+    }
+
+    updateAssets() {
+      this.paymentService.getAssets().subscribe(assets => {
+        console.log('assets: ', assets)
+        this.assets = assets;
+      })
     }
 
     async onGetTokens() {
@@ -52,8 +64,14 @@ export class TransactionsComponent implements OnInit {
       this.updateTransactionHistory();
     }
 
-    async onSendTransaction(amount: number) {
-      const transaction = await this.web3Service.sendTransaction(amount);
+    getPaymentInfo(asset: any) {
+      this.paymentService.getPaimentInfo(asset).subscribe(payment => {
+        this.paymentInfo = payment;
+      })
+    }
+
+    async onSendTransaction(address: string, amount: any) {
+      const transaction = await this.web3Service.sendTransaction(address, amount);
       console.log('transaction', transaction);
       this.updateTransactionHistory();
       this.updateBalance();

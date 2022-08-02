@@ -47,12 +47,12 @@ export class NavigationService {
                 icon: 'view_headline',
                 link: '/dashboard/crypto/nfts'
             },
-            {
-                id: 'nfts meta',
-                title: 'nfts meta',
-                icon: 'view_headline',
-                link: '/dashboard/crypto/meta'
-            },
+            // {
+            //     id: 'nfts meta',
+            //     title: 'nfts meta',
+            //     icon: 'view_headline',
+            //     link: '/dashboard/crypto/meta'
+            // },
             
         ];
 

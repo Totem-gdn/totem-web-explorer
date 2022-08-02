@@ -1,4 +1,4 @@
-<div class="w-full h-full text-yellow bg-neutral-900 relative">
+<div class="w-full h-full text-yellow bg-neutral-900 relative mb-15">
 
     <div class="ml-5p my-10 flex flex-wrap flex-col">
         <h3 class="mb-8">Wallet address: <span class="text-white truncate">{{wallet}}</span></h3>
@@ -6,7 +6,7 @@
         <div class="flex flex-wrap">
             <div class="flex flex-col justify-center mr-8">
                 <h3>Matic Balance: <span class="text-white">{{maticBalance}}</span></h3>
-                <h3>Token Balance: <span class="text-white">{{tokenBalance}}</span></h3>
+                <h3>USDC Balance: <span class="text-white">{{tokenBalance}}</span></h3>
             </div>
     
             <div class="flex my-2">
@@ -19,18 +19,32 @@
     
     <div class="flex my-2 ml-5p mb-10">
         <a class="button-style-1 m-1 mr-5" href="https://mumbaifaucet.com/" target="_blank">Get Matic</a>
-        <button class="button-style-1 m-1" (click)="onGetTokens()" [disabled]="!maticBalance && +maticBalance! === 0">Get tokens</button>
+        <button class="button-style-1 m-1" (click)="onGetTokens()" [disabled]="!maticBalance || +maticBalance === 0">Get USDC</button>
     </div>
-    <div class="flex my-2 ml-5p flex-wrap">
+
+    <div class="flex flex-col mb-2 mt-15 ml-5p flex-wrap">
+        <div class="h-20"><span class="text-6xl">Items</span></div>
+
+        <div class="flex">
+            <div *ngFor="let asset of assets">
+        
+                <div class="border border-yellow border-solid p-10 m-2">
+                    <h3 class="uppercase mb-10">{{ asset }}</h3>
+                    <button class="button-style-1 m-1 mr-3" (click)="getPaymentInfo(asset)">Payment Info</button>
+                </div>
+    
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="paymentInfo" class="flex flex-col my-2 ml-5p border border-yellow border-solid p-5 m-2">
+        <span class="text-5xl">Payment Info</span>
+        <h3>Price: {{paymentInfo.price}} USDC</h3>
         <button 
         class="button-style-1 m-1 mr-3" 
-        (click)="onSendTransaction(+amountToSend.value)"
-        [disabled]="!amountToSend.value || !tokenBalance || !maticBalance">Send Tokens</button>
-
-        <div class="flex flex-col justify-center">
-            <h3 class="text-xl text-white">Amount: </h3>
-            <input class="text-lg p-2" type="number" #amountToSend>
-        </div>
+        (click)="onSendTransaction(paymentInfo.address, paymentInfo.price)"
+        [disabled]="!tokenBalance || tokenBalance === 0 || !maticBalance || +maticBalance === 0">Buy</button>
     </div>
 
     <div class="pt-10 pb-5 ml-5p flex justify-between text-center">
@@ -39,7 +53,7 @@
 
 
     <div
-        class="w-full flex flex-col text-yellow py-4 mt-3 overflow-x-auto whitespace-nowrap scroll-x-yellow  max-w-7xl mx-auto mb-16">
+        class="w-full flex flex-col text-yellow py-4 mt-3 overflow-x-auto whitespace-nowrap scroll-x-yellow  max-w-7xl mx-auto">
 
         <div class="text-center grid w-full grid-cols-6 font-bold py-2 border-b border-b-solid border-yellow min-w-4xl">
             <h4>Order</h4>

@@ -34,8 +34,8 @@ export class AlchemyApiService {
             category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.ERC20, AssetTransfersCategory.ERC721, AssetTransfersCategory.ERC1155],
         })     
 
-        transactions = transactions.concat(from.transfers);
         transactions = transactions.concat(to.transfers);
+        transactions = transactions.concat(from.transfers);
 
         return transactions;
     }

@@ -150,6 +150,7 @@ export default class EthereumRpc {
 
     const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
     const wallet = accounts[0]
+    console.log('account', wallet);
     const tokenContract = GetTokens;
     const contract = new web3.eth.Contract(tokenContract, contractAddress);
 
@@ -158,6 +159,10 @@ export default class EthereumRpc {
       maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
       maxFeePerGas: "200000000000"
     })
+
+    // const tx = await contract.methods.claim({to: wallet}).call({ 
+    //   from: wallet,
+    // })
     return tx;
   }
 
@@ -175,10 +180,9 @@ export default class EthereumRpc {
     return tx;
   }
 
-  async sendTransaction(amount: number) {
+  async sendTransaction(to: string, amount: number) {
     const web3 = new Web3(this.provider as any);
     const accounts = await web3.eth.getAccounts();
-
     const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
     const wallet = accounts[0]
     console.log(wallet);
@@ -186,11 +190,12 @@ export default class EthereumRpc {
     const tokenContract = GetTokens;
     const contract = new web3.eth.Contract(tokenContract, contractAddress);
 
-    const tx = await contract.methods.transfer(contractAddress, amount).send({ 
+    const tx = await contract.methods.transfer(to, amount).send({ 
       from: wallet,
       maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
       maxFeePerGas: "200000000000"
     })
+
     return tx;
   }
 

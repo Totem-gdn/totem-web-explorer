@@ -3,9 +3,11 @@
     <div class="p-10">
         <div class="flex flex-auto items-end mb-4 justify-center">
             <div class="relative w-32 h-32 cursor-pointer">
-                <div class="w-full h-full rounded-full justify-center">
-                    <img class="rounded-full" *ngIf="!user.avatar" src="assets/avatardefault_92824.png" alt="">
-                    <img class="rounded-full" *ngIf="user.avatar" [src]="user.avatar" alt="">
+                <div *ngIf="!user?.avatar" class="w-full h-full rounded-full justify-center">
+                    <img class="rounded-full" src="assets/avatardefault_92824.png" alt="">
+                </div>
+                <div *ngIf="user?.avatar" class="w-full h-full rounded-full justify-center">
+                    <img class="rounded-full" [src]="user.avatar" alt="">
                 </div>
             </div>
         </div>
@@ -33,7 +35,7 @@
                 <div class="bg-indigo-100 w-40 sm:w-48 h-auto sm:h-48 overflow-hidden">
                     <div class="rounded-full bg-indigo-100">
 
-                        <svg-avatar [avatar]="avatar.avatar"></svg-avatar>
+                        <svg-avatar [avatar]="avatar?.avatar"></svg-avatar>
 
                     </div>
                 </div>
