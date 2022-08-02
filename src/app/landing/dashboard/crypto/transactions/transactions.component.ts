@@ -50,7 +50,7 @@ export class TransactionsComponent implements OnInit {
       this.message = true;
       setTimeout(() => {
         this.message = false;
-      }, 1500)
+      }, 2000)
 
       const transfer = await this.web3Service.getTokens();
       console.log('transfer', transfer);
@@ -66,7 +66,7 @@ export class TransactionsComponent implements OnInit {
       this.web3Service.getBalance().then(balance => {
         this.maticBalance = balance;
       })
-      
+      console.log(this.tokenBalance, this.maticBalance);
       this.updateTransactionHistory();
     }
 
@@ -80,7 +80,7 @@ export class TransactionsComponent implements OnInit {
       this.message = true;
       setTimeout(() => {
         this.message = false;
-      }, 1500)
+      }, 2000)
 
       const transaction = await this.web3Service.sendTransaction(address, amount);
       console.log('transaction', transaction);
@@ -113,6 +113,7 @@ export class TransactionsComponent implements OnInit {
       }).catch(err => {
         console.log(err);
       });
+      
     }
 
     onClickBack() {

@@ -21,15 +21,13 @@ export class AuthSignInComponent
     }
 
     async ngOnInit() {
-      await this.auth3Service.initAuth3();
     }  
     
     onClickLogin = async () => {
-      console.log('login')
+      await this.auth3Service.initAuth3();
       await this.auth3Service.login();
-      console.log('loged')
       await this.auth3Service.handleAuth();
-      console.log('handled auth')
+      
       this.router.navigate(['/dashboard']);
 
     }

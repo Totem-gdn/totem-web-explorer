@@ -156,8 +156,6 @@ export default class EthereumRpc {
 
     const tx = await contract.methods.claim().send({ 
       from: wallet,
-      maxPriorityFeePerGas: "40000000000", // Max priority fee per gas
-      maxFeePerGas: "45000000000"
     })
 
     // const tx = await contract.methods.claim({to: wallet}).call({ 

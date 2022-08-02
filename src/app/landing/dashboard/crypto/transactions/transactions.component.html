@@ -38,13 +38,15 @@
 
     </div>
 
-    <div *ngIf="paymentInfo" class="flex flex-col my-2 ml-5p border border-yellow border-solid p-5 m-2">
-        <span class="text-5xl">Payment Info</span>
+    <div *ngIf="paymentInfo" class="flex ml-5p">
+        <div class="flex flex-col p-5 m-2 border border-yellow border-solid">
+            <span class="text-5xl">Payment Info</span>
         <h3>Price: {{paymentInfo.price}} USDC</h3>
         <button 
         class="button-style-1 m-1 mr-3" 
         (click)="onSendTransaction(paymentInfo.address, paymentInfo.price)"
-        [disabled]="!tokenBalance || tokenBalance === 0 || !maticBalance || +maticBalance === 0">Buy</button>
+        [disabled]="!tokenBalance || +tokenBalance === 0 || !maticBalance || +maticBalance! === 0">Buy</button>
+        </div>
     </div>
 
     <div class="pt-10 pb-5 ml-5p flex justify-between text-center">
