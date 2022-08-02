@@ -177,13 +177,13 @@ export class Web3Service {
         console.log(result);
     };
 
-    sendTransaction = async (to: string,amount: number) => {
+    sendTransaction = async (address: string, amount: number) => {
         if (!this.provider) {
             console.log("provider not initialized yet");
             return;
         }
         const rpc = new RPC(this.provider);
-        const tx = await rpc.sendTransaction(to, amount);
+        const tx = await rpc.sendTransaction(address, amount);
         return tx;
     };
 
