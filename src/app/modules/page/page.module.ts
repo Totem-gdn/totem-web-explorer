@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { SharedModule } from "src/app/shared/shared.module";
+import { SharedModule } from "app/shared/shared.module";
 import { PageComponent } from "./page.component";
 import { PageRoutes } from "./page.routing";
 

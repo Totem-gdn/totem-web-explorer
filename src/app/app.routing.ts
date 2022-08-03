@@ -4,11 +4,13 @@ import { LayoutComponent } from './layout/layout.component';
 
 export const AppRoutes: Route[] = [
 
+  {path: '', pathMatch : 'full', redirectTo: 'home'},
+
   {
     path: '',
     component: LayoutComponent,
     children: [
-      {path: 'home', loadChildren: () => import('src/app/layout/modules/home/home.module').then(m => m.HomeModule)},
+      {path: 'home', loadChildren: () => import('app/modules/home/home.module').then(m => m.HomeModule)},
     ]
   },
 
@@ -16,7 +18,7 @@ export const AppRoutes: Route[] = [
     path: '',
     component: LayoutComponent,
     children: [
-      {path: 'page', loadChildren: () => import('src/app/layout/modules/page/page.module').then(m => m.PageModule)},
+      {path: 'page', loadChildren: () => import('app/modules/page/page.module').then(m => m.PageModule)},
     ]
   }
 ]
