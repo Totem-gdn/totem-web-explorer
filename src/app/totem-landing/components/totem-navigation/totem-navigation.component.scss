@@ -4,6 +4,7 @@
   height: 80px;
   background-color: $dark;
   border-bottom: 1px solid $dark-grey;
+  position: sticky;
 
   &-wrapper {
     max-width: 1340px;
