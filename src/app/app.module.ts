@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { appRoutes } from './app.routing';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './landing/layout/layout.module';
+import { TotemLandingModule } from './totem-landing/totem-landing.module';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,

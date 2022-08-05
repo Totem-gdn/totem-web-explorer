@@ -42,7 +42,7 @@ export const appRoutes: Route[] = [
     ]
   },
 
-  
+
   // Routes for authenticated users
   {
     path: '',
@@ -73,7 +73,13 @@ export const appRoutes: Route[] = [
     children: [
       { path: 'sign-out', loadChildren: () => import('app/landing/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule) }
     ],
-  }
+  },
+
+  //landing page
+  {
+    path: 'landing',
+    loadChildren: () => import('./totem-landing/totem-landing.module').then(m => m.TotemLandingModule)
+  },
 
 
 ];
