@@ -24,7 +24,7 @@ const routerConfig: ExtraOptions = {
     RouterModule.forRoot(AppRoutes, routerConfig),
 
     LayoutModule,
-    CoreModule
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

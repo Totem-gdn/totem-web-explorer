@@ -10,7 +10,7 @@ export const AppRoutes: Route[] = [
     path: '',
     component: LayoutComponent,
     children: [
-      {path: 'home', loadChildren: () => import('app/modules/home/home.module').then(m => m.HomeModule)},
+      {path: 'home', loadChildren: () => import('app/modules/landing/home/home.module').then(m => m.HomeModule)},
     ]
   },
 

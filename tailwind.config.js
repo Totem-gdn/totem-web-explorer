@@ -11,7 +11,8 @@ module.exports = {
       'yellow': '#FFD011',
       'light-grey': '#8A939B',
       'dark-grey': '#353840',
-      'black': '#202225'
+      'black': '#202225',
+      'semi-grey': '#2A2D33',
     },
     opacity : {
       12: '0.12',
@@ -72,7 +73,11 @@ module.exports = {
         '15p': '15%',
         '20p': '20%',
 
+        '460px': '460px',
+        '440px': '440px',
+        '340px': '340px',
         '140px': '140px',
+        '50px': '50px',
         '30px': '30px',
 
         // Fractional values
