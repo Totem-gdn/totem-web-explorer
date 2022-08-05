@@ -4,13 +4,14 @@
     <div class="w-130px h-30px">
         <img src="assets/images/Logo.png" alt="">
     </div>
-     <!-- Search -->
-    <div class="w-96 h-30px flex bg-dark-grey/38">
-        <mat-icon></mat-icon>
-        <input class="" type="search">
+
+    <!-- Search -->
+    <div class="ml-24 p-2 bg-dark-grey/38 rounded items-center flex text-base w-96">
+        <mat-icon [svgIcon]="'line:search'"></mat-icon>
+        <input class="w-full ml-3 bg-transparent" type="text" placeholder="Search...">
     </div>
 
-    <ul>
+    <ul class="flex gap-3 ml-auto">
         <li><span>Home</span></li>
         <li><span>Items</span></li>
         <li><span>Avatars</span></li>
@@ -18,8 +19,8 @@
         <li><span>Help</span></li>
     </ul>
 
-    <div class="w-10 h-10">
-        <mat-icon [svgIcon]="'line:user'"></mat-icon>
+    <div class="ml-24 w-10 h-10">
+        <mat-icon class="!w-10 !h-10" [svgIcon]="'line:user'"></mat-icon>
     </div>
 
 </div>

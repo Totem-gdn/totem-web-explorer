@@ -8,30 +8,48 @@
     </div>
 
     <!-- Most polular items -->
-    <div class="flex flex-col ">
-        <div class="flex">
-            <mat-icon [svgIcon]="'solid:point'"></mat-icon>
+    <div class="flex flex-col max-w-8xl">
 
-            <h3>The most popular NFTs</h3>
+        
 
-            <div class="h-12 px-2.5">
-                <span>Game name</span>
-                <mat-icon [svgIcon]="'line:arrow_down'"></mat-icon>
-            </div>
+        <horizontal-carousel
+        [title]="'The most popular NFTs'"
+        [menu]="'Game name'">
+        </horizontal-carousel>
 
-            <div class="ml-auto flex">
-                <arrow-left></arrow-left>
-                <arrow-right></arrow-right>
-            </div>      
-
+        <horizontal-carousel
+        [title]="'Newest TOTEM Items'"
+        [menu]="'Game name'">
+        <div *ngFor="let i of [0,0,0,0]">
+            <item-card></item-card>
         </div>
+        </horizontal-carousel>
 
-        <div class="flex">
+        <horizontal-carousel
+        [title]="'Popular Games'"></horizontal-carousel>
+
+        <!--  -->
+        <div class="flex" id="carousel">
             <div *ngFor="let i of [0,0,0,0]">
                 <item-card></item-card>
             </div>
         </div>
 
+        <div class="flex" id="carousel">
+            <div *ngFor="let i of [0,0,0,0]">
+                <game-card></game-card>
+            </div>
+        </div>
+
+        <div class="flex" id="carousel">
+            <div *ngFor="let i of [0,0,0,0]">
+                <avatar-card></avatar-card>
+            </div>
+        </div>
+
+        <div class="flex pt-3">
+            <span class="ml-auto text-light-grey">View all</span>
+        </div>
     </div>
 
 

@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    maxWidth: {
+      '1500px': '1500px',
+      '1600px': '1600px',
+    },
     colors: {
       transparent: 'transparent',
       'white': '#FFFFFF',
@@ -12,7 +16,7 @@ module.exports = {
       'light-grey': '#8A939B',
       'dark-grey': '#353840',
       'black': '#202225',
-      'semi-grey': '#2A2D33',
+      'grey': '#2A2D33',
     },
     opacity : {
       12: '0.12',
@@ -79,6 +83,7 @@ module.exports = {
         '140px': '140px',
         '50px': '50px',
         '30px': '30px',
+
 
         // Fractional values
         '1/2': '50%',

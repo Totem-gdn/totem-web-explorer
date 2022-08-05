@@ -4,6 +4,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "app/shared/shared.module";
 import { ArrowsModule } from "../components/arrows/arrows.module";
+import { AvatarCardModule } from "../components/avatar-card/avatar-card.module";
+import { CarouselModule } from "../components/carousel/carousel.module";
+import { GameCardModule } from "../components/game-card/game-card.module";
 import { ItemCardModule } from "../components/item-card/item-card.module";
 import { NavigationModule } from "../components/navigation/navigation.module";
 import { HomeComponent } from "./home.component";
@@ -13,7 +16,7 @@ import { HomeRoutes } from "./home.routing";
 
 @NgModule({
     declarations: [
-        HomeComponent
+        HomeComponent,
     ],
     imports: [
         RouterModule.forChild(HomeRoutes),
@@ -21,7 +24,11 @@ import { HomeRoutes } from "./home.routing";
         NavigationModule,
         MatIconModule,
         ArrowsModule,
-        ItemCardModule
+        ItemCardModule,
+        GameCardModule,
+        AvatarCardModule,
+        CarouselModule
+        
     ]
 })  
 
