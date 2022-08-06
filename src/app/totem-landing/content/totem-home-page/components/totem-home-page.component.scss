@@ -6,11 +6,12 @@
   background-color: $dark;
 
   &-wrapper {
-    max-width: 1340px;
-    width: 1340px;
+    max-width: 1460px;
+    width: 1460px;
     padding-left: 30px;
     padding-right: 30px;
     .landing-cta-content {
+      margin-top: 90px;
       height: 680px;
       .cta-text-block {
 
@@ -55,4 +56,89 @@
     }
   }
 
+}
+
+
+.swiper {
+  width: 574px;
+  height: 680px;
+}
+
+.slider-card {
+  width: 574px;
+  height: 600px;
+  background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.1) 0.38%, rgba(255, 255, 255, 0) 46.66%);
+  border-radius: 4px;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: stretch flex-start;
+  align-items: stretch;
+}
+
+.game-image {
+  height: 479px;
+  width: 574px;
+  img {
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+  }
+}
+
+.bottom-card-part {
+  padding: 20px;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: flex-end space-between;
+  align-items: flex-end;
+  &-content {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-between;
+    align-items: center;
+  }
+}
+
+.game-icon-prev {
+  height: 80px;
+  width: 80px;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  bottom: 0%;
+  top: unset;
+  width: 50px;
+  height: 50px;
+  background-color: $dark-grey-2;
+  border-radius: 40px;
+  &::after {
+    content: '';
+  }
+  mat-icon {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    color: $yellow;
+  }
+}
+/*
+.swiper-button-prev-slide {
+  width: 50px;
+  height: 50px;
+  background-color: $dark-grey-2;
+  border-radius: 40px;
+  color: red;
+  fill: red;
+} */
+.swiper-button-next {
+  right: 0px;
+}
+.swiper-button-prev {
+  left: 0px;
 }
