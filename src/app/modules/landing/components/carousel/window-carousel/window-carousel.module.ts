@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "app/shared/shared.module";
 import { ArrowsModule } from "../../arrows/arrows.module";
 import { WindowCarouselComponent } from "./window-carousel.component";
@@ -10,7 +11,8 @@ import { WindowCarouselComponent } from "./window-carousel.component";
     ],
     imports: [
         SharedModule,
-        ArrowsModule
+        ArrowsModule,
+        MatIconModule
     ],
     exports: [
         WindowCarouselComponent

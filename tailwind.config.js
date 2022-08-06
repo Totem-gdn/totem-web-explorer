@@ -9,6 +9,9 @@ module.exports = {
       '1500px': '1500px',
       '1600px': '1600px',
     },
+    minWidth: {
+      '4': '1rem',
+    },
     colors: {
       transparent: 'transparent',
       'white': '#FFFFFF',
@@ -77,6 +80,7 @@ module.exports = {
         '15p': '15%',
         '20p': '20%',
 
+        '550px': '550px',
         '460px': '460px',
         '440px': '440px',
         '340px': '340px',

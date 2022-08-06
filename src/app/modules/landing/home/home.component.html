@@ -5,52 +5,29 @@
     <!-- Navigation -->
     <div class="my-40 flex justify-center">
         <app-navigation></app-navigation>
+
+        <div class="flex">
+            <window-carousel></window-carousel>
+        </div>
     </div>
 
     <!-- Most polular items -->
     <div class="flex flex-col max-w-8xl">
 
-        
+
 
         <horizontal-carousel
-        [title]="'The most popular NFTs'"
-        [menu]="'Game name'">
+        [title]="'Newest TOTEM Items'"
+        [menu]="'Game name'"
+        [items]="items">
         </horizontal-carousel>
 
         <horizontal-carousel
         [title]="'Newest TOTEM Items'"
-        [menu]="'Game name'">
-        <div *ngFor="let i of [0,0,0,0]">
-            <item-card></item-card>
-        </div>
+        [menu]="'Game name'"
+        [items]="items">
         </horizontal-carousel>
 
-        <horizontal-carousel
-        [title]="'Popular Games'"></horizontal-carousel>
-
-        <!--  -->
-        <div class="flex" id="carousel">
-            <div *ngFor="let i of [0,0,0,0]">
-                <item-card></item-card>
-            </div>
-        </div>
-
-        <div class="flex" id="carousel">
-            <div *ngFor="let i of [0,0,0,0]">
-                <game-card></game-card>
-            </div>
-        </div>
-
-        <div class="flex" id="carousel">
-            <div *ngFor="let i of [0,0,0,0]">
-                <avatar-card></avatar-card>
-            </div>
-        </div>
-
-        <div class="flex pt-3">
-            <span class="ml-auto text-light-grey">View all</span>
-        </div>
-    </div>
 
 
 
