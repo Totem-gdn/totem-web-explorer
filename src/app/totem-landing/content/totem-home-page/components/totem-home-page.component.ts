@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import Swiper, { Navigation, Pagination } from 'swiper';
+import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
 
 
 
@@ -17,32 +17,29 @@ export class TotemHomePageComponent implements OnInit {
     // init Swiper:
     this.swiper = new Swiper('.swiper', {
 
-      modules: [Navigation, Pagination],
-
-      effect: 'cube',
-      flipEffect: {
-        slideShadows: false,
-      },
+      modules: [Navigation, Pagination, Autoplay, EffectCoverflow],
 
       autoplay: {
-        delay: 200,
+        delay: 4000,
+        disableOnInteraction: false
       },
-
+      speed: 2000,
+      loop: true,
+      effect: 'coverflow',
+      coverflowEffect: {
+        slideShadows: false
+      },
       // Disable preloading of all images
-      preloadImages: false,
+      //preloadImages: false,
       // Enable lazy loading
       lazy: true,
       // Optional parameters
       direction: 'horizontal',
-      loop: true,
-
       // If we need pagination
       pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
-        clickable: true,
-        bulletActiveClass: 'swiper-pagination-bullet-active',
-        bulletClass: 'swiper-pagination-bullet'
+        clickable: true
       },
 
       // Navigation arrows
