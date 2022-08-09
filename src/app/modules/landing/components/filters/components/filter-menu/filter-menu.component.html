@@ -1,5 +1,6 @@
 <div class="container max-w-440px mb-2 max-h-50px" #container>
 
+    <!-- Menu button -->
     <div class="menu-filter mb-3" (click)="onClickMenu()"
         [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
         <span>{{title}}</span>
@@ -7,9 +8,17 @@
         <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
-    <div class="rounded p-2 mb-2 items-center flex text-base border border-light-grey">
+    <div *ngIf="searchType === 'search'" class="rounded p-2 mb-2 items-center flex text-base border border-light-grey">
         <mat-icon [svgIcon]="'line:search'"></mat-icon>
         <input class="w-full ml-3 bg-transparent" type="text" placeholder="Search...">
+    </div>
+
+    <div *ngIf="searchType === 'range'" class="rounded my-8 mb-2 items-center flex flex-col">
+        <input #slider class="cursor-pointer h-1 w-full" type="range" min="0" max="1000" value="250" (input)="onChangeValue(slider.value)">
+
+        <div class="mt-3 flex w-full">
+            <span >Range</span>
+        </div>
     </div>
 
     <div class="h-200px overflow-y-auto">
