@@ -1,8 +1,24 @@
 
 
-<div class="w-80 flex flex-col">
-    <filter-slider></filter-slider>
-    <filter-update></filter-update>
-    <filter-game></filter-game>
-    <item-card></item-card>
+<div class="w-80 flex flex-col mr-3">
+    
+    <filter-menu
+    [title]="'Game name'"
+    [inputType]="'radio'"></filter-menu>
+    <filter-menu
+    [title]="'Damage'"
+    [inputType]="'range'"></filter-menu>
+    <filter-menu
+    [title]="'Element'"
+    [inputType]="'checkbox'"></filter-menu>
+    <filter-menu
+    [title]="'Color'"
+    [inputType]="'checkbox'"></filter-menu>
+    <filter-menu
+    [title]="'Item type'"
+    [inputType]="'checkbox'"></filter-menu>
+    <filter-menu
+    [title]="'Material'"></filter-menu>
+
+    <!-- <item-card></item-card> -->
 </div>

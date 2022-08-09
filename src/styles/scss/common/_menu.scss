@@ -3,10 +3,10 @@
 
 .menu-filter {
     height: 50px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 10px;
-    background-color: $grey;
     gap: 10px;
     border-radius: 4px;
     cursor: pointer;

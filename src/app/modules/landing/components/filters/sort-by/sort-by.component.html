@@ -1,0 +1,6 @@
+<div class="menu-filter mb-3 bg-grey" (click)="onClickMenu()"
+        [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
+        <span>Sort by</span>
+        <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
+        <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+    </div>

@@ -4,5 +4,20 @@
 @import 'tailwindcss/utilities';
 
 @import 'scss/_main';
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, sans-serif; }
+
+
+
+::-webkit-scrollbar-thumb {
+    background-color: $light-grey;
+    border-radius: 4px;
+    width: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: rgba(0, 0, 0, 0);
+}

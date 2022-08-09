@@ -1,0 +1,11 @@
+
+@import 'styles/scss/variables';
+
+.img{
+    background: linear-gradient(90deg, #FA709A 0%, #FEE140 100%);
+}
+
+.container {
+    transition: all 0.2s ease-out;
+    overflow: hidden;
+}

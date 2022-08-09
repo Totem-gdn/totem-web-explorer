@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "app/shared/shared.module";
+import { ItemCardModule } from "../../item-card/item-card.module";
 import { ItemListComponent } from "./item-list.component";
 
 
@@ -10,6 +11,7 @@ import { ItemListComponent } from "./item-list.component";
     ],
     imports: [
         SharedModule,
+        ItemCardModule,
     ],
     exports: [
         ItemListComponent

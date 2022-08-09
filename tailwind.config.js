@@ -6,9 +6,15 @@ module.exports = {
   theme: {
     extend: {},
     maxWidth: {
+      '50px': '50px',
+      '340px': '340px',
       '1500px': '1500px',
       '1600px': '1600px',
     },
+    maxHeight: {
+      '50px': '50px',
+    },
+    
     minWidth: {
       '4': '1rem',
     },
@@ -84,6 +90,8 @@ module.exports = {
         '460px': '460px',
         '440px': '440px',
         '340px': '340px',
+        '200px': '200px',
+        '180px': '180px',
         '140px': '140px',
         '50px': '50px',
         '30px': '30px',

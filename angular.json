@@ -30,7 +30,8 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles/styles.scss",
-              "src/styles/tailwind.scss"
+              "src/styles/tailwind.scss",
+              "src/styles/mat-override.scss"
             ],
             "scripts": []
           },

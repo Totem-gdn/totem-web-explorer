@@ -4,7 +4,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   selector: 'layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  host: {
+    class: 'max-w-full w-full flex-auto relative flex'
+  }
+
 })
 export class LayoutComponent implements OnInit {
 
