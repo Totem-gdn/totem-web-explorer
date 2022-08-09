@@ -1,0 +1,14 @@
+@import 'styles/scss/variables';
+
+input[type="checkbox"] {
+    appearance: none;
+    cursor: pointer;
+    color: currentColor;
+    border: 1px solid $light-grey;
+    border-radius: 4px;
+}
+input[type="checkbox"]:checked {
+    border: 1px solid $yellow;
+    background-color: $yellow;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='13' height='10' viewBox='0 0 8 8'%3e%3cpath fill='currentColor' d='M4.33333 10L0 5.74468L1.51667 4.25532L4.33333 7.02128L11.4833 0L13 1.48936L4.33333 10Z' /%3e%3c/svg%3e")
+}

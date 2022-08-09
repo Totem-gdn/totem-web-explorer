@@ -6,11 +6,13 @@ export const AppRoutes: Route[] = [
 
   {path: '', pathMatch : 'full', redirectTo: 'home'},
 
+
   {
     path: '',
     component: LayoutComponent,
     children: [
-      {path: 'home', loadChildren: () => import('app/modules/landing/home/home.module').then(m => m.HomeModule)},
+      { path: 'items', loadChildren: () => import('app/modules/landing/items/items.module').then(m => m.ItemsModule) },
+      { path: 'home', loadChildren: () => import('app/modules/landing/home/home.module').then(m => m.HomeModule) },
     ]
   },
 

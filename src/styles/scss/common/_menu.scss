@@ -1,0 +1,34 @@
+
+@import 'styles/scss/variables';
+
+.menu-filter {
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 10px;
+    background-color: $grey;
+    gap: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    & .mat-icon {
+        color: $white;
+        height: 7px;
+    }
+
+    & span {
+        color: $white;
+    }
+
+    &:hover {
+        background-color: $yellow;
+
+        .mat-icon {
+            color: $black;
+        }
+
+        span {
+            color: $black;
+        }
+    }
+}

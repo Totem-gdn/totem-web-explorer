@@ -9,7 +9,13 @@ export class ItemCardComponent implements OnInit {
 
   constructor() { }
 
+  isLiked = false;
+
   ngOnInit(): void {
+  }
+
+  onClickLike() {
+    this.isLiked = !this.isLiked;
   }
 
 }

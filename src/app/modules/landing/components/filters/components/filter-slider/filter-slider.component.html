@@ -1,0 +1,17 @@
+
+<div class="flex flex-col">
+
+    <div class="flex">
+        <div 
+        class="slider items-center flex px-10px rounded cursor-pointer" 
+        (click)="onClickSlider()"
+        [ngClass]="active ? 'border border-yellow': 'border border-grey'">
+
+            <mat-icon *ngIf="active === false" [svgIcon]="'line:tune'"></mat-icon>
+            <mat-icon class="!h-12px" *ngIf="active === true" [svgIcon]="'line:arrow_left'"></mat-icon>
+
+            <span class="font-bold">Filter</span>
+        </div>
+    </div>
+
+</div>

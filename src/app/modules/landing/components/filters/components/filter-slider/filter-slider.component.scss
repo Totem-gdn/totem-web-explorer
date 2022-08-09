@@ -1,0 +1,30 @@
+
+@import 'styles/scss/variables';
+
+.slider {
+    height: 50px;
+    background-color: $grey;
+    gap: 10px;
+
+    & .mat-icon {
+        color: $white;
+        width: 18px;
+        height: 18px;
+    }
+
+    & span {
+        color: $white;
+    }
+
+    &:hover {
+        background-color: $yellow;
+
+        .mat-icon {
+            color: $black;
+        }
+
+        span {
+            color: $black;
+        }
+    }
+}

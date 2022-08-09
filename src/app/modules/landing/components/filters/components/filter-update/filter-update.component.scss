@@ -1,0 +1,14 @@
+
+@import 'styles/scss/variables';
+
+.update {
+    cursor: pointer;
+    background-color: $grey;
+    color: $light-grey;
+
+    &:hover {
+        background-color: $yellow;
+        color: $black;
+    }
+}
+

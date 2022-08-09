@@ -1,0 +1,20 @@
+<!-- Wrapper -->
+<div class="w-full h-full bg-black flex flex-col overflow-y-scroll max-w-8xl">
+
+    <!-- Header -->
+    <div class="h-20 min-h-[5rem] w-full border-b border-dark-grey px-5 xxl:px-10p">
+        <app-header></app-header>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto w-full px-10p px-5 xxl:px-10p">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+
+    </div>
+ </div>

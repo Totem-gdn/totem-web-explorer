@@ -22,7 +22,6 @@ const routerConfig: ExtraOptions = {
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes, routerConfig),
-
     LayoutModule,
     CoreModule,
   ],

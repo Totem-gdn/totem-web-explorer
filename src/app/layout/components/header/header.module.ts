@@ -1,6 +1,7 @@
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
+import { RouterModule } from "@angular/router";
 import { SharedModule } from "app/shared/shared.module";
 import { HeaderComponent } from "./header.component";
 
@@ -13,6 +14,7 @@ import { HeaderComponent } from "./header.component";
     imports: [
         SharedModule,
         MatIconModule,
+        RouterModule,
         HttpClientModule
     ],
     exports: [

@@ -87,7 +87,9 @@ module.exports = {
         '140px': '140px',
         '50px': '50px',
         '30px': '30px',
-
+        '12px': '12px',
+        '10px': '10px',
+        '7px': '7px',
 
         // Fractional values
         '1/2': '50%',
