@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { LayoutComponentsModule } from './components/layout-components.module';
 import { LayoutComponent } from './layout.component';
-import { HomeLayoutModule } from './layouts/home/home.module';
-import { LandingLayoutModule } from './layouts/landing/landing.module';
 
 
 
@@ -12,13 +12,11 @@ import { LandingLayoutModule } from './layouts/landing/landing.module';
     ],
     imports     : [
         SharedModule,
-        HomeLayoutModule,
-        LandingLayoutModule,
+        RouterModule,
+        LayoutComponentsModule
     ],
     exports     : [
         LayoutComponent,
-        HomeLayoutModule,
-        LandingLayoutModule,
     ]
 })
 export class LayoutModule

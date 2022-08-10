@@ -7,7 +7,10 @@ import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swipe
 @Component({
   selector: 'totem-home-page',
   templateUrl: './totem-home-page.component.html',
-  styleUrls: ['./totem-home-page.component.scss']
+  styleUrls: ['./totem-home-page.component.scss'],
+  host: {
+    class: 'flex flex-auto w-full h-full'
+  }
 })
 export class TotemHomePageComponent implements OnInit {
   swiper!: Swiper;
