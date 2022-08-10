@@ -1,0 +1,31 @@
+@import '../../../../../styles/scss/variables';
+
+
+.totem-meet-us {
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+
+  &-wrapper {
+    height: auto;
+    width: 100%;
+    position: relative;
+    .head-caption {
+      text-transform: uppercase;
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 48px;
+      color: $yellow;
+    }
+
+    .totem-video {
+      margin-top: 64px;
+      height: 598px;
+      width: 1164px;
+      border: none;
+      border-radius: 4px;
+    }
+  }
+}

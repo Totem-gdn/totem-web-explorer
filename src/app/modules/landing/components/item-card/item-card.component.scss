@@ -5,6 +5,7 @@
     height: 460px;
     background: $grey;
 
+    transition: all 0.33s ease-in;
     & img {
         border-radius: 0;
     }
@@ -17,7 +18,7 @@
 
 .like {
     color: $light-grey;
-    
+
     &:hover {
         color: $yellow;
     }

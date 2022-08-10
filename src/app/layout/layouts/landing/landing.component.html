@@ -2,12 +2,7 @@
 <div class="w-full h-full bg-black flex flex-col overflow-y-scroll">
 
     <!-- Header -->
-    <div class="h-20 min-h-[5rem] w-full border-b border-dark-grey px-5p xxl:px-5p max-w-8xl">
-        <app-header></app-header>
-    </div>
 
-    <!-- Content -->
-    <div class="flex flex-col flex-auto w-full px-5p xxl:px-5p max-w-8xl">
         <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
              Otherwise, layout changes won't be registered and the view won't be updated! -->
         <router-outlet *ngIf="true"></router-outlet>
@@ -15,6 +10,6 @@
 
     <!-- Footer -->
     <div class="footer">
-
+      <totem-footer></totem-footer>
     </div>
  </div>

@@ -1,0 +1,160 @@
+<div class="totem-landing" fxLayoutAlign="center">
+  <div class="totem-landing-wrapper" fxLayout="column" fxLayoutAlign="start">
+    <div class="landing-cta-content" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="landing-cta-bg">
+        <span style="--i: -2s;" class="first-circle"></span>
+        <span style="--i: -3s;" class="second-circle"></span>
+        <span style="--i: -4s;" class="third-circle"></span>
+        <span style="--i: -5s;" class="fourth-circle"></span>
+        <span style="--i: -6s;" class="fifth-circle"></span>
+        <span style="--i: -7s;" class="sixth-circle"></span>
+        <span style="--i: -8s;" class="seventh-circle"></span>
+      </div>
+      <div class="cta-text-block" fxLayout="column" fxLayoutAlign="start">
+        <div class="cta-head-text">
+          <p>Explore Totem</p>
+          <p>community community</p>
+        </div>
+        <div class="cta-caption-text">
+          <p>Join Totem community community</p>
+          <p>community community</p>
+        </div>
+        <div>
+          <button class="join-button" mat-raised-button>Join community</button>
+        </div>
+      </div>
+      <div class="cta-slider">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="slider-card" fxLayout="column" fxLayoutAlign="start">
+                <div class="game-image">
+                  <img src="assets/icons/swiper/game-icon.png" alt="">
+                </div>
+                <div class="bottom-card-part">
+                  <div class="bottom-card-part-content">
+                    <div class="game-icon-prev">
+                      <img src="assets/icons/swiper/game-prev.png" alt="">
+                    </div>
+                    <div class="card-part-content">
+                      <div class="card-head-caption">Monk vs Robots</div>
+                      <div class="card-type-caption">Action</div>
+                    </div>
+                  </div>
+                  <div class="cta-button">Play Now</div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="slider-card" fxLayout="column" fxLayoutAlign="start">
+                <div class="game-image">
+                  <img src="assets/icons/swiper/game-icon-2.png" alt="">
+                </div>
+                <div class="bottom-card-part">
+                  <div class="bottom-card-part-content">
+                    <div class="game-icon-prev">
+                      <img src="assets/icons/swiper/game-prev.png" alt="">
+                    </div>
+                    <div class="card-part-content">
+                      <div class="card-head-caption">Monk vs Robots</div>
+                      <div class="card-type-caption">Action</div>
+                    </div>
+                  </div>
+                  <div class="cta-button">Play Now</div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="slider-card" fxLayout="column" fxLayoutAlign="start">
+                <div class="game-image">
+                  <img src="assets/icons/swiper/game-icon.png" alt="">
+                </div>
+                <div class="bottom-card-part">
+                  <div class="bottom-card-part-content">
+                    <div class="game-icon-prev">
+                      <img src="assets/icons/swiper/game-prev.png" alt="">
+                    </div>
+                    <div class="card-part-content">
+                      <div class="card-head-caption">Monk vs Robots</div>
+                      <div class="card-type-caption">Action</div>
+                    </div>
+                  </div>
+                  <div class="cta-button">Play Now</div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="slider-card" fxLayout="column" fxLayoutAlign="start">
+                <div class="game-image">
+                  <img src="assets/icons/swiper/game-icon-2.png" alt="">
+                </div>
+                <div class="bottom-card-part">
+                  <div class="bottom-card-part-content">
+                    <div class="game-icon-prev">
+                      <img src="assets/icons/swiper/game-prev.png" alt="">
+                    </div>
+                    <div class="card-part-content">
+                      <div class="card-head-caption">Monk vs Robots</div>
+                      <div class="card-type-caption">Action</div>
+                    </div>
+                  </div>
+                  <div class="cta-button">Play Now</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </div>
+          <div class="swiper-button-next">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-distance">
+      <totem-promo-game [game]="testGame"></totem-promo-game>
+    </div>
+
+    <div class="content-distance">
+      <totem-event-counter [eventDate]="eventDate"></totem-event-counter>
+    </div>
+
+    <div class="content-distance">
+      <totem-meet-us></totem-meet-us>
+    </div>
+
+    <div>
+      <horizontal-carousel
+        [title]="'Newest TOTEM Items'"
+        [menu]="'Game name'"
+        [items]="items">
+      </horizontal-carousel>
+    </div>
+
+    <div>
+      <horizontal-carousel
+        [title]="'Newest TOTEM Items'"
+        [menu]="'Game name'"
+        [items]="items">
+      </horizontal-carousel>
+    </div>
+
+    <div>
+
+    </div>
+
+    <div>
+
+    </div>
+
+    <div>
+
+    </div>
+  </div>
+</div>
+
