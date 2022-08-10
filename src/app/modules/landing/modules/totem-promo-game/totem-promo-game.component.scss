@@ -1,0 +1,66 @@
+@import '../../../../../styles/scss/variables';
+
+
+.promo-game-wrapper {
+  z-index: 2;
+  border-radius: 4px;
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  .game-info {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 400px;
+    height: inherit;
+    padding: 43px 45px;
+    background: linear-gradient(73.08deg, rgba(8, 9, 10, 0.95) 26.96%, rgba(0, 0, 0, 0) 192.77%);
+  }
+
+  .img-wrapper {
+    width: 100%;
+    height: 100%;
+    img {
+      height: inherit;
+      width: inherit;
+      object-fit: cover;
+    }
+  }
+}
+.game-name {
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 42px;
+  color: #FFFFFF;
+}
+.game-description {
+  margin-top: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #8A939B;
+}
+.game-cta {
+  margin-top: 28px;
+  button {
+    border-radius: 4px !important;
+    background: $yellow;
+    color: #111;
+    width: 220px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    outline: 1px solid transparent;
+    transition: all 0.33s ease-in-out;
+    &:hover {
+      background: $grey;
+      color: $yellow;
+    }
+    &:focus {
+      outline: 1px solid $yellow;
+    }
+  }
+}
+.game-name {}

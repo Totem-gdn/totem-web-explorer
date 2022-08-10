@@ -1,0 +1,299 @@
+@import '../../../../../styles/scss/variables';
+
+:host {
+  overflow: hidden;
+}
+
+.totem-landing {
+  height: auto;
+  width: 100%;
+  background-color: $dark;
+  &-wrapper {
+    max-width: 1500px;
+    width: 1500px;
+    padding-left: 30px;
+    padding-right: 30px;
+    .footer-block {
+      width: 100%;
+    }
+    .landing-cta-content {
+      z-index: 2;
+      position: relative;
+      margin-top: 90px;
+      height: 680px;
+      .landing-cta-bg {
+        pointer-events: none;
+        z-index: -1;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        filter: blur(278px);
+        .first-circle {
+          position: absolute;
+          left: 613px;
+          top: 50px;
+          width: 345px;
+          height: 345px;
+          background: #FFD011;
+          animation-delay: var(--i);
+          animation: MoveUpDown 10s linear infinite;
+        }
+        .second-circle {
+          position: absolute;
+          width: 170px;
+          height: 170px;
+          left: 813px;
+          top: 50px;
+          background: radial-gradient(330% 330% at 50% 50%, #FF6666 0%, rgba(255, 102, 102, 0) 100%);
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
+        }
+        .third-circle {
+          position: absolute;
+          width: 303px;
+          height: 303px;
+          left: 371px;
+          top: 50px;
+          background: radial-gradient(52.97% 52.97% at 50% 50%, #FF66F9 0%, #212326 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
+        }
+        .fourth-circle {
+          position: absolute;
+          width: 170px;
+          height: 170px;
+          left: 91px;
+          top: 50px;
+
+          background: radial-gradient(85.59% 85.59% at 50% 50%, #FFE166 0%, #2B2530 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
+        }
+        .fifth-circle {
+          position: absolute;
+          width: 396px;
+          height: 396px;
+          left: 875px;
+          top: 50px;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
+          background: #00BC58;
+        }
+        .sixth-circle {
+          position: absolute;
+          width: 298px;
+          height: 298px;
+          left: -79px;
+          top: 50px;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
+          background: #5823C9;
+        }
+        .seventh-circle {
+          position: absolute;
+          width: 342px;
+          height: 342px;
+          left: 1058px;
+          top: 50px;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
+          background: #5823C9;
+        }
+      }
+      .cta-text-block {
+
+        .cta-head-text p {
+          z-index: 4;
+          font-weight: 700;
+          font-size: 64px;
+          line-height: 75px;
+          color: #FFFFFF;
+        }
+        .cta-caption-text {
+          margin-top: 16px;
+          p {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 23px;
+            color: #8A939B;
+          }
+        }
+
+        .join-button {
+          margin-top: 56px;
+          border-radius: 4px !important;
+          background: $yellow;
+          color: #111;
+          width: 220px;
+          height: 50px;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 19px;
+          outline: 1px solid transparent;
+          transition: all 0.33s ease-in-out;
+          &:hover {
+            background: $grey;
+            color: $yellow;
+          }
+          &:focus {
+            outline: 1px solid $yellow;
+          }
+        }
+      }
+
+    }
+
+    .content-distance {
+      margin-top: 150px;
+    }
+
+  }
+
+}
+
+.cta-slider {
+  //overflow-y: hidden;
+  position: relative;
+  width: 574px;
+  height: 680px;
+  .swiper {
+    position: absolute;
+    //overflow: hidden;
+    right: 0px;
+    top: 0px;
+    width: 574px;
+    height: 680px;
+    .swiper-wrapper {
+      width: 574px;
+      height: 680px;
+      -webkit-transform-style: preserve-3d;
+      .swiper-slide {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translate3d(0,0,0);
+      }
+    }
+    .swiper-button-next, .swiper-button-prev {
+      bottom: 0%;
+      top: unset;
+      width: 50px;
+      height: 50px;
+      background-color: $grey;
+      border-radius: 40px;
+      transition: all 0.33s ease-in-out;
+      &::after {
+        content: '';
+      }
+      &:hover {
+        background-color: $yellow;
+        mat-icon {
+
+        font-weight: normal;
+        font-style: normal;
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+          color: $dark;
+        }
+      }
+      mat-icon {
+        font-weight: normal;
+        font-style: normal;
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        color: $yellow;
+        transition: all 0.33s ease-in-out;
+      }
+    }
+  }
+}
+
+
+.slider-card {
+  width: 574px;
+  height: 600px;
+  background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.1) 0.38%, rgba(255, 255, 255, 0) 46.66%);
+  border-radius: 6px 6px 4px 4px;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: stretch flex-start;
+  align-items: stretch;
+
+  //border: 1px solid;
+  //border-image-source: linear-gradient(312.93deg, #969595 0.64%, rgba(85, 85, 85, 0) 95.46%);
+
+}
+
+.game-image {
+  height: 479px;
+  width: 574px;
+  img {
+    border-radius: 10px 10px 0 0;
+    height: 479px;
+    width: 574px;
+    //object-fit: cover;
+  }
+}
+
+.bottom-card-part {
+  padding: 20px;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: flex-end space-between;
+  align-items: flex-end;
+  &-content {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-between;
+    align-items: center;
+
+    .card-head-caption {
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 42px;
+      color: #FFFFFF;
+    }
+    .card-type-caption {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #8A939B;
+    }
+    .card-part-content {
+      margin-left: 20px;
+    }
+  }
+  .cta-button {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+  }
+}
+
+.game-icon-prev {
+  height: 80px;
+  width: 80px;
+  border-radius: 4px 4px 0 0;
+}
+
+.swiper-button-next {
+  right: 0px;
+}
+.swiper-button-prev {
+  left: 0px;
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(200px);
+  }
+}
