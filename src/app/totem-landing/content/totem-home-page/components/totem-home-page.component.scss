@@ -8,14 +8,18 @@
   height: calc(100% - 80px);
   width: 100%;
   background-color: $dark;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   &-wrapper {
     max-width: 1440px;
     width: 1440px;
     padding-left: 30px;
     padding-right: 30px;
-    //overflow-y: auto;
+    //overflow-y: scroll;
     //overflow-x: hidden;
+    .footer-block {
+      width: 100%;
+    }
     .landing-cta-content {
       z-index: 2;
       position: relative;
@@ -31,48 +35,52 @@
         .first-circle {
           position: absolute;
           left: 613px;
-          top: 68px;
+          top: 50px;
           width: 345px;
           height: 345px;
           background: #FFD011;
-
-          animation: float 10s infinite;
+          animation-delay: var(--i);
+          animation: MoveUpDown 10s linear infinite;
         }
         .second-circle {
           position: absolute;
           width: 170px;
           height: 170px;
           left: 813px;
-          top: 98px;
+          top: 50px;
           background: radial-gradient(330% 330% at 50% 50%, #FF6666 0%, rgba(255, 102, 102, 0) 100%);
-          animation: float 10s infinite;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
         }
         .third-circle {
           position: absolute;
           width: 303px;
           height: 303px;
           left: 371px;
-          top: 220px;
+          top: 50px;
           background: radial-gradient(52.97% 52.97% at 50% 50%, #FF66F9 0%, #212326 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-          animation: float 10s infinite;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
         }
         .fourth-circle {
           position: absolute;
           width: 170px;
           height: 170px;
           left: 91px;
-          top: 405px;
+          top: 50px;
 
           background: radial-gradient(85.59% 85.59% at 50% 50%, #FFE166 0%, #2B2530 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-          animation: float 10s infinite;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
         }
         .fifth-circle {
           position: absolute;
           width: 396px;
           height: 396px;
           left: 875px;
-          top: 207px;
-          animation: float 10s infinite;
+          top: 50px;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
           background: #00BC58;
         }
         .sixth-circle {
@@ -80,8 +88,9 @@
           width: 298px;
           height: 298px;
           left: -79px;
-          top: 352px;
-          animation: float 10s infinite;
+          top: 50px;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
           background: #5823C9;
         }
         .seventh-circle {
@@ -89,8 +98,9 @@
           width: 342px;
           height: 342px;
           left: 1058px;
-          top: 219px;
-          animation: float 30s infinite;
+          top: 50px;
+          animation: MoveUpDown 10s linear infinite;
+          animation-delay: var(--i);
           background: #5823C9;
         }
       }
@@ -136,6 +146,11 @@
       }
 
     }
+
+    .content-distance {
+      margin-top: 150px;
+    }
+
   }
 
 }
@@ -211,8 +226,8 @@
   place-content: stretch flex-start;
   align-items: stretch;
 
-  border: 1px solid;
-  border-image-source: linear-gradient(312.93deg, #969595 0.64%, rgba(85, 85, 85, 0) 95.46%);
+  //border: 1px solid;
+  //border-image-source: linear-gradient(312.93deg, #969595 0.64%, rgba(85, 85, 85, 0) 95.46%);
 
 }
 
@@ -271,15 +286,6 @@
   border-radius: 4px 4px 0 0;
 }
 
-/*
-.swiper-button-prev-slide {
-  width: 50px;
-  height: 50px;
-  background-color: $dark-grey-2;
-  border-radius: 40px;
-  color: red;
-  fill: red;
-} */
 .swiper-button-next {
   right: 0px;
 }
@@ -287,7 +293,11 @@
   left: 0px;
 }
 
-@keyframes float {
-  from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+@keyframes MoveUpDown {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(200px);
+  }
 }

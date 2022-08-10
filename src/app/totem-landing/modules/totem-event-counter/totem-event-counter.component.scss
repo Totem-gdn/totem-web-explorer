@@ -1,0 +1,87 @@
+@import '../../../../styles/scss/variables';
+
+
+.totem-event {
+  width: 100%;
+  height: 438px;
+  &-wrapper {
+    width: 100%;
+    height: inherit;
+    .image-container {
+      width: 60%;
+      height: inherit;
+      overflow: hidden;
+      border-radius: 4px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .timer-container {
+      width: 34%;
+      height: inherit;
+      .title {
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 42px;
+        color: #FFFFFF;
+      }
+      .timer-block {
+        margin-top: 30px;
+        .totem-color {
+          font-weight: 400;
+          font-size: 48px;
+          line-height: 48px;
+          color: $yellow;
+        }
+        .timer-dots {
+          padding-bottom: 40px;
+        }
+        .grey-back {
+          width: 102px;
+          height: 82px;
+          background-color: $dark-grey-2;
+          border-radius: 4px;
+          padding: 16px 10px;
+          text-align: center;
+        }
+        .timer-caption {
+          margin-top: 16px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          color: $grey;
+        }
+      }
+      .description {
+        margin-top: 30px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        letter-spacing: -0.02em;
+        color: #8A939B;
+      }
+      .join-button {
+        margin-top: 48px;
+        border-radius: 4px !important;
+        background: $yellow;
+        color: #111;
+        width: 220px;
+        height: 50px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        outline: 1px solid transparent;
+        transition: all 0.33s ease-in-out;
+        &:hover {
+          background: $dark-grey-2;
+          color: $yellow;
+        }
+        &:focus {
+          outline: 1px solid $yellow;
+        }
+      }
+    }
+  }
+}

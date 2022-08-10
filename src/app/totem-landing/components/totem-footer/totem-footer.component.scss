@@ -1,0 +1,120 @@
+@import '../../../../styles/scss/variables';
+
+.totem-footer {
+  background: rgba(53, 56, 64, 0.37);
+  //border-bottom: 1px solid $dark-grey;
+  position: relative;
+  height: auto;
+  width: 100%;
+  &-wrapper {
+    //max-width: 1440px;
+    //width: 1440px;
+    //padding-left: 30px;
+    //padding-right: 30px;
+    border-top: 1px solid $dark-grey;
+
+    .footer-contact-block {
+      width: 100%;
+      padding-top: 57px;
+      padding-bottom: 32px;
+      .subscribe-block {
+        width: 32%;
+
+        .email-cta {
+          margin-top: 24px;
+          width: 100%;
+          .email-form {
+            width: 72%;
+          }
+          .submit-button {
+            width: 102px;
+            height: 40px;
+            border-radius: 4px !important;
+            background: $yellow;
+            color: #111;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19px;
+            outline: 1px solid transparent;
+            transition: all 0.33s ease-in-out;
+            &:hover {
+              background: $dark-grey-2;
+              color: $yellow;
+            }
+            &:focus {
+              outline: 1px solid $yellow;
+            }
+          }
+        }
+      }
+      .contact-block {
+        .join-cta {
+          margin-left: 8px;
+        }
+        img {
+          margin-right: 8px;
+        }
+        .join-icon-links {
+          margin-top: 3px;
+        }
+        //width: 260px;
+      }
+    }
+
+    .footer-info-block {
+      width: 100%;
+      padding-top: 60px;
+      padding-bottom: 80px;
+      border-top: 1px solid $dark-grey;
+      .totem-company-info {
+        width: 32%;
+        div img {
+          width: 129px;
+          height: 30px;
+        }
+        .company-description {
+          margin-top: 25px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          color: #8A939B;
+        }
+      }
+      .totem-content {
+        width: 40%;
+        a {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 19px;
+          color: #8A939B;
+          margin-top: 26px;
+        }
+      }
+    }
+
+    .footer-copyright-block {
+      width: 100%;
+      height: 70px;
+      border-top: 1px solid $dark-grey;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      color: #FFFFFF;
+      .terms-link {
+        margin-left: 43px;
+      }
+    }
+
+  }
+}
+
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #FFFFFF;
+}
+
+.marb-10 {
+  margin-bottom: 10px;
+}

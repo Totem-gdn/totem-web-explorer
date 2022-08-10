@@ -11,6 +11,15 @@ import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swipe
 })
 export class TotemHomePageComponent implements OnInit {
   swiper!: Swiper;
+
+  testGame: any[] = [{
+    name: 'Syber Hero',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam',
+    url: 'assets/images/promo-game.png'
+  }]
+
+  eventDate: Date = new Date('08/13/2022');
+
   constructor() { }
 
   ngOnInit(): void {
