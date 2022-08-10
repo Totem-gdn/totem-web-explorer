@@ -12,7 +12,7 @@ export const AppRoutes: Route[] = [
     component: LayoutComponent,
     children: [
       { path: 'items', loadChildren: () => import('app/modules/landing/items/items.module').then(m => m.ItemsModule) },
-      { path: 'home', loadChildren: () => import('app/modules/landing/totem-home-page/totem-home-page.module').then(m => m.TotemHomePageModule) },
+
     ]
   },
 

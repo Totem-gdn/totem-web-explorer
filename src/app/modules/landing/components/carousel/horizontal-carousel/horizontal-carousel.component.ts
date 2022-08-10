@@ -12,7 +12,9 @@ export class HorizontalCarouselComponent implements OnInit, AfterViewInit, OnDes
 
     @Input() title = '';
     @Input() menu: undefined | string;
-    @Input() items!: any[];
+    @Input() items = [1,2,3,4,5,6,7];;
+    @Input() itemType = 'item';
+    @Input() itemsNumber = 4;
 
     @ViewChild('container') container!: ElementRef;
     @ViewChild('carousel') carousel!: ElementRef;
@@ -45,7 +47,7 @@ export class HorizontalCarouselComponent implements OnInit, AfterViewInit, OnDes
 
     ngAfterViewInit(): void {
         this.itemWidth = this.slider.nativeElement.children[0].offsetWidth;
-        this.carousel.nativeElement.style.maxWidth = `${this.itemWidth * 4}px`;
+        this.carousel.nativeElement.style.maxWidth = `${this.itemWidth * this.itemsNumber}px`;
 
         this.itemsVisible();
     }

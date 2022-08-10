@@ -1,23 +1,37 @@
-<div class="w-340px h-460px bg-grey mx-4">
-    <img class="h-80" src="assets/images/item-test.jpg" alt="">
+<div #item class="bg-grey mx-2 mt-2 overflow-hidden rounded item flex flex-col cursor-pointer">
 
-    <div class="p-4 bg-grey">
-        <div class="flex justify-between">
-            <h4>ID: 1111</h4>
-            
-            <mat-icon [svgIcon]="'line:like'"></mat-icon>
+    <div class="flex flex-1 relative overflow-hidden">
+        <img class="absolute" src="assets/images/item-test.jpg" alt="">
+    </div>
+
+    <div class="p-4">
+        <div class="flex justify-between pb-3">
+            <div class="flex flex-col">
+                <h4>Weapon</h4>
+                <span class="text-light-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</span>
+            </div>
+
+            <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="onClickLike()"></mat-icon>
+            <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="onClickLike()"></mat-icon>
         </div>
 
-        <div class="flex">
-            <div>
-                <h5>24.24.2424</h5>
-                <span class="text-light-grey">Last time used</span>
+        <div class="flex justify-between">
+            <div class="flex flex-col">
+                <h5>1000</h5>
+                <span class="text-light-grey">Players</span>
             </div>
-            <div class="ml-12">
-                <h5>566</h5>
-                <span class="text-light-grey">Games played</span>
+            <div>
+                <h5>1000</h5>
+                <span class="text-light-grey">Items</span>
+            </div>
+            <div>
+                <h5>1000</h5>
+                <span class="text-light-grey">Avatars</span>
+            </div>
+            <div class="flex items-center">
+                <h4 class="text-light-grey pr-2">+</h4>
+                <span class="text-light-grey text-center">More <br>Details</span>
             </div>
         </div>
     </div>
-
 </div>
