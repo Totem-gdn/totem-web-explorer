@@ -30,3 +30,18 @@ input[type="radio"]:checked {
     background-image: url('../../../assets/icons/Ellipse.svg')
 
 }
+
+.range-slider {
+    width: 100%;
+    position: relative;
+}
+
+.range-slider input[type="range"] {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+input[type="range"] {
+    width: 100%;
+}

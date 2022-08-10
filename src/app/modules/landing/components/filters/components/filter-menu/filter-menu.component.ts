@@ -8,9 +8,10 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 export class FilterMenuComponent {
 
   menuActive = false;
+  minValue = 0;
+  maxValue = 5;
 
   @ViewChild('container') container!: ElementRef;
-  @ViewChild('slider') slider!: ElementRef;
 
   @Input() inputType = 'checkbox';
   @Input() title = 'Title'
@@ -21,11 +22,13 @@ export class FilterMenuComponent {
   ];
 
 
-  onChangeValue(slider: any) {
-    console.log(slider);
+  onChangeMinValue(minValue: any) {
+    this.minValue = minValue;
   }
     
- 
+  onChangeMaxValue(maxValue: any) {
+    this.maxValue = maxValue;
+  }
 
   onClickMenu() {
     this.menuActive = !this.menuActive;
