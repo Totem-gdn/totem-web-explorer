@@ -116,25 +116,17 @@
       </div>
     </div>
 
-    <div class="content-distance">
-      <totem-promo-game [game]="testGame"></totem-promo-game>
-    </div>
-
-    <div class="content-distance">
-      <totem-event-counter [eventDate]="eventDate"></totem-event-counter>
-    </div>
-
-    <div class="content-distance">
-      <totem-meet-us></totem-meet-us>
-    </div>
-
-    <!-- <div> -->
+    <div>
       <horizontal-carousel
-        [title]="'Newest TOTEM Items'"
+        [title]="'The most popular games'"
         [menu]="'Game name'"
         [items]="items">
       </horizontal-carousel>
-    <!-- </div> -->
+    </div>
+
+    <div class="content-distance">
+      <totem-promo-game [game]="testGame"></totem-promo-game>
+    </div>
 
     <div>
       <horizontal-carousel
@@ -143,6 +135,34 @@
         [items]="items">
       </horizontal-carousel>
     </div>
+
+    <div class="content-distance">
+      <totem-event-counter [eventDate]="eventDate"></totem-event-counter>
+    </div>
+
+    <div>
+      <horizontal-carousel
+        [title]="'Papular Games'"
+        [menu]="'Game name'"
+        [itemType]="'game'"
+        [items]="items">
+      </horizontal-carousel>
+    </div>
+
+    <div>
+      <horizontal-carousel
+        [title]="'Avatars'"
+        [menu]="'Game name'"
+        [itemType]="'avatar'"
+        [items]="items">
+      </horizontal-carousel>
+    </div>
+
+    <div class="content-distance">
+      <totem-meet-us></totem-meet-us>
+    </div>
+
+   
 
     <div>
 

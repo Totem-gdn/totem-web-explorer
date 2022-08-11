@@ -1,14 +1,16 @@
+<div class="cursor-pointer mx-2 my-2 rounded item overflow-hidden">
 
-
-<div class="cursor-pointer mx-2 mt-2 rounded item overflow-hidden">
-    <img class="h-80" src="assets/images/avatar.png" alt="">
+    <!-- <div class="flex flex-1 relative overflow-hidden"> -->
+        <img class="h-80 object-cover" src="assets/images/avatar.png" alt="">
+    <!-- </div> -->
 
     <div class="p-4">
         <div class="flex justify-between">
             <h4>ID: 1111</h4>
-            
+
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="onClickLike()"></mat-icon>
-            <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="onClickLike()"></mat-icon>
+            <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="onClickLike()">
+            </mat-icon>
         </div>
 
         <div class="flex">

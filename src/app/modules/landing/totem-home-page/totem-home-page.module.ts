@@ -11,10 +11,10 @@ import { TotemMeetUsModule } from '../modules/totem-meet-us/totem-meet-us.module
 import { TotemPromoGameModule } from '../modules/totem-promo-game/totem-promo-game.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { ArrowsModule } from '../components/arrows/arrows.module';
-import { AvatarCardModule } from '../components/avatar-card/avatar-card.module';
+import { AvatarCardModule } from '../components/cards/avatar-card/avatar-card.module';
 import { CarouselModule } from '../components/carousel/carousel.module';
-import { GameCardModule } from '../components/game-card/game-card.module';
-import { ItemCardModule } from '../components/item-card/item-card.module';
+import { GameCardModule } from '../components/cards/game-card/game-card.module';
+import { ItemCardModule } from '../components/cards/item-card/item-card.module';
 
 @NgModule({
   declarations: [

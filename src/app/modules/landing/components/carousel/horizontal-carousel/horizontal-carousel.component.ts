@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
@@ -8,13 +8,13 @@ import { fromEvent, Subscription } from 'rxjs';
         '(window.resize)': 'onResize($event)'
     }
 })
-export class HorizontalCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HorizontalCarouselComponent implements AfterViewInit, OnDestroy {
 
     @Input() title = '';
     @Input() menu: undefined | string;
     @Input() items = [1,2,3,4,5,6,7];;
     @Input() itemType = 'item';
-    @Input() itemsNumber = 4;
+    @Input() itemsCount = 4;
 
     @ViewChild('container') container!: ElementRef;
     @ViewChild('carousel') carousel!: ElementRef;
@@ -23,7 +23,6 @@ export class HorizontalCarouselComponent implements OnInit, AfterViewInit, OnDes
     resizeEvent!: Subscription;
     defaultTransform = 0;
     itemWidth!: number;
-    itemsCount = 0;
 
 
     goNext() {
@@ -39,15 +38,14 @@ export class HorizontalCarouselComponent implements OnInit, AfterViewInit, OnDes
         this.slider.nativeElement.style.transform = "translateX(" + this.defaultTransform + "px)";
     }
 
-    ngOnInit() {
+    ngAfterViewInit(): void {
         this.resizeEvent = fromEvent(window, 'resize').subscribe(onResize => {
             this.itemsVisible();
         });
-    }
-
-    ngAfterViewInit(): void {
         this.itemWidth = this.slider.nativeElement.children[0].offsetWidth;
-        this.carousel.nativeElement.style.maxWidth = `${this.itemWidth * this.itemsNumber}px`;
+
+        this.itemsCount = Math.floor(this.container.nativeElement.offsetWidth / this.itemWidth);
+        this.carousel.nativeElement.style.maxWidth = `${this.itemWidth * this.itemsCount}px`;
 
         this.itemsVisible();
     }
@@ -55,11 +53,15 @@ export class HorizontalCarouselComponent implements OnInit, AfterViewInit, OnDes
 
     itemsVisible() {
             const containerOffset = this.container.nativeElement.offsetWidth;
-            const itemsOnScreen = Math.floor(containerOffset / this.itemWidth);
+            let itemsOnScreen = Math.floor(containerOffset / this.itemWidth);
+
+            if(itemsOnScreen * this.itemWidth == containerOffset && containerOffset > this.itemWidth) {
+                itemsOnScreen -= 1;
+            }
 
             if(itemsOnScreen != this.itemsCount && containerOffset > this.itemWidth) {
                 this.itemsCount = itemsOnScreen;
-                this.carousel.nativeElement.style.width = `${this.itemWidth * itemsOnScreen}px`
+                this.carousel.nativeElement.style.maxWidth = `${this.itemWidth * itemsOnScreen}px`
             }
     }
 

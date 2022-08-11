@@ -1,5 +1,5 @@
-<div class="flex items-center justify-center w-full h-full mx-auto mb-40">
-  <div #container class="w-full relative flex items-center justify-center">
+<!-- <div class="flex items-center justify-center w-full h-full mx-auto mb-40"> -->
+  <div #container class="w-full relative flex items-center justify-center mt-40">
 
     <div #carousel class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
 
@@ -25,9 +25,11 @@
           <item-card *ngIf="itemType === 'item'"></item-card>
 
           <game-card *ngIf="itemType === 'game'" [itemWidth]="'440px'"></game-card>
+
+          <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
         </div>
       </div>
 
     </div>
   </div>
-</div>
+<!-- </div> -->
