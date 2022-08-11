@@ -1,19 +1,18 @@
 
-@import 'styles/scss/variables';
-
-.menu-filter {
-    height: 50px;
+.toggle-button {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    height: 50px;
     padding: 0 10px;
+    align-items: center;
+    background-color: $grey;
     gap: 10px;
-    border-radius: 4px;
     cursor: pointer;
+    border-radius: 4px;
 
     & .mat-icon {
         color: $white;
-        height: 7px;
+        width: 18px;
+        height: 18px;
     }
 
     & span {

@@ -15,11 +15,30 @@
         -moz-osx-font-smoothing: auto;
         color:white;
     }
+  
 
-    span {
-        line-height: 16px;
-        font-size: 14px;
-        font-weight: 400;
+    h1 {
+        font-size: 64px;
+        font-weight: 700;
+        line-height: 75px;
+    }
+
+    h2 {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 42px;
+    }
+
+    h3 {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    h4 {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
     }
 
     p {
@@ -27,33 +46,9 @@
         font-weight: 400;
     }
 
-    h1 {
-        font-size: 56px;
-        font-weight: 300;
-    }
-
-    h2 {
-        font-size: 45px;
-        font-weight: 700;
-    }
-
-    h3 {
-        font-size: 37px;
-        font-weight: 500;
-    }
-
-    h4 {
-        font-size: 29px;
-        font-weight: 500;
-    }
-
-    h5 {
-        font-size: 27px;
-        font-weight: 400;
-    }
-
-    h6 {
-        font-size: 19px;
+    span {
+        line-height: 16px;
+        font-size: 14px;
         font-weight: 400;
     }
 

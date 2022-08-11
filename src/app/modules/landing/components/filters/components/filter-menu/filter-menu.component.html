@@ -1,43 +1,40 @@
-<div class="container max-w-440px mb-2 max-h-50px" #container>
 
-    <!-- Menu button -->
-    <div class="menu-filter mb-3" (click)="onClickMenu()"
-        [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
-        <span>{{title}}</span>
-        <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
-        <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+<div class="flex">
+    <div *ngIf="checkedItems && checkedItems.length != 0" class="flex item-center h-50px">
+        <mat-icon class="m-auto !w-2 !h-2" [svgIcon]="'solid:point'"></mat-icon>
     </div>
 
-    <div *ngIf="searchType === 'search'" class="rounded p-2 mb-2 items-center flex text-base border border-light-grey">
-        <mat-icon [svgIcon]="'line:search'"></mat-icon>
-        <input class="w-full ml-3 bg-transparent" type="text" placeholder="Search...">
-    </div>
+    <div class="container max-w-440px mb-2 max-h-50px" #container>
 
-    <div *ngIf="searchType === 'range'" class="rounded my-8 mb-2 items-center flex flex-col">
-     
-        <div class="range-slider">
-            <input #sliderMin class="cursor-pointer h-1 w-full" type="range" min="0" max="1000" value="0" (input)="onChangeMinValue(sliderMin.value)">
-            <input #sliderMax class="cursor-pointer h-1 w-full" type="range" min="0" max="1000" value="250" (input)="onChangeMaxValue(sliderMax.value)">  
+        <!-- Menu button -->
+        <div class="menu-filter mb-3" (click)="onClickMenu()"
+            [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
+            <p>{{title}}</p>
+            <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
+            <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
         </div>
-
-        <div class="mt-3 flex w-full">
-            <span >Range: {{minValue}}-{{maxValue}}</span>
+    
+        <div *ngIf="searchType === 'search'" class="rounded p-2 mb-2 items-center flex text-base border border-light-grey">
+            <mat-icon [svgIcon]="'line:search'"></mat-icon>
+            <input class="w-full ml-3 bg-transparent" type="text" placeholder="Search...">
         </div>
-    </div>
-
-    <div class="h-200px overflow-y-auto">
-        <div class="p-2 flex items-center hover:bg-grey cursor-pointer" *ngFor="let game of games">
-            <div class="p-2 w-9 h-9 img rounded">
+    
+        <range-slider
+         *ngIf="searchType === 'range'" class="rounded my-8 mb-2 items-center flex flex-col">
+        </range-slider>
+    
+        <div *ngIf="items" class="h-200px overflow-y-auto">
+            <div class="p-2 flex items-center hover:bg-grey cursor-pointer" *ngFor="let item of items">
+                <div class="p-2 w-9 h-9 img rounded">
+                </div>
+    
+                <div class="flex flex-col my-auto px-2.5">
+                    <span>{{item.name}}</span>
+                    <span class="text-light-grey">{{item.genre}}</span>
+                </div>
+    
+                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent ml-auto" type="{{inputType}}" name="input">
             </div>
-
-            <div class="flex flex-col my-auto px-2.5">
-                <span>{{game.name}}</span>
-                <span class="text-light-grey">{{game.genre}}</span>
-            </div>
-
-            <input class="w-6 h-6 bg-transparent ml-auto" type="{{inputType}}" name="input">
         </div>
     </div>
-
-
 </div>

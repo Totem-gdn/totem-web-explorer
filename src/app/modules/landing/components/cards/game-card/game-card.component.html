@@ -1,14 +1,14 @@
-<div #item class="bg-grey mx-2 my-2 overflow-hidden rounded item flex flex-col cursor-pointer">
+<div #item class="flex flex-col cursor-pointer mx-2 my-2 rounded overflow-hidden item">
 
     <div class="flex flex-1 relative overflow-hidden">
         <img class="absolute object-cover h-full" src="assets/images/popularGame.png" alt="">
     </div>
 
     <div class="p-4">
-        <div class="flex justify-between pb-3">
+        <div class="flex justify-between">
             <div class="flex flex-col">
-                <h4>Weapon</h4>
-                <span class="text-light-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</span>
+                <h3>Weapon</h3>
+                <p class="text-light-grey py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</p>
             </div>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="onClickLike()"></mat-icon>
@@ -17,20 +17,20 @@
 
         <div class="flex justify-between">
             <div class="flex flex-col">
-                <h5>1000</h5>
-                <span class="text-light-grey">Players</span>
+                <h4>1000</h4>
+                <p class="text-light-grey">Players</p>
             </div>
             <div>
-                <h5>1000</h5>
-                <span class="text-light-grey">Items</span>
+                <h4>1000</h4>
+                <p class="text-light-grey">Items</p>
             </div>
             <div>
-                <h5>1000</h5>
-                <span class="text-light-grey">Avatars</span>
+                <h4>1000</h4>
+                <p class="text-light-grey">Avatars</p>
             </div>
             <div class="flex items-center">
                 <h4 class="text-light-grey pr-2">+</h4>
-                <span class="text-light-grey text-center">More <br>Details</span>
+                <p class="text-light-grey text-center">More <br>Details</p>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'filter-menu',
@@ -8,26 +8,19 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 export class FilterMenuComponent {
 
   menuActive = false;
-  minValue = 0;
-  maxValue = 5;
 
   @ViewChild('container') container!: ElementRef;
 
   @Input() inputType = 'checkbox';
   @Input() title = 'Title'
   @Input() searchType: string | null = 'search';
+  @Input() items: any[] | undefined = [{name: 'Game', genre: 'casual'}, {name: 'Game', genre: 'casual'}, {name: 'Game', genre: 'casual'}, {name: 'Game', genre: 'casual'}, {name: 'Game', genre: 'casual'}, {name: 'Game', genre: 'casual'}, ];
 
-  @Input() games = [
-    {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, {name: 'Cyberpunk', genre: 'casual'}, 
-  ];
+  checkedItems: any = [];
 
-
-  onChangeMinValue(minValue: any) {
-    this.minValue = minValue;
-  }
-    
-  onChangeMaxValue(maxValue: any) {
-    this.maxValue = maxValue;
+  onChangeInput(event: any) {
+    const value = event.target.value;
+    this.checkedItems.push(value);
   }
 
   onClickMenu() {
