@@ -5,16 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { TotemHomePageComponent } from './components/totem-home-page.component';
 import { TotemHomePageRouting } from './totem-home-page-routing.module';
 import { SwiperModule } from 'swiper/angular';
-import { TotemEmailSubModule } from '../modules/totem-email-sub/totem-email-sub.module';
-import { TotemEventCounterModule } from '../modules/totem-event-counter/totem-event-counter.module';
-import { TotemMeetUsModule } from '../modules/totem-meet-us/totem-meet-us.module';
-import { TotemPromoGameModule } from '../modules/totem-promo-game/totem-promo-game.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { ArrowsModule } from '../components/arrows/arrows.module';
-import { AvatarCardModule } from '../components/cards/avatar-card/avatar-card.module';
-import { CarouselModule } from '../components/carousel/carousel.module';
-import { GameCardModule } from '../components/cards/game-card/game-card.module';
-import { ItemCardModule } from '../components/cards/item-card/item-card.module';
+import { TotemPromoGameModule } from '../components/home-components/totem-promo-game/totem-promo-game.module';
+import { TotemMeetUsModule } from '../components/home-components/totem-meet-us/totem-meet-us.module';
+import { TotemEmailSubModule } from '../components/home-components/totem-email-sub/totem-email-sub.module';
+import { TotemEventCounterModule } from '../components/home-components/totem-event-counter/totem-event-counter.module';
+import { ArrowsModule } from '../components/common-components/arrows/arrows.module';
+import { ItemCardModule } from '../components/common-components/cards/item-card/item-card.module';
+import { GameCardModule } from '../components/common-components/cards/game-card/game-card.module';
+import { AvatarCardModule } from '../components/common-components/cards/avatar-card/avatar-card.module';
+import { CarouselModule } from '../components/home-components/carousel/carousel.module';
 
 @NgModule({
   declarations: [
