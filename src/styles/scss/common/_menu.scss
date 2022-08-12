@@ -10,6 +10,7 @@
     gap: 10px;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.2s;
 
     & .mat-icon {
         color: $white;
@@ -44,7 +45,21 @@
 .dropdown {
     display: inline-block;
     position: relative;
+
     .dropdown-menu {
+        
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        display: inline-block;
+        margin-top: 9px;
+        position: absolute;
+        border-radius: 4px;
+        background-color: $transparent-light;
+        padding: 4px;
+        z-index: 1;
+        transition: opacity 0.4s, visibility 0.4s;
+
         &::before {
             content: "";
             pointer-events: none;
@@ -59,26 +74,25 @@
             -webkit-mask-composite: xor;
             mask-composite: exclude; 
         }
-        position: absolute;
-        border-radius: 4px;
-        display: none;
-        width: 100%;
-        background-color: $transparent-light;
-        padding: 4px;
-        z-index: 1;
 
-        .menu-item {
-            border-radius: 4px;
-            white-space: nowrap;
-            padding: 0 5px;
-            cursor: pointer;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            
-            &:hover {
-                background-color: $transparent-light;
-            }
-        }    
+        .menu-items {
+            max-height: 200px;
+            overflow-y: auto;
+
+            .menu-item {
+                border-radius: 4px;
+                white-space: nowrap;
+                padding: 0 5px;
+                cursor: pointer;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                
+                &:hover {
+                    background-color: $transparent-light;
+                }
+            }  
+        }  
     }
 }
+

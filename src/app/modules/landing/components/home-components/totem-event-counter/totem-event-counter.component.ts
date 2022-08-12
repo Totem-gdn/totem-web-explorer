@@ -29,7 +29,6 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
 
   calcRemainingTime() {
     const source = timer(1000, 1000);
-
     this.subscribe = source.subscribe((val: number) => {
       let currentDate: number = new Date().getTime();
       var delta = Math.abs(this.eventDateTime - currentDate) / 1000;
@@ -48,7 +47,11 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscribe.unsubscribe();
+    // If eventDate is expired this.subscribe.unsubscribe(); throws error
+    let currentDate: number = new Date().getTime();
+    if(this.eventDateTime > currentDate) {
+      this.subscribe.unsubscribe();
+    }
   }
 
 }

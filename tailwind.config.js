@@ -4,7 +4,9 @@ module.exports = {
     "./src/**/*.{html,scss,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      
+    },
     
     maxWidth: {
       '50px': '50px',
@@ -15,6 +17,12 @@ module.exports = {
       '1700px': '1700px',
 
     },
+    opacity : {
+      '12': '0.12',
+      '38': '0.38',
+      '87': '0.87',
+    },
+
     maxHeight: {
       '50px': '50px',
     },
@@ -31,11 +39,7 @@ module.exports = {
       'black': '#202225',
       'grey': '#2A2D33',
     },
-    opacity : {
-      12: '0.12',
-      38: '0.38',
-      87: '0.87'
-    },
+    
     screens : {
       xs: '320px',
       sm: '480px',

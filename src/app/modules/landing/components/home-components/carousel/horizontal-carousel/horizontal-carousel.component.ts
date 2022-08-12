@@ -52,6 +52,7 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnDestroy {
 
 
     itemsVisible() {
+        console.log('itemsVisible)')
             const containerOffset = this.container.nativeElement.offsetWidth;
             let itemsOnScreen = Math.floor(containerOffset / this.itemWidth);
 

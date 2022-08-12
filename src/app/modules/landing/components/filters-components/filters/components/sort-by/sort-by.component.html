@@ -7,12 +7,14 @@
         <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
-    <div class="dropdown-menu" [ngStyle]="menuActive ? {'display': 'inline-block'}: {'display': 'none'}">
-        <div class="menu-item">
-            <span class="">Newest</span>
-        </div>
-        <div class="menu-item">
-            <span class="">Most popular</span>
+    <div class="dropdown-menu" [ngClass]="menuActive ? 'appear': ''">
+        <div class="menu-items">
+            <div class="menu-item">
+                <span class="">Newest</span>
+            </div>
+            <div class="menu-item">
+                <span class="">Most popular</span>
+            </div>
         </div>
     </div>
 </div>
