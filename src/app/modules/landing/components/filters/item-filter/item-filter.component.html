@@ -4,7 +4,8 @@
     
     <filter-menu
     [title]="'Game name'"
-    [inputType]="'radio'"></filter-menu>
+    [inputType]="'radio'"
+    [items]="games"></filter-menu>
 
     <filter-menu
     [title]="'Damage'"
@@ -13,17 +14,21 @@
     <filter-menu
     [title]="'Element'"
     [inputType]="'checkbox'"
-    [searchType]="null"></filter-menu>
+    [searchType]="null"
+    [items]="elements"></filter-menu>
 
     <filter-menu
     [title]="'Color'"
-    [inputType]="'checkbox'"></filter-menu>
+    [inputType]="'checkbox'"
+    [items]="colors"></filter-menu>
 
     <filter-menu
     [title]="'Item type'"
-    [inputType]="'checkbox'"></filter-menu>
+    [inputType]="'checkbox'"
+    [items]="itemTypes"></filter-menu>
 
     <filter-menu
-    [title]="'Material'"></filter-menu>
+    [title]="'Material'"
+    [items]="materials"></filter-menu>
 
 </div>

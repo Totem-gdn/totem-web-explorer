@@ -1,4 +1,4 @@
-<div class="cursor-pointer mx-2 my-2 rounded item overflow-hidden">
+<div class="flex flex-col cursor-pointer mx-2 my-2 rounded overflow-hidden item">
 
     <!-- <div class="flex flex-1 relative overflow-hidden"> -->
         <img class="h-80 object-cover" src="assets/images/item-test.jpg" alt="">
@@ -6,21 +6,21 @@
 
     <div class="p-4">
         <div class="flex justify-between">
-            <h4>ID: 1111</h4>
+            <h3>ID: 1111</h3>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="onClickLike()"></mat-icon>
             <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="onClickLike()">
             </mat-icon>
         </div>
 
-        <div class="flex">
+        <div class="flex items-center h-full">
             <div>
-                <h5>24.24.2424</h5>
-                <span class="text-light-grey">Last time used</span>
+                <h4>24.24.2424</h4>
+                <p class="text-light-grey">Last time used</p>
             </div>
             <div class="ml-12">
-                <h5>566</h5>
-                <span class="text-light-grey">Games played</span>
+                <h4>566</h4>
+                <p class="text-light-grey">Games played</p>
             </div>
         </div>
     </div>

@@ -1,35 +1,36 @@
-<!-- <div class="flex items-center justify-center w-full h-full mx-auto mb-40"> -->
-  <div #container class="w-full relative flex items-center justify-center">
+<div #container class="w-full relative flex items-center justify-center">
 
-    <div #carousel class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
+  <div #carousel class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
 
-      <div class="flex pb-7 items-center flex-wrap">
-        <div class="flex items-center">
-          <mat-icon class="min-w-4 !w-4" [svgIcon]="'solid:point'"></mat-icon>
-          <h3 class="mx-6">{{title}}</h3>
-        </div>
-
-        <div *ngIf="menu" class="h-12 px-2.5 bg-grey flex items-center cursor-pointer rounded">
-          <span>{{menu}}</span>
-          <mat-icon class="!w-3 ml-3" [svgIcon]="'line:arrow_down'"></mat-icon>
-        </div>
-
-        <div class="ml-auto flex">
-          <arrow-left class="pr-7" (click)="goPrev()"></arrow-left>
-          <arrow-right (click)="goNext()"></arrow-right>
-        </div>
+    <div class="flex pb-7 items-center flex-wrap">
+      <div class="flex items-center">
+        <mat-icon class="min-w-4 !w-4" [svgIcon]="'solid:point'"></mat-icon>
+        <h3 class="mx-6">{{title}}</h3>
       </div>
 
-      <div #slider class="h-full flex items-center justify-start transition ease-out duration-700">
-        <div class="" *ngFor="let i of items">
-          <item-card *ngIf="itemType === 'item'"></item-card>
-
-          <game-card *ngIf="itemType === 'game'" [itemWidth]="'440px'"></game-card>
-
-          <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
-        </div>
+      <div *ngIf="menu" class="h-12 px-2.5 bg-grey flex items-center cursor-pointer rounded">
+        <span>{{menu}}</span>
+        <mat-icon class="!w-3 ml-3" [svgIcon]="'line:arrow_down'"></mat-icon>
       </div>
 
+      <div class="ml-auto flex">
+        <arrow-left class="pr-7" (click)="goPrev()"></arrow-left>
+        <arrow-right (click)="goNext()"></arrow-right>
+      </div>
+    </div>
+
+    <div #slider class="h-full flex items-center justify-start transition ease-out duration-700">
+      <div class="" *ngFor="let i of items">
+        <item-card *ngIf="itemType === 'item'"></item-card>
+
+        <game-card *ngIf="itemType === 'game'" [itemWidth]="'440px'"></game-card>
+
+        <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
+      </div>
+    </div>
+
+    <div class="flex">
+      <span class="cursor-pointer ml-auto mr-3 text-light-grey">View all</span>
     </div>
   </div>
-<!-- </div> -->
+</div>
