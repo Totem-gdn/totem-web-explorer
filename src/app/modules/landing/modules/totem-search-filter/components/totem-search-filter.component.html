@@ -1,12 +1,95 @@
 <div class="search-filter">
-  <!-- <mat-icon class="search-icon">search</mat-icon> -->
   <img class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
-  <input class="search-filter-input" type="text" id="filter" [formControl]="searchInfo" placeholder="Search..">
-  <!-- <div class="totem-dropdown">
+  <mat-icon *ngIf="searchInfo.value" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" class="close-icon" (click)="eraseInput()">close</mat-icon>
+
+  <input class="search-filter-input" #searchInput type="text" id="filter" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search..">
+
+  <div class="totem-dropdown" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" *ngIf="dropdownOpened">
+    <!-- Navigation -->
     <div class="tabs" fxLayout="row" fxLayoutAlign="start center">
-      <div class="items-tab">Items</div>
-      <div class="avatars-tab">Avatars</div>
-      <div class="games-tab">Games</div>
+      <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
+        <div [ngClass]="{'active-tab': activeTab === tabType.ITEMS_TAB}" class="items-tab" (click)="changeTab(tabType.ITEMS_TAB)">Items</div>
+        <div class="active-border" *ngIf="activeTab === tabType.ITEMS_TAB"></div>
+      </div>
+      <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
+        <div [ngClass]="{'active-tab': activeTab === tabType.AVATARS_TAB}"  class="avatars-tab" (click)="changeTab(tabType.AVATARS_TAB)">Avatars</div>
+        <div class="active-border" *ngIf="activeTab === tabType.AVATARS_TAB"></div>
+      </div>
+      <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
+        <div [ngClass]="{'active-tab': activeTab === tabType.GAMES_TAB}"  class="games-tab" (click)="changeTab(tabType.GAMES_TAB)">Games</div>
+        <div class="active-border" *ngIf="activeTab === tabType.GAMES_TAB"></div>
+      </div>
     </div>
-  </div> -->
+    <!-- Tabs content -->
+    <div *ngIf="!(loading$ | async)" class="content">
+
+      <div *ngIf="activeTab === tabType.ITEMS_TAB" class="content-items">
+        <div *ngIf="itemsArray | async as items; else noItems" class="items-wrapper">
+          <div *ngFor="let item of items" class="item-card" fxLayout="row" fxLayoutAlign="start center">
+            <div class="item-prev-icon">
+              <img [src]="item.img" alt="icon">
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center start">
+              <div class="item-name">{{item.name}}</div>
+              <div class="item-type">{{item.type}}</div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noItems>
+          <div class="no-items" fxLayout="row" fxLayoutAlign="center center">
+            No items found
+          </div>
+        </ng-template>
+      </div>
+
+      <div *ngIf="activeTab === tabType.AVATARS_TAB" class="content-avatars">
+        <div *ngIf="avatarsArray | async as items; else noItems" class="items-wrapper">
+          <div *ngFor="let item of items" class="item-card" fxLayout="row" fxLayoutAlign="start center">
+            <div class="item-prev-icon">
+              <img [src]="item.img" alt="icon">
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center start">
+              <div class="item-name">{{item.name}}</div>
+              <div class="item-type">{{item.type}}</div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noItems>
+          <div class="no-items" fxLayout="row" fxLayoutAlign="center center">
+            No items found
+          </div>
+        </ng-template>
+      </div>
+
+      <div *ngIf="activeTab === tabType.GAMES_TAB" class="content-games">
+        <div *ngIf="gamesArray | async as items; else noItems" class="items-wrapper">
+          <div *ngFor="let item of items" class="item-card" fxLayout="row" fxLayoutAlign="start center">
+            <div class="item-prev-icon">
+              <img [src]="item.img" alt="icon">
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center start">
+              <div class="item-name">{{item.name}}</div>
+              <div class="item-type">{{item.type}}</div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noItems>
+          <div class="no-items" fxLayout="row" fxLayoutAlign="center center">
+            No items found
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- Loader -->
+    <div *ngIf="(loading$ | async)" class="loader" fxLayout="row" fxLayoutAlign="center center">
+      <!-- Example: [size]="'44'" -->
+      <totem-spinner></totem-spinner>
+    </div>
+    <!-- View All Button -->
+    <div class="view-all" fxLayout="column" fxLayoutAlign="space-between center">
+      <div class="view-all-button" (click)="goToPage()">View all</div>
+      <div class="view-border"></div>
+    </div>
+  </div>
+
 </div>

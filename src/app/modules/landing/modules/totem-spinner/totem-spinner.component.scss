@@ -1,0 +1,30 @@
+@import 'styles/scss/variables';
+
+.totem-spinner {
+  width: 100%;
+  height: 100%;
+  &-border {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid $yellow;
+    .totem-spinner-circle {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: $yellow;
+      animation: spinAround 1s linear infinite;
+    }
+  }
+
+}
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg) translate(var(--i));
+  }
+  to {
+    transform: rotate(360deg) translate(var(--i));
+  }
+}
