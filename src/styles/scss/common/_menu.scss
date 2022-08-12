@@ -40,3 +40,45 @@
         }
     }
 }
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+    .dropdown-menu {
+        &::before {
+            content: "";
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            border-radius: 4px; 
+            background: $linear-light; 
+            -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box, 
+            linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude; 
+        }
+        position: absolute;
+        border-radius: 4px;
+        display: none;
+        width: 100%;
+        background-color: $transparent-light;
+        padding: 4px;
+        z-index: 1;
+
+        .menu-item {
+            border-radius: 4px;
+            white-space: nowrap;
+            padding: 0 5px;
+            cursor: pointer;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            
+            &:hover {
+                background-color: $transparent-light;
+            }
+        }    
+    }
+}

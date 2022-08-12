@@ -5,6 +5,7 @@ import { ArrowsModule } from "../../../common-components/arrows/arrows.module";
 import { AvatarCardModule } from "../../../common-components/cards/avatar-card/avatar-card.module";
 import { GameCardModule } from "../../../common-components/cards/game-card/game-card.module";
 import { ItemCardModule } from "../../../common-components/cards/item-card/item-card.module";
+import { CarouselDropdownModule } from "./carousel-dropdown/carousel-dropdown.module";
 import { HorizontalCarouselComponent } from "./horizontal-carousel.component";
 
 
@@ -18,7 +19,8 @@ import { HorizontalCarouselComponent } from "./horizontal-carousel.component";
         MatIconModule,
         ItemCardModule,
         GameCardModule,
-        AvatarCardModule
+        AvatarCardModule,
+        CarouselDropdownModule
     ],
     exports: [
         HorizontalCarouselComponent

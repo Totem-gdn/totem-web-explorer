@@ -2,8 +2,12 @@
 
     <defs>
     
-        <svg id="point" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="9" cy="9" r="9" fill="#FFD011"/>
+        <svg id="bottom_rectangle" width="67" height="4" viewBox="0 0 67 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 4C0 1.79086 1.79086 0 4 0H63C65.2091 0 67 1.79086 67 4H0Z" fill="#FFD011"/>
+        </svg>
+
+        <svg id="point" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="9" cy="9" r="9" fill="currentColor"/>
         </svg>
 
         <svg id="point_grey" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

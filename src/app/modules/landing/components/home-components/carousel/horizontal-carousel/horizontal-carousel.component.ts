@@ -11,7 +11,7 @@ import { fromEvent, Subscription } from 'rxjs';
 export class HorizontalCarouselComponent implements AfterViewInit, OnDestroy {
 
     @Input() title = '';
-    @Input() menu: undefined | string;
+    @Input() menuTitle: string = '';
     @Input() items = [1,2,3,4,5,6,7];;
     @Input() itemType = 'item';
     @Input() itemsCount = 4;
