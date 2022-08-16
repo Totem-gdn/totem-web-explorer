@@ -51,7 +51,12 @@ export class RangeSliderComponent implements AfterViewInit {
         
         if(this.minValue > this.maxValue) {
             const maxSliderValue = this.sliderThumbMax.nativeElement.max;
-            // this.maxValue
+            const maxValue = this.sliderThumbMax.nativeElement;
+            console.log(maxSliderValue, maxValue.value);
+            maxValue.value = this.minValue + 1;
+            if(maxValue.value > maxSliderValue) {
+                maxValue.value -= 1;
+            }
         }
 
         if(this.maxValue < this.minValue) {

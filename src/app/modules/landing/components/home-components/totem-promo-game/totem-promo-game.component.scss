@@ -2,6 +2,7 @@
 
 
 .promo-game-wrapper {
+  display: flex;
   z-index: 2;
   border-radius: 4px;
   position: relative;
@@ -12,7 +13,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 400px;
+    width: 360px;
+    height: 260px;
     height: inherit;
     padding: 43px 45px;
     background: linear-gradient(73.08deg, rgba(8, 9, 10, 0.95) 26.96%, rgba(0, 0, 0, 0) 192.77%);
