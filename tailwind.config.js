@@ -48,6 +48,8 @@ module.exports = {
       xl: '1280px',
       xxl: '1440px',
       xxxl: '1980px',
+
+      // 'media-bullets': 
     },
     extend : {
       zIndex                  : {

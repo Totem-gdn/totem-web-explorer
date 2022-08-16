@@ -1,16 +1,17 @@
 <div class="w-full h-full flex flex-col mx-auto overflow-x-hidden overflow-y-hidden">
 
-  <div class="flex pb-7 items-center mx-2">
-    <div class="flex items-center">
+  <div class="flex items-center mx-2 flex-wrap">
+
+    <div class="flex items-center mb-7">
       <mat-icon class="min-w-4 !w-[18px] text-yellow" [svgIcon]="'solid:point'"></mat-icon>
-      <h2 class="mx-6">{{title}}</h2>
+      <h2 class="mx-6 text-2xl sm:text-4xl">{{title}}</h2>
     </div>
 
-    <div *ngIf="menuTitle">
+    <div class="mb-7" *ngIf="menuTitle">
       <carousel-dropdown [title]="menuTitle" [itemType]="itemType"></carousel-dropdown>
     </div>
 
-    <div class="ml-auto flex">
+    <div class="ml-auto mb-7 hidden lg:flex">
 
       <arrow-left class="pr-7" (click)="onClickLeft()"></arrow-left>
       <arrow-right (click)="onClickRight()"></arrow-right>
@@ -18,7 +19,7 @@
     </div>
   </div>
 
-  <div #horizontalSwiper class="horizontal-swiper">
+  <div #horizontalSwiper class="horizontal-swiper relative">
     <div class="swiper-wrapper">
       <div *ngFor="let item of items" class="swiper-slide">
         <item-card *ngIf="itemType === 'item'"></item-card>
@@ -28,9 +29,12 @@
         <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
       </div>
     </div>
+    <div class="swiper-pagination lg:hidden"></div>
+    
+
   </div>
 
-  <div class="flex">
+  <div class="flex pt-[20px] relative">
     <span class="cursor-pointer ml-auto mr-3 text-light-grey" (click)="onClickViewAll()">View all</span>
   </div>
 </div>

@@ -1,12 +1,12 @@
 <div class="dropdown">
     <div class="menu-filter bg-grey" (click)="onClickMenu()"
         [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
-        <span>{{title}}</span>
+        <span class="whitespace-nowrap">{{title}}</span>
         <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
         <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
-    <div class="z-30 dropdown-menu opacity-0 !pb-0 w-[300px]" [ngClass]="menuActive ? 'appear': ''">
+    <div class="z-30 dropdown-menu opacity-0 !pb-0 w-[300px] backdrop-blur-xl" [ngClass]="menuActive ? 'appear': ''">
 
         <div class="pt-[5px] px-[5px]">
             <search-field></search-field>

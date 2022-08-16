@@ -39,36 +39,39 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
             },
 
             loopPreventsSlide: false,
-            slidesPerView: 3,
+            rewind: true,
 
             breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
                 320: {
                     slidesPerView: 1,
-                    spaceBetween: 10
+                    spaceBetween: 16
                 },
                 480: {
                     slidesPerView: 1,
-                    spaceBetween: 10
+                    spaceBetween: 16
                 },
                 768: {
                     slidesPerView: 2,
-                    spaceBetween: 10
+                    spaceBetween: 16
                 },
                 1000: {
                     slidesPerView: 3,
-                    spaceBetween: 10
+                    spaceBetween: 16
                 },
                 1280: {
-                    slidesPerView: 3,
-                    spaceBetween: 10
+                    slidesPerView: 4,
+                    spaceBetween: 16
                 },
                 1440: {
-                    slidesPerView: 3,
-                    spaceBetween: 10
+                    slidesPerView: 4,
+                    spaceBetween: 16
                 },
                 1920: {
-                    slidesPerView: 3,
-                    spaceBetween: 10
+                    slidesPerView: 4,
+                    spaceBetween: 16
                 }
             },
             // Optional parameters
