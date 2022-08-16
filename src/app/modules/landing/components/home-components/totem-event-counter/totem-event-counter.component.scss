@@ -130,6 +130,25 @@
           outline: 1px solid $yellow;
         }
       }
+      .image-container-tablet {
+        height: 280px;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 4px;
+        display: none;
+        margin-top: 60px;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+        @media (max-width: 960px) {
+          display: unset;
+        }
+        @media (max-width: 490px) {
+          height: 160px;
+        }
+      }
     }
   }
 }
