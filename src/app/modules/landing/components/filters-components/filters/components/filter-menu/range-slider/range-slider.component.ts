@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import { max } from "rxjs";
 
 
 @Component({
@@ -32,6 +33,7 @@ export class RangeSliderComponent implements AfterViewInit {
     }
 
     changeMinValue() {
+        console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
         const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 18) / (minValue.max - minValue.min));
@@ -48,20 +50,26 @@ export class RangeSliderComponent implements AfterViewInit {
     }
 
     checkPosition() {
-        
-        if(this.minValue > this.maxValue) {
-            const maxSliderValue = this.sliderThumbMax.nativeElement.max;
-            const maxValue = this.sliderThumbMax.nativeElement;
-            console.log(maxSliderValue, maxValue.value);
-            maxValue.value = this.minValue + 1;
-            if(maxValue.value > maxSliderValue) {
-                maxValue.value -= 1;
-            }
-        }
+        const minValue = this.sliderThumbMin.nativeElement;
+        const maxValue = this.sliderThumbMax.nativeElement;
 
-        if(this.maxValue < this.minValue) {
-            const minSliderValue = this.sliderThumbMin.nativeElement.min;
-            // this.maxValue
+        console.log(minValue.value, maxValue.value);
+        if(minValue.value >= maxValue.value) {
+            
+
+            // if(minValue.value >= maxSliderValue) {
+            //     minValue.value = maxSliderValue - 1;
+            // }
+
+            if(minValue.value == maxValue.value) {
+                // const changeValue = minValue.value + 1;
+                // console.log(changeValue);
+                // maxValue.value = changeValue;
+            }
+
+            // if(maxValue.value > minValue.value) {
+            //     maxValue.value -= 1;
+            // }
         }
     }
 
