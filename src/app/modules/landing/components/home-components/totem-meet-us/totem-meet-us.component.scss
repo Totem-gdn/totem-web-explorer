@@ -18,6 +18,10 @@
       font-size: 48px;
       line-height: 48px;
       color: $yellow;
+      @media (max-width: 490px) {
+        font-size: 32px;
+        line-height: 32px;
+      }
     }
 
     .totem-video {

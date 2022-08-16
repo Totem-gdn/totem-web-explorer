@@ -27,7 +27,7 @@ export class TotemHomePageComponent implements OnInit {
 
   hovered: boolean = false;
 
-  eventDate: Date = new Date('08/13/2022');
+  eventDate: Date = new Date('08/19/2022');
 
   @ViewChild('joinButton') joinButton!: ElementRef;
 
@@ -43,6 +43,7 @@ export class TotemHomePageComponent implements OnInit {
         delay: 4000,
         disableOnInteraction: true
       },
+      slidesPerView: 'auto',
       speed: 2000,
       loop: true,
       effect: 'coverflow',
