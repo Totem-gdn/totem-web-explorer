@@ -6,7 +6,11 @@
         <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
-    <div class="z-30 dropdown-menu opacity-0 !pb-0" [ngClass]="menuActive ? 'appear': ''">
+    <div class="z-30 dropdown-menu opacity-0 !pb-0 w-[300px]" [ngClass]="menuActive ? 'appear': ''">
+
+        <div class="pt-[5px] px-[5px]">
+            <search-field></search-field>
+        </div>
 
         <div class="menu-items">
             <div class="menu-item" *ngFor="let item of items">
