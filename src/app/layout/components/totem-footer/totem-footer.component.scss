@@ -24,11 +24,12 @@
           margin-top: 24px;
           width: 100%;
           .email-form {
-            width: 72%;
+            width: 76%;
           }
           .submit-button {
             width: 102px;
             height: 40px;
+            margin-left: 8px;
             border-radius: 4px !important;
             background: $yellow;
             color: #111;
@@ -48,6 +49,14 @@
         }
       }
       .contact-block {
+        flex-direction: column;
+        box-sizing: border-box;
+        display: flex;
+        place-content: stretch flex-start;
+        align-items: stretch;
+        @media (max-width: 960px) {
+          display: none;
+        }
         .join-cta {
           margin-left: 8px;
         }
@@ -80,14 +89,60 @@
           color: #8A939B;
         }
       }
+      .bottom-info {
+        .contact-block {
+          flex-direction: column;
+          box-sizing: border-box;
+          display: none;
+          place-content: stretch flex-start;
+          align-items: stretch;
+          @media (max-width: 960px) {
+            display: flex;
+          }
+          .join-cta {
+            margin-top: 36px;
+            //margin-left: 8px;
+          }
+          img {
+            @media (max-width: 960px) {
+              margin-right: 0px;
+            }
+            margin-right: 8px;
+          }
+          .join-icon-links {
+            margin-top: 3px;
+          }
+          //width: 260px;
+        }
+      }
       .totem-content {
-        width: 40%;
+        @media (max-width: 600px) {
+          margin-top: 40px;
+        }
+        width: 100%;
         a {
           font-weight: 400;
           font-size: 16px;
           line-height: 19px;
           color: #8A939B;
           margin-top: 26px;
+        }
+      }
+
+      .hidden-about {
+        display: none;
+        @media (max-width: 600px) {
+          display: block;
+        }
+      }
+      .visible-about {
+        flex-direction: column;
+        box-sizing: border-box;
+        display: flex;
+        place-content: stretch flex-start;
+        align-items: stretch;
+        @media (max-width: 600px) {
+          display: none;
         }
       }
     }
