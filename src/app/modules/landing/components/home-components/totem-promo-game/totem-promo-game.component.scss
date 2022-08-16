@@ -13,7 +13,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 260px;
+    height: auto;
     padding: 30px;
     background: linear-gradient(73.08deg, rgba(8, 9, 10, 0.95) 26.96%, rgba(0, 0, 0, 0) 192.77%);
   }
@@ -43,6 +43,8 @@
 }
 .game-cta {
   margin-top: 28px;
+  display: flex;
+  width: 100%;
   button {
     border-radius: 4px !important;
     background: $yellow;
