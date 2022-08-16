@@ -57,7 +57,7 @@
         border-radius: 4px;
         background-color: $transparent-light;
         padding: 4px;
-        z-index: 1;
+        z-index: 30;
         transition: opacity 0.4s, visibility 0.4s;
 
         &::before {

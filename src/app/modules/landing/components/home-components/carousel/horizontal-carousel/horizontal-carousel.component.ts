@@ -1,73 +1,96 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+
+import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
+
 
 @Component({
     selector: 'horizontal-carousel',
     templateUrl: './horizontal-carousel.component.html',
-    host: {
-        '(window.resize)': 'onResize($event)'
-    }
+    styleUrls: ['./horizontal-carousel.component.scss'],
 })
-export class HorizontalCarouselComponent implements AfterViewInit, OnDestroy {
+export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
+
+    constructor(private router: Router) {
+
+    }
+
+    swiper!: Swiper;
 
     @Input() title = '';
     @Input() menuTitle: string = '';
-    @Input() items = [1,2,3,4,5,6,7];;
+    @Input() items = [1,2,3,4,5,6,7];
     @Input() itemType = 'item';
     @Input() itemsCount = 4;
 
-    @ViewChild('container') container!: ElementRef;
-    @ViewChild('carousel') carousel!: ElementRef;
-    @ViewChild('slider') slider!: ElementRef;
+    @ViewChild('horizontalSwiper') horizontalSwiper!: any;
 
-    resizeEvent!: Subscription;
-    defaultTransform = 0;
-    itemWidth!: number;
+    ngAfterViewInit() {
+               // init Swiper:
+     this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
 
+     modules: [Navigation, Pagination, Autoplay, EffectCoverflow],
 
-    goNext() {
-        this.defaultTransform = this.defaultTransform - this.itemWidth;
-
-        if(this.defaultTransform + this.slider.nativeElement.scrollWidth < this.carousel.nativeElement.offsetWidth) this.defaultTransform = 0;
-        this.slider.nativeElement.style.transform = "translateX(" + this.defaultTransform + "px)";
+      speed: 400,
+      loop: true,
+      coverflowEffect: {
+        slideShadows: false
+      },
+        loopPreventsSlide: false,
+        breakpoints: {
+         '320': {
+           slidesPerView: 1
+         },
+         '480': {
+           slidesPerView: 1
+         },
+         '768': {
+           slidesPerView: 2
+         },
+         '1000': {
+           slidesPerView: 3
+         },
+         '1280': {
+           slidesPerView: 4
+         },
+         '1440': {
+           slidesPerView: 4
+         },
+         '1920': {
+           slidesPerView: 4
+         }
+        },
+        // Optional parameters
+        direction: 'horizontal',
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+            clickable: true
+          },
+        // Navigation arrows
+        // navigation: {
+        //   nextEl: '.arrow-right',
+        //   prevEl: '.arrow-left',
+        // },
+  
+      });
     }
 
-    goPrev() {
-        if (this.defaultTransform === 0 || this.defaultTransform > 0) this.defaultTransform = 0;
-        else this.defaultTransform = this.defaultTransform + this.itemWidth;
-        this.slider.nativeElement.style.transform = "translateX(" + this.defaultTransform + "px)";
+    ngOnInit() {
+     
     }
 
-    ngAfterViewInit(): void {
-        this.resizeEvent = fromEvent(window, 'resize').subscribe(onResize => {
-            this.itemsVisible();
-        });
-        this.itemWidth = this.slider.nativeElement.children[0].offsetWidth;
-
-        this.itemsCount = Math.floor(this.container.nativeElement.offsetWidth / this.itemWidth);
-        this.carousel.nativeElement.style.maxWidth = `${this.itemWidth * this.itemsCount}px`;
-
-        this.itemsVisible();
+    onClickRight() {
+        this.swiper.slideNext();
     }
 
-
-    itemsVisible() {
-        console.log('itemsVisible)')
-            const containerOffset = this.container.nativeElement.offsetWidth;
-            let itemsOnScreen = Math.floor(containerOffset / this.itemWidth);
-
-            if(itemsOnScreen * this.itemWidth == containerOffset && containerOffset > this.itemWidth) {
-                itemsOnScreen -= 1;
-            }
-
-            if(itemsOnScreen != this.itemsCount && containerOffset > this.itemWidth) {
-                this.itemsCount = itemsOnScreen;
-                this.carousel.nativeElement.style.maxWidth = `${this.itemWidth * itemsOnScreen}px`
-            }
+    onClickLeft() {
+        this.swiper.slidePrev();
     }
 
-    ngOnDestroy(): void {
-        this.resizeEvent.unsubscribe();
+    onClickViewAll() {
+        
     }
 
 }

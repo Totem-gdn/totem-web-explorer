@@ -1,0 +1,20 @@
+
+@import 'styles/scss/variables';
+
+.wrapper {
+    border-radius: 4px;
+    padding: 9px;
+    margin-bottom: 12px;
+    align-items: center;
+    border: 2px solid $light-grey;
+    transition: border 0.5s;
+
+    input {
+        outline: none;
+
+    }
+
+    
+}
+
+

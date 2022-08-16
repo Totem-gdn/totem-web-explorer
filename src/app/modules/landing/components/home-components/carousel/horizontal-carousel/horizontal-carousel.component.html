@@ -1,6 +1,6 @@
 <div #container class="w-full relative flex items-center justify-center">
 
-  <div #carousel class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
+  <div class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
 
     <div class="flex pb-7 items-center flex-wrap mx-2">
       <div class="flex items-center">
@@ -9,17 +9,20 @@
       </div>
 
       <div *ngIf="menuTitle">
-        <carousel-dropdown [title]="menuTitle"></carousel-dropdown>
+        <carousel-dropdown [title]="menuTitle" [itemType]="itemType"></carousel-dropdown>
       </div>
 
       <div class="ml-auto flex">
-        <arrow-left class="pr-7" (click)="goPrev()"></arrow-left>
-        <arrow-right (click)="goNext()"></arrow-right>
+
+        <arrow-left class="pr-7" (click)="onClickLeft()"></arrow-left>
+        <arrow-right (click)="onClickRight()"></arrow-right>
+
       </div>
     </div>
 
-    <div #slider class="h-full flex items-center justify-start transition ease-out duration-700">
-      <div class="" *ngFor="let i of items">
+   <div #horizontalSwiper class="horizontal-swiper">
+    <div class="swiper-wrapper">
+      <div *ngFor="let item of items" class="swiper-slide">
         <item-card *ngIf="itemType === 'item'"></item-card>
 
         <game-card *ngIf="itemType === 'game'" [itemWidth]="'440px'"></game-card>
@@ -27,9 +30,19 @@
         <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
       </div>
     </div>
+   </div>
+    <!-- <div #slider class="h-full flex items-center justify-start transition ease-out duration-700">
+      <div #item class="item" *ngFor="let i of items">
+        <item-card *ngIf="itemType === 'item'"></item-card>
+
+        <game-card *ngIf="itemType === 'game'" [itemWidth]="'440px'"></game-card>
+
+        <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
+      </div>
+    </div> -->
 
     <div class="flex">
-      <span class="cursor-pointer ml-auto mr-3 text-light-grey">View all</span>
+      <span class="cursor-pointer ml-auto mr-3 text-light-grey" (click)="onClickViewAll()">View all</span>
     </div>
   </div>
 </div>

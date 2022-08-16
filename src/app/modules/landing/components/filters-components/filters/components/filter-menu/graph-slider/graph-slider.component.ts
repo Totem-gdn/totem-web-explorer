@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 
 
 @Component({
-    selector: 'range-slider',
-    templateUrl: './range-slider.component.html',
-    styleUrls: ['./range-slider.component.scss']
+    selector: 'graph-slider',
+    templateUrl: './graph-slider.component.html',
+    styleUrls: ['./graph-slider.component.scss']
 })
 
-export class RangeSliderComponent implements AfterViewInit {
+export class GraphSliderComponent {
 
     minValue = 0;
     maxValue = 5;
@@ -67,5 +67,4 @@ export class RangeSliderComponent implements AfterViewInit {
         this.sliderTrackMin.nativeElement.style.marginRight = this.marginRight;
         this.sliderTrackMin.nativeElement.style.marginLeft = this.marginLeft;
     }
-
 }

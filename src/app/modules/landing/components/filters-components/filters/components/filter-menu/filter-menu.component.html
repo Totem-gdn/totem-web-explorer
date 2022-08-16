@@ -1,10 +1,10 @@
 
 <div class="flex">
-    <div *ngIf="checkedItems && checkedItems.length != 0" class="flex item-center h-50px">
-        <mat-icon class="m-auto !w-2 !h-2" [svgIcon]="'solid:point'"></mat-icon>
+    <div class="flex item-center h-50px !w-3">
+        <mat-icon *ngIf="checkedItems && checkedItems.length != 0" class="m-auto !w-2 !h-2 text-yellow" [svgIcon]="'solid:point'"></mat-icon>
     </div>
 
-    <div class="container max-w-440px mb-2 max-h-50px" #container>
+    <div class="container max-w-440px mb-2 max-h-50px ml-1" #container>
 
         <!-- Menu button -->
         <div class="menu-filter mb-3" (click)="onClickMenu()"
@@ -14,17 +14,18 @@
             <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
         </div>
     
-        <div *ngIf="searchType === 'search'" class="rounded p-2 mb-2 items-center flex text-base border border-light-grey">
-            <mat-icon [svgIcon]="'line:search'"></mat-icon>
-            <input class="w-full ml-3 bg-transparent" type="text" placeholder="Search...">
-        </div>
+        <search-field  *ngIf="searchType === 'search'"></search-field>
     
         <range-slider
          *ngIf="searchType === 'range'" class="rounded my-8 mb-2 items-center flex flex-col">
         </range-slider>
+
+        <graph-slider
+         *ngIf="searchType === 'graph'" class="rounded my-8 mb-2 items-center flex flex-col">
+        </graph-slider>
     
-        <div *ngIf="items" class="h-200px overflow-y-auto">
-            <div class="p-2 flex items-center hover:bg-grey cursor-pointer" *ngFor="let item of items">
+        <div *ngIf="items && searchType != 'graph'" class="h-200px overflow-y-auto">
+            <div class="p-2 flex items-center hover:bg-grey cursor-pointer relative" *ngFor="let item of items">
                 <div class="p-2 w-9 h-9 img rounded">
                 </div>
     
@@ -33,7 +34,7 @@
                     <span class="text-light-grey">{{item.genre}}</span>
                 </div>
     
-                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent ml-auto" type="{{inputType}}" name="input">
+                <label><input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent" type="{{inputType}}" name="input"></label>
             </div>
         </div>
     </div>

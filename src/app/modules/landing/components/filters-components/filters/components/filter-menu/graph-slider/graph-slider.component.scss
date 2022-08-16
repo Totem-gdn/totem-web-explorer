@@ -1,0 +1,73 @@
+
+@import 'styles/scss/variables';
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    z-index: 2;
+    position: relative;
+    height: 18px;
+    width: 18px;
+    border-radius: 25px;
+
+    cursor: pointer;   
+  }
+
+
+  input[type='range'] {
+	&::-webkit-slider-runnable-track, 
+	&::-webkit-slider-thumb, & {
+		-webkit-appearance: none
+	}
+
+    background: $dark-grey;
+
+    &::-webkit-slider-thumb {
+        z-index: 3;
+        width: 18px;
+        height: 18px;
+        background-color: $yellow;
+    }
+}
+
+#sliderMin {
+
+    --margin-left: 9px;
+    &::-webkit-slider-runnable-track {
+        height:10px;
+        width:100%;
+    }
+
+}
+
+#sliderMax {
+
+    --margin-right: 9px;
+    &::-webkit-slider-runnable-track {
+        height:10px;
+        width:100%;
+    }
+
+}
+.slider {
+    z-index: 2;
+    position: absolute;
+    height:4px;
+    background-color: $yellow;
+    margin-right: var(--margin-right);
+    bottom: 4px;
+    left: 0;
+    right: 0;
+}
+
+.graph-cols {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    display: flex;
+    .graph-col {
+        border-radius: 4px;
+        height: 60px;
+        width: 8px;
+        border: 1px solid $dark-grey;
+    }
+}

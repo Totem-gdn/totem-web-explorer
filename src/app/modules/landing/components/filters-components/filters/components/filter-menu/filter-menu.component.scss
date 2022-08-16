@@ -6,7 +6,19 @@
     background: $item-gradient;
 }
 
+label {
+    cursor: pointer;
+    display: flex;
+    position:absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
 
+input {
+    margin: auto 8px auto auto;
+}
 
 .container {
     transition: all 0.2s ease-out;
