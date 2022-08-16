@@ -1,17 +1,21 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-
+import { Component, } from "@angular/core";
 
 @Component({
     selector: 'app-items',
     templateUrl: './items.component.html',
     styleUrls: ['./items.component.scss'],
-    encapsulation: ViewEncapsulation.None,
+    // host: {
+    //     class: 'flex flex-auto w-full h-full'
+    //   }
 })
 
 export class ItemsComponent {
 
-    items = [1,1,1,1,1,1,1,1,1];
-
+    
+  
+    items = [1,2,3,4,5,6,7];
+  
+   
     
     
 }

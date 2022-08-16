@@ -1,4 +1,7 @@
 import { NgModule } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "app/shared/shared.module";
 import { SwiperModule } from "swiper/angular";
@@ -30,6 +33,10 @@ import { ItemsRoutes } from "./items.routing";
         FilterSliderModule,
         SortByModule,
         CarouselModule,
+        
+        MatButtonModule,
+        FlexLayoutModule,
+        MatIconModule,
         SwiperModule,
     ],
 })
