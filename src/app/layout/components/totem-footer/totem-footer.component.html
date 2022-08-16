@@ -2,7 +2,7 @@
   <div class="totem-footer-wrapper" fxLayout="column" fxLayoutAlign="start">
     <div class="footer-contact-block" fxLayout="row" fxLayoutAlign="space-between center">
 
-      <div class="subscribe-block" fxLayout="column" fxLayoutAlign="start">
+      <div class="subscribe-block" fxFlex.lt-md="60%" fxFlex.lt-sm="100%" fxLayout="column" fxLayoutAlign="start">
         <div class="title">Get the latest update</div>
         <div class="email-cta" fxLayout="row" fxLayoutAlign="space-between center">
           <div class="email-form">
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <div class="contact-block" fxLayout="column" fxLayoutAlign="start">
+      <div class="contact-block">
         <div class="join-cta title">Join</div>
         <div class="join-icon-links" fxLayout="row" fxLayoutAlign="start">
           <img src="assets/images/forward-icon.png" alt="icon">
@@ -24,9 +24,9 @@
       </div>
 
     </div>
-    <div class="footer-info-block" fxLayout="row" fxLayoutAlign="space-between start">
+    <div class="footer-info-block" fxLayout="row wrap" fxLayoutAlign="space-between start">
 
-      <div class="totem-company-info" fxLayout="column" fxLayoutAlign="start">
+      <div fxFlex="32%" fxFlex.lt-md="32%" fxFlex.lt-sm="100%" class="totem-company-info" fxLayout="column" fxLayoutAlign="start">
         <div>
           <img src="assets/icons/nav/totem-logo.svg" alt="TOTEM">
         </div>
@@ -35,27 +35,41 @@
         </div>
       </div>
 
-      <div class="totem-content" fxLayout="row" fxLayoutAlign="space-between">
-        <div fxLayout="column" fxLayoutAlign="start">
-          <div class="title marb-10">Explore</div>
-          <a>Items</a>
-          <a>Avatars</a>
-          <a>Games</a>
+      <div fxFlex="40%" fxFlex.lt-md="60%" fxFlex.lt-sm="100%" class="bottom-info" fxLayout="column" fxLayoutAlign="start">
+        <div class="totem-content w-full" fxLayout="row" fxLayoutAlign="space-between">
+          <div fxLayout="column" fxLayoutAlign="start">
+            <div class="title marb-10">Explore</div>
+            <a>Items</a>
+            <a>Avatars</a>
+            <a>Games</a>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="start">
+            <div class="title marb-10">Account</div>
+            <a>Profile</a>
+            <a>Favorites</a>
+            <a>Settings</a>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="start">
+            <div class="title marb-10">Resources</div>
+            <a>Help</a>
+            <a>Blog</a>
+            <a class="hidden-about">About</a>
+          </div>
+          <div class="visible-about">
+            <div class="title marb-10">Company</div>
+            <a>About</a>
+          </div>
+
         </div>
-        <div fxLayout="column" fxLayoutAlign="start">
-          <div class="title marb-10">Account</div>
-          <a>Profile</a>
-          <a>Favorites</a>
-          <a>Settings</a>
-        </div>
-        <div fxLayout="column" fxLayoutAlign="start">
-          <div class="title marb-10">Resources</div>
-          <a>Help</a>
-          <a>Blog</a>
-        </div>
-        <div fxLayout="column" fxLayoutAlign="start">
-          <div class="title marb-10">Company</div>
-          <a>About</a>
+        <div class="contact-block">
+          <div class="join-cta title">Join</div>
+          <div class="join-icon-links" fxLayout="row" fxLayoutAlign="start">
+            <img src="assets/images/forward-icon.png" alt="icon">
+            <img src="assets/images/forward-icon.png" alt="icon">
+            <img src="assets/images/forward-icon.png" alt="icon">
+            <img src="assets/images/forward-icon.png" alt="icon">
+            <img src="assets/images/forward-icon.png" alt="icon">
+          </div>
         </div>
       </div>
 

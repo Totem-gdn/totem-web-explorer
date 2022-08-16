@@ -1,13 +1,15 @@
 <div class="totem-navigation" fxLayout="row" fxLayoutAlign="center">
 
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
+      <div class="logo-block">
+        <a href="/"><img src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
+      </div>
+      <div class="search-block">
+        <totem-search-filter></totem-search-filter>
+      </div>
+    </div>
 
-    <div class="logo-block">
-      <img src="assets/icons/nav/totem-logo.svg" alt="TOTEM">
-    </div>
-    <div class="search-block">
-      <totem-search-filter></totem-search-filter>
-    </div>
     <div class="navigation-block">
       <div class="navigation-block-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
         <a routerLinkActive="active-route" routerLink="/home">Home</a>
@@ -20,6 +22,15 @@
     <div class="profile-block">
       <img src="assets/icons/nav/account_circle.svg" alt="profile-icon">
     </div>
+    <div class="tablet-menu">
+      <div class="search-mobile">
+        <img class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
+      </div>
+      <div class="menu-button">
+        <img src="assets/icons/Menu.svg" alt="menu">
+      </div>
+    </div>
+
 
   </div>
 

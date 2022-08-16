@@ -17,7 +17,10 @@
       z-index: 2;
       position: relative;
       margin-top: 90px;
-      height: 680px;
+      height: auto;
+      @media (max-width: 960px) {
+        text-align: center;
+      }
       .landing-cta-bg {
         pointer-events: none;
         z-index: -1;
@@ -115,27 +118,47 @@
             color: #8A939B;
           }
         }
-
         .join-button {
           margin-top: 56px;
           border-radius: 4px !important;
-          background: $yellow;
+          background-color: $yellow;
           color: #111;
           width: 220px;
           height: 50px;
-          font-weight: 700;
-          font-size: 16px;
-          line-height: 19px;
           outline: 1px solid transparent;
-          transition: all 0.33s ease-in-out;
+          transition: background-color 0.33s ease-out;
+          overflow: hidden;
+          z-index: 4;
+
           &:hover {
-            background: $grey;
+            //background-color: rgba(255, 255, 255, 0.1);
+            background-color: $grey;
             color: $yellow;
           }
           &:focus {
+            //background-color: $yellow;
             outline: 1px solid $yellow;
           }
+          span.caption {
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19px;
+          }
+          span.glow {
+            height: 200px;
+            width: 140px;
+            background: radial-gradient(closest-side, lighten($yellow, 10%), transparent);
+            position: absolute;
+            border-radius: 100%;
+            transform: 0px 0px;
+            top: -74px;
+            left: -100px;
+            z-index: 0;
+          }
         }
+
       }
 
     }
@@ -157,15 +180,26 @@
   position: relative;
   width: 574px;
   height: 680px;
+  @media (max-width: 1200px) {
+    width: 470px;
+  }
+  @media (max-width: 960px) {
+    margin-top: 40px;
+    width: 100%;
+    height: 352px;
+  }
   .swiper {
     position: absolute;
     //overflow: hidden;
     right: 0px;
     top: 0px;
-    width: 574px;
+    width: inherit;
     height: 680px;
+    @media (max-width: 960px) {
+      height: 360px;
+    }
     .swiper-wrapper {
-      width: 574px;
+      width: inherit;
       height: 680px;
       -webkit-transform-style: preserve-3d;
       .swiper-slide {
@@ -181,6 +215,9 @@
       background-color: $grey;
       border-radius: 40px;
       transition: all 0.33s ease-in-out;
+      @media (max-width: 960px) {
+        display: none;
+      }
       &::after {
         content: '';
       }
@@ -213,7 +250,7 @@
 
 
 .slider-card {
-  width: 574px;
+  width: inherit;
   height: 600px;
   background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.1) 0.38%, rgba(255, 255, 255, 0) 46.66%);
   border-radius: 6px 6px 4px 4px;
@@ -222,7 +259,14 @@
   display: flex;
   place-content: stretch flex-start;
   align-items: stretch;
+  overflow: hidden;
+  @media (max-width: 960px) {
+    height: 310px;
+  }
 
+  //border: 2px solid transparent;
+  //border-image: linear-gradient(312.93deg, #969595 0.64%, rgba(85, 85, 85, 0) 95.46%);
+  //border-image-slice: 1;
   //border: 1px solid;
   //border-image-source: linear-gradient(312.93deg, #969595 0.64%, rgba(85, 85, 85, 0) 95.46%);
 
@@ -231,21 +275,30 @@
 .game-image {
   height: 479px;
   width: 574px;
+  @media (max-width: 960px) {
+    width: 100%;
+    height: 220px;
+  }
+
   img {
     border-radius: 10px 10px 0 0;
-    height: 479px;
-    width: 574px;
+    height: inherit;
+    width: inherit;
     //object-fit: cover;
   }
 }
 
 .bottom-card-part {
+  background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.1) 0.38%, rgba(255, 255, 255, 0) 46.66%);
   padding: 20px;
   flex-direction: row;
   box-sizing: border-box;
   display: flex;
   place-content: flex-end space-between;
   align-items: flex-end;
+  @media (max-width: 960px) {
+    padding: 14px;
+  }
   &-content {
     flex-direction: row;
     box-sizing: border-box;
@@ -258,6 +311,10 @@
       font-size: 36px;
       line-height: 42px;
       color: #FFFFFF;
+      cursor: pointer;
+      @media (max-width: 960px) {
+        font-size: 24px;
+      }
     }
     .card-type-caption {
       font-weight: 500;
@@ -274,6 +331,7 @@
     font-size: 16px;
     line-height: 19px;
     color: #FFFFFF;
+    cursor: pointer;
   }
 }
 
@@ -281,6 +339,11 @@
   height: 80px;
   width: 80px;
   border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  @media (max-width: 960px) {
+    height: 60px;
+    width: 60px;
+  }
 }
 
 .swiper-button-next {
