@@ -23,7 +23,8 @@
     .totem-video {
       margin-top: 64px;
       height: 598px;
-      width: 1164px;
+      max-width: 1164px;
+      width: 100%;
       border: none;
       border-radius: 4px;
     }
