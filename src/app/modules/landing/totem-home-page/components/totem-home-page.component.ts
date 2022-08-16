@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import * as e from 'express';
 
 import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
 
@@ -20,10 +21,15 @@ export class TotemHomePageComponent implements OnInit {
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam',
     url: 'assets/images/promo-game.png'
   }]
-
+  x: number = 0;
+  y: number = 0;
   items = [1,2,3,4,5,6,7];
 
+  hovered: boolean = false;
+
   eventDate: Date = new Date('08/13/2022');
+
+  @ViewChild('joinButton') joinButton!: ElementRef;
 
   constructor() { }
 
@@ -35,7 +41,7 @@ export class TotemHomePageComponent implements OnInit {
 
       autoplay: {
         delay: 4000,
-        disableOnInteraction: false
+        disableOnInteraction: true
       },
       speed: 2000,
       loop: true,
@@ -63,6 +69,22 @@ export class TotemHomePageComponent implements OnInit {
       },
 
     });
+  }
+
+  onMouseOver(event: MouseEvent) {
+    window.innerWidth
+    console.log(event);
+    this.x = event.pageX - 10;
+    //this.y = event.pageY * 0;
+    console.log(this.x, this.y);
+
+  }
+
+  onMouseLeave() {
+    this.hovered = false;
+  }
+  onMouseEnter() {
+    this.hovered = true;
   }
 
   goNext() {

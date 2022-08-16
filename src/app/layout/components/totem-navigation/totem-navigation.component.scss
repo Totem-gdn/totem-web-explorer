@@ -16,13 +16,28 @@
     padding-right: 30px;
   }
 
-  .logo-block img {
+  .logo-block {
+    flex-shrink: 0;
+    width: 140px;
     height: 30px;
-    width: auto;
+    a img {
+
+      height: 30px;
+      width: 140px;
+      cursor: pointer;
+    }
+  }
+  .header-left {
+    max-width: 616px;
+    width: 100%;
   }
 
   .search-block {
-    width: 456px;
+    margin-left: 69px;
+    width: 100%;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 
   .navigation-block {
@@ -47,6 +62,53 @@
       a.active-route {
         color: #fff;
       }
+    }
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .profile-block {
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .search-mobile {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $grey;
+    flex-direction: column;
+    box-sizing: border-box;
+    place-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: none;
+    img {
+      height: 18px;
+      width: auto;
+    }
+    @media (max-width: 767px) {
+      display: flex;
+    }
+  }
+
+  .tablet-menu {
+    display: none;
+    flex-direction: row;
+    box-sizing: border-box;
+    place-content: center flex-end;
+    align-items: center;
+    flex-shrink: 0;
+    @media (max-width: 1200px) {
+      display: flex;
+    }
+
+    .menu-button {
+      cursor: pointer;
     }
   }
 
