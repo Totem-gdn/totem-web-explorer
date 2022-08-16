@@ -7,11 +7,12 @@
 }
 
 .item {
-    width: 340px;
+    min-width: 280px;
+    max-width: 440px;
     height: 440px;
     background: $grey;
     text-align: start;
-
+    transition: all 0.33s ease-in;
 
     & img {
         border-radius: 0;
@@ -20,6 +21,7 @@
     &:hover {
         background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.15) 0.38%, rgba(255, 255, 255, 0) 46.66%);
     }
+
 }
 
 

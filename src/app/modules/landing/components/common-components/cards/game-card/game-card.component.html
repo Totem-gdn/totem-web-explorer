@@ -1,18 +1,19 @@
-<div #item class="flex flex-col cursor-pointer mx-2 my-2 rounded overflow-hidden item">
+<div class="flex flex-col cursor-pointer rounded overflow-hidden item">
 
-    <div class="flex flex-1 relative overflow-hidden">
-        <img class="absolute object-cover h-full" src="assets/images/popularGame.png" alt="">
-    </div>
+        <img class="object-cover grow" src="assets/images/popularGame.png" alt="">
 
-    <div class="p-4">
+    <div class="p-4 flex flex-col">
         <div class="flex justify-between">
             <div class="flex flex-col">
                 <h3>Weapon</h3>
-                <p class="text-light-grey py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</p>
             </div>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="onClickLike()"></mat-icon>
             <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="onClickLike()"></mat-icon>
+        </div>
+
+        <div class="flex">
+            <p class="text-light-grey py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</p>
         </div>
 
         <div class="flex justify-between">

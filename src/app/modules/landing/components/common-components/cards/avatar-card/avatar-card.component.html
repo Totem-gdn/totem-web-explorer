@@ -1,4 +1,4 @@
-<div class="flex flex-col cursor-pointer mx-2 my-2 rounded item overflow-hidden">
+<div class="flex flex-col cursor-pointer rounded item overflow-hidden">
 
     <!-- <div class="flex flex-1 relative overflow-hidden"> -->
         <img class="h-80 object-cover" src="assets/images/avatar.png" alt="">
@@ -7,7 +7,7 @@
     <div class="p-4 grow flex flex-col">
         <div class="flex justify-between">
             <h3>ID: 1111</h3>
-            
+
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="onClickLike()"></mat-icon>
             <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="onClickLike()">
             </mat-icon>

@@ -38,9 +38,8 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
                 slideShadows: false
             },
 
-            slidesPerView: 3,
-
             loopPreventsSlide: false,
+            slidesPerView: 3,
 
             breakpoints: {
                 320: {
@@ -64,11 +63,11 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
                     spaceBetween: 10
                 },
                 1440: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                     spaceBetween: 10
                 },
                 1920: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                     spaceBetween: 10
                 }
             },

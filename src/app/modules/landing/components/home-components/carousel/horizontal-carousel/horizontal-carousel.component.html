@@ -18,28 +18,19 @@
     </div>
   </div>
 
-  <!-- <div #horizontalSwiper class="horizontal-swiper flex"> -->
+  <div #horizontalSwiper class="horizontal-swiper">
     <div class="swiper-wrapper">
       <div *ngFor="let item of items" class="swiper-slide">
         <item-card *ngIf="itemType === 'item'"></item-card>
 
-        <game-card *ngIf="itemType === 'game'" [itemWidth]="'440px'"></game-card>
+        <game-card *ngIf="itemType === 'game'"></game-card>
 
         <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
       </div>
     </div>
-  <!-- </div> -->
-  <!-- <div #slider class="h-full flex items-center justify-start transition ease-out duration-700">
-      <div #item class="item" *ngFor="let i of items">
-        <item-card *ngIf="itemType === 'item'"></item-card>
-
-        <game-card *ngIf="itemType === 'game'" [itemWidth]="'440px'"></game-card>
-
-        <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
-      </div>
-    </div> -->
+  </div>
 
   <div class="flex">
-    <!-- <span class="cursor-pointer ml-auto mr-3 text-light-grey" (click)="onClickViewAll()">View all</span> -->
+    <span class="cursor-pointer ml-auto mr-3 text-light-grey" (click)="onClickViewAll()">View all</span>
   </div>
 </div>

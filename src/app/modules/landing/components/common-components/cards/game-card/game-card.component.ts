@@ -8,14 +8,12 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '
 export class GameCardComponent implements AfterViewInit {
 
   @ViewChild('item') item!: ElementRef;
-  @Input() itemWidth = '340px';
 
   isLiked = false;
 
   constructor() { }
 
   ngAfterViewInit(): void {
-    this.item.nativeElement.style.width = this.itemWidth;
   }
 
   onClickLike() {
