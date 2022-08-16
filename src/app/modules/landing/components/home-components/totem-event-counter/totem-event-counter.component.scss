@@ -4,28 +4,55 @@
 .totem-event {
   width: 100%;
   height: 438px;
+  @media (max-width: 960px) {
+    height: auto;
+  }
   &-wrapper {
     width: 100%;
     height: inherit;
     .image-container {
-      width: 60%;
+      max-width: 828px;
+      width: 100%;
+      min-width: 400px;
+      flex-shrink: 1;
       height: inherit;
       overflow: hidden;
       border-radius: 4px;
+      margin-right: 40px;
       img {
         height: 100%;
         width: 100%;
         object-fit: cover;
       }
+      @media (max-width: 960px) {
+        display: none;
+      }
     }
     .timer-container {
-      width: 34%;
+      flex-direction: column;
+      box-sizing: border-box;
+      display: flex;
+      place-content: flex-start space-between;
+      align-items: flex-start;
+      min-width: 450px;
       height: inherit;
+      @media (max-width: 960px) {
+        place-content: center space-between;
+        align-items: center;
+      }
+      @media (max-width: 490px) {
+        min-width: 200px;
+      }
       .title {
         font-weight: 700;
         font-size: 36px;
         line-height: 42px;
         color: #FFFFFF;
+        @media (max-width: 490px) {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 28px;
+        }
       }
       .timer-block {
         margin-top: 30px;
@@ -34,9 +61,16 @@
           font-size: 48px;
           line-height: 48px;
           color: $yellow;
+          @media (max-width: 490px) {
+            font-size: 32px;
+            line-height: 32px;
+          }
         }
         .timer-dots {
           padding-bottom: 40px;
+          @media (max-width: 490px) {
+            padding-bottom: 35px;
+          }
         }
         .grey-back {
           width: 102px;
@@ -45,6 +79,11 @@
           border-radius: 4px;
           padding: 16px 10px;
           text-align: center;
+          @media (max-width: 490px) {
+            width: 60px;
+            height: 40px;
+            padding: 4px 3px;
+          }
         }
         .timer-caption {
           margin-top: 16px;
@@ -52,6 +91,10 @@
           font-size: 16px;
           line-height: 19px;
           color: $light-grey;
+          @media (max-width: 490px) {
+            font-size: 14px;
+            line-height: 16px;
+          }
         }
       }
       .description {

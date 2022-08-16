@@ -108,6 +108,10 @@
           font-size: 64px;
           line-height: 75px;
           color: #FFFFFF;
+          @media (max-width: 600px) {
+            font-size: 36px;
+            line-height: 42px;
+          }
         }
         .cta-caption-text {
           margin-top: 16px;
@@ -116,6 +120,10 @@
             font-size: 20px;
             line-height: 23px;
             color: #8A939B;
+            @media (max-width: 600px) {
+              font-size: 16px;
+              line-height: 19px;
+            }
           }
         }
         .join-button {
@@ -203,6 +211,7 @@
       height: 680px;
       -webkit-transform-style: preserve-3d;
       .swiper-slide {
+        margin-right: 6px;
         -webkit-backface-visibility: hidden;
         -webkit-transform: translate3d(0,0,0);
       }
@@ -284,11 +293,12 @@
     border-radius: 10px 10px 0 0;
     height: inherit;
     width: inherit;
-    //object-fit: cover;
+    object-fit: cover;
   }
 }
 
 .bottom-card-part {
+  position: relative;
   background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.1) 0.38%, rgba(255, 255, 255, 0) 46.66%);
   padding: 20px;
   flex-direction: row;
@@ -315,6 +325,9 @@
       @media (max-width: 960px) {
         font-size: 24px;
       }
+      @media (max-width: 600px) {
+        font-weight: 500;
+      }
     }
     .card-type-caption {
       font-weight: 500;
@@ -324,14 +337,21 @@
     }
     .card-part-content {
       margin-left: 20px;
+      text-align: left;
     }
   }
   .cta-button {
+    position: relative;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
     color: #FFFFFF;
     cursor: pointer;
+    @media (max-width: 600px) {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+    }
   }
 }
 
