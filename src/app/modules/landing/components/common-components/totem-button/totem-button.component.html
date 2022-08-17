@@ -1,0 +1,12 @@
+<button
+  [id]="customId"
+  (mouseenter)="onMouseEnter()"
+  (mousemove)="onMouseOver($event)"
+  (mouseleave)="onMouseLeave()"
+  class="join-button"
+  [ngStyle]="{'width': width + 'px', 'height': height + 'px'}"
+  (click)="clickEvent($event)"
+>
+  <span [ngClass]="{'glow': hovered}" [ngStyle]="{'transform': 'translateX(' + x + 'px)'}"></span>
+  <span class="caption">{{caption}}</span>
+</button>

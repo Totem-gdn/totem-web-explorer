@@ -19,23 +19,16 @@
           <p>Join Totem community community</p>
           <p>community community</p>
         </div>
-        <div>
+        <!-- <div>
           <button
+          id="joinButton"
           class="join-button" mat-raised-button
           >
           <span>Join community</span></button>
-        </div>
-        <!-- <div>
-          <button
-          #joinButton
-          (mouseenter)="onMouseEnter()"
-          (mousemove)="onMouseOver($event)"
-          (mouseleave)="onMouseLeave()"
-          class="join-button" mat-raised-button
-          >
-          <span [ngClass]="{'glow': hovered}" [ngStyle]="{'transform': 'translateX(' + x + 'px)'}"></span>
-          <span class="caption">Join community</span></button>
         </div> -->
+        <div class="button-cta">
+          <totem-button (clicked)="joinCommunity($event)"></totem-button>
+        </div>
 
       </div>
       <div fxFlex="50%" fxFlex.lt-md="100%" class="cta-slider">
@@ -57,7 +50,7 @@
                       <div class="card-type-caption">Action</div>
                     </div>
                   </div>
-                  <div class="cta-button">Play Now</div>
+                  <a class="cta-button">Play Now</a>
                 </div>
               </div>
             </div>

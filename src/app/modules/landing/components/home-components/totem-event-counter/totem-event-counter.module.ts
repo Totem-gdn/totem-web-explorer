@@ -5,6 +5,7 @@ import { TotemEventCounterComponent } from './totem-event-counter.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { TotemButtonModule } from '../../common-components/totem-button/totem-button.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     FlexLayoutModule,
     MatButtonModule,
-
+    TotemButtonModule,
     CommonModule
   ],
   exports: [

@@ -15,6 +15,7 @@ import { ItemCardModule } from '../components/common-components/cards/item-card/
 import { GameCardModule } from '../components/common-components/cards/game-card/game-card.module';
 import { AvatarCardModule } from '../components/common-components/cards/avatar-card/avatar-card.module';
 import { CarouselModule } from '../components/home-components/carousel/carousel.module';
+import { TotemButtonModule } from '../components/common-components/totem-button/totem-button.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { CarouselModule } from '../components/home-components/carousel/carousel.
     ItemCardModule,
     GameCardModule,
     AvatarCardModule,
-    CarouselModule
+    CarouselModule,
+
+    TotemButtonModule
   ],
   exports: [],
   providers: [],

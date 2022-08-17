@@ -4,6 +4,7 @@ import { TotemPromoGameComponent } from './totem-promo-game.component';
 // packages
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { TotemButtonModule } from '../../common-components/totem-button/totem-button.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     FlexLayoutModule,
-    MatButtonModule
+    MatButtonModule,
+    TotemButtonModule
   ],
   exports: [
     TotemPromoGameComponent

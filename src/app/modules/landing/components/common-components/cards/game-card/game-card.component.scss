@@ -17,11 +17,15 @@
     transition: all 0.33s ease-in;
 
     & img {
+        transition: all 0.22s ease-out;
         border-radius: 0;
     }
 
     &:hover {
         background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.15) 0.38%, rgba(255, 255, 255, 0) 46.66%);
+        & img {
+          transform: scale(1.02);
+        }
     }
 
 }
@@ -29,7 +33,7 @@
 
 .like {
     color: $light-grey;
-    
+
     &:hover {
         color: $yellow;
     }
