@@ -11,7 +11,7 @@ import { max } from "rxjs";
 export class RangeSliderComponent implements AfterViewInit {
 
     minValue = 0;
-    maxValue = 5;
+    maxValue = 0;
 
     marginLeft!: string;
     marginRight!: string;
@@ -26,9 +26,9 @@ export class RangeSliderComponent implements AfterViewInit {
     }
 
     update() {
+        this.checkThumbPosition();
         this.changeMaxValue();
         this.changeMinValue();
-        this.checkPosition();
         this.setMargins();
     }
 
@@ -49,27 +49,25 @@ export class RangeSliderComponent implements AfterViewInit {
         this.maxValue = maxValue.value;
     }
 
-    checkPosition() {
+    checkThumbPosition() {
         const minValue = this.sliderThumbMin.nativeElement;
         const maxValue = this.sliderThumbMax.nativeElement;
 
-        console.log(minValue.value, maxValue.value);
-        if(minValue.value >= maxValue.value) {
-            
+     
+        if(+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
+            maxValue.value = +minValue.value + 1;
+        }
 
-            // if(minValue.value >= maxSliderValue) {
-            //     minValue.value = maxSliderValue - 1;
-            // }
+        if(+minValue.value >= +maxValue.value && +minValue.value == this.minValue) {
+            minValue.value = +maxValue.value - 1;
+        }
 
-            if(minValue.value == maxValue.value) {
-                // const changeValue = minValue.value + 1;
-                // console.log(changeValue);
-                // maxValue.value = changeValue;
-            }
+        if(+maxValue.value == 0) {
+            maxValue.value +maxValue.value + 1;
+        }
 
-            // if(maxValue.value > minValue.value) {
-            //     maxValue.value -= 1;
-            // }
+        if(+minValue.value == +minValue.max) {
+            minValue.value = maxValue.value - 1;
         }
     }
 

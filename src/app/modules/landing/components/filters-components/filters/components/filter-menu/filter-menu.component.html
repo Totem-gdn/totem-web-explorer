@@ -24,7 +24,7 @@
          *ngIf="searchType === 'graph'" class="rounded my-8 mb-2 items-center flex flex-col">
         </graph-slider>
     
-        <div *ngIf="items && searchType != 'graph'" class="h-200px overflow-y-auto">
+        <div *ngIf="items && searchType != 'graph' && searchType != 'range'" class="h-200px overflow-y-auto">
             <div class="p-2 flex items-center hover:bg-grey cursor-pointer relative" *ngFor="let item of items">
                 <div class="p-2 w-9 h-9 img rounded">
                 </div>
