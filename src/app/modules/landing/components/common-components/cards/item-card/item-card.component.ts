@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'item-card',
   templateUrl: './item-card.component.html',
   styleUrls: ['./item-card.component.scss']
 })
-export class ItemCardComponent implements OnInit {
+export class ItemCardComponent implements AfterViewInit {
 
-  constructor() { }
+  @ViewChild('item') item!: ElementRef;
+  @Input() width = 'auto';
 
   isLiked = false;
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.item.nativeElement.style.width = this.width;
   }
 
   onClickLike() {

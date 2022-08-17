@@ -1,11 +1,9 @@
-<div class="flex flex-col cursor-pointer rounded item overflow-hidden">
+<div #item class="flex flex-col item">
 
-    <!-- <div class="flex flex-1 relative overflow-hidden"> -->
-        <img class="h-80 object-cover" src="assets/images/avatar.png" alt="">
-    <!-- </div> -->
+    <img class="h-80 object-cover" src="assets/images/avatar.png" alt="">
 
     <div class="p-4 grow flex flex-col">
-        <div class="flex justify-between">
+        <div class="flex justify-between pb-[15px]">
             <h3>ID: 1111</h3>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="onClickLike()"></mat-icon>
@@ -13,7 +11,7 @@
             </mat-icon>
         </div>
 
-        <div class="flex mt-auto">
+        <div class="flex mt-auto max-w-[320px]">
             <div>
                 <h4>566</h4>
                 <p class="text-light-grey">Games played</p>

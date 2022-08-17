@@ -1,9 +1,11 @@
 <div class="dropdown">
-    <div class="menu-filter bg-grey" (click)="onClickMenu()"
+    <div #menu class="menu-filter bg-grey" (click)="onClickMenu($event)"
         [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
-        <span class="whitespace-nowrap">{{title}}</span>
-        <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
-        <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+
+        <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
+        <mat-icon class="pointer-events-none" *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
+        <mat-icon class="pointer-events-none" *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+      
     </div>
 
     <div class="z-30 dropdown-menu opacity-0 !pb-0 w-[300px] backdrop-blur-xl" [ngClass]="menuActive ? 'appear': ''">
@@ -14,12 +16,14 @@
 
         <div class="menu-items">
             <div class="menu-item" *ngFor="let item of items">
-                <div class="p-2 w-9 h-9 img rounded item-gradient">
-                </div>
+                <div class="p-2 w-9 h-9 img rounded item-gradient"></div>
+
                 <div class="flex flex-col my-auto px-2.5">
                     <span>{{item.name}}</span>
                     <span class="text-light-grey">{{item.genre}}</span>
                 </div>
+
+                <label><input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent" type="radio" name="input"></label>
             </div>
         </div>
 
@@ -29,5 +33,6 @@
                 <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
             </div>
         </div>
+        
     </div>
 </div>

@@ -80,6 +80,7 @@
             overflow-y: auto;
 
             .menu-item {
+                position: relative;
                 border-radius: 4px;
                 white-space: nowrap;
                 padding: 0 5px;
@@ -90,6 +91,20 @@
                 
                 &:hover {
                     background-color: $transparent-light;
+                }
+
+                & label {
+                    cursor: pointer;
+                    display: flex;
+                    position:absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+
+                    & input {
+                        display: none;
+                    }
                 }
             }  
         }  

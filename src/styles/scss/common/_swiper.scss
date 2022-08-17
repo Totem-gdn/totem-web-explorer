@@ -15,4 +15,9 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   width: 16px;
   height: 16px;
   background: rgba(95, 99, 105, 0.5);
+
+  @media (max-width: 999px) {
+    width: 10px;
+    height: 10px;
+  }
 }

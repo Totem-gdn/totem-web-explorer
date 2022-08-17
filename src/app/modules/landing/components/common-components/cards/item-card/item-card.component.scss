@@ -1,14 +1,16 @@
 @import 'styles/scss/variables';
 
 .item {
-    min-width: 280px;
     max-width: 440px;
     height: 440px;
-    margin: auto;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
     background: $grey;
     text-align: start;
-
+    margin: auto;
     transition: all 0.33s ease-in;
+
     & img {
         border-radius: 0;
     }

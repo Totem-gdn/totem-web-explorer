@@ -82,12 +82,6 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
                 type: 'bullets',
                 clickable: true
             },
-            // Navigation arrows
-            // navigation: {
-            //   nextEl: '.arrow-right',
-            //   prevEl: '.arrow-left',
-            // },
-
         });
     }
 
