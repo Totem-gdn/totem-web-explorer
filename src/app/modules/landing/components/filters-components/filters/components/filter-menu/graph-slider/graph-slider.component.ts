@@ -10,7 +10,7 @@ import { Component, ElementRef, ViewChild } from "@angular/core";
 export class GraphSliderComponent {
 
     minValue = 0;
-    maxValue = 5;
+    maxValue = 0;
 
     marginLeft!: string;
     marginRight!: string;
@@ -25,13 +25,14 @@ export class GraphSliderComponent {
     }
 
     update() {
+        this.checkThumbPosition();
         this.changeMaxValue();
         this.changeMinValue();
-        this.checkPosition();
         this.setMargins();
     }
 
     changeMinValue() {
+        console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
         const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 18) / (minValue.max - minValue.min));
@@ -47,16 +48,25 @@ export class GraphSliderComponent {
         this.maxValue = maxValue.value;
     }
 
-    checkPosition() {
-        
-        if(this.minValue > this.maxValue) {
-            const maxSliderValue = this.sliderThumbMax.nativeElement.max;
-            // this.maxValue
+    checkThumbPosition() {
+        const minValue = this.sliderThumbMin.nativeElement;
+        const maxValue = this.sliderThumbMax.nativeElement;
+
+     
+        if(+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
+            maxValue.value = +minValue.value + 1;
         }
 
-        if(this.maxValue < this.minValue) {
-            const minSliderValue = this.sliderThumbMin.nativeElement.min;
-            // this.maxValue
+        if(+minValue.value >= +maxValue.value && +minValue.value == this.minValue) {
+            minValue.value = +maxValue.value - 1;
+        }
+
+        if(+maxValue.value == 0) {
+            maxValue.value +maxValue.value + 1;
+        }
+
+        if(+minValue.value == +minValue.max) {
+            minValue.value = maxValue.value - 1;
         }
     }
 
