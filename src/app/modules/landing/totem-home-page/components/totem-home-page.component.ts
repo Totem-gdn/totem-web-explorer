@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as e from 'express';
 
-import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
+import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative } from 'swiper';
+import { CreativeEffectOptions } from 'swiper/types';
 
 
 
@@ -29,7 +30,7 @@ export class TotemHomePageComponent implements OnInit {
 
   eventDate: Date = new Date('08/19/2022');
 
-  @ViewChild('joinButton') joinButton!: ElementRef;
+  //@ViewChild('joinButton') joinButton!: ElementRef;
 
   constructor() { }
 
@@ -37,19 +38,33 @@ export class TotemHomePageComponent implements OnInit {
     // init Swiper:
     this.swiper = new Swiper('.swiper', {
 
-      modules: [Navigation, Pagination, Autoplay, EffectCoverflow],
-
+      modules: [Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative],
       autoplay: {
-        delay: 4000,
-        disableOnInteraction: true
+        delay: 6000,
+        disableOnInteraction: false
       },
       slidesPerView: 'auto',
-      speed: 2000,
+      loopedSlides: 4,
+      speed: 1000,
       loop: true,
       effect: 'coverflow',
       coverflowEffect: {
         slideShadows: false
       },
+      //creativeEffect: {
+      //  prev: {
+      //    shadow: false,
+      //    translate: ["-120%", 0, -800],
+      //    rotate: [0, -100, 0]
+      //  },
+      //  next: {
+      //    shadow: false,
+      //    translate: ['120%', 0, -800],
+      //    rotate: [0, 100, 0]
+      //  }
+      //},
+
+      loopPreventsSlide: false,
       // Disable preloading of all images
       //preloadImages: false,
       // Enable lazy loading
@@ -72,12 +87,25 @@ export class TotemHomePageComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+
+  }
+
+  joinCommunity(event: MouseEvent) {
+    console.log(event);
+  }
+
   onMouseOver(event: MouseEvent) {
     window.innerWidth
-    console.log(event);
-    this.x = event.pageX - 10;
+    //console.log(event);
+    let el = document.getElementById('joinButton');
+    console.log(el);
+
+    console.log(el?.getBoundingClientRect().left);
+
+    this.x = event.pageX - el!.getBoundingClientRect().left + 30;
     //this.y = event.pageY * 0;
-    console.log(this.x, this.y);
+    //console.log(this.x, this.y);
 
   }
 

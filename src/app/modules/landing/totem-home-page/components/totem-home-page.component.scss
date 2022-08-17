@@ -27,7 +27,7 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        filter: blur(278px);
+        filter: blur(200px);
         .first-circle {
           position: absolute;
           left: 613px;
@@ -126,49 +126,10 @@
             }
           }
         }
-        .join-button {
-          margin-top: 56px;
-          border-radius: 4px !important;
-          background-color: $yellow;
-          color: #111;
-          width: 220px;
-          height: 50px;
-          outline: 1px solid transparent;
-          transition: background-color 0.33s ease-out;
-          overflow: hidden;
-          z-index: 4;
-
-          &:hover {
-            //background-color: rgba(255, 255, 255, 0.1);
-            background-color: $grey;
-            color: $yellow;
-          }
-          &:focus {
-            //background-color: $yellow;
-            outline: 1px solid $yellow;
-          }
-          span.caption {
-            position: relative;
-            z-index: 1;
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 19px;
-          }
-          span.glow {
-            height: 200px;
-            width: 140px;
-            background: radial-gradient(closest-side, lighten($yellow, 10%), transparent);
-            position: absolute;
-            border-radius: 100%;
-            transform: 0px 0px;
-            top: -74px;
-            left: -100px;
-            z-index: 0;
-          }
+        .button-cta {
+          margin-top: 54px;
         }
-
       }
-
     }
 
     .content-distance {
@@ -213,7 +174,7 @@
       .swiper-slide {
         margin-right: 6px;
         -webkit-backface-visibility: hidden;
-        -webkit-transform: translate3d(0,0,0);
+        -webkit-transform: translate3d(0, 0, 0);
       }
     }
     .swiper-button-next, .swiper-button-prev {
@@ -257,9 +218,9 @@
   }
 }
 
-
 .slider-card {
   width: inherit;
+  position: relative;
   height: 600px;
   background: linear-gradient(359.71deg, rgba(255, 255, 255, 0.1) 0.38%, rgba(255, 255, 255, 0) 46.66%);
   border-radius: 6px 6px 4px 4px;
@@ -269,16 +230,33 @@
   place-content: stretch flex-start;
   align-items: stretch;
   overflow: hidden;
+  z-index: 1;
   @media (max-width: 960px) {
     height: 310px;
   }
+}
 
-  //border: 2px solid transparent;
-  //border-image: linear-gradient(312.93deg, #969595 0.64%, rgba(85, 85, 85, 0) 95.46%);
-  //border-image-slice: 1;
-  //border: 1px solid;
-  //border-image-source: linear-gradient(312.93deg, #969595 0.64%, rgba(85, 85, 85, 0) 95.46%);
-
+.slider-card {
+  &::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    padding: 1px;
+    border-radius: 6px 6px 4px 4px;
+    background: $linear-light;
+    -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.33s ease-out;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
 }
 
 .game-image {
@@ -378,6 +356,6 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(200px);
+    transform: translateY(280px);
   }
 }
