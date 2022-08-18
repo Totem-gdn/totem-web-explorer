@@ -22,7 +22,7 @@
     <div class="profile-block cursor-pointer" (click)="web3Login()">
       <img *ngIf="!avatar && !loading" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
       <loading-spinner *ngIf="loading"></loading-spinner>
-      <img *ngIf="avatar && !loading" [src]="avatar" alt="profile-icon">
+      <img *ngIf="avatar && !loading" [src]="avatar" alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
     </div>
     <div class="tablet-menu">
       <div class="search-mobile">
