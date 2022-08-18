@@ -1,0 +1,13 @@
+
+@import 'styles/scss/variables';
+
+.tag {
+    cursor: pointer;
+    background-color: $grey;
+    padding: 10px;
+    color: $light-grey;
+
+    .mat-icon {
+        
+    }
+}

@@ -6,9 +6,8 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from "app/shared/shared.module";
 import { SwiperModule } from "swiper/angular";
 import { ItemCardModule } from "../components/common-components/cards/item-card/item-card.module";
-import { FilterSliderModule } from "../components/filters-components/filters/components/filter-slider/filter-slider.module";
-import { FilterUpdateModule } from "../components/filters-components/filters/components/filter-update/filter-update.module";
-import { SortByModule } from "../components/filters-components/filters/components/sort-by/sort-by.module";
+import { SearchDropdownModule } from "../components/common-components/search-dropdown/search-dropdown.module";
+import { FilterNavModule } from "../components/filters-components/filters/components/filter-nav/filter-nav.module";
 import { ItemFilterModule } from "../components/filters-components/filters/item-filter/item-filter.module";
 import { ItemListModule } from "../components/filters-components/lists/item-list/item-list.module";
 import { CarouselModule } from "../components/home-components/carousel/carousel.module";
@@ -29,10 +28,9 @@ import { ItemsRoutes } from "./items.routing";
         ItemCardModule,
         ItemListModule,
         ItemFilterModule,
-        FilterUpdateModule,
-        FilterSliderModule,
-        SortByModule,
+        FilterNavModule,
         CarouselModule,
+        SearchDropdownModule,
         
         MatButtonModule,
         FlexLayoutModule,

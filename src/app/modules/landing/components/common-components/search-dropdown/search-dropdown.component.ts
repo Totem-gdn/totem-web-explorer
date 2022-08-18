@@ -3,12 +3,12 @@ import { Router } from "@angular/router";
 
 
 @Component({
-    selector: 'carousel-dropdown',
-    templateUrl: './carousel-dropdown.component.html',
-    styleUrls: ['./carousel-dropdown.component.scss']
+    selector: 'search-dropdown',
+    templateUrl: './search-dropdown.component.html',
+    styleUrls: ['./search-dropdown.component.scss']
 })
 
-export class CarouselDropdownComponent {
+export class SearchDropdownComponent {
 
     constructor(private router: Router) {}
 

@@ -19,8 +19,10 @@
         <a>Help</a>
       </div>
     </div>
-    <div class="profile-block">
-      <img src="assets/icons/nav/account_circle.svg" alt="profile-icon">
+    <div class="profile-block cursor-pointer" (click)="web3Login()">
+      <img *ngIf="!avatar && !loading" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
+      <loading-spinner *ngIf="loading"></loading-spinner>
+      <img *ngIf="avatar && !loading" [src]="avatar" alt="profile-icon">
     </div>
     <div class="tablet-menu">
       <div class="search-mobile">

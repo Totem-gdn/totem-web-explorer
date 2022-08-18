@@ -1,10 +1,9 @@
 
-<div class="flex">
-    <div class="flex item-center h-50px !w-3">
-        <mat-icon *ngIf="checkedItems && checkedItems.length != 0" class="m-auto !w-2 !h-2 text-yellow" [svgIcon]="'solid:point'"></mat-icon>
-    </div>
+<div class="flex relative">
+  
+    <mat-icon *ngIf="checkedItems && checkedItems.length != 0" class="point-icon" [svgIcon]="'solid:point'"></mat-icon>
 
-    <div class="container max-w-440px mb-2 max-h-50px ml-1" #container>
+    <div class="container" #container>
 
         <!-- Menu button -->
         <div class="menu-filter mb-3" (click)="onClickMenu()"
