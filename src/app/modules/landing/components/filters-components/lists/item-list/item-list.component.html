@@ -12,5 +12,8 @@
         </div>
     </div>
 
-    <item-card class="m-[10px]" [width]="'340px'"  *ngFor="let item of [0,0,0,0,0,0,0,0,0,0,0,0,0]"></item-card> 
+    <div class="flex flex-wrap">
+        <item-card class="m-[10px] flex grow" *ngFor="let item of [0,0,0,0,0,0,0,0,0,0,0,0,0]"></item-card> 
+    </div>
+
 </div>

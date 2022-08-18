@@ -8,7 +8,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '
 export class ItemCardComponent implements AfterViewInit {
 
   @ViewChild('item') item!: ElementRef;
-  @Input() width = 'auto';
+  @Input() width = 'full';
 
   isLiked = false;
 

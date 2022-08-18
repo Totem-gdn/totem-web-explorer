@@ -8,6 +8,7 @@
     gap: 10px;
     cursor: pointer;
     border-radius: 4px;
+    transition: all 0.2s;
 
     & .mat-icon {
         color: $white;
