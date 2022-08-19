@@ -38,15 +38,15 @@ export class TotemHomePageComponent implements OnInit {
     // init Swiper:
     this.swiper = new Swiper('.swiper', {
 
-      modules: [Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative],
+      modules: [Navigation, Pagination, Autoplay, EffectCoverflow],
       autoplay: {
         delay: 6000,
         disableOnInteraction: false
       },
-      slidesPerView: 'auto',
-      loopedSlides: 4,
+      // slidesPerView: 'auto',
+      // loopedSlides: 4,
       speed: 1000,
-      loop: true,
+      loop: false,
       effect: 'coverflow',
       coverflowEffect: {
         slideShadows: false
@@ -63,7 +63,7 @@ export class TotemHomePageComponent implements OnInit {
       //    rotate: [0, 100, 0]
       //  }
       //},
-
+      rewind: true,
       loopPreventsSlide: false,
       // Disable preloading of all images
       //preloadImages: false,

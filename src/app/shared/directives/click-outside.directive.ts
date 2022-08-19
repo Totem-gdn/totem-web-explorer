@@ -1,30 +1,30 @@
-import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Inject, OnDestroy, Output } from "@angular/core";
-import { filter, fromEvent, Subscription } from "rxjs";
+// import { DOCUMENT } from "@angular/common";
+// import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Inject, OnDestroy, Output } from "@angular/core";
+// import { filter, fromEvent, Subscription } from "rxjs";
 
-@Directive({ selector: '[clickOutside]'})
+// @Directive({ selector: '[clickOutside]'})
 
-export class ClickOutsideDirective implements AfterViewInit, OnDestroy {
+// export class ClickOutsideDirective implements AfterViewInit, OnDestroy {
 
-    @Output() clickOutside = new EventEmitter<void>();
+//     @Output() clickOutside = new EventEmitter<void>();
 
-    sub!: Subscription;
+//     sub!: Subscription;
 
-    constructor(private el: ElementRef, @Inject(DOCUMENT) private document: Document) { }
+//     constructor(private el: ElementRef, @Inject(DOCUMENT) private document: Document) { }
   
-    ngAfterViewInit(): void {
-        this.sub = fromEvent(this.document, 'click').pipe(filter((event) => {
-            return !this.isInside(event.target as HTMLElement)
-        })).subscribe(() => {
-            this.clickOutside.emit();
-        })
-    }
+//     ngAfterViewInit(): void {
+//         this.sub = fromEvent(this.document, 'click').pipe(filter((event) => {
+//             return !this.isInside(event.target as HTMLElement)
+//         })).subscribe(() => {
+//             this.clickOutside.emit();
+//         })
+//     }
 
-    isInside(elementToCheck: HTMLElement): boolean {
-        return elementToCheck === this.el.nativeElement || this.el.nativeElement.contains(elementToCheck)
-    }
+//     isInside(elementToCheck: HTMLElement): boolean {
+//         return elementToCheck === this.el.nativeElement || this.el.nativeElement.contains(elementToCheck)
+//     }
 
-    ngOnDestroy(): void {
-        this.sub?.unsubscribe();
-    }
-}
+//     ngOnDestroy(): void {
+//         this.sub?.unsubscribe();
+//     }
+// }

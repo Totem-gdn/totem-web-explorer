@@ -30,7 +30,7 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
         // init Swiper:
         this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
 
-            modules: [Navigation, Pagination, Autoplay, EffectCoverflow],
+            modules: [Navigation, Pagination, Autoplay],
 
             speed: 400,
             // loop: true,
