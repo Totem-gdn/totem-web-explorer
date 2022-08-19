@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -16,10 +16,21 @@ export class TotemButtonComponent implements OnInit {
 
   x: number = Number(this.width) / 2;
   hovered: boolean = false;
+  disableRipple: boolean = false;
 
   constructor() { }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if (event.target.innerWidth < 1000) {
+      this.disableRipple = true;
+    } else {
+      this.disableRipple = false;
+    }
+  }
+
   ngOnInit(): void {
+    this.disableRipple = window.innerWidth < 1000 ? true : false;
   }
 
   clickEvent(event: MouseEvent) {

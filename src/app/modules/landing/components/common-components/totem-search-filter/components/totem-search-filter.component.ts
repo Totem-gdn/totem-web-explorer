@@ -94,12 +94,22 @@ export class TotemSearchFilterComponent implements OnInit {
     setTimeout(() => {
       let itemsArray = items.filter((item: Items) => item.name.toLowerCase().includes(params));
       this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
+      this.processAvatars(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
+      this.processGames(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
     }, 1200);
   }
 
   processItems(items: Items[] | null) {
     this.loading$.next(false);
     this.itemsArray.next(items);
+  }
+  processAvatars(items: Items[] | null) {
+    this.loading$.next(false);
+    this.avatarsArray.next(items);
+  }
+  processGames(items: Items[] | null) {
+    this.loading$.next(false);
+    this.gamesArray.next(items);
   }
 
   goToPage() {
@@ -132,9 +142,9 @@ export class TotemSearchFilterComponent implements OnInit {
   }
 
   onFocus() {
-    if (this.searchInfo.value) {
+    //if (this.searchInfo.value) {
       this.dropdownOpened = true;
-    }
+    //}
   }
 
   mouseEnter() {

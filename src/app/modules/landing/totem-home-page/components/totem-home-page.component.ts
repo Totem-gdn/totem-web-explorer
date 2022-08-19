@@ -18,7 +18,7 @@ export class TotemHomePageComponent implements OnInit {
   swiper!: Swiper;
 
   testGame: any[] = [{
-    name: 'Syber Hero',
+    name: 'Super Hero',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam',
     url: 'assets/images/promo-game.png'
   }]
@@ -28,7 +28,7 @@ export class TotemHomePageComponent implements OnInit {
 
   hovered: boolean = false;
 
-  eventDate: Date = new Date('08/19/2022');
+  eventDate: Date = new Date('08/23/2022');
 
   //@ViewChild('joinButton') joinButton!: ElementRef;
 
@@ -43,26 +43,28 @@ export class TotemHomePageComponent implements OnInit {
         delay: 6000,
         disableOnInteraction: false
       },
-      slidesPerView: 'auto',
-      loopedSlides: 4,
-      speed: 1000,
+      slidesPerView: 1,
+      spaceBetween: 10,
+      //loopedSlides: 4,
+      speed: 1200,
       loop: true,
-      effect: 'coverflow',
-      coverflowEffect: {
-        slideShadows: false
-      },
-      //creativeEffect: {
-      //  prev: {
-      //    shadow: false,
-      //    translate: ["-120%", 0, -800],
-      //    rotate: [0, -100, 0]
-      //  },
-      //  next: {
-      //    shadow: false,
-      //    translate: ['120%', 0, -800],
-      //    rotate: [0, 100, 0]
-      //  }
+      //rewind: true,
+      effect: 'creative',
+      //coverflowEffect: {
+      //  slideShadows: false
       //},
+      creativeEffect: {
+        prev: {
+          shadow: false,
+          translate: ["-120%", 0, -800],
+          rotate: [0, -100, 0]
+        },
+        next: {
+          shadow: false,
+          translate: ['120%', 0, -400],
+          rotate: [0, 60, 0]
+        }
+      },
 
       loopPreventsSlide: false,
       // Disable preloading of all images
@@ -92,7 +94,7 @@ export class TotemHomePageComponent implements OnInit {
   }
 
   joinCommunity(event: MouseEvent) {
-    console.log(event);
+    //console.log(event);
   }
 
   onMouseOver(event: MouseEvent) {

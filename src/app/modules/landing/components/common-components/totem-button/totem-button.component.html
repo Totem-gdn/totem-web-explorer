@@ -6,6 +6,9 @@
   class="join-button"
   [ngStyle]="{'width': width + 'px', 'height': height + 'px'}"
   (click)="clickEvent($event)"
+  matRipple
+  [matRippleColor]="'#ffe167'"
+  [matRippleDisabled]="!disableRipple"
 >
   <span [ngClass]="{'glow': hovered}" [ngStyle]="{'transform': 'translateX(' + x + 'px)'}"></span>
   <span class="caption">{{caption}}</span>
