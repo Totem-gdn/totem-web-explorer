@@ -82,12 +82,6 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
                 type: 'bullets',
                 clickable: true
             },
-            // Navigation arrows
-            // navigation: {
-            //   nextEl: '.arrow-right',
-            //   prevEl: '.arrow-left',
-            // },
-
         });
     }
 
@@ -104,7 +98,13 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
     }
 
     onClickViewAll() {
-
+        if(this.itemType === 'item') {
+            this.router.navigate(['/items']);
+        } else if(this.itemType === 'game') {
+            this.router.navigate(['/games']);
+        } else if(this.itemType === 'avatar') {
+            this.router.navigate(['/avatars']);
+        }
     }
 
 }

@@ -2,12 +2,12 @@ import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { SearchFieldModule } from "@app/modules/landing/components/common-components/search-field/search-field.module";
 import { SharedModule } from "@app/shared/shared.module";
-import { CarouselDropdownComponent } from "./carousel-dropdown.component";
+import { SearchDropdownComponent } from "./search-dropdown.component";
 
 
 @NgModule({
     declarations: [
-        CarouselDropdownComponent
+        SearchDropdownComponent
     ],
     imports: [
         SharedModule,
@@ -15,10 +15,10 @@ import { CarouselDropdownComponent } from "./carousel-dropdown.component";
         SearchFieldModule,
     ],
     exports: [
-        CarouselDropdownComponent
+        SearchDropdownComponent
     ]
 })
 
-export class CarouselDropdownModule {
+export class SearchDropdownModule {
     
 }

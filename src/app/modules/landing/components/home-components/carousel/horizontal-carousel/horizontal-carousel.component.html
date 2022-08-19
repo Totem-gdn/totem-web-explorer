@@ -1,6 +1,6 @@
 <div class="w-full h-full flex flex-col mx-auto overflow-x-hidden overflow-y-hidden">
 
-  <div class="flex items-center mx-2 flex-wrap">
+  <div class="flex items-center flex-wrap">
 
     <div class="flex items-center mb-7">
       <mat-icon class="min-w-4 !w-[18px] text-yellow" [svgIcon]="'solid:point'"></mat-icon>
@@ -8,7 +8,7 @@
     </div>
 
     <div class="mb-7" *ngIf="menuTitle">
-      <carousel-dropdown [title]="menuTitle" [itemType]="itemType"></carousel-dropdown>
+      <search-dropdown [title]="menuTitle" [itemType]="itemType"></search-dropdown>
     </div>
 
     <div class="ml-auto mb-7 hidden lg:flex">
@@ -35,6 +35,6 @@
   </div>
 
   <div class="flex pt-[20px] relative">
-    <span class="cursor-pointer ml-auto mr-3 text-light-grey" (click)="onClickViewAll()">View all</span>
+    <span class="cursor-pointer ml-auto text-light-grey" (click)="onClickViewAll()">View all</span>
   </div>
 </div>

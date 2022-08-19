@@ -1,39 +1,48 @@
 
 
-<div class="w-80 flex flex-col mr-3">
+<div class="flex flex-col">
+    <div class="flex py-[15px]">
+        <filter-slider class="mr-[15px]"></filter-slider>
+        <clear-all></clear-all>
+    </div>
+
+    <div class="flex py-[15px]">
+        <filter-update></filter-update>
+    </div>
+
+    <div class="w-80 flex flex-col mr-3">   
+        <filter-menu
+        [title]="'Game name'"
+        [inputType]="'radio'"
+        [items]="games"></filter-menu>
     
-    <filter-menu
-    [title]="'Game name'"
-    [inputType]="'radio'"
-    [items]="games"></filter-menu>
-
-    <!-- <filter-menu
-    [title]="'Rarity'"
-    [searchType]="'graph'"
-    [items]="games"></filter-menu> -->
-
-    <filter-menu
-    [title]="'Damage'"
-    [searchType]="'range'"></filter-menu>
-
-    <filter-menu
-    [title]="'Element'"
-    [inputType]="'checkbox'"
-    [searchType]="null"
-    [items]="elements"></filter-menu>
-
-    <filter-menu
-    [title]="'Color'"
-    [inputType]="'checkbox'"
-    [items]="colors"></filter-menu>
-
-    <filter-menu
-    [title]="'Item type'"
-    [inputType]="'checkbox'"
-    [items]="itemTypes"></filter-menu>
-
-    <filter-menu
-    [title]="'Material'"
-    [items]="materials"></filter-menu>
-
+        <!-- <filter-menu
+        [title]="'Rarity'"
+        [searchType]="'graph'"
+        [items]="games"></filter-menu> -->
+    
+        <filter-menu
+        [title]="'Damage'"
+        [searchType]="'range'"></filter-menu>
+    
+        <filter-menu
+        [title]="'Element'"
+        [inputType]="'checkbox'"
+        [searchType]="null"
+        [items]="elements"></filter-menu>
+    
+        <filter-menu
+        [title]="'Color'"
+        [inputType]="'checkbox'"
+        [items]="colors"></filter-menu>
+    
+        <filter-menu
+        [title]="'Item type'"
+        [inputType]="'checkbox'"
+        [items]="itemTypes"></filter-menu>
+    
+        <filter-menu
+        [title]="'Material'"
+        [items]="materials"></filter-menu>
+    </div>
 </div>

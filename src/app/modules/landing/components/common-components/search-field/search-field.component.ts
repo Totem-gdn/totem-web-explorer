@@ -1,5 +1,8 @@
-import { Component, Input } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ItemsService } from "@app/core/items.service";
+import { BehaviorSubject, of, switchMap } from "rxjs";
 
 
 @Component({
@@ -8,19 +11,54 @@ import { Router } from "@angular/router";
     styleUrls: ['./search-field.component.scss']
 })
 
-export class SearchFieldComponent {
+export class SearchFieldComponent implements OnInit {
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                private itemsService: ItemsService) {
 
     }
+    @Input() itemType: string = '';
+    @ViewChild('searchInput') searchInput!: ElementRef;
+    
+    items: any[] = [];
+    itemsArray = new BehaviorSubject<any[] | null>(null);
 
     menuActive: boolean = false;
     searchActive = false;
-
-    @Input() itemType: string = '';
-    @Input() items: any = [{name: 'Mr.Krabs', genre: 'horror'}, {name: 'GTA 6', genre: 'Arcade'}, {name: 'SontaCity', genre: 'Shooter'}, {name: 'Mineground', genre: 'Sandbox'},{name: 'Mr.Krabs', genre: 'horror'}, {name: 'GTA 6', genre: 'Arcade'}, {name: 'SontaCity', genre: 'Shooter'}, {name: 'Mineground', genre: 'Sandbox'},]
+    searchInfo = new FormControl('');
 
 
+    ngOnInit(): void {
+        // setInterval(() => {
+        //     const items = this.itemsArray.getValue();
+        //     console.log(items)
+        // },1000)
+        this.items = this.itemsService.items;
+        this.initFormListener();
+      }
+    
+      initFormListener() {
+        this.searchInfo.valueChanges.pipe(
+          switchMap((id: string | null) => {
+            return of(id);
+          })
+        )
+        .subscribe((text: string | null) => {
+          console.log(text);
+          if (text?.length) {
+            this.getItems(text);
+          }
+        });
+      }
+
+      getItems(params: string) {
+          let itemsArray = this.items.filter((item: any) => item.name.toLowerCase().includes(params));
+          this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
+      }
+    
+      processItems(items: any[] | null) {
+        this.itemsArray.next(items);
+      }
 
     onClickViewAll() {
         if(this.itemType === 'item') {
