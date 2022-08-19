@@ -5,10 +5,11 @@
         <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
         <mat-icon class="pointer-events-none" *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
         <mat-icon class="pointer-events-none" *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
-      
+
     </div>
 
-    <div class="z-30 dropdown-menu opacity-0 !pb-0 w-[300px] backdrop-blur-xl" [ngClass]="menuActive ? 'appear': ''">
+    <div class="z-30 dropdown-menu opacity-0 !pb-0 w-[300px] backdrop-blur-xl gradient-border"
+        [ngClass]="menuActive ? 'appear': ''">
 
         <div class="pt-[5px] px-[5px]">
             <search-field></search-field>
@@ -16,14 +17,18 @@
 
         <div class="menu-items">
             <div class="menu-item" *ngFor="let item of items">
-                <div class="p-2 w-9 h-9 img rounded item-gradient"></div>
+                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent checked" type="radio" name="input">
+                <!-- <label class="checked"></label> -->
 
-                <div class="flex flex-col my-auto px-2.5">
-                    <span>{{item.name}}</span>
-                    <span class="text-light-grey">{{item.genre}}</span>
+                <div class="content">
+                    <div class="p-2 w-9 h-9 img rounded item-gradient"></div>
+
+                    <div class="flex flex-col my-auto px-2.5">
+                        <span>{{item.name}}</span>
+                        <span class="text-light-grey">{{item.genre}}</span>
+                    </div>
                 </div>
 
-                <label><input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent" type="radio" name="input"></label>
             </div>
         </div>
 
@@ -33,6 +38,6 @@
                 <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
             </div>
         </div>
-        
+
     </div>
 </div>
