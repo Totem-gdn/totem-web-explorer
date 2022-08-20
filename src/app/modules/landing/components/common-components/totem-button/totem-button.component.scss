@@ -13,9 +13,11 @@
   box-shadow: none;
   position: relative;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    @media (min-width: 999px) {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
     //background-color: $grey;
-    //color: $yellow;
+    //color: #ffe167;
   }
   &:focus {
     //background-color: $yellow;
@@ -40,5 +42,8 @@
     top: -74px;
     left: -100px;
     z-index: 0;
+    @media (max-width: 999px) {
+      display: none;
+    }
   }
 }

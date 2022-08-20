@@ -111,6 +111,15 @@
       max-width: 1164px;
       width: 100%;
       border-radius: 4px;
+      @media (max-width: 999px) {
+        height: 490px;
+      }
+      @media (max-width: 767px) {
+        height: 350px;
+      }
+      @media (max-width: 490px) {
+        height: 200px;
+      }
       .totem-video {
         height: inherit;
         width: 100%;
