@@ -1,5 +1,5 @@
 <div class="dropdown">
-    <div #menu class="menu-filter bg-grey" (click)="onClickMenu($event)"
+    <div #menu class="menu-filter bg-grey mr-[90px]" (click)="onClickMenu($event)"
         [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
 
         <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
@@ -8,8 +8,9 @@
 
     </div>
 
-    <div class="z-30 dropdown-menu opacity-0 !pb-0 backdrop-blur-xl gradient-border"
-        [ngClass]="menuActive ? 'appear': ''">
+    <div #dropdown class="z-30 dropdown-menu opacity-0 !pb-0 backdrop-blur-xl gradient-border-solid w-[200px] lg:w-[300px]"
+        [ngClass]="menuActive ? 'appear': ''"
+        (clickOutside)="onClickOutside($event)">
 
         <div class="pt-[5px] px-[5px]">
             <search-field></search-field>
