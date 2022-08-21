@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { Component, ElementRef, Inject, Input, OnDestroy, ViewChild } from "@angular/core";
+import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
     styleUrls: ['./search-dropdown.component.scss']
 })
 
-export class SearchDropdownComponent {
+export class SearchDropdownComponent implements OnInit {
 
     constructor(private router: Router,
         @Inject(DOCUMENT) private document: Document) { }
@@ -23,9 +23,11 @@ export class SearchDropdownComponent {
 
     items = [{ name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' }, { name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' },]
     menuActive: boolean = false;
+
     sub!: Subscription;
 
-
+    ngOnInit() {
+    }
 
     onChangeInput(event: any) {
         const value = event.target.value;
@@ -37,10 +39,10 @@ export class SearchDropdownComponent {
         this.menuActive = !this.menuActive;
     }
 
-    onClickOutside(context: any) {
-        // if(this.dropdown.nativeElement.__ngContext__ === context) {
-        //     this.menuActive = false;
-        // }
+    onClick(isClickedInside: any) {
+        if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
+            this.menuActive = false;
+        }
     }
 
     onClickViewAll() {
@@ -51,6 +53,10 @@ export class SearchDropdownComponent {
         } else if (this.itemType === 'avatar') {
             this.router.navigate(['/avatars']);
         }
+    }
+
+    onFocus() {
+        console.log('focus')
     }
 
 }

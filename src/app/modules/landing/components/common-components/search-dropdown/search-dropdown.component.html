@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown" (clickOutside)="onClick($event)">
     <div #menu class="menu-filter bg-grey mr-[90px]" (click)="onClickMenu($event)"
         [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
 
@@ -10,9 +10,9 @@
 
     <div #dropdown class="z-30 dropdown-menu opacity-0 !pb-0 backdrop-blur-xl gradient-border-solid w-[200px] lg:w-[300px]"
         [ngClass]="menuActive ? 'appear': ''"
-        (clickOutside)="onClickOutside($event)">
+        >
 
-        <div class="pt-[5px] px-[5px]">
+        <div class="search pt-[5px] pb-[10px] px-[5px] top-[0] w-full">
             <search-field></search-field>
         </div>
 
@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <div class="flex justify-center pt-1">
+        <div class="flex justify-center pt-[10px]">
             <div class="flex flex-col pb-[1px] cursor-pointer" (click)="onClickViewAll()">
                 <span class="text-center">View all</span>
                 <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>

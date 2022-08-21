@@ -9,7 +9,6 @@ import { SearchDropdownComponent } from "./search-dropdown.component";
 @NgModule({
     declarations: [
         SearchDropdownComponent,
-        ClickOutsideDirective
     ],
     imports: [
         SharedModule,
@@ -18,6 +17,8 @@ import { SearchDropdownComponent } from "./search-dropdown.component";
     ],
     exports: [
         SearchDropdownComponent
+    ],
+    providers: [
     ]
 })
 
