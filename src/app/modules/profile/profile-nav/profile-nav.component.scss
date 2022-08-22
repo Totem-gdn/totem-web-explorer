@@ -1,0 +1,15 @@
+@import 'styles/scss/variables';
+
+.navigation {
+    display: flex;
+    padding-bottom: 50px;
+
+    a {
+        padding-right: 35px;
+        color: $light-grey;
+
+        &:hover {
+            color: $white;
+        }
+    }
+}

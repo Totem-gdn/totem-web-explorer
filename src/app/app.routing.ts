@@ -1,5 +1,6 @@
 
 import { Route } from '@angular/router';
+import { ProfileResolver } from './core/resolvers/profile.resolver';
 import { LayoutComponent } from './layout/layout.component';
 
 export const AppRoutes: Route[] = [
@@ -15,7 +16,17 @@ export const AppRoutes: Route[] = [
       { path: 'avatars', loadChildren: () => import('app/modules/landing/avatars/avatars.module').then(m => m.AvatarsModule) },
       { path: 'items', loadChildren: () => import('app/modules/landing/items/items.module').then(m => m.ItemsModule) },
       { path: 'games', loadChildren: () => import('app/modules/landing/games/games.module').then(m => m.GamesModule) },
-
     ]
   },
+
+  {
+    path: '',
+    component: LayoutComponent,   
+    // resolve: {
+    //   ProfileResolver
+    // },
+    children: [
+      { path: 'profile', loadChildren: () => import('app/modules/profile/profile.module').then(m => m.ProfileModule)}
+    ]
+  }
 ]

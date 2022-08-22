@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/crypto/web3auth/web3auth.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { Web3AuthService } from '@app/core/crypto/web3auth/web3auth.service';
 })
 export class TotemNavigationComponent implements OnInit {
 
-  constructor(private web3Auth: Web3AuthService) { }
+  constructor(private web3Auth: Web3AuthService,
+              private router: Router) { }
 
   loading = false;
   avatar: undefined | string;
@@ -17,17 +19,17 @@ export class TotemNavigationComponent implements OnInit {
   }
 
   async web3Login() {
-    this.loading = true;
+    // this.loading = true;
 
-    await this.web3Auth.init();
-    await this.web3Auth.login();
+    // await this.web3Auth.init();
+    // await this.web3Auth.login();
 
-    const userInfo: any = await this.web3Auth.getUserInfo();
-    console.log(userInfo);
-    const avatar = userInfo.profileImage;
-    this.avatar = avatar;
-
-    this.loading = false;
+    // const userInfo: any = await this.web3Auth.getUserInfo();
+    // console.log(userInfo);
+    // const avatar = userInfo.profileImage;
+    // this.avatar = avatar;
+    // this.loading = false;
+    this.router.navigate(['/profile']);
   }
 
 }

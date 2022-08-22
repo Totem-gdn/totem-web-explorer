@@ -5,7 +5,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   host: {
-    class: 'max-w-full w-full flex-auto relative flex'
+    class: 'max-w-full w-full flex-auto relative flex h-full'
   }
 
 })

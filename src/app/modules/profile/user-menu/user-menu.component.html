@@ -1,0 +1,13 @@
+<div class="wrapper gradient-border-solid flex flex-col">
+    <div class="flex">
+        <img *ngIf="!user.avatar" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
+        <img *ngIf="user.avatar" alt="profile-icon" class="rounded-full">
+    </div>
+    <div class="text-light-grey">
+        <h4 class="mb-[10px]">{{user.email}}</h4>
+        <span>Wallet:<br>{{user.wallet}}</span>
+
+        <p class="pt-5" (click)="onLogout()">Logout</p>
+        <p>Transactions</p>
+    </div>
+</div>

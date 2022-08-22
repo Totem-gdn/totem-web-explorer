@@ -3,6 +3,7 @@ import { environment } from "@env/environment";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./web3RPC";
+import { from, Observable, of } from "rxjs";
 const clientId = environment.WEB3AUTH_ID;
 
 
@@ -14,6 +15,10 @@ export class Web3AuthService {
     provider: SafeEventEmitterProvider | null = null;
     isModalLoaded = false;
 
+    async get() { 
+        await this.init();
+        await this.login();
+    }
 
     init = async () => {
         this.web3auth = new Web3Auth({
@@ -68,7 +73,7 @@ export class Web3AuthService {
         }
         const rpc = new RPC(this.provider);
         const address = await rpc.getAccounts();
-        console.log(address);
+        return address;
     };
 
     getBalance = async () => {
@@ -120,4 +125,15 @@ export class Web3AuthService {
         this.provider = null;
         console.log("logged out");
     };
+
+    isLoggedIn() {
+        if(this.web3auth) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 }

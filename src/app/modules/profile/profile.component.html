@@ -1,0 +1,11 @@
+
+<div *ngIf="!loading" class="flex w-full">
+    <user-menu></user-menu>
+
+    <div class="flex flex-col w-full p-[30px]">
+        <profile-nav></profile-nav>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<loading-spinner class="m-auto" *ngIf="loading"></loading-spinner>
