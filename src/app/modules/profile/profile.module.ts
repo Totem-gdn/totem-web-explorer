@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
-import { ProfileInfoComponent } from "./profile-info/profile-info.component";
+import { ProfileInfoModule } from "./profile-info/profile-info.module";
 import { ProfileComponent } from "./profile.component";
 import { ProfileRoutes } from "./profile.routing";
 
@@ -13,7 +13,7 @@ import { ProfileRoutes } from "./profile.routing";
     imports: [
         SharedModule,
         RouterModule.forChild(ProfileRoutes),
-        ProfileInfoComponent
+        ProfileInfoModule
     ]
 })
 

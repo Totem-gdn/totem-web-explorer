@@ -1,6 +1,6 @@
 
 <div *ngIf="!loading" class="flex w-full">
-    <user-menu></user-menu>
+    <profile-info></profile-info>
 
     <div class="flex flex-col w-full p-[30px]">
         <div class="navigation">
@@ -8,7 +8,7 @@
             <a routerLinkActive="!text-white" routerLink="/profile/items">My items</a>
             <a routerLinkActive="!text-white" routerLink="/profile/games">My games</a>
         </div>
-        
+
         <router-outlet></router-outlet>
     </div>
 </div>
