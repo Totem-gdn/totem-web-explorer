@@ -1,11 +1,43 @@
 import type { SafeEventEmitterProvider } from "@web3auth/base";
 import Web3 from "web3";
+import { GetTokensABI } from "./abi/getTokens.abi";
 
 export default class EthereumRpc {
   private provider: SafeEventEmitterProvider;
 
   constructor(provider: SafeEventEmitterProvider) {
     this.provider = provider;
+  }
+
+  async getTokens() {
+    const web3 = new Web3(this.provider as any);
+    const accounts = await web3.eth.getAccounts();
+
+    const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+    const wallet = accounts[0]
+    console.log('account', wallet);
+    const tokenContract = GetTokensABI;
+    const contract = new web3.eth.Contract(tokenContract, contractAddress);
+
+    const tx = await contract.methods.claim().send({ 
+      from: wallet,
+      maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+      maxFeePerGas: "200000000000"
+    })
+    return tx;
+  }
+
+  async getTokenBalance() {
+    const web3 = new Web3(this.provider as any);
+    const accounts = await web3.eth.getAccounts();
+
+    const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+    const wallet = accounts[0]
+    const tokenContract = GetTokensABI;
+    const contract = new web3.eth.Contract(tokenContract, contractAddress);
+
+    const tx = await contract.methods.balanceOf(wallet).call()
+    return tx;
   }
 
   async getChainId(): Promise<string> {

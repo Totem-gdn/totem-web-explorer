@@ -38,6 +38,17 @@ export class Web3AuthService {
         this.isModalLoaded = true;
     }
 
+    getTokens = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        console.log('Get tokens');
+        const rpc = new RPC(this.provider);
+        const getTokens = await rpc.getTokens();
+        return getTokens;
+    }
+
     login = async () => {
         if (!this.web3auth) {
             console.log("web3auth not initialized yet");
@@ -83,8 +94,19 @@ export class Web3AuthService {
         }
         const rpc = new RPC(this.provider);
         const balance = await rpc.getBalance();
-        console.log(balance);
+        return balance;
     };
+
+    getTokenBalance = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        console.log('CheckBalance');
+        const rpc = new RPC(this.provider);
+        const checkBalance = await rpc.getTokenBalance();
+        return checkBalance;
+    }
 
     sendTransaction = async () => {
         if (!this.provider) {
@@ -127,7 +149,7 @@ export class Web3AuthService {
     };
 
     isLoggedIn() {
-        if(this.web3auth) {
+        if(this.provider) {
             return true;
         } else {
             return false;

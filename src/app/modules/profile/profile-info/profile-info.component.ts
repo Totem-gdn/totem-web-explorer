@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Web3AuthService } from '@app/core/crypto/web3auth/web3auth.service';
+import { Router } from '@angular/router';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 
 @Component({
   selector: 'profile-info',
@@ -14,7 +15,8 @@ export class ProfileInfoComponent implements OnInit {
   wallet!: string;
   user: any;
 
-  constructor(private web3Auth: Web3AuthService) { }
+  constructor(private web3Auth: Web3AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.handleAuth();
@@ -38,6 +40,7 @@ export class ProfileInfoComponent implements OnInit {
 
   async onLogout() {
     await this.web3Auth.logout();
+    this.router.navigate(['/home'])
   }
 
 }

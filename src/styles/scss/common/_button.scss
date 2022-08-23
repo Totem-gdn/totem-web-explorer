@@ -1,3 +1,26 @@
+@import 'styles/scss/variables';
+
+.button-style-1 {
+    pointer-events: all;
+    font-size: 18;
+    font-weight: 500;
+    height: 50px;
+    padding: 0 10px;
+    align-items: center;
+    background-color: $grey;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    &:hover {
+        background-color: $yellow;
+        color: $black;
+    }
+    &:disabled {
+        color: $light-grey;
+        pointer-events: none;
+    }
+}
 
 .toggle-button {
     display: flex;

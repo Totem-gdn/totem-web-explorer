@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { forkJoin, Observable } from "rxjs";
-import { Web3AuthService } from "../crypto/web3auth/web3auth.service";
+import { Web3AuthService } from "../web3auth/web3auth.service";
 
 @Injectable({ providedIn: 'root' })
 

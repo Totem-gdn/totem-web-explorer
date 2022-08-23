@@ -8,7 +8,7 @@ import { ProfileRoutes } from "./profile.routing";
 
 @NgModule({
     declarations: [
-        ProfileComponent
+        ProfileComponent,
     ],
     imports: [
         SharedModule,

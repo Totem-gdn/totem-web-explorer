@@ -1,0 +1,23 @@
+
+<div *ngIf="nfts && nfts.length > 0" class="flex flex-wrap justify-center p-10">
+    <div *ngFor="let nft of nfts" class="bg-zinc-900 flex flex-col w-[calc(13rem+3px)] h-72 bg-neutral-900 border border-solid border-neutral-800 m-2">
+
+        <div class="w-52">
+            <img *ngIf="nft.metadata.image" [src]="nft.metadata.image" alt="">
+            <img *ngIf="!nft.metadata.image" src="assets/images/default.png" alt="">
+        </div>
+
+        <div class="w-full m-auto text-yellow flex">
+            <h4 class="p-2 my-auto text-yellow truncate">{{nft.contractMetadata.name}}</h4>
+            <h4 class="p-2 truncate m-auto">{{ nft.timeLastUpdated }}</h4>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="nfts && nfts.length === 0" class="flex">
+    <h3 class="m-auto">No Nfts</h3>
+</div>
+
+<div *ngIf="nfts === undefined" class="flex">
+    <loading-spinner class="m-auto"></loading-spinner>
+</div>

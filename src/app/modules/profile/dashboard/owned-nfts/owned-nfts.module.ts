@@ -1,22 +1,23 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
-import { ProfileInfoComponent } from "./profile-info.component";
+import { OwnedNftsComponent } from "./owned-nfts.component";
+import { OwnedNftsRoutes } from "./owned-nfts.routing";
 
 
 @NgModule({
     declarations: [
-        ProfileInfoComponent
+        OwnedNftsComponent
     ],
     imports: [
         SharedModule,
-        RouterModule
+        RouterModule.forChild(OwnedNftsRoutes)
     ],
     exports: [
-        ProfileInfoComponent
+        OwnedNftsComponent
     ]
 })
 
-export class ProfileInfoModule {
-
+export class OwnedNftsModule {
+    
 }

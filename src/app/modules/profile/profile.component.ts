@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Web3AuthService } from '@app/core/crypto/web3auth/web3auth.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 
 @Component({
   selector: 'profile',
@@ -16,7 +16,9 @@ export class ProfileComponent implements OnInit {
   constructor(private web3: Web3AuthService) { }
 
   async ngOnInit() {
+    console.log('check login',!this.web3.isLoggedIn())
     if(!this.web3.isLoggedIn()) {
+      console.log('login auth')
       this.loading = true;
       await this.web3.init();
       await this.web3.login();
