@@ -1,20 +1,20 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "@app/shared/shared.module";
-import { UserMenuComponent } from "./user-menu.component";
+import { ProfileInfoComponent } from "./profile-info.component";
 
 
 @NgModule({
     declarations: [
-        UserMenuComponent
+        ProfileInfoComponent
     ],
     imports: [
         SharedModule,
     ],
     exports: [
-        UserMenuComponent
+        ProfileInfoComponent
     ]
 })
 
-export class UserMenuModule {
+export class ProfileInfoModule {
 
 }

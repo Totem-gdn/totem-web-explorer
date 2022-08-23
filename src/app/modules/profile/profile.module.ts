@@ -1,10 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
-import { ProfileNavModule } from "./profile-nav/profile-nav.module";
+import { ProfileInfoComponent } from "./profile-info/profile-info.component";
 import { ProfileComponent } from "./profile.component";
 import { ProfileRoutes } from "./profile.routing";
-import { UserMenuModule } from "./user-menu/user-menu.module";
 
 
 @NgModule({
@@ -14,8 +13,7 @@ import { UserMenuModule } from "./user-menu/user-menu.module";
     imports: [
         SharedModule,
         RouterModule.forChild(ProfileRoutes),
-        UserMenuModule,
-        ProfileNavModule
+        ProfileInfoComponent
     ]
 })
 

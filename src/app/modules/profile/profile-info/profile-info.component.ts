@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Web3AuthService } from '@app/core/crypto/web3auth/web3auth.service';
 
 @Component({
-  selector: 'user-menu',
-  templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss'],
+  selector: 'profile-info',
+  templateUrl: './profile-info.component.html',
+  styleUrls: ['./profile-info.component.scss'],
   host: {
     class: 'h-full flex'
   }
 })
-export class UserMenuComponent implements OnInit {
+export class ProfileInfoComponent implements OnInit {
 
   wallet!: string;
   user: any;
