@@ -69,6 +69,11 @@
             flex-shrink: 0;
             background-color: $dark;
             border-radius: 50%;
+            transition: background-color 0.33s ease-out;
+            cursor: pointer;
+            &:hover {
+              background-color: $dark-grey;
+            }
             &:not(:last-child) {
               margin-right: 22px;
             }
@@ -125,6 +130,11 @@
               background-color: $dark;
               border-radius: 50%;
               margin-top: 8px;
+              transition: background-color 0.33s ease-out;
+              cursor: pointer;
+              &:hover {
+                background-color: $dark-grey;
+              }
               &:not(:last-child) {
                 margin-right: 22px;
               }
@@ -146,27 +156,35 @@
           font-weight: 400;
           font-size: 16px;
           line-height: 19px;
-          color: #8A939B;
+          color: $light-grey;
           margin-top: 26px;
+          transition: color 0.33s ease-out;
+          cursor: pointer;
+          &:hover {
+            color: #fff;
+          }
+        }
+        a.active-route {
+          color: #fff;
         }
       }
 
-      .hidden-about {
-        display: none;
-        @media (max-width: 600px) {
-          display: block;
-        }
-      }
-      .visible-about {
-        flex-direction: column;
-        box-sizing: border-box;
-        display: flex;
-        place-content: stretch flex-start;
-        align-items: stretch;
-        @media (max-width: 600px) {
-          display: none;
-        }
-      }
+      //.hidden-about {
+      //  display: none;
+      //  @media (max-width: 600px) {
+      //    display: block;
+      //  }
+      //}
+      //.visible-about {
+      //  flex-direction: column;
+      //  box-sizing: border-box;
+      //  display: flex;
+      //  place-content: stretch flex-start;
+      //  align-items: stretch;
+      //  @media (max-width: 600px) {
+      //    display: none;
+      //  }
+      //}
     }
 
     .footer-copyright-block {
@@ -174,11 +192,40 @@
       height: 70px;
       border-top: 1px solid $dark-grey;
       font-weight: 400;
-      font-size: 12px;
-      line-height: 14px;
+      font-size: 14px;
+      line-height: 16px;
       color: #FFFFFF;
+      @media (max-width: 479px) {
+        height: 88px;
+        .inc-info {
+          margin-top: 20px;
+        }
+      }
       .terms-link {
         margin-left: 43px;
+      }
+      .co-links {
+        width: 100%;
+        max-width: 177px;
+        flex-direction: row;
+        display: flex;
+        place-content: center space-between;
+        align-items: center;
+
+        a {
+          cursor: pointer;
+        }
+
+        @media (max-width: 479px) {
+          flex: 1 1 100%;
+          max-width: 100%;
+          place-content: center start;
+          align-items: center;
+          margin-top: 4px;
+          .terms-link {
+            margin-left: 50px;
+          }
+        }
       }
     }
 

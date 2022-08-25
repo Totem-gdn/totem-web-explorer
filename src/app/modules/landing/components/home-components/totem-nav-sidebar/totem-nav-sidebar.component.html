@@ -1,0 +1,27 @@
+<div class="totem-sidebar-wrapper" (click)="close(); $event.stopPropagation()" [ngStyle]="{'pointer-events': sidebarIsOpen ? 'all' : 'none'}" [ngClass]="{'opened-bar': sidebarIsOpen}">
+  <div class="totem-sidebar" (click)="$event.stopPropagation()" #sidebar [ngStyle]="{'transform': sidebarIsOpen ? 'translateX(0px)' : ''}" fxLayout="column" fxLayoutAlign="start center">
+    <div class="totem-sidebar-bg">
+      <span style="--i: -2s;" class="first-circle"></span>
+      <span style="--i: -3s;" class="second-circle"></span>
+      <span style="--i: -4s;" class="third-circle"></span>
+      <span style="--i: -5s;" class="fourth-circle"></span>
+      <span style="--i: -6s;" class="fifth-circle"></span>
+    </div>
+    <div class="button-wrap" (click)="change()">
+      <mat-icon class="close-button" [svgIcon]="'line:arrow_right'"></mat-icon>
+    </div>
+    <div class="user-image" fxLayout="column" fxLayoutAlign="center center">
+      <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
+    </div>
+    <div class="user-name">{{userData?.name || 'User Name'}}</div>
+    <div class="user-id">ID: 1234567890</div>
+    <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
+      <a (click)="change()" routerLinkActive="active-route" routerLink="/home">Home</a>
+      <a (click)="change()" routerLinkActive="active-route" routerLink="/items">Items</a>
+      <a (click)="change()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
+      <a (click)="change()" routerLinkActive="active-route" routerLink="/games">Games</a>
+      <a (click)="change()" routerLinkActive="active-route" routerLink="/profile">Profile</a>
+      <a>Help</a>
+    </div>
+  </div>
+</div>

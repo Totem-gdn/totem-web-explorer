@@ -1,5 +1,5 @@
 <div class="totem-navigation" fxLayout="row" fxLayoutAlign="center">
-
+  <totem-nav-sidebar></totem-nav-sidebar>
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
       <div class="logo-block">
@@ -29,7 +29,7 @@
         <img class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
       </div>
       <div class="menu-button">
-        <img src="assets/icons/Menu.svg" alt="menu">
+        <img (click)="openSidenav()" src="assets/icons/Menu.svg" alt="menu">
       </div>
     </div>
 
