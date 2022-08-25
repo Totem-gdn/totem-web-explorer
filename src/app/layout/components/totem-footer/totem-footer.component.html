@@ -13,23 +13,20 @@
         </div>
       </div>
 
-      <div class="contact-block">
+      <div class="contact-block" fxFlex="30%">
         <div class="join-cta title">Join</div>
         <div class="join-icon-links" fxLayout="row" fxLayoutAlign="start">
           <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
             <img src="assets/images/discord.png" alt="icon">
           </div>
           <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-            <img src="assets/images/discord.png" alt="icon">
+            <img src="assets/images/Facebook.png" alt="icon">
           </div>
           <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-            <img src="assets/images/discord.png" alt="icon">
+            <img src="assets/images/Twitter.png" alt="icon">
           </div>
           <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-            <img src="assets/images/discord.png" alt="icon">
-          </div>
-          <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-            <img src="assets/images/discord.png" alt="icon">
+            <img src="assets/images/Instagram.png" alt="icon">
           </div>
         </div>
       </div>
@@ -39,20 +36,20 @@
 
       <div fxFlex="32%" fxFlex.lt-md="32%" fxFlex.lt-sm="100%" class="totem-company-info" fxLayout="column" fxLayoutAlign="start">
         <div>
-          <img src="assets/icons/nav/totem-logo.svg" alt="TOTEM">
+          <a href="/"><img src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
         </div>
         <div class="company-description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam
         </div>
       </div>
 
-      <div fxFlex="40%" fxFlex.lt-md="60%" fxFlex.lt-sm="100%" class="bottom-info" fxLayout="column" fxLayoutAlign="start">
+      <div fxFlex="30%" fxFlex.lt-md="60%" fxFlex.lt-sm="100%" class="bottom-info" fxLayout="column" fxLayoutAlign="start">
         <div class="totem-content w-full" fxLayout="row" fxLayoutAlign="space-between">
           <div fxLayout="column" fxLayoutAlign="start">
             <div class="title marb-10">Explore</div>
-            <a>Items</a>
-            <a>Avatars</a>
-            <a>Games</a>
+            <a routerLinkActive="active-route" routerLink="/items">Items</a>
+            <a routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
+            <a routerLinkActive="active-route" routerLink="/games">Games</a>
           </div>
           <div fxLayout="column" fxLayoutAlign="start">
             <div class="title marb-10">Account</div>
@@ -66,10 +63,10 @@
             <a>Blog</a>
             <a class="hidden-about">About</a>
           </div>
-          <div class="visible-about">
+          <!-- <div class="visible-about">
             <div class="title marb-10">Company</div>
             <a>About</a>
-          </div>
+          </div> -->
 
         </div>
         <div class="contact-block">
@@ -79,29 +76,26 @@
               <img src="assets/images/discord.png" alt="icon">
             </div>
             <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-              <img src="assets/images/discord.png" alt="icon">
+              <img src="assets/images/Facebook.png" alt="icon">
             </div>
             <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-              <img src="assets/images/discord.png" alt="icon">
+              <img src="assets/images/Twitter.png" alt="icon">
             </div>
             <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-              <img src="assets/images/discord.png" alt="icon">
-            </div>
-            <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-              <img src="assets/images/discord.png" alt="icon">
+              <img src="assets/images/Instagram.png" alt="icon">
             </div>
           </div>
         </div>
       </div>
 
     </div>
-    <div class="footer-copyright-block" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="footer-copyright-block" fxLayout="row wrap-reverse" fxLayoutAlign="space-between center">
 
-      <div>
+      <div class="inc-info">
         @ 2022 - 2025 Totem, Inc
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="co-links">
         <a class="privacy-link">Privacy Policy</a>
         <a class="terms-link">Terms</a>
       </div>

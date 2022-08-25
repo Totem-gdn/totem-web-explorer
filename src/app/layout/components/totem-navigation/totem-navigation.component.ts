@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 
 @Component({
   selector: 'totem-navigation',
@@ -10,7 +11,8 @@ import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 export class TotemNavigationComponent implements OnInit {
 
   constructor(private web3Auth: Web3AuthService,
-    private router: Router) { }
+    private router: Router,
+    private sidenavStateService: SidenavStateService) { }
 
   loading = false;
   avatar: undefined | string;
@@ -37,6 +39,10 @@ export class TotemNavigationComponent implements OnInit {
       this.router.navigate(['/profile']);
     }
 
+  }
+
+  openSidenav() {
+    this.sidenavStateService.updateLoadingStatus(true);
   }
 
 }
