@@ -1,4 +1,4 @@
-
+@import 'styles/scss/placeholders';
 
 .appear {
     // display: none;
@@ -8,29 +8,7 @@
 }
 
 .gradient-border {
-    position: relative;
-    overflow: hidden;
-    box-sizing: border-box;
-    &::before {
-      content: "";
-      pointer-events: none;
-      position: absolute;
-      z-index: 1;
-      inset: 0;
-      padding: 1px;
-      border-radius: 4px 4px 4px 4px;
-      background: $linear-light;
-      -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.33s ease-out;
-    }
-    &:hover::before {
-      opacity: 1;
-    }
+    @extend %gradient-border;
 }
 
 .gradient-border-solid {

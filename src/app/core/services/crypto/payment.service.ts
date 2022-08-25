@@ -72,7 +72,7 @@ export class PaymentService {
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
         const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
-        const wallet = accounts[0]
+        const wallet = accounts[0];
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
     

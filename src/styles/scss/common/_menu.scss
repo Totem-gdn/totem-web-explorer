@@ -28,15 +28,7 @@
     &:hover {
         background-color: $yellow;
 
-        .mat-icon {
-            color: $black;
-        }
-
-        span {
-            color: $black;
-        }
-
-        p {
+        .mat-icon, span, p {
             color: $black;
         }
     }

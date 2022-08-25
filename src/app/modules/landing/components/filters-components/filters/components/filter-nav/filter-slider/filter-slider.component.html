@@ -4,11 +4,11 @@
     <div class="flex">
         <div 
         class="toggle-button" 
-        (click)="onClickSlider()"
-        [ngClass]="active ? 'border border-yellow': 'border border-grey'">
+        (click)="onToggleMenu()"
+        [ngClass]="toggleMenu ? 'border border-yellow': 'border border-grey'">
 
-            <mat-icon *ngIf="active === false" [svgIcon]="'line:tune'"></mat-icon>
-            <mat-icon class="!h-12px" *ngIf="active === true" [svgIcon]="'line:arrow_left'"></mat-icon>
+            <mat-icon *ngIf="toggleMenu === false" [svgIcon]="'line:tune'"></mat-icon>
+            <mat-icon class="!h-12px" *ngIf="toggleMenu === true" [svgIcon]="'line:arrow_left'"></mat-icon>
 
             <span>Filter</span>
         </div>

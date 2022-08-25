@@ -1,0 +1,11 @@
+<div class="flex flex-col mx-[10px]">
+    <div class="flex justify-between py-[15px]">
+        <filter-slider (menuOpen)="onToggleMenu($event)"></filter-slider>
+        <search-dropdown [title]="'Game name'"></search-dropdown>
+        <sort-by></sort-by>
+    </div>
+
+    <div class="flex w-full py-[15px]">
+        <filter-tags></filter-tags>
+    </div>
+</div>

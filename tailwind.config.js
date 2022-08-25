@@ -48,6 +48,7 @@ module.exports = {
       xl: '1280px',
       xxl: '1440px',
       xxxl: '1980px',
+      'maxlg': {'max': '1000px'},
 
       // 'media-bullets': 
     },

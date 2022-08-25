@@ -9,7 +9,7 @@ export class FilterMenuComponent {
 
   menuActive = false;
 
-  @ViewChild('container') container!: ElementRef;
+  @ViewChild('wrapper') wrapper!: ElementRef;
 
   @Input() inputType = 'checkbox';
   @Input() title = 'Title'
@@ -27,9 +27,9 @@ export class FilterMenuComponent {
     this.menuActive = !this.menuActive;
 
     if(this.menuActive) {
-      this.container.nativeElement.style.maxHeight = '340px';
+      this.wrapper.nativeElement.style.maxHeight = '340px';
     } else if (!this.menuActive) {
-      this.container.nativeElement.style.maxHeight = '50px';
+      this.wrapper.nativeElement.style.maxHeight = '50px';
     }
   }
 }

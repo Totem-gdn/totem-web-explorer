@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 
 
 @Component({
@@ -7,6 +7,13 @@ import { Component } from "@angular/core";
     styleUrls: ['./filter-nav.component.scss']
 })
 
+
 export class FilterNavComponent {
+
+    @Output() menuOpened = new EventEmitter<boolean>();
+
+    onToggleMenu(isOpened: boolean) {
+        this.menuOpened.emit(isOpened);
+    }
     
 }

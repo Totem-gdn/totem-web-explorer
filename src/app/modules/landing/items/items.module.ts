@@ -10,7 +10,6 @@ import { SearchDropdownModule } from "../components/common-components/search-dro
 import { FilterNavModule } from "../components/filters-components/filters/components/filter-nav/filter-nav.module";
 import { ItemFilterModule } from "../components/filters-components/filters/item-filter/item-filter.module";
 import { ItemListModule } from "../components/filters-components/lists/item-list/item-list.module";
-import { CarouselModule } from "../components/home-components/carousel/carousel.module";
 import { ItemsComponent } from "./items.component";
 import { ItemsRoutes } from "./items.routing";
 
@@ -29,7 +28,6 @@ import { ItemsRoutes } from "./items.routing";
         ItemListModule,
         ItemFilterModule,
         FilterNavModule,
-        CarouselModule,
         SearchDropdownModule,
         
         MatButtonModule,

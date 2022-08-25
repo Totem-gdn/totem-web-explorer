@@ -1,11 +1,19 @@
+<div class="p-[20px] my-[40px] flex flex-col relative">
 
+    <!-- <div class="flex"> -->
+        <filter-nav (menuOpened)="isMenuOpened"></filter-nav>
 
+        <div class="flex justify-center w-full">
 
-<div class="px-[30px] py-[120px] flex flex-col h-full">
+            <div class="w-[340px] flex-none">
+                <item-filters [isMenuOpened]="isMenuOpened"></item-filters>
+            </div>
 
-    <div class="flex">
-        <item-filter></item-filter>
-        <item-list></item-list>
-    </div>
-    
+            <div class="flex flex-wrap">
+                <item-card class="m-[10px] flex grow" *ngFor="let item of [0,0,0,0,0,0,0,0,0,0,0,0,0]"></item-card>
+            </div>
+
+        </div>
+    <!-- </div> -->
+
 </div>

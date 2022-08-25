@@ -1,13 +1,13 @@
 
-<div class="flex relative">
+<div class="flex relative content">
   
     <mat-icon *ngIf="checkedItems && checkedItems.length != 0" class="point-icon" [svgIcon]="'solid:point'"></mat-icon>
 
-    <div class="container" #container>
+    <div class="wrapper" #wrapper>
 
         <!-- Menu button -->
         <div class="menu-filter mb-3" (click)="onClickMenu()"
-            [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
+            [ngClass]="menuActive ? 'gradient-border-solid': ''">
             <p>{{title}}</p>
             <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
             <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>

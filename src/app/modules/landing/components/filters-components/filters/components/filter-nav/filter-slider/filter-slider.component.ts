@@ -1,5 +1,4 @@
-import { Component } from "@angular/core";
-import { Input } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
     selector: 'filter-slider',
@@ -8,11 +7,13 @@ import { Input } from "@angular/core";
 })
 
 export class FilterSliderComponent {
-    
-    @Input() active = false;
+
+    toggleMenu = false;
+    @Output() menuOpen = new EventEmitter<boolean>(false);
 
 
-    onClickSlider() {
-        this.active = !this.active;
+    onToggleMenu() {
+        this.toggleMenu = !this.toggleMenu;
+        this.menuOpen.emit(this.toggleMenu);
     }
 }

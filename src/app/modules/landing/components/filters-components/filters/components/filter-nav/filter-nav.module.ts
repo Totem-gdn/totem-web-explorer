@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
+import { SearchDropdownModule } from "@app/modules/landing/components/common-components/search-dropdown/search-dropdown.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { FilterNavComponent } from "./filter-nav.component";
 import { FilterSliderModule } from "./filter-slider/filter-slider.module";
@@ -19,13 +20,10 @@ import { SortByModule } from "./sort-by/sort-by.module";
         FilterSliderModule,
         FilterUpdateModule,
         FilterTagsModule,
+        SearchDropdownModule
     ],
     exports: [
         FilterNavComponent,
-        SortByModule,
-        FilterSliderModule,
-        FilterUpdateModule,
-        FilterTagsModule,
     ]
 })
 

@@ -1,48 +1,50 @@
+<!-- <div class="hidden lg:flex flex-col mr-3">
+    <filter-menu [title]="'Game name'" [inputType]="'radio'" [items]="games"></filter-menu>
 
+    <filter-menu [title]="'Damage'" [searchType]="'range'"></filter-menu>
 
-<div class="flex flex-col">
-    <div class="flex py-[15px]">
-        <filter-slider class="mr-[15px]"></filter-slider>
-        <clear-all></clear-all>
-    </div>
+    <filter-menu [title]="'Element'" [inputType]="'checkbox'" [searchType]="null" [items]="elements"></filter-menu>
 
-    <div class="flex py-[15px]">
-        <filter-update></filter-update>
-    </div>
+    <filter-menu [title]="'Color'" [inputType]="'checkbox'" [items]="colors"></filter-menu>
 
-    <div class="w-80 flex flex-col mr-3">   
-        <filter-menu
-        [title]="'Game name'"
-        [inputType]="'radio'"
-        [items]="games"></filter-menu>
-    
-        <!-- <filter-menu
+    <filter-menu [title]="'Item type'" [inputType]="'checkbox'" [items]="itemTypes"></filter-menu>
+
+    <filter-menu [title]="'Material'" [items]="materials"></filter-menu>
+</div> -->
+
+<div [ngClass]="isMenuOpened ? 'blur-background': ''"> </div>
+<div class="dropup-menu lg:!static lg:!p-0 lg:!my-[10px]" #dropupMenu>
+    <div class="content">
+        <div class="title lg:!hidden">
+            <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+            </div>
+            <h3>Filters</h3>
+        </div>
+
+        <div class="py-[45px] lg:py-0">
+            <filter-menu [title]="'Game name'" [inputType]="'radio'" [items]="games"></filter-menu>
+
+            <!-- <filter-menu
         [title]="'Rarity'"
         [searchType]="'graph'"
         [items]="games"></filter-menu> -->
-    
-        <filter-menu
-        [title]="'Damage'"
-        [searchType]="'range'"></filter-menu>
-    
-        <filter-menu
-        [title]="'Element'"
-        [inputType]="'checkbox'"
-        [searchType]="null"
-        [items]="elements"></filter-menu>
-    
-        <filter-menu
-        [title]="'Color'"
-        [inputType]="'checkbox'"
-        [items]="colors"></filter-menu>
-    
-        <filter-menu
-        [title]="'Item type'"
-        [inputType]="'checkbox'"
-        [items]="itemTypes"></filter-menu>
-    
-        <filter-menu
-        [title]="'Material'"
-        [items]="materials"></filter-menu>
+
+            <filter-menu [title]="'Damage'" [searchType]="'range'"></filter-menu>
+
+            <filter-menu [title]="'Element'" [inputType]="'checkbox'" [searchType]="null" [items]="elements">
+            </filter-menu>
+
+            <filter-menu [title]="'Color'" [inputType]="'checkbox'" [items]="colors"></filter-menu>
+
+            <filter-menu [title]="'Item type'" [inputType]="'checkbox'" [items]="itemTypes"></filter-menu>
+
+            <filter-menu [title]="'Material'" [items]="materials"></filter-menu>
+        </div>
+
+        <div class="dropup-buttons lg:!hidden">
+            <button class="button-style-1">Clear all</button>
+            <button class="button-style-1">Apply</button>
+        </div>
     </div>
 </div>
