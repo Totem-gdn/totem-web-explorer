@@ -1,6 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
+import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 import { BehaviorSubject, switchMap, debounceTime, of} from 'rxjs';
 import { Items } from '../models/items-interface.model';
 
@@ -64,13 +66,27 @@ export class TotemSearchFilterComponent implements OnInit {
     GAMES_TAB: 'games',
   }
 
+  @Input()
+  focusState: 'true' | 'false' | undefined = undefined;
+  @Output()
+  routingEvent: EventEmitter<any> = new EventEmitter();
+
   @ViewChild('searchInput') searchInput!: ElementRef;
   loading$ = new BehaviorSubject(false);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private sidenavStateService: SidenavStateService) { }
 
   ngOnInit(): void {
     this.initFormListener();
+    this.sidenavStateService.sidenavStatus.subscribe((data: SidebarState) => {
+      if (data.isOpen) {
+        setTimeout(() => {
+          if (this.focusState === 'true') {
+            this.searchInput.nativeElement.focus();
+          }
+        });
+      }
+    });
   }
 
   initFormListener() {
@@ -122,6 +138,9 @@ export class TotemSearchFilterComponent implements OnInit {
     } else if (this.activeTab === this.tabType.GAMES_TAB) {
       /* router */
       this.router.navigate(['/games']);
+    }
+    if (this.focusState === 'true') {
+      this.routingEvent.next('closed');
     }
     this.dropdownOpened = false;
   }

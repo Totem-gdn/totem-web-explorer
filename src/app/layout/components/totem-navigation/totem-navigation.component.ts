@@ -42,7 +42,11 @@ export class TotemNavigationComponent implements OnInit {
   }
 
   openSidenav() {
-    this.sidenavStateService.updateLoadingStatus(true);
+    this.sidenavStateService.updateLoadingStatus({isOpen: true, type: 'nav'});
+  }
+
+  openSidefilter() {
+    this.sidenavStateService.updateLoadingStatus({isOpen: true, type: 'filter'});
   }
 
 }
