@@ -5,10 +5,10 @@
         <div 
         class="toggle-button" 
         (click)="onToggleMenu()"
-        [ngClass]="toggleMenu ? 'border border-yellow': 'border border-grey'">
+        [ngClass]="isMenuOpen ? 'border border-yellow': 'border border-grey'">
 
-            <mat-icon *ngIf="toggleMenu === false" [svgIcon]="'line:tune'"></mat-icon>
-            <mat-icon class="!h-12px" *ngIf="toggleMenu === true" [svgIcon]="'line:arrow_left'"></mat-icon>
+            <mat-icon *ngIf="isMenuOpen === false" [svgIcon]="'line:tune'"></mat-icon>
+            <mat-icon class="!h-12px" *ngIf="isMenuOpen === true" [svgIcon]="'line:arrow_left'"></mat-icon>
 
             <span>Filter</span>
         </div>

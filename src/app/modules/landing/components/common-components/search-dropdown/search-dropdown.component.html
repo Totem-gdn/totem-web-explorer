@@ -1,6 +1,6 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
-    <div #menu class="menu-filter bg-grey mr-[90px]" (click)="onClickMenu($event)"
-        [ngClass]="menuActive ? 'border-yellow border': 'border border-transparent'">
+    <div #menu class="menu-filter bg-grey" (click)="onClickMenu($event)"
+    [ngClass]="menuActive ? 'gradient-border-solid': ''">
 
         <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
         <mat-icon class="pointer-events-none" *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>

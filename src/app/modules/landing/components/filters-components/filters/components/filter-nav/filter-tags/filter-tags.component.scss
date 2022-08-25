@@ -2,6 +2,8 @@
 @import 'styles/scss/variables';
 
 .tag {
+    height: 40px;
+    white-space: nowrap;
     cursor: pointer;
     background-color: $grey;
     padding: 10px;

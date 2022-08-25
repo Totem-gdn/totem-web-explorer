@@ -55,12 +55,14 @@
         .menu-items {
             max-height: 200px;
             overflow-y: auto;
-            padding: 0 5px;
-
+            padding: 0 4px;
             .menu-item {
+                cursor: pointer;
+                border-radius: 4px;
                 position:relative;
+                display: flex;
                 height: 50px;
-
+                padding: 0 6px;
                 
                 & input {
                     all: unset;
@@ -94,6 +96,11 @@
 
                 input:checked ~ .content {
                     background-color: $transparent-light;
+                }
+
+                & span {
+                    white-space: nowrap;
+                    margin: auto auto auto 0;
                 }
 
                 &:hover {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, } from "@angular/core";
 
 @Component({
     selector: 'app-items',
@@ -13,16 +13,14 @@ export class ItemsComponent implements OnInit, AfterViewInit {
 
     @ViewChild('dropupMenu') dropupMenu!: ElementRef;
 
-    isMenuOpened = false;
-
     ngOnInit(): void {
     }
 
     ngAfterViewInit(): void {
-        if(this.isMenuOpened === true) {
-            const dropupMenu = this.dropupMenu.nativeElement;
-            // dropupMenu.style.transform = `translateY(-${dropupMenu.offsetHeight}px)`
-        }
+        // if(this.isMenuOpened === true) {
+        //     const dropupMenu = this.dropupMenu.nativeElement;
+        //     dropupMenu.style.transform = `translateY(-${dropupMenu.offsetHeight}px)`
+        // }
     }
 
     

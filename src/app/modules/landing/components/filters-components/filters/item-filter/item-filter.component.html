@@ -12,13 +12,15 @@
     <filter-menu [title]="'Material'" [items]="materials"></filter-menu>
 </div> -->
 
-<div [ngClass]="isMenuOpened ? 'blur-background': ''"> </div>
-<div class="dropup-menu lg:!static lg:!p-0 lg:!my-[10px]" #dropupMenu>
+<div [ngClass]="isDropupOpen ? 'blur-background lg:hidden': ''" (click)="onCloseMenu()"></div>
+<div class="dropup-menu lg:!static lg:!p-0 lg:!my-[10px] lg:!max-h-[fit-content]" #dropupMenu>
     <div class="content">
+
+        <div class="handler-wrapper lg:!hidden" (click)="toggleMenu()">
+            <div class="rectangle"></div>
+        </div>
+
         <div class="title lg:!hidden">
-            <div class="rectangle-wrapper">
-                <div class="rectangle"></div>
-            </div>
             <h3>Filters</h3>
         </div>
 

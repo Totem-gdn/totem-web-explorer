@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ProfileService } from "@app/core/services/profile/profile.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'filter-slider',
@@ -6,14 +8,25 @@ import { Component, EventEmitter, Output } from "@angular/core";
     styleUrls: ['./filter-slider.component.scss']
 })
 
-export class FilterSliderComponent {
+export class FilterSliderComponent implements OnInit, OnDestroy {
 
-    toggleMenu = false;
-    @Output() menuOpen = new EventEmitter<boolean>(false);
+    constructor(private profileService: ProfileService) {}
 
+    sub!: Subscription;
+    isMenuOpen!: boolean;
+
+    ngOnInit() {
+        this.profileService.dropupOpen$.subscribe(isOpen => {
+            this.isMenuOpen = isOpen;
+        })
+    }
 
     onToggleMenu() {
-        this.toggleMenu = !this.toggleMenu;
-        this.menuOpen.emit(this.toggleMenu);
+        console.log(!this.profileService.dropupOpen);
+        this.profileService.dropupOpen = !this.profileService.dropupOpen;
+    }
+
+    ngOnDestroy(): void {
+        this.sub?.unsubscribe();
     }
 }
