@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { TotemNavSidebarComponent } from './totem-nav-sidebar.component';
+import { TotemNavSidebarComponent } from './totem-profile-dropdown.component';
 // packages
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,4 +30,4 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
   ],
   providers: [],
 })
-export class TotemNavSidebarModule {}
+export class TotemProfSidebarModule {}

@@ -14,8 +14,22 @@
       <div class="user-image" fxLayout="column" fxLayoutAlign="center center">
         <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
       </div>
-      <div class="user-name">{{userData?.name || 'User Name'}}</div>
-      <div class="user-id">ID: 1234567890</div>
+      <ng-container *ngIf="userData?.name?.length">
+        <div class="user-name">
+          {{userData?.name}}
+        </div>
+        <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" fxLayout="row" fxLayoutAlign="center end" class="user-id">
+          {{walletNumber}}
+          <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+          <!-- <img [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" class="copy-icon" src="assets/icons/copy_icon.svg" alt="copy-icon"> -->
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!userData?.name?.length">
+        <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" fxLayout="row" fxLayoutAlign="center end" class="user-name">
+          {{walletNumber}}
+          <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+        </div>
+      </ng-container>
       <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
         <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
         <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>

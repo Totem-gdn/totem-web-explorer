@@ -15,7 +15,7 @@ export class Web3AuthService {
     provider: SafeEventEmitterProvider | null = null;
     isModalLoaded = false;
 
-    async get() { 
+    async get() {
         await this.init();
         await this.login();
     }

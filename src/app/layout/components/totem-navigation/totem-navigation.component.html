@@ -1,5 +1,6 @@
 <div class="totem-navigation" fxLayout="row" fxLayoutAlign="center">
-  <totem-nav-sidebar></totem-nav-sidebar>
+  <totem-nav-sidebar *ngIf="wallet.length"></totem-nav-sidebar>
+  <totem-profile-dropdown *ngIf="wallet.length"></totem-profile-dropdown>
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
       <div class="logo-block">
