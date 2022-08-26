@@ -8,6 +8,7 @@ import { TotemButtonModule } from '../../common-components/totem-button/totem-bu
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@app/shared/shared.module';
+import { TotemSearchFilterModule } from '../../common-components/totem-search-filter/totem-search-filter.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SharedModule } from '@app/shared/shared.module';
     TotemButtonModule,
     MatIconModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    TotemSearchFilterModule
   ],
   exports: [
     TotemNavSidebarComponent

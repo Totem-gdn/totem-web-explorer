@@ -38,6 +38,69 @@
       transition: transform 0.33s ease-out;
       transform: translateX(320px);
 
+      .sidenav-filter {
+        margin-top: 80px;
+        width: 100%;
+      }
+
+      &-filter-bg {
+        pointer-events: none;
+        z-index: 1;
+        position: absolute;
+        bottom: 140px;
+        left: 0px;
+        .first-circle {
+          z-index: 4;
+          position: absolute;
+          width: 173px;
+          height: 173px;
+          left: 233px;
+          top: -91px;
+          background: #00BC58;
+          filter: blur(80px);
+        }
+        .second-circle {
+          z-index: 5;
+          position: absolute;
+          width: 221px;
+          height: 221px;
+          left: 104px;
+          top: 79px;
+          background: #FFD011;
+          filter: blur(110px);
+        }
+        .third-circle {
+          z-index: 3;
+          position: absolute;
+          width: 154px;
+          height: 154px;
+          left: 115px;
+          top: -5px;
+          background: #FFD011;
+          filter: blur(50px);
+        }
+        .fourth-circle {
+          z-index: 2;
+          position: absolute;
+          width: 119px;
+          height: 119px;
+          left: 32px;
+          top: -74px;
+          background: #5823C9;
+          filter: blur(70px);
+        }
+        .fifth-circle {
+          z-index: 1;
+          position: absolute;
+          width: 247px;
+          height: 247px;
+          left: 65px;
+          top: 69px;
+          background: #FF8540;
+          filter: blur(70px);
+        }
+      }
+
       &-bg {
         pointer-events: none;
         z-index: 1;

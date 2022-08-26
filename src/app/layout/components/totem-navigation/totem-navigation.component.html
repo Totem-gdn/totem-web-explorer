@@ -25,7 +25,7 @@
       <img *ngIf="avatar && !loading" [src]="avatar" alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
     </div>
     <div class="tablet-menu">
-      <div class="search-mobile">
+      <div (click)="openSidefilter()" class="search-mobile">
         <img class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
       </div>
       <div class="menu-button">
