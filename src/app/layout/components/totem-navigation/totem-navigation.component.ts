@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
+import { SideProfileStateService } from '@app/shared/services/sideprofile-state.service';
 
 @Component({
   selector: 'totem-navigation',
@@ -12,12 +13,30 @@ export class TotemNavigationComponent implements OnInit {
 
   constructor(private web3Auth: Web3AuthService,
     private router: Router,
-    private sidenavStateService: SidenavStateService) { }
+    private sidenavStateService: SidenavStateService,
+    private sideProfileStateService: SideProfileStateService,
+    ) { }
 
   loading = false;
   avatar: undefined | string;
+  userData: any;
+  wallet: string = '';
 
   ngOnInit(): void {
+    this.tryToInitWeb3();
+  }
+
+  async tryToInitWeb3() {
+    try {
+      this.loading = true;
+      await this.web3Auth.init();
+      this.wallet = await this.web3Auth.getAccounts();
+      console.log(this.wallet);
+      this.loading = false;
+    } catch (err: any) {
+      console.log(err);
+      this.loading = false;
+    };
   }
 
   async web3Login() {
@@ -36,7 +55,8 @@ export class TotemNavigationComponent implements OnInit {
     }
 
     if(this.web3Auth.isLoggedIn()) {
-      this.router.navigate(['/profile']);
+      //this.router.navigate(['/profile']);
+      this.openSideProfile();
     }
 
   }
@@ -47,6 +67,10 @@ export class TotemNavigationComponent implements OnInit {
 
   openSidefilter() {
     this.sidenavStateService.updateLoadingStatus({isOpen: true, type: 'filter'});
+  }
+
+  openSideProfile() {
+    this.sideProfileStateService.updateState(true);
   }
 
 }

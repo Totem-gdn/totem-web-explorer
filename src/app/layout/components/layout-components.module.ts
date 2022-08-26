@@ -6,6 +6,7 @@ import { TotemButtonModule } from "@app/modules/landing/components/common-compon
 import { TotemSearchFilterModule } from "@app/modules/landing/components/common-components/totem-search-filter/totem-search-filter.module";
 import { TotemEmailSubModule } from "@app/modules/landing/components/home-components/totem-email-sub/totem-email-sub.module";
 import { TotemNavSidebarModule } from "@app/modules/landing/components/home-components/totem-nav-sidebar/totem-nav-sidebar.module";
+import { TotemProfSidebarModule } from "@app/modules/landing/components/home-components/totem-profile-dropdown/totem-profile-dropdown.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { TotemFooterComponent } from "./totem-footer/totem-footer.component";
 import { TotemNavigationComponent } from "./totem-navigation/totem-navigation.component";
@@ -25,7 +26,8 @@ import { TotemNavigationComponent } from "./totem-navigation/totem-navigation.co
         TotemSearchFilterModule,
         TotemEmailSubModule,
         TotemButtonModule,
-        TotemNavSidebarModule
+        TotemNavSidebarModule,
+        TotemProfSidebarModule
     ],
     exports: [
         TotemNavigationComponent,
