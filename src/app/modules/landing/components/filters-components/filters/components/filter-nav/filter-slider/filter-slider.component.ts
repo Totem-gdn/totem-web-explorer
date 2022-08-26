@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ProfileService } from "@app/core/services/profile/profile.service";
+import { ProfileService } from "@app/core/services/filters/dropup.service";
 import { Subscription } from "rxjs";
 
 @Component({

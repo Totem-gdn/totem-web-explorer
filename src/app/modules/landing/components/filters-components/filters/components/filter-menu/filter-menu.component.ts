@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { TagsService } from '@app/core/services/filters/tags.service';
 
 @Component({
   selector: 'filter-menu',
@@ -6,6 +7,8 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
   styleUrls: ['./filter-menu.component.scss']
 })
 export class FilterMenuComponent {
+
+  constructor(private tagsService: TagsService){}
 
   menuActive = false;
 
@@ -20,6 +23,7 @@ export class FilterMenuComponent {
 
   onChangeInput(event: any) {
     const value = event.target.value;
+    this.tagsService.addTag = value;
     this.checkedItems.push(value);
   }
 

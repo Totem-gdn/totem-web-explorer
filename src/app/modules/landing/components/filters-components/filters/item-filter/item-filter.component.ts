@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { ProfileService } from '@app/core/services/profile/profile.service';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ProfileService } from '@app/core/services/filters/dropup.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './item-filter.component.html',
   styleUrls: ['./item-filter.component.scss']
 })
-export class ItemFilterComponent implements OnInit, OnDestroy {
+export class ItemFilterComponent implements AfterViewInit, OnDestroy {
 
   constructor(private profileService: ProfileService) {}
 
@@ -16,7 +16,7 @@ export class ItemFilterComponent implements OnInit, OnDestroy {
   isDropupOpen!: boolean;
   sub!: Subscription;
   
-  ngOnInit() {
+  ngAfterViewInit() {
     this.sub = this.profileService.dropupOpen$.subscribe(isOpen => {
       this.isDropupOpen = isOpen;
 
