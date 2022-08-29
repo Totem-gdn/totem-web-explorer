@@ -31,32 +31,40 @@ export class TotemNavigationComponent implements OnInit {
       this.loading = true;
       await this.web3Auth.init();
       this.wallet = await this.web3Auth.getAccounts();
-      console.log(this.wallet);
+      //console.log(this.wallet);
       this.loading = false;
+      console.log('INIT');
+
     } catch (err: any) {
-      console.log(err);
+      console.log(err, 'INIT ERRROR');
       this.loading = false;
     };
   }
 
   async web3Login() {
-    if (!this.web3Auth.isLoggedIn()) {
-      this.loading = true;
-
-      await this.web3Auth.init();
-      await this.web3Auth.login();
-
-      const userInfo: any = await this.web3Auth.getUserInfo();
-      console.log(userInfo);
-      const avatar = userInfo.profileImage;
-      this.avatar = avatar;
-      this.loading = false;
-      this.router.navigate(['/profile']);
-    }
 
     if(this.web3Auth.isLoggedIn()) {
       //this.router.navigate(['/profile']);
       this.openSideProfile();
+    }
+
+    if (!this.web3Auth.isLoggedIn()) {
+      try {
+        this.loading = true;
+
+        await this.web3Auth.init();
+        await this.web3Auth.login();
+
+        const userInfo: any = await this.web3Auth.getUserInfo();
+        //console.log(userInfo);
+        const avatar = userInfo.profileImage;
+        this.avatar = avatar;
+        this.loading = false;
+        //this.router.navigate(['/profile']);
+      } catch (err: any) {
+        console.log(err, 'LOGIN ERRROR');
+        this.loading = false;
+      };
     }
 
   }

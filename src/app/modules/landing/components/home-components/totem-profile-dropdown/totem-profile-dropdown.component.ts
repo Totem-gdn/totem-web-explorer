@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 import { SideProfileStateService } from '@app/shared/services/sideprofile-state.service';
 
@@ -18,11 +19,11 @@ export class TotemNavSidebarComponent implements OnInit {
   walletNumber!: string;
 
   constructor(private sideProfileStateService: SideProfileStateService,
-    private web3Auth: Web3AuthService, private router: Router) { }
+    private web3Auth: Web3AuthService, private router: Router, private snackNotifierService: SnackNotifierService) { }
 
   ngOnInit(): void {
     this.userData = JSON.parse(localStorage.getItem('openlogin_store')!);
-    console.log(this.userData);
+    //console.log(this.userData);
 
     this.sideProfileStateService.sideprofStatus.subscribe((data: boolean) => {
       this.sidebarIsOpen = data;
@@ -30,7 +31,7 @@ export class TotemNavSidebarComponent implements OnInit {
     });
 
     this.getAccountInfo();
-    console.log('INIT AGAIN');
+    //console.log('INIT AGAIN');
 
   }
 
@@ -45,13 +46,17 @@ export class TotemNavSidebarComponent implements OnInit {
   }
 
   close() {
-    console.log('CALLED');
+    //console.log('CALLED');
     this.sideProfileStateService.updateState(false);
   }
 
   async onLogout() {
     await this.web3Auth.logout();
     this.router.navigate(['/home'])
+  }
+
+  notify() {
+    this.snackNotifierService.open('Copied to the clipboard');
   }
 
 }

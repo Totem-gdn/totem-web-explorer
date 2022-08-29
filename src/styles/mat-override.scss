@@ -1,0 +1,8 @@
+@import 'scss/_variables';
+
+.totem-snackbar.mat-snack-bar-container {
+  padding: 4px 0px;
+  margin: 12px;
+  background: $yellow;
+  box-shadow: unset;
+}

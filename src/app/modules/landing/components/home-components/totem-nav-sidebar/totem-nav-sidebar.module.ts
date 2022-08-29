@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '@app/shared/shared.module';
 import { TotemSearchFilterModule } from '../../common-components/totem-search-filter/totem-search-filter.module';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { SnackNotifierModule } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.module';
+import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,12 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     RouterModule,
     SharedModule,
     TotemSearchFilterModule,
-    ClipboardModule
+    ClipboardModule,
+    SnackNotifierModule
   ],
   exports: [
     TotemNavSidebarComponent
   ],
-  providers: [],
+  providers: [SnackNotifierService],
 })
 export class TotemNavSidebarModule {}

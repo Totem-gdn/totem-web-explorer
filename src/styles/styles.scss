@@ -23,6 +23,10 @@ body { margin: 0; font-family: Roboto, sans-serif; }
   @extend %font-totem;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 ::-webkit-scrollbar-thumb {
     background-color: $light-grey;
     border: none !important;
