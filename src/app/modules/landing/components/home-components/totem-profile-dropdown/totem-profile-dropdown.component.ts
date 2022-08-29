@@ -22,8 +22,7 @@ export class TotemNavSidebarComponent implements OnInit {
     private web3Auth: Web3AuthService, private router: Router, private snackNotifierService: SnackNotifierService) { }
 
   ngOnInit(): void {
-    this.userData = JSON.parse(localStorage.getItem('openlogin_store')!);
-    //console.log(this.userData);
+    console.log('Sidedrop inited');
 
     this.sideProfileStateService.sideprofStatus.subscribe((data: boolean) => {
       this.sidebarIsOpen = data;

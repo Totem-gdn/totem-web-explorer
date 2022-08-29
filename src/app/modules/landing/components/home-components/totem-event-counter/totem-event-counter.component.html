@@ -7,6 +7,9 @@
     </div>
     <div fxFlex="34%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" class="timer-container">
       <div class="title">Comming soon:</div>
+      <div class="image-container-tablet">
+        <img src="assets/images/legacy-jam.png" alt="jam">
+      </div>
       <div class="timer-block" fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="column" fxLayoutAlign="center center">
           <span class="grey-back font-totem totem-color">{{days | number: '2.0-0'}}</span>
@@ -35,9 +38,6 @@
         which are indie game creators, collaborating to bring a new
         type of gaming to life.</div>
       <div class="join-cta-block"><totem-button [customId]="'eventButton'"></totem-button></div>
-      <div class="image-container-tablet">
-        <img src="assets/images/legacy-jam.png" alt="jam">
-      </div>
     </div>
   </div>
 </div>

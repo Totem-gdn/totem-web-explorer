@@ -72,7 +72,7 @@
         }
       }
       .timer-block {
-        margin-top: 30px;
+        margin-top: 38px;
         .totem-color {
           font-weight: 400;
           font-size: 48px;
@@ -116,11 +116,13 @@
       }
       .description {
         margin-top: 30px;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
-        letter-spacing: -0.02em;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
         color: #8A939B;
+        max-width: 450px;
       }
       span {
         font-weight: 700;
@@ -157,7 +159,7 @@
         overflow: hidden;
         border-radius: 4px;
         display: none;
-        margin-top: 60px;
+        margin-top: 38px;
         img {
           height: 100%;
           width: 100%;
