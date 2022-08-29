@@ -8,7 +8,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from "
     template: `<div #ellipsis class="lds-ellipsis"><div [style.background-color]="color"></div><div [style.background-color]="color"></div><div [style.background-color]="color"></div><div  [style.background-color]="color"></div></div>`,
     styles: [`
         .lds-ellipsis {
-  display: inline-block;
+  display: flex;
   position: relative;
   width: 40px;
   height: 40px;

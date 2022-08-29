@@ -19,12 +19,15 @@
         <a routerLinkActive="active-route" routerLink="/games">Games</a>
         <a>Help</a>
       </div>
+
+      <div class="profile-block cursor-pointer" (click)="web3Login()">
+        <img class="fake-profile-icon" *ngIf="!avatar && !loading" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
+        <div class="nav-loader" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center"><loading-spinner></loading-spinner></div>
+        <img *ngIf="avatar && !loading" [src]="avatar" alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
+      </div>
+
     </div>
-    <div class="profile-block cursor-pointer" (click)="web3Login()">
-      <img *ngIf="!avatar && !loading" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
-      <div class="nav-loader" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center"><loading-spinner></loading-spinner></div>
-      <img *ngIf="avatar && !loading" [src]="avatar" alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
-    </div>
+
     <div class="tablet-menu">
       <div (click)="openSidefilter()" class="search-mobile">
         <img class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">

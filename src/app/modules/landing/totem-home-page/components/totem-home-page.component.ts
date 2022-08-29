@@ -28,7 +28,7 @@ export class TotemHomePageComponent implements OnInit {
 
   hovered: boolean = false;
 
-  eventDate: Date = new Date('08/19/2022');
+  eventDate: Date = new Date('09/9/2022');
 
   //@ViewChild('joinButton') joinButton!: ElementRef;
 

@@ -38,9 +38,9 @@ export class TotemNavigationComponent implements OnInit {
         const userInfo: any = await this.web3Auth.getUserInfo();
         this.avatar = userInfo.profileImage;
         this.allowNavigation.next(true);
+        console.log('ALLOW LOADING NAVS');
       }
       this.loading = false;
-      console.log('ALLOW LOADING NAVS');
       this.cdr.markForCheck();
     } catch (err: any) {
       console.log(err, 'INIT ERRROR');
