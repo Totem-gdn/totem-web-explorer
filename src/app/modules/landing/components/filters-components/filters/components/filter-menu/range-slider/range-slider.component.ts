@@ -10,12 +10,22 @@ export interface Items {
 const Items: Items[] = [
   {
   amountOfItems: 40,
-  price: 99,
+  price: 0,
   isInRange: false,
   },
   {
   amountOfItems: 40,
-  price: 120,
+  price: 50,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 40,
+  price: 100,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 40,
+  price: 150,
   isInRange: false,
   },
   {
@@ -54,8 +64,18 @@ const Items: Items[] = [
   isInRange: false,
   },
   {
+  amountOfItems: 60,
+  price: 550,
+  isInRange: false,
+  },
+  {
   amountOfItems: 50,
   price: 600,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 650,
   isInRange: false,
   },
   {
@@ -64,8 +84,18 @@ const Items: Items[] = [
   isInRange: false,
   },
   {
+  amountOfItems: 30,
+  price: 750,
+  isInRange: false,
+  },
+  {
   amountOfItems: 20,
   price: 800,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 20,
+  price: 850,
   isInRange: false,
   },
   {
@@ -74,8 +104,13 @@ const Items: Items[] = [
   isInRange: false,
   },
   {
+  amountOfItems: 40,
+  price: 950,
+  isInRange: false,
+  },
+  {
   amountOfItems: 90,
-  price: 999,
+  price: 1000,
   isInRange: false,
   },
 ]
@@ -114,7 +149,7 @@ export class RangeSliderComponent implements AfterViewInit {
     }
 
     checkRange() {
-      this.items.map((item: Items) => { item.price > this.minValue && item.price <= this.maxValue ? item.isInRange = true : item.isInRange = false});
+      this.items.map((item: Items) => { item.price >= this.minValue && item.price <= this.maxValue ? item.isInRange = true : item.isInRange = false});
     }
 
     changeMinValue() {
