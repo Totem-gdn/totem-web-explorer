@@ -1,6 +1,84 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import { max } from "rxjs";
 
+export interface Items {
+  amountOfItems: number,
+  price: number,
+  isInRange: boolean;
+}
+
+const Items: Items[] = [
+  {
+  amountOfItems: 40,
+  price: 99,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 40,
+  price: 120,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 200,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 250,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 300,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 350,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 10,
+  price: 400,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 10,
+  price: 450,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 60,
+  price: 500,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 600,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 700,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 20,
+  price: 800,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 40,
+  price: 900,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 90,
+  price: 999,
+  isInRange: false,
+  },
+]
 
 @Component({
     selector: 'range-slider',
@@ -16,6 +94,8 @@ export class RangeSliderComponent implements AfterViewInit {
     marginLeft!: string;
     marginRight!: string;
 
+    items: Items[] = Items;
+
     @ViewChild('sliderTrackMin') sliderTrackMin!: ElementRef;
     @ViewChild('sliderTrackMax') sliderTrackMax!: ElementRef;
     @ViewChild('sliderThumbMin') sliderThumbMin!: ElementRef;
@@ -30,6 +110,11 @@ export class RangeSliderComponent implements AfterViewInit {
         this.changeMaxValue();
         this.changeMinValue();
         this.setMargins();
+        this.checkRange()
+    }
+
+    checkRange() {
+      this.items.map((item: Items) => { item.price > this.minValue && item.price <= this.maxValue ? item.isInRange = true : item.isInRange = false});
     }
 
     changeMinValue() {
@@ -53,7 +138,7 @@ export class RangeSliderComponent implements AfterViewInit {
         const minValue = this.sliderThumbMin.nativeElement;
         const maxValue = this.sliderThumbMax.nativeElement;
 
-     
+
         if(+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
             maxValue.value = +minValue.value + 1;
         }
