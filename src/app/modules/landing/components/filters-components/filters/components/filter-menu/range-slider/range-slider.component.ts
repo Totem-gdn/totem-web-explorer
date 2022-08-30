@@ -14,17 +14,17 @@ const Items: Items[] = [
   isInRange: false,
   },
   {
-  amountOfItems: 40,
+  amountOfItems: 30,
   price: 50,
   isInRange: false,
   },
   {
-  amountOfItems: 40,
+  amountOfItems: 47,
   price: 100,
   isInRange: false,
   },
   {
-  amountOfItems: 40,
+  amountOfItems: 56,
   price: 150,
   isInRange: false,
   },
@@ -156,7 +156,7 @@ export class RangeSliderComponent implements AfterViewInit {
         console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
-        const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 18) / (minValue.max - minValue.min));
+        const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 14) / (minValue.max - minValue.min));
         this.marginLeft = `${leftIndent + 9}px`;
         this.minValue = minValue.value;
     }
@@ -164,7 +164,7 @@ export class RangeSliderComponent implements AfterViewInit {
     changeMaxValue() {
         const maxValue = this.sliderThumbMax.nativeElement;
 
-        const rightIndent = (maxValue.max - maxValue.value) * ((maxValue.getBoundingClientRect().width - 18) / (maxValue.max - maxValue.min));
+        const rightIndent = (maxValue.max - maxValue.value) * ((maxValue.getBoundingClientRect().width - 14) / (maxValue.max - maxValue.min));
         this.marginRight = `${rightIndent + 9}px`;
         this.maxValue = maxValue.value;
     }

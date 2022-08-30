@@ -20,11 +20,12 @@ input[type="range"]::-webkit-slider-thumb {
 	}
 
     background: $dark-grey;
+    border-radius: 4px;
 
     &::-webkit-slider-thumb {
         z-index: 3;
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
         background-color: $yellow;
     }
 }
@@ -54,6 +55,7 @@ input[type="range"]::-webkit-slider-thumb {
     height:4px;
     background-color: $yellow;
     margin-right: var(--margin-right);
+    border-radius: 4px;
     top: -4px;
     left: 0;
     right: 0;
