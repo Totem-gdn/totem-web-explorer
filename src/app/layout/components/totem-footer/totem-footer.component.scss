@@ -93,6 +93,9 @@
       padding-top: 60px;
       padding-bottom: 80px;
       border-top: 1px solid $dark-grey;
+      @media (max-width: 960px) {
+        padding-bottom: 30px;
+      }
       .totem-company-info {
         width: 32%;
         div img {
@@ -197,10 +200,13 @@
       font-size: 14px;
       line-height: 16px;
       color: #FFFFFF;
-      @media (max-width: 479px) {
-        height: 88px;
+      .reserved-caption {
+        white-space: nowrap;
+      }
+      @media (max-width: 600px) {
+        height: 98px;
         .inc-info {
-          margin-top: 20px;
+          margin-top: 14px;
         }
       }
       .terms-link {
@@ -208,7 +214,7 @@
       }
       .co-links {
         width: 100%;
-        max-width: 177px;
+        max-width: 241px;
         flex-direction: row;
         display: flex;
         place-content: center space-between;
@@ -218,12 +224,12 @@
           cursor: pointer;
         }
 
-        @media (max-width: 479px) {
+        @media (max-width: 600px) {
           flex: 1 1 100%;
           max-width: 100%;
           place-content: center start;
           align-items: center;
-          margin-top: 4px;
+          //margin-top: 4px;
           .terms-link {
             margin-left: 50px;
           }

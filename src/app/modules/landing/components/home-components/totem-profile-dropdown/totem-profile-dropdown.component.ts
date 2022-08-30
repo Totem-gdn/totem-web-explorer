@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
@@ -17,6 +17,8 @@ export class TotemNavSidebarComponent implements OnInit {
   userData: any;
   wallet!: string;
   walletNumber!: string;
+
+  @Output() logOutEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private sideProfileStateService: SideProfileStateService,
     private web3Auth: Web3AuthService, private router: Router, private snackNotifierService: SnackNotifierService) { }
@@ -49,9 +51,8 @@ export class TotemNavSidebarComponent implements OnInit {
     this.sideProfileStateService.updateState(false);
   }
 
-  async onLogout() {
-    await this.web3Auth.logout();
-    this.router.navigate(['/home'])
+  onLogout() {
+    this.logOutEvent.emit(true);
   }
 
   notify() {

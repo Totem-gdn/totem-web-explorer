@@ -7,8 +7,8 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./totem-button.component.scss']
 })
 export class TotemButtonComponent implements OnInit {
-  @Input() width: string = '220';
-  @Input() height: string = '50';
+  @Input() width: string = '220px';
+  @Input() height: string = '50px';
   @Input() caption: string = 'Join community';
   @Input() customId: string = 'totemJoinButton';
 

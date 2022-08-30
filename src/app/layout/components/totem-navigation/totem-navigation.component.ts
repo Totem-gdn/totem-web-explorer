@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 import { SideProfileStateService } from '@app/shared/services/sideprofile-state.service';
 import { BehaviorSubject } from 'rxjs';
@@ -17,11 +18,12 @@ export class TotemNavigationComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private sidenavStateService: SidenavStateService,
     private sideProfileStateService: SideProfileStateService,
+    private snackNotifierService: SnackNotifierService
     ) { }
 
   loading = false;
   avatar: undefined | string;
-  userData: any;
+  loggedIn: boolean = false;
   wallet: string = '';
   allowNavigation: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -37,9 +39,10 @@ export class TotemNavigationComponent implements OnInit {
       if (this.wallet) {
         const userInfo: any = await this.web3Auth.getUserInfo();
         this.avatar = userInfo.profileImage;
-        this.allowNavigation.next(true);
+        this.loggedIn = true;
         console.log('ALLOW LOADING NAVS');
       }
+      this.allowNavigation.next(true);
       this.loading = false;
       this.cdr.markForCheck();
     } catch (err: any) {
@@ -63,12 +66,14 @@ export class TotemNavigationComponent implements OnInit {
         await this.web3Auth.login();
         console.log('start loading if user selected login case');
         this.loading = true;
+        this.allowNavigation.next(false);
         const userInfo: any = await this.web3Auth.getUserInfo();
         this.wallet = await this.web3Auth.getAccounts();
         const avatar = userInfo.profileImage;
         this.avatar = avatar;
         this.loading = false;
         console.log('SUCCESS LOGGED IN');
+        this.loggedIn = true;
         this.allowNavigation.next(true);
         this.cdr.markForCheck();
       } catch (err: any) {
@@ -78,6 +83,21 @@ export class TotemNavigationComponent implements OnInit {
       };
     }
 
+  }
+
+  async processLogIn() {
+    console.log('start loading if user selected login case');
+    this.loading = true;
+    this.allowNavigation.next(false);
+    const userInfo: any = await this.web3Auth.getUserInfo();
+    this.wallet = await this.web3Auth.getAccounts();
+    const avatar = userInfo.profileImage;
+    this.avatar = avatar;
+    this.loading = false;
+    console.log('SUCCESS LOGGED IN');
+    this.loggedIn = true;
+    this.allowNavigation.next(true);
+    this.cdr.markForCheck();
   }
 
   openSidenav() {
@@ -90,6 +110,15 @@ export class TotemNavigationComponent implements OnInit {
 
   openSideProfile() {
     this.sideProfileStateService.updateState(true);
+  }
+
+  async logOut() {
+    await this.web3Auth.logout();
+    this.snackNotifierService.open('Signed out');
+    this.avatar = undefined;
+    this.loggedIn = false;
+    this.router.navigate(['/home']);
+    this.cdr.markForCheck();
   }
 
 }

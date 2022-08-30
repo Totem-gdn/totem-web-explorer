@@ -45,7 +45,6 @@
   .header-left {
     max-width: 616px;
     width: 100%;
-    margin-right: 40px;
   }
 
   .search-block {
@@ -64,6 +63,7 @@
     display: flex;
     place-content: center space-between;
     align-items: center;
+    margin-left: 40px;
     &-wrapper {
       max-width: 420px;
       width: 100%;
