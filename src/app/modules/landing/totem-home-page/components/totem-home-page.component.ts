@@ -26,8 +26,6 @@ export class TotemHomePageComponent implements OnInit {
   y: number = 0;
   items = [1,2,3,4,5,6,7];
 
-  hovered: boolean = false;
-
   eventDate: Date = new Date('09/9/2022');
 
   //@ViewChild('joinButton') joinButton!: ElementRef;
@@ -43,11 +41,11 @@ export class TotemHomePageComponent implements OnInit {
         delay: 6000,
         disableOnInteraction: false
       },
-      // slidesPerView: 'auto',
-      // loopedSlides: 4,
+      slidesPerView: 'auto',
       speed: 1000,
       loop: false,
       effect: 'coverflow',
+      spaceBetween: 5,
       coverflowEffect: {
         slideShadows: false
       },
@@ -65,13 +63,8 @@ export class TotemHomePageComponent implements OnInit {
       //},
       rewind: true,
       loopPreventsSlide: false,
-      // Disable preloading of all images
-      //preloadImages: false,
-      // Enable lazy loading
       lazy: true,
-      // Optional parameters
       direction: 'horizontal',
-      // If we need pagination
       pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
@@ -93,27 +86,6 @@ export class TotemHomePageComponent implements OnInit {
 
   joinCommunity(event: MouseEvent) {
     console.log(event);
-  }
-
-  onMouseOver(event: MouseEvent) {
-    window.innerWidth
-    //console.log(event);
-    let el = document.getElementById('joinButton');
-    console.log(el);
-
-    console.log(el?.getBoundingClientRect().left);
-
-    this.x = event.pageX - el!.getBoundingClientRect().left + 30;
-    //this.y = event.pageY * 0;
-    //console.log(this.x, this.y);
-
-  }
-
-  onMouseLeave() {
-    this.hovered = false;
-  }
-  onMouseEnter() {
-    this.hovered = true;
   }
 
   goNext() {

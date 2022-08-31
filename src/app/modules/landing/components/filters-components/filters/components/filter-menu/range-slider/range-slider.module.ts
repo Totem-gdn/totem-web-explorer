@@ -9,7 +9,7 @@ import { RangeSliderComponent } from "./range-slider.component";
         RangeSliderComponent
     ],
     imports: [
-        SharedModule
+        SharedModule,
     ],
     exports: [
         RangeSliderComponent
@@ -17,5 +17,5 @@ import { RangeSliderComponent } from "./range-slider.component";
 })
 
 export class RangeSliderModule {
-    
+
 }

@@ -11,33 +11,52 @@
       <div class="button-wrap" (click)="close()">
         <mat-icon class="close-button" [svgIcon]="'line:arrow_right'"></mat-icon>
       </div>
-      <div class="user-image" fxLayout="column" fxLayoutAlign="center center">
-        <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
-      </div>
-      <ng-container *ngIf="userData?.name?.length">
-        <div class="user-name">
-          {{userData?.name}}
+      <ng-container *ngIf="loggedIn; else unauthblock">
+        <div class="user-image" fxLayout="column" fxLayoutAlign="center center">
+          <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
         </div>
-        <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
-          {{walletNumber}}
-          <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
-          <!-- <img [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" class="copy-icon" src="assets/icons/copy_icon.svg" alt="copy-icon"> -->
+        <ng-container *ngIf="userData?.name?.length">
+          <div class="user-name">
+            {{userData?.name}}
+          </div>
+          <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
+            {{walletNumber}}
+            <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+            <!-- <img [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" class="copy-icon" src="assets/icons/copy_icon.svg" alt="copy-icon"> -->
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!userData?.name?.length">
+          <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
+            {{walletNumber}}
+            <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+          </div>
+        </ng-container>
+        <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Profile</a>
+          <a>Help</a>
         </div>
       </ng-container>
-      <ng-container *ngIf="!userData?.name?.length">
-        <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
-          {{walletNumber}}
-          <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+      <ng-template #unauthblock>
+        <div class="unauth-nav-content" fxLayout="column" fxLayoutAlign="space-between">
+          <div class="sidenav mtop-60px" fxLayout="column" fxLayoutAlign="start start">
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
+            <a (click)="logIn()">Profile</a>
+            <a>Help</a>
+          </div>
+          <div>
+            <totem-button (click)="logIn()" [customId]="'navcreateaccount'" [caption]="'Create account'" [width]="'100%'"></totem-button>
+          </div>
         </div>
-      </ng-container>
-      <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
-        <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
-        <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
-        <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
-        <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
-        <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Profile</a>
-        <a>Help</a>
-      </div>
+      </ng-template>
+
+
     </ng-container>
     <ng-container *ngIf="sidebarType === 'filter'">
       <div class="button-wrap" (click)="close()">

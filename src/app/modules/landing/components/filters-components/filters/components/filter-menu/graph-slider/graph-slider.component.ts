@@ -1,5 +1,119 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
+import { max } from "rxjs";
 
+export interface Items {
+  amountOfItems: number,
+  price: number,
+  isInRange: boolean;
+}
+
+const Items: Items[] = [
+  {
+  amountOfItems: 40,
+  price: 0,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 50,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 47,
+  price: 100,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 56,
+  price: 150,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 200,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 250,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 300,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 350,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 10,
+  price: 400,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 10,
+  price: 450,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 60,
+  price: 500,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 60,
+  price: 550,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 600,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
+  price: 650,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 700,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 750,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 20,
+  price: 800,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 20,
+  price: 850,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 40,
+  price: 900,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 40,
+  price: 950,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 90,
+  price: 1000,
+  isInRange: false,
+  },
+]
 
 @Component({
     selector: 'graph-slider',
@@ -14,6 +128,8 @@ export class GraphSliderComponent {
 
     marginLeft!: string;
     marginRight!: string;
+    
+    items: Items[] = Items;
 
     @ViewChild('sliderTrackMin') sliderTrackMin!: ElementRef;
     @ViewChild('sliderTrackMax') sliderTrackMax!: ElementRef;
@@ -29,7 +145,12 @@ export class GraphSliderComponent {
         this.changeMaxValue();
         this.changeMinValue();
         this.setMargins();
+        this.checkRange();
     }
+    
+    checkRange() {
+        this.items.map((item: Items) => { item.price >= this.minValue && item.price <= this.maxValue ? item.isInRange = true : item.isInRange = false});
+      }
 
     changeMinValue() {
         console.log()

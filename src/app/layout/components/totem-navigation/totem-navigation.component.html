@@ -1,6 +1,6 @@
 <div class="totem-navigation" fxLayout="row" fxLayoutAlign="center">
-  <totem-nav-sidebar *ngIf="allowNavigation | async"></totem-nav-sidebar>
-  <totem-profile-dropdown *ngIf="allowNavigation | async"></totem-profile-dropdown>
+  <totem-nav-sidebar *ngIf="allowNavigation | async" [loggedIn]="loggedIn" (logInEvent)="processLogIn()"></totem-nav-sidebar>
+  <totem-profile-dropdown *ngIf="(allowNavigation | async) && loggedIn" (logOutEvent)="logOut()"></totem-profile-dropdown>
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
       <div class="logo-block">

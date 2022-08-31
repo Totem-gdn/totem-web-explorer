@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
-import { max } from "rxjs";
 
 
 @Component({
@@ -15,6 +14,7 @@ export class RangeSliderComponent implements AfterViewInit {
 
     marginLeft!: string;
     marginRight!: string;
+
 
     @ViewChild('sliderTrackMin') sliderTrackMin!: ElementRef;
     @ViewChild('sliderTrackMax') sliderTrackMax!: ElementRef;
@@ -36,7 +36,7 @@ export class RangeSliderComponent implements AfterViewInit {
         console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
-        const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 18) / (minValue.max - minValue.min));
+        const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 14) / (minValue.max - minValue.min));
         this.marginLeft = `${leftIndent + 9}px`;
         this.minValue = minValue.value;
     }
@@ -44,7 +44,7 @@ export class RangeSliderComponent implements AfterViewInit {
     changeMaxValue() {
         const maxValue = this.sliderThumbMax.nativeElement;
 
-        const rightIndent = (maxValue.max - maxValue.value) * ((maxValue.getBoundingClientRect().width - 18) / (maxValue.max - maxValue.min));
+        const rightIndent = (maxValue.max - maxValue.value) * ((maxValue.getBoundingClientRect().width - 14) / (maxValue.max - maxValue.min));
         this.marginRight = `${rightIndent + 9}px`;
         this.maxValue = maxValue.value;
     }
@@ -53,7 +53,7 @@ export class RangeSliderComponent implements AfterViewInit {
         const minValue = this.sliderThumbMin.nativeElement;
         const maxValue = this.sliderThumbMax.nativeElement;
 
-     
+
         if(+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
             maxValue.value = +minValue.value + 1;
         }

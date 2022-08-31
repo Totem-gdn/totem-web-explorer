@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
@@ -16,6 +16,9 @@ export class TotemNavSidebarComponent implements OnInit {
   userData: any;
   wallet: string = '';
   walletNumber: string = '';
+
+  @Input() loggedIn: boolean = false;
+  @Output() logInEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private sidenavStateService: SidenavStateService,
     private web3Auth: Web3AuthService,
@@ -35,13 +38,21 @@ export class TotemNavSidebarComponent implements OnInit {
 
   async getAccountInfo() {
     //console.log('GET INFO ABOUT USER');
-    const wallet = await this.web3Auth.getAccounts();
-    this.userData = await this.web3Auth.getUserInfo();
-    //console.log(wallet);
-    this.wallet = wallet;
-    this.walletNumber = wallet.slice(0, 6) + '...' + wallet.slice(-4);
-    console.log(this.walletNumber);
+    if (this.loggedIn) {
+      const wallet = await this.web3Auth.getAccounts();
+      console.log('WALLET');
+      this.userData = await this.web3Auth.getUserInfo();
+      console.log('USER DATA');
+      this.wallet = wallet;
+      this.walletNumber = wallet.slice(0, 6) + '...' + wallet.slice(-4);
+      console.log(this.walletNumber);
+    }
+  }
 
+  async logIn() {
+    await this.web3Auth.login();
+    this.close();
+    this.logInEvent.emit(true);
   }
 
   notify() {
