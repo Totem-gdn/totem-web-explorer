@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { ProfileService } from '@app/core/services/filters/dropup.service';
+import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { FiltersService } from '@app/core/services/filters/filters.service';
+
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -9,7 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class ItemFilterComponent implements AfterViewInit, OnDestroy {
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private filtersService: FiltersService,
+              @Inject(DOCUMENT) private document: Document) {}
 
   @ViewChild('dropupMenu') dropupMenu!: ElementRef;
 
@@ -17,7 +20,7 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
   sub!: Subscription;
   
   ngAfterViewInit() {
-    this.sub = this.profileService.dropupOpen$.subscribe(isOpen => {
+    this.sub = this.filtersService.dropupOpen$.subscribe(isOpen => {
       this.isDropupOpen = isOpen;
 
       this.updateMenu();
@@ -25,21 +28,33 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
   }
 
   toggleMenu() {
-    this.profileService.dropupOpen = !this.profileService.dropupOpen;
+    this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
   }
 
   onCloseMenu() {
-    this.profileService.dropupOpen = false;
+    this.filtersService.dropupOpen = false;
   }
 
   updateMenu() {
 
     if (this.isDropupOpen) {
-      this.dropupMenu.nativeElement.style.maxHeight = '1000px';
+      this.document.body.style.position = 'fixed';
+      this.dropupMenu.nativeElement.style.maxHeight = '80vh';
+      this.dropupMenu.nativeElement.style.overflowY = 'auto';
     }
     if (!this.isDropupOpen) {
+      this.document.body.style.position = 'inherit';
       this.dropupMenu.nativeElement.style.maxHeight = '25px';
+      this.dropupMenu.nativeElement.style.overflowY = 'hidden';
     }
+  }
+
+  onClickApply() {
+    this.filtersService.dropupOpen = false;
+  }
+
+  onClickClear() {
+    this.filtersService.doResetFilters();
   }
 
   ngOnDestroy(): void {

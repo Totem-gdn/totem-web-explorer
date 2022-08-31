@@ -1,13 +1,14 @@
 
-<div class="dropdown">
-    <div class="menu-filter bg-grey" (click)="onClickMenu()"
+<div class="dropdown" (clickOutside)="onClick($event)">
+    <div class="menu-filter bg-grey" (click)="onClickMenu()" 
     [ngClass]="menuActive ? 'gradient-border-solid': ''">
         <span class="whitespace-nowrap">Sort by</span>
         <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
         <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
-    <div class="dropdown-menu" [ngClass]="menuActive ? 'appear': ''">
+    <div #dropdown class="dropdown-menu backdrop-blur-xl" [ngClass]="menuActive ? 'appear': ''"
+    >
         <div class="menu-items">
             <div class="menu-item">
                 <span class="">Newest</span>

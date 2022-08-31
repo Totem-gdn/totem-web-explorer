@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedModule } from "@app/shared/shared.module";
 import { RangeSliderComponent } from "./range-slider.component";
 
@@ -11,7 +10,6 @@ import { RangeSliderComponent } from "./range-slider.component";
     ],
     imports: [
         SharedModule,
-        FlexLayoutModule
     ],
     exports: [
         RangeSliderComponent

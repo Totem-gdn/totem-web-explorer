@@ -12,7 +12,7 @@
 
 .wrapper {
     width: 100%;
-    transition: all 0.3s ease-out;
+    transition: all 0.3s ease-in-out;
     overflow: hidden;
     position: relative;
     max-height: 50px;
@@ -23,13 +23,26 @@
     }
 }
 
+.menu-item {
+    padding: 8px;
+    align-items: center;
+    transition: background-color .2s ease-in-out;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        background-color: $grey;
+    }
+}
+
 .point-icon {
     color: $yellow;
     width: 8px;
     height: 8px;
     position: absolute;
-    left: -10px;
+    left: 0;
     top: 21px;
+    z-index: 5;
 }
 
 label {

@@ -1,13 +1,12 @@
 
 <div class="flex relative content">
   
-    <mat-icon *ngIf="checkedItems && checkedItems.length != 0" class="point-icon" [svgIcon]="'solid:point'"></mat-icon>
-
     <div class="wrapper" #wrapper>
 
         <!-- Menu button -->
+        <mat-icon *ngIf="checkedItems && checkedItems.length != 0" class="point-icon" [svgIcon]="'solid:point'"></mat-icon>
         <div class="menu-filter mb-3" (click)="onClickMenu()"
-            [ngClass]="menuActive ? 'gradient-border-solid': ''">
+            [ngClass]="menuActive ? 'gradient-border-solid bg-grey': ''">
             <p>{{title}}</p>
             <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
             <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
@@ -16,15 +15,15 @@
         <search-field  *ngIf="searchType === 'search'"></search-field>
     
         <range-slider
-         *ngIf="searchType === 'range'" class="rounded my-8 mb-2 items-center flex flex-col">
+         *ngIf="searchType === 'range'" class="rounded mt-8 items-center flex flex-col">
         </range-slider>
 
         <graph-slider
-         *ngIf="searchType === 'graph'" class="rounded my-8 mb-2 items-center flex flex-col">
+         *ngIf="searchType === 'graph'" class="rounded mt-8 items-center flex flex-col">
         </graph-slider>
     
         <div *ngIf="items && searchType != 'graph' && searchType != 'range'" class="h-200px overflow-y-auto">
-            <div class="p-2 flex items-center hover:bg-grey cursor-pointer relative" *ngFor="let item of items">
+            <div class="menu-item flex" *ngFor="let item of items">
                 <div class="p-2 w-9 h-9 img rounded">
                 </div>
     

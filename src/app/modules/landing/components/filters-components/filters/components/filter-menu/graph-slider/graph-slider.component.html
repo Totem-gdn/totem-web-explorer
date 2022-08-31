@@ -1,22 +1,16 @@
+<div class="cols-wrapp" fxLayout="row" fxLayoutAlign="space-between end">
+    <div *ngFor="let item of items" class="item-col" [ngStyle]="{'height': item.amountOfItems + 'px', 'background': item.isInRange ? '#ffd013' : ''}"></div>
+  </div>
+  <div class="range-slider relative">
+      <div #sliderTrackMin class="slider"></div>
+      <input #sliderThumbMin class="ml-auto cursor-pointer h-1 w-full" type="range" min="0" max="1000" value="100"
+          (input)="update()">
+  
+      <div #sliderTrackMax class="slider"></div>
+      <input #sliderThumbMax class="cursor-pointer h-1 w-full" type="range" min="0" max="1000" value="200"
+          (input)="update()">
+  </div>
 
-<div class="range-slider relative h-[125px]">
-    <div class="graph-cols">
-        <div class="graph-col"></div>
-        <div class="graph-col"></div>
-        <div class="graph-col"></div>
-        <div class="graph-col"></div>
-        <div class="graph-col"></div>
-
-    </div>
-    <div #sliderTrackMin class="slider"></div>
-    <input #sliderThumbMin class="ml-auto cursor-pointer h-1 w-full" type="range" min="0" max="1000" value="100"
-        (input)="update()">
-
-    <div #sliderTrackMax class="slider"></div>
-    <input #sliderThumbMax class="cursor-pointer h-1 w-full" type="range" min="0" max="1000" value="250" 
-        (input)="update()">  
-</div>
-
-<div class="mt-3 flex w-full">
-    <span>Range: {{minValue}}-{{maxValue}}</span>
+<div class="mb-[15px] mt-[25px] flex w-full">
+    <span class="text-light-grey">Range:&nbsp;&nbsp;&nbsp;{{minValue}}-{{maxValue}}</span>
 </div>

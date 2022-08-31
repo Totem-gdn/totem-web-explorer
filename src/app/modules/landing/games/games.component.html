@@ -1,17 +1,22 @@
-<div class="py-40 flex flex-col h-full">
+<div class="py-[60px] px-[20px] flex flex-col relative">
 
-    <!-- <div class="flex mb-5 justify-between">
-        <filter-slider></filter-slider>
-        <sort-by></sort-by>
-    </div>
+    <!-- <div class="flex"> -->
+        <filter-nav></filter-nav>
 
-    <div class="flex mb-5">
-        <filter-update></filter-update>
-    </div>
+        <div class="flex flex-col justify-center w-full">
 
-    <div class="flex">
-        <games-filter></games-filter>
-        <games-list></games-list>
-    </div> -->
+            <div class="flex flex-wrap">
+                <filter-update class="nav-item flex-none lg:w-[320px]"></filter-update>
+                <filter-tags class="nav-item flex items-center"></filter-tags>
+            </div>
 
+            <div class="flex">
+                <games-filter class="flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]"></games-filter>
+                <div class="flex gap-[16px] flex-wrap">
+                    <game-card class="flex grow justify-center" *ngFor="let game of [0,0,0,0,0,0,0,0,0,0,0,0,0]"></game-card>
+                </div>
+            </div>
+
+        </div>
+    <!-- </div> -->
 </div>

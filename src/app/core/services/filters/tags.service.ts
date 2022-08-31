@@ -29,4 +29,9 @@ export class TagsService {
         const newList = removeFromArray(tags, tagToRemove);
         this._tags.next(newList);
     }
+
+    clear() {
+        console.log('clear')
+        this._tags.next([]);
+    }
 }

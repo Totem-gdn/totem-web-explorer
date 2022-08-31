@@ -17,7 +17,8 @@
 
 
 .dropup-menu {
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
     z-index: 21;
     border-radius: 12px 12px 0px 0px;
@@ -33,20 +34,6 @@
     .content {
         max-width: 600px;
         margin: auto;
-
-        .handler-wrapper {
-                cursor: pointer;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                width: 100%;
-                & .rectangle {
-                    background-color: $light-grey;
-                    margin: 0 auto;              
-                    height: 5px;
-                    width: 100px;
-                    border-radius: 4px;
-                }
-            }
 
         .title {
             display: flex;
@@ -71,5 +58,23 @@
                 color: $black;
             }
         }
+    }
+}
+
+.handler-wrapper {
+    position: sticky;
+    background-color: $black;
+    z-index: 5;
+    top: 0;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    & .rectangle {
+        background-color: $light-grey;
+        margin: 0 auto;              
+        height: 5px;
+        width: 100px;
+        border-radius: 4px;
     }
 }
