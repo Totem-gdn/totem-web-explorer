@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
   constructor(private web3: Web3AuthService) { }
 
   async ngOnInit() {
+    console.log('INITED PROFILE PAGE');
+
     console.log('check login',!this.web3.isLoggedIn())
     if(!this.web3.isLoggedIn()) {
       console.log('login auth')

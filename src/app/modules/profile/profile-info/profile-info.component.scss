@@ -30,3 +30,99 @@
     }
 }
 
+.profile-wrapper {
+  max-width: 1500px;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 80px;
+
+  .profile-info {
+    width: 100%;
+
+    .banner-image {
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      img {
+        max-height: 200px;
+        min-height: 200px;
+        height: 100%;
+        max-width: 1500px;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .user-info {
+      width: 100%;
+      height: 112px;
+      position: relative;
+
+      &-icon {
+        position: absolute;
+        left: 40px;
+        top: -70px;
+        width: 170px;
+        height: 170px;
+        img {
+          border-radius: 50%;
+          border: 10px solid $dark;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &-data {
+        height: 76px;
+        width: 100%;
+        padding-left: 270px;
+        padding-top: 24px;
+
+        .user-name {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 28px;
+          color: #FFFFFF;
+          cursor: pointer;
+          .copy-icon {
+            margin-left: 10px;
+            height: 32px;
+            width: 26px;
+            font-size: 24px;
+            line-height: 28px;
+          }
+        }
+        .user-id {
+          cursor: pointer;
+          margin-top: 8px;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 16px;
+          color: $light-grey;
+          transition: color 0.33s ease-out;
+          .copy-icon {
+            margin-left: 6px;
+            height: 16px;
+            width: 16px;
+            font-size: 16px;
+            line-height: 16px;
+          }
+          &:hover {
+            color: #fff;
+          }
+        }
+
+        .msg-button {
+          width: 108px;
+          height: 50px;
+          background-color: $grey;
+          font-weight: 700;
+          font-size: 16px;
+          color: #FFFFFF;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}

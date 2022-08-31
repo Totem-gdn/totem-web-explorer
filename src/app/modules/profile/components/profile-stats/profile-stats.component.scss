@@ -1,0 +1,41 @@
+@import 'styles/scss/variables';
+
+:host {
+  margin-top: 40px;
+  width: 100%;
+}
+
+a, span, div {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: $light-grey;
+}
+
+.profile-stats-wrapper {
+  width: 100%;
+  max-width: 1500px;
+  padding-left: 30px;
+  padding-right: 30px;
+  .profile-stats {
+    background-color: $transparent-light;
+    width: 100%;
+    border-radius: 4px;
+    .stats-block {
+      height: 100%;
+      width: 170px;
+      padding: 25px 30px;
+      .data-caption {
+        margin-top: 4px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        color: #FFFFFF;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-<div class="wrapper gradient-border-solid flex flex-col h-[500px]">
+<!-- <div class="wrapper gradient-border-solid flex flex-col h-[500px]">
     <div class="flex">
         <img *ngIf="!user?.avatar" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
         <img *ngIf="user?.avatar" [src]="user.avatar" alt="profile-icon" class="rounded-full">
@@ -15,4 +15,53 @@
             <h4 class="ml-auto mt-[20px]" (click)="onLogout()">Logout</h4>
         </div>
     </div>
+</div> -->
+<div class="profile-wrapper">
+  <div class="profile-info">
+    <div class="banner-image">
+      <img [src]="user?.image || 'assets/images/banner.png'" alt="banner">
+    </div>
+    <div class="user-info">
+      <div class="user-info-icon">
+        <img *ngIf="!user?.avatar" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
+        <img *ngIf="user?.avatar" [src]="user.avatar" alt="profile-icon" class="rounded-full">
+      </div>
+      <div class="user-info-data" fxLayout="row" fxLayoutAlign="space-between center">
+        <ng-container *ngIf="user?.name?.length">
+          <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="user-name">
+              {{user?.name}}
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              [cdkCopyToClipboard]="user?.wallet"
+              [cdkCopyToClipboardAttempts]="2"
+              (cdkCopyToClipboardCopied)="notify()"
+              class="user-id"
+              >
+              {{user?.wallet}}
+              <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!user?.name?.length">
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            [cdkCopyToClipboard]="user?.wallet"
+            [cdkCopyToClipboardAttempts]="2"
+            (cdkCopyToClipboardCopied)="notify()"
+            class="user-name"
+            >
+            {{user?.wallet}}
+            <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+          </div>
+        </ng-container>
+        <button matRipple class="msg-button">
+          Messages
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
