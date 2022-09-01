@@ -28,7 +28,11 @@
     &:hover {
         background-color: $yellow;
 
-        .mat-icon, span, p {
+        span, p {
+            color: $black;
+            font-weight: 700;
+        }
+        .mat-icon {
             color: $black;
         }
     }

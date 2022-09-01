@@ -32,7 +32,9 @@
                     <span class="text-light-grey">{{item.genre}}</span>
                 </div>
     
-                <label><input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent" type="{{inputType}}" name="input"></label>
+                <label><input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent" type="checkbox"></label>
+                <!-- <label><input [(ngModel)]="item.selected" (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent" type="{{inputType}}" name="input"></label> -->
+
             </div>
         </div>
     </div>

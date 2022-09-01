@@ -1,16 +1,3 @@
-<!-- <div class="hidden lg:flex flex-col mr-3">
-    <filter-menu [title]="'Game name'" [inputType]="'radio'" [items]="games"></filter-menu>
-
-    <filter-menu [title]="'Damage'" [searchType]="'range'"></filter-menu>
-
-    <filter-menu [title]="'Element'" [inputType]="'checkbox'" [searchType]="null" [items]="elements"></filter-menu>
-
-    <filter-menu [title]="'Color'" [inputType]="'checkbox'" [items]="colors"></filter-menu>
-
-    <filter-menu [title]="'Item type'" [inputType]="'checkbox'" [items]="itemTypes"></filter-menu>
-
-    <filter-menu [title]="'Material'" [items]="materials"></filter-menu>
-</div> -->
 
 <div [ngClass]="isDropupOpen ? 'blur-background lg:hidden': ''" (click)="onCloseMenu()"></div>
 
@@ -27,11 +14,6 @@
 
         <div class="py-[45px] lg:py-0">
             <filter-menu [title]="'Rarity'" [searchType]="'graph'" [items]="games"></filter-menu>
-
-            <!-- <filter-menu
-        [title]="'Rarity'"
-        [searchType]="'graph'"
-        [items]="games"></filter-menu> -->
 
             <filter-menu [title]="'Damage'" [searchType]="'range'"></filter-menu>
 

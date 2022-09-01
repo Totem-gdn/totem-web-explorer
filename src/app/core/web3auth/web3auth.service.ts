@@ -3,7 +3,6 @@ import { environment } from "@env/environment";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./web3RPC";
-import { from, Observable, of } from "rxjs";
 const clientId = environment.WEB3AUTH_ID;
 
 
@@ -29,9 +28,10 @@ export class Web3AuthService {
                 rpcTarget: "https://rpc-mumbai.maticvigil.com", // This is the public RPC we have added, please pass on your own endpoint while creating an app
             },
         });
-        const web3auth = this.web3auth
+        const web3auth = this.web3auth;
 
         await web3auth.initModal();
+        
         if (web3auth.provider) {
             this.provider = web3auth.provider;
         }
@@ -137,6 +137,16 @@ export class Web3AuthService {
         const privateKey = await rpc.getPrivateKey();
         console.log(privateKey);
     };
+
+    getListOfNfts = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        const rpc = new RPC(this.provider);
+        const tx = await rpc.getListOfNfts();
+        return tx;
+    }
 
     logout = async () => {
         if (!this.web3auth) {

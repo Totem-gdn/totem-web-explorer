@@ -9,7 +9,7 @@ export class TagsService {
     private _tags = new BehaviorSubject<string[]>([]);
     // private _tags: any[] = [];
 
-    set addTag(tag: string) {
+    set addTag(tag: any) {
         const tags = this._tags.getValue();
         tags.push(tag);
         this._tags.next(tags);
@@ -19,14 +19,15 @@ export class TagsService {
         return this._tags.asObservable();
     }
 
-    removeTag(tagToRemove: string) {
+    removeTag(tagToRemove: any) {
         const tags = this._tags.getValue();
 
         const removeFromArray = function (arr:any[] , ...theArgs: any) {
-            return arr.filter( val => !theArgs.includes(val) )
+            return arr.filter( val => !theArgs.includes(val.value) )
         };
 
-        const newList = removeFromArray(tags, tagToRemove);
+        const newList = removeFromArray(tags, tagToRemove.value);
+        tagToRemove.reference.checked = false;
         this._tags.next(newList);
     }
 

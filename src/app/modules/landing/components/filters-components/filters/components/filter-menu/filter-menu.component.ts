@@ -24,7 +24,7 @@ export class FilterMenuComponent implements OnDestroy{
   @Input() inputType = 'checkbox';
   @Input() title = 'Title'
   @Input() searchType: string | null = 'search';
-  @Input() items: any[] | undefined = [{ name: 'Game', genre: 'casual' }, { name: 'Game', genre: 'casual' }, { name: 'Game', genre: 'casual' }, { name: 'Game', genre: 'casual' }, { name: 'Game', genre: 'casual' }, { name: 'Game', genre: 'casual' },];
+  @Input() items: any[] = [{ name: 'Game', genre: 'casual', selected: false }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true },];
 
 
   ngOnInit() {
@@ -50,35 +50,46 @@ export class FilterMenuComponent implements OnDestroy{
       } else if (!this.menuActive) {
         this.wrapper.nativeElement.style.maxHeight = '50px';
       }
+
+      this.checkedItems.forEach((tag: any) => {
+        tag.reference.checked = false;
+      })
+      this.checkedItems = [];
     })
   }
 
   onChangeInput(event: any) {
+    console.log(event);
     const value = event.target.value;
+    const reference = event.target;
 
     if (this.inputType === 'radio') {
       this.tagsService.removeTag(this.checkedItems[0]);
-      this.checkedItems = [value];
-      this.tagsService.addTag = value;
+      this.checkedItems = [{value: value, reference: reference}];
+      this.tagsService.addTag = {value: value, reference: reference};
     }
 
     if (this.inputType === 'checkbox') {
       if (event.target.checked) {
-        this.checkedItems.push(value);
-        this.tagsService.addTag = value;
+        this.checkedItems.push({value: value, reference: reference});
+        this.tagsService.addTag = {value: value, reference: reference};
       }
 
       if (!event.target.checked) {
         const removeFromArray = function (arr: any[], ...theArgs: any) {
-          return arr.filter(val => !theArgs.includes(val))
+          return arr.filter(val => !theArgs.includes(val.value))
         };
         const newArray = removeFromArray(this.checkedItems, value);
         this.checkedItems = newArray;
         
-        this.tagsService.removeTag(value);
+        this.tagsService.removeTag({value: value, reference: reference});
       }
     }
 
+  }
+
+  onInput(e: any) {
+    e.target.checked = false;
   }
 
   ngOnDestroy(): void {

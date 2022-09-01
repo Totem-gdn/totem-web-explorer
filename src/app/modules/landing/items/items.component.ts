@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { ItemsService } from "@app/core/services/items/items.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-items',
@@ -9,29 +11,28 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
     //   }
 })
 
-export class ItemsComponent implements OnInit, AfterViewInit {
+export class ItemsComponent implements AfterViewInit {
 
-    @ViewChild('dropupMenu') dropupMenu!: ElementRef;
+    @ViewChild('itemsWrapper') itemsWrapper!: ElementRef;
 
-    ngOnInit(): void {
-    }
+    items: any[] = [];
 
     ngAfterViewInit(): void {
-        // if(this.isMenuOpened === true) {
-        //     const dropupMenu = this.dropupMenu.nativeElement;
-        //     dropupMenu.style.transform = `translateY(-${dropupMenu.offsetHeight}px)`
-        // }
+        this.items.push(...[].constructor(this.itemsToRender()));
     }
 
-    
+    onLoadMore() {
+        this.items.push(...[].constructor(this.itemsToRender()));
+    }
 
-    // onToggleMenu(isOpened: any) {
-    //     this.isMenuOpened = isOpened;
-    // }
-  
-    items = [1,2,3,4,5,6,7];
-  
-   
-    
+    itemsToRender() {
+        const containerWidth = this.itemsWrapper.nativeElement.offsetWidth;
+        
+        let itemsToRender = (Math.floor(containerWidth / 330)) * 3;
+        if(itemsToRender <= 0) {
+            itemsToRender = 3;
+        }
+        return itemsToRender;
+    }
     
 }

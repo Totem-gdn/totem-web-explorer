@@ -50,16 +50,9 @@
     &:hover {
         background-color: $yellow;
 
-        .mat-icon {
+        .mat-icon, span, p {
             color: $black;
-        }
-
-        span {
-            color: $black;
-        }
-
-        p {
-            color: $black;
+            font-weight: 700;
         }
     }
 }

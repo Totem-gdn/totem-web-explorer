@@ -1,0 +1,80 @@
+@import 'styles/scss/variables';
+
+.blur-background {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background: rgba(67, 67, 67, 0.25);
+    backdrop-filter: blur(40px);
+    transition: all 0.1s ease-in-out;
+}
+
+
+
+.dropup-menu {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    z-index: 21;
+    border-radius: 12px 12px 0px 0px;
+    padding: 0 20px 20px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 25px;
+    transition: max-height 0.3s ease-out;
+    background-color: $black;
+
+    .content {
+        max-width: 600px;
+        margin: auto;
+
+        .title {
+            display: flex;
+            position: relative;
+            height: 25px;
+            align-items: end;
+        }
+
+        .dropup-buttons {
+            display: flex;
+            justify-content: center;
+            button {
+                border-radius: 4px;
+                margin-right: 8px;
+                margin-left: 8px;
+                width: 140px;
+                height: 50px;
+            }
+
+            & :last-child {
+                background: $yellow;
+                color: $black;
+            }
+        }
+    }
+}
+
+.handler-wrapper {
+    position: sticky;
+    background-color: $black;
+    z-index: 5;
+    top: 0;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    & .rectangle {
+        background-color: $light-grey;
+        margin: 0 auto;              
+        height: 5px;
+        width: 100px;
+        border-radius: 4px;
+    }
+}

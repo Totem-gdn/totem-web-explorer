@@ -1,6 +1,8 @@
 @import 'styles/scss/variables';
 
 .item {
+    flex-grow: 1;
+    width: 100%;
     max-width: 440px;
     height: 440px;
     border-radius: 4px;
@@ -8,7 +10,6 @@
     overflow: hidden;
     background: $grey;
     text-align: start;
-    // margin: auto;
     transition: all 0.33s ease-in;
 
     & img {

@@ -6,6 +6,7 @@ import { FilterMenuComponent } from "./filter-menu.component";
 import { RangeSliderModule } from "./range-slider/range-slider.module";
 import { SearchFieldModule } from "@app/modules/landing/components/common-components/search-field/search-field.module";
 import { GraphSliderModule } from "./graph-slider/graph-slider.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 
@@ -17,9 +18,11 @@ import { GraphSliderModule } from "./graph-slider/graph-slider.module";
         SharedModule,
         MatIconModule,
         MatExpansionModule,
+        FormsModule,
+
         RangeSliderModule,
         GraphSliderModule,
-        SearchFieldModule
+        SearchFieldModule,
     ],
     exports: [
         FilterMenuComponent
