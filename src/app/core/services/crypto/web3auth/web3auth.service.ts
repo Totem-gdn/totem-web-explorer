@@ -125,6 +125,16 @@ export class Web3Service {
         return getTokens;
     }
 
+    contractsInteraction = async () => {
+        if (!this.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        const rpc = new RPC(this.provider);
+        const tx = await rpc.contractsInteraction();
+        return tx;
+    }
+
     checkBalance = async () => {
         if (!this.provider) {
             console.log("provider not initialized yet");

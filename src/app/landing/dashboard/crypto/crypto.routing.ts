@@ -8,7 +8,9 @@ export const CryptoRoutes: Route[] = [
         children: [
             { path: 'nfts', loadChildren: () => import('./nfts/nfts.module').then(m => m.NftsModule) },
             { path: 'meta', loadChildren: () => import('./nft-metadata/nft-metadata.module').then(m => m.NftMetadataModule) },
-            { path: 'transactions', loadChildren: () => import('./transactions/transactions.module').then(m => m.TransactionsModule) }
+            { path: 'transactions', loadChildren: () => import('./transactions/transactions.module').then(m => m.TransactionsModule) },
+            { path: 'contracts', loadChildren: () => import('./contracts/contracts.module').then(m => m.ContractsModule) }
+
         ]
     }
 ]

@@ -1,0 +1,67 @@
+
+
+
+<div class="create">
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+
+
+
+        
+
+            <div class="img-desc">
+
+                <input id="file-img" type='file' (change)="onSelectFile($event)" accept=".png, .jpeg, .jpg">
+                <label (dragover)="onDragOver($event)" (drop)="onDropFile($event)"  for="file-img" id="image-border">
+                    
+                    <img id="img-src" src="../../assets/default.png" alt="" #imgSrc>
+                </label>
+
+                <div class="toggle">
+                    <span>Standart</span>
+                    <input placeholder="ERC-1155" type="text">
+                </div>
+        
+             </div >
+
+            <div class="inputs">
+                    <div class="name">
+                        <div style="margin-bottom: 5px;">
+                            <span>Name</span>
+                        </div>
+                        <input 
+                        formControlName="name"
+                        type="text" 
+                        placeholder="Item name">
+                    </div>
+                
+                    <div class="desc">
+                        <div style="margin-bottom: 5px;">
+                            <span>Description</span>
+                        </div>
+                        <textarea 
+                        placeholder="Describe your item"
+                        formControlName="description"
+                         cols="30" rows="10"></textarea>
+                    </div>
+                
+                    <div class="tags"></div>
+                    <div class="blockchain"></div>
+                    
+                    <div class="send">
+                        <button type="submit" [disabled]="!createForm.valid">Submit</button>
+                    
+                    </div>
+               
+                
+            </div>
+        
+            
+        
+
+    <!-- <div class="head" style="font-size: 35px; padding-bottom: 20px;">Create</div> -->
+
+    
+</form>
+   
+    
+</div>
