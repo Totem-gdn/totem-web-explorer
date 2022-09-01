@@ -3,7 +3,10 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 @Component({
   selector: 'app-avatars',
   templateUrl: './avatars.component.html',
-  styleUrls: ['./avatars.component.scss']
+  styleUrls: ['./avatars.component.scss'],
+  host: {
+      class: 'px-[20px]'
+  }
 })
 export class AvatarsComponent implements AfterViewInit {
 

@@ -36,7 +36,6 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
   }
 
   updateMenu() {
-
     if (this.isDropupOpen) {
       this.document.body.style.position = 'fixed';
       this.dropupMenu.nativeElement.style.maxHeight = '80vh';

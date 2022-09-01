@@ -69,7 +69,7 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
                 1280: {
                     slidesPerView: 4,
                     spaceBetween: 16,
-                    slidesPerGroup: 4
+                    slidesPerGroup: 3
                 }
             },
             // Optional parameters

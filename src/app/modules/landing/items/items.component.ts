@@ -6,9 +6,9 @@ import { Subscription } from "rxjs";
     selector: 'app-items',
     templateUrl: './items.component.html',
     styleUrls: ['./items.component.scss'],
-    // host: {
-    //     class: 'flex flex-auto w-full h-full'
-    //   }
+    host: {
+        class: 'px-[20px]'
+      }
 })
 
 export class ItemsComponent implements AfterViewInit {
