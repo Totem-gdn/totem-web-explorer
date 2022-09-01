@@ -12,6 +12,7 @@ export const ProfileRoutes: Route[] = [
             {path: 'owned-nfts', loadChildren: () => import('@app/modules/profile/dashboard/owned-nfts/owned-nfts.module').then(m => m.OwnedNftsModule)},
             {path: 'transactions', loadChildren: () => import('@app/modules/profile/dashboard/transactions/transactions.module').then(m => m.TransactionsModule)},
             {path: 'buy', loadChildren: () => import('@app/modules/profile/dashboard/buy/buy.module').then(m => m.BuyModule)},
+            {path: '', pathMatch : 'full', redirectTo: 'items'},
         ]
     }
 ]

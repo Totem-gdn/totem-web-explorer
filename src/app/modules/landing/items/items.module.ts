@@ -38,6 +38,9 @@ import { ItemsRoutes } from "./items.routing";
         MatIconModule,
         SwiperModule,
     ],
+    exports: [
+        ItemsComponent
+    ]
 })
 
 export class ItemsModule {

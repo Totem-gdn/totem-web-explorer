@@ -1,15 +1,17 @@
 
-<div *ngIf="!loading" class="flex w-full min-h-screen">
+<div *ngIf="!loading" class="flex flex-col w-full min-h-screen">
     <profile-info></profile-info>
-
+    <totem-profile-navigation></totem-profile-navigation>
+    <totem-profile-stats></totem-profile-stats>
     <div class="flex flex-col w-full p-[30px]">
-        <div class="navigation">
-            <a routerLinkActive="!text-white" routerLink="/profile/avatars">My avatars</a>
-            <a routerLinkActive="!text-white" routerLink="/profile/items">My items</a>
+        <!-- <div class="navigation">
+            <a routerLinkActive="!text-white" routerLink="/profile/avatars">My items</a>
+            <a routerLinkActive="!text-white" routerLink="/profile/items">My avatars</a>
             <a routerLinkActive="!text-white" routerLink="/profile/games">My games</a>
-        </div>
+            <a routerLinkActive="!text-white" routerLink="/profile/games">Favourites</a>
+        </div> -->
 
-        <div class="border-light-grey border p-[20px] h-full">
+        <div class="h-full">
             <router-outlet></router-outlet>
         </div>
     </div>

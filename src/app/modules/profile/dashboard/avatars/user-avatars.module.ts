@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { AvatarsModule } from "@app/modules/landing/avatars/avatars.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { UserAvatarsComponent } from "./user-avatars.component";
 import { UserAvatarsRoutes } from "./user-avatars.routing";
@@ -11,7 +12,8 @@ import { UserAvatarsRoutes } from "./user-avatars.routing";
     ],
     imports: [
         SharedModule,
-        RouterModule.forChild(UserAvatarsRoutes)
+        RouterModule.forChild(UserAvatarsRoutes),
+        AvatarsModule
     ],
     exports: [
         UserAvatarsComponent
