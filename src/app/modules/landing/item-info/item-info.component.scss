@@ -1,0 +1,10 @@
+@import 'styles/scss/variables';
+
+.img-wrapper {
+    padding: 15px;
+    background: $linear-light;
+    img {
+        max-width: 470px;
+        height: auto;
+    }
+}

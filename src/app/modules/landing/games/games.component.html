@@ -13,7 +13,8 @@
             <games-filter class="flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]"></games-filter>
 
             <div #gamesWrapper class="flex gap-[16px] flex-wrap grow">
-                <game-card class="flex grow justify-center" *ngFor="let game of games"></game-card>
+                <game-card class="grow flex" *ngFor="let game of games"></game-card>
+                <!-- <item-card class="grow flex" *ngFor="let game of games"></item-card> -->
 
                 <div class="w-full mt-[60px] flex">
                     <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>

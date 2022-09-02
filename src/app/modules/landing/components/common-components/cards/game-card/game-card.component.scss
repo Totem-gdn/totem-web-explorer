@@ -1,14 +1,16 @@
 
 @import 'styles/scss/variables';
 
-.mat-icon {
-    min-width: 24px;
-    min-height: 24px;
-}
+// .mat-icon {
+//     min-width: 24px;
+//     min-height: 24px;
+// }
 
 .item {
+    margin:auto;
+    position: relative;
     flex-grow: 1;
-    width: 340px;
+    width: 100%;
     min-width: 280px;
     max-width: 440px;
     height: 440px;
@@ -20,6 +22,7 @@
     transition: all 0.33s ease-in;
 
     & img {
+        position:absolute;
         transition: all 0.22s ease-out;
         border-radius: 0;
     }

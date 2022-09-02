@@ -17,6 +17,8 @@ export const AppRoutes: Route[] = [
       { path: 'avatars', loadChildren: () => import('app/modules/landing/avatars/avatars.module').then(m => m.AvatarsModule) },
       { path: 'items', loadChildren: () => import('app/modules/landing/items/items.module').then(m => m.ItemsModule) },
       { path: 'games', loadChildren: () => import('app/modules/landing/games/games.module').then(m => m.GamesModule) },
+      { path: 'item-info', loadChildren: () => import('app/modules/landing/item-info/item-info.module').then(m => m.ItemInfoMadule) },
+
     ]
   },
 

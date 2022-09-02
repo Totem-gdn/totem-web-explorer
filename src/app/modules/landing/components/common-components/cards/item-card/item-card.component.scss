@@ -1,8 +1,9 @@
 @import 'styles/scss/variables';
 
 .item {
+    margin:auto;
     flex-grow: 1;
-    width: 340px;
+    width: 100%;
     min-width: 280px;
     max-width: 440px;
     height: 440px;

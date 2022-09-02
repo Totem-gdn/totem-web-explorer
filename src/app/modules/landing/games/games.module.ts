@@ -3,6 +3,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
 import { GameCardModule } from "../components/common-components/cards/game-card/game-card.module";
+import { ItemCardModule } from "../components/common-components/cards/item-card/item-card.module";
 import { TotemButtonModule } from "../components/common-components/totem-button/totem-button.module";
 import { FilterNavModule } from "../components/filters-components/filters/components/filter-nav/filter-nav.module";
 import { FilterTagsModule } from "../components/filters-components/filters/components/filter-nav/filter-tags/filter-tags.module";
@@ -28,7 +29,8 @@ import { GamesRoutes } from "./games.routing";
         GameCardModule,
         FilterUpdateModule,
         FilterTagsModule,
-        TotemButtonModule
+        TotemButtonModule,
+        ItemCardModule,
     ],
     exports: [
         GamesComponent

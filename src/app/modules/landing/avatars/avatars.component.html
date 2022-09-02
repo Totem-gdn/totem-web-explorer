@@ -13,7 +13,7 @@
             <avatars-filter class="flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]"></avatars-filter>
 
             <div #gamesWrapper class="flex gap-[16px] flex-wrap grow">
-                <avatar-card class="flex grow justify-center" *ngFor="let avatar of avatars"></avatar-card>
+                <avatar-card class="grow flex" *ngFor="let avatar of avatars"></avatar-card>
 
                 <div class="w-full mt-[60px] flex">
                     <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>

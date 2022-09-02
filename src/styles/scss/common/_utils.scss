@@ -1,5 +1,22 @@
 @import 'styles/scss/placeholders';
 
+
+.item-tag {
+    width: 130px;
+    padding: 15px 10px;
+    background-color: $grey;
+    text-align: center;
+    border-radius: 4px;
+
+    h4 {
+        color: white;
+    }
+
+    p {
+        color: $light-grey;
+    }
+}
+
 .appear {
     // display: none;
     visibility: visible !important;

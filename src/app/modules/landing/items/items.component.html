@@ -13,7 +13,7 @@
             <item-filters class="flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]"></item-filters>
 
             <div #itemsWrapper class="flex gap-[16px] flex-wrap grow">
-                <item-card class="flex grow justify-center" *ngFor="let item of items"></item-card>
+                <item-card class="grow flex" *ngFor="let item of items"></item-card>
 
                 <div class="w-full mt-[60px] flex">
                     <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>

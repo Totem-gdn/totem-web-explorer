@@ -1,0 +1,26 @@
+@import 'styles/scss/variables';
+
+.wrapper {
+    max-width: 440px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon {
+        padding: 20px 14px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .play {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $light-grey;
+    }
+}
