@@ -1,0 +1,13 @@
+@import 'styles/scss/variables';
+
+.grid-container {
+    display: grid;
+    padding: 15px;
+    grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); /* the width is define here */
+    grid-template-rows:auto auto auto; /* 2 rows */
+    gap: 15px;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 1px solid $light-grey;
+}

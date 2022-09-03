@@ -12,18 +12,24 @@ export class ItemCardComponent implements AfterViewInit {
 
   @ViewChild('item') item!: ElementRef;
   @Input() width = 'full';
+  @Input() img = null;
 
   isLiked = false;
+  mouseover() {
+    console.log('trigger')
+  }
 
   ngAfterViewInit(): void {
     // this.item.nativeElement.style.width = this.width;
   }
 
   onClickLike() {
+    console.log('like')
     this.isLiked = !this.isLiked;
   }
   
   onNavigate() {
+    console.log('navigate')
     this.router.navigate(['/item-info']);
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'filter-update',
@@ -8,6 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export class FilterUpdateComponent {
 
-@Input() number = 1000;
+  @Input() number = 1000;
+  @ViewChild('icon') icon!: any;
+
+  onClick() {
+    this.icon._elementRef.nativeElement.style.animation = null;
+    this.icon._elementRef.nativeElement.offsetHeight;
+    this.icon._elementRef.nativeElement.style.animation = 'none';
+
+    this.icon._elementRef.nativeElement.style.animation = 'rotate 0.5s';
+  }
 
 }

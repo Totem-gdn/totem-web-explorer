@@ -17,11 +17,8 @@
         height: 7px;
     }
 
-    & span {
-        color: $white;
-    }
-
-    & p {
+    & span, p {
+        font-weight: 500;
         color: $white;
     }
 

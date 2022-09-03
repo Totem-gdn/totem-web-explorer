@@ -17,7 +17,9 @@ export class AlchemyService {
 
     async getNft(wallet: string) {
 
-       return web3.alchemy.getNfts({ owner: wallet });
+       return web3.alchemy.getNfts({ owner: wallet, withMetadata: true });
+    //    return web3.alchemy.getNftMetadata()
+
 
     }
 

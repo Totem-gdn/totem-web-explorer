@@ -1,4 +1,4 @@
-<div class="py-[60px] flex flex-col relative max-w-[1200px]">
+<div class="py-[60px] px-[20px] flex flex-col relative max-w-[1200px] m-auto">
 
     <div class="flex flex-wrap justify-between">
         <div class="img-wrapper">
@@ -7,10 +7,30 @@
         <item-desc></item-desc>
     </div>
 
+    <!-- Tabs -->
+    <div class="flex w-full">
+        <div class="flex tabs-wrapper">
+            <div class="tab" [ngClass]="activeTab === 'properties' ? 'bg-black': ''"
+            (click)="onChangeTab('properties')">Properties</div>
+
+            <div class="tab" [ngClass]="activeTab === 'legacy' ? 'bg-black': ''"
+            (click)="onChangeTab('legacy')">Legacy</div>
+
+            <div class="tab" [ngClass]="activeTab === 'history' ? 'bg-black': ''"
+            (click)="onChangeTab('history')">Ownership History</div>
+        </div>
+    </div>
+
+    <div>
+        <item-properties *ngIf="activeTab === 'properties'"></item-properties>
+        <item-legacy *ngIf="activeTab === 'legacy'"></item-legacy>
+        <item-history *ngIf="activeTab === 'history'"></item-history>
+    </div>
+
     <div class="pt-[90px]">
         <h2>History view</h2>
-        <div class="flex gap-[16px] pt-[44px]">
-            <item-card *ngFor="let _ of [].constructor(4)"></item-card>
+        <div class="flex flex-wrap gap-[16px] pt-[44px]">
+            <item-card [img]="nft.media[0].raw" *ngFor="let nft of nfts"></item-card>
         </div>
     </div>
 
