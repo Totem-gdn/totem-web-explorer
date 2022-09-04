@@ -12,7 +12,7 @@ export class ItemCardComponent implements AfterViewInit {
 
   @ViewChild('item') item!: ElementRef;
   @Input() width = 'full';
-  @Input() img = null;
+  @Input() nft: undefined | any;
 
   isLiked = false;
   mouseover() {
@@ -28,9 +28,9 @@ export class ItemCardComponent implements AfterViewInit {
     this.isLiked = !this.isLiked;
   }
   
-  onNavigate() {
+  onNavigate(address: string) {
     console.log('navigate')
-    this.router.navigate(['/item-info']);
+    this.router.navigate(['/item-info'], { queryParams: { address:  address} });
   }
 
 }

@@ -15,12 +15,29 @@ export class AlchemyService {
 
     constructor(private http: HttpClient) {}
 
-    async getNft(wallet: string) {
+    getNfts(wallet: string) {
 
-       return web3.alchemy.getNfts({ owner: wallet, withMetadata: true });
-    //    return web3.alchemy.getNftMetadata()
+       return from(web3.alchemy.getNfts({ owner: wallet })).pipe(
+        take(1),
+        map(nfts => this.nftsHandler(nfts.ownedNfts)));
+    }
 
+    nftsHandler(nfts: any) {
+        const formattedNfts: any[] = [];
+        for(let nft of nfts) {
+            if(nft.title == '') continue;
+            nft.timeLastUpdated = new Date(nft.timeLastUpdated);
+            formattedNfts.push(nft);
+        }
+        const sortedNfts = formattedNfts.sort(function(a, b): any {
+            return Date.parse(a.timeLastUpdated) - Date.parse(b.timeLastUpdated);
+    
+        });
+        return sortedNfts.reverse();
+    }
 
+    async getNftMetadata(nft: any) {
+        return web3.alchemy.getNftMetadata({contractAddress: nft, tokenId: '0'});
     }
 
     async getTransactionHistory(wallet: string) {

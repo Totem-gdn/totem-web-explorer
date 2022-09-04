@@ -18,10 +18,8 @@ export class OwnedNftsComponent implements OnInit {
     const account = await this.web3Service.getAccounts();
     if (!account) return;
 
-    this.alchemyService.getNft(account).then((nfts: any) => {
+    this.alchemyService.getNfts(account).subscribe((nfts: any) => {
       this.formatNfts(nfts.ownedNfts);
-    }).catch(err => {
-      console.log(err);
     })
   }
 

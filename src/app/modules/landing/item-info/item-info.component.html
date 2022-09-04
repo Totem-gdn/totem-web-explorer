@@ -1,10 +1,11 @@
 <div class="py-[60px] px-[20px] flex flex-col relative max-w-[1200px] m-auto">
 
     <div class="flex flex-wrap justify-between">
-        <div class="img-wrapper">
-            <img src="assets/images/statue.png" alt="">
+        <div class="img-wrapper gradient-border-solid">
+            <img class="rounded" *ngIf="!nftMeta?.metadata?.image" src="assets/images/statue.png" alt="">
+            <img class="rounded" *ngIf="nftMeta?.metadata?.image" [src]="nftMeta?.metadata?.image" alt="">
         </div>
-        <item-desc></item-desc>
+        <item-desc [wallet]="wallet" [nft]="nftMeta"></item-desc>
     </div>
 
     <!-- Tabs -->
@@ -29,8 +30,8 @@
 
     <div class="pt-[90px]">
         <h2>History view</h2>
-        <div class="flex flex-wrap gap-[16px] pt-[44px]">
-            <item-card [img]="nft.media[0].raw" *ngFor="let nft of nfts"></item-card>
+        <div class="flex gap-[16px] pt-[44px]">
+            <item-card [nft]="nft" *ngFor="let nft of nfts"></item-card>
         </div>
     </div>
 

@@ -1,8 +1,9 @@
 <div class="wrapper">
-    <h2>ID: 3320324</h2>
+    <h2 *ngIf="!nft?.metadata?.name">ID: 3320324</h2>
+    <h2 *ngIf="nft?.metadata?.name">{{nft.metadata.name}}</h2>
 
     <!-- User -->
-    <div class="flex py-[30px]">
+    <div class="flex pt-[30px] pb-[40px]">
         <img src="assets/images/user-icon.png" alt="">
         <div class="flex flex-col justify-center pl-[10px]">
             <h4>User Name</h4>
@@ -10,8 +11,13 @@
         </div>
     </div>
 
+    <div *ngIf="wallet" class="flex pb-[20px] items-center">
+        <p class="text-light-grey">Current owner </p>
+        <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet.slice(0, 6) + '...' + wallet.slice(-4)}}</a>
+    </div>
+
     <!-- Icons -->
-    <div class="flex border-t border-t-light-grey">
+    <div class="flex border-t border-t-light-grey text-light-grey">
         <div class="icon">
             <mat-icon [svgIcon]="'line:like'"></mat-icon>
             <p>3212</p>
