@@ -2,11 +2,11 @@
 
     <div class="px-10 py-15 flex justify-between text-center flex-wrap">
             <h2 class="pt-5 text-center">NFTs</h2>
-            <div class="flex flex-col">
+            <!-- <div class="flex flex-col">
                 <div class="flex my-2"> <h3 class="my-auto pr-3">1. </h3> <button class="button-style-1 m-1" (click)="onClickDeploy()">Deploy Nft</button></div>
                 <div class="flex my-2"><h3 class="pr-3">2. Wait for transaction to end</h3></div>
                 <div class="flex my-2"><h3 class="my-auto pr-3">3. </h3> <button class="button-style-1 m-1" (click)="onClickGenerate()">Mint Nft</button></div>
-            </div>
+            </div> -->
 
     </div>
 
@@ -19,8 +19,8 @@
             </div>
 
             <div class="w-full m-auto text-yellow flex">
-                <h4 class="w-1/2 p-2 my-auto text-yellow truncate">{{nft.metadata.name}}</h4>
-                <h5 class="w-1/2 p-2 truncate m-auto">{{ nft.timeLastUpdated }}</h5>
+                <h5 class="p-2 my-auto text-yellow truncate">{{nft.contractMetadata.name}}</h5>
+                <h5 class="p-2 truncate m-auto">{{ nft.timeLastUpdated }}</h5>
             </div>
         </div>
     </div>

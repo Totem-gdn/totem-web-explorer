@@ -27,12 +27,26 @@ export class NftsComponent implements OnInit {
         this.wallet = accounts[0];
 
         this.alchemyService.getNft(this.wallet).then((nfts: any) => {
-            this.nfts = nfts.ownedNfts;
+            this.nfts = this.nftsHandler(nfts.ownedNfts);
             console.log('nfts: ',nfts.ownedNfts);
         }).catch(err => {
             console.log(err);
         })
 
+    }
+
+    nftsHandler(nfts: any) {
+        console.log(nfts);
+        const formattedNfts: any[] = [];
+        for(let nft of nfts) {
+            nft.timeLastUpdated = new Date(nft.timeLastUpdated).toLocaleString();
+            formattedNfts.push(nft);
+        }
+        const sortedNfts = formattedNfts.sort(function(a, b): any {
+            return Date.parse(a.timeLastUpdated) - Date.parse(b.timeLastUpdated);
+    
+        });
+        return sortedNfts.reverse();
     }
 
     onClickBack() {
