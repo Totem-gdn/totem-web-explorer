@@ -18,6 +18,13 @@ export class PaymentService {
 
     }
 
+    getPaymentHistory() {
+        return this.http.get<any>('https://payment.totem.gdn/payments').pipe(
+            take(1),
+            
+        )
+    }
+
     getAssets() {
         return this.http.get<any>('https://payment.totem.gdn/assets').pipe(
             take(1),

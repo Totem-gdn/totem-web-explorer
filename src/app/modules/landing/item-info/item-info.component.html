@@ -1,23 +1,26 @@
-<div class="py-[60px] px-[20px] flex flex-col relative max-w-[1200px] m-auto">
+<div class="py-[60px] px-[20px] flex flex-col relative max-w-[1164px] m-auto">
 
-    <div class="flex flex-wrap justify-between">
+    <div class="flex flex-wrap lg:flex-nowrap justify-between">
         <div class="img-wrapper gradient-border-solid">
             <img class="rounded" *ngIf="!nftMeta?.metadata?.image" src="assets/images/statue.png" alt="">
             <img class="rounded" *ngIf="nftMeta?.metadata?.image" [src]="nftMeta?.metadata?.image" alt="">
         </div>
-        <item-desc [wallet]="wallet" [nft]="nftMeta"></item-desc>
+        <item-desc class="mt-[60px] px-[30px] lg:mt-0" [wallet]="wallet" [nft]="nftMeta"></item-desc>
     </div>
 
     <!-- Tabs -->
-    <div class="flex w-full">
+    <div class="flex w-full justify-center">
         <div class="flex tabs-wrapper">
-            <div class="tab" [ngClass]="activeTab === 'properties' ? 'bg-black': ''"
+            <div class="tab sm:!text-base sm:!p-[10px]"
+             [ngClass]="activeTab === 'properties' ? 'bg-black !text-white': ''"
             (click)="onChangeTab('properties')">Properties</div>
 
-            <div class="tab" [ngClass]="activeTab === 'legacy' ? 'bg-black': ''"
+            <div class="tab sm:!text-base sm:!px-[10px]" 
+            [ngClass]="activeTab === 'legacy' ? 'bg-black !text-white': ''"
             (click)="onChangeTab('legacy')">Legacy</div>
 
-            <div class="tab" [ngClass]="activeTab === 'history' ? 'bg-black': ''"
+            <div class="tab sm:!text-base sm:!px-[10px]" 
+            [ngClass]="activeTab === 'history' ? 'bg-black !text-white': ''"
             (click)="onChangeTab('history')">Ownership History</div>
         </div>
     </div>
@@ -28,11 +31,17 @@
         <item-history *ngIf="activeTab === 'history'"></item-history>
     </div>
 
-    <div class="pt-[90px]">
+    <!-- <div class="pt-[90px]">
         <h2>History view</h2>
         <div class="flex gap-[16px] pt-[44px]">
-            <item-card [nft]="nft" *ngFor="let nft of nfts"></item-card>
+            <item-card *ngFor="let _ of [].constructor(4)"></item-card>
         </div>
-    </div>
+    </div> -->
+
+    <horizontal-carousel class="mt-[70px]"
+        [title]="'History view'"
+        [menuTitle]="null"
+        [items]="items">
+      </horizontal-carousel>
 
 </div>

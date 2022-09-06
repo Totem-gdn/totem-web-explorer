@@ -2,7 +2,9 @@
 
 
 .item-tag {
-    width: 130px;
+    height: 72px;
+    min-width: 100px;
+    max-width: 240px;
     padding: 15px 10px;
     background-color: $grey;
     text-align: center;

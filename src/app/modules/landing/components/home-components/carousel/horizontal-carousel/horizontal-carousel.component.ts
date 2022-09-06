@@ -19,7 +19,7 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
     swiper!: Swiper;
 
     @Input() title = '';
-    @Input() menuTitle: string = '';
+    @Input() menuTitle: string | null = '';
     @Input() items = [1, 2, 3, 4, 5, 6, 7];
     @Input() itemType = 'item';
     @Input() itemsCount = 4;

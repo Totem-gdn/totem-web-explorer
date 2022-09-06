@@ -1,13 +1,47 @@
 @import 'styles/scss/variables';
 
+.wrapper {
+    width: 100%;
+    border: 1px solid $light-grey;
+    position: relative;
+}
+
 .grid-container {
+    width: 100%;
     display: grid;
     padding: 15px;
-    grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); /* the width is define here */
-    grid-template-rows:auto auto auto; /* 2 rows */
-    gap: 15px;
-    grid-auto-flow: column;
-    overflow-x: auto;
+    gap: 12px;
+    max-height: 687px;
     overflow-y: hidden;
-    border: 1px solid $light-grey;
+    transition: max-height 0.3s ease-in-out;
+    
+
+    grid-template-columns:repeat(auto-fill, minmax(100px,1fr));
+    // max-height: calc(680px + 35px);
+
+    @media screen and (min-width: 480px) {
+        // grid-template-columns:repeat(auto-fill, minmax(100px,1fr));
+    }
+    @media screen and (min-width: 768px) {
+        grid-template-columns:repeat(6, minmax(auto,1fr));
+    }
+    @media screen and (min-width: 1000px) {
+        gap: 16px;
+        grid-template-columns:repeat(8, minmax(auto,1fr));
+    }
+}
+
+.view-all {
+    position: relative;
+    height: 30px;
+    background-color: $black;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 100%;
+
+    & span {
+        margin-top: auto;
+    }
 }

@@ -23,6 +23,7 @@ export class AlchemyService {
     }
 
     nftsHandler(nfts: any) {
+        console.log(nfts);
         const formattedNfts: any[] = [];
         for(let nft of nfts) {
             if(nft.title == '') continue;

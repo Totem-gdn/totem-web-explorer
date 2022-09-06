@@ -4,6 +4,7 @@
     border-radius: 4px;
     padding: 15px;
     background: $linear-glass;
+    margin:auto;
     img {
         max-width: 470px;
         height: auto;
@@ -18,10 +19,11 @@
 
     .tab {
         cursor: pointer;
-        padding: 10px;
+        padding: 10px 6px;
         border-radius: 4px;
-        color: $white;
-        font-size: 16px;
+        color: $light-grey;
+        font-size: 14px;
         font-weight: 700;
+        white-space: nowrap;
     }
 }

@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper w-full md:max-w-[456px]">
     <h2 *ngIf="!nft?.metadata?.name">ID: 3320324</h2>
     <h2 *ngIf="nft?.metadata?.name">{{nft.metadata.name}}</h2>
 
@@ -11,41 +11,50 @@
         </div>
     </div>
 
-    <div *ngIf="wallet" class="flex pb-[20px] items-center">
+    <div class="flex pb-[20px] items-center">
         <p class="text-light-grey">Current owner </p>
-        <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet.slice(0, 6) + '...' + wallet.slice(-4)}}</a>
+        <!-- <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet}}</a> -->
+        <p class="text-white pl-[10px] text-xl">0x88644..568f</p>
     </div>
 
     <!-- Icons -->
-    <div class="flex border-t border-t-light-grey text-light-grey">
-        <div class="icon">
-            <mat-icon [svgIcon]="'line:like'"></mat-icon>
-            <p>3212</p>
+    <div class="flex flex-wrap border-t border-t-light-grey text-light-grey">
+        <div class="flex">
+            <div class="icon">
+                <mat-icon class="!w-[18px]" [svgIcon]="'line:like'"></mat-icon>
+                <p>3212</p>
+            </div>
+            <div class="icon">
+                <mat-icon class="!w-[20px]" [svgIcon]="'line:eye'"></mat-icon>
+                <p>3212</p>
+            </div>
         </div>
-        <div class="icon">
-            <mat-icon [svgIcon]="'line:refresh'"></mat-icon>
-            <p>Refresh</p>
-        </div>
-        <div class="icon">
-            <mat-icon [svgIcon]="'line:share'"></mat-icon>
-            <p>Share</p>
+        <div class="flex">
+            <div class="icon">
+                <mat-icon class="!w-[16px]" [svgIcon]="'line:refresh'"></mat-icon>
+                <p>Refresh</p>
+            </div>
+            <div class="icon">
+                <mat-icon class="!w-[14px]" [svgIcon]="'line:share'"></mat-icon>
+                <p>Share</p>
+            </div>
         </div>
     </div>
 
-    <div class="play">
-        <div class="flex gap-[15px]">
-            <div class="item-tag">
-                <h4>24.05.22</h4>
-                <p>Last used</p>
-            </div>
-            <div class="item-tag">
-                <h4>24.05.22</h4>
-                <p>Last used</p>
-            </div>
-            <div class="item-tag">
-                <h4>24.05.22</h4>
-                <p>Last used</p>
-            </div>
+    <div class="play" #playContainer>
+            <div class="flex flex-wrap gap-[13px]">
+                <div class="item-tag">
+                    <h4>24.05.22</h4>
+                    <p>Last used</p>
+                </div>
+                <div class="item-tag">
+                    <h4>24.05.22</h4>
+                    <p>Last used</p>
+                </div>
+                <div class="item-tag">
+                    <h4>24.05.22</h4>
+                    <p>Last used</p>
+                </div>
         </div>
 
         <totem-button class="pt-[20px]" [caption]="'Play'" [width]="'100%'"></totem-button>

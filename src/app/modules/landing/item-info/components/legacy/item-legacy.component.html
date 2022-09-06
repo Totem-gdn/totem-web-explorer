@@ -1,1 +1,21 @@
-<p>legacy works!</p>
+<div class="flex flex-col wrapper w-full">
+    <div class="flex flex-col overflow-x-auto">
+        <div class="p-[20px] history-grid border-b border-b-light-grey mb-[20px]">
+            <p>Date</p>
+            <p>Game Name</p>
+            <p>Description</p>
+            <p>Achievements</p>
+            <p>Data</p>
+        </div>
+        <div *ngFor="let _ of [].constructor(5)" class="text-light-grey transaction history-grid">
+            <span>30.08.22 18:16 </span>
+            <span>MineMine</span>
+            <span>Dropped when killing a mob</span>
+            <span>Loremasdasdasdasdas</span>
+            <div>
+                <span>13as..sad</span>
+                <mat-icon [svgIcon]="'line:open_new'"></mat-icon>
+            </div>
+        </div>
+    </div>
+</div>
