@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FiltersService } from '@app/core/services/filters/filters.service';
 
-import { Subscription } from 'rxjs';
+import { concat, exhaustMap, fromEvent, map, Subscription, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'item-filters',

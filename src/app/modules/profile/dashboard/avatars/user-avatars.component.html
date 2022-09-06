@@ -1,2 +1,26 @@
+<div class="py-[60px] flex flex-col relative">
 
-<app-avatars></app-avatars>
+    <filter-nav></filter-nav>
+
+    <div class="flex flex-col justify-center w-full">
+
+        <div class="flex flex-wrap">
+            <filter-update class="nav-item flex-none lg:w-[320px]"></filter-update>
+            <filter-tags class="nav-item flex items-center"></filter-tags>
+        </div>
+
+        <div class="flex">
+            <avatars-filter class="flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]"></avatars-filter>
+
+            <div #gamesWrapper class="flex gap-[16px] flex-wrap grow">
+                <avatar-card class="grow flex" *ngFor="let avatar of avatars" [avatar]="avatar"></avatar-card>
+
+                <div class="w-full mt-[60px] flex">
+                    <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-games',
@@ -12,7 +12,7 @@ export class GamesComponent implements AfterViewInit {
 
   @ViewChild('gamesWrapper') gamesWrapper!: ElementRef;
 
-  games: any[] = [];
+  @Input() games: any[] = [];
 
   ngAfterViewInit(): void {
       this.games.push(...[].constructor(this.gamesToRender()));

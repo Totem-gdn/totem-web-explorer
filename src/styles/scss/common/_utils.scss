@@ -19,6 +19,16 @@
     }
 }
 
+.filters-wrapper {
+    transition: width 0.4 ease-in-out;
+    flex: none;
+}
+
+.nav-item {
+    display: flex;
+    margin: 15px 15px 15px 0;
+}
+
 .appear {
     // display: none;
     visibility: visible !important;

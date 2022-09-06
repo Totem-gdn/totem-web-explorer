@@ -6,31 +6,23 @@ import { Router } from '@angular/router';
   templateUrl: './item-card.component.html',
   styleUrls: ['./item-card.component.scss']
 })
-export class ItemCardComponent implements AfterViewInit {
+export class ItemCardComponent {
 
   constructor(private router: Router) {}
 
-  @ViewChild('item') item!: ElementRef;
   @Input() width = 'full';
-  @Input() nft: undefined | any;
+  @Input() item: any;
 
   isLiked = false;
-  mouseover() {
-    console.log('trigger')
-  }
-
-  ngAfterViewInit(): void {
-    // this.item.nativeElement.style.width = this.width;
-  }
 
   onClickLike() {
     console.log('like')
     this.isLiked = !this.isLiked;
   }
   
-  onNavigate(address: string) {
-    console.log('navigate')
-    this.router.navigate(['/item-info'], { queryParams: { address:  address} });
+  onNavigate() {
+    // console.log('navigate')
+    // this.router.navigate(['/item-info'], { queryParams: { address:  address} });
   }
 
 }

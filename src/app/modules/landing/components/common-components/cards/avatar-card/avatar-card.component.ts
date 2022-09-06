@@ -6,18 +6,14 @@ import { Router } from '@angular/router';
   templateUrl: './avatar-card.component.html',
   styleUrls: ['./avatar-card.component.scss'],
 })
-export class AvatarCardComponent implements AfterViewInit {
+export class AvatarCardComponent {
 
   constructor(private router: Router) {}
 
-  @ViewChild('item') item!: ElementRef;
   @Input() width = 'full';
-
+  @Input() avatar: any;
   isLiked = false;
 
-  ngAfterViewInit(): void {
-    // this.item.nativeElement.style.width = this.width;
-  }
 
   onClickLike() {
     this.isLiked = !this.isLiked;

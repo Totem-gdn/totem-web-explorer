@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ItemsService } from '@app/core/services/items/items.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-items',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserItemsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private itemsService: ItemsService,
+              private web3Service: Web3AuthService) { }
+  sub!: Subscription;
 
-  ngOnInit(): void {
+  items: any[] = []
+
+  async ngOnInit() {
+    const wallet = await this.web3Service.getAccounts();
+    this.itemsService.fetchItems(wallet).subscribe(items => {
+      console.log(items);
+      this.items = items;
+    });
+  }
+
+  onLoadMore() {
+
+  }
+
+  ngOnDestroy () {
+    this.sub?.unsubscribe();
   }
 
 }

@@ -1,20 +1,31 @@
-<div #item class="flex flex-col item gradient-border" (click)="onNavigate()">
+<div class="flex flex-col item gradient-border" (click)="onNavigate()">
 
     <img class="h-60 grow object-cover" src="assets/images/avatar.png" alt="">
 
     <div class="p-4 flex flex-col">
         <div class="flex justify-between pb-[15px]">
-            <h3>ID: 1111</h3>
+            <h3 *ngIf="!avatar">ID: 1111</h3>
+            <h3 *ngIf="avatar">Avatar</h3>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
             <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()">
             </mat-icon>
         </div>
 
-        <div class="flex mt-auto max-w-[320px]">
+        <div class="flex justify-between items-center whitespace-nowrap max-w-[320px]">
+            <div>
+                <h4 *ngIf="!avatar?.updatedAt">24.24.24</h4>
+                <h4 *ngIf="avatar?.updatedAt">{{avatar?.updatedAt}}</h4>
+
+                <p class="text-light-grey">Last used</p>
+            </div>
+            <div>
+                <h4>100</h4>
+                <p class="text-light-grey">Rarity</p>
+            </div>
             <div>
                 <h4>566</h4>
-                <p class="text-light-grey">Games played</p>
+                <p class="text-light-grey">Games used</p>
             </div>
         </div>
     </div>
