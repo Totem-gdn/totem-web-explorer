@@ -1,9 +1,15 @@
 <totem-profile-back-button [routeName]="'Messages'"></totem-profile-back-button>
-<div fxLayout="row" fxLayoutAlign="space-between center">
-
-  <div>
-<a href="" class="icon-font-a">m</a>
+<div class="table-head" fxLayout="row" fxLayoutAlign="space-between center">
+  <div  fxLayout="row" fxLayoutAlign="start center">
+    <div class="check-all-button" fxLayoutAlign="space-between center">
+      <input type="checkbox" class="custom-checkbox" id="checkall" (change)="allChecked = !allChecked">
+      <label for="checkall" class="icon-font-checkbox"></label>
+    </div>
+    <div class="unread-wrapp" fxLayoutAlign="center center">
+      <span class="icon-font-unread"></span>
+    </div>
   </div>
+
   <div class="right-side-setting">
     <mat-icon>refresh</mat-icon> <totem-pagination [totalValue]="102" (paginationEvent)="pageEvent($event)"></totem-pagination>
   </div>
