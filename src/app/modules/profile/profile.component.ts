@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Component({
   selector: 'profile',
@@ -12,8 +14,16 @@ import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 export class ProfileComponent implements OnInit {
 
   loading = false;
+  routeValue$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor(private web3: Web3AuthService) { }
+  constructor(private web3: Web3AuthService, private router: Router) {
+    this.routeValue$.next(this.router.url);
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.routeValue$.next(event.url);
+      }
+    });
+  }
 
   async ngOnInit() {
     console.log('INITED PROFILE PAGE');

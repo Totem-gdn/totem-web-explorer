@@ -1,10 +1,12 @@
 
-<div *ngIf="!loading" class="flex flex-col w-full min-h-screen">
-    <profile-info></profile-info>
-    <totem-profile-navigation></totem-profile-navigation>
-    <totem-profile-stats></totem-profile-stats>
+<div *ngIf="!loading" class="flex flex-col w-full">
+    <ng-container *ngIf="(routeValue$ | async) !== '/profile/messages'">
+      <profile-info></profile-info>
+      <totem-profile-navigation></totem-profile-navigation>
+      <totem-profile-stats></totem-profile-stats>
+    </ng-container>
     <div class="flex flex-col w-full p-[30px]">
-        <!-- <div class="navigation">
+        <!-- <div class="navigation"> min-h-screen
             <a routerLinkActive="!text-white" routerLink="/profile/avatars">My items</a>
             <a routerLinkActive="!text-white" routerLink="/profile/items">My avatars</a>
             <a routerLinkActive="!text-white" routerLink="/profile/games">My games</a>

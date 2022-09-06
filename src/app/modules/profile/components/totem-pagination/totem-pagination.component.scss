@@ -1,0 +1,48 @@
+@import 'styles/scss/variables';
+
+:host {
+  min-width: 145px;
+}
+
+mat-icon, * {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: $light-grey;
+  transition: color 0.33s ease-out;
+}
+
+.pagination-wrapper {
+  width: inherit;
+
+  .nav-buttons {
+    width: 50px;
+    margin-left: 12px;
+    display: flex;
+    flex-direction: row;
+    place-content: space-between;
+
+    &-button {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      place-content: center;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        mat-icon {
+          color: #fff;
+        }
+      }
+
+      mat-icon {
+        height: 12.5px;
+        width: auto;
+        font-size: 12px;
+      }
+    }
+
+  }
+}
