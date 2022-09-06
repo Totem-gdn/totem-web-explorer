@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
+import { ProfileStateService } from '@app/shared/services/profile-state.service';
 
 @Component({
   selector: 'profile-info',
@@ -18,7 +19,8 @@ export class ProfileInfoComponent implements OnInit {
 
   constructor(private web3Auth: Web3AuthService,
               private router: Router,
-              private snackNotifierService: SnackNotifierService) { }
+              private snackNotifierService: SnackNotifierService,
+              private profileStateService: ProfileStateService) { }
 
   ngOnInit(): void {
     this.handleAuth();
@@ -41,6 +43,7 @@ export class ProfileInfoComponent implements OnInit {
     }
     this.user = user;
     console.log('user',user);
+    this.profileStateService.updateLoadingStatus(true);
   }
 
   async onLogout() {

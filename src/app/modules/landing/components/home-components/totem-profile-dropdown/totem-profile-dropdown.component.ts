@@ -16,6 +16,7 @@ export class TotemNavSidebarComponent implements OnInit {
   sidebarIsOpen: boolean = false;
   userData: any;
   wallet!: string;
+  userFullName: string = '';
   walletNumber!: string;
 
   @Output() logOutEvent: EventEmitter<boolean> = new EventEmitter();
@@ -40,6 +41,10 @@ export class TotemNavSidebarComponent implements OnInit {
     console.log('GET INFO ABOUT USER');
     const wallet = await this.web3Auth.getAccounts();
     this.userData = await this.web3Auth.getUserInfo();
+    this.userFullName = this.userData.name || '';
+    if (this.userData.name.length > 16) {
+      this.userData.name = this.userData.name.slice(0, 16) + '...'
+    }
     //console.log(wallet);
     this.wallet = wallet;
     this.walletNumber = wallet.slice(0, 6) + '...' + wallet.slice(-4);

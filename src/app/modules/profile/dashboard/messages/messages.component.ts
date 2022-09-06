@@ -8,6 +8,8 @@ import { PaginationEvent } from '@app/core/models/page-event-interface.model';
 })
 export class MessagesComponent implements OnInit {
 
+  allChecked: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -15,6 +17,11 @@ export class MessagesComponent implements OnInit {
 
   pageEvent(pagination: PaginationEvent) {
     console.log(pagination);
+
+  }
+
+  notify() {
+    console.log('LONG');
 
   }
 

@@ -112,7 +112,8 @@
       }
 
       .user-name {
-        z-index: 2;
+        position: relative;
+        z-index: 3;
         font-weight: 500;
         font-size: 24px;
         line-height: 28px;
@@ -125,6 +126,27 @@
           width: 26px;
           font-size: 24px;
           line-height: 28px;
+        }
+        .tooltiptext {
+          visibility: hidden;
+          background: rgba(8, 9, 10, 0.5);
+          backdrop-filter: blur(20px);
+          border-radius: 4px;
+          color: $light-grey;
+          text-align: center;
+          padding: 7px 16px;
+          position: absolute;
+          z-index: 20;
+          bottom: -28px;
+          left: 0;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 16px;
+          white-space: nowrap;
+        }
+
+        &:hover .tooltiptext {
+          visibility: visible;
         }
       }
       .user-id {

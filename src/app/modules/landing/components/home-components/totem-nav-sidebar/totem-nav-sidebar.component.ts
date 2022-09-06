@@ -15,6 +15,7 @@ export class TotemNavSidebarComponent implements OnInit {
   sidebarType: 'nav' | 'filter' = 'nav';
   userData: any;
   wallet: string = '';
+  userFullName: string = '';
   walletNumber: string = '';
 
   @Input() loggedIn: boolean = false;
@@ -42,6 +43,10 @@ export class TotemNavSidebarComponent implements OnInit {
       const wallet = await this.web3Auth.getAccounts();
       console.log('WALLET');
       this.userData = await this.web3Auth.getUserInfo();
+      this.userFullName = this.userData.name || '';
+      if (this.userData.name.length > 16) {
+        this.userData.name = this.userData.name.slice(0, 16) + '...'
+      }
       console.log('USER DATA');
       this.wallet = wallet;
       this.walletNumber = wallet.slice(0, 6) + '...' + wallet.slice(-4);

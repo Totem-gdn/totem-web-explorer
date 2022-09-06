@@ -10,6 +10,7 @@
       <ng-container *ngIf="userData?.name?.length">
         <div class="user-name">
           {{userData?.name}}
+          <span class="tooltiptext">{{userFullName}}</span>
         </div>
         <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
           {{walletNumber}}
@@ -24,8 +25,8 @@
       </ng-container>
       <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
         <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">My profile</a>
-        <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Edit profile</a>
-        <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Messages</a>
+        <a (click)="close()">Edit profile</a>
+        <a (click)="close()">Messages</a>
         <a (click)="onLogout(); close()">Sign out</a>
       </div>
   </div>

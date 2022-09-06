@@ -1,2 +1,94 @@
 @import 'assets/fonts/icon-fonts/mail-font.scss';
+@import 'styles/scss/variables';
 
+* {
+  transition: color 0.33s ease-out, background-color 0.33s ease-out;
+}
+
+.table-head {
+  margin-top: 26px;
+  width: 100%;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(95, 99, 105, 0.5);
+}
+
+.right-side-setting {
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+
+  mat-icon {
+    font-size: 22px;
+    color: $light-grey;
+    margin-right: 20px;
+    height: 36px;
+    width: 36px;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      background-color: $dark-grey;
+      color: #fff;
+    }
+  }
+}
+
+.icon-font-unread {
+  font-size: 24px;
+  color: $light-grey;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  place-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: $dark-grey;
+    color: #fff;
+  }
+}
+
+.check-all-button {
+  height: 24px;
+  width: 40px;
+
+  .custom-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+  .custom-checkbox+label {
+    display: flex;
+    place-content: center;
+    align-items: center;
+    user-select: none;
+  }
+  .custom-checkbox+label::before {
+    content: '\e909';
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+  .custom-checkbox:checked+label::before {
+    content: '\e90e';
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    color: #fff;
+  }
+  .icon-font-checkbox {
+    color: $light-grey;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+}

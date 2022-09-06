@@ -16,7 +16,11 @@ mat-icon, * {
 
 .pagination-wrapper {
   width: inherit;
+  height: 100%;
 
+  .pagination-value {
+    cursor: default;
+  }
   .nav-buttons {
     width: 50px;
     margin-left: 12px;

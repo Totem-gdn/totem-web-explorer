@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'mailasread';
-  src:  url('./mailasread.eot?d3attq');
-  src:  url('./mailasread.eot?d3attq#iefix') format('embedded-opentype'),
-    url('./mailasread.ttf?d3attq') format('truetype'),
-    url('./mailasread.woff?d3attq') format('woff'),
-    url('./mailasread.svg?d3attq#mailasread') format('svg');
+  font-family: 'CustomFontIcons';
+  src:  url('./CustomFontIcons.eot?pwdhlz');
+  src:  url('./CustomFontIcons.eot?pwdhlz#iefix') format('embedded-opentype'),
+    url('./CustomFontIcons.ttf?pwdhlz') format('truetype'),
+    url('./CustomFontIcons.woff?pwdhlz') format('woff'),
+    url('./CustomFontIcons.svg?pwdhlz#CustomFontIcons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -12,7 +12,7 @@
 
 [class^="icon-font-"], [class*=" icon-font-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'mailasread' !important;
+  font-family: 'CustomFontIcons' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -25,7 +25,45 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-drafts:before {
-  content: "\6d";
-  color: #8a939b;
+.icon-font-settings:before {
+  content: "\e900";
+}
+.icon-font-star:before {
+  content: "\e901";
+}
+.icon-font-notification:before {
+  content: "\e902";
+}
+.icon-font-locked:before {
+  content: "\e903";
+}
+.icon-font-unread:before {
+  content: "\e904";
+}
+.icon-font-favorite:before {
+  content: "\e906";
+}
+.icon-font-favourite:before {
+  content: "\e907";
+}
+.icon-font-check:before {
+  content: "\e908";
+}
+.icon-font-unchecked:before {
+  content: "\e909";
+}
+.icon-font-discord:before {
+  content: "\e90a";
+}
+.icon-font-facebook:before {
+  content: "\e90b";
+}
+.icon-font-twitter:before {
+  content: "\e90c";
+}
+.icon-font-instagram:before {
+  content: "\e90d";
+}
+.icon-font-checked:before {
+  content: "\e90e";
 }

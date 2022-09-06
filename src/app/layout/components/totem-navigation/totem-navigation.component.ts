@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
+import { ProfileStateService } from '@app/shared/services/profile-state.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 import { SideProfileStateService } from '@app/shared/services/sideprofile-state.service';
 import { BehaviorSubject } from 'rxjs';
@@ -18,7 +19,8 @@ export class TotemNavigationComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private sidenavStateService: SidenavStateService,
     private sideProfileStateService: SideProfileStateService,
-    private snackNotifierService: SnackNotifierService
+    private snackNotifierService: SnackNotifierService,
+    private profileStateService: ProfileStateService
     ) { }
 
   loading = false;
@@ -29,6 +31,15 @@ export class TotemNavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.tryToInitWeb3();
+    this.profileStateService.sidenavStatus.subscribe((data: boolean) => {
+      if (data) {
+        let userData = JSON.parse(localStorage.getItem('openlogin_store')!);
+        this.avatar = userData.profileImage;
+        this.loggedIn = true;
+        this.allowNavigation.next(true);
+        this.loading = false;
+      }
+    })
   }
 
   async tryToInitWeb3() {
