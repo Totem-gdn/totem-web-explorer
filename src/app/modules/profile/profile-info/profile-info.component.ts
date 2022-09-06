@@ -51,4 +51,8 @@ export class ProfileInfoComponent implements OnInit {
     this.snackNotifierService.open('Copied to the clipboard');
   }
 
+  goToMessages() {
+    this.router.navigate(['profile/messages']);
+  }
+
 }

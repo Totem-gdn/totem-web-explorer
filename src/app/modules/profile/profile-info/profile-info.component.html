@@ -58,9 +58,14 @@
             <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
           </div>
         </ng-container>
-        <button matRipple class="msg-button">
-          Messages
-        </button>
+        <div class="button-wrapper">
+          <button matRipple class="fav-button">
+            Favourites
+          </button>
+          <button matRipple class="msg-button" (click)="goToMessages()">
+            Messages
+          </button>
+        </div>
       </div>
     </div>
   </div>

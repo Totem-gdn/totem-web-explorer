@@ -1,0 +1,13 @@
+<div class="pagination-wrapper" fxLayout="row" fxLayoutAlign="flex-end center">
+  <div>
+    {{fromValue}}-{{toValue}} of {{totalValue}}
+  </div>
+  <div class="nav-buttons">
+    <div class="nav-buttons-button" (click)="prevPage()">
+      <mat-icon [svgIcon]="'line:arrow_left'"></mat-icon>
+    </div>
+    <div class="nav-buttons-button" (click)="nextPage()">
+      <mat-icon [svgIcon]="'line:arrow_right'"></mat-icon>
+    </div>
+  </div>
+</div>
