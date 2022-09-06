@@ -24,6 +24,7 @@ export class ProfileInfoComponent implements OnInit {
     this.handleAuth();
   }
 
+
   async handleAuth() {
     const wallet = await this.web3Auth.getAccounts();
 

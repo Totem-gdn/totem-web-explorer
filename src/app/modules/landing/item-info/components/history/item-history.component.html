@@ -1,21 +1,22 @@
-
-<div class="flex w-full">
-    <div class="flex flex-col wrapper">
-        <div class="header">
-            <span class="pl-[50px]">Owner address</span>
-            <span class="pl-[295px]">Date of purchase</span>
-            <span class="pl-[135px]">Price</span>
-            <span class="pl-[135px]">Game Played</span>
-            <span class="pl-[135px]">TX</span>
+<div class="flex flex-col wrapper w-full">
+    <div class="flex flex-col overflow-x-auto">
+        <div class="p-[20px] history-grid border-b border-b-light-grey mb-[20px]">
+            <p></p>
+            <p>Owner address</p>
+            <p>Date of purchase</p>
+            <p class="text-center mr-[25%]">Price</p>
+            <p>Game Played</p>
+            <p class="ml-auto w-[40px] text-center">TX</p>
         </div>
-        <div *ngFor="let _ of [].constructor(5)" class="transaction">
-            <img src="assets/images/transaction-avatar.png" alt="">
-            <div class="">0x88644f6bbe25dc5f4c6992cfcb4bf0be1653568f</div>
-            <div class="pl-[70px] pr-[100px] whitespace-nowrap">Aug 30, 2022, 11:16AM</div>
-            <div class="pr-[130px]">4.44$</div>
-            <div class="pr-[180px]">13144</div>
-            <mat-icon [svgIcon]="'line:open_new'"></mat-icon>
+        <div *ngFor="let _ of [].constructor(5)" class="transaction history-grid">
+            <div class=""><img src="assets/images/transaction-avatar.png" alt=""></div>
+            <span class="truncate mr-[60px]">0x88644f6bbe25dc5f4c6992cfcb4bf0be1653568f</span>
+            <span class="truncate">Aug 30, 2022, 11:16AM</span>
+            <span class="text-center mr-[25%]">4.44$</span>
+            <span>13144</span>
+            <div class="ml-auto w-[40px] text-center flex justify-center">
+                <mat-icon [svgIcon]="'line:open_new'"></mat-icon>
+            </div>
         </div>
-        
     </div>
 </div>

@@ -1,9 +1,14 @@
-
-<div class="flex w-full">
-    <div class="grid-container">
+<div class="flex flex-col wrapper">
+    <div class="grid-container" #grid>
         <div *ngFor="let _ of [].constructor(24)" class="item-tag">
             <h4>24.05.22</h4>
             <p>Last used</p>
-        </div>
+        </div> 
     </div>
+    <!-- View All -->
+    <div *ngIf="showViewAll" class="view-all" (click)="onClickViewAll()">
+        <span class="text-center">{{toggle ? 'View less': 'View all'}}</span>
+        <mat-icon class="!h-[2px] !w-full absolute bottom-0" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
+    </div>
+    
 </div>
