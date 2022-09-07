@@ -22,14 +22,14 @@ export const AppRoutes: Route[] = [
     ]
   },
 
-  {
-    path: '',
-    component: LayoutComponent,
-    // data: {
-    //   layout: ''
-    // }
-    children: [
-
-    ]
-  }
+  //{
+  //  path: '',
+  //  component: LayoutComponent,
+  //  // data: {
+  //  //   layout: ''
+  //  // }
+  //  children: [
+//
+  //  ]
+  //}
 ]

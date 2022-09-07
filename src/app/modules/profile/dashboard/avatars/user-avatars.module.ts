@@ -21,5 +21,5 @@ import { UserAvatarsRoutes } from "./user-avatars.routing";
 })
 
 export class UserAvatarsModule {
-    
+
 }
