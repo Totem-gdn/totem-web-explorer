@@ -15,7 +15,6 @@ export class UserItemsComponent implements OnInit {
   sub!: Subscription;
 
   items: any[] = [];
-  @ViewChild('itemsWrapper') itemsWrapper!: ElementRef;
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
@@ -23,25 +22,6 @@ export class UserItemsComponent implements OnInit {
       console.log(items);
       this.items = items;
     });
-  }
-
-  ngAfterViewChecked(): void {
-    const width = this.itemsWrapper.nativeElement.offsetWidth;
-    console.log(width);
-
-    if(width > 880) {
-        this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr 1fr';
-    }
-    if(width <= 880) {
-        this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr';
-    }
-    if(width <= 560) {
-        this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr';
-    }
-}
-
-  onLoadMore() {
-
   }
 
   ngOnDestroy () {

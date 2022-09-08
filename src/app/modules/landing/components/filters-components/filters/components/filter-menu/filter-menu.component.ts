@@ -42,7 +42,7 @@ export class FilterMenuComponent implements OnDestroy{
   }
 
   resetFilters$() {
-    this.sub = this.filtersService.resetFilters$().subscribe(() => {
+    this.sub = this.filtersService.onResetFilters$().subscribe(() => {
       this.menuActive = false;
 
       if (this.menuActive) {

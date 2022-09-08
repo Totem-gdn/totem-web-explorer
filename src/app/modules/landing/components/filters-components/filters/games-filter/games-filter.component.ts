@@ -6,7 +6,10 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'games-filter',
   templateUrl: './games-filter.component.html',
-  styleUrls: ['./games-filter.component.scss']
+  styleUrls: ['./games-filter.component.scss'],
+  host: {
+    class: 'flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]'
+  }
 })
 export class GamesFilterComponent implements AfterViewInit {
 
@@ -53,7 +56,7 @@ export class GamesFilterComponent implements AfterViewInit {
   }
 
   onClickClear() {
-    this.filtersService.doResetFilters();
+    this.filtersService.resetFilters();
   }
 
   ngOnDestroy(): void {

@@ -64,6 +64,7 @@ export class Web3AuthService {
             console.log("web3auth not initialized yet");
             return;
         }
+        this.web3auth.eventNames()
         const user = await this.web3auth.getUserInfo();
         return user;
     };

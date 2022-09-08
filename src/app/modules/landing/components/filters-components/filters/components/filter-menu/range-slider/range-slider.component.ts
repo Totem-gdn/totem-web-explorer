@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Output, Input, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, Input, ViewChild } from "@angular/core";
 import { FiltersService } from "@app/core/services/filters/filters.service";
 import { TagsService } from "@app/core/services/filters/tags.service";
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -9,10 +10,10 @@ import { TagsService } from "@app/core/services/filters/tags.service";
     styleUrls: ['./range-slider.component.scss']
 })
 
-export class RangeSliderComponent implements AfterViewInit {
+export class RangeSliderComponent implements AfterViewInit, OnDestroy {
 
     constructor(private tagsService: TagsService,
-                private filtersService: FiltersService) {
+        private filtersService: FiltersService) {
     }
 
 
@@ -23,6 +24,7 @@ export class RangeSliderComponent implements AfterViewInit {
     marginRight!: string;
 
     @Input() title = '';
+    sub!: Subscription;
 
     @ViewChild('sliderTrackMin') sliderTrackMin!: ElementRef;
     @ViewChild('sliderTrackMax') sliderTrackMax!: ElementRef;
@@ -30,7 +32,7 @@ export class RangeSliderComponent implements AfterViewInit {
     @ViewChild('sliderThumbMax') sliderThumbMax!: ElementRef;
 
     ngOnInit() {
-        this.filtersService.resetFilters$().subscribe(() => {
+        this.filtersService.onResetFilters$().subscribe(() => {
             this.tagsService.removeTagByReference(this.sliderThumbMin);
             this.sliderThumbMin.nativeElement.value = 100;
             this.sliderThumbMax.nativeElement.value = 200;
@@ -40,11 +42,11 @@ export class RangeSliderComponent implements AfterViewInit {
             this.setMargins();
         })
     }
-    
+
     exportValue() {
         const value = `${this.title} ${this.minValue}-${this.maxValue}`;
         const reference = this.sliderThumbMin;
-        const tag = {value: value, reference: reference}
+        const tag = { value: value, reference: reference }
         this.tagsService.handleRangeTag(tag);
     }
 
@@ -86,19 +88,19 @@ export class RangeSliderComponent implements AfterViewInit {
         const maxValue = this.sliderThumbMax.nativeElement;
 
 
-        if(+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
+        if (+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
             maxValue.value = +minValue.value + 1;
         }
 
-        if(+minValue.value >= +maxValue.value && +minValue.value == this.minValue) {
+        if (+minValue.value >= +maxValue.value && +minValue.value == this.minValue) {
             minValue.value = +maxValue.value - 1;
         }
 
-        if(+maxValue.value == 0) {
-            maxValue.value +maxValue.value + 1;
+        if (+maxValue.value == 0) {
+            maxValue.value + maxValue.value + 1;
         }
 
-        if(+minValue.value == +minValue.max) {
+        if (+minValue.value == +minValue.max) {
             minValue.value = maxValue.value - 1;
         }
     }
@@ -111,4 +113,8 @@ export class RangeSliderComponent implements AfterViewInit {
         this.sliderTrackMin.nativeElement.style.marginLeft = this.marginLeft;
     }
 
+
+    ngOnDestroy(): void {
+        this.sub?.unsubscribe();
+    }
 }

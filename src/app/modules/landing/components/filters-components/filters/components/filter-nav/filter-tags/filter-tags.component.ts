@@ -6,7 +6,10 @@ import { Subscription } from "rxjs";
 @Component({
     selector: 'filter-tags',
     templateUrl: './filter-tags.component.html',
-    styleUrls: ['./filter-tags.component.scss']
+    styleUrls: ['./filter-tags.component.scss'],
+    host: {
+        class: 'nav-item flex items-center'
+    }
 })
 
 export class FilterTagsComponent implements OnInit, OnDestroy {

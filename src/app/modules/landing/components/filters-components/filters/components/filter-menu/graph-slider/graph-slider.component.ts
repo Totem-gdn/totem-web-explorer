@@ -1,7 +1,7 @@
-import { Component, ElementRef, ViewChild, Input, Output } from "@angular/core";
+import { Component, ElementRef, ViewChild, Input, OnDestroy } from "@angular/core";
 import { FiltersService } from "@app/core/services/filters/filters.service";
 import { TagsService } from "@app/core/services/filters/tags.service";
-import { max } from "rxjs";
+import { Subscription } from "rxjs";
 
 export interface Items {
   amountOfItems: number,
@@ -123,7 +123,7 @@ const Items: Items[] = [
     styleUrls: ['./graph-slider.component.scss']
 })
 
-export class GraphSliderComponent {
+export class GraphSliderComponent implements OnDestroy {
 
     constructor(private filtersService: FiltersService,
                 private tagsService: TagsService) {}
@@ -135,9 +135,9 @@ export class GraphSliderComponent {
     marginRight!: string;
     
     items: Items[] = Items;
+    sub!: Subscription;
 
     @Input() title = '';
-    // @Output() tag = new EventEmi;
 
     @ViewChild('sliderTrackMin') sliderTrackMin!: ElementRef;
     @ViewChild('sliderTrackMax') sliderTrackMax!: ElementRef;
@@ -163,7 +163,7 @@ export class GraphSliderComponent {
     }
 
     ngOnInit() {
-        this.filtersService.resetFilters$().subscribe(() => {
+        this.sub = this.filtersService.onResetFilters$().subscribe(() => {
             this.tagsService.removeTagByReference(this.sliderThumbMin);
             this.sliderThumbMin.nativeElement.value = 100;
             this.sliderThumbMax.nativeElement.value = 200;
@@ -230,5 +230,9 @@ export class GraphSliderComponent {
 
         this.sliderTrackMin.nativeElement.style.marginRight = this.marginRight;
         this.sliderTrackMin.nativeElement.style.marginLeft = this.marginLeft;
+    }
+
+    ngOnDestroy() {
+        this.sub?.unsubscribe();
     }
 }

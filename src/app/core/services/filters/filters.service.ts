@@ -24,12 +24,12 @@ export class FiltersService {
         return this.isDropupOpen.asObservable();
     }
 
-    doResetFilters() {
+    resetFilters() {
         this.tagsService.clear();
         this._resetFilters.emit();
     }
 
-    resetFilters$() {
+    onResetFilters$() {
         return this._resetFilters.asObservable();
     }
 }

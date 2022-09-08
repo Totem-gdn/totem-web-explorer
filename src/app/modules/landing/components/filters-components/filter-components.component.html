@@ -1,0 +1,41 @@
+<div class="py-[60px] flex flex-col relative">
+
+    <filter-nav [showGameSearch]="filterType != 'game'"></filter-nav>
+
+    <div class="flex flex-col justify-center w-full">
+
+        <div class="flex flex-wrap">
+            <filter-update></filter-update>
+            <filter-tags></filter-tags>
+        </div>
+
+        <div class="flex">
+            <item-filters *ngIf="filterType === 'item'"></item-filters>
+            <avatars-filter *ngIf="filterType === 'avatar'"></avatars-filter>
+            <games-filter *ngIf="filterType === 'game'"></games-filter>
+
+
+            <div class="flex flex-col w-full">
+                <div #wrapper class="grow grid-item-list">
+                    <ng-container *ngIf="filterType === 'item'">
+                        <item-card *ngFor="let item of items" [item]="item"></item-card>
+                    </ng-container>
+
+                    <ng-container *ngIf="filterType === 'avatar'">
+                        <avatar-card *ngFor="let item of items" [avatar]="item"></avatar-card>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="filterType === 'game'">
+                        <game-card *ngFor="let item of items" [game]="item"></game-card>
+                    </ng-container>
+                </div>
+
+                <div class="w-full mt-[60px] flex">
+                    <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

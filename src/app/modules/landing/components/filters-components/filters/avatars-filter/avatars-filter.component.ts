@@ -6,7 +6,10 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'avatars-filter',
   templateUrl: './avatars-filter.component.html',
-  styleUrls: ['./avatars-filter.component.scss']
+  styleUrls: ['./avatars-filter.component.scss'],
+  host: {
+    class: 'flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]'
+  }
 })
 export class AvatarsFilterComponent implements AfterViewInit {
 
@@ -53,7 +56,7 @@ export class AvatarsFilterComponent implements AfterViewInit {
   }
 
   onClickClear() {
-    this.filtersService.doResetFilters();
+    this.filtersService.onResetFilters$();
   }
 
   ngOnDestroy(): void {

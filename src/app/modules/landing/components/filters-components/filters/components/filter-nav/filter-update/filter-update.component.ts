@@ -3,7 +3,10 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'filter-update',
   templateUrl: './filter-update.component.html',
-  styleUrls: ['./filter-update.component.scss']
+  styleUrls: ['./filter-update.component.scss'],
+  host: {
+    class: 'nav-item flex-none lg:w-[320px]'
+  }
 })
 
 export class FilterUpdateComponent {

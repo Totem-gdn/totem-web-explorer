@@ -7,7 +7,10 @@ import { concat, exhaustMap, fromEvent, map, Subscription, takeUntil, tap } from
 @Component({
   selector: 'item-filters',
   templateUrl: './item-filter.component.html',
-  styleUrls: ['./item-filter.component.scss']
+  styleUrls: ['./item-filter.component.scss'],
+  host: {
+    class: 'flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]'
+  }
 })
 export class ItemFilterComponent implements AfterViewInit, OnDestroy {
 
@@ -25,9 +28,6 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
 
       this.updateMenu();
     })
-  }
-  onDrag(event: any) {
-    console.log(event);
   }
 
   toggleMenu() {
@@ -56,7 +56,7 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
   }
 
   onClickClear() {
-    this.filtersService.doResetFilters();
+    this.filtersService.resetFilters();
   }
 
   ngOnDestroy(): void {

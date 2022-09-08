@@ -15,6 +15,6 @@ export class ClearAllComponent {
                 private filtersService: FiltersService){}
 
     onClearAll() {
-        this.filtersService.doResetFilters();
+        this.filtersService.resetFilters();
     }
 }
