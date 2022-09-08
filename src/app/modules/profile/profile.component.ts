@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
     console.log('check login',!this.web3.isLoggedIn())
     if(!this.web3.isLoggedIn()) {
       console.log('login auth')
-      this.loading = true;
+      //this.loading = true;
       await this.web3.init();
       await this.web3.login();
       this.loading = false;
