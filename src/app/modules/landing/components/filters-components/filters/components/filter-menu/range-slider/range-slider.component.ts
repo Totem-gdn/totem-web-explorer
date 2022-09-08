@@ -9,6 +9,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 
 export class RangeSliderComponent implements AfterViewInit {
 
+    // @Output
     minValue = 0;
     maxValue = 0;
 

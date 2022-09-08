@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { ItemsService } from "@app/core/services/items/items.service";
 import { Subscription } from "rxjs";
 
@@ -15,24 +15,31 @@ export class ItemsComponent implements AfterViewInit {
 
     @ViewChild('itemsWrapper') itemsWrapper!: ElementRef;
 
-    items: any[] = [];
+    @Input() items: any[] = [];
 
     ngAfterViewInit(): void {
-        this.items.push(...[].constructor(this.itemsToRender()));
+        this.items.push(...[].constructor(this.addItems()));
     }
 
     onLoadMore() {
-        this.items.push(...[].constructor(this.itemsToRender()));
+        this.items.push(...[].constructor(this.addItems()));
     }
 
-    itemsToRender() {
+    addItems() {
         const containerWidth = this.itemsWrapper.nativeElement.offsetWidth;
         
         let itemsToRender = (Math.floor(containerWidth / 330)) * 3;
         if(itemsToRender <= 0) {
             itemsToRender = 3;
         }
+        this.numberOfItemsToFit();
         return itemsToRender;
+    }
+    numberOfItemsToFit() {
+        const containerWidth = this.itemsWrapper.nativeElement.offsetWidth;
+        const containerHeight = this.itemsWrapper.nativeElement.offseHeight;
+        const numberOfItems = (Math.floor(containerWidth / 330) * Math.floor(containerHeight / 440))
+        console.log(numberOfItems);
     }
     
 }

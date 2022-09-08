@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-avatars',
@@ -12,7 +12,7 @@ export class AvatarsComponent implements AfterViewInit {
 
   @ViewChild('gamesWrapper') gamesWrapper!: ElementRef;
 
-  avatars: any[] = [];
+  @Input() avatars: any[] = [];
 
   ngAfterViewInit(): void {
       this.avatars.push(...[].constructor(this.avatarsToRender()));

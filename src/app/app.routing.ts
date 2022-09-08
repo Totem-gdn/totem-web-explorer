@@ -12,6 +12,15 @@ export const AppRoutes: Route[] = [
     path: '',
     component: LayoutComponent,
     children: [
+      {
+         path: 'profile', loadChildren: () => import('app/modules/profile/profile.module').then(m => m.ProfileModule)
+      },
+    ]
+  },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
       { path: 'home', loadChildren: () => import('app/modules/landing/totem-home-page/totem-home-page.module').then(m => m.TotemHomePageModule) },
 
       { path: 'avatars', loadChildren: () => import('app/modules/landing/avatars/avatars.module').then(m => m.AvatarsModule) },
@@ -22,14 +31,4 @@ export const AppRoutes: Route[] = [
     ]
   },
 
-  //{
-  //  path: '',
-  //  component: LayoutComponent,
-  //  // data: {
-  //  //   layout: ''
-  //  // }
-  //  children: [
-//
-  //  ]
-  //}
 ]

@@ -1,4 +1,4 @@
-<div #item class="flex flex-col item gradient-border" (click)="onNavigate()">
+<div class="flex flex-col item gradient-border" (click)="onNavigate()">
 
     <!-- <div class="absolute"> -->
     <img class="object-cover grow h-[265px]" src="assets/images/popularGame.png" alt="">
@@ -8,7 +8,8 @@
         
         <div class="flex justify-between">
             <div class="flex flex-col">
-                <h3>Weapon</h3>
+                <h3 *ngIf="!game?.itemType">ID: 1111</h3>
+                <h3 *ngIf="game?.itemType">{{game?.itemType}}</h3>
             </div>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>

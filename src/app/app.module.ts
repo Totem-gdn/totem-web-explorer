@@ -12,13 +12,12 @@ import { SignInComponent } from './modules/auth/sign-in/sign-in.component';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,
-  scrollPositionRestoration: 'enabled'
+  scrollPositionRestoration: 'enabled',
 };
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,8 +10,8 @@ export class GameCardComponent implements AfterViewInit {
 
   constructor(private router: Router) {}
 
-  @ViewChild('item') item!: ElementRef;
   @Input() width = 'full';
+  @Input() game: any;
 
   isLiked = false;
 

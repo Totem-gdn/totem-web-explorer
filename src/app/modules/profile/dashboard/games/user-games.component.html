@@ -1,3 +1,27 @@
 
+<div class="py-[60px] flex flex-col relative">
 
-<app-games></app-games>
+    <filter-nav [showGameSearch]="false"></filter-nav>
+
+    <div class="flex flex-col justify-center w-full">
+
+        <div class="flex flex-wrap">
+            <filter-update class="nav-item flex-none lg:w-[320px]"></filter-update>
+            <filter-tags class="nav-item flex items-center"></filter-tags>
+        </div>
+
+        <div class="flex">
+            <games-filter class="flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]"></games-filter>
+
+            <div #gamesWrapper class="flex gap-[16px] flex-wrap grow">
+                <game-card class="grow flex" *ngFor="let game of games" [game]="game"></game-card>
+                <!-- <item-card class="grow flex" *ngFor="let game of games"></item-card> -->
+
+                <div class="w-full mt-[60px] flex">
+                    <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
