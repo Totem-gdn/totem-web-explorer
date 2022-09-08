@@ -19,6 +19,12 @@
     }
 }
 
+.grid-item-list {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 .filters-wrapper {
     transition: width 0.4 ease-in-out;
     flex: none;

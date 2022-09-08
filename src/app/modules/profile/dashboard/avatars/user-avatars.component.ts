@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AvatarsService } from '@app/core/services/items/avatars.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subscription } from 'rxjs';
@@ -12,8 +12,9 @@ export class UserAvatarsComponent implements OnInit {
 
   constructor(private avatarsService: AvatarsService,
               private web3Service: Web3AuthService) { }
-  sub!: Subscription;
 
+  sub!: Subscription;
+  @ViewChild('avatarsWrapper') avatarsWrapper!: ElementRef;
   avatars: any[] = []
 
   async ngOnInit() {
@@ -23,6 +24,21 @@ export class UserAvatarsComponent implements OnInit {
       this.avatars = avatars;
     });
   }
+
+  ngAfterViewChecked(): void {
+    const width = this.avatarsWrapper.nativeElement.offsetWidth;
+    console.log(width);
+
+    if (width > 880) {
+        this.avatarsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr 1fr';
+    }
+    if (width <= 880) {
+        this.avatarsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr';
+    }
+    if (width <= 560) {
+        this.avatarsWrapper.nativeElement.style.gridTemplateColumns = '1fr';
+    }
+}
 
   onLoadMore() {
 

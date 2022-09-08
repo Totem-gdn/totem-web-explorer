@@ -3,6 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { ClickOutsideDirective } from "./directives/click-outside.directive";
 import { LongPressDirective } from "./directives/long-press.directive";
+import { OnDragDirective } from "./directives/on-drag.directive";
 import { OnResizeDirective } from "./directives/on-resize.directive";
 import { LoadingSpinner } from "./loading-spinner/locading-spinner.component";
 
@@ -12,7 +13,9 @@ import { LoadingSpinner } from "./loading-spinner/locading-spinner.component";
         LoadingSpinner,
         OnResizeDirective,
         ClickOutsideDirective,
-        LongPressDirective
+        LongPressDirective,
+        OnDragDirective,
+        OnResizeDirective
     ],
     imports: [
         CommonModule,
@@ -23,7 +26,9 @@ import { LoadingSpinner } from "./loading-spinner/locading-spinner.component";
         HttpClientModule,
         ClickOutsideDirective,
         LoadingSpinner,
-        LongPressDirective
+        LongPressDirective,
+        OnDragDirective,
+        OnResizeDirective
     ]
 })
 

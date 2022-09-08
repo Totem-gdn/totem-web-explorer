@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ItemsService } from '@app/core/services/items/items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,8 @@ export class UserItemsComponent implements OnInit {
               private web3Service: Web3AuthService) { }
   sub!: Subscription;
 
-  items: any[] = []
+  items: any[] = [];
+  @ViewChild('itemsWrapper') itemsWrapper!: ElementRef;
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
@@ -23,6 +24,21 @@ export class UserItemsComponent implements OnInit {
       this.items = items;
     });
   }
+
+  ngAfterViewChecked(): void {
+    const width = this.itemsWrapper.nativeElement.offsetWidth;
+    console.log(width);
+
+    if(width > 880) {
+        this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr 1fr';
+    }
+    if(width <= 880) {
+        this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr';
+    }
+    if(width <= 560) {
+        this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr';
+    }
+}
 
   onLoadMore() {
 

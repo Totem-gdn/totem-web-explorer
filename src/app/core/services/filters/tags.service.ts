@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { ElementRef, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of, ReplaySubject, Subject, take } from "rxjs";
 
 
@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, of, ReplaySubject, Subject, take } from "r
 
 export class TagsService {
 
-    private _tags = new BehaviorSubject<string[]>([]);
+    private _tags = new BehaviorSubject<any[]>([]);
     // private _tags: any[] = [];
 
     set addTag(tag: any) {
@@ -28,6 +28,35 @@ export class TagsService {
 
         const newList = removeFromArray(tags, tagToRemove.value);
         tagToRemove.reference.checked = false;
+        this._tags.next(newList);
+    }
+
+    handleRangeTag(rangeTag: any) {
+        let isTagInArray = false;
+        const tags = this._tags.getValue();
+
+        for(let tag of tags) {
+            if(tag.reference === rangeTag.reference) {
+                tag.value = rangeTag.value;
+                isTagInArray = true;
+            }
+        }
+
+        if(isTagInArray === false) {
+            this.addTag = rangeTag;
+        }
+    }
+
+    removeTagByReference(reference: any) {
+        const tags = this._tags.getValue();
+        console.log(reference);
+        
+
+        const removeFromArray = function (arr:any[] , ...theArgs: any) {
+            return arr.filter( val => !theArgs.includes(val.reference) )
+        };
+
+        const newList = removeFromArray(tags, reference);
         this._tags.next(newList);
     }
 

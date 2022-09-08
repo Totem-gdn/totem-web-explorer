@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Output, Input, ViewChild } from "@angular/core";
+import { FiltersService } from "@app/core/services/filters/filters.service";
+import { TagsService } from "@app/core/services/filters/tags.service";
 
 
 @Component({
@@ -9,21 +11,48 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 
 export class RangeSliderComponent implements AfterViewInit {
 
-    // @Output
-    minValue = 0;
-    maxValue = 0;
+    constructor(private tagsService: TagsService,
+                private filtersService: FiltersService) {
+    }
+
+
+    minValue = 100;
+    maxValue = 200;
 
     marginLeft!: string;
     marginRight!: string;
 
+    @Input() title = '';
 
     @ViewChild('sliderTrackMin') sliderTrackMin!: ElementRef;
     @ViewChild('sliderTrackMax') sliderTrackMax!: ElementRef;
     @ViewChild('sliderThumbMin') sliderThumbMin!: ElementRef;
     @ViewChild('sliderThumbMax') sliderThumbMax!: ElementRef;
 
+    ngOnInit() {
+        this.filtersService.resetFilters$().subscribe(() => {
+            this.tagsService.removeTagByReference(this.sliderThumbMin);
+            this.sliderThumbMin.nativeElement.value = 100;
+            this.sliderThumbMax.nativeElement.value = 200;
+            this.checkThumbPosition();
+            this.changeMaxValue();
+            this.changeMinValue();
+            this.setMargins();
+        })
+    }
+    
+    exportValue() {
+        const value = `${this.title} ${this.minValue}-${this.maxValue}`;
+        const reference = this.sliderThumbMin;
+        const tag = {value: value, reference: reference}
+        this.tagsService.handleRangeTag(tag);
+    }
+
     ngAfterViewInit() {
-        this.update();
+        this.checkThumbPosition();
+        this.changeMaxValue();
+        this.changeMinValue();
+        this.setMargins();
     }
 
     update() {
@@ -31,6 +60,8 @@ export class RangeSliderComponent implements AfterViewInit {
         this.changeMaxValue();
         this.changeMinValue();
         this.setMargins();
+
+        this.exportValue();
     }
 
     changeMinValue() {

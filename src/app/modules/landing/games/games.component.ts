@@ -14,6 +14,21 @@ export class GamesComponent implements AfterViewInit {
 
   @Input() games: any[] = [];
 
+  ngAfterViewChecked(): void {
+    const width = this.gamesWrapper.nativeElement.offsetWidth;
+    console.log(width);
+
+    if(width > 880) {
+        this.gamesWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr 1fr';
+    }
+    if(width <= 880) {
+        this.gamesWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr';
+    }
+    if(width <= 560) {
+        this.gamesWrapper.nativeElement.style.gridTemplateColumns = '1fr';
+    }
+}
+
   ngAfterViewInit(): void {
       this.games.push(...[].constructor(this.gamesToRender()));
   }

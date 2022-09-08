@@ -1,4 +1,6 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild, Input, Output } from "@angular/core";
+import { FiltersService } from "@app/core/services/filters/filters.service";
+import { TagsService } from "@app/core/services/filters/tags.service";
 import { max } from "rxjs";
 
 export interface Items {
@@ -123,6 +125,9 @@ const Items: Items[] = [
 
 export class GraphSliderComponent {
 
+    constructor(private filtersService: FiltersService,
+                private tagsService: TagsService) {}
+
     minValue = 0;
     maxValue = 0;
 
@@ -131,13 +136,20 @@ export class GraphSliderComponent {
     
     items: Items[] = Items;
 
+    @Input() title = '';
+    // @Output() tag = new EventEmi;
+
     @ViewChild('sliderTrackMin') sliderTrackMin!: ElementRef;
     @ViewChild('sliderTrackMax') sliderTrackMax!: ElementRef;
     @ViewChild('sliderThumbMin') sliderThumbMin!: ElementRef;
     @ViewChild('sliderThumbMax') sliderThumbMax!: ElementRef;
 
     ngAfterViewInit() {
-        this.update();
+        this.checkThumbPosition();
+        this.changeMaxValue();
+        this.changeMinValue();
+        this.setMargins();
+        this.checkRange();
     }
 
     update() {
@@ -146,6 +158,27 @@ export class GraphSliderComponent {
         this.changeMinValue();
         this.setMargins();
         this.checkRange();
+
+        this.exportValue();
+    }
+
+    ngOnInit() {
+        this.filtersService.resetFilters$().subscribe(() => {
+            this.tagsService.removeTagByReference(this.sliderThumbMin);
+            this.sliderThumbMin.nativeElement.value = 100;
+            this.sliderThumbMax.nativeElement.value = 200;
+            this.checkThumbPosition();
+            this.changeMaxValue();
+            this.changeMinValue();
+            this.setMargins();
+        })
+    }
+    
+    exportValue() {
+        const value = `${this.title} ${this.minValue}-${this.maxValue}`;
+        const reference = this.sliderThumbMin;
+        const tag = {value: value, reference: reference}
+        this.tagsService.handleRangeTag(tag);
     }
     
     checkRange() {

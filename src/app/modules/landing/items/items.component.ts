@@ -1,6 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular/core";
-import { ItemsService } from "@app/core/services/items/items.service";
-import { Subscription } from "rxjs";
+import { AfterViewInit, Component, ElementRef, Input, ViewChild, AfterViewChecked } from "@angular/core";
 
 @Component({
     selector: 'app-items',
@@ -11,7 +9,7 @@ import { Subscription } from "rxjs";
       }
 })
 
-export class ItemsComponent implements AfterViewInit {
+export class ItemsComponent implements AfterViewInit, AfterViewChecked {
 
     @ViewChild('itemsWrapper') itemsWrapper!: ElementRef;
 
@@ -23,6 +21,21 @@ export class ItemsComponent implements AfterViewInit {
 
     onLoadMore() {
         this.items.push(...[].constructor(this.addItems()));
+    }
+
+    ngAfterViewChecked(): void {
+        const width = this.itemsWrapper.nativeElement.offsetWidth;
+        console.log(width);
+
+        if(width > 880) {
+            this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr 1fr';
+        }
+        if(width <= 880) {
+            this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr';
+        }
+        if(width <= 560) {
+            this.itemsWrapper.nativeElement.style.gridTemplateColumns = '1fr';
+        }
     }
 
     addItems() {

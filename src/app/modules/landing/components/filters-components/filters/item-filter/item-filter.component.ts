@@ -26,6 +26,9 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
       this.updateMenu();
     })
   }
+  onDrag(event: any) {
+    console.log(event);
+  }
 
   toggleMenu() {
     this.filtersService.dropupOpen = !this.filtersService.dropupOpen;

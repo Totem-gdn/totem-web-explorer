@@ -14,11 +14,11 @@
     
         <search-field  *ngIf="searchType === 'search'"></search-field>
     
-        <range-slider
+        <range-slider [title]="title"
          *ngIf="searchType === 'range'" class="rounded mt-8 items-center flex flex-col">
         </range-slider>
 
-        <graph-slider
+        <graph-slider [title]="title"
          *ngIf="searchType === 'graph'" class="rounded mt-8 items-center flex flex-col">
         </graph-slider>
     

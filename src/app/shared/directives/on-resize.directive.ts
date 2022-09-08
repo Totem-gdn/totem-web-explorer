@@ -10,13 +10,11 @@ export class OnResizeDirective implements AfterViewInit, OnDestroy {
 
     sub!: Subscription;
 
-    constructor(private el: ElementRef, @Inject(DOCUMENT) private document: Document) { }
+    constructor(private el: ElementRef) { }
   
     ngAfterViewInit(): void {
-        this.sub = fromEvent(this.document, 'resize').pipe(filter((event) => {
-            console.log(this.el)
-            return true;
-        })).subscribe(() => {
+        this.sub = fromEvent(window, 'resize').subscribe(() => {
+            console.log('resize')
             this.onResize.emit();
         })
     }

@@ -28,7 +28,7 @@ export class FilterMenuComponent implements OnDestroy{
 
 
   ngOnInit() {
-    this.onResetFilters();
+    this.resetFilters$();
   }
 
   onClickMenu() {
@@ -41,7 +41,7 @@ export class FilterMenuComponent implements OnDestroy{
     }
   }
 
-  onResetFilters() {
+  resetFilters$() {
     this.sub = this.filtersService.resetFilters$().subscribe(() => {
       this.menuActive = false;
 
@@ -59,10 +59,8 @@ export class FilterMenuComponent implements OnDestroy{
   }
 
   onChangeInput(event: any) {
-    console.log(event);
     const value = event.target.value;
     const reference = event.target;
-
     if (this.inputType === 'radio') {
       this.tagsService.removeTag(this.checkedItems[0]);
       this.checkedItems = [{value: value, reference: reference}];
