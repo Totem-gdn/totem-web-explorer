@@ -11,7 +11,7 @@
       <div class="button-wrap" (click)="close()">
         <mat-icon class="close-button" [svgIcon]="'line:arrow_right'"></mat-icon>
       </div>
-      <ng-container *ngIf="loggedIn; else unauthblock">
+      <ng-container *ngIf="userData; else unauthblock">
         <div class="user-image" fxLayout="column" fxLayoutAlign="center center">
           <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
         </div>
@@ -20,14 +20,14 @@
             {{userData?.name}}
             <span class="tooltiptext">{{userFullName}}</span>
           </div>
-          <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
+          <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
             {{walletNumber}}
             <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
             <!-- <img [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" class="copy-icon" src="assets/icons/copy_icon.svg" alt="copy-icon"> -->
           </div>
         </ng-container>
         <ng-container *ngIf="!userData?.name?.length">
-          <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
+          <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
             {{walletNumber}}
             <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
           </div>

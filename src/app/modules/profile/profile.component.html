@@ -1,11 +1,11 @@
 
-<div *ngIf="!loading" class="flex flex-col w-full">
+<div *ngIf="!(loading$ | async)" class="flex flex-col w-full">
     <ng-container *ngIf="(routeValue$ | async) !== '/profile/messages'">
       <profile-info></profile-info>
       <totem-profile-navigation></totem-profile-navigation>
       <totem-profile-stats></totem-profile-stats>
     </ng-container>
-    
+
     <div class="flex flex-col w-full p-[30px]">
         <div class="h-full">
             <router-outlet></router-outlet>
@@ -13,4 +13,4 @@
     </div>
 </div>
 
-<loading-spinner class="m-auto" *ngIf="loading"></loading-spinner>
+<loading-spinner class="m-auto" *ngIf="loading$ | async"></loading-spinner>

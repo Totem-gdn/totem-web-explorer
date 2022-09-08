@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserStateService } from './core/services/user-state.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'totem-gdn-layout';
+
+  constructor(private userStateService: UserStateService) {
+    this.userStateService.initAccount();
+  }
 
 }
