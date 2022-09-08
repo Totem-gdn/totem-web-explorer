@@ -1,6 +1,6 @@
-<div class="totem-navigation" fxLayout="row" fxLayoutAlign="center">
-  <totem-nav-sidebar *ngIf="allowNavigation | async" [loggedIn]="loggedIn" (logInEvent)="processLogIn()"></totem-nav-sidebar>
-  <totem-profile-dropdown *ngIf="(allowNavigation | async) && loggedIn" (logOutEvent)="logOut()"></totem-profile-dropdown>
+<div class="totem-navigation" fxLayout="row" fxLayoutAlign="center"><!-- (logInEvent)="processLogIn() -->
+  <totem-nav-sidebar *ngIf="allowNavigation | async"></totem-nav-sidebar>
+  <totem-profile-dropdown *ngIf="(allowNavigation | async) && isLoggedIn" (logOutEvent)="logOut()"></totem-profile-dropdown>
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
       <div class="logo-block">
@@ -20,10 +20,10 @@
         <a>Help</a>
       </div>
 
-      <div class="profile-block cursor-pointer" (click)="web3Login()">
-        <img class="fake-profile-icon" *ngIf="!avatar && !loading" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
-        <div class="nav-loader" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center"><loading-spinner></loading-spinner></div>
-        <img *ngIf="avatar && !loading" [src]="avatar" alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
+      <div class="profile-block cursor-pointer" (click)="isLoggedIn ? openSideProfile() : logIn()">
+        <img class="fake-profile-icon" *ngIf="!(currUser | async)?.profileImage && !(loading$ | async)" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
+        <div class="nav-loader" *ngIf="(loading$ | async)" fxLayout="column" fxLayoutAlign="center center"><loading-spinner></loading-spinner></div>
+        <img *ngIf="(currUser | async)?.profileImage && !(loading$ | async)" [src]="(currUser | async)?.profileImage" alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
       </div>
 
     </div>

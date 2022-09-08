@@ -1,20 +1,25 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
+import { UserEntity } from '@app/core/models/user-interface.model';
+import { UserStateService } from '@app/core/services/user-state.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-nav-sidebar',
   templateUrl: './totem-nav-sidebar.component.html',
   styleUrls: ['./totem-nav-sidebar.component.scss']
 })
-export class TotemNavSidebarComponent implements OnInit {
+export class TotemNavSidebarComponent implements OnInit, OnDestroy {
+
+  subs: Subscription = new Subscription();
   sidebarIsOpen: boolean = false;
   sidebarType: 'nav' | 'filter' = 'nav';
-  userData: any;
-  wallet: string = '';
+  userData: UserEntity | null = {};
+  wallet: string | undefined = '';
   userFullName: string = '';
   walletNumber: string = '';
 
@@ -23,39 +28,35 @@ export class TotemNavSidebarComponent implements OnInit {
 
   constructor(private sidenavStateService: SidenavStateService,
     private web3Auth: Web3AuthService,
-    private snackNotifierService: SnackNotifierService) { }
+    private snackNotifierService: SnackNotifierService,
+    private userStateService: UserStateService) { }
 
   ngOnInit(): void {
-    this.userData = JSON.parse(localStorage.getItem('openlogin_store')!);
-    //console.log(this.userData);
-
     this.sidenavStateService.sidenavStatus.subscribe((data: SidebarState) => {
       this.sidebarIsOpen = data.isOpen;
       this.sidebarType = data.type!;
     });
 
-    this.getAccountInfo();
+    this.listenAccountInfo();
   }
 
-  async getAccountInfo() {
-    //console.log('GET INFO ABOUT USER');
-    if (this.loggedIn) {
-      const wallet = await this.web3Auth.getAccounts();
-      console.log('WALLET');
-      this.userData = await this.web3Auth.getUserInfo();
-      this.userFullName = this.userData.name || '';
-      if (this.userData.name.length > 16) {
-        this.userData.name = this.userData.name.slice(0, 16) + '...'
-      }
-      console.log('USER DATA');
-      this.wallet = wallet;
-      this.walletNumber = wallet.slice(0, 6) + '...' + wallet.slice(-4);
-      console.log(this.walletNumber);
-    }
+  listenAccountInfo() {
+    console.log('IS LOGGED IN SIDENAV: ', this.loggedIn);
+    this.subs.add(
+      this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
+        this.userData = user;
+        this.userFullName = user?.name || '';
+        if (this.userData?.name?.length! > 16) {
+          this.userData!.name = this.userData?.name?.slice(0, 16) + '...';
+        }
+        this.wallet = this.userData?.wallet;
+        this.walletNumber = this.wallet?.slice(0, 6) + '...' + this.wallet?.slice(-4);
+      })
+    )
   }
 
   async logIn() {
-    await this.web3Auth.login();
+    await this.userStateService.login();
     this.close();
     this.logInEvent.emit(true);
   }
@@ -65,8 +66,11 @@ export class TotemNavSidebarComponent implements OnInit {
   }
 
   close() {
-    console.log('CALLED');
     this.sidenavStateService.updateLoadingStatus({isOpen: false, type: this.sidebarType});
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
 }

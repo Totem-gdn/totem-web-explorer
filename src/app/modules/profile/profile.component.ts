@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { UserStateService } from '@app/core/services/user-state.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Subscription } from 'rxjs';
 
 @Component({
   selector: 'profile',
@@ -11,12 +12,13 @@ import { BehaviorSubject, map } from 'rxjs';
         class: 'flex flex-auto w-full h-full'
   }
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
-  loading = false;
+  subs: Subscription = new Subscription();
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   routeValue$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor(private web3: Web3AuthService, private router: Router) {
+  constructor(private router: Router, private userStateService: UserStateService) {
     this.routeValue$.next(this.router.url);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -25,17 +27,16 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {
-    console.log('INITED PROFILE PAGE');
+  ngOnInit() {
+    this.subs.add(
+      this.userStateService.isLoading.subscribe((value: boolean) => {
+        this.loading$.next(value);
+      })
+    )
+  }
 
-    console.log('check login',!this.web3.isLoggedIn())
-    if(!this.web3.isLoggedIn()) {
-      console.log('login auth')
-      //this.loading = true;
-      await this.web3.init();
-      await this.web3.login();
-      this.loading = false;
-    }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
 }

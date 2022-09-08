@@ -17,10 +17,12 @@ export class ProfileInfoComponent implements OnInit {
   wallet!: string;
   user: any;
 
-  constructor(private web3Auth: Web3AuthService,
-              private router: Router,
-              private snackNotifierService: SnackNotifierService,
-              private profileStateService: ProfileStateService) { }
+  constructor(
+    private web3Auth: Web3AuthService,
+    private router: Router,
+    private snackNotifierService: SnackNotifierService,
+    private profileStateService: ProfileStateService
+  ) {}
 
   ngOnInit(): void {
     this.handleAuth();
@@ -44,11 +46,6 @@ export class ProfileInfoComponent implements OnInit {
     this.user = user;
     console.log('user',user);
     this.profileStateService.updateLoadingStatus(true);
-  }
-
-  async onLogout() {
-    await this.web3Auth.logout();
-    this.router.navigate(['/home'])
   }
 
   notify() {

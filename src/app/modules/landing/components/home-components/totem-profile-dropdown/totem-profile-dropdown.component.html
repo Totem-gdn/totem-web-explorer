@@ -12,13 +12,13 @@
           {{userData?.name}}
           <span class="tooltiptext">{{userFullName}}</span>
         </div>
-        <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
+        <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
           {{walletNumber}}
           <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
         </div>
       </ng-container>
       <ng-container *ngIf="!userData?.name?.length">
-        <div [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
+        <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
           {{walletNumber}}
           <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
         </div>

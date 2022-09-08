@@ -1,48 +1,73 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserEntity } from '@app/core/models/user-interface.model';
+import { UserStateService } from '@app/core/services/user-state.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { ProfileStateService } from '@app/shared/services/profile-state.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 import { SideProfileStateService } from '@app/shared/services/sideprofile-state.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-navigation',
   templateUrl: './totem-navigation.component.html',
   styleUrls: ['./totem-navigation.component.scss']
 })
-export class TotemNavigationComponent implements OnInit {
+export class TotemNavigationComponent implements OnInit, OnDestroy {
+
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  allowNavigation: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  currUser: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
+  isLoggedIn: boolean = false;
+  subs: Subscription = new Subscription();
 
   constructor(private web3Auth: Web3AuthService,
     private router: Router,
-    private cdr: ChangeDetectorRef,
     private sidenavStateService: SidenavStateService,
     private sideProfileStateService: SideProfileStateService,
     private snackNotifierService: SnackNotifierService,
-    private profileStateService: ProfileStateService
-    ) { }
-
-  loading = false;
-  avatar: undefined | string;
-  loggedIn: boolean = false;
-  wallet: string = '';
-  allowNavigation: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private profileStateService: ProfileStateService,
+    private userStateService: UserStateService
+    ) {}
 
   ngOnInit(): void {
-    this.tryToInitWeb3();
-    this.profileStateService.sidenavStatus.subscribe((data: boolean) => {
-      if (data) {
-        let userData = JSON.parse(localStorage.getItem('openlogin_store')!);
-        this.avatar = userData.profileImage;
-        this.loggedIn = true;
-        this.allowNavigation.next(true);
-        this.loading = false;
-      }
-    })
+    //this.tryToInitWeb3();
+    this.initUserAndLoadingListener();
+    //this.profileStateService.sidenavStatus.subscribe((data: boolean) => {
+    //  if (data) {
+    //    let userData = JSON.parse(localStorage.getItem('openlogin_store')!);
+    //    this.avatar = userData.profileImage;
+    //    this.loggedIn = true;
+    //    this.allowNavigation.next(true);
+    //    this.loading = false;
+    //  }
+    //})
   }
 
-  async tryToInitWeb3() {
+  ngOnDestroy(): void {
+
+  }
+
+  initUserAndLoadingListener() {
+
+    this.subs.add(
+      this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
+        this.currUser.next(user);
+        this.isLoggedIn = !!user;
+        this.allowNavigation.next(true);
+      })
+    )
+
+    this.subs.add(
+      this.userStateService.isLoading.subscribe((value: boolean) => {
+        this.loading$.next(value)
+      })
+    )
+
+  }
+
+/*  async tryToInitWeb3() {
     try {
       this.loading = true;
       await this.web3Auth.init();
@@ -51,7 +76,7 @@ export class TotemNavigationComponent implements OnInit {
         const userInfo: any = await this.web3Auth.getUserInfo();
         this.avatar = userInfo.profileImage;
         this.loggedIn = true;
-        console.log('ALLOW LOADING NAVS');
+        console.log(userInfo, this.wallet);
       }
       this.allowNavigation.next(true);
       this.loading = false;
@@ -61,9 +86,9 @@ export class TotemNavigationComponent implements OnInit {
       this.loading = false;
       this.cdr.markForCheck();
     };
-  }
+  } */
 
-  async web3Login() {
+  /* async web3Login() {
 
     if(this.web3Auth.isLoggedIn()) {
       this.openSideProfile();
@@ -94,9 +119,9 @@ export class TotemNavigationComponent implements OnInit {
       };
     }
 
-  }
+  } */
 
-  async processLogIn() {
+  /* async processLogIn() {
     console.log('start loading if user selected login case');
     this.loading = true;
     this.allowNavigation.next(false);
@@ -109,7 +134,7 @@ export class TotemNavigationComponent implements OnInit {
     this.loggedIn = true;
     this.allowNavigation.next(true);
     this.cdr.markForCheck();
-  }
+  } */
 
   openSidenav() {
     this.sidenavStateService.updateLoadingStatus({isOpen: true, type: 'nav'});
@@ -123,13 +148,12 @@ export class TotemNavigationComponent implements OnInit {
     this.sideProfileStateService.updateState(true);
   }
 
-  async logOut() {
-    await this.web3Auth.logout();
-    this.snackNotifierService.open('Signed out');
-    this.avatar = undefined;
-    this.loggedIn = false;
-    this.router.navigate(['/home']);
-    this.cdr.markForCheck();
+  logIn() {
+    this.userStateService.login();
+  }
+
+  logOut() {
+    this.userStateService.logout();
   }
 
 }
