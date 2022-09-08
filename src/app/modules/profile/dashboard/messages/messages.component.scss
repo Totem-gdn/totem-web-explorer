@@ -16,6 +16,13 @@
   border-bottom: 1px solid rgba(95, 99, 105, 0.5);
 }
 
+.selected-item {
+  position: relative;
+  &::before {
+    opacity: 1 !important;
+  }
+}
+
 .table-wrapper {
   width: 100%;
 
@@ -25,10 +32,19 @@
     flex-direction: row;
     place-content: center;
 
+    .refresh-button {
+      position: relative;
+      &:hover .tooltiptext {
+        //transition-delay: 1s;
+        visibility: visible;
+      }
+    }
+
+
     mat-icon {
       font-size: 22px;
       color: $light-grey;
-      margin-right: 20px;
+
       height: 36px;
       width: 36px;
       display: flex;
@@ -41,6 +57,9 @@
         background-color: $dark-grey;
         color: #fff;
       }
+    }
+    totem-pagination {
+      margin-left: 20px;
     }
   }
 
@@ -62,9 +81,15 @@
   }
 
   .check-all-button {
-    height: 24px;
+    position: relative;
+    height: 36px;
     width: 40px;
     margin-left: 12px;
+
+    &:hover .tooltiptext {
+      //transition-delay: 1s;
+      visibility: visible;
+    }
 
     .mark-dropdown {
       width: 20px;
@@ -128,6 +153,11 @@
 
   .unread-wrapp {
     margin-left: 32px;
+    position: relative;
+    &:hover .tooltiptext {
+      //transition-delay: 1s;
+      visibility: visible;
+    }
   }
 
   .toolbar-titles {
@@ -170,9 +200,11 @@
 
     .type-col {
       height: 50px;
+      user-select: none;
     }
 
     .subj-col {
+      user-select: none;
       margin-left: 12px;
       margin-right: 16px;
       max-width: 945px;
@@ -180,6 +212,7 @@
       padding-bottom: 50px;
 
       .message-title {
+        //min-height: 50px;
         height: 50px;
         font-weight: 500;
         font-size: 16px;
@@ -221,6 +254,39 @@
       line-height: 16px;
       margin-left: 12px;
       min-width: 275px;
+      width: 100%;
+      max-width: 275px;
+      padding-right: 32px;
+      user-select: none;
+
+      .hide-button {
+        transition: opacity 0.33s ease-out;
+      }
+      .mark-dropdown {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        place-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover {
+          mat-icon {
+            color: #fff;
+          }
+        }
+        mat-icon {
+          transition: transform 0.33s ease-out;
+          font-style: normal;
+          font-weight: 500;
+          color: $light-grey;
+          height: 7.14px;
+          width: auto;
+          font-size: 12px;
+        }
+
+      }
+
     }
 
     .message-item {
@@ -228,13 +294,12 @@
       flex-shrink: 0;
       min-height: 50px;
       max-height: 50px;
-      height: 100%;
       width: 100%;
       background-color: $grey;
       border-radius: 4px;
       overflow: hidden;
 
-      transition: padding-top 0.33s ease-out, max-height 0.33s ease-out;
+      transition: max-height 0.33s cubic-bezier(0.4, 0, 0.2, 1), padding-top 0.33s ease-out;
 
       cursor: pointer;
       &:not(:first-child) {
@@ -301,7 +366,7 @@
       height: 40px;
       width: 40px;
       border-radius: 50%;
-      background-color: $dark;
+      background-color: $yellow;
       display: flex;
       place-content: center;
       align-items: center;
@@ -313,7 +378,7 @@
       .icon-font-star,
       .icon-font-settings
       {
-        color: $light-grey;
+        color: #111111;
         width: 24px;
         height: 24px;
         cursor: pointer;
@@ -330,4 +395,21 @@
   }
 }
 
-
+.tooltiptext {
+  visibility: hidden;
+  background: rgba(8, 9, 10, 0.5);
+  backdrop-filter: blur(20px);
+  border-radius: 4px;
+  color: $light-grey;
+  text-align: center;
+  padding: 7px 16px;
+  position: absolute;
+  z-index: 20;
+  bottom: -36px;
+  left: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  white-space: nowrap;
+  transition: visibility 0.1s ease-out;
+}
