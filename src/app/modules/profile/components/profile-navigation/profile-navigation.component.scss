@@ -21,6 +21,11 @@ a, span {
   padding-right: 30px;
   height: 31px;
   .profile-nav {
+    flex-flow: row wrap;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center flex-start;
+    align-items: center;
     overflow: hidden;
     width: 100%;
     height: inherit;
@@ -29,6 +34,13 @@ a, span {
       height: inherit;
       padding-left: 30px;
       padding-right: 30px;
+      flex-direction: column;
+      box-sizing: border-box;
+      display: flex;
+
+      @media (max-width: 600px) {
+        display: none;
+      }
 
       a {
         position: relative;
@@ -60,5 +72,41 @@ a, span {
       }
 
     }
+
+    @media (min-width: 601px) {
+      row-gap: 10px;
+      padding-bottom: 3px;
+    }
+    @media (max-width: 600px) {
+      place-content: center space-between;
+    }
+
+    .nav-button {
+      display: none;
+      flex-direction: column;
+      box-sizing: border-box;
+      place-content: center;
+      align-items: center;
+      background-color: $grey;
+      border-radius: 4px;
+      width: 48%;
+      height: 50px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 17px;
+      cursor: pointer;
+      @media (max-width: 600px) {
+        display: flex;
+      }
+      &.active-tab {
+        color: $dark;
+        background-color: $yellow;
+      }
+    }
+  }
+  @media (max-width: 600px) {
+    height: unset;
   }
 }
