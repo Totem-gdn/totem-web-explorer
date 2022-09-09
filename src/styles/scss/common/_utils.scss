@@ -1,5 +1,17 @@
 @import 'styles/scss/placeholders';
 
+.placeholder {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #353840;
+    .mat-icon {
+        margin:auto;
+        width: 130px !important;
+        height: auto !important;
+    }
+}
 
 .item-tag {
     height: 72px;

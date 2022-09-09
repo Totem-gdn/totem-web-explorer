@@ -792,7 +792,7 @@ import { Component, Input } from '@angular/core';
 </filter>
 <linearGradient id="paint0_linear_1969_31020" x1="293.38" y1="93.7675" x2="403.134" y2="719.409" gradientUnits="userSpaceOnUse">
 <stop stop-color="#151A4A" stop-opacity="0.45"/>
-<stop offset="1" stop-color="#322CA6"/>
+<stop offset="1" stop-color="#322CA6"/> 
 </linearGradient>
 </defs>
 </svg>
