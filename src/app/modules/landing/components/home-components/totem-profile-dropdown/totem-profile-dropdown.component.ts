@@ -48,7 +48,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
       this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
         this.userData = user;
         this.userFullName = user?.name || '';
-        if (this.userData?.name?.length! > 9) {
+        if (this.userData?.name?.length! > 16) {
           this.userData!.name = this.userData?.name?.slice(0, 16) + '...';
         }
         this.wallet = this.userData?.wallet;

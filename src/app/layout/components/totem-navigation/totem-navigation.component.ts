@@ -46,7 +46,7 @@ export class TotemNavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.subs.unsubscribe();
   }
 
   initUserAndLoadingListener() {
