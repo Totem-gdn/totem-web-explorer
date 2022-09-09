@@ -1,14 +1,17 @@
 <div class="profile-nav-wrapper">
-  <div class="profile-nav" fxLayout="row" fxLayoutAlign="start center">
-    <div class="nav-block" fxLayout="column">
+  <div class="profile-nav">
+    <div class="nav-block">
       <a routerLinkActive="active-tab" routerLink="/profile/user-items">My items</a>
     </div>
-    <div class="nav-block" fxLayout="column">
+    <div class="nav-block">
       <a routerLinkActive="active-tab" routerLink="/profile/user-avatars">My avatars</a>
     </div>
-    <div class="nav-block" fxLayout="column">
+    <div class="nav-block">
       <a routerLinkActive="active-tab" routerLink="/profile/user-games">My games</a>
     </div>
+    <div matRipple class="nav-button" routerLinkActive="active-tab" routerLink="/profile/user-items">My items</div>
+    <div matRipple class="nav-button" routerLinkActive="active-tab" routerLink="/profile/user-avatars">My avatars</div>
+    <div matRipple class="nav-button" routerLinkActive="active-tab" routerLink="/profile/user-games">My games</div>
   </div>
 </div>
 

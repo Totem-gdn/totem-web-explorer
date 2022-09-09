@@ -26,9 +26,9 @@
         <img *ngIf="!user?.avatar" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
         <img *ngIf="user?.avatar" [src]="user.avatar" alt="profile-icon" class="rounded-full">
       </div>
-      <div class="user-info-data" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="user-info-data">
         <ng-container *ngIf="user?.name?.length">
-          <div fxLayout="column" fxLayoutAlign="center start">
+          <div class="user-data">
             <div class="user-name">
               {{user?.name}}
             </div>
@@ -46,17 +46,20 @@
           </div>
         </ng-container>
         <ng-container *ngIf="!user?.name?.length">
-          <div
-            fxLayout="row"
-            fxLayoutAlign="center center"
-            [cdkCopyToClipboard]="user?.wallet"
-            [cdkCopyToClipboardAttempts]="2"
-            (cdkCopyToClipboardCopied)="notify()"
-            class="user-name"
-            >
-            {{user?.wallet}}
-            <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+          <div class="user-data">
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              [cdkCopyToClipboard]="user?.wallet"
+              [cdkCopyToClipboardAttempts]="2"
+              (cdkCopyToClipboardCopied)="notify()"
+              class="user-name"
+              >
+              {{user?.wallet}}
+              <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+            </div>
           </div>
+
         </ng-container>
         <div class="button-wrapper">
           <button matRipple class="fav-button">
@@ -65,6 +68,14 @@
           <button matRipple class="msg-button" (click)="goToMessages()">
             Messages
           </button>
+        </div>
+        <div class="plate-button-wrapper">
+          <div matRipple class="msg-button">
+            <mat-icon>mail_outline</mat-icon>
+          </div>
+          <div matRipple class="fav-button" (click)="goToMessages()">
+            <div class="icon-font-favourite"></div>
+          </div>
         </div>
       </div>
     </div>
