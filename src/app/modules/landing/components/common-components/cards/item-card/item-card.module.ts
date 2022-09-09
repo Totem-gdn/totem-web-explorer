@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "app/shared/shared.module";
 import { ItemCardComponent } from "./item-card.component";
+import { SvgItemsModule } from "./svgs/svg-items.module";
 
 
 
@@ -12,6 +13,8 @@ import { ItemCardComponent } from "./item-card.component";
     imports: [
         SharedModule,
         MatIconModule,
+
+        SvgItemsModule
     ],
     exports: [
         ItemCardComponent

@@ -1,8 +1,15 @@
 <div class="flex flex-col item gradient-border" (click)="onNavigate()">
 
-    <img *ngIf="!item" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt="">
-    <img *ngIf="item" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt="">
+
+    <!-- <img *ngIf="item?.itemType === 'sword'" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt=""> -->
     <!-- <img *ngIf="nft?.metadata?.image" class="grow h-60 object-cover" [src]="nft?.metadata?.image" alt=""> -->
+    <!-- <img *ngIf="item?.itemType === 'spear'" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt=""> -->
+    <img *ngIf="!item" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt="">
+
+    <svg-sword 
+    class="background grow h-60 svg-icon" *ngIf="item?.itemType === 'sword' || item?.itemType === 'spear'"
+    [element]="item?.item?.element" [tip]="item?.item?.tipMaterial" [shaftColor]="item?.item?.shaftColor"></svg-sword>
+
 
     <div class="p-4 flex flex-col">
 
@@ -10,8 +17,10 @@
             <h3 *ngIf="!item?.itemType">ID: 1111</h3>
             <h3 *ngIf="item?.itemType">{{item?.itemType}}</h3>
 
-            <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-            <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+            <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'"
+                (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+            <mat-icon *ngIf="isLiked === true" class="text-yellow" [svgIcon]="'solid:like'"
+                (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
         </div>
 
         <div class="flex justify-between items-center whitespace-nowrap max-w-[320px]">

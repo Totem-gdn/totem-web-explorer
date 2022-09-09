@@ -1,5 +1,15 @@
 @import 'styles/scss/variables';
 
+.svg-icon {
+    display: flex;
+  align-items: center;
+//   background-color: red;
+//   height: 100%;
+}
+.background {
+    background-color: #000405;
+}
+
 .item {
     margin:auto;
     flex-grow: 1;

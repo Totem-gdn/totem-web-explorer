@@ -29,10 +29,57 @@ export class ItemsService {
 
     fetchItems(wallet: string) {
         return this.http.get<any>(`https://simple-api.totem.gdn/default/items/${wallet}`).pipe(
-            map(items => this.formatTime(items.data)),
+            map(items => this.formatItems(items.data)),
             tap(items => {
                 this.items = items;
             }))         
+    }
+
+    private formatItems(items: any) {
+        let formattedItems: any = [];
+
+        for (let item of items) {
+            // Format Time
+            // const creationDate = new Date(item.createdAt).toLocaleDateString();
+            // item.createdAt = creationDate;
+            const updateDate = new Date(item.updatedAt).toLocaleDateString();
+            item.updatedAt = updateDate;
+        
+            // Format Tip
+            switch(item.item.tipMaterial) {
+                case 0:
+                    item.item.tipMaterial = '#966F33';
+                    break;
+                case 1:
+                    item.item.tipMaterial = '#e3dac9';
+                    break;
+                case 2:
+                    item.item.tipMaterial = '#6F6A61';
+                    break;
+                case 3:
+                    item.item.tipMaterial = '#2e3134';
+                    break;
+            }
+
+            // Format element
+            switch(item.item.element) {
+                case 0:
+                    item.item.element = '#a6e7ff';
+                    break;
+                case 1:
+                    item.item.element = '#806043';
+                    break;
+                case 2:
+                    item.item.element = '#d4f1f9';
+                    break;
+                case 3:
+                    item.item.element = '#e25822';
+                    break;
+            }
+            formattedItems.push(item);
+        }
+
+        return formattedItems;
     }
 
     async getItemsIds() {
@@ -61,14 +108,14 @@ export class ItemsService {
             return tx;
     }
 
-    formatTime(items: any[]) {
-        const formattedItems: any[] = [];
+    // formatTime(items: any[]) {
+    //     const formattedItems: any[] = [];
 
-        for(let item of items) {
-            item.updatedAt = new Date(item.updatedAt).toLocaleDateString();
-            formattedItems.push(item);
-        }
+    //     for(let item of items) {
+    //         item.updatedAt = new Date(item.updatedAt).toLocaleDateString();
+    //         formattedItems.push(item);
+    //     }
 
-        return formattedItems;
-    }
+    //     return formattedItems;
+    // }
 }

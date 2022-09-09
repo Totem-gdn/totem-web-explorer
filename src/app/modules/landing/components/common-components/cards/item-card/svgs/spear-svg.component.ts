@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 
-
 @Component({
-    selector: 'svg-sword',
+    selector: 'svg-spear',
     template: `
-
+    
     `
 })
 
-export class SwgSword {
-
+export class SvgSpear {
+    
 }
