@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'item-properties',
@@ -8,7 +8,7 @@ import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@ang
   //   class: 'flex'
   // }
 })
-export class ItemPropertiesComponent implements OnInit, AfterViewChecked {
+export class ItemPropertiesComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   constructor() { }
 
@@ -16,10 +16,18 @@ export class ItemPropertiesComponent implements OnInit, AfterViewChecked {
   toggle = false;
 
   @ViewChild('grid') grid!: ElementRef;
+  tagsWidth = [];
 
   ngOnInit(): void {
   }
-
+  ngAfterViewInit(): void {
+    const children = this.grid.nativeElement.children;
+    console.log('grid width: ', this.grid.nativeElement.innerWidth)
+    for(let child of children) {
+      const firstChild = child.firstChild.nativeElement.innerWidth;
+      console.log(firstChild, child.firstChild.nativeElement.scrollWidth)
+    }
+  }
   onClickViewAll() {
     if(this.toggle === false) {
       this.grid.nativeElement.style.maxHeight = '1500px';

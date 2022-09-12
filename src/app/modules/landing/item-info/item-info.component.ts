@@ -17,7 +17,7 @@ export class ItemInfoComponent {
                 private route: ActivatedRoute,
                 private paymentService: PaymentService) {}
 
-    activeTab = 'legacy';
+    activeTab = 'properties';
     sub!: Subscription;
 
     nftMeta: any;

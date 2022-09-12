@@ -21,8 +21,9 @@ export class ItemCardComponent {
   }
   
   onNavigate() {
-    // console.log('navigate')
+    console.log('navigate')
     // this.router.navigate(['/item-info'], { queryParams: { address:  address} });
+    this.router.navigate(['/item-info']);
   }
 
 }
