@@ -1,13 +1,13 @@
 <div class="flex flex-col item gradient-border" (click)="onNavigate()">
 
     <!-- <div class="absolute"> -->
-    <img *ngIf="!game" class="object-cover grow h-[265px]" src="assets/images/popularGame.png" alt="">
+    <img *ngIf="!game" class="object-cover grow h-[235px]" src="assets/images/popularGame.png" alt="">
     <!-- </div> -->
     <div *ngIf="game" class="placeholder">
-        <mat-icon [svgIcon]="'line:item-game'"></mat-icon>
+        <mat-icon [svgIcon]="'line:game-place'"></mat-icon>
     </div>
 
-    <div class="p-4 flex flex-col mt-auto absolute bottom-0 h-[175px]">
+    <div class="p-4 flex flex-col mt-auto bottom-0 h-[175px]">
         
         <div class="flex justify-between">
             <div class="flex flex-col">
@@ -20,7 +20,7 @@
         </div>
 
         <div class="flex">
-            <p class="text-light-grey py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</p>
+            <p class="text-light-grey py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut</p>
         </div>
 
         <div class="flex justify-between max-w-[320px]">

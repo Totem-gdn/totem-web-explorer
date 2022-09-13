@@ -13,17 +13,24 @@ export class FilterComponentsComponent {
     }
 
     @Input() filterType = 'item';
+    @Input() mode = 'active';
     @ViewChild('wrapper') wrapper!: ElementRef;
 
-    @Input() items: any[] = []; 
+    @Input() items: any[] | undefined; 
 
-    ngAfterViewInit(): void {
-        console.log(this.filterType);
-        this.items.push(...[].constructor(this.addItems()));
+    async ngAfterViewInit() {
+
+        if(this.mode != 'active') {
+            if(this.items === undefined) this.items = [];
+            this.items.push(...[].constructor(this.addItems()));
+        }
     }
 
     onLoadMore() {
-        this.items.push(...[].constructor(this.addItems()));
+        if(this.mode != 'active') {
+            if(this.items === undefined) this.items = [];
+            this.items.push(...[].constructor(this.addItems()));
+        }
     }
 
     ngAfterViewChecked(): void {
@@ -49,6 +56,7 @@ export class FilterComponentsComponent {
             itemsToRender = 3;
         }
         this.numberOfItemsToFit();
+        console.log('items to render')
         return itemsToRender;
     }
     numberOfItemsToFit() {

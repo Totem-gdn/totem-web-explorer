@@ -54,16 +54,76 @@
   }
 }
 .w3a-adapter-list  {
-  & .w3a-adapter-item:nth-child(2) {
-    img {
-      display: none !important;
-    }
+  img {
+    display: none !important;
+  }
+  & .w3a-button--icon {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  & .w3a-adapter-item:nth-child(1) {
     & .w3a-button--icon {
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
+      background-image: url('../../../assets/images/svgs/google.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(2) {
     & .w3a-button--icon {
       background-image: url('../../../assets/images/svgs/facebook.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(3) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/reddit.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(4) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/discord.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(5) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/twitch.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(6) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/apple.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(7) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/line.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(8) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/github.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(9) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/talk.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(10) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/linked.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(11) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/twitter.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(12) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/weibo.svg') !important;
+    } 
+  }
+  & .w3a-adapter-item:nth-child(13) {
+    & .w3a-button--icon {
+      background-image: url('../../../assets/images/svgs/wechat.svg') !important;
     } 
   }
 

@@ -26,8 +26,8 @@ export class AlchemyService {
         console.log(nfts);
         const formattedNfts: any[] = [];
         for(let nft of nfts) {
-            if(nft.title == '') continue;
-            nft.timeLastUpdated = new Date(nft.timeLastUpdated);
+            // if(nft.title == '') continue;
+            nft.timeLastUpdated = new Date(nft.timeLastUpdated).toLocaleDateString();
             formattedNfts.push(nft);
         }
         const sortedNfts = formattedNfts.sort(function(a, b): any {

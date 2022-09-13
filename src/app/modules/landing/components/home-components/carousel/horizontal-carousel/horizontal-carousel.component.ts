@@ -20,14 +20,14 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
 
     @Input() title = '';
     @Input() menuTitle: string | null = '';
-    @Input() items = [1, 2, 3, 4, 5, 6, 7];
+    @Input() items: any = [1, 2, 3, 4, 5, 6, 7];
     @Input() itemType = 'item';
     @Input() itemsCount = 4;
 
     @ViewChild('horizontalSwiper') horizontalSwiper!: any;
 
     ngAfterViewInit() {
-        // init Swiper:
+        console.log(this.items);
         this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
 
             modules: [Navigation, Pagination, Autoplay],
@@ -64,12 +64,12 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
                 1000: {
                     slidesPerView: 3,
                     spaceBetween: 16,
-                    slidesPerGroup: 3
+                    slidesPerGroup: 2
                 },
                 1280: {
                     slidesPerView: 4,
                     spaceBetween: 16,
-                    slidesPerGroup: 3
+                    slidesPerGroup: 2
                 }
             },
             // Optional parameters

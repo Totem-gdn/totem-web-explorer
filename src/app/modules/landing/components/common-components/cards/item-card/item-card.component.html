@@ -7,11 +7,18 @@
     <!-- <div class="placeholder">
         <mat-icon [svgIcon]="'line:item-place'"></mat-icon>
     </div> -->
-    <img *ngIf="!item" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt="">
+    <div *ngIf="!item?.itemType && !item?.image || item?.itemType === 'Item'" class="placeholder">
+        <mat-icon [svgIcon]="'line:item-place'"></mat-icon>
+    </div>
+
+    <div class="h-full" *ngIf="item?.image">
+        <img class="grow object-cover h-full" [src]="item?.image" alt="">
+    </div>
 
     <svg-sword 
     class="background grow h-60 svg-icon" *ngIf="item?.itemType === 'sword' || item?.itemType === 'spear'"
     [element]="item?.item?.element" [tip]="item?.item?.tipMaterial" [shaftColor]="item?.item?.shaftColor"></svg-sword>
+
 
 
     <div class="p-4 flex flex-col">

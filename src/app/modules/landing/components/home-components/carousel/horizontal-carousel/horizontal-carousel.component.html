@@ -22,7 +22,7 @@
   <div #horizontalSwiper class="horizontal-swiper relative">
     <div class="swiper-wrapper">
       <div *ngFor="let item of items" class="swiper-slide">
-        <item-card *ngIf="itemType === 'item'"></item-card>
+        <item-card *ngIf="itemType === 'item'" [item]="item"></item-card>
 
         <game-card *ngIf="itemType === 'game'"></game-card>
 

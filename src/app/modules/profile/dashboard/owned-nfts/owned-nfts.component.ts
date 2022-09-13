@@ -19,19 +19,20 @@ export class OwnedNftsComponent implements OnInit {
     if (!account) return;
 
     this.alchemyService.getNfts(account).subscribe((nfts: any) => {
-      this.formatNfts(nfts.ownedNfts);
+      this.nfts = nfts;
+      console.log(nfts)
     })
   }
 
-  formatNfts(nfts: any[]) {
-    const formattedNfts: any[] = [];
-    for(let nft of nfts) {
-      const oldDate = nft.timeLastUpdated;
-      nft.timeLastUpdated = new Date(oldDate).toLocaleDateString();
-      formattedNfts.push(nft);
-    }
+  // formatNfts(nfts: any[]) {
+  //   const formattedNfts: any[] = [];
+  //   for(let nft of nfts) {
+  //     const oldDate = nft.timeLastUpdated;
+  //     nft.timeLastUpdated = new Date(oldDate).toLocaleDateString();
+  //     formattedNfts.push(nft);
+  //   }
 
-    this.nfts = formattedNfts;
-  }
+  //   this.nfts = formattedNfts;
+  // }
 
 }

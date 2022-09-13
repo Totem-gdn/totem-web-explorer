@@ -16,6 +16,7 @@ import { GameCardModule } from '../components/common-components/cards/game-card/
 import { AvatarCardModule } from '../components/common-components/cards/avatar-card/avatar-card.module';
 import { CarouselModule } from '../components/home-components/carousel/carousel.module';
 import { TotemButtonModule } from '../components/common-components/totem-button/totem-button.module';
+import { HomeWidgetModule } from '../components/home-components/home-widget/home-widget.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TotemButtonModule } from '../components/common-components/totem-button/
     GameCardModule,
     AvatarCardModule,
     CarouselModule,
+    HomeWidgetModule,
 
     TotemButtonModule
   ],

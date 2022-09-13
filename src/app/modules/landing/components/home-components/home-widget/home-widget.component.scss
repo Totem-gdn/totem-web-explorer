@@ -1,0 +1,39 @@
+
+.wrapper {
+    min-height: 400px;
+    display: flex;
+    // flex-wrap: wrap;
+    vertical-align: middle;
+    padding: 25px;
+}
+
+.img-wrapper {
+    max-width: 400px;
+    display: flex;
+    width: 100%;
+    position: relative;
+
+    img {
+        width: 100%;
+        margin: auto;
+    }
+    .img-1 {
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+    }
+
+    .img-2 {
+        display: flex;
+        width: 65%;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        // position: absolute;
+        margin-left: auto;
+        z-index: 1;
+    }
+}

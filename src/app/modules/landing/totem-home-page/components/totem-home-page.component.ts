@@ -24,7 +24,7 @@ export class TotemHomePageComponent implements OnInit {
   }]
   x: number = 0;
   y: number = 0;
-  items = [1,2,3,4,5,6,7];
+  items = [{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-2.png'},{image: 'assets/images/item-img-3.png'},{image: 'assets/images/item-img-4.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'}];
 
   eventDate: Date = new Date('09/9/2022');
 

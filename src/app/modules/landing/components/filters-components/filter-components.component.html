@@ -16,21 +16,27 @@
 
 
             <div class="flex flex-col w-full">
-                <div #wrapper class="grow grid-item-list">
+                <div #wrapper class="grow grid-item-list relative">
                     <ng-container *ngIf="filterType === 'item'">
                         <item-card *ngFor="let item of items" [item]="item"></item-card>
+                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no items</h3></ng-container>
                     </ng-container>
 
                     <ng-container *ngIf="filterType === 'avatar'">
+                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no avatars</h3></ng-container>
                         <avatar-card *ngFor="let item of items" [avatar]="item"></avatar-card>
                     </ng-container>
                     
                     <ng-container *ngIf="filterType === 'game'">
+                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no games</h3></ng-container>
                         <game-card *ngFor="let item of items" [game]="item"></game-card>
                     </ng-container>
+
+                    <div class="absolute w-full h-full flex" *ngIf="!items"><loading-spinner class="m-auto"></loading-spinner></div>
+                    
                 </div>
 
-                <div class="w-full mt-[60px] flex">
+                <div *ngIf="mode != 'active'" class="w-full mt-[60px] flex">
                     <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>
                 </div>
             </div>
