@@ -17,6 +17,7 @@ import { AvatarCardModule } from '../components/common-components/cards/avatar-c
 import { CarouselModule } from '../components/home-components/carousel/carousel.module';
 import { TotemButtonModule } from '../components/common-components/totem-button/totem-button.module';
 import { HomeWidgetModule } from '../components/home-components/home-widget/home-widget.module';
+import { BackgroundCircleModule } from '../components/common-components/bg-circle/bg-circle.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { HomeWidgetModule } from '../components/home-components/home-widget/home
     CarouselModule,
     HomeWidgetModule,
 
+    BackgroundCircleModule,
     TotemButtonModule
   ],
   exports: [],

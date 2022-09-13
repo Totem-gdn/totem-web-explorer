@@ -1,23 +1,37 @@
 
-<div class="wrapper flex-wrap lg:flex-nowrap bg-dark-grey rounded">
-    <div class="flex flex-col max-w-[360px] w-full justify-center mb-[30px] lg:m-0">
-        <div class="font-totem text-[30px] uppercase tracking-normal">
+<div class="wrapper flex-wrap lg:flex-nowrap justify-center p-[20px] lg:p-[25px]">
+    <bg-circle class="left-[-140px] top-[-140px]" [width]="'280px'" [background]="'#FFD011'"></bg-circle>
+    <bg-circle class="left-[200px] top-[-75px]" [width]="'150px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="left-[0px] top-[100px]" [width]="'200px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="left-[600px] bottom-[-140px] z-1 blur-bold" [width]="'230px'" [background]="'#FFD011'"></bg-circle>
+
+    <bg-circle class="right-[260px] top-[0px]" [width]="'260px'" [background]="'#3A23C9'"></bg-circle>
+    <bg-circle class="right-[-130px] top-[-130px]" [width]="'260px'" [background]="'#2397C9'"></bg-circle>
+    <bg-circle class="right-[0] bottom-[-70px]" [width]="'200px'" [background]="'#FFD011'"></bg-circle>
+    <bg-circle class="left-[500px] bottom-[-30px]" [width]="'150px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="right-[0px] bottom-[-200px]" [width]="'400px'" [background]="'#8023C9'"></bg-circle>
+
+
+
+
+    <div class="flex flex-col max-w-[370px] w-full justify-center mb-[30px] xl:m-0 z-2">
+        <div class="font-totem uppercase text-[20px] sm:text-[32px]">
             Try on your Item for any game!
         </div>
-        <h4 class="mt-[30px]">Choose the game name in the widget & see how item appearance will change!</h4>
+        <p class="mt-[30px]">Choose the game name in the widget & see how item appearance will change!</p>
     </div>
 
-    <div class="flex grow justify-center">
-        <div class="my-auto lg:my-0 mr-auto lg:mr-[20px]">
-            <search-dropdown [title]="'Game Name'"></search-dropdown>   
+    <div class="flex grow justify-center h-[250px]">
+        <div class="mb-auto mt-[10px] lg:my-0 mx-auto lg:mx-[40px] w-[200px]">
+            <search-dropdown [alwaysOpen]="true" [title]="'Game Name'"></search-dropdown>   
         </div> 
     </div>
 
-    <div class="img-wrapper mt-[30px] lg:m-0">
+    <div class="img-wrapper mt-[30px] xl:m-0">
         <div class="img-1">
             <img src="../../../../../../assets/images/widget-image-1.png" alt="">
         </div>
-        <div class="img-2">
+        <div class="img-2 z-2">
             <img src="../../../../../../assets/images/widget-image-2.png" alt="">
         </div>
     </div>

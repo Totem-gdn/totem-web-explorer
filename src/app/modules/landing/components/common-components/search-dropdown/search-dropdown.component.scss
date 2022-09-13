@@ -6,3 +6,9 @@
 }
 
 
+.demo-border {
+    & input:checked ~ .content {
+        border: 1px solid $yellow;
+    }
+}
+

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "@app/shared/shared.module";
+import { BackgroundCircleModule } from "../../common-components/bg-circle/bg-circle.module";
 import { SearchDropdownModule } from "../../common-components/search-dropdown/search-dropdown.module";
 import { HomeWidgetComponent } from "./home-widget.component";
 
@@ -11,7 +12,8 @@ import { HomeWidgetComponent } from "./home-widget.component";
     imports: [
         SharedModule,
 
-        SearchDropdownModule
+        SearchDropdownModule,
+        BackgroundCircleModule
     ],
     exports: [
         HomeWidgetComponent

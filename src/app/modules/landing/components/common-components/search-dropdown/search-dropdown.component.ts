@@ -18,6 +18,7 @@ export class SearchDropdownComponent implements OnInit {
 
     @Input() title: string = '';
     @Input() itemType: string = '';
+    @Input() alwaysOpen = false;
     @ViewChild('menu') menu!: ElementRef;
     @ViewChild('dropdown') dropdown!: ElementRef;
 
@@ -27,19 +28,24 @@ export class SearchDropdownComponent implements OnInit {
     sub!: Subscription;
 
     ngOnInit() {
+        if(this.alwaysOpen === true) this.menuActive = true;
     }
 
     onChangeInput(event: any) {
         const value = event.target.value;
         this.title = value;
+
+        if(this.alwaysOpen) return;
         this.menuActive = false;
     }
 
     onClickMenu(event: any) {
+        if(this.alwaysOpen) return;
         this.menuActive = !this.menuActive;
     }
 
     onClick(isClickedInside: any) {
+        if(this.alwaysOpen) return;
         if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
             this.menuActive = false;
         }

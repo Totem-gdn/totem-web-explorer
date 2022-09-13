@@ -59,77 +59,78 @@
         top: 0px;
         left: 0px;
         filter: blur(200px);
-        .first-circle {
-          position: absolute;
-          left: 613px;
-          top: 50px;
-          width: 345px;
-          height: 345px;
-          background: #FFD011;
-          animation-delay: var(--i);
-          animation: MoveUpDown 10s linear infinite;
-        }
-        .second-circle {
-          position: absolute;
-          width: 170px;
-          height: 170px;
-          left: 813px;
-          top: 50px;
-          background: radial-gradient(330% 330% at 50% 50%, #FF6666 0%, rgba(255, 102, 102, 0) 100%);
-          animation: MoveUpDown 10s linear infinite;
-          animation-delay: var(--i);
-        }
-        .third-circle {
-          position: absolute;
-          width: 303px;
-          height: 303px;
-          left: 371px;
-          top: 50px;
-          background: radial-gradient(52.97% 52.97% at 50% 50%, #FF66F9 0%, #212326 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-          animation: MoveUpDown 10s linear infinite;
-          animation-delay: var(--i);
-        }
-        .fourth-circle {
-          position: absolute;
-          width: 170px;
-          height: 170px;
-          left: 91px;
-          top: 50px;
 
-          background: radial-gradient(85.59% 85.59% at 50% 50%, #FFE166 0%, #2B2530 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-          animation: MoveUpDown 10s linear infinite;
-          animation-delay: var(--i);
-        }
-        .fifth-circle {
-          position: absolute;
-          width: 396px;
-          height: 396px;
-          left: 875px;
-          top: 50px;
-          animation: MoveUpDown 10s linear infinite;
-          animation-delay: var(--i);
-          background: #00BC58;
-        }
-        .sixth-circle {
-          position: absolute;
-          width: 298px;
-          height: 298px;
-          left: -79px;
-          top: 50px;
-          animation: MoveUpDown 10s linear infinite;
-          animation-delay: var(--i);
-          background: #5823C9;
-        }
-        .seventh-circle {
-          position: absolute;
-          width: 342px;
-          height: 342px;
-          left: 1058px;
-          top: 50px;
-          animation: MoveUpDown 10s linear infinite;
-          animation-delay: var(--i);
-          background: #5823C9;
-        }
+        // .first-circle {
+        //   position: absolute;
+        //   left: 613px;
+        //   top: 50px;
+        //   width: 345px;
+        //   height: 345px;
+        //   background: #FFD011;
+        //   animation-delay: var(--i);
+        //   animation: MoveUpDown 10s linear infinite;
+        // }
+        // .second-circle {
+        //   position: absolute;
+        //   width: 170px;
+        //   height: 170px;
+        //   left: 813px;
+        //   top: 50px;
+        //   background: radial-gradient(330% 330% at 50% 50%, #FF6666 0%, rgba(255, 102, 102, 0) 100%);
+        //   animation: MoveUpDown 10s linear infinite;
+        //   animation-delay: var(--i);
+        // }
+        // .third-circle {
+        //   position: absolute;
+        //   width: 303px;
+        //   height: 303px;
+        //   left: 371px;
+        //   top: 50px;
+        //   background: radial-gradient(52.97% 52.97% at 50% 50%, #FF66F9 0%, #212326 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+        //   animation: MoveUpDown 10s linear infinite;
+        //   animation-delay: var(--i);
+        // }
+        // .fourth-circle {
+        //   position: absolute;
+        //   width: 170px;
+        //   height: 170px;
+        //   left: 91px;
+        //   top: 50px;
+
+        //   background: radial-gradient(85.59% 85.59% at 50% 50%, #FFE166 0%, #2B2530 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+        //   animation: MoveUpDown 10s linear infinite;
+        //   animation-delay: var(--i);
+        // }
+        // .fifth-circle {
+        //   position: absolute;
+        //   width: 396px;
+        //   height: 396px;
+        //   left: 875px;
+        //   top: 50px;
+        //   animation: MoveUpDown 10s linear infinite;
+        //   animation-delay: var(--i);
+        //   background: #00BC58;
+        // }
+        // .sixth-circle {
+        //   position: absolute;
+        //   width: 298px;
+        //   height: 298px;
+        //   left: -79px;
+        //   top: 50px;
+        //   animation: MoveUpDown 10s linear infinite;
+        //   animation-delay: var(--i);
+        //   background: #5823C9;
+        // }
+        // .seventh-circle {
+        //   position: absolute;
+        //   width: 342px;
+        //   height: 342px;
+        //   left: 1058px;
+        //   top: 50px;
+        //   animation: MoveUpDown 10s linear infinite;
+        //   animation-delay: var(--i);
+        //   background: #5823C9;
+        // }
       }
       .cta-text-block {
 

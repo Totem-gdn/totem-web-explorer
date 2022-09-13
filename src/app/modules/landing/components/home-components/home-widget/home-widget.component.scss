@@ -4,7 +4,23 @@
     display: flex;
     // flex-wrap: wrap;
     vertical-align: middle;
-    padding: 25px;
+    // padding: 25px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+bg-circle {
+    filter: blur(120px);
+    // z-index: 1;
+}
+
+.blur-bold {
+    filter: blur(200px);
+}
+
+.font-totem {
+    line-height: 110%;
 }
 
 .img-wrapper {
