@@ -57,10 +57,11 @@ a, span {
         background-color: $yellow;
         position: absolute;
         border-radius: 25px 25px 0 0;
-        top: 28px;
+        top: 29px;
         right: 0px;
         left: -4px;
-        transition: width 0.26s ease-out;
+        opacity: 0;
+        transition: width 0.26s ease-out, opacity 0.26s ease-out;
       }
 
       a.active-tab {
@@ -68,6 +69,7 @@ a, span {
 
         &::before {
           width: calc(100% + 8px);
+          opacity: 1;
         }
       }
 

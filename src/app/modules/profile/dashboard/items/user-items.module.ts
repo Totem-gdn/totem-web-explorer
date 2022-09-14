@@ -3,6 +3,7 @@ import { RouterModule } from "@angular/router";
 import { FilterComponentsModule } from "@app/modules/landing/components/filters-components/filter-components.module";
 
 import { SharedModule } from "@app/shared/shared.module";
+import { ProfileStatsModule } from "../../components/profile-stats/profile-stats.module";
 import { UserItemsComponent } from "./user-items.component";
 import { UserItemsRoutes } from "./user-items.routing";
 
@@ -15,7 +16,8 @@ import { UserItemsRoutes } from "./user-items.routing";
         SharedModule,
         RouterModule.forChild(UserItemsRoutes),
 
-        FilterComponentsModule
+        FilterComponentsModule,
+        ProfileStatsModule
     ],
     exports: [
         UserItemsComponent

@@ -1,9 +1,8 @@
 
 <div *ngIf="!(loading$ | async)" class="flex flex-col w-full">
-    <ng-container *ngIf="(routeValue$ | async) !== '/profile/messages'">
+    <ng-container *ngIf="(routeValue$ | async) !== '/profile/messages' && (routeValue$ | async) !== '/profile/favourites'">
       <profile-info></profile-info>
       <totem-profile-navigation></totem-profile-navigation>
-      <totem-profile-stats></totem-profile-stats>
     </ng-container>
 
     <div class="flex flex-col w-full p-[30px]">

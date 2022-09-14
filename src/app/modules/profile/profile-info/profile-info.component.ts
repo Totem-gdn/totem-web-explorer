@@ -41,11 +41,11 @@ export class ProfileInfoComponent implements OnInit {
       name: name,
       email: email,
       avatar: image,
+      fullWallet: wallet,
       wallet: wallet.slice(0, 6) + '...' + wallet.slice(-4)
     }
     this.user = user;
     console.log('user',user);
-    this.profileStateService.updateLoadingStatus(true);
   }
 
   notify() {
@@ -54,6 +54,10 @@ export class ProfileInfoComponent implements OnInit {
 
   goToMessages() {
     this.router.navigate(['profile/messages']);
+  }
+
+  goToFavourites() {
+    this.router.navigate(['profile/favourites']);
   }
 
 }
