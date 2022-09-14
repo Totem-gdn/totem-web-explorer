@@ -1,4 +1,4 @@
-<div class="flex flex-col item gradient-border" (click)="onNavigate()">
+<div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
 
 
     <!-- <img *ngIf="item?.itemType === 'sword'" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt=""> -->
@@ -11,8 +11,8 @@
         <mat-icon [svgIcon]="'line:item-place'"></mat-icon>
     </div>
 
-    <div class="h-full" *ngIf="item?.image">
-        <img class="grow object-cover h-full" [src]="item?.image" alt="">
+    <div class="h-full w-full relative overflow-hidden" *ngIf="item?.image">
+        <img class="absolute h-full object-cover" [src]="item?.image" alt="">
     </div>
 
     <svg-sword 

@@ -1,6 +1,9 @@
-<div class="flex flex-col item gradient-border" (click)="onNavigate()">
+<div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
 
-    <img *ngIf="!avatar" class="h-60 grow object-cover" src="assets/images/avatar.png" alt="">
+    
+    <div class="h-full w-full relative overflow-hidden">
+        <img *ngIf="!avatar" class="absolute h-full object-cover" src="assets/images/avatar.png" alt="">
+    </div>
 
     <div *ngIf="avatar" class="placeholder">
         <mat-icon [svgIcon]="'line:avatar-place'"></mat-icon>
