@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FilterComponentsModule } from "@app/modules/landing/components/filters-components/filter-components.module";
 import { SharedModule } from "@app/shared/shared.module";
+import { ProfileStatsModule } from "../../components/profile-stats/profile-stats.module";
 import { UserAvatarsComponent } from "./user-avatars.component";
 import { UserAvatarsRoutes } from "./user-avatars.routing";
 
@@ -14,7 +15,8 @@ import { UserAvatarsRoutes } from "./user-avatars.routing";
         SharedModule,
         RouterModule.forChild(UserAvatarsRoutes),
 
-        FilterComponentsModule
+        FilterComponentsModule,
+        ProfileStatsModule
     ],
     exports: [
         UserAvatarsComponent

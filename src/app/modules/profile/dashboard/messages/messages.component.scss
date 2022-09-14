@@ -396,6 +396,7 @@
 }
 
 .tooltiptext {
+  pointer-events: none;
   visibility: hidden;
   background: rgba(8, 9, 10, 0.5);
   backdrop-filter: blur(20px);
