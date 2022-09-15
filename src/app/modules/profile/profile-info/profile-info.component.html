@@ -35,7 +35,7 @@
             <div
               fxLayout="row"
               fxLayoutAlign="center center"
-              [cdkCopyToClipboard]="user?.wallet"
+              [cdkCopyToClipboard]="user?.fullWallet"
               [cdkCopyToClipboardAttempts]="2"
               (cdkCopyToClipboardCopied)="notify()"
               class="user-id"
@@ -50,7 +50,7 @@
             <div
               fxLayout="row"
               fxLayoutAlign="center center"
-              [cdkCopyToClipboard]="user?.wallet"
+              [cdkCopyToClipboard]="user?.fullWallet"
               [cdkCopyToClipboardAttempts]="2"
               (cdkCopyToClipboardCopied)="notify()"
               class="user-name"
@@ -62,7 +62,7 @@
 
         </ng-container>
         <div class="button-wrapper">
-          <button matRipple class="fav-button">
+          <button matRipple class="fav-button" (click)="goToFavourites()">
             Favourites
           </button>
           <button matRipple class="msg-button" (click)="goToMessages()">
@@ -70,10 +70,10 @@
           </button>
         </div>
         <div class="plate-button-wrapper">
-          <div matRipple class="msg-button">
+          <div matRipple class="msg-button" (click)="goToMessages()">
             <mat-icon>mail_outline</mat-icon>
           </div>
-          <div matRipple class="fav-button" (click)="goToMessages()">
+          <div matRipple class="fav-button" (click)="goToFavourites()">
             <div class="icon-font-favourite"></div>
           </div>
         </div>

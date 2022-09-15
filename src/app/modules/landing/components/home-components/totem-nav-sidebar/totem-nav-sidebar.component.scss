@@ -220,6 +220,7 @@
         }
 
         .tooltiptext {
+          pointer-events: none;
           visibility: hidden;
           background: rgba(8, 9, 10, 0.5);
           backdrop-filter: blur(20px);
@@ -229,8 +230,8 @@
           padding: 7px 16px;
           position: absolute;
           z-index: 20;
-          bottom: -28px;
-          left: 0;
+          top: 66px;
+          left: 0px;
           font-weight: 400;
           font-size: 14px;
           line-height: 16px;

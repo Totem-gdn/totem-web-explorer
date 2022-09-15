@@ -1,47 +1,47 @@
 <div class="table-wrapper">
   <totem-profile-back-button [routeName]="'Messages'"></totem-profile-back-button>
-  <div class="table-head" fxLayout="row" fxLayoutAlign="space-between center">
-    <div  fxLayout="row" fxLayoutAlign="start center">
-      <div class="check-all-button" fxLayoutAlign="space-between center">
-        <input type="checkbox" class="custom-checkbox" id="checkall" #masterCheckbox [checked]="master" (change)="master=masterCheckbox.checked">
-        <label for="checkall" class="icon-font-checkbox"></label>
+  <div class="table-wrapper-content">
+    <div class="table-head" fxLayout="row" fxLayoutAlign="space-between center">
+      <div  fxLayout="row" fxLayoutAlign="start center">
+        <div class="check-all-button" fxLayoutAlign="space-between center">
+          <input type="checkbox" class="custom-checkbox" id="checkall" #masterCheckbox [checked]="master" (change)="master=masterCheckbox.checked">
+          <label for="checkall" class="icon-font-checkbox"></label>
 
-        <div class="mark-dropdown">
-          <mat-icon [svgIcon]="'line:arrow_down'"></mat-icon>
+          <div class="mark-dropdown">
+            <mat-icon [svgIcon]="'line:arrow_down'"></mat-icon>
+          </div>
+          <span class="tooltiptext">Select</span>
         </div>
-        <span class="tooltiptext">Select</span>
+
+        <div [ngClass]="atLeastOneChecked() ? 'view-unread' : ''" class="unread-wrapp" fxLayoutAlign="center center" (click)="markAsReaded()">
+          <span class="icon-font-unread"></span>
+          <span class="tooltiptext">Mark a message as read</span>
+        </div>
       </div>
 
-      <div class="unread-wrapp" fxLayoutAlign="center center" (click)="markAsReaded()">
-        <span class="icon-font-unread"></span>
-        <span class="tooltiptext">Mark a message as read</span>
+      <div class="right-side-setting">
+        <div class="refresh-button">
+          <mat-icon>refresh</mat-icon>
+          <span class="tooltiptext">Refresh</span>
+        </div>
+        <totem-pagination [totalValue]="total" (paginationEvent)="pageEvent($event)"></totem-pagination>
       </div>
+
     </div>
-
-    <div class="right-side-setting">
-      <div class="refresh-button">
-        <mat-icon>refresh</mat-icon>
-        <span class="tooltiptext">Refresh</span>
-      </div>
-      <totem-pagination [totalValue]="total" (paginationEvent)="pageEvent($event)"></totem-pagination>
+    <div class="toolbar-titles">
+      <div class="col-name type-caption">Type</div>
+      <div class="col-name subj-caption">Subject</div>
+      <div class="col-name date-caption">Date</div>
     </div>
-
-  </div>
-  <div class="toolbar-titles">
-    <div class="col-name type-caption">Type</div>
-    <div class="col-name subj-caption">Subject</div>
-    <div class="col-name date-caption">Date</div>
-  </div>
-  <div class="message-table" fxLayout="column">
-    <!-- <ng-container *ngIf="messageList | async as messagesList"> -->
-        <div
-          *ngFor="let message of messageList | async"
-          class="message-item"
-          fxLayout="row"
-          [ngClass]="{'selected-item' : message.isOpened}"
-          [ngStyle]="message.isOpened ? {'max-height' : '100vh', 'padding-top':'12px'} : {'max-height' : '50px'}"
-          (click)="message.isOpened = !message.isOpened; message.isReaded = true"
-        >
+    <div class="message-table" fxLayout="column">
+      <div
+        *ngFor="let message of messageList | async"
+        class="message-item"
+        fxLayout="row"
+        [ngClass]="{'selected-item' : message.isOpened}"
+        [ngStyle]="message.isOpened ? {'max-height' : '100vh', 'padding-top':'12px'} : {'max-height' : '50px'}"
+        (click)="message.isOpened = !message.isOpened; message.isReaded = true"
+      >
         <div class="type-col" fxLayout="row" fxLayoutAlign="start center">
           <div class="checkbox-wrapper">
             <input
@@ -99,7 +99,6 @@
           </div>
         </div>
       </div>
-    <!-- </ng-container> -->
+    </div>
   </div>
-
 </div>

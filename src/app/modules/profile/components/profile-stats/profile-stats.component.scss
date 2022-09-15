@@ -1,7 +1,7 @@
 @import 'styles/scss/variables';
 
 :host {
-  margin-top: 40px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -17,8 +17,6 @@ a, span, div {
 .profile-stats-wrapper {
   width: 100%;
   max-width: 1500px;
-  padding-left: 30px;
-  padding-right: 30px;
   .profile-stats {
     background-color: $transparent-light;
     width: 100%;

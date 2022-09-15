@@ -1,0 +1,41 @@
+<div class="favourites-wrapper w-full">
+  <div class="favourites-body w-full">
+    <totem-profile-back-button class="back-button" [routeName]="'Favourites'"></totem-profile-back-button>
+    <div class="banner-image">
+      <img [src]="user?.image || 'assets/images/banner.png'" alt="banner">
+    </div>
+    <div class="fav-nav-wrapper">
+      <div class="fav-nav">
+        <div class="nav-block">
+          <a [ngClass]="activeTab === 'items' ? 'active-tab': ''"
+          (click)="onChangeTab('items')">Favourite items</a>
+        </div>
+        <div class="nav-block">
+          <a [ngClass]="activeTab === 'avatars' ? 'active-tab': ''"
+          (click)="onChangeTab('avatars')">Favourite avatars</a>
+        </div>
+        <div class="nav-block">
+          <a [ngClass]="activeTab === 'games' ? 'active-tab': ''"
+          (click)="onChangeTab('games')">Favourite games</a>
+        </div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'items' ? 'active-tab': ''" (click)="onChangeTab('items')">Favourite items</div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'avatars' ? 'active-tab': ''" (click)="onChangeTab('avatars')">Favourite avatars</div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'games' ? 'active-tab': ''" (click)="onChangeTab('games')">Favourite games</div>
+      </div>
+    </div>
+    <div class="content-block">
+      <ng-container *ngIf="activeTab === 'items'">
+        <totem-profile-stats class="fav-stats"></totem-profile-stats>
+        <filter-components [filterType]="'item'" [items]="items"></filter-components>
+      </ng-container>
+      <ng-container *ngIf="activeTab === 'avatars'">
+        <totem-profile-stats class="fav-stats"></totem-profile-stats>
+        <filter-components [filterType]="'avatar'" [items]="avatars"></filter-components>
+      </ng-container>
+      <ng-container *ngIf="activeTab === 'games'">
+        <totem-profile-stats class="fav-stats"></totem-profile-stats>
+        <filter-components [filterType]="'game'" [items]="games"></filter-components>
+      </ng-container>
+    </div>
+  </div>
+</div>

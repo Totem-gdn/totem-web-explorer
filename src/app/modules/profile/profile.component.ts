@@ -1,8 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { StorageKey } from '@app/core/enums/storage-keys.enum';
+import { UserEntity } from '@app/core/models/user-interface.model';
+import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, map, Subscription } from 'rxjs';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'profile',
@@ -18,13 +22,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   routeValue$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor(private router: Router, private userStateService: UserStateService) {
+  constructor(private router: Router, private userStateService: UserStateService, private metaTag: Meta) {
     this.routeValue$.next(this.router.url);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.routeValue$.next(event.url);
       }
     });
+    this.metaTag.addTags([
+      { name: 'description', content: 'This is an article about Angular Meta service' },
+      { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' }
+    ]);
   }
 
   ngOnInit() {

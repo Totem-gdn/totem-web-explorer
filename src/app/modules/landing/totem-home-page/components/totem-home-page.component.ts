@@ -26,7 +26,7 @@ export class TotemHomePageComponent implements OnInit {
   y: number = 0;
   items = [{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-2.png'},{image: 'assets/images/item-img-3.png'},{image: 'assets/images/item-img-4.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'}];
 
-  eventDate: Date = new Date('09/9/2022');
+  eventDate: Date = new Date('09/30/2022');
 
   //@ViewChild('joinButton') joinButton!: ElementRef;
 
@@ -42,7 +42,7 @@ export class TotemHomePageComponent implements OnInit {
         disableOnInteraction: false
       },
       slidesPerView: 'auto',
-      speed: 1000,
+      speed: 900,
       loop: false,
       effect: 'coverflow',
       spaceBetween: 5,

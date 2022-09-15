@@ -17,8 +17,7 @@ import { ProfileRoutes } from "./profile.routing";
         SharedModule,
         RouterModule.forChild(ProfileRoutes),
         ProfileInfoModule,
-        ProfileNavigationModule,
-        ProfileStatsModule,
+        ProfileNavigationModule
     ],
     exports: [
         ProfileComponent

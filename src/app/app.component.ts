@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { UserStateService } from './core/services/user-state.service';
 
 @Component({
@@ -12,7 +14,10 @@ import { UserStateService } from './core/services/user-state.service';
 export class AppComponent {
   title = 'totem-gdn-layout';
 
-  constructor(private userStateService: UserStateService) {
+  static isBrowser = new BehaviorSubject<boolean | null>(null);
+
+  constructor(private userStateService: UserStateService, @Inject(PLATFORM_ID) private platformId: any) {
+    AppComponent.isBrowser.next(isPlatformBrowser(platformId));
     this.userStateService.initAccount();
   }
 

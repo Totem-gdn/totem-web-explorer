@@ -97,6 +97,10 @@ export class MessagesComponent implements OnInit {
     return this.messageList.getValue()[index].isOpened;
   }
 
+  atLeastOneChecked(): boolean {
+    return this.messageList.getValue().some((message: any) => message.isChecked === true);
+  }
+
   markAsReaded() {
     this.messageList.getValue().map((message: any) => {
       if (message.isChecked) {

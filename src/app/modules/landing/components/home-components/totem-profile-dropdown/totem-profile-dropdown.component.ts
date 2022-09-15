@@ -8,7 +8,7 @@ import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 import { SideProfileStateService } from '@app/shared/services/sideprofile-state.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-profile-dropdown',
@@ -18,8 +18,9 @@ import { Subscription } from 'rxjs';
 export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   sidebarIsOpen: boolean = false;
-  userData: any;
-  wallet!: string;
+  userData: UserEntity | null = {};
+  user$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
+  wallet: string | undefined = '';
   userFullName: string = '';
   walletNumber!: string;
 
@@ -39,32 +40,33 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
     this.sideProfileStateService.sideprofStatus.subscribe((data: boolean) => {
       this.sidebarIsOpen = data;
     });
-
+    this.initUserListener();
     this.listenAccountInfo();
   }
 
   listenAccountInfo() {
     this.subs.add(
       this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
-        this.userData = user;
-        this.userFullName = user?.name || '';
-        if (this.userData?.name?.length! > 16) {
-          this.userData!.name = this.userData?.name?.slice(0, 16) + '...';
-        }
-        this.wallet = this.userData?.wallet;
-        this.walletNumber = this.wallet?.slice(0, 6) + '...' + this.wallet?.slice(-4);
+        this.user$.next(user);
       })
     )
-    //console.log('GET INFO ABOUT USER');
-    //const wallet = await this.web3Auth.getAccounts();
-    //this.userData = await this.web3Auth.getUserInfo();
-    //this.userFullName = this.userData.name || '';
-    //if (this.userData.name.length > 16) {
-    //  this.userData.name = this.userData.name.slice(0, 16) + '...'
-    //}
-    ////console.log(wallet);
-    //this.wallet = wallet;
-    //this.walletNumber = wallet.slice(0, 6) + '...' + wallet.slice(-4);
+  }
+
+  initUserListener() {
+    this.subs.add(
+      this.user$.subscribe((user: UserEntity | null) => {
+        if (user) {
+          this.userData = user;
+          const userName = user?.name || '';
+          this.userFullName = userName;
+          if (this.userData?.name?.length! > 16) {
+            this.userData!.name = userName?.slice(0, 16) + '...';
+          }
+          this.wallet = this.userData?.wallet;
+          this.walletNumber = this.wallet?.slice(0, 6) + '...' + this.wallet?.slice(-4);
+        }
+      })
+    )
   }
 
   close() {
