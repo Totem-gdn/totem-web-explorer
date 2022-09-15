@@ -42,7 +42,7 @@ export class TotemHomePageComponent implements OnInit {
         disableOnInteraction: false
       },
       slidesPerView: 'auto',
-      speed: 1000,
+      speed: 900,
       loop: false,
       effect: 'coverflow',
       spaceBetween: 5,

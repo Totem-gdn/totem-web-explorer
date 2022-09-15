@@ -12,6 +12,7 @@
   z-index: 4;
   box-shadow: none;
   position: relative;
+  padding: 10px 0px;
   &:hover {
     @media (min-width: 999px) {
       background-color: rgba(255, 255, 255, 0.15);
