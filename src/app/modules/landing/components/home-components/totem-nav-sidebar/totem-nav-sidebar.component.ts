@@ -6,7 +6,7 @@ import { UserStateService } from '@app/core/services/user-state.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-nav-sidebar',
@@ -19,6 +19,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   sidebarIsOpen: boolean = false;
   sidebarType: 'nav' | 'filter' = 'nav';
   userData: UserEntity | null = {};
+  user$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
   wallet: string | undefined = '';
   userFullName: string = '';
   walletNumber: string = '';
@@ -36,7 +37,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
       this.sidebarIsOpen = data.isOpen;
       this.sidebarType = data.type!;
     });
-
+    this.initUserListener();
     this.listenAccountInfo();
   }
 
@@ -44,13 +45,24 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
     console.log('IS LOGGED IN SIDENAV: ', this.loggedIn);
     this.subs.add(
       this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
-        this.userData = user;
-        this.userFullName = user?.name || '';
-        if (this.userData?.name?.length! > 16) {
-          this.userData!.name = this.userData?.name?.slice(0, 16) + '...';
+        this.user$.next(user);
+      })
+    )
+  }
+
+  initUserListener() {
+    this.subs.add(
+      this.user$.subscribe((user: UserEntity | null) => {
+        if (user) {
+          this.userData = user;
+          const userName = user?.name || '';
+          this.userFullName = userName;
+          if (this.userData?.name?.length! > 16) {
+            this.userData!.name = userName?.slice(0, 16) + '...';
+          }
+          this.wallet = this.userData?.wallet;
+          this.walletNumber = this.wallet?.slice(0, 6) + '...' + this.wallet?.slice(-4);
         }
-        this.wallet = this.userData?.wallet;
-        this.walletNumber = this.wallet?.slice(0, 6) + '...' + this.wallet?.slice(-4);
       })
     )
   }
