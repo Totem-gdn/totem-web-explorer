@@ -13,10 +13,15 @@ export class ItemDescComponent implements OnInit {
 
   constructor() { }
   
+  @ViewChild('playContainer') playContainer!: ElementRef;
   @Input() wallet = '0x88644..568f';
   @Input() nft!: any;
 
-  @ViewChild('playContainer') playContainer!: ElementRef;
+  isLiked = false;
+
+  onClickLike() {
+    this.isLiked = !this.isLiked;
+  }
 
   ngOnInit(): void {
     

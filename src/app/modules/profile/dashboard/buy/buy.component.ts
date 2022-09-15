@@ -21,8 +21,12 @@ export class BuyComponent implements OnInit {
   ngOnInit(): void {
     this.updateBalance();
     this.updateAssets();
+    this.pendingTransaction();
   }
 
+  pendingTransaction() {
+    // this.web3Service.
+  }
 
   paymentInfo(assets: any[]) {
     assets.forEach(asset => {
@@ -31,7 +35,6 @@ export class BuyComponent implements OnInit {
             type: asset,
             paymentInfo: info
           };
-          console.log(info);
           this.assets.push(newAsset);
       })
     })
@@ -39,7 +42,6 @@ export class BuyComponent implements OnInit {
 
   onBuyItem(address: string, amount: any) {
     this.paymentService.buyItem(address, amount).then(res => {
-      console.log(res);
       this.updateBalance();
       this.updateAssets();
     })

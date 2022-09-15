@@ -40,6 +40,15 @@
     }
 }
 
+.like {
+    cursor: pointer;
+    color: $light-grey;
+
+    &:hover {
+        color: $yellow;
+    }
+}
+
 .absolute-center {
     width: 100%;
     height: 100%;

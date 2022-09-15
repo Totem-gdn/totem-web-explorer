@@ -1,4 +1,5 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'item-properties',
@@ -21,13 +22,35 @@ export class ItemPropertiesComponent implements OnInit, AfterViewChecked, AfterV
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
-    const children = this.grid.nativeElement.children;
-    console.log('grid width: ', this.grid.nativeElement.innerWidth)
-    for(let child of children) {
-      const firstChild = child.firstChild.nativeElement.innerWidth;
-      console.log(firstChild, child.firstChild.nativeElement.scrollWidth)
+    this.checkTagsOverflow();
+    
+  }
+
+  onResize() {
+    this.checkTagsOverflow();
+  }
+
+  onOver() {
+    console.log('over')
+  }
+
+  offset() {
+    console.log('offset');
+  }
+
+  checkTagsOverflow() {
+    const tags = this.grid.nativeElement.children;
+    const tagWidth = tags[0].offsetWidth - 30;
+    console.log(tagWidth);
+
+    for(let tag of tags) {
+      if(tagWidth > tag.firstChild.scrollWidth) {
+
+      }
     }
   }
+
+
   onClickViewAll() {
     if(this.toggle === false) {
       this.grid.nativeElement.style.maxHeight = '1500px';

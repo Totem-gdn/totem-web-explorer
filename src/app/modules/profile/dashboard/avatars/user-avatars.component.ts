@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { AvatarsService } from '@app/core/services/items/avatars.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +12,8 @@ import { Subscription } from 'rxjs';
 export class UserAvatarsComponent implements OnInit {
 
   constructor(private avatarsService: AvatarsService,
-              private web3Service: Web3AuthService) { }
+              private web3Service: Web3AuthService,
+              private alchService: AlchemyService) { }
 
   sub!: Subscription;
   avatars: any[] = [];
@@ -19,9 +21,17 @@ export class UserAvatarsComponent implements OnInit {
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
     this.avatarsService.fetchAvatars(wallet).subscribe(avatars => {
-      console.log(avatars);
       this.avatars = avatars;
     });
+
+    this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
+      console.log(nfts);
+      for(let nft of nfts) {
+        if(nft.contractMetadata.name === 'Avatar') {
+          this.avatars.unshift(nft);
+        }
+      }
+    })
   }
 
   ngOnDestroy () {

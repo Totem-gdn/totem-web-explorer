@@ -15,8 +15,8 @@
         
         <div class="flex justify-between">
             <div class="flex flex-col">
-                <h3 *ngIf="!game?.itemType">Mr Krabs</h3>
-                <h3 *ngIf="game?.itemType">{{game?.itemType}}</h3>
+                <h3 *ngIf="!game?.contractMetadata?.symbol">Mr Krabs</h3>
+                <h3 *ngIf="game?.contractMetadata?.symbol">{{game?.contractMetadata?.symbol}}</h3>
             </div>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>

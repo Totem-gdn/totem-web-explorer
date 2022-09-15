@@ -7,8 +7,9 @@
 
 
 .demo-border {
-    & input:checked ~ .content {
+    & input:checked {
         border: 1px solid $yellow;
+        border-radius: 4px;
     }
 }
 

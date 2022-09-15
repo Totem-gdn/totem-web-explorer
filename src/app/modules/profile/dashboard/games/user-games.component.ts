@@ -12,12 +12,7 @@ export class UserGamesComponent {
 
   constructor(private gamesService: GamesService,
               private web3Service: Web3AuthService) { }
-  sub!: Subscription;
 
   games: any[] = [];
-
-  ngOnDestroy () {
-    this.sub?.unsubscribe();
-  }
 
 }

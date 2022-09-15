@@ -58,8 +58,8 @@
     display: none !important;
   }
   & .w3a-button--icon {
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
   }
   & .w3a-adapter-item:nth-child(1) {
     & .w3a-button--icon {

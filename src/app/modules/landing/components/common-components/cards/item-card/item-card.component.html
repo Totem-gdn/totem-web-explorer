@@ -24,8 +24,8 @@
     <div class="p-4 flex flex-col">
 
         <div class="flex justify-between pb-[15px] relative">
-            <h3 *ngIf="!item?.itemType">ID: 1111</h3>
-            <h3 *ngIf="item?.itemType">{{item?.itemType}}</h3>
+            <h3 *ngIf="!item?.contractMetadata?.symbol">ID: 1111</h3>
+            <h3 *ngIf="item?.contractMetadata?.symbol">{{item?.contractMetadata?.symbol}}</h3>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'"
                 (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
