@@ -1,6 +1,6 @@
 <div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
 
-    
+
     <div *ngIf="!avatar" class="h-full w-full relative overflow-hidden">
         <img class="absolute h-full object-cover" src="assets/images/avatar.png" alt="">
     </div>
@@ -20,7 +20,7 @@
 
         <div class="flex justify-between items-center whitespace-nowrap max-w-[320px]">
             <div>
-                <h4 *ngIf="!avatar?.updatedAt">24.24.24</h4>
+                <h4 *ngIf="!avatar?.updatedAt">14.08.2022</h4>
                 <h4 *ngIf="avatar?.updatedAt">{{avatar?.updatedAt}}</h4>
 
                 <p class="text-light-grey">Last used</p>

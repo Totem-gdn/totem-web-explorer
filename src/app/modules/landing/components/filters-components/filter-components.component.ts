@@ -16,13 +16,15 @@ export class FilterComponentsComponent {
     @Input() mode = 'active';
     @ViewChild('wrapper') wrapper!: ElementRef;
 
-    @Input() items: any[] | undefined; 
+    @Input() items: any[] | undefined;
 
     async ngAfterViewInit() {
 
         if(this.mode != 'active') {
             if(this.items === undefined) this.items = [];
             this.items.push(...[].constructor(this.addItems()));
+            console.log(this.items);
+
         }
     }
 
@@ -50,7 +52,7 @@ export class FilterComponentsComponent {
 
     addItems() {
         const containerWidth = this.wrapper.nativeElement.offsetWidth;
-        
+
         let itemsToRender = (Math.floor(containerWidth / 330)) * 3;
         if(itemsToRender <= 0) {
             itemsToRender = 3;

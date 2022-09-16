@@ -141,7 +141,7 @@
       <horizontal-carousel
         [title]="'Most Used Items'"
         [menuTitle]="'Game name'"
-        [items]="items">
+        [items]="mostUsedItems$ | async">
       </horizontal-carousel>
     </div>
 
@@ -153,7 +153,7 @@
       <horizontal-carousel
         [title]="'Newest Totem Items'"
         [menuTitle]="'Game name'"
-        [items]="items">
+        [items]="newestItems$ | async">
       </horizontal-carousel>
     </div>
 
@@ -166,7 +166,7 @@
         [title]="'Popular Games'"
         [menuTitle]="null"
         [itemType]="'game'"
-        [items]="items">
+        [items]="games$ | async">
       </horizontal-carousel>
     </div>
 
@@ -175,7 +175,7 @@
         [title]="'Avatars'"
         [menuTitle]="'Game name'"
         [itemType]="'avatar'"
-        [items]="items">
+        [items]="avatars$ | async">
       </horizontal-carousel>
     </div>
 

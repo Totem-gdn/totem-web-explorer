@@ -4,7 +4,7 @@
         <filter-slider class="nav-item lg:w-[320px] lg:!hidden sm:!mr-[60px]"></filter-slider>
         <clear-all class="nav-item lg:w-[320px] lg:!block !hidden"></clear-all>
 
-        <search-dropdown *ngIf="showGameSearch" class="nav-item" [title]="'Game name'"></search-dropdown>
+        <search-dropdown *ngIf="showGameSearch" class="nav-item" [title]="'Game name'" (onChange)="selectGame($event)"></search-dropdown>
         </div>
 
         <sort-by class="nav-item !ml-auto !mr-0"></sort-by>

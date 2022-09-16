@@ -23,8 +23,8 @@
 
     <div class="flex grow justify-center h-[250px] max-w-[370px]">
         <div class="mb-auto mt-[10px] lg:my-0 mx-auto lg:mx-[20px] w-full z-12">
-            <search-dropdown [alwaysOpen]="true" [title]="'Game Name'"></search-dropdown>   
-        </div> 
+            <search-dropdown [alwaysOpen]="true" [title]="'Game Name'" (onChange)="selectGame($event)"></search-dropdown>
+        </div>
     </div>
 
     <div class="img-wrapper mt-[30px] xl:m-0">
