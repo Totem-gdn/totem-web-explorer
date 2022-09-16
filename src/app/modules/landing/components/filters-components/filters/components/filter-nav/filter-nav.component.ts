@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ComboBoxService } from "@app/core/services/combobox-state.service";
 
 
 @Component({
@@ -10,5 +11,12 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 export class FilterNavComponent {
     @Input() showGameSearch = true;
-    
+
+    constructor(private comboBoxService: ComboBoxService) {}
+
+    selectGame(event: any) {
+      console.log(event);
+      this.comboBoxService.updateSelectedGame(event);
+    }
+
 }

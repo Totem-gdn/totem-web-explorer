@@ -19,7 +19,7 @@ export class GameCardComponent implements AfterViewInit {
   isLiked = false;
 
   ngAfterViewInit(): void {
-    console.log(this.game)
+    //console.log(this.game)
     // this.item.nativeElement.style.width = this.width;
   }
 

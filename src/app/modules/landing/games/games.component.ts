@@ -1,4 +1,4 @@
-import { Component, } from '@angular/core';
+import { Component, Input, } from '@angular/core';
 
 @Component({
   selector: 'app-games',
@@ -8,6 +8,6 @@ import { Component, } from '@angular/core';
   }
 })
 export class GamesComponent {
+  @Input() games: any[] = [0,0,0,0,0,0,0];
 
- 
 }

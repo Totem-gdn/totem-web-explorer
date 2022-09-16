@@ -42,4 +42,7 @@ export class ItemsService {
           img: 'assets/images/promo-game.png'
         },
       ]
+
+
+
 }

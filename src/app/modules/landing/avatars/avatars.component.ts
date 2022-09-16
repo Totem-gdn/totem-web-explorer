@@ -1,4 +1,4 @@
-import { Component, } from '@angular/core';
+import { Component, Input, OnInit, } from '@angular/core';
 
 @Component({
     selector: 'app-avatars',
@@ -8,7 +8,9 @@ import { Component, } from '@angular/core';
         class: 'px-[20px]'
     }
 })
-export class AvatarsComponent {
+export class AvatarsComponent implements OnInit {
+  @Input() avatars: any[] = [0,0,0,0,0,0,0];
+  ngOnInit(): void {
 
-
+  }
 }

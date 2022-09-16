@@ -8,7 +8,7 @@
     </div>
 
     <div class="mb-7" *ngIf="menuTitle">
-      <search-dropdown [title]="menuTitle" [itemType]="itemType"></search-dropdown>
+      <search-dropdown [title]="menuTitle" [itemType]="itemType" (onChange)="selectGame($event)"></search-dropdown>
     </div>
 
     <div class="ml-auto mb-7 hidden lg:flex">
@@ -24,13 +24,13 @@
       <div *ngFor="let item of items" class="swiper-slide">
         <item-card *ngIf="itemType === 'item'" [item]="item"></item-card>
 
-        <game-card *ngIf="itemType === 'game'"></game-card>
+        <game-card *ngIf="itemType === 'game'" [game]="item"></game-card>
 
         <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
       </div>
     </div>
     <div class="swiper-pagination lg:hidden"></div>
-    
+
 
   </div>
 
