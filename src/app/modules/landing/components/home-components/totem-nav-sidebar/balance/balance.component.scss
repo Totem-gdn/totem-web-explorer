@@ -1,0 +1,41 @@
+@import 'styles/scss/variables';
+
+.balance {
+    width: 100%;
+
+    .title {
+      cursor: pointer;
+      color: $light-grey;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px 0 10px 0;
+      border-bottom: 1px solid $dark-grey;
+
+      .mat-icon {
+        transition: transform 0.4s ease-in-out;
+        width: 13px;
+      }
+    }
+
+    .dropdown {
+      max-height: 0px;
+      display: flex;
+      flex-direction: column;
+      overflow:hidden;
+      transform: translateY(-1px);
+      transition: max-height 0.4s ease-in-out;
+      border-bottom: 1px solid $dark-grey;
+
+      .item {
+
+        img {
+          height: 46px;
+          width: 46px;
+          margin-right: 20px;
+        }
+        display: flex;
+        padding: 10px 0;
+      }
+    }
+  }

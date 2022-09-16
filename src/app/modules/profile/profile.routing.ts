@@ -14,7 +14,6 @@ export const ProfileRoutes: Route[] = [
             {path: 'user-gems', loadChildren: () => import('@app/modules/profile/dashboard/gems/user-gems.module').then(m => m.UserGemsModule)},
             {path: 'favourites', loadChildren: () => import('@app/modules/profile/dashboard/favourites/favourites.module').then(m => m.FavouritesModule)},
             {path: 'transactions', loadChildren: () => import('@app/modules/profile/dashboard/transactions/transactions.module').then(m => m.TransactionsModule)},
-            {path: 'buy', loadChildren: () => import('@app/modules/profile/dashboard/buy/buy.module').then(m => m.BuyModule)},
         ]
     }
 ]

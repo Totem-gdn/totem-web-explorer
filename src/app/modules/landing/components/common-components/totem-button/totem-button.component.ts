@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,7 @@ export class TotemButtonComponent implements OnInit {
   @Input() height: string = '50px';
   @Input() caption: string = 'Join community';
   @Input() customId: string = 'totemJoinButton';
+  @ViewChild('button') button!: ElementRef;
 
   @Output() clicked = new EventEmitter<MouseEvent>();
 
@@ -21,7 +22,7 @@ export class TotemButtonComponent implements OnInit {
   constructor() { }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(event: any): void {
     if (event.target.innerWidth < 1000) {
       this.disableRipple = true;
     } else {
@@ -38,7 +39,7 @@ export class TotemButtonComponent implements OnInit {
   }
 
   onMouseOver(event: MouseEvent) {
-    let el = document.getElementById(this.customId);
+    const el = this.button.nativeElement;
     this.x = event.pageX - el!.getBoundingClientRect().left + 30;
   }
 

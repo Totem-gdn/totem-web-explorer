@@ -1,5 +1,7 @@
-<div class="totem-sidebar-wrapper" (click)="close(); $event.stopPropagation()" [ngStyle]="{'pointer-events': sidebarIsOpen ? 'all' : 'none'}" [ngClass]="{'opened-bar': sidebarIsOpen}">
-  <div class="totem-sidebar" (click)="$event.stopPropagation()" #sidebar [ngStyle]="{'transform': sidebarIsOpen ? 'translateX(0px)' : ''}" fxLayout="column" fxLayoutAlign="start center">
+<div class="totem-sidebar-wrapper" (click)="close(); $event.stopPropagation()"
+  [ngStyle]="{'pointer-events': sidebarIsOpen ? 'all' : 'none'}" [ngClass]="{'opened-bar': sidebarIsOpen}">
+  <div class="totem-sidebar" (click)="$event.stopPropagation()" #sidebar
+    [ngStyle]="{'transform': sidebarIsOpen ? 'translateX(0px)' : ''}" fxLayout="column" fxLayoutAlign="start center">
     <ng-container *ngIf="sidebarType === 'nav'">
       <div class="totem-sidebar-bg">
         <span style="--i: -2s;" class="first-circle"></span>
@@ -20,18 +22,25 @@
             {{userData?.name}}
             <span class="tooltiptext">{{userFullName}}</span>
           </div>
-          <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
+          <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2"
+            (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
             {{walletNumber}}
             <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
             <!-- <img [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" class="copy-icon" src="assets/icons/copy_icon.svg" alt="copy-icon"> -->
           </div>
         </ng-container>
         <ng-container *ngIf="!userData?.name?.length">
-          <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
+          <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2"
+            (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
             {{walletNumber}}
             <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
           </div>
         </ng-container>
+
+        <!-- Balance -->
+        <balance></balance>
+
+        <!-- Nav Links -->
         <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
           <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
@@ -41,6 +50,7 @@
           <a>Help</a>
         </div>
       </ng-container>
+
       <ng-template #unauthblock>
         <div class="unauth-nav-content" fxLayout="column" fxLayoutAlign="space-between">
           <div class="sidenav mtop-60px" fxLayout="column" fxLayoutAlign="start start">
@@ -52,7 +62,8 @@
             <a>Help</a>
           </div>
           <div>
-            <totem-button (click)="logIn()" [customId]="'navcreateaccount'" [caption]="'Create account'" [width]="'100%'"></totem-button>
+            <totem-button (click)="logIn()" [caption]="'Create account'"
+              [width]="'100%'"></totem-button>
           </div>
         </div>
       </ng-template>

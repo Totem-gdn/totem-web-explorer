@@ -1,10 +1,9 @@
 import { NgModule } from "@angular/core";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
-import { AvatarCardModule } from "@app/modules/landing/components/common-components/cards/avatar-card/avatar-card.module";
-import { GameCardModule } from "@app/modules/landing/components/common-components/cards/game-card/game-card.module";
-import { ItemCardModule } from "@app/modules/landing/components/common-components/cards/item-card/item-card.module";
 import { TotemButtonModule } from "@app/modules/landing/components/common-components/totem-button/totem-button.module";
 import { SharedModule } from "@app/shared/shared.module";
+import { BackgroundCircleModule } from "../components/common-components/bg-circle/bg-circle.module";
 import { BuyComponent } from "./buy.component";
 import { BuyRoutes } from "./buy.routing";
 
@@ -16,10 +15,10 @@ import { BuyRoutes } from "./buy.routing";
     imports: [
         SharedModule,
         RouterModule.forChild(BuyRoutes),
-        ItemCardModule,
-        GameCardModule,
-        AvatarCardModule,
-        TotemButtonModule
+        TotemButtonModule,
+
+        MatIconModule,
+        BackgroundCircleModule
     ],
     exports: [
         BuyComponent

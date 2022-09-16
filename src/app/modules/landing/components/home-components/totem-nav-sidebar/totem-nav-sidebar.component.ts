@@ -18,7 +18,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   sidebarIsOpen: boolean = false;
   sidebarType: 'nav' | 'filter' = 'nav';
-  userData: UserEntity | null = {};
+  userData: UserEntity | null = null;
   user$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
   wallet: string | undefined = '';
   userFullName: string = '';
@@ -45,6 +45,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
     console.log('IS LOGGED IN SIDENAV: ', this.loggedIn);
     this.subs.add(
       this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
+        console.log(user)
         this.user$.next(user);
       })
     )
