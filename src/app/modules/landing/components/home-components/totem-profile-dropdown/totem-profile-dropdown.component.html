@@ -23,6 +23,11 @@
           <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
         </div>
       </ng-container>
+
+      <!-- Balance -->
+      <div class="pt-[25px] border-b border-dark-grey w-full z-10"></div>
+      <balance [mode]="'small'"></balance>
+
       <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
         <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">My profile</a>
         <a (click)="close()">Edit profile</a>

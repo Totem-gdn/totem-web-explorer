@@ -36,6 +36,7 @@ export class BuyComponent implements OnInit {
             paymentInfo: info
           };
           this.assets.push(newAsset);
+          console.log(newAsset)
       })
     })
   }

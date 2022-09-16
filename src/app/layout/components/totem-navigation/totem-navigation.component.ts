@@ -156,4 +156,8 @@ export class TotemNavigationComponent implements OnInit, OnDestroy {
     this.userStateService.logout();
   }
 
+  navigateToBuy() {
+    this.router.navigate(['/buy']);
+  }
+
 }

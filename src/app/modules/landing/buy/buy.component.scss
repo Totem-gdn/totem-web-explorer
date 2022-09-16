@@ -1,0 +1,59 @@
+@import 'styles/scss/variables';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 100px 0;
+    background-color: $transparent-light;
+
+    h1 {
+        padding-bottom: 20px;
+    }
+
+    span {
+        max-width: 750px;
+        text-align: center;
+        color: $light-grey;
+    }
+
+    .items {
+        justify-content: center;
+        width: 100%;
+        padding: 80px 0;
+        gap: 85px;
+        display: flex;
+        flex-wrap: wrap;
+
+        .item {
+            background-color: $transparent-light;
+            padding: 20px;
+            .mat-icon {
+                margin: 40px 50px;
+                width: 150px;
+                height: 150px;
+            }
+        }
+    }
+
+    .top {
+        max-width: 340px;
+        width: 100%;
+        padding: 20px;
+        background: rgba(53, 56, 64, 0.5);
+    }
+
+    .bottom {
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        h3 {
+            text-align: center;
+        }
+        
+    }
+}

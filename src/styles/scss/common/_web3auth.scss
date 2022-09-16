@@ -53,7 +53,7 @@
     // border: 1px solid $dark-grey !important;
   }
 }
-.w3a-adapter-list  {
+.w3ajs-socials-adapters  {
   img {
     display: none !important;
   }
@@ -240,6 +240,16 @@
   .w3a-adapter-item__label {
     color: $white;
   }
+
+.w3a-wallet-connect-qr {
+  transform: translateX(26px);
+  margin-left: 0 !important;
+}
+
+.w3a-wallet-connect__container--android {
+  background-color: transparent !important;
+}
+
 .w3a-modal {
   z-index: 99999;
 }

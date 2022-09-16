@@ -56,7 +56,7 @@
   }
 
   .navigation-block {
-    max-width: 536px;
+    max-width: 700px;
     width: 100%;
     flex-direction: row;
     box-sizing: border-box;
@@ -66,6 +66,7 @@
     margin-left: 40px;
     &-wrapper {
       max-width: 420px;
+      min-width: 380px;
       width: 100%;
       font-family: 'Roboto';
       font-style: normal;

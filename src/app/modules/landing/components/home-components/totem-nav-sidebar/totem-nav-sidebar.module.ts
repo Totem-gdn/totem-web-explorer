@@ -12,6 +12,7 @@ import { TotemSearchFilterModule } from '../../common-components/totem-search-fi
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { SnackNotifierModule } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.module';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
+import { BalanceModule } from './balance/balance.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-not
     SharedModule,
     TotemSearchFilterModule,
     ClipboardModule,
-    SnackNotifierModule
+    SnackNotifierModule,
+
+    BalanceModule,
   ],
   exports: [
     TotemNavSidebarComponent

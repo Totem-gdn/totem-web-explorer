@@ -20,6 +20,8 @@
         <a>Help</a>
       </div>
 
+      <totem-button class="pl-[40px] pr-[30px]" [customId]="'o1'" [width]="'160px'" [height]="'46px'" [caption]="'Totem Items'" (click)="navigateToBuy()"></totem-button>
+
       <div class="profile-block cursor-pointer" (click)="isLoggedIn ? openSideProfile() : logIn()">
         <img class="fake-profile-icon" *ngIf="!(currUser | async)?.profileImage && !(loading$ | async)" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
         <div class="nav-loader" *ngIf="(loading$ | async)" fxLayout="column" fxLayoutAlign="center center"><loading-spinner></loading-spinner></div>

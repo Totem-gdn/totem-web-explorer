@@ -40,6 +40,10 @@
     }
 }
 
+.blur-bold {
+    filter: blur(200px);
+}
+
 .like {
     cursor: pointer;
     color: $light-grey;

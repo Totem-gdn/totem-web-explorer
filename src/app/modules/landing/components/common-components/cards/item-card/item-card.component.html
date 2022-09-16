@@ -8,7 +8,7 @@
         <mat-icon [svgIcon]="'line:item-place'"></mat-icon>
     </div> -->
     <div *ngIf="!item?.itemType && !item?.image || item?.itemType === 'Item'" class="placeholder">
-        <mat-icon [svgIcon]="'line:item-place'"></mat-icon>
+        <mat-icon class="text-grey" [svgIcon]="'line:item-place'"></mat-icon>
     </div>
 
     <div class="h-full w-full relative overflow-hidden" *ngIf="item?.image">
