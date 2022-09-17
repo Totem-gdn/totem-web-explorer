@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PaginationEvent } from '@app/core/models/page-event-interface.model';
 import { BehaviorSubject } from 'rxjs';
 
@@ -28,6 +28,13 @@ const messages: any[] = [
   {id: 23, isOpened: false, type: 'notification', title: 'Update 0.12.3 b', text: 'Notification', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa pretium, volutpat eget pellentesque. Vivamus enim sed at nunc aliquet rhoncus felis. Pulvinar ornare eget non fames. In cursus fermentum diam viverra sollicitudin viverra adipiscing. In nunc sagittis sapien lectus fermentum, feugiat eget pellentesque faucibus. Neque, fringilla amet cras platea egestas posuere. Nulla ipsum molestie arcu amet consequat id et. Ut ornare tortor, eget volutpat donec. Sed sit nulla nisi, non quis.', date: 'Aug 30, 2022, 11:35 AM', isChecked: false, isReaded: false},
 ]
 
+export enum CheckParams {
+  ALL = 'all',
+  NONE = 'none',
+  READ = 'read',
+  UNREAD = 'unread'
+}
+
 @Component({
   selector: 'totem-messages',
   templateUrl: './messages.component.html',
@@ -36,6 +43,7 @@ const messages: any[] = [
 export class MessagesComponent implements OnInit {
 
   allChecked: boolean = false;
+  selectionActive: boolean = false;
   total: number = 0;
   messageList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
@@ -54,6 +62,8 @@ export class MessagesComponent implements OnInit {
     //this.messageList.getValue().map(c => console.log(c.isChecked));
   }
 
+  @ViewChild('dropdown') dropdown!: ElementRef;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -62,24 +72,39 @@ export class MessagesComponent implements OnInit {
     this.messageList.next(arrayToList);
   }
 
+  openSelection() {
+    this.selectionActive = !this.selectionActive;
+  }
+
+  onClickOutside(isClickedInside: any) {
+    if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.selectionActive === true) {
+        this.selectionActive = false;
+    }
+  }
+
   pageEvent(pagination: PaginationEvent) {
     console.log(pagination);
     let arrayToList = messages.slice(pagination.currentPage * pagination.size, (pagination.currentPage * pagination.size) + pagination.size);
     this.messageList.next(arrayToList);
   }
 
-  add() {
-    this.messageList.getValue().push({id: 5, type: 'settings', title: 'Update 0.12.3 b', text: 'Notification', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa pretium, volutpat eget pellentesque. Vivamus enim sed at nunc aliquet rhoncus felis. Pulvinar ornare eget non fames. In cursus fermentum diam viverra sollicitudin viverra adipiscing. In nunc sagittis sapien lectus fermentum, feugiat eget pellentesque faucibus. Neque, fringilla amet cras platea egestas posuere. Nulla ipsum molestie arcu amet consequat id et. Ut ornare tortor, eget volutpat donec. Sed sit nulla nisi, non quis.', date: 'Aug 30, 2022, 11:35 AM', isChecked: false, isReaded: false})
-  }
-
-  restore() {
-    this.messageList.next([]);
-  }
-
   checkMessage(id: any) {
     let index = this.messageList.getValue().findIndex((message) => message.id === id);
     this.messageList.getValue()[index].isChecked = !this.messageList.getValue()[index].isChecked;
     console.log(this.messageList.getValue()[index].isChecked);
+  }
+
+  checkToUncheck(message: any, event: any) {
+    if (message.isChecked) {
+      event.preventDefault();
+    }
+  }
+
+  checkToOpen(message: any, event: any) {
+    if (message.isChecked) {
+      message.isChecked = !message.isChecked;
+      event.preventDefault();
+    }
   }
 
   openMessage(id: any) {
@@ -109,6 +134,32 @@ export class MessagesComponent implements OnInit {
       }
       return message;
     })
+  }
+
+  checkWithParams(param: string) {
+    if (param == CheckParams.ALL) {
+      this.messageList.getValue().map(message => message.isChecked = true);
+    }
+    if (param == CheckParams.NONE) {
+      this.messageList.getValue().map(message => message.isChecked = false);
+    }
+    if (param == CheckParams.READ) {
+      this.messageList.getValue().map(message => {
+        if (message.isReaded) {
+          return message.isChecked = true;
+        }
+        return message.isChecked = false;
+      });
+    }
+    if (param == CheckParams.UNREAD) {
+      this.messageList.getValue().map(message => {
+          if (!message.isReaded) {
+            return message.isChecked = true;
+          }
+          return message.isChecked = false;;
+      });
+    }
+    this.selectionActive = false;
   }
 
 }

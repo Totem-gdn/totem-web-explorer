@@ -95,14 +95,6 @@
       width: 40px;
       margin-left: 12px;
 
-      &:hover .tooltiptext {
-        //transition-delay: 1s;
-        @media (min-width: 600px) {
-          visibility: visible;
-        }
-
-      }
-
       .mark-dropdown {
         width: 20px;
         height: 20px;
@@ -110,6 +102,13 @@
         place-content: center;
         align-items: center;
         cursor: pointer;
+        &:hover .tooltiptext {
+          //transition-delay: 1s;
+          @media (min-width: 600px) {
+            visibility: visible;
+          }
+
+        }
 
         &:hover {
           mat-icon {
@@ -330,7 +329,8 @@
               .icon-font-notification,
               .icon-font-locked,
               .icon-font-star,
-              .icon-font-settings
+              .icon-font-settings,
+              .icon-font-check
               {
                 color: #111111;
                 width: 24px;
@@ -344,6 +344,15 @@
                   width: 23.5px;
                 }
               }
+
+              .icon-font-check {
+                color: #111111 !important;
+                &::before {
+                  width: 14px;
+                  font-size: 14px;
+                }
+              }
+
             }
 
 

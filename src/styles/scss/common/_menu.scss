@@ -35,12 +35,12 @@
     }
 }
 
-.dropdown {
+.dropdown, .check-all-button {
     display: inline-block;
     position: relative;
 
     .dropdown-menu {
-        
+
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
@@ -64,7 +64,7 @@
                 display: flex;
                 height: 50px;
                 padding: 0 6px;
-                
+
                 & input {
                     all: unset;
                     z-index: 10;
@@ -109,8 +109,16 @@
                     background-color: $transparent-light;
                 }
 
-            }  
-        }  
+            }
+        }
     }
 }
 
+.check-all-button {
+  .dropdown-menu {
+    width: 102px;
+    margin: 0;
+    left: 0px;
+    top: 36px;
+  }
+}
