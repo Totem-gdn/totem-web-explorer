@@ -1,25 +1,5 @@
 <div *ngIf="assets" class="wrapper relative">
 
-    <!-- <div class="flex py-[30px] justify-center">
-            <a class="button-style-1 mr-5 flex" href="https://mumbaifaucet.com/" target="_blank">Get Matic</a>
-            <button class="button-style-1" (click)="onGetTokens()" [disabled]="!maticBalance || +maticBalance === 0">Get
-                USDC</button>
-        </div>
-    
-
-        <div class="flex flex-wrap" *ngFor="let asset of assets">
-            <div class="flex my-auto mx-[30px]">
-                
-                <div class="flex flex-col pr-[15px]">
-                    <h3 class="pb-2 text-yellow uppercase">{{asset.type}}</h3>
-                    <h4 class="text-light-grey">{{asset.paymentInfo.price}} USDC</h4>
-                </div>
-                <button class="button-style-1 w-[120px] m-auto"
-                        [disabled]="!maticBalance || !tokenBalance || +tokenBalance === 0 || +tokenBalance === 0"
-                        (click)="onBuyItem(asset.paymentInfo.address, asset.paymentInfo.price)">Buy</button>
-            </div>
-        </div> -->
-
     <bg-circle class="top-[50%] left-[50%] blur-bold" [background]="'#8023C9'" [width]="'400px'"></bg-circle>
     <bg-circle class="top-[20%] left-[10%] blur-bold" [background]="'#FF8540'" [width]="'300px'"></bg-circle>
     <bg-circle class="top-[70%] left-[10%] blur-bold" [background]="'#FF8540'" [width]="'300px'"></bg-circle>
@@ -27,13 +7,9 @@
 
     <h1>Create a unique Totem Item!</h1>
     <h3 class="pb-[30px]">Choose a type of item to mint, follow the steps and get your own item</h3>
-    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis eget sit ultricies accumsan rutrum proin
-        adipiscing. Sed blandit nulla et eget commodo. Ut sit et mauris mauris. Integer tempus elementum imperdiet
-        curabitur et, nullam. Senectus leo scelerisque est nulla duis amet, mi justo, et. Tristique consequat
-        ullamcorper ac ornare semper morbi. Libero, ridiculus suspendisse feugiat donec enim augue est ultrices ut.
-        Feugiat nibh potenti ultricies ut consequat lectus platea. Nulla lacus elit quis amet.</span>
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis eget sit ultricies accumsan rutrum proin adipiscing. Sed blandit nulla et eget commodo. Ut sit et mauris mauris. Integer tempus elementum imperdiet curabitur et, nullam. Senectus leo scelerisque est nulla duis amet, mi justo, et. Tristique consequat ullamcorper ac ornare semper morbi. </span>
 
-    <div class="items">
+    <div class="items flex-wrap justify-center lg:flex-nowrap lg:justify-between">
         <div class="item gradient-border-solid" *ngFor="let asset of assets">
 
             <div class="p-[15px] rounded border border-dashed border-light-grey">
@@ -50,7 +26,7 @@
 
             <div class="bottom">
                 <h3>{{asset.paymentInfo.price}} USDC</h3>
-                <totem-button [width]="'160px'" [height]="'40px'" [caption]="'Generate'"></totem-button>
+                <totem-button [width]="'100px'" [height]="'40px'" [caption]="'Generate'" (click)="onBuyItem(asset.paymentInfo.address, asset.paymentInfo.price)"></totem-button>
             </div>
         </div>
     </div>

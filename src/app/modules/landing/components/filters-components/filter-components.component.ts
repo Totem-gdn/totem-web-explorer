@@ -19,7 +19,9 @@ export class FilterComponentsComponent {
     @Input() items: any[] | undefined; 
 
     async ngAfterViewInit() {
-
+        if(this.items === null) {
+            this.items = [];
+        }
         if(this.mode != 'active') {
             if(this.items === undefined) this.items = [];
             this.items.push(...[].constructor(this.addItems()));

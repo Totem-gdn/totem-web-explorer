@@ -24,17 +24,25 @@ export class PaymentService {
             
         )
     }
-
     getAssets() {
         return this.http.get<any>('https://payment.totem.gdn/assets').pipe(
             take(1),
             map(assets => assets.assets));
     }
-
     getPaymentInfo(asset: string) {
         return this.http.get<any>(`https://payment.totem.gdn/assets/${asset}/payment-info`).pipe(take(1));
     }
-    
+
+
+    getTokenBalance = async () => {
+        if (!this.web3.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        console.log('CheckBalance');
+        const checkBalance = await this.tokenBalance();
+        return checkBalance;
+    }
 
     buyItem = async (address: string, amount: number) => {
         if (!this.web3.provider) {
@@ -55,8 +63,20 @@ export class PaymentService {
         return getTokens;
     }
 
+    async tokenBalance() {
+        const web3 = new Web3(this.web3.provider as any);
+        const accounts = await web3.eth.getAccounts();
+    
+        const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+        const wallet = accounts[0]
+        const tokenContract = GetTokensABI;
+        const contract = new web3.eth.Contract(tokenContract, contractAddress);
+    
+        const tx = await contract.methods.balanceOf(wallet).call()
+        return tx;
+      }
 
-    async claimTokens() {
+      async claimTokens() {
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
     

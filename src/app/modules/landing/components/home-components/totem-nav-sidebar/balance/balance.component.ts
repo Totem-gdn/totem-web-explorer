@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
+import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { UserStateService } from "@app/core/services/user-state.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { Subscription } from "rxjs";
 
 
@@ -16,7 +18,9 @@ import { Subscription } from "rxjs";
 export class BalanceComponent implements OnDestroy, AfterViewInit {
 
     constructor(private web3Service: Web3AuthService,
-                private userStateService: UserStateService) {}
+                private userStateService: UserStateService,
+                private snackService: SnackNotifierService,
+                private paymentService: PaymentService) {}
 
     sub!: Subscription;
     maticBalance: string | undefined = '0';
@@ -58,6 +62,23 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
         this.web3Service.getTokenBalance().then(balance => {
           this.tokenBalance = balance;
         })
+    }
+
+    async onClaim() {
+        if(!this.web3Service.isLoggedIn()) {
+            this.snackService.open('PLEASE Login')
+        }
+        const matic = await this.web3Service.getBalance();
+        if(!matic || +matic <= 0) {
+            this.snackService.open('Insufficient Matic Balance');
+            return;
+        }
+        await this.paymentService.getTokens().then(hash => {
+            console.log(hash);
+        }).catch(error => {
+            this.snackService.open('Error');
+            console.log(error);
+        });
     }
 
     ngOnDestroy(): void {

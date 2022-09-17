@@ -1,56 +1,31 @@
 @import 'styles/scss/variables';
 @import 'assets/fonts/icon-fonts/mail-font.scss';
 
-.wrapper {
-    margin: 30px 0 30px 30px;
-    padding: 30px;
-
-    img {
-        margin:auto;
-        margin-bottom: 20px;
-        width: 80px;
-        height: 80px;
-    }
-
-    a {
-        cursor: pointer;
-
-        &:hover {
-            color: $yellow;
-        }
-    }
-
-    h4 {
-        cursor: pointer;
-        padding-bottom: 8px;
-
-        &:hover {
-            color: $yellow;
-        }
-    }
-}
 
 .profile-wrapper {
   max-width: 1500px;
   width: 100%;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
   margin-top: 80px;
 
   .profile-info {
     width: 100%;
 
     .banner-image {
+      position: relative;
       width: 100%;
+      height: 200px;
       border-radius: 4px;
       overflow: hidden;
       img {
-        max-height: 200px;
-        min-height: 200px;
-        height: 100%;
-        max-width: 1500px;
-        width: 100%;
-        object-fit: cover;
+        position: absolute;
+        min-width: 540px;
+        top: -9999px;
+        bottom: -9999px;
+        left: -9999px;
+        right: -9999px;
+        margin: auto;
       }
     }
 

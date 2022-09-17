@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { forkJoin } from 'rxjs';
+import { SnackNotifierService } from '../modules/snack-bar-notifier/snack-bar-notifier.service';
 
 @Component({
   selector: 'app-buy',
@@ -11,21 +12,58 @@ import { forkJoin } from 'rxjs';
 export class BuyComponent implements OnInit {
 
   constructor(private paymentService: PaymentService,
-    private web3Service: Web3AuthService) { }
+              private web3Service: Web3AuthService,
+              private snackService: SnackNotifierService) { }
 
   maticBalance: any = 0;
   tokenBalance: any = 0;
   assets: any[] = [];
 
+  disableButton: boolean | null = null;
 
   ngOnInit(): void {
-    this.updateBalance();
     this.updateAssets();
-    this.pendingTransaction();
   }
 
   pendingTransaction() {
-    // this.web3Service.
+  }
+
+  async onBuyItem(address: string, amount: any) {
+
+    if(!this.web3Service.isLoggedIn()) {
+      this.snackService.open('PLEASE Login');
+      return;
+    }
+
+    const matic = await this.web3Service.getBalance();
+    const usdc = await this.web3Service.getTokenBalance();
+
+    if(!matic || +matic <= 0) {
+      this.snackService.open('Insufficient matic balance');
+      return;
+    }
+    if(!usdc || +usdc <= 0) {
+      this.snackService.open('Insufficient usdc balance');
+      return;
+    }
+    this.snackService.open('Transaction is on the way');
+    this.paymentService.buyItem(address, amount).then(res => {
+      this.snackService.open('Purchase is successefull');
+    })
+  }
+
+  // async onGetTokens() {
+  //   const transfer = await this.paymentService.getTokens();
+  //     console.log('transfer', transfer);
+  //   this.updateBalance();
+  //   this.updateAssets();
+  // }
+
+  updateAssets() {
+    this.paymentService.getAssets().subscribe(assets => {
+      console.log('assets: ', assets)
+      this.paymentInfo(assets);
+    })
   }
 
   paymentInfo(assets: any[]) {
@@ -36,40 +74,7 @@ export class BuyComponent implements OnInit {
             paymentInfo: info
           };
           this.assets.push(newAsset);
-          console.log(newAsset)
       })
-    })
-  }
-
-  onBuyItem(address: string, amount: any) {
-    this.paymentService.buyItem(address, amount).then(res => {
-      this.updateBalance();
-      this.updateAssets();
-    })
-  }
-
-  async onGetTokens() {
-    const transfer = await this.paymentService.getTokens();
-      console.log('transfer', transfer);
-    this.updateBalance();
-    this.updateAssets();
-  }
-
-  
-  updateBalance() {
-    this.web3Service.getBalance().then(balance => {
-      this.maticBalance = balance;
-      
-    });
-    this.web3Service.getTokenBalance().then(balance => {
-      this.tokenBalance = balance;
-    })
-  }
-
-  updateAssets() {
-    this.paymentService.getAssets().subscribe(assets => {
-      console.log('assets: ', assets)
-      this.paymentInfo(assets);
     })
   }
 

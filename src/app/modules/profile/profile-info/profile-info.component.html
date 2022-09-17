@@ -1,25 +1,8 @@
-<!-- <div class="wrapper gradient-border-solid flex flex-col h-[500px]">
-    <div class="flex">
-        <img *ngIf="!user?.avatar" src="assets/icons/nav/account_circle.svg" alt="profile-icon">
-        <img *ngIf="user?.avatar" [src]="user.avatar" alt="profile-icon" class="rounded-full">
-    </div>
 
-    <div class="text-light-grey flex flex-col">
-        <h4>{{user?.email}}</h4>
-        <span class="mt-[20px] mb-[30px]">Wallet address:<br>{{user?.wallet}}</span>
-
-        <div class="flex flex-col text-white">
-            <h4 routerLinkActive="text-yellow" routerLink="/profile/buy">Buy</h4>
-            <h4 routerLinkActive="text-yellow" routerLink="/profile/owned-nfts">Owned Nfts</h4>
-            <h4 routerLinkActive="text-yellow" routerLink="/profile/transactions">Transactions</h4>
-            <h4 class="ml-auto mt-[20px]" (click)="onLogout()">Logout</h4>
-        </div>
-    </div>
-</div> -->
 <div class="profile-wrapper">
   <div class="profile-info">
     <div class="banner-image">
-      <img [src]="user?.image || 'assets/images/banner.png'" alt="banner">
+      <img  [src]="user?.image || 'assets/icons/profile/banner.svg'" alt="banner">
     </div>
     <div class="user-info">
       <div class="user-info-icon">
