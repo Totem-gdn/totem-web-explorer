@@ -1,4 +1,4 @@
-import { Component, } from "@angular/core";
+import { Component, Input, } from "@angular/core";
 
 @Component({
     selector: 'app-items',
@@ -10,7 +10,7 @@ import { Component, } from "@angular/core";
 })
 
 export class ItemsComponent {
+  @Input() items: any[] = [0,0,0,0,0,0,0];
 
 
-    
 }

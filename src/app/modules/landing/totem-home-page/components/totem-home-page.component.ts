@@ -1,5 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { TotemItemsService } from '@app/core/services/totem-items.service';
 import * as e from 'express';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative } from 'swiper';
 import { CreativeEffectOptions } from 'swiper/types';
@@ -12,10 +14,17 @@ import { CreativeEffectOptions } from 'swiper/types';
   styleUrls: ['./totem-home-page.component.scss'],
   host: {
     class: 'flex flex-auto w-full h-full'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotemHomePageComponent implements OnInit {
   swiper!: Swiper;
+  subs: Subscription = new Subscription();
+
+  games$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
+  mostUsedItems$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
+  newestItems$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
+  avatars$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
 
   testGame: any[] = [{
     name: 'Syber Hero',
@@ -28,11 +37,11 @@ export class TotemHomePageComponent implements OnInit {
 
   eventDate: Date = new Date('09/30/2022');
 
-  //@ViewChild('joinButton') joinButton!: ElementRef;
-
-  constructor() { }
+  constructor(private totemItemsService: TotemItemsService) { }
 
   ngOnInit(): void {
+    this.initItemsListener();
+    this.getAllItems();
     // init Swiper:
     this.swiper = new Swiper('.swiper', {
 
@@ -49,18 +58,6 @@ export class TotemHomePageComponent implements OnInit {
       coverflowEffect: {
         slideShadows: false
       },
-      //creativeEffect: {
-      //  prev: {
-      //    shadow: false,
-      //    translate: ["-120%", 0, -800],
-      //    rotate: [0, -100, 0]
-      //  },
-      //  next: {
-      //    shadow: false,
-      //    translate: ['120%', 0, -800],
-      //    rotate: [0, 100, 0]
-      //  }
-      //},
       rewind: true,
       loopPreventsSlide: false,
       lazy: true,
@@ -71,13 +68,53 @@ export class TotemHomePageComponent implements OnInit {
         clickable: true
       },
 
-      // Navigation arrows
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
 
     });
+  }
+
+  getAllItems() {
+    this.totemItemsService.getAvatars();
+    this.totemItemsService.getGames();
+    this.totemItemsService.getMostUsedItems();
+    this.totemItemsService.getNewestItems();
+  }
+
+  initItemsListener() {
+    this.subs.add(
+      this.totemItemsService.games.subscribe((games: any[] | null) => {
+        if (games) {
+          this.games$.next(games);
+        }
+      })
+    );
+    this.subs.add(
+      this.totemItemsService.mostUsedItems.subscribe((items: any[] | null) => {
+        console.log(items);
+        if (items) {
+          this.mostUsedItems$.next(items);
+          console.log(items);
+
+        }
+      })
+    );
+    this.subs.add(
+      this.totemItemsService.newestItems.subscribe((items: any[] | null) => {
+        if (items) {
+          this.newestItems$.next(items);
+        }
+      })
+    );
+    this.subs.add(
+      this.totemItemsService.avatars.subscribe((avatars: any[] | null) => {
+        if (avatars) {
+          this.avatars$.next(avatars);
+        }
+      })
+    );
   }
 
   ngAfterViewInit() {

@@ -1,6 +1,7 @@
 import { DOCUMENT } from "@angular/common";
-import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { ComboBoxService } from "@app/core/services/combobox-state.service";
 import { Subscription } from "rxjs";
 
 
@@ -10,30 +11,45 @@ import { Subscription } from "rxjs";
     styleUrls: ['./search-dropdown.component.scss']
 })
 
-export class SearchDropdownComponent implements OnInit {
+export class SearchDropdownComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router,
-        @Inject(DOCUMENT) private document: Document) { }
+        @Inject(DOCUMENT) private document: Document,
+        private comboBoxService: ComboBoxService) { }
 
 
     @Input() title: string = '';
     @Input() itemType: string = '';
     @Input() alwaysOpen = false;
+    @Output() onChange: EventEmitter<string> = new EventEmitter();
     @ViewChild('menu') menu!: ElementRef;
     @ViewChild('dropdown') dropdown!: ElementRef;
 
     items = [{ name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' }, { name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' },]
     menuActive: boolean = false;
 
-    sub!: Subscription;
+    subs: Subscription = new Subscription();
 
     ngOnInit() {
         if(this.alwaysOpen === true) this.menuActive = true;
+
+        this.subs.add(
+          this.comboBoxService.selectedGame.subscribe((game: string) => {
+            if (game) {
+              this.title = game;
+            }
+          })
+        )
+    }
+
+    ngOnDestroy(): void {
+      this.subs.unsubscribe();
     }
 
     onChangeInput(event: any) {
         const value = event.target.value;
         this.title = value;
+        this.onChange.emit(value);
 
         if(this.alwaysOpen) return;
         this.menuActive = false;

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BreakPointRegistry } from '@angular/flex-layout';
 import { Router } from '@angular/router';
+import { ComboBoxService } from '@app/core/services/combobox-state.service';
 
 import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
 
@@ -12,7 +13,7 @@ import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swipe
 })
 export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private comboBoxService: ComboBoxService) {
 
     }
 
@@ -20,7 +21,7 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
 
     @Input() title = '';
     @Input() menuTitle: string | null = '';
-    @Input() items: any = [1, 2, 3, 4, 5, 6, 7];
+    @Input() items: any[] | null = [1, 2, 3, 4, 5, 6, 7];
     @Input() itemType = 'item';
     @Input() itemsCount = 4;
 
@@ -85,6 +86,12 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
 
     ngOnInit() {
 
+    }
+
+    selectGame(event: any) {
+      console.log(event);
+
+      this.comboBoxService.updateSelectedGame(event);
     }
 
     onClickRight() {
