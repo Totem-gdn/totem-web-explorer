@@ -79,6 +79,7 @@ export class ItemsService {
             formattedItems.push(item);
         }
 
+
         return formattedItems;
     }
 

@@ -20,6 +20,7 @@ export class UserGemsComponent implements OnInit {
     this.alchemyService.getNfts(wallet).subscribe((nfts: any[]) => {
 
       for (let nft of nfts) {
+        nft.id.tokenId = parseInt(nft.id.tokenId);
         if (nft.contractMetadata.name === 'Gem') {
           this.gems.unshift(nft);
         }

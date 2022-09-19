@@ -1,6 +1,6 @@
 <div class="favourites-wrapper w-full">
   <div class="favourites-body w-full">
-    <totem-profile-back-button class="back-button" [routeName]="'Favourites'"></totem-profile-back-button>
+    <totem-profile-back-button class="back-button" [routeName]="'Favorites'"></totem-profile-back-button>
     <div class="banner-image">
       <img [src]="user?.image || 'assets/images/banner.png'" alt="banner">
     </div>
@@ -8,19 +8,19 @@
       <div class="fav-nav">
         <div class="nav-block">
           <a [ngClass]="activeTab === 'items' ? 'active-tab': ''"
-          (click)="onChangeTab('items')">Favourite items</a>
+          (click)="onChangeTab('items')">Favorite items</a>
         </div>
         <div class="nav-block">
           <a [ngClass]="activeTab === 'avatars' ? 'active-tab': ''"
-          (click)="onChangeTab('avatars')">Favourite avatars</a>
+          (click)="onChangeTab('avatars')">Favorite avatars</a>
         </div>
         <div class="nav-block">
           <a [ngClass]="activeTab === 'games' ? 'active-tab': ''"
-          (click)="onChangeTab('games')">Favourite games</a>
+          (click)="onChangeTab('games')">Favorite games</a>
         </div>
-        <div matRipple class="nav-button" [ngClass]="activeTab === 'items' ? 'active-tab': ''" (click)="onChangeTab('items')">Favourite items</div>
-        <div matRipple class="nav-button" [ngClass]="activeTab === 'avatars' ? 'active-tab': ''" (click)="onChangeTab('avatars')">Favourite avatars</div>
-        <div matRipple class="nav-button" [ngClass]="activeTab === 'games' ? 'active-tab': ''" (click)="onChangeTab('games')">Favourite games</div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'items' ? 'active-tab': ''" (click)="onChangeTab('items')">Favorite items</div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'avatars' ? 'active-tab': ''" (click)="onChangeTab('avatars')">Favorite avatars</div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'games' ? 'active-tab': ''" (click)="onChangeTab('games')">Favorite games</div>
       </div>
     </div>
     <div class="content-block">

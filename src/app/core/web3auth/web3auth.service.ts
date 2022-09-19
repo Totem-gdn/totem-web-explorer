@@ -31,7 +31,7 @@ export class Web3AuthService {
         const web3auth = this.web3auth;
 
         await web3auth.initModal();
-        
+
         if (web3auth.provider) {
             this.provider = web3auth.provider;
         }
@@ -50,12 +50,14 @@ export class Web3AuthService {
     }
 
     login = async () => {
+        document.getElementById('w3a-container')!.style.visibility = 'visible';
         if (!this.web3auth) {
             console.log("web3auth not initialized yet");
             return;
         }
         const web3auth = this.web3auth;
         this.provider = await web3auth.connect();
+        document.getElementById('w3a-container')!.style.visibility = 'hidden';
         console.log("logged in");
     };
 
@@ -160,7 +162,7 @@ export class Web3AuthService {
     };
 
     isLoggedIn() {
-        if(this.provider) {
+        if (this.provider) {
             return true;
         } else {
             return false;

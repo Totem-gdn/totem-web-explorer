@@ -21,12 +21,13 @@ export class UserAvatarsComponent implements OnInit {
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
     this.avatarsService.fetchAvatars(wallet).subscribe(avatars => {
-      this.avatars = avatars;
+      this.avatars = this.avatars.concat(avatars);
     });
 
     this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
       console.log(nfts);
       for(let nft of nfts) {
+        nft.id.tokenId = parseInt(nft.id.tokenId);
         if(nft.contractMetadata.name === 'Avatar') {
           this.avatars.unshift(nft);
         }

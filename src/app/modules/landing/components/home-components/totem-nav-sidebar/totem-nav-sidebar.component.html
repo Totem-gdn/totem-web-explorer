@@ -13,10 +13,13 @@
       <div class="button-wrap" (click)="close()">
         <mat-icon class="close-button" [svgIcon]="'line:arrow_right'"></mat-icon>
       </div>
+
+      <!-- Authenticated User -->
       <ng-container *ngIf="userData; else unauthblock">
-        <div class="user-image" fxLayout="column" fxLayoutAlign="center center">
+        <a class="user-image" fxLayout="column" fxLayoutAlign="center center" 
+        (click)="close()" routerLink="/profile">
           <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
-        </div>
+        </a>
         <ng-container *ngIf="userData?.name?.length">
           <div class="user-name">
             {{userData?.name}}
@@ -42,27 +45,29 @@
 
         <!-- Nav Links -->
         <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Profile</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Profile</a>
           <a>Help</a>
+          <a (click)="onLogout(); close()" routerLink="/home">Sign out</a>
         </div>
       </ng-container>
 
+      <!-- Unauthorized user -->
       <ng-template #unauthblock>
         <div class="unauth-nav-content" fxLayout="column" fxLayoutAlign="space-between">
           <div class="sidenav mtop-60px" fxLayout="column" fxLayoutAlign="start start">
+            <a (click)="logIn()">Profile</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
-            <a (click)="logIn()">Profile</a>
             <a>Help</a>
           </div>
           <div>
-            <totem-button (click)="logIn()" [caption]="'Create account'"
+            <totem-button (click)="logIn()" [caption]="'Login'"
               [width]="'100%'"></totem-button>
           </div>
         </div>

@@ -2,13 +2,14 @@
 
 .balance {
     width: 100%;
-
+    // margin-left: 12px;
     .title {
       cursor: pointer;
       color: $light-grey;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-left: 12px;
       padding: 30px 0 10px 0;
       border-bottom: 1px solid $dark-grey;
 
@@ -19,6 +20,7 @@
     }
 
     .dropdown {
+      margin-left: 12px;
       max-height: 0px;
       display: flex;
       flex-direction: column;

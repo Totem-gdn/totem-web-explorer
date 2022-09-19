@@ -13,6 +13,7 @@
             <item-filters *ngIf="filterType === 'item'"></item-filters>
             <avatars-filter *ngIf="filterType === 'avatar'"></avatars-filter>
             <games-filter *ngIf="filterType === 'game'"></games-filter>
+            <games-filter *ngIf="filterType === 'gem'"></games-filter>
 
 
             <div class="flex flex-col w-full">
@@ -30,6 +31,11 @@
                     <ng-container *ngIf="filterType === 'game'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no games</h3></ng-container>
                         <game-card *ngFor="let item of items" [game]="item"></game-card>
+                    </ng-container>
+
+                    <ng-container *ngIf="filterType === 'gem'">
+                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no gems</h3></ng-container>
+                        <gem-card *ngFor="let item of items" [gem]="item"></gem-card>
                     </ng-container>
 
                     <div class="absolute w-full h-full flex" *ngIf="!items"><loading-spinner class="m-auto"></loading-spinner></div>

@@ -1,31 +1,24 @@
-<div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
+<div class="card-item gradient-border" (click)="onNavigate()">
 
-
-    <!-- <img *ngIf="item?.itemType === 'sword'" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt=""> -->
-    <!-- <img *ngIf="nft?.metadata?.image" class="grow h-60 object-cover" [src]="nft?.metadata?.image" alt=""> -->
-    <!-- <img *ngIf="item?.itemType === 'spear'" class="grow h-60 object-cover" src="assets/images/item-test.jpg" alt=""> -->
-    <!-- <div class="placeholder">
-        <mat-icon [svgIcon]="'line:item-place'"></mat-icon>
-    </div> -->
-    <div *ngIf="!item?.itemType && !item?.image || item?.itemType === 'Item'" class="placeholder">
+    <div *ngIf="!item?.itemType && !item?.id?.tokenId || item?.itemType === 'Item'" class="placeholder">
         <mat-icon class="text-grey" [svgIcon]="'line:item-place'"></mat-icon>
     </div>
 
-    <div class="h-full w-full relative overflow-hidden" *ngIf="item?.image">
-        <img class="absolute h-full object-cover" [src]="item?.image" alt="">
+    <div class="img-wrapper" *ngIf="item?.id?.tokenId">
+        <img src="{{'https://asset-renderer.totem-explorer.com/item/' + item?.id?.tokenId % 12}}" alt="">
     </div>
 
     <svg-sword 
-    class="background grow h-60 svg-icon" *ngIf="item?.itemType === 'sword' || item?.itemType === 'spear'"
+    class="test-background grow h-60 svg-icon" *ngIf="item?.itemType === 'sword' || item?.itemType === 'spear'"
     [element]="item?.item?.element" [tip]="item?.item?.tipMaterial" [shaftColor]="item?.item?.shaftColor"></svg-sword>
 
 
 
-    <div class="p-4 flex flex-col">
+    <div class="attributes">
 
-        <div class="flex justify-between pb-[15px] relative">
-            <h3 *ngIf="!item?.contractMetadata?.symbol">ID: 1111</h3>
-            <h3 *ngIf="item?.contractMetadata?.symbol">{{item?.contractMetadata?.symbol}}</h3>
+        <div class="top">
+            <h3 *ngIf="!item?.id?.tokenId">ID: 1111</h3>
+            <h3 *ngIf="item?.id?.tokenId">ID: {{item?.id?.tokenId}}</h3>
 
             <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'"
                 (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
@@ -33,10 +26,11 @@
                 (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
         </div>
 
-        <div class="flex justify-between items-center whitespace-nowrap max-w-[320px]">
+        <div class="bottom">
             <div>
-                <h4 *ngIf="!item?.updatedAt">24.24.24</h4>
+                <h4 *ngIf="!item?.updatedAt && !item?.timeLastUpdated">24.24.24</h4>
                 <h4 *ngIf="item?.updatedAt">{{item?.updatedAt}}</h4>
+                <h4 *ngIf="item?.timeLastUpdated">{{item?.timeLastUpdated}}</h4>
 
                 <p class="text-light-grey">Last used</p>
             </div>

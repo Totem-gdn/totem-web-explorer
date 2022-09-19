@@ -7,7 +7,7 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 @Component({
   selector: 'item-card',
   templateUrl: './item-card.component.html',
-  styleUrls: ['./item-card.component.scss']
+  styleUrls: ['../cards.component.scss']
 })
 export class ItemCardComponent {
 

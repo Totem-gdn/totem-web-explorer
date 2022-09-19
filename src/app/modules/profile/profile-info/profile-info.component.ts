@@ -57,7 +57,7 @@ export class ProfileInfoComponent implements OnInit {
   }
 
   goToFavourites() {
-    this.router.navigate(['profile/favourites']);
+    this.router.navigate(['profile/favorites']);
   }
 
 }

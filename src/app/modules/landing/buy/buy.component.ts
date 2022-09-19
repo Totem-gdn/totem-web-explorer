@@ -39,16 +39,16 @@ export class BuyComponent implements OnInit {
     const usdc = await this.web3Service.getTokenBalance();
 
     if(!matic || +matic <= 0) {
-      this.snackService.open('Insufficient matic balance');
+      this.snackService.open('Insufficient MATIC balance');
       return;
     }
     if(!usdc || +usdc <= 0) {
-      this.snackService.open('Insufficient usdc balance');
+      this.snackService.open('Insufficient USDC balance');
       return;
     }
-    this.snackService.open('Transaction is on the way');
+    this.snackService.open('Your payment has been send');
     this.paymentService.buyItem(address, amount).then(res => {
-      this.snackService.open('Purchase is successefull');
+      this.snackService.open('Your Totem Asset has been created successfully');
     })
   }
 

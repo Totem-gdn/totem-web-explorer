@@ -184,13 +184,12 @@
   }
 }
 .w3a-modal__loader {
+  // display: none !important;
   background-size: cover !important;
   background-image: url('../../../assets/images/login-popup__background.png') !important;
   background-color: $black !important;
 }
-// .w3a-adapter-item__label {
-//   color: $white !important;      
-// }
+
   .w3a-modal__content, .w3a-modal__header, .w3a-modal__footer {
     background-color: transparent !important;
     color: $white !important;
@@ -229,7 +228,7 @@
     background-color: $black !important;
   }
   .w3a-spinner-message {
-    display: none !important;
+    // display: none !important;
     color: $white !important;
   }
   .w3a-spinner__head {

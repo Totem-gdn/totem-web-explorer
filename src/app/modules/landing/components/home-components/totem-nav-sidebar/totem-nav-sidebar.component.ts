@@ -26,6 +26,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
 
   @Input() loggedIn: boolean = false;
   @Output() logInEvent: EventEmitter<boolean> = new EventEmitter();
+  @Output() logOutEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private sidenavStateService: SidenavStateService,
     private web3Auth: Web3AuthService,
@@ -54,6 +55,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   initUserListener() {
     this.subs.add(
       this.user$.subscribe((user: UserEntity | null) => {
+        if(!user) this.userData = null;
         if (user) {
           this.userData = user;
           const userName = user?.name || '';
@@ -80,6 +82,10 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
 
   close() {
     this.sidenavStateService.updateLoadingStatus({isOpen: false, type: this.sidebarType});
+  }
+
+  onLogout() {
+    this.logOutEvent.emit(true);
   }
 
   ngOnDestroy(): void {

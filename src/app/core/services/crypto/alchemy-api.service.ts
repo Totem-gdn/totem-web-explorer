@@ -34,7 +34,29 @@ export class AlchemyService {
             return Date.parse(a.timeLastUpdated) - Date.parse(b.timeLastUpdated);
     
         });
-        return sortedNfts.reverse();
+        return sortedNfts;
+    }
+
+    totalUserItems(wallet: string) {
+        return this.getNfts(wallet).pipe(map(nfts => {
+            let totalItems = 0;
+
+            nfts.forEach(nft => {
+                if(nft.contractMetadata.name === 'Avatar' || nft.contractMetadata.name === 'Item' || nft.contractMetadata.name === 'Gem') {
+                    totalItems++;
+                }
+            })
+            return totalItems;
+        }))
+        // return this.getNfts(wallet).subscribe(nfts => {
+        //     let totalItems = 0;
+        //     for(let nft of nfts) {
+        //         if(nft.contractMetadata.name === 'Avatar' || nft.contractMetadata.name === 'Item' || nft.contractMetadata.name === 'Gem') {
+        //             totalItems++;
+        //         }
+        //     }
+        //     return totalItems;
+        // })
     }
 
     async getNftMetadata(nft: any) {

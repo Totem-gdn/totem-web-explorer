@@ -1,9 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
-import { AvatarCardModule } from '../common-components/cards/avatar-card/avatar-card.module';
-import { GameCardModule } from '../common-components/cards/game-card/game-card.module';
-import { ItemCardModule } from '../common-components/cards/item-card/item-card.module';
+import { CardsModule } from '../common-components/cards/cards.module';
 import { TotemButtonModule } from '../common-components/totem-button/totem-button.module';
 import { FilterComponentsComponent } from './filter-components.component';
 import { AvatarFilterModule } from './filters/avatars-filter/avatars-filter.module';
@@ -27,9 +25,7 @@ import { ItemFilterModule } from './filters/item-filter/item-filter.module';
         FilterTagsModule,
         FilterUpdateModule,
 
-        ItemCardModule,
-        AvatarCardModule,
-        GameCardModule,
+        CardsModule,
 
         TotemButtonModule,
         SharedModule

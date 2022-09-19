@@ -28,6 +28,7 @@ export class UserItemsComponent implements OnInit {
     this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
 
       for(let nft of nfts) {
+        nft.id.tokenId = parseInt(nft.id.tokenId);
         if(nft.contractMetadata.name === 'Item') {
           this.items.unshift(nft);
         }

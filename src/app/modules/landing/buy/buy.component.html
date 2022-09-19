@@ -6,8 +6,8 @@
 
 
     <h1>Create a unique Totem Item!</h1>
-    <h3 class="pb-[30px]">Choose a type of item to mint, follow the steps and get your own item</h3>
-    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis eget sit ultricies accumsan rutrum proin adipiscing. Sed blandit nulla et eget commodo. Ut sit et mauris mauris. Integer tempus elementum imperdiet curabitur et, nullam. Senectus leo scelerisque est nulla duis amet, mi justo, et. Tristique consequat ullamcorper ac ornare semper morbi. </span>
+    <h3 class="pb-[30px]">Choose the item type to mint</h3>
+    <span>Minting of Totem Items may take time. After you transfer the USDC to the Totem's address, your transaction needs to get confirmed. It may take several seconds. After confirmation of your transaction Totem mints the Totem Asset on the smart contract. Confirmation of this transaction also may take several seconds. Overall process may take up to a minute. Please ensure that you have enough USDC on your account and have enough MATIC to transfer USDC.</span>
 
     <div class="items flex-wrap justify-center lg:flex-nowrap lg:justify-between">
         <div class="item gradient-border-solid" *ngFor="let asset of assets">
@@ -25,7 +25,7 @@
             </div>
 
             <div class="bottom">
-                <h3>{{asset.paymentInfo.price}} USDC</h3>
+                <h3 class="font-totem">{{asset.paymentInfo.price}} USDC</h3>
                 <totem-button [width]="'100px'" [height]="'40px'" [caption]="'Generate'" (click)="onBuyItem(asset.paymentInfo.address, asset.paymentInfo.price)"></totem-button>
             </div>
         </div>

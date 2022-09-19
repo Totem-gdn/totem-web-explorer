@@ -101,6 +101,7 @@
       }
 
       .games-tab, .avatars-tab, .items-tab {
+        user-select: none;
         padding-left: 11px;
         padding-right: 11px;
         transition: all 0.33s ease-out;

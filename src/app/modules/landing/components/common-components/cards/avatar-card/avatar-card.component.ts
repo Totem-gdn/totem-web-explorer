@@ -7,7 +7,8 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 @Component({
   selector: 'avatar-card',
   templateUrl: './avatar-card.component.html',
-  styleUrls: ['./avatar-card.component.scss'],
+  styleUrls: ['../cards.component.scss'],
+  styles: ['img {object-fit: cover !important;}']
 })
 export class AvatarCardComponent {
 
