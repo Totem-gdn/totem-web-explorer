@@ -15,6 +15,9 @@ export class LongPressDirective {
     }, 400);
   }
 
+  @HostListener('touchmove') touchmove():void {
+      this.touchEnd();
+  }
   @HostListener('touchend') touchend():void {
       this.touchEnd();
   }

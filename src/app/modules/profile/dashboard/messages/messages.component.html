@@ -58,10 +58,9 @@
         fxLayoutAlign="start center"
         long-press
         (longpress)="checkMessage(message.id)"
-        (touchstart)="checkToOpen(message, $event)"
-        (touchend)="checkToUncheck(message, $event)"
+        (touchend)="checkToUncheck($event)"
         [ngClass]="{'selected-item' : message.isOpened}"
-        (click)="message.isOpened = !message.isOpened; message.isReaded = true"
+        (click)="message.isOpened = !message.isOpened; message.isReaded = true; clicked()"
       >
 
         <div class="visible-info w-full" fxLayout="row" fxLayoutAlign="start center">

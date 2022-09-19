@@ -15,7 +15,7 @@ import { CreativeEffectOptions } from 'swiper/types';
   host: {
     class: 'flex flex-auto w-full h-full'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotemHomePageComponent implements OnInit {
   swiper!: Swiper;
