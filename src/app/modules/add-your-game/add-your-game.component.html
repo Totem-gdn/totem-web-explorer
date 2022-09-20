@@ -21,14 +21,14 @@
 
     <!-- CONTENT -->
     <div class="content-block">
-      <ng-container *ngIf="'selected tab === basic_info'">
-        <!-- <basic-info></basic-info> -->
+      <ng-container *ngIf="activeTab == 'basic-information'">
+        <totem-basic-info-tab></totem-basic-info-tab>
       </ng-container>
-      <ng-container *ngIf="'selected tab === details'">
-        <!-- <details></details> -->
+      <ng-container *ngIf="activeTab == 'details'">
+        <totem-details-tab></totem-details-tab>
       </ng-container>
-      <ng-container *ngIf="'selected tab === links'">
-        <!-- <links></links> -->
+      <ng-container *ngIf="activeTab == 'links'">
+        <totem-links-tab></totem-links-tab>
       </ng-container>
     </div>
 
