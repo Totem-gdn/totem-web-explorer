@@ -46,6 +46,7 @@ export class MessagesComponent implements OnInit {
   selectionActive: boolean = false;
   total: number = 0;
   messageList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  blockDefault: boolean = false;
 
   messageType: any = {
     ACCOUNT: 'account',
@@ -89,15 +90,29 @@ export class MessagesComponent implements OnInit {
   }
 
   checkMessage(id: any) {
+    this.blockDefault = true;
     let index = this.messageList.getValue().findIndex((message) => message.id === id);
     this.messageList.getValue()[index].isChecked = !this.messageList.getValue()[index].isChecked;
     console.log(this.messageList.getValue()[index].isChecked);
   }
 
-  checkToUncheck(message: any, event: any) {
-    if (message.isChecked) {
+  checkToUncheck(event: any) {
+    if (this.blockDefault) {
+      this.blockDefault = false;
       event.preventDefault();
     }
+  }
+
+  uncheckIfChecked(message: any, event: any) {
+    if (message.isChecked) {
+      message.isChecked = false;
+      event.preventDefault();
+    }
+  }
+
+  clicked() {
+    console.log('CLICKED');
+
   }
 
   checkToOpen(message: any, event: any) {
