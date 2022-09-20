@@ -20,6 +20,8 @@ export const AppRoutes: Route[] = [
       { path: 'item-info', loadChildren: () => import('app/modules/landing/item-info/item-info.module').then(m => m.ItemInfoMadule) },
       { path: 'buy', loadChildren: () => import('@app/modules/landing/buy/buy.module').then(m => m.BuyModule)},
       { path: 'profile', loadChildren: () => import('app/modules/profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },
+
+      { path: 'add-your-game', loadChildren: () => import('app/modules/add-your-game/add-your-game.module').then(m => m.AddYourGameModule) },
     ]
   },
 
