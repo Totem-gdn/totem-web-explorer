@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
 
   eventDateTime: number = 0;
 
-  constructor(private readonly changeDetector: ChangeDetectorRef){}
+  constructor(){}
 
   ngOnInit(): void {
     this.eventDateTime = this.eventDate.getTime();
@@ -44,7 +44,6 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
       delta -= this.minutes * 60;
       // what's left is seconds
       this.seconds = Math.floor(delta % 60);
-      this.changeDetector.detectChanges();
     });
   }
 

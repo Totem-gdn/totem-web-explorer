@@ -1,0 +1,21 @@
+<div class="add-your-game">
+  <div class="add-your-game-wrapper">
+    <div class="progress-block">
+      img + progress bar
+    </div>
+    <div class="navigation-block">
+      nav
+    </div>
+    <div class="content-block">
+      <ng-container *ngIf="'selected tab === basic_info'">
+        <!-- <basic-info></basic-info> -->
+      </ng-container>
+      <ng-container *ngIf="'selected tab === details'">
+        <!-- <details></details> -->
+      </ng-container>
+      <ng-container *ngIf="'selected tab === links'">
+        <!-- <links></links> -->
+      </ng-container>
+    </div>
+  </div>
+</div>

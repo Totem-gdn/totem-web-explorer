@@ -1,0 +1,9 @@
+@import 'styles/scss/variables';
+
+.navigation {
+    color: $light-grey;
+
+    a {
+        padding-right: 20px;
+    }
+}
