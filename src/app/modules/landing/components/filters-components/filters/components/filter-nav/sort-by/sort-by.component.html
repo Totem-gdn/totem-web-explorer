@@ -7,7 +7,7 @@
         <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
-    <div #dropdown class="dropdown-menu backdrop-blur-xl" [ngClass]="menuActive ? 'appear': ''"
+    <div #dropdown class="dropdown-menu backdrop-blur-xl gradient-border-solid" [ngClass]="menuActive ? 'appear': ''"
     >
         <div class="menu-items">
             <div class="menu-item">
@@ -17,7 +17,7 @@
                 <span class="">Most popular</span>
             </div>
 
-            <div class="menu-item">
+            <!-- <div class="menu-item">
                 <span class="">A-Z</span>
             </div>
             <div class="menu-item">
@@ -25,7 +25,7 @@
             </div>
             <div class="menu-item">
                 <span class="">Coming soon</span>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

@@ -5,7 +5,7 @@
     </div>
 
     <div class="img-wrapper" *ngIf="item?.id?.tokenId">
-        <img src="{{'https://asset-renderer.totem-explorer.com/item/' + item?.id?.tokenId % 12}}" alt="">
+        <img src="{{'https://asset-renderer.totem-explorer.com/item/' + (+item?.id?.tokenId % 12 + 1)}}" alt="">
     </div>
 
     <svg-sword 

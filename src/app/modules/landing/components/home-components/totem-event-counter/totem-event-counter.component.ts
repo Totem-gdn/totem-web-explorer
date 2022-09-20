@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
 
   eventDateTime: number = 0;
 
-  constructor() { }
+  constructor(private readonly changeDetector: ChangeDetectorRef){}
 
   ngOnInit(): void {
     this.eventDateTime = this.eventDate.getTime();
@@ -30,6 +30,7 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
   calcRemainingTime() {
     const source = timer(1000, 1000);
     this.subscribe = source.subscribe((val: number) => {
+      console.log('clock')
       let currentDate: number = new Date().getTime();
       var delta = Math.abs(this.eventDateTime - currentDate) / 1000;
       // calculate (and subtract) whole days
@@ -43,15 +44,12 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
       delta -= this.minutes * 60;
       // what's left is seconds
       this.seconds = Math.floor(delta % 60);
+      this.changeDetector.detectChanges();
     });
   }
 
   ngOnDestroy(): void {
-    // If eventDate is expired this.subscribe.unsubscribe(); throws error
-    let currentDate: number = new Date().getTime();
-    if(this.eventDateTime > currentDate) {
-      this.subscribe.unsubscribe();
-    }
+      this.subscribe?.unsubscribe();
   }
 
 }

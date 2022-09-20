@@ -25,7 +25,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    // this.web3.
   }
 
 }
