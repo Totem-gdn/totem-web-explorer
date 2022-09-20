@@ -1,11 +1,25 @@
-<div class="add-your-game">
-  <div class="add-your-game-wrapper">
-    <div class="progress-block">
-      img + progress bar
+<div class="add-your-game w-full p-[20px]">
+  <div class="add-your-game-wrapper w-full">
+
+    <!-- BANNER + PROGRESS -->
+    <div class="progress-block w-full mt-[40px]" fxLayout="column" fxLayoutAlign="center start">
+      <div class="banner-info w-full" fxLayout="column" fxLayoutAlign="center center">
+        <div class="banner-info-title font-totem w-full">
+          game application form
+        </div>
+        <div class="banner-info-subtitle mt-[20px]">
+          Join our Totem community & publish your game now!
+        </div>
+      </div>
+      <mat-progress-bar class="progress-bar mt-[21px]" mode="determinate" value="{{progress}}"></mat-progress-bar>
     </div>
+
+    <!-- TABS -->
     <div class="navigation-block">
-      nav
+      <totem-game-submission-nav class="mt-[80px]" [activeTab]="activeTab" (tabSelected)="goToTab($event)"></totem-game-submission-nav>
     </div>
+
+    <!-- CONTENT -->
     <div class="content-block">
       <ng-container *ngIf="'selected tab === basic_info'">
         <!-- <basic-info></basic-info> -->
@@ -17,5 +31,6 @@
         <!-- <links></links> -->
       </ng-container>
     </div>
+
   </div>
 </div>

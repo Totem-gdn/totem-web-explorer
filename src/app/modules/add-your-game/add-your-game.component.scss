@@ -1,9 +1,36 @@
 @import 'styles/scss/variables';
 
-.navigation {
-    color: $light-grey;
+.add-your-game {
+  min-height: 900px;
+  &-wrapper {
 
-    a {
-        padding-right: 20px;
+    .progress-block {
+
+      .banner-info {
+        padding-top: 56px;
+        padding-bottom: 53px;
+        background-color: $yellow;
+        border-radius: 4px;
+        &-title {
+          word-break: break-all;
+          text-align: center;
+          font-weight: 400;
+          font-size: 48px;
+          line-height: 48px;
+          text-transform: uppercase;
+          color: $dark;
+        }
+        &-subtitle {
+          text-align: center;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 23px;
+          color: $dark;
+        }
+
+      }
+
     }
+
+  }
 }

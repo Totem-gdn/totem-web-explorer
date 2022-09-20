@@ -1,0 +1,14 @@
+<div class="submission-nav-wrapper">
+  <div class="submission-nav">
+    <div class="nav-block" (click)="goToTab('basic-information')">
+      <a [ngClass]="activeTab === 'basic-information' ? 'active-tab': ''">Basic Information</a>
+    </div>
+    <div class="nav-block" (click)="goToTab('details')">
+      <a [ngClass]="activeTab === 'details' ? 'active-tab': ''">Details</a>
+    </div>
+    <div class="nav-block" (click)="goToTab('links')">
+      <a [ngClass]="activeTab === 'links' ? 'active-tab': ''">Links</a>
+    </div>
+  </div>
+</div>
+
