@@ -1,7 +1,6 @@
 @import 'styles/scss/variables';
 
 :host {
-  margin-top: 40px;
   width: 100%;
 }
 
@@ -15,6 +14,7 @@ a, span {
 }
 
 .profile-nav-wrapper {
+  margin-top: 60px;
   width: 100%;
   max-width: 1500px;
   padding-left: 20px;
@@ -72,7 +72,6 @@ a, span {
           opacity: 1;
         }
       }
-
     }
 
     @media (min-width: 601px) {
@@ -80,6 +79,7 @@ a, span {
       padding-bottom: 3px;
     }
     @media (max-width: 600px) {
+      border-bottom: none !important;
       place-content: center space-between;
     }
 
@@ -109,6 +109,8 @@ a, span {
     }
   }
   @media (max-width: 600px) {
+    border-bottom: none !important;
+    margin-top: 30px;
     height: unset;
   }
 }

@@ -14,6 +14,7 @@ export class FilterComponentsComponent {
 
     @Input() filterType = 'item';
     @Input() mode = 'active';
+    @Input() showUpdate = true;
     @ViewChild('wrapper') wrapper!: ElementRef;
 
     @Input() items: any[] | undefined;

@@ -5,7 +5,7 @@ import { Component, Input, } from "@angular/core";
     templateUrl: './items.component.html',
     styleUrls: ['./items.component.scss'],
     host: {
-        class: 'px-[20px]'
+        class: 'px-[20px] sm:pt-[40px]'
       }
 })
 

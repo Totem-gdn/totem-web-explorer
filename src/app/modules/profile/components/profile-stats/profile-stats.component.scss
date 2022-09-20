@@ -1,7 +1,6 @@
 @import 'styles/scss/variables';
 
 :host {
-  margin-top: 10px;
   width: 100%;
 }
 
@@ -16,15 +15,21 @@ a, span, div {
 
 .profile-stats-wrapper {
   width: 100%;
-  max-width: 1500px;
+  // max-width: 1500px;
+  background-color: $transparent-light;
+  border-radius: 4px;
+
   .profile-stats {
-    background-color: $transparent-light;
+    max-width: 340px;
     width: 100%;
-    border-radius: 4px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    justify-content: space-between;
     .stats-block {
       height: 100%;
-      width: 170px;
-      padding: 25px 30px;
+      display: flex;
+      white-space: nowrap;
+
       .data-caption {
         margin-top: 4px;
         font-family: 'Roboto';
