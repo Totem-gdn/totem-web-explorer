@@ -1,7 +1,6 @@
 @import 'styles/scss/variables';
 
 :host {
-  margin-top: 40px;
   width: 100%;
 }
 
@@ -30,8 +29,8 @@ a, span {
     border-bottom: 1px solid $dark-grey;
     .nav-block {
       height: inherit;
-      padding-left: 30px;
-      padding-right: 30px;
+      padding-left: 25px;
+      padding-right: 35px;
       flex-direction: column;
       box-sizing: border-box;
       display: flex;
