@@ -1,12 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { StorageKey } from '@app/core/enums/storage-keys.enum';
-import { UserEntity } from '@app/core/models/user-interface.model';
-import { BaseStorageService } from '@app/core/services/base-storage.service';
+import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
 import { UserStateService } from '@app/core/services/user-state.service';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { BehaviorSubject, map, Subscription } from 'rxjs';
-import { Meta } from '@angular/platform-browser';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-add-your-game',
@@ -20,19 +15,10 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  routeValue$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  progress: number = 33.3;
+  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
 
-  constructor(private router: Router, private userStateService: UserStateService, private metaTag: Meta) {
-    this.routeValue$.next(this.router.url);
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.routeValue$.next(event.url);
-      }
-    });
-    this.metaTag.addTags([
-      { name: 'description', content: 'This is an article about Angular Meta service' },
-      { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' }
-    ]);
+  constructor(private userStateService: UserStateService) {
   }
 
   ngOnInit() {
@@ -45,6 +31,21 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  goToTab(tab: string) {
+    if (tab == SUBMISSION_TABS.BASIC_INFO) {
+      this.activeTab = SUBMISSION_TABS.BASIC_INFO;
+      this.progress = 33.3;
+    }
+    if (tab == SUBMISSION_TABS.DETAILS) {
+      this.activeTab = SUBMISSION_TABS.DETAILS;
+      this.progress = 66.6;
+    }
+    if (tab == SUBMISSION_TABS.LINKS) {
+      this.activeTab = SUBMISSION_TABS.LINKS;
+      this.progress = 100;
+    }
   }
 
 }

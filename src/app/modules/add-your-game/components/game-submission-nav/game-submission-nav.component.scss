@@ -1,0 +1,74 @@
+@import 'styles/scss/variables';
+
+:host {
+  margin-top: 40px;
+  width: 100%;
+}
+
+a, span {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: $light-grey;
+}
+
+.submission-nav-wrapper {
+  width: 100%;
+  max-width: 1500px;
+  height: 31px;
+  .submission-nav {
+    flex-flow: row wrap;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center flex-start;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: inherit;
+    border-bottom: 1px solid $dark-grey;
+    .nav-block {
+      height: inherit;
+      padding-left: 30px;
+      padding-right: 30px;
+      flex-direction: column;
+      box-sizing: border-box;
+      display: flex;
+      cursor: pointer;
+
+      a {
+        position: relative;
+        transition: color 0.33s ease-out;
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      a::before {
+        content: '';
+        width: 0px;
+        height: 4px;
+        background-color: $yellow;
+        position: absolute;
+        border-radius: 25px 25px 0 0;
+        top: 28px;
+        right: 0px;
+        left: -4px;
+        opacity: 0;
+        transition: width 0.26s ease-out, opacity 0.26s ease-out;
+      }
+
+      a.active-tab {
+        color: #fff;
+
+        &::before {
+          width: calc(100% + 8px);
+          opacity: 1;
+        }
+      }
+
+    }
+  }
+
+}
