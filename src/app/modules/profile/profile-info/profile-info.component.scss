@@ -171,27 +171,43 @@
           display: flex;
           flex-direction: row;
           place-content: space-between;
-          width: 240px;
+          // width: 240px;
           @media (max-width: 768px) {
             display: none;
           }
           .msg-button {
-            width: 108px;
+            padding-right: 10px;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
             height: 50px;
             background-color: $grey;
             font-weight: 700;
             font-size: 16px;
             color: #FFFFFF;
             border-radius: 4px;
+            & .mat-icon {
+              width: 24px !important;
+              height: 24px !important;
+              margin-right: 10px;
+            }
           }
           .fav-button {
-            width: 108px;
+            margin-right: 24px;
+            padding-right: 10px;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
             height: 50px;
             background-color: $grey;
             font-weight: 700;
             font-size: 16px;
             color: #FFFFFF;
             border-radius: 4px;
+            & .icon-font-favourite {
+              font-size: 24px;
+              margin-right: 10px;
+            }
           }
         }
 

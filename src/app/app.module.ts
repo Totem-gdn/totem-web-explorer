@@ -14,7 +14,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,
-  scrollPositionRestoration: 'enabled',
+  // scrollPositionRestoration: 'enabled',
 };
 
 @NgModule({

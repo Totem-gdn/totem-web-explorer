@@ -7,7 +7,7 @@ export const ProfileRoutes: Route[] = [
         component: ProfileComponent,
         children: [
             {path: '', redirectTo: 'user-items', pathMatch : 'prefix'},
-            {path: 'user-items', loadChildren: () => import('@app/modules/profile/dashboard/items/user-items.module').then(m => m.UserItemsModule)},
+            {path: 'user-items', data: {}, loadChildren: () => import('@app/modules/profile/dashboard/items/user-items.module').then(m => m.UserItemsModule)},
             {path: 'user-games', loadChildren: () => import('@app/modules/profile/dashboard/games/user-games.module').then(m => m.UserGamesModule)},
             {path: 'user-avatars', loadChildren: () => import('@app/modules/profile/dashboard/avatars/user-avatars.module').then(m => m.UserAvatarsModule)},
             {path: 'messages', loadChildren: () => import('@app/modules/profile/dashboard/messages/messages.module').then(m => m.MessagesModule)},

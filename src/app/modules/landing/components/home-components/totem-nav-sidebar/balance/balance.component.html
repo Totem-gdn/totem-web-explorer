@@ -1,6 +1,7 @@
 
 <!-- Balance -->
-<div class="balance">
+<div class="balance"
+[ngClass]="mode != 'small' ? 'pl-[12px]': ''">
     <div *ngIf="mode != 'small'" class="title" (click)="onToggleDropdown()">
       <h3>Balance</h3>
       <mat-icon [ngStyle]="{'transform': isDropdownOpened === true ? 'rotate(180deg)': 'rotate(0deg)'}" [svgIcon]="'line:arrow_up'"></mat-icon>

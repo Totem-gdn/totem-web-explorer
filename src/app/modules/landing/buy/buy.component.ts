@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { forkJoin } from 'rxjs';
@@ -25,9 +25,6 @@ export class BuyComponent implements OnInit {
     this.updateAssets();
   }
 
-  pendingTransaction() {
-  }
-
   async onBuyItem(address: string, amount: any) {
 
     if(!this.web3Service.isLoggedIn()) {
@@ -52,12 +49,12 @@ export class BuyComponent implements OnInit {
     })
   }
 
-  // async onGetTokens() {
-  //   const transfer = await this.paymentService.getTokens();
-  //     console.log('transfer', transfer);
-  //   this.updateBalance();
-  //   this.updateAssets();
-  // }
+  mouseEnter(el: any) {
+    el.style.color = '#FFD011';
+  }
+  mouseLeave(el: any) {
+    el.style.color = '#2A2D33';
+  }
 
   updateAssets() {
     this.paymentService.getAssets().subscribe(assets => {

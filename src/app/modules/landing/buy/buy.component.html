@@ -12,25 +12,25 @@
     <div class="items flex-wrap justify-center lg:flex-nowrap lg:justify-between">
         <div class="item gradient-border-solid m-0 sm:m-[9px]" *ngFor="let asset of assets">
 
-            <div class="p-[15px] rounded border border-dashed border-light-grey">
+            <div #wrapperRef class="top-wrapper">
                 <div class="top">
                     <div class="flex flex-col items-center">
-                        <h2 class="font-totem uppercase text-grey text-3xl xs:text-4xl sm:text-5xl">{{asset.type}}</h2>
+                        <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl">{{asset.type}}</h2>
                     </div>
 
                     <!-- <img *ngIf="asset.type === 'avatar'" src="assets/svgs/buy-items/avatar.png" alt="">
                     <img *ngIf="asset.type === 'gem'" src="assets/svgs/buy-items/gem.png" alt="">
                     <img *ngIf="asset.type === 'item'" src="assets/svgs/buy-items/item.png" alt=""> -->
 
-                    <mat-icon *ngIf="asset.type === 'avatar'" class="text-grey" [svgIcon]="'solid:buy-avatar'"></mat-icon>
-                    <mat-icon *ngIf="asset.type === 'item'" class="text-grey" [svgIcon]="'solid:buy-item'"></mat-icon>
-                    <mat-icon *ngIf="asset.type === 'gem'" class="text-grey" [svgIcon]="'solid:buy-gem'"></mat-icon>
+                    <mat-icon *ngIf="asset.type === 'avatar'" [svgIcon]="'solid:buy-avatar'"></mat-icon>
+                    <mat-icon *ngIf="asset.type === 'item'" [svgIcon]="'solid:buy-item'"></mat-icon>
+                    <mat-icon *ngIf="asset.type === 'gem'" [svgIcon]="'solid:buy-gem'"></mat-icon>
                 </div>
             </div>
 
             <div class="bottom">
-                <h3 class="font-totem text-lg xs:text-xl sm:text-2xl">{{asset.paymentInfo.price}} USDC</h3>
-                <button class="button-style-1">Generate</button>
+                <h3 class="font-totem text-lg lg:text-xl xl:text-2xl whitespace-nowrap pr-[10px]">{{asset.paymentInfo.price}} USDC</h3>
+                <button class="button-style-1" (mouseenter)="mouseEnter(wrapperRef)" (mouseleave)="mouseLeave(wrapperRef)" (click)="onBuyItem(asset.paymentInfo.address, asset.paymentInfo.price)">Generate</button>
                 <!-- <totem-button [width]="'100px'" [height]="'40px'" [caption]="'Generate'" (click)="onBuyItem(asset.paymentInfo.address, asset.paymentInfo.price)"></totem-button> -->
             </div>
         </div>
