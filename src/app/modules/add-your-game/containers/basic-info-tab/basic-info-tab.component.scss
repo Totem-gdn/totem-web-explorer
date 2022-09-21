@@ -1,9 +1,44 @@
 @import 'styles/scss/variables';
 
-.basic-info-tab {
+.info-block {
+  border: 1px solid $light-grey;
+  border-radius: 4px;
   &-wrapper {
+    padding: 30px 20px;
+    background-color: $grey;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    & .section {
+      // min-height: 100px;
+      display: flex;
+      border-bottom: 1px solid $dark-grey;
+      & h4 {
+        width: 230px;
+        font-weight: 500;
+        // white-space: nowrap;
+      }
+      & span {
+        color: $light-grey;
+        margin-bottom: 15px;
+      }
 
-
-
+      & .input-section {
+        display: flex;
+        flex-direction: column;
+  
+        input {
+          // margin-left: 230px;
+        }
+      }
+    }
   }
+}
+
+input, textarea {
+  margin-bottom: 15px;
+  border-radius: 4px;
+  height: 40px;
+  width: 100%;
+  background-color: $dark-grey;
 }
