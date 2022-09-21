@@ -1,0 +1,35 @@
+<div class="details-tab w-full mt-[60px]">
+  <div class="details-tab-wrapper w-full">
+
+    <div class="title pl-[16px]">Images</div>
+
+    <div class="content-container p-[16px] mt-[20px]">
+      <div class="image-upload-block px-[20px] py-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
+        <div class="cover-image-title">Cover Image</div>
+        <div class="file-container p-[20px]">
+          <div
+            class="file-container-wrapper"
+            *ngIf="!imageUrl"
+            [ngStyle]="{'background-color' : imageHover.coverImgHovered ? '#464a5786' : ''}"
+            (dragover)="setHover('cover')"
+            (dragleave)="removeHover('cover')"
+          >
+            <input class="file" id="file" (change)="getFile($event)" type="file" accept="images/*">
+            <div [ngStyle]="{'pointer-events' : imageHover.coverImgHovered ? 'none' : 'all'}" class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon [svgIcon]="'solid:no-image'"></mat-icon>
+              <div class="browse-caption mt-[18px]">Drop your image here, or <label class="browse-button" for="file">browse</label></div>
+              <div class="mt-[16px]">Supports: JPG, PNG, GIF</div>
+              <div>The recommended file resolution is 1400x400px</div>
+              <div>Max file size 20 MB</div>
+            </div>
+
+          </div>
+          <img class="w-full h-full" *ngIf="imageUrl" [src]="imageUrl || ''" alt="">
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
