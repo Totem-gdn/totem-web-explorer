@@ -1,18 +1,180 @@
-<div class="info-block w-full">
-  <div class="info-block-wrapper w-full">
+<form class="desc-form" [formGroup]="infoForm" (ngSubmit)="onSubmit()">
 
-      <div class="section">
-        <h4>Game Name</h4>
-        <div class="input-section">
-          <input type="text">
-          <span>Write a current status of game development</span>
+  <section formGroupName="generalDescription">
+    <h3>General Description</h3>
+
+    <div class="info-block">
+      <div class="info-block-wrapper">
+
+        <div class="block-section pt-[40px]">
+          <h4>Game Name</h4>
+          <div class="input-section">
+            <input type="text" formControlName="gameName">
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Author Name</h4>
+          <div class="input-section">
+            <input type="text" formControlName="authorName">
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Preview Description</h4>
+          <div class="input-section">
+            <textarea class="gradient-border-solid" name="" id="" rows="5"
+              formControlName="previewDescription"></textarea>
+            <span>The text should not contain more than 300 characters</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Genre</h4>
+          <div class="tags-section">
+            <form-dropdown [title]="'Add genre'"></form-dropdown>
+            <div class="tags">
+              <div class="tag" *ngFor="let _ of [].constructor(8)">
+                <span>Long Tag</span>
+                <mat-icon [svgIcon]="'line:close'"></mat-icon>
+              </div>
+            </div>
+            <span>Choose a couple of genres in the menu</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section formGroupName="gamePreview">
+    <h3>Game details preview</h3>
+
+    <div class="info-block">
+      <div class="info-block-wrapper">
+
+        <div class="block-section pt-[40px]">
+          <h4>Status</h4>
+          <div class="input-section">
+            <input type="text" formControlName="status">
+            <span>Write a current status of game development</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Platforms</h4>
+          <div class="tags-section">
+            <form-dropdown [title]="'Add platforms'"></form-dropdown>
+            <div class="tags">
+              <div class="tag" *ngFor="let _ of [].constructor(8)">
+                <span>Long Tag</span>
+                <mat-icon [svgIcon]="'line:close'"></mat-icon>
+              </div>
+            </div>
+            <span>Choose the platforms the game supports</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Made with<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="madeWith">
+            <span>List programs and tools that were used to create a game</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Session<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="session">
+            <span>Write time of average session</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Languages<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="languages">
+            <span>Write the languages ​​the game supports</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Inputs<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="inputs">
+            <span>List the types of inputs that the game supports</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section formGroupName="generalDescription">
+    <h3>General Description</h3>
+
+    <div class="info-block">
+      <div class="info-block-wrapper">
+
+        <div class="block-section pt-[40px]">
+          <h4>Game Name</h4>
+          <div class="input-section">
+            <input type="text" formControlName="gameName">
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Author Name</h4>
+          <div class="input-section">
+            <input type="text" formControlName="authorName">
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Preview Description</h4>
+          <div class="input-section">
+            <textarea class="gradient-border-solid" name="" id="" rows="5"
+              formControlName="previewDescription"></textarea>
+            <span>The text should not contain more than 300 characters</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Genre</h4>
+          <div class="tags-section">
+            <form-dropdown class="max-w-[300px]" [title]="'Add genre'"></form-dropdown>
+            <div class="tags">
+              <div class="tag" *ngFor="let _ of [].constructor(8)">
+                <span>Long Tag</span>
+                <mat-icon [svgIcon]="'line:close'"></mat-icon>
+              </div>
+            </div>
+            <span>Choose a couple of genres in the menu</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section formGroupName="fullDescription">
+    <h3>Description</h3>
+
+    <div class="info-block">
+      <div class="info-block-wrapper">
+        <div class="block-section pt-[40px]">
+          <h4>Full Description<span class="ml-[10px]">(optional)</span></h4>
+          <div class="input-section">
+            <textarea class="gradient-border-solid" name="" id="" rows="10"
+              formControlName="previewDescription"></textarea>
+            <span>The text should not contain more than 300 characters</span>
+          </div>
         </div>
       </div>
-      
-      <div class="section">
-        <h4>Author Name</h4>
-        <input type="text">
-      </div>
+    </div>
 
-  </div>
-</div>
+  </section>
+
+  <button class="button-style-1">Submit</button>
+</form>

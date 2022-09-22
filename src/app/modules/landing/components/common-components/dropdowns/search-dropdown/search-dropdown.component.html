@@ -1,0 +1,44 @@
+<div class="dropdown" (clickOutside)="onClick($event)">
+    <div #menu class="menu-filter bg-grey" (click)="onClickMenu($event)"
+    [ngClass]="menuActive ? 'gradient-border-solid': ''">
+
+        <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
+        <mat-icon class="pointer-events-none" *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
+        <mat-icon class="pointer-events-none" *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+
+    </div>
+
+    <div #dropdown class="dropdown-menu w-[200px] lg:w-[300px]"
+        [ngClass]="menuActive ? 'appear': ''"
+        >
+
+        <div class="search">
+            <search-field></search-field>
+        </div>
+
+        <div class="menu-items">
+            <div class="menu-item" *ngFor="let item of items"
+            [ngClass]="alwaysOpen ? 'demo-border': ''">
+                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent checked" type="radio" name="input">
+
+                <div class="content">
+                    <div class="p-2 w-9 h-9 img rounded item-gradient"></div>
+
+                    <div class="flex flex-col my-auto px-2.5">
+                        <span>{{item.name}}</span>
+                        <span class="text-light-grey">{{item.genre}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="flex justify-center pt-[10px]">
+            <div class="flex flex-col pb-[1px] cursor-pointer" (click)="onClickViewAll()">
+                <span class="text-center">View all</span>
+                <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
+            </div>
+        </div>
+
+    </div>
+</div>

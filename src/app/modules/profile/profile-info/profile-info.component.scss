@@ -186,10 +186,15 @@
             font-size: 16px;
             color: #FFFFFF;
             border-radius: 4px;
+            transition: color 0.3s, background-color 0.3s;
             & .mat-icon {
               width: 24px !important;
               height: 24px !important;
               margin-right: 10px;
+            }
+            &:hover {
+              color: $black;
+              background-color: $yellow;
             }
           }
           .fav-button {
@@ -204,9 +209,14 @@
             font-size: 16px;
             color: #FFFFFF;
             border-radius: 4px;
+            transition: color 0.3s, background-color 0.3s;
             & .icon-font-favourite {
               font-size: 24px;
               margin-right: 10px;
+            }
+            &:hover {
+              color: $black;
+              background-color: $yellow;
             }
           }
         }

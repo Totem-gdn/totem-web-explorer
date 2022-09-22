@@ -50,12 +50,12 @@ export class Web3AuthService {
     }
 
     login = async () => {
-        document.getElementById('w3a-container')!.style.visibility = 'visible';
         if (!this.web3auth) {
             console.log("web3auth not initialized yet");
             return;
         }
         const web3auth = this.web3auth;
+        document.getElementById('w3a-container')!.style.visibility = 'visible';
         this.provider = await web3auth.connect();
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
         console.log("logged in");

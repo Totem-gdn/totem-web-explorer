@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { ComboBoxService } from "@app/core/services/combobox-state.service";
 import { Subscription } from "rxjs";

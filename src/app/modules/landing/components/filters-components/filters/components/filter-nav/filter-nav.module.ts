@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
-import { SearchDropdownModule } from "@app/modules/landing/components/common-components/search-dropdown/search-dropdown.module";
+import { SearchDropdownModule } from "@app/modules/landing/components/common-components/dropdowns/search-dropdown/search-dropdown.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { ClearAllModule } from "./clear-all/clear-all.module";
 import { FilterNavComponent } from "./filter-nav.component";

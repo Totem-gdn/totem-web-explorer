@@ -1,5 +1,6 @@
 
 @import 'styles/scss/variables';
+@import 'styles/scss/placeholders';
 
 .menu-filter {
     height: 50px;
@@ -40,18 +41,25 @@
     position: relative;
 
     .dropdown-menu {
-
+        @extend %gradient-border-solid;
+        position: absolute !important;
+        backdrop-filter: blur(24px);
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
         display: inline-block;
         margin-top: 9px;
-        position: absolute;
         border-radius: 4px;
         background-color: $transparent-light;
         padding: 4px 0;
+        padding-bottom: 0;
         z-index: 30;
         transition: opacity 0.4s, visibility 0.4s;
+
+        .search {
+            padding: 5px 5px 10px 5px;
+            width: 100%;
+        }
 
         .menu-items {
             max-height: 200px;

@@ -73,8 +73,10 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
             this.snackService.open('Insufficient Matic Balance');
             return;
         }
+        this.snackService.open('Claiming USDC');
         await this.paymentService.getTokens().then(hash => {
-            console.log(hash);
+            this.updateBalance();
+            this.snackService.open('USDC balance updated');
         }).catch(error => {
             this.snackService.open('Error');
             console.log(error);

@@ -47,6 +47,7 @@ export class UserStateService implements OnDestroy {
   async getUserInfoViaWeb3() {
     const wallet: string = await this.web3AuthService.getAccounts();
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
+    console.log('user info', userInfo);
     const userToUse: UserEntity = {
       name: userInfo?.name,
       email: userInfo?.email,

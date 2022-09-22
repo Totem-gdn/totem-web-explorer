@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Subscription } from 'rxjs';
 
@@ -17,6 +18,19 @@ export class BasicInfoTabComponent implements OnInit, OnDestroy {
   constructor(private userStateService: UserStateService) {
   }
 
+  infoForm = new FormGroup({
+    generalDescription: new FormGroup({
+      gameName: new FormControl(null, [Validators.required]),
+      authorName: new FormControl(null,),
+      previewDescription: new FormControl(null,),
+
+    }),
+
+  })
+
+  onSubmit() {
+    console.log(this.infoForm.value.generalDescription?.gameName);
+  }
   ngOnInit() {
     /* this.subs.add(
       this.userStateService.isLoading.subscribe((value: boolean) => {

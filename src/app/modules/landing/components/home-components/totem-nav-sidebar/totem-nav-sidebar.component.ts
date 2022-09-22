@@ -55,6 +55,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   initUserListener() {
     this.subs.add(
       this.user$.subscribe((user: UserEntity | null) => {
+        console.log('new user', user);
         if(!user) this.userData = null;
         if (user) {
           this.userData = user;
