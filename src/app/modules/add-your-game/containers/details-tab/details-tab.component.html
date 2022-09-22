@@ -1,35 +1,54 @@
 <div class="details-tab w-full mt-[60px]">
   <div class="details-tab-wrapper w-full">
-
     <div class="title pl-[16px]">Images</div>
-
     <div class="content-container p-[16px] mt-[20px]">
-      <div class="image-upload-block px-[20px] py-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
-        <div class="cover-image-title">Cover Image</div>
-        <div class="file-container p-[20px]">
-          <div
-            class="file-container-wrapper"
-            *ngIf="!imageUrl"
-            [ngStyle]="{'background-color' : imageHover.coverImgHovered ? '#464a5786' : ''}"
-            (dragover)="setHover('cover')"
-            (dragleave)="removeHover('cover')"
-          >
-            <input class="file" id="file" (change)="getFile($event)" type="file" accept="images/*">
-            <div [ngStyle]="{'pointer-events' : imageHover.coverImgHovered ? 'none' : 'all'}" class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
-              <mat-icon [svgIcon]="'solid:no-image'"></mat-icon>
-              <div class="browse-caption mt-[18px]">Drop your image here, or <label class="browse-button" for="file">browse</label></div>
-              <div class="mt-[16px]">Supports: JPG, PNG, GIF</div>
-              <div>The recommended file resolution is 1400x400px</div>
-              <div>Max file size 20 MB</div>
-            </div>
+      <div class="image-upload-block px-[20px] py-[30px]" fxLayout="column" fxLayoutAlign="center start">
 
+        <div class="cover-image-block w-full pb-[16px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title mr-[20px]">Cover Image</div>
+          <div class="cover-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
+            <div class="file-container p-[20px]">
+              <totem-image-dropzone [selfFill]="true" [recommendedResolution]="'1400x400px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+            </div>
+            <div class="sub-caption mt-[16px]">Upload cover photo for your game page</div>
           </div>
-          <img class="w-full h-full" *ngIf="imageUrl" [src]="imageUrl || ''" alt="">
         </div>
 
+        <div class="card-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title mr-[20px]">Card thumbnail</div>
+          <div class="card-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
+            <div class="card-content p-[20px]" fxLayout="row" fxLayoutAlign="start start">
+              <div class="file-container mr-[20px]">
+                <totem-image-dropzone [selfFill]="true" [recommendedResolution]="'800x600px'" [dzMinHeight]="'472px'"></totem-image-dropzone>
+              </div>
+              <div class="preview-block card-preview p-[20px]">afs</div>
+            </div>
+
+            <div class="sub-caption mt-[16px]">Upload photos for game thumbnail</div>
+          </div>
+        </div>
+
+        <div class="search-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title mr-[20px]">Search thumbnail</div>
+          <div class="search-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
+            <div class="file-container p-[20px]">
+              <totem-image-dropzone [selfFill]="true" [recommendedResolution]="'1400x400px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+            </div>
+            <div class="sub-caption mt-[16px]">Upload photos for search thumbnail</div>
+          </div>
+        </div>
+
+        <div class="gallery-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title mr-[20px]">Images Gallery</div>
+          <div class="gallery-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
+            <div class="file-container p-[20px]">
+              <totem-image-dropzone [selfFill]="true" [recommendedResolution]="'1400x400px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+            </div>
+            <div class="sub-caption mt-[16px]">Upload photos for your game page</div>
+          </div>
+        </div>
 
       </div>
     </div>
-
   </div>
 </div>

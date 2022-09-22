@@ -1,28 +1,28 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "@app/shared/shared.module";
-import { DetailsTabComponent } from "./details-tab.component";
+import { TotemImageDropzoneComponent } from "./totem-image-dropzone.component";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
-import { TotemImageDropzoneModule } from "../../components/totem-image-dropzone/totem-image-dropzone.module";
+import { ImageCropperModule } from "ngx-image-cropper";
 
 @NgModule({
     declarations: [
-        DetailsTabComponent,
+        TotemImageDropzoneComponent,
     ],
     imports: [
         SharedModule,
         FlexLayoutModule,
         MatIconModule,
         MatRippleModule,
-        TotemImageDropzoneModule
+        ImageCropperModule
     ],
     exports: [
-        DetailsTabComponent
+        TotemImageDropzoneComponent
     ]
 })
 
-export class DetailsTabModule {
+export class TotemImageDropzoneModule {
 
 }

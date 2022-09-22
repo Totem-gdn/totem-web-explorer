@@ -21,7 +21,7 @@ export const AppRoutes: Route[] = [
       { path: 'buy', loadChildren: () => import('@app/modules/landing/buy/buy.module').then(m => m.BuyModule)},
       { path: 'profile', loadChildren: () => import('app/modules/profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },
 
-      { path: 'game-submission', loadChildren: () => import('app/modules/add-your-game/add-your-game.module').then(m => m.AddYourGameModule) },
+      { path: 'submit-game', loadChildren: () => import('app/modules/add-your-game/add-your-game.module').then(m => m.AddYourGameModule) },
     ]
   },
 
