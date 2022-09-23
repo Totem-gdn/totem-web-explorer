@@ -2,13 +2,20 @@
   class="file-container"
   *ngIf="!imageUrl || !selfFill"
   style="--minh: {{dzMinHeight}}"
-  [ngStyle]="{'background-color' : dzHovered ? '#464a5786' : ''}"
-  (dragover)="setHover()"
-  (dragleave)="removeHover()"
+  [ngStyle]="{'border' : dzHovered ? '1px dashed #fff;' : ''}"
+  (dragenter)="setHover()"
 >
-  <input class="file" id="file" (change)="getFile($event)" type="file" accept="images/*">
+  <input
+    (dragleave)="removeHover()"
+    [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
+    class="file"
+    id="file"
+    (change)="getFile($event)"
+    type="file"
+    accept="images/*"
+  >
   <div class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
-    <mat-icon [svgIcon]="'solid:no-image'"></mat-icon>
+    <mat-icon [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:no-image'"></mat-icon>
     <div class="browse-caption mt-[18px]">Drop your image here, or
       <label [ngStyle]="{'pointer-events' : !dzHovered ? 'all' : 'none'}" class="browse-button" for="file">browse</label>
     </div>
@@ -20,15 +27,3 @@
 <div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="imageUrl && selfFill">
   <img class="uploaded-image" [src]="imageUrl || ''" alt="">
 </div>
-<image-cropper
-[imageChangedEvent]="imageChangedEvent"
-format="png"
-[maintainAspectRatio]="false"
-[cropperMinWidth]="1400"
-[cropperMinHeight]="400"
-[cropperMaxHeight]="400"
-(imageCropped)="imageCropped($event)"
-(imageLoaded)="imageLoaded()"
-(cropperReady)="cropperReady()"
-(loadImageFailed)="loadImageFailed()"
-></image-cropper>

@@ -6,6 +6,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { TotemImageDropzoneModule } from "../../components/totem-image-dropzone/totem-image-dropzone.module";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { TotemCropperModule } from "../../modules/totem-cropper/totem-cropper.module";
 
 @NgModule({
     declarations: [
@@ -16,7 +18,9 @@ import { TotemImageDropzoneModule } from "../../components/totem-image-dropzone/
         FlexLayoutModule,
         MatIconModule,
         MatRippleModule,
-        TotemImageDropzoneModule
+        TotemImageDropzoneModule,
+        MatDialogModule,
+        TotemCropperModule
     ],
     exports: [
         DetailsTabComponent

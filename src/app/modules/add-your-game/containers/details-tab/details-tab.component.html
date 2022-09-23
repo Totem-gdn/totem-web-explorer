@@ -1,6 +1,6 @@
 <div class="details-tab w-full mt-[60px]">
   <div class="details-tab-wrapper w-full">
-    <div class="title pl-[16px]">Images</div>
+    <div class="title pl-[16px]" (click)="openCropperDialog(file)">Images</div>
     <div class="content-container p-[16px] mt-[20px]">
       <div class="image-upload-block px-[20px] py-[30px]" fxLayout="column" fxLayoutAlign="center start">
 
@@ -8,7 +8,7 @@
           <div class="image-block-title mr-[20px]">Cover Image</div>
           <div class="cover-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="file-container p-[20px]">
-              <totem-image-dropzone [selfFill]="true" [recommendedResolution]="'1400x400px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+              <totem-image-dropzone [finalizedImage]="finalizedImage" (finalizedFile)="cropSelectedImage($event)" [selfFill]="true" [recommendedResolution]="'1400x400px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
             </div>
             <div class="sub-caption mt-[16px]">Upload cover photo for your game page</div>
           </div>

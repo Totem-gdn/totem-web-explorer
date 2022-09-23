@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
 import { UserStateService } from '@app/core/services/user-state.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
 
 @Component({
   selector: 'totem-details-tab',
@@ -17,6 +19,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   file!: File;
   imageUrl!: string;
   imageReader: FileReader = new FileReader();
+  finalizedImage!: File;
 
   imageHover: any = {
     coverImgHovered: false,
@@ -25,7 +28,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     galleryImgHovered: false,
   };
 
-  constructor(private userStateService: UserStateService) {
+  constructor(readonly matDialog: MatDialog,) {
   }
 
   ngOnInit() {
@@ -76,6 +79,30 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     console.log(this.file);
     this.imageReader.readAsDataURL(this.file);
     this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
+  }
+
+  cropSelectedImage(event: any) {
+    this.file = event;
+    this.openCropperDialog(event);
+  }
+
+  openCropper(image: any): Observable<string> {
+    const options: MatDialogConfig = {
+        disableClose: false,
+        panelClass: 'large-dialog',
+        data: image,
+        autoFocus: false
+    };
+    return this.matDialog.open(TotemCropperComponent, options).afterClosed();
+  }
+
+  openCropperDialog(image: any) {
+    this.subs.add(
+      this.openCropper(image).subscribe((data: any) => {
+        console.log(data);
+        this.finalizedImage = data;
+      })
+    )
   }
 
 }
