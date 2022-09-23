@@ -42,13 +42,14 @@ export class FormDropdownComponent {
     }
 
     onToggleMenu() {
-        if(this.menuActive) this.touched.emit(true);
+        if(this.menuActive) this.touched.emit();
         this.menuActive = !this.menuActive;
     }
 
     onClick(isClickedInside: any) {
         if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
             this.menuActive = false;
+            this.touched.emit();
         }
     }
 }

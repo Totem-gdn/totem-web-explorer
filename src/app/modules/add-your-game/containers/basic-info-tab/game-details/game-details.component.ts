@@ -25,7 +25,7 @@ export class GameDetailsComponent {
 
     gameDetails = new FormGroup({
         status: new FormControl(null, Validators.required),
-        madeWidth: new FormControl(null, Validators.required),
+        madeWith: new FormControl(null),
         session: new FormControl(null),
         languages: new FormControl(null),
         inputs: new FormControl(null), 
@@ -35,13 +35,14 @@ export class GameDetailsComponent {
         this.dropdownTouched = true;
     }
 
-    onSelectPlatform(tag: Tag) {
+    onSelectTag(tag: Tag) {
         if(tag.checked === true) {
             this.platforms.push(tag);
         }
         if(tag.checked === false) {
             this.onRemoveTag(tag);
         }
+        console.log(this.platforms);
     }
 
     onRemoveTag(tag: Tag) {
