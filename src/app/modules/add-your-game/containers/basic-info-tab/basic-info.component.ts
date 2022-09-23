@@ -1,35 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'totem-basic-info-tab',
-  templateUrl: './basic-info-tab.component.html',
-  styleUrls: ['./basic-info-tab.component.scss'],
+  selector: 'totem-basic-info',
+  templateUrl: './basic-info.component.html',
+  styleUrls: ['./basic-info.component.scss'],
   host: {
         class: 'flex flex-auto w-full h-full'
   }
 })
-export class BasicInfoTabComponent implements OnInit, OnDestroy {
+export class BasicInfoComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
 
   constructor(private userStateService: UserStateService) {
   }
 
-  infoForm = new FormGroup({
-    generalDescription: new FormGroup({
-      gameName: new FormControl(null, [Validators.required]),
-      authorName: new FormControl(null,),
-      previewDescription: new FormControl(null,),
-
-    }),
-
-  })
-
   onSubmit() {
-    console.log(this.infoForm.value.generalDescription?.gameName);
+    
   }
   ngOnInit() {
     /* this.subs.add(

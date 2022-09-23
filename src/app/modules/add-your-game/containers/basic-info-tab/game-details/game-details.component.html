@@ -1,0 +1,65 @@
+<form class="form-section" [formGroup]="gameDetails">
+    <h3>Game details preview</h3>
+
+    <div class="info-block">
+      <div class="info-block-wrapper">
+
+        <div class="block-section pt-[40px]">
+          <h4>Status</h4>
+          <div class="input-section">
+            <input type="text" formControlName="status">
+            <span>Write a current status of game development</span>
+            <span @showMessage class="error-message" *ngIf="statusErrors">Status is required</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Platforms</h4>
+          <div class="tags-section">
+            <form-dropdown (selectedTag)="onSelectPlatform($event)" (touched)="onTouchDropdown()" [title]="'Add platforms'" [items]="dropdownPlatforms"></form-dropdown>
+            <div class="tags">
+              <div class="tag" *ngFor="let platform of platforms" (click)="onRemoveTag(platform)">
+                <span>{{platform.value}}</span>
+                <mat-icon [svgIcon]="'line:close'"></mat-icon>
+              </div>
+            </div>
+            <span>Choose the platforms the game supports</span>
+            <span @showMessage class="error-message" *ngIf="dropdownTouched && platforms.length === 0">Preview Description is required</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Made with<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="madeWith">
+            <span>List programs and tools that were used to create a game</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Session<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="session">
+            <span>Write time of average session</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Languages<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="languages">
+            <span>Write the languages ​​the game supports</span>
+          </div>
+        </div>
+
+        <div class="block-section pt-[40px]">
+          <h4>Inputs<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="inputs">
+            <span>List the types of inputs that the game supports</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</form>

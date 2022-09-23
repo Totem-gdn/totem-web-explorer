@@ -6,6 +6,8 @@ input[type="checkbox"] {
     color: currentColor;
     border: 1px solid $light-grey;
     border-radius: 4px;
+    width: 24px;
+    height: 24px;
 }
 input[type="checkbox"]:checked {
     border: 1px solid $yellow;

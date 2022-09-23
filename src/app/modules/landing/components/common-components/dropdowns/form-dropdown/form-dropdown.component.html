@@ -1,35 +1,25 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
-    <div #menu class="menu-filter" (click)="onToggleMenu()"
+    <div #menu class="dropdown-toggle" (click)="onToggleMenu()"
     [ngClass]="menuActive ? 'gradient-border-solid': ''">
 
-        <span class="whitespace-nowrap text-light-grey pointer-events-none">{{title}}</span>
-        <mat-icon class="pointer-events-none" *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
-        <mat-icon class="pointer-events-none" *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+        <span>{{title}}</span>
+        <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
+        <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
 
     </div>
 
-    <div #dropdown class="dropdown-menu w-full"
-        [ngClass]="menuActive ? 'appear': ''"
-        >
+    <div #dropdown class="menu w-full"
+        [ngClass]="menuActive ? 'appear': ''">
 
         <div class="search">
             <search-field></search-field>
         </div>
 
-        <div class="menu-items">
-            <div class="menu-item" *ngFor="let item of items">
-                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent checked" type="radio" name="input">
-
-                <div class="content">
-                    <div class="p-2 w-9 h-9 img rounded item-gradient"></div>
-
-                    <div class="flex flex-col my-auto px-2.5">
-                        <span>{{item.name}}</span>
-                        <span *ngIf="item?.genre" class="text-light-grey">{{item.genre}}</span>
-                    </div>
-                </div>
-
-            </div>
+        <div #menuItems class="menu-items mt-[10px]">
+            <label class="menu-item" *ngFor="let item of items">
+                <span>{{item.value}}</span>
+                <input (change)="onChangeInput($event)" value="{{item.value}}" type="checkbox" name="input">
+            </label>
         </div>
     </div>
 </div>

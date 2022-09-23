@@ -4,7 +4,8 @@
 .desc-form {
   width: 100%;
   height: 100%;
-  & section {
+  }
+  .form-section {
     padding-top: 70px;
     // padding-bottom: 60px;
     & h3 {
@@ -27,60 +28,52 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
-        & .block-section {
-          display: flex;
-          border-bottom: 1px solid $dark-grey;
-          & h4 {
-            width: 100%;
-            max-width: 230px;
-            font-weight: 500;
-            // white-space: nowrap;
-          }
-          & span {
-            margin-bottom: 15px;
-          }
-    
-          & .input-section {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-          }
-        }
       }
+   }
+
+  .block-section {
+    display: flex;
+    border-bottom: 1px solid $dark-grey;
+    & h4 {
+      margin-bottom: 15px;
+      width: 100%;
+      max-width: 230px;
+      font-weight: 500;
+      // white-space: nowrap;
     }
+    & span {
+      margin-bottom: 15px;
+    }
+
+
+  }
+
+  .input-section {
+    transition: height .3 ease-in-out;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 
   .tags-section {
+    transition: height .3 ease-in-out;
     display: flex;
     flex-direction: column;
+    width: 100%;
 
-    & .dropdown {
+    form-dropdown {
       margin-bottom: 15px;
-      border-radius: 4px;
-      padding: 12px;
-      background-color: $dark-grey;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: $light-grey;
-      height: 40px;
-      max-width: 300px;
-      width: 100%;
-      & span {
-        margin-bottom: 0 !important;
-      }
-      & .mat-icon {
-        width: 12px !important;
-      }
     }
 
     & .tags {
+      min-height: 40px;
       margin-bottom: 15px;
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       & .tag {
+        cursor: pointer;
         border-radius: 4px;
         padding: 15px;
         height: 40px;
@@ -114,7 +107,7 @@
       border: 1px solid $dark-grey;
     }
     &:focus {
-      background-color: $black;
+      // background-color: $black;
       border: 1px solid $dark-grey;
     }
   }
@@ -126,11 +119,25 @@
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .block-section {
+    flex-wrap: wrap;
+  }
+}
+
+
 input.ng-invalid.ng-touched {
   border: 1px solid #FF5252;
 }
 
 textarea.ng-invalid.ng-touched {
   border: 1px solid #FF5252;
+}
+
+.error-message {
+  user-select: none;
+  height: 36px;
+  margin: 0 !important;
+  color: #FF5252 !important;
 }
 

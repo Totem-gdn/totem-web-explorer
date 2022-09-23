@@ -9,7 +9,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { GameSubmissionNavModule } from "./components/game-submission-nav/game-submission-nav.module";
 import { DetailsTabModule } from "./containers/details-tab/details-tab.module";
 import { LinksTabModule } from "./containers/links-tab/links-tab.module";
-import { BasicInfoTabModule } from "./containers/basic-info-tab/basic-info-tab.module";
+import { BasicInfoModule } from "./containers/basic-info-tab/basic-info.module";
 
 @NgModule({
     declarations: [
@@ -25,7 +25,7 @@ import { BasicInfoTabModule } from "./containers/basic-info-tab/basic-info-tab.m
 
         DetailsTabModule,
         LinksTabModule,
-        BasicInfoTabModule
+        BasicInfoModule
     ],
     exports: [
       AddYourGameComponent

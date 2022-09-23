@@ -49,11 +49,13 @@ export class BuyComponent implements OnInit {
     })
   }
 
-  mouseEnter(el: any) {
-    el.style.color = '#FFD011';
+  mouseEnter(el: any, circles: any) {
+    circles.style.opacity = '0.5';
+    el.style.color = 'white';
   }
-  mouseLeave(el: any) {
-    el.style.color = '#2A2D33';
+  mouseLeave(el: any, circles: any) {
+    circles.style.opacity = '0';
+    el.style.color = '#353840';
   }
 
   updateAssets() {

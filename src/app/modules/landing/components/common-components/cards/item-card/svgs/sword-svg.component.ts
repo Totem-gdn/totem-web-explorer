@@ -828,7 +828,7 @@ import { Component, Input } from '@angular/core';
 
     `,
     styles: [
-        'svg { height: 100%; width: 100%; position: absolute; }'
+        'svg { height: 100%; width: 100%; position: absolute; transition: all 0.3 ease-in-out;}'
     ],
     host: {
         class: 'relative'

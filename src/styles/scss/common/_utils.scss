@@ -5,6 +5,14 @@
     filter: blur(200px);
 }
 
+.blur-md {
+    filter: blur(150px);
+}
+
+.blur-sm {
+    filter: blur(100px);
+}
+
 .like {
     cursor: pointer;
     color: $light-grey;

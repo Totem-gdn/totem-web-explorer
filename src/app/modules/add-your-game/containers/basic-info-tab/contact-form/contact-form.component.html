@@ -1,0 +1,26 @@
+<form class="form-section" [formGroup]="contactForm">
+    <h3>Contact</h3>
+
+    <div class="info-block">
+        <div class="info-block-wrapper">
+
+            <div class="block-section pt-[40px]">
+                <h4>E-mail</h4>
+                <div class="input-section">
+                    <input type="text" formControlName="email">
+                    <span>Write a reliable email address to get a form confirmation</span>
+                    <span @showMessage class="error-message" *ngIf="emailErrors">Status is required</span>
+                </div>
+            </div>
+
+            <div class="block-section pt-[40px]">
+                <h4>Discord<span class="pl-[10px]">(Optional)</span></h4>
+                <div class="input-section">
+                    <input type="text" formControlName="discord">
+                    <span>Don’t have Discord yet? <a class="!text-yellow cursor-pointer" href="https://discord.com/invite/totem-gdn" target="_blank">Join the Totem community</a></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
