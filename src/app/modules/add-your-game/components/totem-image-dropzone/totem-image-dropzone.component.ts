@@ -1,8 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
-import { UserStateService } from '@app/core/services/user-state.service';
-import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-image-dropzone',
@@ -23,18 +20,28 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   dzHovered: boolean = false;
 
   imageChangedEvent: any = '';
-    croppedImage: any = '';
+  croppedImage: any = '';
 
   @Input() recommendedResolution: string = '';
   @Input() selfFill: boolean = false;
   @Input() dzMinHeight: string = '247px';
+  @Input() finalizedImage!: File;
 
-  @Output() finalizedFile: EventEmitter<File> = new EventEmitter<File>();
+  @Output() finalizedFile: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['finalizedImage']) {
+      if (this.finalizedImage) {
+        this.imageReader.readAsDataURL(this.finalizedImage);
+        this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
+      }
+    }
   }
 
   ngOnDestroy(): void {
@@ -50,59 +57,13 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   }
 
   getFile(event: any) {
-    console.log(event);
+    console.log(typeof event);
     this.imageChangedEvent = event;
     this.file = event.target.files[0];
     console.log(this.file);
-    this.imageReader.readAsDataURL(this.file);
-    this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
+    //this.imageReader.readAsDataURL(this.file);
+    //this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
+    this.finalizedFile.next(event)
   }
-
-
-
-    fileChangeEvent(event: any): void {
-        this.imageChangedEvent = event;
-    }
-    /* imageCropped(event: ImageCroppedEvent) {
-        this.imageUrl = event.base64!;
-        console.log(this.croppedImage);
-
-    } */
-    imageLoaded() {
-        // show cropper
-    }
-    cropperReady() {
-        // cropper ready
-    }
-    loadImageFailed() {
-        // show message
-    }
-
-    imageCropped(event: ImageCroppedEvent) {
-      // Preview
-      this.imageUrl = event.base64!;
-
-      const fileToReturn = this.base64ToFile(
-        event.base64,
-        this.file.name,
-      )
-      console.log(fileToReturn);
-    }
-
-
-    base64ToFile(data: any, filename: string) {
-
-      const arr = data.split(',');
-      const mime = arr[0].match(/:(.*?);/)[1];
-      const bstr = atob(arr[1]);
-      let n = bstr.length;
-      let u8arr = new Uint8Array(n);
-
-      while(n--){
-          u8arr[n] = bstr.charCodeAt(n);
-      }
-
-      return new File([u8arr], filename, { type: mime });
-    }
 
 }

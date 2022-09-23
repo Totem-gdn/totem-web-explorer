@@ -5,7 +5,6 @@ import { TotemImageDropzoneComponent } from "./totem-image-dropzone.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
-import { ImageCropperModule } from "ngx-image-cropper";
 
 @NgModule({
     declarations: [
@@ -15,8 +14,7 @@ import { ImageCropperModule } from "ngx-image-cropper";
         SharedModule,
         FlexLayoutModule,
         MatIconModule,
-        MatRippleModule,
-        ImageCropperModule
+        MatRippleModule
     ],
     exports: [
         TotemImageDropzoneComponent

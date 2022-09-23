@@ -1,0 +1,47 @@
+<div class="totem-crop-dialog px-[18px] py-[20px]">
+  <div class="totem-crop-dialog-wrapper" fxLayout="column" fxLayoutAlign="space-between start">
+    <div class="crop-workbench w-full p-[18px]">
+      <div class="crop-workbench-cropground" [ngStyle]="{'opacity': !(loading$ | async) ? '1' : '0'}">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          format="png"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="16/5"
+          [allowMoveImage]="true"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+      </div>
+      <div class="crop-workbench-loader" fxLayout="column" fxLayoutAlign="center center" *ngIf="(loading$ | async)">
+        <totem-spinner></totem-spinner>
+      </div>
+
+    </div>
+    <div class="crop-footer w-full" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="crop-tools" fxLayout="row" fxLayoutAlign="start center">
+        <div class="crop-tools-zoom" fxLayout="column" fxLayoutAlign="space-between center">
+          <div class="crop-tools-zoom-state">
+
+          </div>
+          <div class="crop-tools-zoom-slider">
+
+          </div>
+        </div>
+        <div class="crop-tools-rotate">
+
+        </div>
+      </div>
+      <div class="crop-cta-buttons" fxLayout="row">
+        <div>
+          <button mat-raised-button color="accent" [mat-dialog-close]="croppedImage">Cancel</button>
+        </div>
+
+        <div class="ml-[30px]">
+          <button mat-raised-button color="primary" [mat-dialog-close]="croppedImage">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

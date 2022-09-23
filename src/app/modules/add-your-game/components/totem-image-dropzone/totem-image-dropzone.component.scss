@@ -6,7 +6,7 @@
   max-width: 1098px;
   border: 1px dashed $light-grey;
   border-radius: 4px;
-  transition: background-color 0.33s ease-out;
+  transition: border 0.33s ease-out;
 
   .file {
     min-height: var(--minh);
@@ -33,6 +33,8 @@
     mat-icon {
       height: 78px;
       width: auto;
+      color: $grey;
+      transition: color 0.33s ease-out;
     }
     .browse-caption {
       font-weight: 700;
