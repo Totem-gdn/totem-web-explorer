@@ -1,0 +1,71 @@
+<div class="search-card-body h-full w-full" fxLayout="column" fxLayoutAlign="space-between start">
+  <div class="cta-button flex-row px-[10px]" fxLayoutAlign="space-between center">
+    <div>
+      Your Game Name
+    </div>
+    <mat-icon [svgIcon]="'line:arrow_down'"></mat-icon>
+  </div>
+  <div class="preview-content w-full p-[6px] mt-[10px]" fxLayout="column" fxLayoutAlign="center start">
+    <div class="search-block flex-row px-[12px] w-full" fxLayoutAlign="start center">
+      <mat-icon [svgIcon]="'line:search'"></mat-icon>
+      <div class="ml-[10px]">
+        Filter..
+      </div>
+    </div>
+
+    <div class="image-preview-block flex-row px-[6px] mt-[18px] w-full" fxLayoutAlign="start center">
+      <div class="img-preview">
+        <div *ngIf="!imageUrl" class="preview-placeholder" fxLayout="column" fxLayoutAlign="center center">
+          <mat-icon [svgIcon]="'solid:no-image'"></mat-icon>
+        </div>
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="preview">
+      </div>
+      <div class="ml-[10px]" fxLayout="column" fxLayoutAlign="center start">
+        <div class="game-name">
+          Your Game Name
+        </div>
+        <div class="game-type">
+          search preview
+        </div>
+      </div>
+    </div>
+
+    <div class="fake-image-preview-block flex-row px-[6px] mt-[9px] w-full" fxLayoutAlign="start center">
+      <div class="img-preview"></div>
+      <div class="ml-[10px]" fxLayout="column" fxLayoutAlign="center start">
+        <div>
+          Other game name
+        </div>
+        <div>
+          Arcade
+        </div>
+      </div>
+    </div>
+    <div class="fake-image-preview-block flex-row px-[6px] py-[7px] mt-[8px] w-full" fxLayoutAlign="start center">
+      <div class="img-preview"></div>
+      <div class="ml-[10px]" fxLayout="column" fxLayoutAlign="center start">
+        <div>
+          Other game name
+        </div>
+        <div>
+          Shooter
+        </div>
+      </div>
+    </div>
+    <div class="fake-image-preview-block flex-row px-[6px] mt-[9px] w-full" fxLayoutAlign="start center">
+      <div class="img-preview"></div>
+      <div class="ml-[10px]" fxLayout="column" fxLayoutAlign="center start">
+        <div>
+          Other game name
+        </div>
+        <div>
+          Sandbox
+        </div>
+      </div>
+    </div>
+    <div class="view-all-button mt-[20px] w-full" fxLayout="column" fxLayoutAlign="center center">
+      <div class="view-all-cta">View all</div>
+    </div>
+    <div class="fake-scroll"></div>
+  </div>
+</div>

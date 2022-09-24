@@ -26,6 +26,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   @Input() selfFill: boolean = false;
   @Input() dzMinHeight: string = '247px';
   @Input() finalizedImage!: File;
+  @Input() uniqueId: string = 'file';
 
   @Output() finalizedFile: EventEmitter<any> = new EventEmitter<any>();
 
@@ -63,7 +64,8 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     console.log(this.file);
     //this.imageReader.readAsDataURL(this.file);
     //this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
-    this.finalizedFile.next(event)
+    this.finalizedFile.next(event);
+    this.removeHover();
   }
 
 }

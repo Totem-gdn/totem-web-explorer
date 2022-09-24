@@ -9,7 +9,7 @@
     (dragleave)="removeHover()"
     [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
     class="file"
-    id="file"
+    [id]="uniqueId"
     (change)="getFile($event)"
     type="file"
     accept="images/*"
@@ -17,7 +17,7 @@
   <div class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
     <mat-icon [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:no-image'"></mat-icon>
     <div class="browse-caption mt-[18px]">Drop your image here, or
-      <label [ngStyle]="{'pointer-events' : !dzHovered ? 'all' : 'none'}" class="browse-button" for="file">browse</label>
+      <label [ngStyle]="{'pointer-events' : !dzHovered ? 'all' : 'none'}" class="browse-button" [for]="uniqueId">browse</label>
     </div>
     <div class="mt-[16px]">Supports: JPG, PNG, GIF</div>
     <div>The recommended file resolution is {{recommendedResolution}}</div>

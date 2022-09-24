@@ -8,10 +8,16 @@ import { MatIconModule } from "@angular/material/icon";
 import { TotemImageDropzoneModule } from "../../components/totem-image-dropzone/totem-image-dropzone.module";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { TotemCropperModule } from "../../modules/totem-cropper/totem-cropper.module";
+import { PreviewCardComponent } from "./components/preview-card/preview-card.component";
+import { PreviewSearchCardComponent } from "./components/preview-search-card/preview-search-card.component";
+import { GalleryCardComponent } from "./components/gallery-card/gallery-card.component";
 
 @NgModule({
     declarations: [
         DetailsTabComponent,
+        PreviewCardComponent,
+        PreviewSearchCardComponent,
+        GalleryCardComponent
     ],
     imports: [
         SharedModule,
@@ -20,10 +26,14 @@ import { TotemCropperModule } from "../../modules/totem-cropper/totem-cropper.mo
         MatRippleModule,
         TotemImageDropzoneModule,
         MatDialogModule,
+        MatIconModule,
         TotemCropperModule
     ],
     exports: [
-        DetailsTabComponent
+        DetailsTabComponent,
+        PreviewCardComponent,
+        PreviewSearchCardComponent,
+        GalleryCardComponent
     ]
 })
 

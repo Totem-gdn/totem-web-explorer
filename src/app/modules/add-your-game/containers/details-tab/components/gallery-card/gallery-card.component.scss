@@ -1,0 +1,36 @@
+@import 'styles/scss/variables';
+
+:host {
+  height: 195px;
+  width: 258px;
+}
+
+.card-body {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(95, 99, 105, 0.5);
+  border-radius: 4px;
+
+  .img-wrapper {
+    border-radius: 4px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .file-desc {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: $light-grey;
+    .file-size {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+
+}

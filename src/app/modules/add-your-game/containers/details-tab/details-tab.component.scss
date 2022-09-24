@@ -63,11 +63,18 @@
           }
         }
 
-        .card-image-block {
-          .card-image-wrapper {
+        .gallery-image-block {
+          .gallery-image-wrapper {
             max-width: 1098px;
             width: 100%;
-            .card-content {
+          }
+        }
+
+        .card-image-block, .search-image-block {
+          .card-image-wrapper, .search-image-wrapper {
+            max-width: 1098px;
+            width: 100%;
+            .card-content, .search-content {
               background-color: $dark-grey;
               max-width: 1098px;
               width: 100%;
@@ -75,9 +82,12 @@
 
               //.file-container
 
-              .card-preview {
-                min-width: 374px;
+              .card-preview, .search-preview {
+                max-width: 374px;
                 min-height: 474px;
+              }
+              .search-preview {
+                min-height: 402px;
               }
             }
           }
