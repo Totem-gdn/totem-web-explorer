@@ -1,9 +1,42 @@
 @import 'styles/scss/variables';
 
-.links-tab {
-  &-wrapper {
+
+.social-link {
+  display: flex;
+  gap: 20px;
+}
+
+.link-input {
+  padding-left: 30px;
+}
+
+.block-section {
+  border-bottom: none;
+}
 
 
-
-  }
+.prefix-wrapper {
+  width: 100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color:whtie;
+  position: relative;
+}
+.prefix-span {
+  transition: color .3s;
+  font-size: 16px;
+  position: absolute;
+  padding-left: 10px;
+  margin: 0 !important;
+}
+.prefix-input {
+  color: white;
+  padding-left: 61px !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }

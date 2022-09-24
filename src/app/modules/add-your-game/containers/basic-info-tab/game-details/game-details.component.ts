@@ -7,7 +7,7 @@ import { Tag } from "@app/core/models/tag-interface.model";
 @Component({
     selector: 'game-details',
     templateUrl: './game-details.component.html',
-    styleUrls: ['../basic-info.component.scss'],
+    styleUrls: ['../../form-styles.component.scss'],
     animations: [
         Animations.animations
     ]

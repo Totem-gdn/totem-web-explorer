@@ -17,13 +17,14 @@
     }
     .info-block {
       display: flex;
+      flex-direction: column;
       border: 1px solid $dark-grey;
       width: 100%;
       border-radius: 4px;
       &-wrapper {
         margin: 15px;
         padding: 30px 20px;
-        width: 100%;
+        border-radius: 4px;
         background-color: $grey;
         display: flex;
         flex-direction: column;
@@ -39,7 +40,7 @@
       width: 100%;
       max-width: 230px;
       font-weight: 500;
-      // white-space: nowrap;
+      white-space: nowrap;
     }
     & span {
       margin-bottom: 15px;
@@ -49,14 +50,12 @@
   }
 
   .input-section {
-    transition: height .3 ease-in-out;
     display: flex;
     flex-direction: column;
     width: 100%;
   }
 
   .tags-section {
-    transition: height .3 ease-in-out;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -92,11 +91,15 @@
       }
     }
   }
+  & input {
+    height: 40px;
+  }
   & input, textarea {
     margin-bottom: 15px;
     border-radius: 4px;
     font-size: 16px;
     min-height: 40px;
+    
     width: 100%;
     background-color: $dark-grey;
     transition: border .3s, background-color .3s;

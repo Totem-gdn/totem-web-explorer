@@ -11,14 +11,10 @@
     <div #dropdown class="menu w-full"
         [ngClass]="menuActive ? 'appear': ''">
 
-        <div class="search">
-            <search-field></search-field>
-        </div>
-
-        <div #menuItems class="menu-items mt-[10px]">
+        <div #menuItems class="menu-items">
             <label class="menu-item" *ngFor="let item of items">
                 <span>{{item.value}}</span>
-                <input (change)="onChangeInput($event)" value="{{item.value}}" type="checkbox" name="input">
+                <input (change)="onChangeInput($event)" value="{{item.value}}" [type]="inputType" name="input">
             </label>
         </div>
     </div>

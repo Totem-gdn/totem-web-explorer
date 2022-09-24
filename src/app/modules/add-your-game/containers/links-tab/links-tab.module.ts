@@ -5,6 +5,11 @@ import { LinksTabComponent } from "./links-tab.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
+import { ReactiveFormsModule } from "@angular/forms";
+import { FormDropdownComponent } from "@app/modules/landing/components/common-components/dropdowns/form-dropdown/form-dropdown.component";
+import { FormDropdownModule } from "@app/modules/landing/components/common-components/dropdowns/form-dropdown/form-dropdown.module";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { TotemButtonModule } from "@app/modules/landing/components/common-components/totem-button/totem-button.module";
 
 @NgModule({
     declarations: [
@@ -14,7 +19,12 @@ import { MatIconModule } from "@angular/material/icon";
         SharedModule,
         FlexLayoutModule,
         MatIconModule,
-        MatRippleModule
+        MatRippleModule,
+        FormDropdownModule,
+        TotemButtonModule,
+
+        ReactiveFormsModule,
+        MatFormFieldModule
     ],
     exports: [
         LinksTabComponent

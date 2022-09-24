@@ -5,7 +5,7 @@ import { Animations } from "@app/core/animations/animations";
 @Component({
     selector: 'contact-form',
     templateUrl: './contact-form.component.html',
-    styleUrls: ['../basic-info.component.scss'],
+    styleUrls: ['../../form-styles.component.scss'],
     animations: [
         Animations.animations
     ]

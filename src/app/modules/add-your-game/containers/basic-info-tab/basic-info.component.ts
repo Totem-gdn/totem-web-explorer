@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'totem-basic-info',
   templateUrl: './basic-info.component.html',
-  styleUrls: ['./basic-info.component.scss'],
+  styleUrls: ['../form-styles.component.scss'],
   host: {
         class: 'flex flex-auto w-full h-full'
   }

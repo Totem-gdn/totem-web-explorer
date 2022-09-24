@@ -18,8 +18,9 @@ export class FormDropdownComponent {
 
     @ViewChild('menuItems') menuItems!: ElementRef;
     @ViewChild('dropdown') dropdown!: ElementRef;
-    
+
     @Input() title = 'menu';
+    @Input() inputType = 'checkbox';
 
     @Output() selectedTag = new EventEmitter<Tag>();
     @Output() touched = new EventEmitter<boolean>();
@@ -31,8 +32,11 @@ export class FormDropdownComponent {
         const tag: Tag = {
             reference, value, checked
         }
-
         this.selectedTag.emit(tag);
+
+        if(this.inputType === 'radio') {
+            this.title = value;
+        }
     }
 
     ngAfterViewInit(): void {
@@ -42,7 +46,7 @@ export class FormDropdownComponent {
     }
 
     onToggleMenu() {
-        if(this.menuActive) this.touched.emit();
+        if (this.menuActive) this.touched.emit();
         this.menuActive = !this.menuActive;
     }
 

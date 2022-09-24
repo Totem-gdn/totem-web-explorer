@@ -1,5 +1,62 @@
-<div class="links-tab w-full">
-  <div class="links-tab-wrapper w-full">
-    Links Tab works
-  </div>
+<div class="desc-form">
+  <form class="form-section" [formGroup]="linksForm">
+
+    <h3>Connections and links</h3>
+  
+    <div class="info-block">
+      <div class="info-block-wrapper">
+        <div class="block-section flex-wrap">
+          <h4>Official Web-page</h4>
+          <div class="input-section">
+            <input type="text" formControlName="webPage">
+            <span>Enter the URL of the marketplace page on which your game is located, for example, https://Creators.itch.io/game</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="info-block-wrapper">
+        <div class="block-section flex-wrap">
+          <h4>Asset renderer URL<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="rendererUrl">
+            <span>Enter the URL of your custom asset renderer Web-service</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-block-wrapper">
+        <div class="block-section flex-wrap">
+          <h4>Promo video link<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section">
+            <input type="text" formControlName="videoUrl">
+            <span>Share promo video. Enter the full URL, for example, https://twitter.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-block-wrapper">
+        <div class="block-section flex-wrap !border-b !border-b-dark-grey">
+          <h4>Social Links<span class="pl-[10px]">(Optional)</span></h4>
+          <div class="input-section" formArrayName="socialLinks">
+
+            <ng-container *ngFor="let socialLink of socialLinksForm.controls; index as i">
+              <div @showInput class="social-link">
+                <form-dropdown (selectedTag)="onSelectTag($event, i)" class="!max-w-[180px] w-full" [inputType]="'radio'" [title]="'Select type'" [items]="dropdownLinks"></form-dropdown>
+                
+                  <span class="prefix-wrapper">
+                    <input class="prefix-input" type="text" [formControlName]="i">
+                    <span class="prefix-span" [ngClass]="socialLink.value != '' && socialLink.value ? '!text-white':''">https://</span>
+                  </span>
+              </div>
+            </ng-container>
+
+            <div class="flex"><div class="!max-w-[180px] w-full"></div><span class="pl-[20px]">Where does this link go? Enter the full URL, for example https://twitter.com</span></div>
+          </div>
+        </div>
+        <totem-button class="ml-auto" [height]="'40px'" [width]="'140px'" [caption]="'Add Link'" (click)="onAddLink()"></totem-button>
+      </div>
+
+    </div>
+  
+  </form>
 </div>

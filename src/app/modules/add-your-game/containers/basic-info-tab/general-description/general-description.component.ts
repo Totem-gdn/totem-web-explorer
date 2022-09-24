@@ -1,19 +1,20 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
+import { Subscription } from "rxjs";
 
 
 @Component({
     selector: 'general-description',
     templateUrl: './general-description.component.html',
-    styleUrls: ['../basic-info.component.scss'],
+    styleUrls: ['../../form-styles.component.scss'],
     animations: [
         Animations.animations
     ]
 })
 
-export class GeneralDescription {
+export class GeneralDescription implements AfterViewInit, OnDestroy {
     get gameErrors() { 
         const gameName = this.generalDescription.get('gameName')
         return gameName?.errors && (gameName?.touched || gameName?.dirty);
@@ -23,7 +24,7 @@ export class GeneralDescription {
         const authorName = this.generalDescription.get('authorName');
         return authorName?.errors && (authorName?.touched || authorName?.dirty);
     };
-    get previewErrors() { 
+    get briefErrors() { 
         const preview = this.generalDescription.get('previewDescription');
         return preview?.errors && (preview?.touched || preview?.dirty);
     };
@@ -33,12 +34,25 @@ export class GeneralDescription {
     dropdownTouched = false;
     genres: Tag[] = [];
 
+    briefDescLength = 0;
+    fullDescLength = 0;
+
+    sub!: Subscription;
+    @ViewChild('briefDesctiption') briefDescription!: ElementRef;
+    @ViewChild('fullDesctiption') fullDescription!: ElementRef;
+
     generalDescription = new FormGroup({
         gameName: new FormControl(null, [Validators.required]),
         authorName: new FormControl(null, [Validators.required]),
-        previewDescription: new FormControl(null, [Validators.required]),
-  
+        briefDescription: new FormControl(null, [Validators.required]),
+        fullDescription: new FormControl(null, [Validators.required]),
     })
+
+    ngAfterViewInit(): void {
+        this.generalDescription.valueChanges.subscribe(() => {
+            
+        })
+    }
 
     onTouchDropdown() {
         this.dropdownTouched = true;
@@ -58,6 +72,8 @@ export class GeneralDescription {
         tag.reference.checked = false;
     }
 
-    
+    ngOnDestroy() {
+        this.sub?.unsubscribe();
+    }
 
 }

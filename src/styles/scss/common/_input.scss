@@ -23,6 +23,8 @@ input[type="radio"] {
     color: currentColor;
     border: 1px solid $light-grey;
     border-radius: 9999px;
+    width: 24px;
+    height: 24px;
 }
 
 input[type="radio"]:checked {
