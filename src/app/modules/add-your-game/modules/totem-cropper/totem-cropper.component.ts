@@ -15,6 +15,7 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  aspectRatio: number = 0;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -25,7 +26,8 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log(this.data);
     this.loading$.next(true);
-    this.imageChangedEvent = this.data;
+    this.imageChangedEvent = this.data.file;
+    this.aspectRatio = this.data.aspectRatio;
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,12 @@
+<div class="card-body p-[10px]" fxLayout="column" fxLayoutAlign="center start">
+  <div class="img-wrapper w-full">
+    <img [src]="imageUrl" alt="img">
+  </div>
+  <div class="file-desc w-full mt-[10px]" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div>{{imageFile.name}}</div>
+      <div class="file-size mt-[6px]">{{imageFile.size  | number: '1.2-2'}} MB</div>
+    </div>
+    <div>Delete</div>
+  </div>
+</div>

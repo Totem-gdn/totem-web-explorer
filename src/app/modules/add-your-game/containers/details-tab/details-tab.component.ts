@@ -20,6 +20,9 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   imageUrl!: string;
   imageReader: FileReader = new FileReader();
   finalizedImage!: File;
+  finalizedCardImage!: File;
+  finalizedSearchImage!: File;
+  finalizedGalleryImages: File[] = [];
 
   imageHover: any = {
     coverImgHovered: false,
@@ -81,26 +84,34 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
   }
 
-  cropSelectedImage(event: any) {
+  cropSelectedImage(event: any, type: string) {
     this.file = event;
-    this.openCropperDialog(event);
+    this.openCropperDialog(event, type);
   }
 
-  openCropper(image: any): Observable<string> {
+  openCropper(image: any, type: string): Observable<string> {
+    const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
+    const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1;
     const options: MatDialogConfig = {
         disableClose: false,
-        panelClass: 'large-dialog',
-        data: image,
+        panelClass: dialogType,
+        data: {
+          file: image,
+          aspectRatio: aspectRation
+        },
         autoFocus: false
     };
     return this.matDialog.open(TotemCropperComponent, options).afterClosed();
   }
 
-  openCropperDialog(image: any) {
+  openCropperDialog(image: any, type: string) {
     this.subs.add(
-      this.openCropper(image).subscribe((data: any) => {
+      this.openCropper(image, type).subscribe((data: any) => {
         console.log(data);
-        this.finalizedImage = data;
+        if (type == 'cover') this.finalizedImage = data;
+        if (type == 'card') this.finalizedCardImage = data;
+        if (type == 'search') this.finalizedSearchImage = data;
+        if (type == 'gallery') this.finalizedGalleryImages.push(data);
       })
     )
   }

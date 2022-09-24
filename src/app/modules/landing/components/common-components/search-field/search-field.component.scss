@@ -10,11 +10,15 @@
     transition: border 0.5s;
     background-color: $transparent-light;
 
-    input {        
+    mat-icon {
+      color: #8A939B;
+    }
+
+    input {
         outline: none;
     }
 
-    
+
 }
 
 

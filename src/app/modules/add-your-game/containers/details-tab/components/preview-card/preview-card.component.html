@@ -1,0 +1,30 @@
+<div class="card-body h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
+  <div class="img-preview h-full w-full" fxLayout="column" fxLayoutAlign="center center">
+    <mat-icon *ngIf="!imageUrl" [svgIcon]="'solid:no-image'"></mat-icon>
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="preview">
+  </div>
+  <div class="info w-full px-[18px] py-[18px]" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h3 class="text-light-grey">Preview</h3>
+      <div><mat-icon class="like" [svgIcon]="'line:like'"></mat-icon></div>
+    </div>
+    <div class="flex prev-desc">
+      <p class="text-light-grey pt-1 pb-3">Preview of game card is right here, so You can see how it looks</p>
+    </div>
+
+    <div class="flex justify-between max-w-[320px]">
+        <div class="flex flex-col">
+            <h4 class="text-light-grey">0</h4>
+            <p class="text-light-grey">Players</p>
+        </div>
+        <div>
+            <h4 class="text-light-grey">0</h4>
+            <p class="text-light-grey">Items</p>
+        </div>
+        <div class="mr-[34px]">
+            <h4 class="text-light-grey">0</h4>
+            <p class="text-light-grey">Avatars</p>
+        </div>
+    </div>
+  </div>
+</div>
