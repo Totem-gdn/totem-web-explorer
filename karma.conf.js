@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/totem-gdn-layout'),
+      dir: require('path').join(__dirname, './coverage/totem-explorer'),
       subdir: '.',
       reporters: [
         { type: 'html' },
