@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "totem-gdn-layout": {
+    "totem-explorer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
