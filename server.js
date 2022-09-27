@@ -13,10 +13,10 @@ app.use('*', function(req, res, next) {
     }
 })
 
-app.use(express.static(path.join(__dirname + '/dist/totem-explorer')));
+app.use(express.static(path.join(__dirname + '/dist/totem-totem-gdb')));
 app.get('*', (req, res) => {
 
-    res.sendFile(path.join(__dirname + '/dist/totem-explorer/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/totem-gdb-layout/index.html'));
 
 });
 
