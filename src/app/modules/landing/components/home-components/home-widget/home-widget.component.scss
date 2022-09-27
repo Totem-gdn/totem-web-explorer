@@ -20,6 +20,7 @@ bg-circle {
 }
 
 .img-wrapper {
+    height: 336px;
     max-width: 400px;
     display: flex;
     width: 100%;
@@ -36,6 +37,7 @@ bg-circle {
         top: 0;
         bottom: 0;
         width: 50%;
+        animation: float 6s 0.5s ease-in-out infinite;
     }
 
     .img-2 {
@@ -47,5 +49,25 @@ bg-circle {
         // position: absolute;
         margin-left: auto;
         z-index: 11;
+        animation: float 6s ease-in-out infinite;
     }
+
+    .img-card {
+      position: absolute;
+      max-width: 400px;
+      display: flex;
+      width: 100%;
+    }
+}
+
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(8px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
 }

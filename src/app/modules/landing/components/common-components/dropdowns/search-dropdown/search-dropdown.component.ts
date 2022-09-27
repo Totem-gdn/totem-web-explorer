@@ -2,7 +2,7 @@ import { DOCUMENT } from "@angular/common";
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { ComboBoxService } from "@app/core/services/combobox-state.service";
-import { Subscription } from "rxjs";
+import { Observable, Subscription, timer } from "rxjs";
 
 
 @Component({
@@ -13,17 +13,23 @@ import { Subscription } from "rxjs";
 
 export class SearchDropdownComponent implements OnInit, OnDestroy {
 
+    scriptSubscribe: Subscription = new Subscription();
+    previusSelected: number = 0;
+    userSelected: boolean = true;
+
     constructor(private router: Router,
         @Inject(DOCUMENT) private document: Document,
         private comboBoxService: ComboBoxService) { }
 
-
+    allRadioButtons!: any;
     @Input() title: string = '';
     @Input() itemType: string = '';
     @Input() alwaysOpen = false;
     @Output() onChange: EventEmitter<string> = new EventEmitter();
+    @Output() onFakeChange: EventEmitter<string> = new EventEmitter();
     @ViewChild('menu') menu!: ElementRef;
     @ViewChild('dropdown') dropdown!: ElementRef;
+    @ViewChild('menuItems') menuItems!: ElementRef<any>;
 
     items = [{ name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' }, { name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' },]
     menuActive: boolean = false;
@@ -51,7 +57,12 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
         this.title = value;
         this.onChange.emit(value);
 
-        if(this.alwaysOpen) return;
+        if (this.alwaysOpen) {
+          this.removeScriptSelected();
+          this.userSelected = true;
+          this.restartScript(90000, 5000); // only for alwaysOpen === true
+          return;
+        }
         this.menuActive = false;
     }
 
@@ -77,8 +88,70 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
         }
     }
 
-    onFocus() {
-        console.log('focus')
+    ngAfterViewInit() {
+      if (this.alwaysOpen) this.startScriptTimer(2000, 5000);
+      this.allRadioButtons = this.menuItems.nativeElement.children;
+    }
+
+    removeScriptSelected() {
+      this.items.forEach((item: any, i: number) => {
+        document?.getElementById('item' + i.toString())?.classList.remove('script-selected');
+      });
+    }
+
+    restartScript(start: number, nextTime: number) {
+      this.userSelected = false;
+      this.scriptSubscribe.unsubscribe();
+      console.log('Restarted by mouseleave');
+
+      this.startScriptTimer(start, nextTime);
+    }
+
+    startScriptTimer(start: number, nextTime: number) {
+      this.scriptSubscribe = timer(start, nextTime).subscribe((val: number) => {
+        this.removeScriptSelected();
+        this.autoScript();
+        for (let i = 0; i < this.allRadioButtons.length; i++) {
+          this.allRadioButtons[i].children[0].checked = false;
+        }
+      });
+    }
+
+    autoScript() {
+      const selectThisGame = Math.floor(Math.random() * 4);
+      if (this.previusSelected == selectThisGame) {
+        this.autoScript();
+        return;
+      }
+      this.previusSelected = selectThisGame;
+      this.selectGame(selectThisGame);
+      this.scriptSubscribe.unsubscribe();
+    }
+
+    selectGame(selectItem: number) {
+      const itemToSelect = this.items[selectItem];
+      for (var i = 0; i <= selectItem; i++) {
+        if (i == selectItem) {
+          this.selectThisGame(i, itemToSelect)
+        } else {
+          this.selectThisGame(i);
+        }
+      };
+    }
+
+    selectThisGame(i: number, itemToSelect?: any) {
+      setTimeout(() => {
+        if (!itemToSelect) {
+          document?.getElementById('item' + (i-1).toString())?.classList.remove('script-hovered');
+          document?.getElementById('item' + i.toString())?.classList.add('script-hovered');
+        } else {
+          document?.getElementById('item' + (i-1).toString())?.classList.remove('script-hovered');
+          document?.getElementById('item' + i.toString())?.classList.add('script-selected');
+          this.title = itemToSelect.name;
+          this.onFakeChange.emit('changed');
+          this.startScriptTimer(5000, 5000);
+        }
+      }, 600 * i);
     }
 
 }

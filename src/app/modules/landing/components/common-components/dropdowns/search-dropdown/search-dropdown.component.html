@@ -16,10 +16,10 @@
             <search-field></search-field>
         </div>
 
-        <div class="menu-items">
-            <div class="menu-item" *ngFor="let item of items"
+        <div #menuItems class="menu-items">
+            <div class="menu-item" *ngFor="let item of items; let i = index" [id]="'item' + i"
             [ngClass]="alwaysOpen ? 'demo-border': ''">
-                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent checked" type="radio" name="input">
+                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent checked radio-game-selector" type="radio" name="input">
 
                 <div class="content">
                     <div class="p-2 w-9 h-9 img rounded item-gradient"></div>
