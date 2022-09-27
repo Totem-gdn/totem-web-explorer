@@ -5,6 +5,7 @@ import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swipe
 import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -59,7 +60,7 @@ export class TotemHomePageComponent implements OnInit {
 
   eventDate: Date = new Date('09/30/2022');
 
-  constructor(private totemItemsService: TotemItemsService) { }
+  constructor(private totemItemsService: TotemItemsService, private router: Router,) { }
 
   id = "tsparticles";
 
@@ -74,23 +75,8 @@ export class TotemHomePageComponent implements OnInit {
       }
     },
     fpsLimit: 60,
-    interactivity: {
-      events: {
-        onHover: {
-          enable: true,
-          mode: HoverMode.repulse
-        },
-        resize: true
-      },
-      modes: {
-        push: {
-          quantity: 4
-        },
-        repulse: {
-          distance: 200,
-          duration: 0.4
-        }
-      }
+    fullScreen: {
+      enable: false
     },
     particles: {
       color: {
@@ -242,8 +228,9 @@ export class TotemHomePageComponent implements OnInit {
 
   }
 
-  joinCommunity(event: MouseEvent) {
+  generateItem(event: MouseEvent) {
     console.log(event);
+    this.router.navigate(['/buy']);
   }
 
   goNext() {

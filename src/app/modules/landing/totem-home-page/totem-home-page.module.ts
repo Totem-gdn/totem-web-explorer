@@ -19,6 +19,7 @@ import { TotemButtonModule } from '../components/common-components/totem-button/
 import { HomeWidgetModule } from '../components/home-components/home-widget/home-widget.module';
 import { BackgroundCircleModule } from '../components/common-components/bg-circle/bg-circle.module';
 import { NgParticlesModule } from 'ng-particles';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NgParticlesModule } from 'ng-particles';
     FlexLayoutModule,
     MatIconModule,
     SwiperModule,
+    RouterModule,
 
     TotemPromoGameModule,
     TotemMeetUsModule,

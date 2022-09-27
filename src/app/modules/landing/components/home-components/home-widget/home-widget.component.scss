@@ -8,6 +8,7 @@
     border-radius: 4px;
     position: relative;
     overflow: hidden;
+    background: #202225;
 }
 
 bg-circle {
@@ -25,6 +26,7 @@ bg-circle {
     display: flex;
     width: 100%;
     position: relative;
+    z-index: 11;
 
     img {
         width: 100%;
