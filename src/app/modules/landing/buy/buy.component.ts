@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { forkJoin } from 'rxjs';
@@ -9,7 +9,7 @@ import { SnackNotifierService } from '../modules/snack-bar-notifier/snack-bar-no
   templateUrl: './buy.component.html',
   styleUrls: ['./buy.component.scss']
 })
-export class BuyComponent implements OnInit, AfterViewInit {
+export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private paymentService: PaymentService,
     private web3Service: Web3AuthService,
@@ -20,9 +20,10 @@ export class BuyComponent implements OnInit, AfterViewInit {
   assets: any[] = [];
 
   disableButton: boolean | null = null;
+  userHover!: boolean;
+  animationLoop: any;
 
   @ViewChild('itemsRef') itemsRef!: ElementRef;
-  @ViewChild('circlesRef') circlesRef!: ElementRef;
   @ViewChild('movingCircle') movingCircle!: any;
 
   ngOnInit(): void {
@@ -57,53 +58,6 @@ export class BuyComponent implements OnInit, AfterViewInit {
     })
   }
 
-  playAnimation() {
-    let currentItemIndex = 0;
-    let reverse = false;
-    setInterval(() => {
-      let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
-      const itemsCount = items.length - 1;
-      if(currentItemIndex == 0 && itemsCount > 0) {
-        this.mouseLeave(items[items.length - 1]);
-      } else if(itemsCount > 0) {
-        this.mouseLeave(items[currentItemIndex - 1]);
-      }
-      this.mouseEnter(items[currentItemIndex]);
-
-      this.moveCircle(items[currentItemIndex]);
-      if(currentItemIndex >= itemsCount && reverse === false) {
-          currentItemIndex = 0;
-          return;
-      }
-      if(currentItemIndex == items.length - 1 && reverse === true) {
-        currentItemIndex = items.length - 1;
-        return;
-      }
-
-      if(reverse == false) {
-        currentItemIndex++;
-      } else {
-        currentItemIndex--;
-      }
-    }, 2000);
-    
-  }
-  moveCircle(item: any) {
-    const itemX = item.offsetLeft + (item.offsetWidth / 2) - 150;
-    const itemY = item.offsetTop + (item.offsetHeight / 2) - 150;
-    this.movingCircle.nativeElement.style.transform = `translate(${itemX}px,${itemY}px)`;
-  }
-
-
-  mouseEnter(el: any) {
-    el.style.color = 'white';
-    el.firstChild.style.opacity = '0.5';
-  }
-  mouseLeave(el: any) {
-    el.style.color = '#353840';
-    el.firstChild.style.opacity = '0';
-  }
-
   updateAssets() {
     this.paymentService.getAssets().subscribe(assets => {
       console.log('assets: ', assets)
@@ -121,6 +75,69 @@ export class BuyComponent implements OnInit, AfterViewInit {
         this.assets.push(newAsset);
       })
     })
+  }
+
+  playAnimation() {
+    let currentItemIndex = 0;
+    let reverse = false;
+
+    this.animationLoop  = setInterval(() => {
+      console.log('is hovered', this.userHover)
+      if(this.userHover === true) {
+        return;
+      }
+
+      let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
+      const itemsCount = items.length - 1;
+
+      this.animateItem(items[currentItemIndex], false);
+
+      if(currentItemIndex == itemsCount && reverse === false && currentItemIndex != 0) {
+          currentItemIndex = itemsCount - 1;
+          reverse = true;
+          return;
+      }
+      if(currentItemIndex == 0 && reverse === true && currentItemIndex != itemsCount) {
+        currentItemIndex = 1;
+        reverse = false;
+        return;
+      }
+      if(reverse == false) {
+        currentItemIndex++;
+      } else {
+        currentItemIndex--;
+      }
+    }, 2000);
+    
+  }
+
+  animateItem(item: any, userHover: boolean) {
+    if(userHover) this.userHover = true;
+    console.log('userhover', userHover)
+    item.style.color = 'white';
+    item.firstChild.style.opacity = '0.5';
+    this.resetWithExeption(item, false);
+    this.moveCircle(item);
+
+  }
+  resetWithExeption(exeption: any, userLeave: boolean) {
+    if(userLeave) this.userHover = false;
+    let items: any[] = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
+    for(let item of items){
+      if(item === exeption) continue;
+      item.style.color = '#353840';
+      item.firstChild.style.opacity = '0';
+    }
+  }
+
+  moveCircle(item: any) {
+    const itemX = item.offsetLeft + (item.offsetWidth / 2) - 150;
+    const itemY = item.offsetTop + (item.offsetHeight / 2) - 150;
+    this.movingCircle.nativeElement.style.transform = `translate(${itemX}px,${itemY}px)`;
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.animationLoop);
   }
 
 }
