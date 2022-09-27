@@ -300,6 +300,9 @@
         }
         .button-cta {
           margin-top: 54px;
+          @media (max-width: 479px) {
+            text-align: center;
+          }
         }
       }
       .games-preview-block {
