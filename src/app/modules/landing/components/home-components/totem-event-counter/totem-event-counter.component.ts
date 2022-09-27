@@ -30,7 +30,6 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
   calcRemainingTime() {
     const source = timer(1000, 1000);
     this.subscribe = source.subscribe((val: number) => {
-      console.log('clock')
       let currentDate: number = new Date().getTime();
       var delta = Math.abs(this.eventDateTime - currentDate) / 1000;
       // calculate (and subtract) whole days
