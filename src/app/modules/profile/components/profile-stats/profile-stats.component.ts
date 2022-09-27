@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
@@ -11,19 +11,10 @@ import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
     class: 'flex'
   }
 })
-export class ProfileStatsComponent implements OnInit {
+export class ProfileStatsComponent {
 
-  constructor(private router: Router,
-              private alchService: AlchemyService,
-              private web3: Web3AuthService) { }
+  constructor() { }
 
-  totalItems = 0;
-
-  async ngOnInit() {
-    const wallet = await this.web3.getAccounts();
-    this.alchService.totalUserItems(wallet).subscribe(totalItems => {
-      this.totalItems = totalItems;
-    })
-  }
+  @Input() total = 0;
 
 }
