@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/totem-gdn-layout",
+            "outputPath": "dist/totem-explorer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "totem-gdn-layout:build:production"
+              "browserTarget": "totem-explorer:build:production"
             },
             "development": {
-              "browserTarget": "totem-gdn-layout:build:development"
+              "browserTarget": "totem-explorer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "totem-gdn-layout:build"
+            "browserTarget": "totem-explorer:build"
           }
         },
         "test": {
