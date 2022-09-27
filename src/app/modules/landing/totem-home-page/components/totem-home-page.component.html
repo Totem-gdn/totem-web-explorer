@@ -1,7 +1,7 @@
 <div class="totem-landing" fxLayoutAlign="center">
   <div class="totem-landing-wrapper" fxLayout="column" fxLayoutAlign="start">
     <!-- <div class="landing-cta-bg"></div> -->
-    <div class="landing-cta-content" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <div class="landing-cta-content pt-[141px] pb-[227px]" fxLayout="row wrap" fxLayoutAlign="space-between center">
       <div class="landing-cta-bg">
         <bg-circle class="absolute top-[50px] left-[613px]" [width]="'350px'" [background]="'#FFD011'" [move]="true" [delay]="'-2s'"></bg-circle>
         <bg-circle class="absolute top-[50px] left-[813px]" [width]="'170px'" [background]="'radial-gradient(330% 330% at 50% 50%, #FF6666 0%, rgba(255, 102, 102, 0) 100%)'" [move]="true" [delay]="'-3s'"></bg-circle>
@@ -19,14 +19,16 @@
         <span style="--i: -7s;" class="sixth-circle"></span>
         <span style="--i: -8s;" class="seventh-circle"></span> -->
       </div>
-      <div fxFlex="50%" fxFlex.lt-md="100%" class="cta-text-block" fxLayout="column" fxLayoutAlign="start">
+      <div fxFlex="80%" fxFlex.lt-md="100%" class="cta-text-block" fxLayout="column" fxLayoutAlign="start">
+        <ng-particles class="absolute top-[50px] left-[1058px]" [id]="id" [options]="particlesOptions" [particlesInit]="particlesInit"
+        (particlesLoaded)="particlesLoaded($event)"></ng-particles>
         <div class="cta-head-text">
-          <p>Explore Totem</p>
-          <p>community community</p>
+          <p class="font-totem totem-caption">TOTEM</p>
+          <p class="font-totem totem-subcaption mt-[12px]">Web Explorer</p>
         </div>
         <div class="cta-caption-text">
-          <p>Join Totem community community</p>
-          <p>community community</p>
+          <p>Browse, create and use your unique items, avatars or gems that will be</p>
+          <p>with you across your journey through your favorite game worlds!</p>
         </div>
         <!-- <div>
           <button
@@ -36,11 +38,12 @@
           <span>Join community</span></button>
         </div> -->
         <div class="button-cta">
-          <totem-button (clicked)="joinCommunity($event)"></totem-button>
+          <totem-button [caption]="'Generate unique item'" [customId]="'genitembutton'" (clicked)="joinCommunity($event)"></totem-button>
         </div>
 
       </div>
-      <div fxFlex="50%" fxFlex.lt-md="100%" class="cta-slider">
+
+      <!-- <div fxFlex="50%" fxFlex.lt-md="100%" class="cta-slider">
         <div class="swiper">
           <div class="swiper-wrapper">
 
@@ -130,6 +133,10 @@
             <mat-icon>keyboard_arrow_right</mat-icon>
           </div>
         </div>
+      </div> -->
+      <div class="games-preview-block">
+        <img [@hideFirstState]="imgChange" class="img-1" src="../../../../../../assets/images/knight-model.png" alt="">
+        <img [@hideSecondState]="imgChange" class="img-2" src="../../../../../../assets/images/t-rex-model.png" alt="">
       </div>
     </div>
 

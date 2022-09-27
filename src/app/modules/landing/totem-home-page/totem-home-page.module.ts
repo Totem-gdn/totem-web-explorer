@@ -18,6 +18,7 @@ import { CarouselModule } from '../components/home-components/carousel/carousel.
 import { TotemButtonModule } from '../components/common-components/totem-button/totem-button.module';
 import { HomeWidgetModule } from '../components/home-components/home-widget/home-widget.module';
 import { BackgroundCircleModule } from '../components/common-components/bg-circle/bg-circle.module';
+import { NgParticlesModule } from 'ng-particles';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { BackgroundCircleModule } from '../components/common-components/bg-circl
     HomeWidgetModule,
 
     BackgroundCircleModule,
-    TotemButtonModule
+    TotemButtonModule,
+
+    NgParticlesModule
   ],
   exports: [],
   providers: [],

@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
-import * as e from 'express';
-import { BehaviorSubject, Subscription } from 'rxjs';
-
-import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative } from 'swiper';
-import { CreativeEffectOptions } from 'swiper/types';
-
+import { BehaviorSubject, Subscription, timer } from 'rxjs';
+import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
+import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from "tsparticles-engine";
+import { loadFull } from "tsparticles";
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
@@ -15,11 +14,34 @@ import { CreativeEffectOptions } from 'swiper/types';
   host: {
     class: 'flex flex-auto w-full h-full'
   },
+  animations: [
+    trigger('hideFirstState', [
+      state('second', style({
+        opacity: 0
+      })),
+      state('first', style({
+        opacity: 1
+      })),
+      transition('second => first', animate('1.2s ease-in-out')),
+      transition('first => second', animate('1.2s ease-in-out')),
+    ]),
+    trigger('hideSecondState', [
+      state('second', style({
+        opacity: 1
+      })),
+      state('first', style({
+        opacity: 0
+      })),
+      transition('second => first', animate('1.2s ease-in-out')),
+      transition('first => second', animate('1.2s ease-in-out')),
+    ])
+  ]
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotemHomePageComponent implements OnInit {
   swiper!: Swiper;
   subs: Subscription = new Subscription();
+  imgChange: 'first' | 'second' = 'first';
 
   games$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
   mostUsedItems$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
@@ -38,6 +60,94 @@ export class TotemHomePageComponent implements OnInit {
   eventDate: Date = new Date('09/30/2022');
 
   constructor(private totemItemsService: TotemItemsService) { }
+
+  id = "tsparticles";
+
+  /* Starting from 1.19.0 you can use a remote url (AJAX request) to a JSON with the configuration */
+  particlesUrl = "http://foo.bar/particles.json";
+
+  /* or the classic JavaScript object */
+  particlesOptions = {
+    background: {
+      color: {
+        value: "transparent"
+      }
+    },
+    fpsLimit: 60,
+    interactivity: {
+      events: {
+        onHover: {
+          enable: true,
+          mode: HoverMode.repulse
+        },
+        resize: true
+      },
+      modes: {
+        push: {
+          quantity: 4
+        },
+        repulse: {
+          distance: 200,
+          duration: 0.4
+        }
+      }
+    },
+    particles: {
+      color: {
+        value: "#ffffff"
+      },
+      links: {
+        color: "#ffffff",
+        distance: 150,
+        enable: false,
+        opacity: 0.5,
+        width: 1
+      },
+      collisions: {
+        enable: true
+      },
+      move: {
+        direction: MoveDirection.none,
+        enable: true,
+        outModes: {
+          default: OutMode.bounce
+        },
+        random: true,
+        speed: 2,
+        straight: false
+      },
+      number: {
+        density: {
+          enable: true,
+          area: 800
+        },
+        value: 20
+      },
+      opacity: {
+        value: 0.5
+      },
+      shape: {
+        type: "circle"
+      },
+      size: {
+        value: {min: 1, max: 2 },
+      }
+    },
+    detectRetina: true
+  };
+
+  particlesLoaded(container: Container): void {
+    console.log(container);
+  }
+
+  async particlesInit(engine: Engine): Promise<void> {
+    console.log(engine);
+
+    // Starting from 1.19.0 you can add custom presets or shape here, using the current tsParticles instance (main)
+    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+    // starting from v2 you can add only the features you need reducing the bundle size
+    await loadFull(engine);
+  }
 
   ngOnInit(): void {
     this.initItemsListener();
@@ -74,6 +184,17 @@ export class TotemHomePageComponent implements OnInit {
       },
 
     });
+
+    this.initImgChanger();
+
+  }
+
+  initImgChanger() {
+    this.subs.add(
+      timer(6000, 6000).subscribe((val) => {
+        this.imgChange = this.imgChange == 'first' ? 'second' : 'first';
+      })
+    )
   }
 
   getAllItems() {

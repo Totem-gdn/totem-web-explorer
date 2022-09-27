@@ -134,19 +134,34 @@
       }
       .cta-text-block {
 
-        .cta-head-text p {
-          z-index: 4;
-          font-weight: 700;
-          font-size: 64px;
-          line-height: 75px;
-          color: #FFFFFF;
-          @media (max-width: 600px) {
-            font-size: 36px;
-            line-height: 42px;
+        .cta-head-text {
+          p {
+            z-index: 4;
+            color: #FFFFFF;
+            @media (max-width: 600px) {
+              font-size: 36px;
+              line-height: 42px;
+            }
           }
+
+          .totem-caption {
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 48px;
+          }
+
+          .totem-subcaption {
+            font-weight: 400;
+            font-size: 84px;
+            line-height: 84px;
+            text-transform: uppercase;
+          }
+
         }
+
+
         .cta-caption-text {
-          margin-top: 16px;
+          margin-top: 30px;
           p {
             font-weight: 500;
             font-size: 20px;
@@ -160,6 +175,47 @@
         }
         .button-cta {
           margin-top: 54px;
+        }
+      }
+      .games-preview-block {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        right: -100px;
+        top: -85px;
+        .img-1, .img-2 {
+          position: absolute;
+          top: 0;
+          right: 0;
+          //border: 1px solid $grey;
+          width: 800px;
+          height: auto;
+          animation: float 7s ease-in-out infinite;
+        }
+      }
+      @keyframes float {
+        0% {
+          transform: translatey(0px);
+        }
+        50% {
+          transform: translatey(20px);
+        }
+        100% {
+          transform: translatey(0px);
+        }
+      }
+      @keyframes rotate {
+        0% {
+          transform: rotateY(0);
+        }
+        33% {
+          transform: rotateY(6deg);
+        }
+        66% {
+          transform: rotateY(-6deg);
+        }
+        100% {
+          transform: rotateY(0);
         }
       }
     }

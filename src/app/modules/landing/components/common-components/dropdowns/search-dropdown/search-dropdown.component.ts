@@ -60,7 +60,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
         if (this.alwaysOpen) {
           this.removeScriptSelected();
           this.userSelected = true;
-          this.restartScript(90000, 5000); // only for alwaysOpen === true
+          this.restartScript(60000, 5000); // only for alwaysOpen === true
           return;
         }
         this.menuActive = false;
