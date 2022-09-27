@@ -21,7 +21,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   disableButton: boolean | null = null;
   userHover!: boolean;
-  animationLoop: any;
+  loop: any;
 
   @ViewChild('itemsRef') itemsRef!: ElementRef;
   @ViewChild('movingCircle') movingCircle!: any;
@@ -81,8 +81,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
     let currentItemIndex = 0;
     let reverse = false;
 
-    this.animationLoop  = setInterval(() => {
-      console.log('is hovered', this.userHover)
+    this.loop  = setInterval(() => {
       if(this.userHover === true) {
         return;
       }
@@ -112,8 +111,9 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   animateItem(item: any, userHover: boolean) {
-    if(userHover) this.userHover = true;
-    console.log('userhover', userHover)
+    if(userHover) {
+      this.userHover = true;
+    }
     item.style.color = 'white';
     item.firstChild.style.opacity = '0.5';
     this.resetWithExeption(item, false);
@@ -121,7 +121,9 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
   resetWithExeption(exeption: any, userLeave: boolean) {
-    if(userLeave) this.userHover = false;
+    if(userLeave) {
+      this.userHover = false;
+    }
     let items: any[] = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
     for(let item of items){
       if(item === exeption) continue;
@@ -137,7 +139,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.animationLoop);
+    clearInterval(this.loop);
   }
 
 }
