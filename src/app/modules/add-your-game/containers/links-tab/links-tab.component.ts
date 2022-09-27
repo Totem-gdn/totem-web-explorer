@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
 import { Tag } from '@app/core/models/tag-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
@@ -23,12 +23,14 @@ interface SocialLink {
 
 export class LinksTabComponent implements AfterViewInit {
 
-  constructor(private userStateService: UserStateService) {
+  get webPageErrors() {
+    const webPage = this.linksForm.get('webPage');
+    return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
 
   dropdownLinks: any[] = [{value: 'Twitter', url: 'https://twitter.com/'},{value: 'Facebook', url: 'https://facebook.com/'},{value: 'Discord', url: 'https://discrod.com/'},]
 
-  links: SocialLink[] = [];
+  // links: SocialLink[] = [];
 
   linksForm = new FormGroup({
     webPage: new FormControl(null, Validators.required),
@@ -51,6 +53,10 @@ export class LinksTabComponent implements AfterViewInit {
 
   onAddLink() {
     this.socialLinksForm.push(new FormControl(null));
+  }
+
+  onRemoveLink(index: number) {
+    this.socialLinksForm.removeAt(index);
   }
 
   onSelectTag(tag: Tag, i: any) {

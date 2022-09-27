@@ -16,7 +16,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
-  activeTab: 'basic-information' | 'details' | 'links' = 'details';
+  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
 
   constructor(private userStateService: UserStateService) {
   }

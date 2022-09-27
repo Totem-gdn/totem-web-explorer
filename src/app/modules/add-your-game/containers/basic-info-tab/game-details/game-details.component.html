@@ -8,15 +8,17 @@
           <h4>Status</h4>
           <div class="input-section">
             <input type="text" formControlName="status">
+            <span @showMessage class="error-message" *ngIf="statusErrors">Required field</span>
             <span>Write a current status of game development</span>
-            <span @showMessage class="error-message" *ngIf="statusErrors">Status is required</span>
           </div>
         </div>
 
         <div class="block-section">
           <h4>Platforms</h4>
           <div class="tags-section">
-            <form-dropdown (selectedTag)="onSelectTag($event)" (touched)="onTouchDropdown()" [title]="'Add platforms'" [items]="dropdownPlatforms"></form-dropdown>
+            <form-dropdown (selectedTag)="onSelectTag($event)" (touched)="onTouchDropdown()" [title]="'Add platforms'" [items]="dropdownPlatforms"
+            class="outline-light-grey" [ngClass]="dropdownTouched && platforms.length === 0 ? 'outline-error':''"></form-dropdown>
+            <span @showMessage class="error-message" *ngIf="dropdownTouched && platforms.length === 0">Required field</span>
             <div class="tags">
               <div class="tag" *ngFor="let platform of platforms" (click)="onRemoveTag(platform)">
                 <span>{{platform.value}}</span>
@@ -24,7 +26,6 @@
               </div>
             </div>
             <span>Choose the platforms the game supports</span>
-            <span @showMessage class="error-message" *ngIf="dropdownTouched && platforms.length === 0">Preview Description is required</span>
           </div>
         </div>
 

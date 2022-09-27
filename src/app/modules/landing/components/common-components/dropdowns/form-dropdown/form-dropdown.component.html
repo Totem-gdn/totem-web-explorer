@@ -1,6 +1,5 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
-    <div #menu class="dropdown-toggle" (click)="onToggleMenu()"
-    [ngClass]="menuActive ? 'gradient-border-solid': ''">
+    <div #menu class="dropdown-toggle" (click)="onToggleMenu()">
 
         <span>{{title}}</span>
         <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>

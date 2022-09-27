@@ -65,13 +65,15 @@
     }
 
     & .tags {
-      min-height: 40px;
-      margin-bottom: 15px;
+      // margin-bottom: 15px;
+      // min-height: 55px;
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      column-gap: 10px;
+      // transition: height .3s ease-in-out;
       & .tag {
+        margin-bottom: 15px;
         cursor: pointer;
         border-radius: 4px;
         padding: 15px;
@@ -107,11 +109,11 @@
     border: 1px solid transparent;
 
     &:hover {
-      border: 1px solid $dark-grey;
+      border: 1px solid $light-grey;
     }
     &:focus {
       // background-color: $black;
-      border: 1px solid $dark-grey;
+      border: 1px solid $light-grey;
     }
   }
   & input {
@@ -141,6 +143,23 @@ textarea.ng-invalid.ng-touched {
   user-select: none;
   height: 36px;
   margin: 0 !important;
+  color: #FF5252 !important;
+}
+
+.outline-light-grey {
+  border-radius: 4px;
+  outline: 1px solid transparent;
+  transition: outline .3s;
+  &:hover {
+    outline: 1px solid $light-grey;
+  }
+}
+.outline-error {
+  border-radius: 4px;
+  outline: 1px solid #FF5252;
+}
+
+.text-error {
   color: #FF5252 !important;
 }
 

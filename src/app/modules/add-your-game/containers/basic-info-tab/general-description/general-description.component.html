@@ -8,7 +8,7 @@
                 <h4>Game Name</h4>
                 <div class="input-section">
                     <input type="text" formControlName="gameName">
-                    <span @showMessage class="error-message" *ngIf="gameErrors">Game Name is required</span>
+                    <span @showMessage class="error-message" *ngIf="gameErrors">Required field</span>
                 </div>
             </div>
 
@@ -16,17 +16,20 @@
                 <h4>Author Name</h4>
                 <div class="input-section">
                     <input type="text" formControlName="authorName">
-                    <span @showMessage class="error-message" *ngIf="authorErrors">Author Name is required</span>
+                    <span @showMessage class="error-message" *ngIf="authorErrors">Required field</span>
                 </div>
             </div>
 
             <div class="block-section">
                 <h4>Brief Description</h4>
                 <div class="input-section">
-                    <textarea class="gradient-border-solid" name="" id="" rows="5"
-                        formControlName="briefDescription"></textarea>
-                    <span>The text should not contain more than 300 characters</span>
-                    <span @showMessage class="error-message" *ngIf="briefErrors">Preview Description is required</span>
+                    <textarea class="gradient-border-solid" name="" id="" rows="5" formControlName="briefDescription"
+                        (ngModelChange)="briefDescChange($event)"></textarea>
+                    <span @showMessage class="error-message" *ngIf="briefErrors('required')">Required field</span>
+                    <div class="flex flex-wrap justify-between">
+                        <span [ngClass]="briefDescLength >= 300 ? 'text-error':''">{{briefDescLength}} of 300 characters left</span>
+                        <span>The text should not contain more than 300 characters</span>
+                    </div>      
                 </div>
             </div>
 
@@ -34,16 +37,16 @@
                 <h4>Genre</h4>
                 <div class="tags-section">
                     <form-dropdown (selectedTag)="onSelectTag($event)" (touched)="onTouchDropdown()"
+                    class="outline-light-grey" [ngClass]="dropdownTouched && genres.length === 0 ? 'outline-error':''"
                         [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
-                    <div class="tags">
-                        <div @apearAnimation class="tag" *ngFor="let genre of genres" (click)="onRemoveTag(genre)">
+                    <span @showMessage class="error-message" *ngIf="dropdownTouched && genres.length === 0">Required field</span>
+                    <div class="tags" [ngClass]="genres.length === 0 ? '': ''">
+                        <div @tagAnimation class="tag" *ngFor="let genre of genres" (click)="onRemoveTag(genre)">
                             <span>{{genre.value}}</span>
                             <mat-icon [svgIcon]="'line:close'"></mat-icon>
                         </div>
                     </div>
                     <span>Choose a couple of genres in the menu</span>
-                    <span @showMessage class="error-message" *ngIf="dropdownTouched && genres.length === 0">Genre is
-                        required</span>
                 </div>
             </div>
 
@@ -51,8 +54,11 @@
                 <h4>Full Description<span class="ml-[10px]">(Optional)</span></h4>
                 <div class="input-section">
                     <textarea class="gradient-border-solid" name="" id="" rows="10"
-                        formControlName="fullDescription"></textarea>
-                    <span>The text should not contain more than 300 characters</span>
+                        formControlName="fullDescription" (ngModelChange)="fullDescChange($event)"></textarea>
+                    <div class="flex flex-wrap justify-between">
+                        <span>The text should not contain more than 300 characters</span>
+                        <span [ngClass]="fullDescLength >= 300 ? 'text-error':''">{{fullDescLength}} of 300 characters left</span>
+                    </div>
                 </div>
             </div>
 

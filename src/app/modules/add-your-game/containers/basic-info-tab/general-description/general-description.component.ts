@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, ErrorHandler, OnDestroy, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
@@ -14,7 +14,7 @@ import { Subscription } from "rxjs";
     ]
 })
 
-export class GeneralDescription implements AfterViewInit, OnDestroy {
+export class GeneralDescription implements OnDestroy {
     get gameErrors() { 
         const gameName = this.generalDescription.get('gameName')
         return gameName?.errors && (gameName?.touched || gameName?.dirty);
@@ -24,9 +24,16 @@ export class GeneralDescription implements AfterViewInit, OnDestroy {
         const authorName = this.generalDescription.get('authorName');
         return authorName?.errors && (authorName?.touched || authorName?.dirty);
     };
-    get briefErrors() { 
-        const preview = this.generalDescription.get('previewDescription');
-        return preview?.errors && (preview?.touched || preview?.dirty);
+    briefErrors(error: string) { 
+        const brief = this.generalDescription.get('briefDescription');
+        if(error === 'required') {
+            return brief?.errors?.['required'] && (brief?.touched || brief?.dirty);
+        }
+        return brief?.errors && (brief?.touched || brief?.dirty);
+    };
+    get fullErrors() { 
+        const full = this.generalDescription.get('fullDescription');
+        return full?.errors && (full?.touched || full?.dirty);
     };
 
 
@@ -38,20 +45,22 @@ export class GeneralDescription implements AfterViewInit, OnDestroy {
     fullDescLength = 0;
 
     sub!: Subscription;
-    @ViewChild('briefDesctiption') briefDescription!: ElementRef;
-    @ViewChild('fullDesctiption') fullDescription!: ElementRef;
 
     generalDescription = new FormGroup({
         gameName: new FormControl(null, [Validators.required]),
         authorName: new FormControl(null, [Validators.required]),
-        briefDescription: new FormControl(null, [Validators.required]),
-        fullDescription: new FormControl(null, [Validators.required]),
+        briefDescription: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
+        fullDescription: new FormControl(null, [Validators.maxLength(300)]),
     })
 
-    ngAfterViewInit(): void {
-        this.generalDescription.valueChanges.subscribe(() => {
-            
-        })
+    briefDescChange(e: any) {
+        const length = +e.length;
+        this.briefDescLength = length;
+    }
+
+    fullDescChange(e: any) {
+        const length = +e.length;
+        this.fullDescLength = length;
     }
 
     onTouchDropdown() {

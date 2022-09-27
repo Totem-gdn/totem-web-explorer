@@ -24,7 +24,8 @@ import { TotemButtonModule } from "@app/modules/landing/components/common-compon
         TotemButtonModule,
 
         ReactiveFormsModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatIconModule,
     ],
     exports: [
         LinksTabComponent

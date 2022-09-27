@@ -8,8 +8,9 @@
                 <h4>E-mail</h4>
                 <div class="input-section">
                     <input type="text" formControlName="email">
+                    <span @showMessage class="error-message" *ngIf="emailErrors('required')">Required field</span>
+                    <span @showMessage class="error-message" *ngIf="emailErrors('email')">Invalid email</span>
                     <span>Write a reliable email address to get a form confirmation</span>
-                    <span @showMessage class="error-message" *ngIf="emailErrors">Status is required</span>
                 </div>
             </div>
 

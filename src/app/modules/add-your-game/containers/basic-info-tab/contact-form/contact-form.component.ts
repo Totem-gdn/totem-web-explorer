@@ -12,13 +12,20 @@ import { Animations } from "@app/core/animations/animations";
 })
 
 export class ContactFormComponent {
-    get emailErrors() {
+
+    emailErrors(error: string) { 
         const email = this.contactForm.get('email');
+        if(error === 'required') {
+            return email?.errors?.['required'] && (email?.touched || email?.dirty);
+        }
+        if(error == 'email') {
+            return email?.errors?.['email'] && (email?.touched || email?.dirty);
+        }
         return email?.errors && (email?.touched || email?.dirty);
-    }
+    };
 
     contactForm = new FormGroup({
-        email: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
         discord: new FormControl(null)
     })
 }

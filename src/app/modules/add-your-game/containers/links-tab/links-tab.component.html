@@ -5,17 +5,18 @@
   
     <div class="info-block">
       <div class="info-block-wrapper">
-        <div class="block-section flex-wrap">
+        <div class="block-section flex-wrap !border-0">
           <h4>Official Web-page</h4>
           <div class="input-section">
             <input type="text" formControlName="webPage">
             <span>Enter the URL of the marketplace page on which your game is located, for example, https://Creators.itch.io/game</span>
+            <span @showMessage class="error-message" *ngIf="webPageErrors">Required field</span>
           </div>
         </div>
       </div>
   
       <div class="info-block-wrapper">
-        <div class="block-section flex-wrap">
+        <div class="block-section flex-wrap !border-0">
           <h4>Asset renderer URL<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
             <input type="text" formControlName="rendererUrl">
@@ -25,7 +26,7 @@
       </div>
 
       <div class="info-block-wrapper">
-        <div class="block-section flex-wrap">
+        <div class="block-section flex-wrap !border-0">
           <h4>Promo video link<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
             <input type="text" formControlName="videoUrl">
@@ -40,23 +41,32 @@
           <div class="input-section" formArrayName="socialLinks">
 
             <ng-container *ngFor="let socialLink of socialLinksForm.controls; index as i">
-              <div @showInput class="social-link">
-                <form-dropdown (selectedTag)="onSelectTag($event, i)" class="!max-w-[180px] w-full" [inputType]="'radio'" [title]="'Select type'" [items]="dropdownLinks"></form-dropdown>
+              <div class="social-link flex-wrap lg:flex-nowrap">
+                  <form-dropdown @showInput (selectedTag)="onSelectTag($event, i)" class="!max-w-[180px] w-full mb-[15px] mr-[20px]" [inputType]="'radio'" [title]="'Select type'" [items]="dropdownLinks"></form-dropdown>
                 
-                  <span class="prefix-wrapper">
-                    <input class="prefix-input" type="text" [formControlName]="i">
-                    <span class="prefix-span" [ngClass]="socialLink.value != '' && socialLink.value ? '!text-white':''">https://</span>
-                  </span>
+                  <div class="flex w-full items-center">
+                    <span @showInput class="prefix-wrapper">
+                      <input class="prefix-input" type="text" [formControlName]="i">
+                      <span class="prefix-span" [ngClass]="socialLink.value != '' && socialLink.value ? '!text-white':''">https://</span>
+                    </span>
+                    <mat-icon @showInput class="trash-icon" [svgIcon]="'line:trash'" (click)="onRemoveLink(i)"></mat-icon>
+                  </div>
               </div>
             </ng-container>
 
-            <div class="flex"><div class="!max-w-[180px] w-full"></div><span class="pl-[20px]">Where does this link go? Enter the full URL, for example https://twitter.com</span></div>
+            <div class="flex">
+              <div class="!max-w-[0px] lg:!max-w-[180px] w-full"></div>
+              <span class="pl-0 lg:pl-[20px]">Where does this link go? Enter the full URL, for example https://twitter.com</span>
+            </div>
+
           </div>
         </div>
         <totem-button class="ml-auto" [height]="'40px'" [width]="'140px'" [caption]="'Add Link'" (click)="onAddLink()"></totem-button>
       </div>
 
     </div>
+
+    <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'"></totem-button>
   
   </form>
 </div>
