@@ -23,16 +23,27 @@
 
     <div class="flex grow justify-center h-[250px] max-w-[370px]">
         <div class="mb-auto mt-[10px] lg:my-0 mx-auto lg:mx-[20px] w-full z-12">
-            <search-dropdown [alwaysOpen]="true" [title]="'Game Name'" (onChange)="selectGame($event)"></search-dropdown>
+            <search-dropdown [alwaysOpen]="true" [title]="'Game Name'" (onFakeChange)="reselectGames($event)" (onChange)="selectGame($event)"></search-dropdown>
         </div>
     </div>
 
     <div class="img-wrapper mt-[30px] xl:m-0">
-        <div class="img-1">
-            <img src="../../../../../../assets/images/widget-image-1.png" alt="">
-        </div>
-        <div class="img-2 z-12">
-            <img src="../../../../../../assets/images/widget-image-2.png" alt="">
-        </div>
+      <div [@hideFirstState]="gameChanged" class="img-card">
+          <div class="img-1">
+              <img [src]="testImgURL_1" alt="">
+          </div>
+          <div class="img-2 z-12">
+              <img [src]="testImgURL_1" alt="">
+          </div>
+      </div>
+      <div [@hideSecondState]="gameChanged" class="img-card">
+          <div class="img-1">
+              <img [src]="testImgURL_2" alt="">
+          </div>
+          <div class="img-2 z-12">
+              <img [src]="testImgURL_2" alt="">
+          </div>
+      </div>
     </div>
+
 </div>
