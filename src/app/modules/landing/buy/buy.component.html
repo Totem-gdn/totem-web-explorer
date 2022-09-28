@@ -22,7 +22,7 @@
             <bg-circle class="right-[0px] bottom-[0px]" [background]="asset.type === 'avatar' ? '#8811FF' : asset.type === 'item' ? '#FB5A35' : asset.type === 'gem' ? '#FED01C': ''" [width]="'350px'"></bg-circle>
             </div>
 
-            <div class="item gradient-border-solid">
+            <div class="item gradient-border-solid" (mouseenter)="animateItem(itemRef, true)" (mouseleave)="resetWithExeption(itemRef, true)">
                 <div class="top-wrapper">
                     <div class="top">
                         <div class="flex flex-col items-center">
@@ -41,7 +41,6 @@
                         USDC</h3>
                     <!-- <button class="button-style-1" (mouseenter)="mouseEnter(wrapperRef)" (mouseleave)="mouseLeave(wrapperRef)" (click)="onBuyItem(asset.paymentInfo.address, asset.paymentInfo.price)">Generate</button> -->
                     <totem-button class="w-full max-w-[160px]" [width]="'100%'" [height]="'40px'" [caption]="'Generate'"
-                        (mouseenter)="animateItem(itemRef, true)" (mouseleave)="resetWithExeption(itemRef, true)"
                         (click)="onBuyItem(asset.paymentInfo.address, asset.paymentInfo.price)"></totem-button>
                 </div>
             </div>

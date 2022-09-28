@@ -7,7 +7,7 @@
             <div class="block-section pt-[40px]">
                 <h4>Game Name</h4>
                 <div class="input-section">
-                    <input type="text" formControlName="gameName">
+                    <input type="text" formControlName="gameName" (blur)="saveValue('gameName')">
                     <span @showMessage class="error-message" *ngIf="gameErrors">Required field</span>
                 </div>
             </div>
@@ -15,7 +15,7 @@
             <div class="block-section pt-[40px]">
                 <h4>Author Name</h4>
                 <div class="input-section">
-                    <input type="text" formControlName="authorName">
+                    <input type="text" formControlName="authorName" (blur)="saveValue('authorName')">
                     <span @showMessage class="error-message" *ngIf="authorErrors">Required field</span>
                 </div>
             </div>
@@ -23,12 +23,15 @@
             <div class="block-section">
                 <h4>Brief Description</h4>
                 <div class="input-section">
-                    <textarea class="gradient-border-solid" name="" id="" rows="5" formControlName="briefDescription"
-                        (ngModelChange)="briefDescChange($event)"></textarea>
+                    <textarea class="gradient-border-solid" name="" id="" rows="5" 
+                        formControlName="briefDescription"
+                        (ngModelChange)="briefDescChange($event)"  
+                        (blur)="saveValue('briefDescription')"></textarea>
                     <span @showMessage class="error-message" *ngIf="briefErrors('required')">Required field</span>
+
                     <div class="flex flex-wrap justify-between">
-                        <span [ngClass]="briefDescLength >= 300 ? 'text-error':''">{{briefDescLength}} of 300 characters left</span>
                         <span>The text should not contain more than 300 characters</span>
+                        <span [ngClass]="briefDescLength >= 300 ? 'text-error':''">{{briefDescLength}} of 300 characters left</span>
                     </div>      
                 </div>
             </div>
@@ -36,12 +39,12 @@
             <div class="block-section">
                 <h4>Genre</h4>
                 <div class="tags-section">
-                    <form-dropdown (selectedTag)="onSelectTag($event)" (touched)="onTouchDropdown()"
-                    class="outline-light-grey" [ngClass]="dropdownTouched && genres.length === 0 ? 'outline-error':''"
+                    <form-dropdown (selectedTag)="onSelectTag($event)" (removeTag)="onRemoveTag($event)" (touched)="onTouchDropdown()"
+                    class="outline-light-grey" [ngClass]="dropdownTouched && genresForm.controls.length === 0 ? 'outline-error':''"
                         [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
-                    <span @showMessage class="error-message" *ngIf="dropdownTouched && genres.length === 0">Required field</span>
-                    <div class="tags" [ngClass]="genres.length === 0 ? '': ''">
-                        <div @tagAnimation class="tag" *ngFor="let genre of genres" (click)="onRemoveTag(genre)">
+                    <span @showMessage class="error-message" *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>
+                    <div class="tags">
+                        <div @tagAnimation class="tag" *ngFor="let genre of genresForm.controls" (click)="onRemoveGenre(genre)">
                             <span>{{genre.value}}</span>
                             <mat-icon [svgIcon]="'line:close'"></mat-icon>
                         </div>
@@ -54,7 +57,9 @@
                 <h4>Full Description<span class="ml-[10px]">(Optional)</span></h4>
                 <div class="input-section">
                     <textarea class="gradient-border-solid" name="" id="" rows="10"
-                        formControlName="fullDescription" (ngModelChange)="fullDescChange($event)"></textarea>
+                        formControlName="fullDescription" 
+                        (ngModelChange)="fullDescChange($event)"
+                        (blur)="saveValue('fullDescription')"></textarea>
                     <div class="flex flex-wrap justify-between">
                         <span>The text should not contain more than 300 characters</span>
                         <span [ngClass]="fullDescLength >= 300 ? 'text-error':''">{{fullDescLength}} of 300 characters left</span>

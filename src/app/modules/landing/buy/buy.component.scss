@@ -43,7 +43,7 @@
                 margin-bottom: 0;
                 background-color: $transparent-light;
                 padding: 20px;
-                // color: $dark-grey;
+                z-index: 2;
             }
         }
     }
@@ -90,6 +90,7 @@
         bottom: 0;
         right: 0;
         left: 0;
+        transform: translateY(100px);
         .moving-circle {
             transition: transform .8s ease-in-out;
         }
@@ -102,6 +103,6 @@
         left: 0;
         right: 0;
         opacity: 0;
-        transition: opacity .8s ease-in-out;
+        transition: opacity .6s ease-in-out;
     }
 }

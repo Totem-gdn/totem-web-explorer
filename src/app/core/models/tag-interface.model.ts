@@ -2,5 +2,6 @@
 export interface Tag {
     reference: any,
     value: string,
-    checked?: boolean
+    checked?: boolean,
+    index?: number
 }

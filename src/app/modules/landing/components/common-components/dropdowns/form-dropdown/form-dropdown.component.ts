@@ -23,6 +23,7 @@ export class FormDropdownComponent {
     @Input() inputType = 'checkbox';
 
     @Output() selectedTag = new EventEmitter<Tag>();
+    @Output() removeTag = new EventEmitter<Tag>();
     @Output() touched = new EventEmitter<boolean>();
 
     onChangeInput(e: any) {
@@ -32,7 +33,8 @@ export class FormDropdownComponent {
         const tag: Tag = {
             reference, value, checked
         }
-        this.selectedTag.emit(tag);
+        if(checked == true) this.selectedTag.emit(tag);
+        if(checked == false) this.removeTag.emit(tag);   
 
         if(this.inputType === 'radio') {
             this.title = value;
