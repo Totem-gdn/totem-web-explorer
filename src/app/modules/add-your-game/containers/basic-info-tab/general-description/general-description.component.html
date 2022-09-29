@@ -39,7 +39,11 @@
             <div class="block-section">
                 <h4>Genre</h4>
                 <div class="tags-section">
-                    <form-dropdown (selectedTag)="onSelectTag($event)" (removeTag)="onRemoveTag($event)" (touched)="onTouchDropdown()"
+                    <form-dropdown (selectedTag)="onSelectTag($event)" 
+                    (removeTag)="onRemoveTag($event)" 
+                    (touched)="onTouchDropdown()"
+                    [setItems]="setItems"
+                    (returnValues)="onSetTags($event)"
                     class="outline-light-grey" [ngClass]="dropdownTouched && genresForm.controls.length === 0 ? 'outline-error':''"
                         [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
                     <span @showMessage class="error-message" *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>

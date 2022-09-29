@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ErrorHandler, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, ErrorHandler, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
@@ -15,7 +15,7 @@ import { BaseStorageService } from "@app/core/services/base-storage.service";
     ]
 })
 
-export class GeneralDescription implements OnDestroy, OnInit {
+export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     get gameErrors() { 
         const gameName = this.generalDescription.get('gameName')
@@ -40,7 +40,7 @@ export class GeneralDescription implements OnDestroy, OnInit {
 
     constructor(private storage: BaseStorageService) {}
 
-    ngOnInit() {
+    ngAfterViewInit() {
         const controlsNames = ['gameName', 'authorName', 'briefDescription', 'genres', 'fullDescription'];
 
         for(let controlName of controlsNames) {
@@ -49,13 +49,17 @@ export class GeneralDescription implements OnDestroy, OnInit {
             if(value == null || value == '') continue;
             if(controlName != 'genres') this.generalDescription.get(controlName)?.setValue(value);
             if(controlName == 'genres') {
-                for(let val of value) {
-                    this.genresForm.push(new FormControl(val));
+                const genres = value.split(',');
+                for(let genre of genres) {
+                    
+                    this.genresForm.push(new FormControl(genre));
                 }
+                this.setItems = genres;
             }
         }
     }
-
+    setItems!: any;
+    
     dropdownItems = [{value: 'Comedy'}, {value: 'Horror'}, {value: 'Music'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}];
     dropdownTouched = false;
     genreTags: Tag[] = [];
@@ -76,6 +80,10 @@ export class GeneralDescription implements OnDestroy, OnInit {
     genresForm = this.generalDescription.get('genres') as FormArray;
 
     
+    onSetTags(tags: any) {
+        console.log(tags);
+    }
+
     onSelectTag(tag: Tag) {
         this.genreTags.push(tag);
         this.genresForm.push(new FormControl(tag.value));

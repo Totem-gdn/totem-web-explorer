@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
+import { FormArray, FormGroup } from "@angular/forms";
 import { Tag } from "@app/core/models/tag-interface.model";
 
 
@@ -25,6 +26,19 @@ export class FormDropdownComponent {
     @Output() selectedTag = new EventEmitter<Tag>();
     @Output() removeTag = new EventEmitter<Tag>();
     @Output() touched = new EventEmitter<boolean>();
+    @Output() valuesReference = new EventEmitter<Tag[]>();
+
+    @Input() set setItems(values: any) {
+        if(!values) return;
+        const returnValues: Tag[] = [];
+        for(let item of this.items) {
+            for(let value of values) {
+                if(item.value == value) {
+                    this.selectedTag.emit(item);
+                }
+            }
+        }
+    }
 
     onChangeInput(e: any) {
         const reference = e.target;

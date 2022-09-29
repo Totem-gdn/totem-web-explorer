@@ -25,16 +25,17 @@
 
     .items {
         width: 100%;
-        max-width: 1340px;
+        max-width: 1150px;
         padding-bottom: 60px;
+        column-gap: 40px;
         flex-wrap: wrap;
-        // position: relative;
         justify-content: center;
         display: flex;
         color: $dark-grey;
 
         .item-wrapper {
             position: relative;
+
             .item {
                 width: 100%;
                 max-width: 330px;
@@ -43,7 +44,7 @@
                 margin-bottom: 0;
                 background-color: $transparent-light;
                 padding: 20px;
-                z-index: 2;
+                z-index: 3;
             }
         }
     }
@@ -92,7 +93,7 @@
         left: 0;
         transform: translateY(100px);
         .moving-circle {
-            transition: transform .8s ease-in-out;
+            opacity: 0;
         }
     }
 
@@ -103,6 +104,6 @@
         left: 0;
         right: 0;
         opacity: 0;
-        transition: opacity .6s ease-in-out;
+        transition: opacity .8s .2s ease-in-out;
     }
 }

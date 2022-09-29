@@ -1,6 +1,6 @@
 <div *ngIf="assets" class="wrapper relative">
 
-    <h1 class="z-1">Create a unique Totem Item!</h1>
+    <h1 class="z-1 text-3xl sm:text-5xl">Create a unique Totem Item!</h1>
     <h3 class="pb-[30px] z-1">Choose the item type to mint</h3>
     <span class="z-1">Minting of Totem Items may take time. After you transfer the USDC to the Totem's address, your transaction
         needs to get confirmed. It may take several seconds. After confirmation of your transaction Totem mints the
@@ -8,13 +8,13 @@
         process may take up to a minute. Please ensure that you have enough USDC on your account and have enough MATIC
         to transfer USDC.</span>
 
-    <div #itemsRef class="items">
+    <div #itemsRef class="items xl:!gap-[80px]">
 
         <div class="moving-circle-wrapper blur-sm">
-            <div #movingCircle class="moving-circle"><bg-circle [width]="'300px'"></bg-circle></div>
+            <div #movingCircle class="moving-circle"><bg-circle [background]="'green'" [width]="'300px'"></bg-circle></div>
         </div> 
 
-        <div #itemRef class="item-wrapper sm:mx-[40px]" *ngFor="let asset of assets">
+        <div #itemRef class="item-wrapper" *ngFor="let asset of assets">
 
             <div #circlesRef class="circle-wrapper blur-70">
             <bg-circle class="top-[100px] left-[-100px]" [background]="asset.type === 'avatar' ? '#3A23C9' : asset.type === 'item' ? '#8023C9' : asset.type === 'gem' ? '#FFD011': ''" [width]="'350px'"></bg-circle>
