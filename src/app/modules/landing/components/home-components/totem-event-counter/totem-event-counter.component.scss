@@ -105,22 +105,6 @@
       @media (max-width: 960px) {
         display: none;
       }
-      /* &::before {
-        content: "";
-        pointer-events: none;
-        position: absolute;
-        //z-index: 1;
-        inset: 0;
-        padding: 1px;
-        border-radius: 4px 4px 4px 4px;
-        background: $linear-light;
-        -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        transition: opacity 0.33s ease-out;
-      } */
     }
     .timer-container {
       flex-direction: column;
