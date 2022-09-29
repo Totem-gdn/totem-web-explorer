@@ -21,7 +21,7 @@
   &-content {
     margin-top: 20px;
     width: 100%;
-    height: 732px;
+    min-height: 732px;
     padding: 16px;
     border: 1px solid rgba(95, 99, 105, 0.5);
     border-radius: 4px;
@@ -220,7 +220,7 @@
 
     .message-table {
       margin-top: 12px;
-      max-height: 580px;
+      //max-height: 580px;
       height: 100%;
       width: 100%;
       overflow: scroll;

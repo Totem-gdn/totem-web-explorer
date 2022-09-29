@@ -1,4 +1,6 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "@env/environment";
 import { BehaviorSubject, Observable } from "rxjs";
 
 const NEWEST_ITEMS: any[] = [
@@ -120,6 +122,8 @@ const POPULAR_GAMES: any[] = [
 
 export class TotemItemsService {
 
+  baseUrl: string = environment.TOTEM_BASE_API_URL;
+
   private games$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
   games: Observable<any[] | null> = this.games$.asObservable();
 
@@ -132,22 +136,47 @@ export class TotemItemsService {
   private avatars$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
   avatars: Observable<any[] | null> = this.avatars$.asObservable();
 
-  constructor() {}
+  constructor(private http: HttpClient) {
+  }
 
   getNewestItems() {
     this.newestItems$.next(NEWEST_ITEMS);
+    //this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
+    //  console.log(data);
+    //  if (data && data?.length) {
+    //    this.games$.next(data);
+    //  }
+    //})
   }
 
   getMostUsedItems() {
     this.mostUsedItems$.next(MOST_USED_ITEMS);
+    //this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
+    //  console.log(data);
+    //  if (data && data?.length) {
+    //    this.games$.next(data);
+    //  }
+    //})
   }
 
   getAvatars() {
     this.avatars$.next(AVATARS);
+    this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
+      console.log(data);
+      if (data && data?.length) {
+        this.games$.next(data);
+      }
+    })
   }
 
   getGames() {
     this.games$.next(POPULAR_GAMES);
+    this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
+      console.log(data);
+      if (data && data?.length) {
+        this.games$.next(data);
+      }
+    })
   }
 
 }
