@@ -3,12 +3,44 @@
 
 
     <div fxFlex.lt-md="32%" fxFlex.lt-sm="100%" class="image-container">
-      <img src="assets/images/legacy-jam.png" alt="jam">
+      <div class="floating-border abs-full">
+        <div class="floating-border-wrapper">
+          <div class="face-border"></div>
+          <div class="blured-border abs-full"></div>
+          <div class="deco-border-1 abs-full"></div>
+          <div class="deco-border-2 abs-full"></div>
+        </div>
+      </div>
+      <div class="jam-info px-[60px] py-[63px]" fxLayout="column" fxLayoutAlign="flex-end flex-start">
+        <div class="jam-info-title">
+          <p class="jam-info-title-face font-totem">GameJam+</p>
+          <p class="jam-info-title-blured font-totem">GameJam+</p>
+        </div>
+        <p class="jam-info-caption font-totem mt-[10px]">October 14th, 18PM GMT+8</p>
+      </div>
+      <div class="gradient-face abs-full"></div>
+      <img src="assets/images/gamejam.png" alt="jam">
     </div>
-    <div fxFlex="34%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" class="timer-container">
-      <div class="title">Comming soon:</div>
+    <div fxFlex="32%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" class="timer-container">
+      <div class="title font-totem">GameJam+</div>
       <div class="image-container-tablet">
-        <img src="assets/images/legacy-jam.png" alt="jam">
+        <div class="floating-border abs-full">
+          <div class="floating-border-wrapper">
+            <div class="face-border"></div>
+            <div class="blured-border abs-full"></div>
+            <div class="deco-border-1 abs-full"></div>
+            <div class="deco-border-2 abs-full"></div>
+          </div>
+        </div>
+        <div class="jam-info" fxLayout="column" fxLayoutAlign="flex-end flex-start">
+          <div class="jam-info-title">
+            <p class="jam-info-title-face font-totem">GameJam+</p>
+            <p class="jam-info-title-blured font-totem">GameJam+</p>
+          </div>
+          <p class="jam-info-caption font-totem mt-[10px]">October 14th, 18PM GMT+8</p>
+        </div>
+        <div class="gradient-face abs-full"></div>
+        <img src="assets/images/gamejam.png" alt="jam">
       </div>
       <div class="timer-block" fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="column" fxLayoutAlign="center center">
@@ -31,13 +63,8 @@
           <div class="timer-caption">SEC</div>
         </div>
       </div>
-      <div class="description">The Totem platform was built to empower indie developers
-        to create amazing interconnected games, and also be able
-        to monetize off of them using a fair and transparent model.
-        We are a community of 200+ tribe members, the majority of
-        which are indie game creators, collaborating to bring a new
-        type of gaming to life.</div>
-      <div class="join-cta-block"><totem-button [customId]="'eventButton'" [caption]="'Register'"></totem-button></div>
+      <div class="description">Totem is joining as a category to GameJam+, the largest game development marathon and acceleration process in the world</div>
+      <div class="join-cta-block"><totem-button [customId]="'eventButton'" [caption]="'Join the event'"></totem-button></div>
     </div>
   </div>
 </div>

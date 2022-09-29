@@ -15,7 +15,6 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
 
     scriptSubscribe: Subscription = new Subscription();
     previusSelected: number = 0;
-    userSelected: boolean = true;
 
     constructor(private router: Router,
         @Inject(DOCUMENT) private document: Document,
@@ -59,8 +58,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
 
         if (this.alwaysOpen) {
           this.removeScriptSelected();
-          this.userSelected = true;
-          this.restartScript(60000, 5000); // only for alwaysOpen === true
+          this.restartScript(20000, 5000); // only for alwaysOpen === true
           return;
         }
         this.menuActive = false;
@@ -100,7 +98,6 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     restartScript(start: number, nextTime: number) {
-      this.userSelected = false;
       this.scriptSubscribe.unsubscribe();
       console.log('Restarted by mouseleave');
 
@@ -111,9 +108,9 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
       this.scriptSubscribe = timer(start, nextTime).subscribe((val: number) => {
         this.removeScriptSelected();
         this.autoScript();
-        for (let i = 0; i < this.allRadioButtons.length; i++) {
+        /* for (let i = 0; i < this.allRadioButtons.length; i++) {
           this.allRadioButtons[i].children[0].checked = false;
-        }
+        } */
       });
     }
 
@@ -125,7 +122,6 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
       }
       this.previusSelected = selectThisGame;
       this.selectGame(selectThisGame);
-      this.scriptSubscribe.unsubscribe();
     }
 
     selectGame(selectItem: number) {
@@ -149,7 +145,11 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
           document?.getElementById('item' + i.toString())?.classList.add('script-selected');
           this.title = itemToSelect.name;
           this.onFakeChange.emit('changed');
+          this.scriptSubscribe.unsubscribe();
           this.startScriptTimer(5000, 5000);
+          for (let i = 0; i < this.allRadioButtons.length; i++) {
+            this.allRadioButtons[i].children[0].checked = false;
+          }
         }
       }, 600 * i);
     }
