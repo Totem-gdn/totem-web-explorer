@@ -141,37 +141,37 @@ export class TotemItemsService {
 
   getNewestItems() {
     this.newestItems$.next(NEWEST_ITEMS);
-    //this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
-    //  console.log(data);
-    //  if (data && data?.length) {
-    //    this.games$.next(data);
-    //  }
-    //})
+    this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
+      console.log(data);
+      if (data && data?.length) {
+        this.newestItems$.next(data);
+      }
+    })
   }
 
   getMostUsedItems() {
     this.mostUsedItems$.next(MOST_USED_ITEMS);
-    //this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
-    //  console.log(data);
-    //  if (data && data?.length) {
-    //    this.games$.next(data);
-    //  }
-    //})
+    this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
+      console.log(data);
+      if (data && data?.length) {
+        this.mostUsedItems$.next(data);
+      }
+    })
   }
 
   getAvatars() {
     this.avatars$.next(AVATARS);
-    this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
+    this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
       console.log(data);
       if (data && data?.length) {
-        this.games$.next(data);
+        this.avatars$.next(data);
       }
     })
   }
 
   getGames() {
     this.games$.next(POPULAR_GAMES);
-    this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
+    this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
       console.log(data);
       if (data && data?.length) {
         this.games$.next(data);

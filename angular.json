@@ -76,7 +76,8 @@
               "browserTarget": "totem-gdn-layout:build:production"
             },
             "development": {
-              "browserTarget": "totem-gdn-layout:build:development"
+              "browserTarget": "totem-gdn-layout:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

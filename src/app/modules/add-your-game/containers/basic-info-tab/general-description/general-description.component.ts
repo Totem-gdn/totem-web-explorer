@@ -74,11 +74,11 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     sub!: Subscription;
 
     generalDescription = new FormGroup({
-        gameName: new FormControl(null, [Validators.required]),
-        authorName: new FormControl(null, [Validators.required]),
-        briefDescription: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
+        gameName: new FormControl('', [Validators.required]),
+        authorName: new FormControl('', [Validators.required]),
+        briefDescription: new FormControl('', [Validators.required, Validators.maxLength(300)]),
         genres: new FormArray([]),
-        fullDescription: new FormControl(null, [Validators.maxLength(300)]),
+        fullDescription: new FormControl('', [Validators.maxLength(300)]),
     })
     genresForm = this.generalDescription.get('genres') as FormArray;
 
