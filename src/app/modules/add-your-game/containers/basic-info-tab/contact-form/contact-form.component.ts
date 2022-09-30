@@ -36,8 +36,8 @@ export class ContactFormComponent implements AfterViewInit {
     @Output() formValid = new EventEmitter<any>();
 
     contactForm = new FormGroup({
-        email: new FormControl(null, [Validators.required, Validators.email]),
-        discord: new FormControl(null)
+        email: new FormControl('', [Validators.required, Validators.email]),
+        discord: new FormControl('')
     })
 
     isFormValid() {

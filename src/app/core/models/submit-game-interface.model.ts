@@ -27,7 +27,7 @@ export interface ImagesInfo {
   coverImage?: ImageFileInfo;
   cardThumbnail?: ImageFileInfo;
   smallThumbnail?: ImageFileInfo;
-  imagesGallery?: ImageFileInfo[];
+  gallery?: ImageFileInfo[];
 }
 
 export interface GeneralInfo {

@@ -56,7 +56,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
         filename: this.finalizedSearchImage.name,
         contentLength: this.finalizedSearchImage.size
       },
-      imagesGallery: [{
+      gallery: [{
         mimeType: this.finalizedGalleryImages[0].type,
         filename: this.finalizedGalleryImages[0].name,
         contentLength: this.finalizedGalleryImages[0].size

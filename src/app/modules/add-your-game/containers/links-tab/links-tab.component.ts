@@ -38,10 +38,10 @@ export class LinksTabComponent implements AfterViewInit {
   @Output() submit: EventEmitter<any> = new EventEmitter();
 
   linksForm = new FormGroup({
-    webPage: new FormControl(null, Validators.required),
-    rendererUrl: new FormControl(null),
-    videoUrl: new FormControl(null),
-    socialLinks: new FormArray([new FormControl(null)])
+    webPage: new FormControl('', Validators.required),
+    rendererUrl: new FormControl(''),
+    videoUrl: new FormControl(''),
+    socialLinks: new FormArray([new FormControl('')])
   })
   socialLinksForm = this.linksForm.get('socialLinks') as FormArray;
 
@@ -58,7 +58,7 @@ export class LinksTabComponent implements AfterViewInit {
   }
 
   submitGameInfo() {
-    
+
   }
 
   onAddLink() {

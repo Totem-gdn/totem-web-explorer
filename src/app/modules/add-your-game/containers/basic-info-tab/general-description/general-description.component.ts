@@ -52,7 +52,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         author: new FormControl(null, [Validators.required]),
         description: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
         genres: new FormArray([]),
-        fullDescription: new FormControl(null, [Validators.maxLength(300)]),
+        fullDescription: new FormControl('', [Validators.maxLength(300)]),
     })
     genresForm = this.generalDescription.get('genres') as FormArray;
 

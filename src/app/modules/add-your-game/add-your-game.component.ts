@@ -34,6 +34,9 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         this.loading$.next(value);
       })
     )
+
+    this.submitGameService.approveGame();
+    this.submitGameService.getGame();
   }
 
   ngOnDestroy(): void {
