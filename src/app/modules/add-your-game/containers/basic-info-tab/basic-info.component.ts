@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ContactsInfo, DetailsInfo, GeneralInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-basic-info',
@@ -13,13 +14,21 @@ import { Subscription } from 'rxjs';
 export class BasicInfoComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
+  getFromDataEvent: Subject<void> = new Subject<void>();
+  @Output() formDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
 
   constructor(private userStateService: UserStateService) {
   }
 
-  onSubmit() {
-    
+  getDataFromForms() {
+    this.getFromDataEvent.next();
   }
+
+  updateFormData(event: SubmitGame) {
+    console.log(event);
+    this.formDataEvent.emit(event);
+  }
+
   ngOnInit() {
     /* this.subs.add(
       this.userStateService.isLoading.subscribe((value: boolean) => {

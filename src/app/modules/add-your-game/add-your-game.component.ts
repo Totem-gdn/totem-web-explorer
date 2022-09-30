@@ -1,7 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
+import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { SubmitGameService } from './services/submit-game.service';
+
+const BODY: SubmitGame = {
+
+}
 
 @Component({
   selector: 'totem-add-your-game',
@@ -17,8 +23,9 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
   activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
+  formsData: SubmitGame | null = null;
 
-  constructor(private userStateService: UserStateService) {
+  constructor(private userStateService: UserStateService, private submitGameService: SubmitGameService) {
   }
 
   ngOnInit() {
@@ -31,6 +38,22 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  updateFormData(event: SubmitGame) {
+    console.log(event);
+    console.log(Object.keys(event)[0]);
+    let keyToUpdate: string = Object?.keys(event)[0];
+    this.formsData = {
+      ...this.formsData,
+      [keyToUpdate]: event[keyToUpdate],
+    };
+    console.log(this.formsData);
+  }
+
+  uploadGame() {
+    console.log(this.formsData);
+    this.submitGameService.postGame(this.formsData);
   }
 
   goToTab(tab: string) {

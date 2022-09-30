@@ -22,13 +22,13 @@
     <!-- CONTENT -->
     <div class="content-block">
       <ng-container *ngIf="activeTab == 'basic-information'">
-        <totem-basic-info></totem-basic-info>
+        <totem-basic-info (formDataEvent)="updateFormData($event)"></totem-basic-info>
       </ng-container>
       <ng-container *ngIf="activeTab == 'details'">
-        <totem-details-tab></totem-details-tab>
+        <totem-details-tab (formDataEvent)="updateFormData($event)"></totem-details-tab>
       </ng-container>
       <ng-container *ngIf="activeTab == 'links'">
-        <totem-links-tab></totem-links-tab>
+        <totem-links-tab (linkFormDataEvent)="updateFormData($event)" (submitGame)="uploadGame()"></totem-links-tab>
       </ng-container>
     </div>
 

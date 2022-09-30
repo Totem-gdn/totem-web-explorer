@@ -161,7 +161,7 @@ export class TotemItemsService {
 
   getAvatars() {
     this.avatars$.next(AVATARS);
-    this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
+    this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
       console.log(data);
       if (data && data?.length) {
         this.games$.next(data);
@@ -171,7 +171,7 @@ export class TotemItemsService {
 
   getGames() {
     this.games$.next(POPULAR_GAMES);
-    this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
+    this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
       console.log(data);
       if (data && data?.length) {
         this.games$.next(data);

@@ -38,6 +38,16 @@ export class Web3AuthService {
         this.isModalLoaded = true;
     }
 
+    authUser = async () => {
+      if (!this.provider) {
+          console.log("provider not initialized yet");
+          return;
+      }
+      console.log('auth tokens');
+      const token = await this.web3auth?.authenticateUser();
+      return token;
+    }
+
     getTokens = async () => {
         if (!this.provider) {
             console.log("provider not initialized yet");
@@ -139,6 +149,7 @@ export class Web3AuthService {
         const rpc = new RPC(this.provider);
         const privateKey = await rpc.getPrivateKey();
         console.log(privateKey);
+        return privateKey;
     };
 
     getListOfNfts = async () => {
