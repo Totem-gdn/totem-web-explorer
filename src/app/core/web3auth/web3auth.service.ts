@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { Web3Auth } from "@web3auth/web3auth";
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES, Maybe, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
-
+import { getED25519Key } from "@toruslabs/openlogin-ed25519";
+import { getPublicCompressed } from "@toruslabs/eccrypto";
 
 @Injectable({ providedIn: 'root' })
 
@@ -36,6 +37,25 @@ export class Web3AuthService {
             this.provider = web3auth.provider;
         }
         this.isModalLoaded = true;
+    }
+
+    getPubKey = async () => {
+      const web3auth = this.web3auth;
+      const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+        method: "solanaPrivateKey",
+      });
+      const ed25519Key = getED25519Key(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex"));
+      const app_pub_key = ed25519Key.pk.toString("hex");
+    }
+
+    getPublicKey = async () => {
+      const web3auth = this.web3auth;
+      const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+        method: "eth_private_key", // use "private_key" for other non-evm chains
+      });
+      const app_pub_key = getPublicCompressed(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex")).toString("hex");
+      const user = await web3auth?.getUserInfo();
+      return app_pub_key;
     }
 
     authUser = async () => {

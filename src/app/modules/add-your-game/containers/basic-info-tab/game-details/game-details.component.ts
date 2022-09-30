@@ -25,11 +25,11 @@ export class GameDetailsComponent {
     platforms: Tag[] = [];
 
     gameDetails = new FormGroup({
-        status: new FormControl(null, Validators.required),
-        madeWith: new FormControl(null),
-        session: new FormControl(null),
-        languages: new FormControl(null),
-        inputs: new FormControl(null),
+        status: new FormControl('', Validators.required),
+        madeWith: new FormControl(''),
+        session: new FormControl(''),
+        languages: new FormControl(''),
+        inputs: new FormControl(''),
     })
 
     @Output() detailsFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();

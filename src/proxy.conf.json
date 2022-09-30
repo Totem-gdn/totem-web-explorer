@@ -1,0 +1,8 @@
+{
+  "/games": {
+    "target": "https://dev-api.totem-explorer.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

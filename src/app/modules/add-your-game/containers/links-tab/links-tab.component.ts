@@ -36,10 +36,10 @@ export class LinksTabComponent implements AfterViewInit {
   // links: SocialLink[] = [];
 
   linksForm = new FormGroup({
-    webPage: new FormControl(null, Validators.required),
-    rendererUrl: new FormControl(null),
-    videoUrl: new FormControl(null),
-    socialLinks: new FormArray([new FormControl(null)])
+    webPage: new FormControl('', Validators.required),
+    rendererUrl: new FormControl(''),
+    videoUrl: new FormControl(''),
+    socialLinks: new FormArray([new FormControl('')])
   })
   socialLinksForm  = this.linksForm.get('socialLinks') as FormArray;
 
@@ -60,7 +60,7 @@ export class LinksTabComponent implements AfterViewInit {
       webpage: formData?.webPage,
       assetRenderer: formData?.rendererUrl,
       promoVideo: formData?.videoUrl,
-      socialLinks: this.socialLinksForm?.value
+      socialLinks: [{type: this.socialLinksForm?.value[0], url: this.socialLinksForm?.value[0]}]
     }
     this.linkFormDataEvent.emit({connections: formDataToSend});
   }

@@ -39,7 +39,7 @@ export class ContactFormComponent implements OnDestroy {
     };
 
     contactForm = new FormGroup({
-        email: new FormControl(null, [Validators.required, Validators.email]),
-        discord: new FormControl(null)
+        email: new FormControl('', [Validators.required, Validators.email]),
+        discord: new FormControl('')
     })
 }
