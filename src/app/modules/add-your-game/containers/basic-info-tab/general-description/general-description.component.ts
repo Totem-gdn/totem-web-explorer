@@ -3,17 +3,8 @@ import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
 import { Subscription } from "rxjs";
-import { BaseStorageService } from "@app/core/services/base-storage.service";
-import { FormsService } from "@app/modules/add-your-game/forms.service";
+import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
-
-interface GeneralForm {
-    name?: string;
-    author?: string;
-    description?: string;
-    fullDescription?: string;
-    genre?: string[];
-}
 @Component({
     selector: 'general-description',
     templateUrl: './general-description.component.html',
@@ -24,6 +15,7 @@ interface GeneralForm {
 })
 
 export class GeneralDescription implements OnDestroy, AfterViewInit {
+
     checkErrors(controlName: string, errorType: string) {
         const control = this.generalDescription.get(controlName);
         if (errorType === 'required') {
@@ -34,7 +26,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         }
     }
 
-    constructor(private formsService: FormsService) { }
+    constructor(private submitService: SubmitGameService) { }
 
     ngAfterViewInit() {
         this.retrieveValues();
@@ -42,7 +34,8 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     setItems!: any;
 
-    dropdownItems = [{ value: 'Comedy' }, { value: 'Horror' }, { value: 'Music' }, { value: 'Adventure' }, { value: 'Adventure' }, { value: 'Adventure' }, { value: 'Adventure' }];
+    dropdownItems = [{value: 'Comedy'}, {value: 'Horror'}, {value: 'Music'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}];
+
     dropdownTouched = false;
     genreTags: Tag[] = [];
     genreIndexer: number = 0;
@@ -52,7 +45,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     sub!: Subscription;
     
-    @Output() valueChanges = new EventEmitter<any>();
+    @Output() formValid = new EventEmitter<any>();
 
     generalDescription = new FormGroup({
         name: new FormControl(null, [Validators.required]),
@@ -63,10 +56,6 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     })
     genresForm = this.generalDescription.get('genres') as FormArray;
 
-
-    onSetTags(tags: any) {
-        console.log(tags);
-    }
 
     onSelectTag(tag: Tag) {
         this.genreTags.push(tag);
@@ -82,6 +71,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     }
 
     onRemoveGenre(genreControl: any) {
+        console.log(genreControl.value);
         const tagToRemove = this.genreTags.filter(tag => { return tag.value == genreControl.value });
         tagToRemove[0].reference.checked = false;
 
@@ -90,13 +80,18 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         this.saveValue();
     }
 
-    saveValue() {
-        const value = this.generalDescription.value;
-        this.formsService.saveForm('general', value);
+    isFormValid() {
+        this.formValid.emit({formName: 'general', value: this.generalDescription.valid});
     }
 
+
+    saveValue() {
+        const value = this.generalDescription.value;
+        this.submitService.saveForm('general', value);
+        this.isFormValid();
+    }
     retrieveValues() {
-        const values =  this.formsService.getForm('general');
+        const values =  this.submitService.getForm('general');
         if(!values) return;
         this.generalDescription.patchValue({
             name: values.name,
@@ -105,6 +100,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
             fullDescription: values.fullDescription,
         });
         this.setItems = values.genres;
+        this.isFormValid();
     }
 
     

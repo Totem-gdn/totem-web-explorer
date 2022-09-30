@@ -1,8 +1,8 @@
 <div class="desc-form">
 
-  <general-description></general-description>
-  <game-details></game-details>
-  <contact-form></contact-form>
+  <general-description (formValid)="checkFormValidity($event)"></general-description>
+  <game-details (formValid)="checkFormValidity($event)"></game-details>
+  <contact-form (formValid)="checkFormValidity($event)"></contact-form>
   <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'"></totem-button>
 
 </div>

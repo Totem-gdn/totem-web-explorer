@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
+import { ConnectionsInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { Tag } from '@app/core/models/tag-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Subscription } from 'rxjs';
 import { FormsService } from '../../forms.service';
+import { SubmitGameService } from '../../services/submit-game.service';
 
 interface SocialLink {
   tag: Tag;
@@ -24,7 +26,7 @@ interface SocialLink {
 
 export class LinksTabComponent implements AfterViewInit {
 
-  constructor(private formsService: FormsService) { }
+  constructor(private submitGame: SubmitGameService) { }
 
   get webPageErrors() {
     const webPage = this.linksForm.get('webPage');
@@ -33,7 +35,7 @@ export class LinksTabComponent implements AfterViewInit {
 
   dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },]
 
-  // links: SocialLink[] = [];
+  @Output() submit: EventEmitter<any> = new EventEmitter();
 
   linksForm = new FormGroup({
     webPage: new FormControl(null, Validators.required),
@@ -53,6 +55,10 @@ export class LinksTabComponent implements AfterViewInit {
       })
     })
     this.retrieveValues();
+  }
+
+  submitGameInfo() {
+    
   }
 
   onAddLink() {
@@ -79,11 +85,11 @@ export class LinksTabComponent implements AfterViewInit {
 
   saveValue() {
     const value = this.linksForm.value;
-    this.formsService.saveForm('links', value);
+    this.submitGame.saveForm('links', value);
   }
 
   retrieveValues() {
-    const values = this.formsService.getForm('links');
+    const values = this.submitGame.getForm('links');
     if (!values) return;
 
     this.linksForm.patchValue({
@@ -91,7 +97,6 @@ export class LinksTabComponent implements AfterViewInit {
       rendererUrl: values.rendererUrl,
       videoUrl: values.videoUrl,
       socialLinks: values.socialLinks,
-
     })
   }
 

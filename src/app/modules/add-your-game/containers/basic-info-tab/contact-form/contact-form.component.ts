@@ -1,7 +1,9 @@
-import { AfterViewInit, Component } from "@angular/core";
+
+import { AfterViewInit, Component, EventEmitter, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { FormsService } from "@app/modules/add-your-game/forms.service";
+import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
 @Component({
     selector: 'contact-form',
@@ -14,13 +16,13 @@ import { FormsService } from "@app/modules/add-your-game/forms.service";
 
 export class ContactFormComponent implements AfterViewInit {
 
-    constructor (private formsService: FormsService) {}
+    constructor (private submitService: SubmitGameService) {}
 
     ngAfterViewInit(): void {
         this.retrieveValues();
     }
 
-    emailErrors(error: string) { 
+    emailErrors(error: string) {
         const email = this.contactForm.get('email');
         if(error === 'required') {
             return email?.errors?.['required'] && (email?.touched || email?.dirty);
@@ -31,24 +33,30 @@ export class ContactFormComponent implements AfterViewInit {
         return email?.errors && (email?.touched || email?.dirty);
     };
 
+    @Output() formValid = new EventEmitter<any>();
+
     contactForm = new FormGroup({
         email: new FormControl(null, [Validators.required, Validators.email]),
         discord: new FormControl(null)
     })
 
+    isFormValid() {
+        this.formValid.emit({formName: 'contacts', value: this.contactForm.valid})
+    }
+
     saveValue() {
         const value = this.contactForm.value;
-        this.formsService.saveForm('contacts', value);
+        this.submitService.saveForm('contacts', value);
+        this.isFormValid();
     }
 
     retrieveValues() {
-        const values =  this.formsService.getForm('contacts');
-        console.log(values)
+        const values =  this.submitService.getForm('contacts');
         if(!values) return;
-        console.log(values)
         this.contactForm.patchValue({
             email: values.email,
             discord: values.discord
         });
+        this.isFormValid();
     }
 }

@@ -1,8 +1,11 @@
-import { AfterViewInit, Component } from "@angular/core";
+
+import { AfterViewInit, Component, EventEmitter, Output } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
+import { DetailsInfo, SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { Tag } from "@app/core/models/tag-interface.model";
 import { FormsService } from "@app/modules/add-your-game/forms.service";
+import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
 
 @Component({
@@ -15,12 +18,13 @@ import { FormsService } from "@app/modules/add-your-game/forms.service";
 })
 
 export class GameDetailsComponent implements AfterViewInit {
-    get statusErrors() { 
+
+    get statusErrors() {
         const status = this.gameDetails.get('status')
         return status?.errors && (status?.touched || status?.dirty);
     };
 
-    constructor(private formsService: FormsService) {}
+    constructor(private submitService: SubmitGameService) {}
 
     ngAfterViewInit(): void {
         this.retrieveValues();
@@ -31,27 +35,33 @@ export class GameDetailsComponent implements AfterViewInit {
     setItems!: any;
     platformTags: Tag[] = [];
 
+    @Output() formValid = new EventEmitter<any>();
+
     gameDetails = new FormGroup({
         status: new FormControl(null, Validators.required),
         platforms: new FormArray([], Validators.required),
         madeWith: new FormControl(null),
         avarageSession: new FormControl(null),
         languages: new FormControl(null),
-        inputs: new FormControl(null), 
+        inputs: new FormControl(null),
     })
     platformsForm = this.gameDetails.get('platforms') as FormArray;
 
-    onSetTags(tags: any) {
-        console.log(tags);
-    }
 
     onSelectTag(tag: Tag) {
         this.platformTags.push(tag);
         this.platformsForm.push(new FormControl(tag.value));
+        if(tag.checked === true) {
+            this.dropdownPlatforms.push(tag);
+        }
+        if(tag.checked === false) {
+            this.onRemoveTag(tag);
+        }
         this.saveValue();
     }
 
     onRemoveTag(tag: Tag) {
+        console.log(tag);
         this.platformTags = this.platformTags.filter(platform => platform.reference != tag.reference);
         tag.reference.checked = false;
         this.platformsForm.removeAt(this.platformsForm.controls.findIndex(platform => platform.value === tag.value));
@@ -68,10 +78,9 @@ export class GameDetailsComponent implements AfterViewInit {
     }
 
     saveValue() {
-
         const value = this.gameDetails.value;
-        console.log(value)
-        this.formsService.saveForm('details', value);
+        this.submitService.saveForm('details', value);
+        this.isFormValid();
     }
 
     onTouchDropdown() {
@@ -79,8 +88,7 @@ export class GameDetailsComponent implements AfterViewInit {
     }
 
     retrieveValues() {
-        const values =  this.formsService.getForm('details');
-
+        const values =  this.submitService.getForm('details');
 
         if(!values) return;
         this.gameDetails.patchValue({
@@ -93,6 +101,11 @@ export class GameDetailsComponent implements AfterViewInit {
 
         });
         this.setItems = values.platforms;
+        this.isFormValid();
+    }
+
+    isFormValid() {
+        this.formValid.emit({formName: 'details', value: this.gameDetails.valid})
     }
 
 }

@@ -50,15 +50,15 @@ export class TotemHomePageComponent implements OnInit {
   avatars$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
 
   testGame: any[] = [{
-    name: 'Syber Hero',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam',
-    url: 'assets/images/promo-game.png'
+    name: 'D.I.N.O',
+    description: 'A game about a young archaeologist resurrecting dinosaurs from their bones and taking care of them',
+    url: 'assets/images/dino-game.png'
   }]
   x: number = 0;
   y: number = 0;
   items = [{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-2.png'},{image: 'assets/images/item-img-3.png'},{image: 'assets/images/item-img-4.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'}];
 
-  eventDate: Date = new Date('09/30/2022');
+  eventDate: Date = new Date('10/14/2022 18:00:00 GMT+8');
 
   constructor(private totemItemsService: TotemItemsService, private router: Router,) { }
 

@@ -5,10 +5,10 @@
     <div class="progress-block w-full mt-[40px]" fxLayout="column" fxLayoutAlign="center start">
       <div class="banner-info w-full" fxLayout="column" fxLayoutAlign="center center">
         <div class="banner-info-title font-totem w-full">
-          game application form
+          game submission form
         </div>
         <div class="banner-info-subtitle mt-[20px]">
-          Join our Totem community & publish your game now!
+          Submit your game and let it be available for the world-wide community of gamers!
         </div>
       </div>
       <mat-progress-bar class="progress-bar mt-[21px]" mode="determinate" value="{{progress}}"></mat-progress-bar>
@@ -22,13 +22,13 @@
     <!-- CONTENT -->
     <div class="content-block">
       <ng-container *ngIf="activeTab == 'basic-information'">
-        <totem-basic-info></totem-basic-info>
+        <totem-basic-info (formDataEvent)="updateFormData($event)"></totem-basic-info>
       </ng-container>
       <ng-container *ngIf="activeTab == 'details'">
-        <totem-details-tab></totem-details-tab>
+        <totem-details-tab (formDataEvent)="updateFormData($event)"></totem-details-tab>
       </ng-container>
       <ng-container *ngIf="activeTab == 'links'">
-        <totem-links-tab></totem-links-tab>
+        <totem-links-tab (linkFormDataEvent)="updateFormData($event)" (submitGame)="uploadGame()"></totem-links-tab>
       </ng-container>
     </div>
 

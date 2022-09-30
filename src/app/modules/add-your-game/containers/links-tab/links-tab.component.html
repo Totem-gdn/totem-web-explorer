@@ -2,7 +2,7 @@
   <form class="form-section" [formGroup]="linksForm">
 
     <h3>Connections and links</h3>
-  
+
     <div class="info-block">
       <div class="info-block-wrapper">
         <div class="block-section flex-wrap !border-0">
@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="info-block-wrapper">
         <div class="block-section flex-wrap !border-0">
           <h4>Asset renderer URL<span class="pl-[10px]">(Optional)</span></h4>
@@ -43,7 +43,7 @@
             <ng-container *ngFor="let socialLink of socialLinksForm.controls; index as i">
               <div class="social-link flex-wrap lg:flex-nowrap">
                   <form-dropdown @showInput (selectedTag)="onSelectTag($event, i)" class="!max-w-[180px] w-full mb-[15px] mr-[20px]" [inputType]="'radio'" [title]="'Select type'" [items]="dropdownLinks"></form-dropdown>
-                
+
                   <div class="flex w-full items-center">
                     <span @showInput class="prefix-wrapper">
                       <input class="prefix-input" type="text" [formControlName]="i">
@@ -66,7 +66,11 @@
 
     </div>
 
-    <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'"></totem-button>
-  
+    <div class="py-[80px] flex justify-center">
+      <totem-button class="flex" [caption]="'Continue'"></totem-button>
+      <totem-button class="flex ml-[20px]" [caption]="'Submit Game'" (click)="submitGameInfo()"></totem-button>
+    </div>
+
+
   </form>
 </div>
