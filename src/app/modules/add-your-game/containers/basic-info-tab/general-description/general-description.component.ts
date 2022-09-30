@@ -4,6 +4,7 @@ import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
 import { Subscription } from "rxjs";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
+import { GeneralInfo, SubmitGame } from "@app/core/models/submit-game-interface.model";
 
 
 @Component({
@@ -17,26 +18,28 @@ import { BaseStorageService } from "@app/core/services/base-storage.service";
 
 export class GeneralDescription implements OnDestroy, AfterViewInit {
 
-    get gameErrors() { 
+    get gameErrors() {
         const gameName = this.generalDescription.get('gameName')
         return gameName?.errors && (gameName?.touched || gameName?.dirty);
 
     };
-    get authorErrors() { 
+    get authorErrors() {
         const authorName = this.generalDescription.get('authorName');
         return authorName?.errors && (authorName?.touched || authorName?.dirty);
     };
-    briefErrors(error: string) { 
+    briefErrors(error: string) {
         const brief = this.generalDescription.get('briefDescription');
         if(error === 'required') {
             return brief?.errors?.['required'] && (brief?.touched || brief?.dirty);
         }
         return brief?.errors && (brief?.touched || brief?.dirty);
     };
-    get fullErrors() { 
+    get fullErrors() {
         const full = this.generalDescription.get('fullDescription');
         return full?.errors && (full?.touched || full?.dirty);
     };
+
+    @Output() generalFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
 
     constructor(private storage: BaseStorageService) {}
 
@@ -51,7 +54,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
             if(controlName == 'genres') {
                 const genres = value.split(',');
                 for(let genre of genres) {
-                    
+
                     this.genresForm.push(new FormControl(genre));
                 }
                 this.setItems = genres;
@@ -59,7 +62,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         }
     }
     setItems!: any;
-    
+
     dropdownItems = [{value: 'Comedy'}, {value: 'Horror'}, {value: 'Music'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}];
     dropdownTouched = false;
     genreTags: Tag[] = [];
@@ -79,7 +82,19 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     })
     genresForm = this.generalDescription.get('genres') as FormArray;
 
-    
+    emitFormData() {
+      const formData: any = this.generalDescription.value;
+      this.generalFormDataEvent.emit({
+        general: {
+          name: formData.gameName,
+          author: formData.authorName,
+          description: formData.briefDescription,
+          fullDescription: formData.fullDescription,
+          genre: this.genresForm.value,
+        }
+      });
+    }
+
     onSetTags(tags: any) {
         console.log(tags);
     }
@@ -123,6 +138,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
             }
             this.storage.setItem(controlName, value);
         }
+        this.emitFormData();
     }
 
     briefDescChange(e: any) {
