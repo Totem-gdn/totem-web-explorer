@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
+import { DetailsInfo, SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { Tag } from "@app/core/models/tag-interface.model";
 
 
@@ -14,7 +15,7 @@ import { Tag } from "@app/core/models/tag-interface.model";
 })
 
 export class GameDetailsComponent {
-    get statusErrors() { 
+    get statusErrors() {
         const status = this.gameDetails.get('status')
         return status?.errors && (status?.touched || status?.dirty);
     };
@@ -28,11 +29,28 @@ export class GameDetailsComponent {
         madeWith: new FormControl(null),
         session: new FormControl(null),
         languages: new FormControl(null),
-        inputs: new FormControl(null), 
+        inputs: new FormControl(null),
     })
+
+    @Output() detailsFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
 
     onTouchDropdown() {
         this.dropdownTouched = true;
+    }
+
+    emitFormData() {
+      const formData: any = this.gameDetails.value;
+      const platforms: string[] = this.platforms.map((tag: Tag) => tag.value);
+      this.detailsFormDataEvent.emit({
+        details:  {
+          status: formData.status,
+          madeWith: formData.madeWith,
+          session: formData.session,
+          languages: formData.languages,
+          inputs: formData.inputs,
+          platforms: platforms
+        }
+      });
     }
 
     onSelectTag(tag: Tag) {
@@ -43,6 +61,7 @@ export class GameDetailsComponent {
             this.onRemoveTag(tag);
         }
         console.log(this.platforms);
+        this.emitFormData();
     }
 
     onRemoveTag(tag: Tag) {

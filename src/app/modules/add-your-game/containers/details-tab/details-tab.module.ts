@@ -11,6 +11,7 @@ import { TotemCropperModule } from "../../modules/totem-cropper/totem-cropper.mo
 import { PreviewCardComponent } from "./components/preview-card/preview-card.component";
 import { PreviewSearchCardComponent } from "./components/preview-search-card/preview-search-card.component";
 import { GalleryCardComponent } from "./components/gallery-card/gallery-card.component";
+import { TotemButtonModule } from "@app/modules/landing/components/common-components/totem-button/totem-button.module";
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { GalleryCardComponent } from "./components/gallery-card/gallery-card.com
         TotemImageDropzoneModule,
         MatDialogModule,
         MatIconModule,
-        TotemCropperModule
+        TotemCropperModule,
+        TotemButtonModule
     ],
     exports: [
         DetailsTabComponent,

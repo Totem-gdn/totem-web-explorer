@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
+import { ImagesInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
@@ -16,8 +17,6 @@ import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper
 export class DetailsTabComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  file!: File;
-  imageUrl!: string;
   imageReader: FileReader = new FileReader();
   finalizedImage!: File;
   finalizedCardImage!: File;
@@ -31,15 +30,39 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     galleryImgHovered: false,
   };
 
+  @Output() formDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
+
   constructor(readonly matDialog: MatDialog,) {
   }
 
   ngOnInit() {
-    /* this.subs.add(
-      this.userStateService.isLoading.subscribe((value: boolean) => {
-        this.loading$.next(value);
-      })
-    ) */
+
+  }
+
+  updateFormData() {
+    const formDataToSend: ImagesInfo = {
+      coverImage: {
+        mimeType: this.finalizedImage.type,
+        filename: this.finalizedImage.name,
+        contentLength: this.finalizedImage.size
+      },
+      cardThumbnail: {
+        mimeType: this.finalizedCardImage.type,
+        filename: this.finalizedCardImage.name,
+        contentLength: this.finalizedCardImage.size
+      },
+      smallThumbnail: {
+        mimeType: this.finalizedSearchImage.type,
+        filename: this.finalizedSearchImage.name,
+        contentLength: this.finalizedSearchImage.size
+      },
+      imagesGallery: [{
+        mimeType: this.finalizedGalleryImages[0].type,
+        filename: this.finalizedGalleryImages[0].name,
+        contentLength: this.finalizedGalleryImages[0].size
+      }],
+    }
+    this.formDataEvent.emit({images: formDataToSend});
   }
 
   ngOnDestroy(): void {
@@ -76,16 +99,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  getFile(event: any) {
-    console.log(event);
-    this.file = event.target.files[0];
-    console.log(this.file);
-    this.imageReader.readAsDataURL(this.file);
-    this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
-  }
-
   cropSelectedImage(event: any, type: string) {
-    this.file = event;
     this.openCropperDialog(event, type);
   }
 
