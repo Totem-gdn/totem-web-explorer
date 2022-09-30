@@ -4,6 +4,7 @@ import { Animations } from '@app/core/animations/animations';
 import { Tag } from '@app/core/models/tag-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Subscription } from 'rxjs';
+import { FormsService } from '../../forms.service';
 
 interface SocialLink {
   tag: Tag;
@@ -23,12 +24,14 @@ interface SocialLink {
 
 export class LinksTabComponent implements AfterViewInit {
 
+  constructor(private formsService: FormsService) { }
+
   get webPageErrors() {
     const webPage = this.linksForm.get('webPage');
     return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
 
-  dropdownLinks: any[] = [{value: 'Twitter', url: 'https://twitter.com/'},{value: 'Facebook', url: 'https://facebook.com/'},{value: 'Discord', url: 'https://discrod.com/'},]
+  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },]
 
   // links: SocialLink[] = [];
 
@@ -38,7 +41,7 @@ export class LinksTabComponent implements AfterViewInit {
     videoUrl: new FormControl(null),
     socialLinks: new FormArray([new FormControl(null)])
   })
-  socialLinksForm  = this.linksForm.get('socialLinks') as FormArray;
+  socialLinksForm = this.linksForm.get('socialLinks') as FormArray;
 
   ngAfterViewInit() {
     this.socialLinksForm.valueChanges.subscribe(() => {
@@ -49,6 +52,7 @@ export class LinksTabComponent implements AfterViewInit {
         // link.patchValue('sefsge')
       })
     })
+    this.retrieveValues();
   }
 
   onAddLink() {
@@ -67,15 +71,28 @@ export class LinksTabComponent implements AfterViewInit {
   }
 
   urlByValue(value: string) {
-    if(value === 'Twitter') return 'twitter.com/';
-    if(value === 'Facebook') return 'facebook.com/';
-    if(value === 'Discord') return 'discord.com/';
+    if (value === 'Twitter') return 'twitter.com/';
+    if (value === 'Facebook') return 'facebook.com/';
+    if (value === 'Discord') return 'discord.com/';
     return '';
   }
 
-  onRemoveTag(tag: Tag) {
-    // this.links = this.links.filter(link => link.reference != tag.reference);
-    // tag.reference.checked = false;
+  saveValue() {
+    const value = this.linksForm.value;
+    this.formsService.saveForm('links', value);
+  }
+
+  retrieveValues() {
+    const values = this.formsService.getForm('links');
+    if (!values) return;
+
+    this.linksForm.patchValue({
+      webPage: values.webPage,
+      rendererUrl: values.rendererUrl,
+      videoUrl: values.videoUrl,
+      socialLinks: values.socialLinks,
+
+    })
   }
 
 }

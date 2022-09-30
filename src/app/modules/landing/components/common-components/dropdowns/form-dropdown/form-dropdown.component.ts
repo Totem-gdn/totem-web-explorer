@@ -30,20 +30,22 @@ export class FormDropdownComponent {
 
     @Input() set setItems(values: any) {
         if(!values) return;
+        const items = this.menuItems.nativeElement.getElementsByTagName('input');
         const returnValues: Tag[] = [];
-        for(let item of this.items) {
+        for(let item of items) {
             for(let value of values) {
                 if(item.value == value) {
-                    this.selectedTag.emit(item);
+                    item.checked = true;
+                    this.onChangeInput(item);
                 }
             }
         }
     }
 
-    onChangeInput(e: any) {
-        const reference = e.target;
-        const value = e.target.value;
-        const checked = e.target.checked;
+    onChangeInput(el: any) {
+        const reference = el;
+        const value = el.value;
+        const checked = el.checked;
         const tag: Tag = {
             reference, value, checked
         }

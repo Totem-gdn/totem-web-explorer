@@ -78,7 +78,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
             this.updateBalance();
             this.snackService.open('USDC balance updated');
         }).catch(error => {
-            this.snackService.open('Error');
+            this.snackService.open('Limit exceeded, try later');
             console.log(error);
         });
     }

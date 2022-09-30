@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
+import { FormsService } from "@app/modules/add-your-game/forms.service";
 
 @Component({
     selector: 'contact-form',
@@ -11,7 +12,13 @@ import { Animations } from "@app/core/animations/animations";
     ]
 })
 
-export class ContactFormComponent {
+export class ContactFormComponent implements AfterViewInit {
+
+    constructor (private formsService: FormsService) {}
+
+    ngAfterViewInit(): void {
+        this.retrieveValues();
+    }
 
     emailErrors(error: string) { 
         const email = this.contactForm.get('email');
@@ -28,4 +35,20 @@ export class ContactFormComponent {
         email: new FormControl(null, [Validators.required, Validators.email]),
         discord: new FormControl(null)
     })
+
+    saveValue() {
+        const value = this.contactForm.value;
+        this.formsService.saveForm('contacts', value);
+    }
+
+    retrieveValues() {
+        const values =  this.formsService.getForm('contacts');
+        console.log(values)
+        if(!values) return;
+        console.log(values)
+        this.contactForm.patchValue({
+            email: values.email,
+            discord: values.discord
+        });
+    }
 }

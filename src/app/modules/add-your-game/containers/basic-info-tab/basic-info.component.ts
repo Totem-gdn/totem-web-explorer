@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './basic-info.component.html',
   styleUrls: ['../form-styles.component.scss'],
   host: {
-        class: 'flex flex-auto w-full h-full'
+    class: 'flex flex-auto w-full h-full'
   }
 })
 export class BasicInfoComponent implements OnInit, OnDestroy {
@@ -17,9 +18,7 @@ export class BasicInfoComponent implements OnInit, OnDestroy {
   constructor(private userStateService: UserStateService) {
   }
 
-  onSubmit() {
-    
-  }
+
   ngOnInit() {
     /* this.subs.add(
       this.userStateService.isLoading.subscribe((value: boolean) => {

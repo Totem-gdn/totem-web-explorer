@@ -1,8 +1,9 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, from, fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
 import { SnackNotifierService } from '../modules/snack-bar-notifier/snack-bar-notifier.service';
 
 @Component({
@@ -10,35 +11,55 @@ import { SnackNotifierService } from '../modules/snack-bar-notifier/snack-bar-no
   templateUrl: './buy.component.html',
   styleUrls: ['./buy.component.scss']
 })
-export class BuyComponent implements OnInit, OnDestroy {
+export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private paymentService: PaymentService,
     private web3Service: Web3AuthService,
     private snackService: SnackNotifierService,
-    private breakpointObserver: BreakpointObserver) { }
+    private breakpointObserver: BreakpointObserver,
+    @Inject(DOCUMENT) private document: Document) { }
 
   maticBalance: any = 0;
   tokenBalance: any = 0;
   assets: any[] = [];
 
   disableButton: boolean | null = null;
-  disableLoop!: boolean;
+  disableLoop = {disable: false, immutable: false};
   loop: any;
 
   @ViewChild('itemsRef') itemsRef!: ElementRef;
   @ViewChild('movingCircle') movingCircle!: any;
+  subs = new Subject();
 
   ngOnInit(): void {
     this.updateAssets();
-    this.observer();
   }
 
-  observer() {
+  ngAfterViewInit(): void {
+    this.screenObserver();
+  }
+
+  screenObserver() {
     this.breakpointObserver
-      .observe(['(min-width: 400px)'])
+      .observe(['(min-width: 745px)'])
+      .pipe(takeUntil(this.subs))
       .subscribe((state: BreakpointState) => {
+        const items = this.itemsRef.nativeElement;
         if (state.matches) {
+          this.disableLoop = { disable: false, immutable: false};         
         } else {
+          this.disableLoop = { disable: true, immutable: true};
+          fromEvent(window, 'scroll').pipe(takeUntil(this.subs)).subscribe(() => {
+            let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
+            const offset =  items[0].getBoundingClientRect();
+            for(let i = 0; i < items.length; i++) {
+              const offset = items[i].getBoundingClientRect().y;
+              if(offset > 0) {
+                this.animateItem(items[i], false);
+                return;
+              }
+            }
+          })
         }
       });
   }
@@ -94,7 +115,7 @@ export class BuyComponent implements OnInit, OnDestroy {
     let reverse = false;
 
     this.loop = setInterval(() => {
-      if (this.disableLoop === true) {
+      if (this.disableLoop.disable === true) {
         return;
       }
       let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
@@ -122,8 +143,8 @@ export class BuyComponent implements OnInit, OnDestroy {
   }
 
   animateItem(item: any, disableLoop: boolean) {
-    if (disableLoop) {
-      this.disableLoop = true;
+    if (disableLoop && this.disableLoop.immutable == false) {
+      this.disableLoop.disable = true;
     }
 
     item.style.color = 'white';
@@ -133,8 +154,8 @@ export class BuyComponent implements OnInit, OnDestroy {
 
   }
   resetWithExeption(exeption: any, userLeave: boolean) {
-    if (userLeave) {
-      this.disableLoop = false;
+    if (userLeave && this.disableLoop.immutable == false) {
+      this.disableLoop.disable = false;
     }
     let items: any[] = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
     for (let item of items) {
@@ -154,6 +175,8 @@ export class BuyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.loop);
+    this.subs.next(null);
+    this.subs.complete();
   }
 
 }

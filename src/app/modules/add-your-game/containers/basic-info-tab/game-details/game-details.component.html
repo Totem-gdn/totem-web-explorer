@@ -7,7 +7,7 @@
         <div class="block-section pt-[40px]">
           <h4>Status</h4>
           <div class="input-section">
-            <input type="text" formControlName="status">
+            <input type="text" formControlName="status" (blur)="saveValue()">
             <span @showMessage class="error-message" *ngIf="statusErrors">Required field</span>
             <span>Write a current status of game development</span>
           </div>
@@ -16,11 +16,18 @@
         <div class="block-section">
           <h4>Platforms</h4>
           <div class="tags-section">
-            <form-dropdown (selectedTag)="onSelectTag($event)" (touched)="onTouchDropdown()" [title]="'Add platforms'" [items]="dropdownPlatforms"
-            class="outline-light-grey" [ngClass]="dropdownTouched && platforms.length === 0 ? 'outline-error':''"></form-dropdown>
-            <span @showMessage class="error-message" *ngIf="dropdownTouched && platforms.length === 0">Required field</span>
+            <form-dropdown 
+            (selectedTag)="onSelectTag($event)" 
+            (touched)="onTouchDropdown()" 
+            [setItems]="setItems"
+            [title]="'Add platforms'" 
+            [items]="dropdownPlatforms"
+            (returnValues)="onSetTags($event)"
+            class="outline-light-grey" 
+            [ngClass]="dropdownTouched && platformTags.length === 0 ? 'outline-error':''"></form-dropdown>
+            <span @showMessage class="error-message" *ngIf="dropdownTouched && platformTags.length === 0">Required field</span>
             <div class="tags">
-              <div class="tag" *ngFor="let platform of platforms" (click)="onRemoveTag(platform)">
+              <div class="tag" *ngFor="let platform of platformsForm.controls" (click)="onRemovePlatform(platform)">
                 <span>{{platform.value}}</span>
                 <mat-icon [svgIcon]="'line:close'"></mat-icon>
               </div>
@@ -32,7 +39,7 @@
         <div class="block-section pt-[40px]">
           <h4>Made with<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
-            <input type="text" formControlName="madeWith">
+            <input type="text" formControlName="madeWith" (blur)="saveValue()">
             <span>List programs and tools that were used to create a game</span>
           </div>
         </div>
@@ -40,7 +47,7 @@
         <div class="block-section pt-[40px]">
           <h4>Session<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
-            <input type="text" formControlName="session">
+            <input type="text" formControlName="avarageSession" (blur)="saveValue()">
             <span>Write time of average session</span>
           </div>
         </div>
@@ -48,7 +55,7 @@
         <div class="block-section pt-[40px]">
           <h4>Languages<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
-            <input type="text" formControlName="languages">
+            <input type="text" formControlName="languages" (blur)="saveValue()">
             <span>Write the languages ​​the game supports</span>
           </div>
         </div>
@@ -56,7 +63,7 @@
         <div class="block-section pt-[40px]">
           <h4>Inputs<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
-            <input type="text" formControlName="inputs">
+            <input type="text" formControlName="inputs" (blur)="saveValue()">
             <span>List the types of inputs that the game supports</span>
           </div>
         </div>
