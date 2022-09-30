@@ -47,4 +47,8 @@
       display: none;
     }
   }
+
+  &:disabled {
+    background-color: $dark-grey;
+  }
 }

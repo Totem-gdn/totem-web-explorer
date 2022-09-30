@@ -2,7 +2,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { UserStateService } from '@app/core/services/user-state.service';
-import e from 'express';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
 @Component({
@@ -16,7 +15,7 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 export class BasicInfoComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  
+
   get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
 
   constructor(private userStateService: UserStateService) {
@@ -28,10 +27,10 @@ export class BasicInfoComponent implements OnInit, OnDestroy {
 
   checkFormValidity(e: any) {
     console.log(e);
-    if(e.formName == 'general') this.generalFormValid = e.valid;
-    if(e.formName == 'details') this.detailsFormValid = e.valid;
-    if(e.formName == 'contacts') this.contactsFormValid = e.valid;
-
+    if(e.formName == 'general') this.generalFormValid = e.value;
+    if(e.formName == 'details') this.detailsFormValid = e.value;
+    if(e.formName == 'contacts') this.contactsFormValid = e.value;
+    // console.log(this.generalFormValid)
   }
 
   ngOnInit() {
