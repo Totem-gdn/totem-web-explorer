@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
+import { ConnectionsInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { Tag } from '@app/core/models/tag-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Subscription } from 'rxjs';
@@ -30,6 +31,8 @@ export class LinksTabComponent implements AfterViewInit {
 
   dropdownLinks: any[] = [{value: 'Twitter', url: 'https://twitter.com/'},{value: 'Facebook', url: 'https://facebook.com/'},{value: 'Discord', url: 'https://discrod.com/'},]
 
+  @Output() linkFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
+  @Output() submitGame: EventEmitter<any> = new EventEmitter();
   // links: SocialLink[] = [];
 
   linksForm = new FormGroup({
@@ -49,6 +52,21 @@ export class LinksTabComponent implements AfterViewInit {
         // link.patchValue('sefsge')
       })
     })
+  }
+
+  updateFormData() {
+    const formData: any = this.linksForm.value;
+    const formDataToSend: ConnectionsInfo = {
+      webpage: formData?.webPage,
+      assetRenderer: formData?.rendererUrl,
+      promoVideo: formData?.videoUrl,
+      socialLinks: this.socialLinksForm?.value
+    }
+    this.linkFormDataEvent.emit({connections: formDataToSend});
+  }
+
+  submitGameInfo() {
+    this.submitGame.emit();
   }
 
   onAddLink() {
