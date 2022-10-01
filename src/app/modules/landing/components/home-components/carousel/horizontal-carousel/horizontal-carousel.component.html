@@ -21,12 +21,12 @@
 
   <div #horizontalSwiper class="horizontal-swiper relative">
     <div class="swiper-wrapper">
-      <div *ngFor="let item of items" class="swiper-slide">
-        <item-card *ngIf="itemType === 'item'" [item]="item"></item-card>
+      <div *ngFor="let slide of slides" class="swiper-slide">
+        <item-card *ngIf="itemType === 'item'" [item]="slide"></item-card>
 
-        <game-card *ngIf="itemType === 'game'" [game]="item"></game-card>
+        <game-card *ngIf="itemType === 'game'" [game]="slide"></game-card>
 
-        <avatar-card *ngIf="itemType === 'avatar'"></avatar-card>
+        <avatar-card *ngIf="itemType === 'avatar'" [avatar]="slide"></avatar-card>
       </div>
     </div>
     <div class="swiper-pagination lg:hidden"></div>

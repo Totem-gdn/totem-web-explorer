@@ -11,7 +11,7 @@ import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swipe
     templateUrl: './horizontal-carousel.component.html',
     styleUrls: ['./horizontal-carousel.component.scss'],
 })
-export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
+export class HorizontalCarouselComponent implements AfterViewInit {
 
     constructor(private router: Router, private comboBoxService: ComboBoxService) {
 
@@ -21,16 +21,20 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
 
     @Input() title = '';
     @Input() menuTitle: string | null = '';
-    @Input() items: any[] | null = [1, 2, 3, 4, 5, 6, 7];
+    @Input() set items(items: any ) {
+        this.slides = items;
+        this.swiper.updateSlides();
+    }
+    slides!: any[];
     @Input() itemType = 'item';
     @Input() itemsCount = 4;
 
     @ViewChild('horizontalSwiper') horizontalSwiper!: any;
 
+    
     ngAfterViewInit() {
-        console.log(this.items);
+        console.log('swiper created')
         this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
-
             modules: [Navigation, Pagination, Autoplay],
 
             speed: 400,
@@ -82,10 +86,6 @@ export class HorizontalCarouselComponent implements AfterViewInit, OnInit {
                 clickable: true
             },
         });
-    }
-
-    ngOnInit() {
-
     }
 
     selectGame(event: any) {

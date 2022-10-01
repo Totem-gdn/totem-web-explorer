@@ -42,8 +42,8 @@ export class ItemsService {
             // Format Time
             // const creationDate = new Date(item.createdAt).toLocaleDateString();
             // item.createdAt = creationDate;
-            const updateDate = new Date(item.updatedAt).toLocaleDateString();
-            item.updatedAt = updateDate;
+            // const updateDate = new Date(item.updatedAt).toLocaleDateString();
+            // item.updatedAt = updateDate;
         
             // Format Tip
             switch(item.item.tipMaterial) {

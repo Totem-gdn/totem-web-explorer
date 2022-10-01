@@ -22,7 +22,7 @@
          *ngIf="searchType === 'graph'" class="rounded mt-8 items-center flex flex-col">
         </graph-slider>
     
-        <div *ngIf="items && searchType != 'graph' && searchType != 'range'" class="h-200px overflow-y-auto">
+        <div #menuHeight *ngIf="items && searchType != 'graph' && searchType != 'range'" class="h-200px overflow-y-auto">
             <div class="menu-item flex" *ngFor="let item of items">
                 <div class="p-2 w-9 h-9 img rounded">
                 </div>

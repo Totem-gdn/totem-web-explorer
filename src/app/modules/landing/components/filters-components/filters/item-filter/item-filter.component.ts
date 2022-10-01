@@ -19,6 +19,8 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('dropupMenu') dropupMenu!: ElementRef;
 
+ 
+
   isDropupOpen!: boolean;
   sub!: Subscription;
   
@@ -69,5 +71,5 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
   elements = [{ name: 'Fire' }, { name: 'Earth' }, { name: 'Air' }, { name: 'Water' }]
   colors = [{ name: 'Red' }, { name: 'Blue' }, { name: 'Yellow' }, { name: 'Green' }, { name: 'Orange' }]
   itemTypes = [{ name: 'Armour', subName: 'Slot' }, { name: 'Arms', subName: 'Slot' }, { name: 'Body', subName: 'Head' }, { name: 'Armour', subName: 'Slot' }]
-  materials = [{ name: 'Bone' }, { name: 'Stone' }, { name: 'Wood' }, { name: 'Metall' }]
+  materials = [{ name: 'Wood' }, { name: 'Bone' }, { name: 'Iron' }, { name: 'Obsidian' }]
 }

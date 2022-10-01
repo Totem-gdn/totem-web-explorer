@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
@@ -7,7 +7,8 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 @Component({
   selector: 'item-card',
   templateUrl: './item-card.component.html',
-  styleUrls: ['../cards.component.scss']
+  styleUrls: ['../cards.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ItemCardComponent {
 
@@ -19,10 +20,10 @@ export class ItemCardComponent {
   isLiked = false;
 
   onClickLike() {
-    console.log('like');
-
     this.isLiked = !this.isLiked;
     if (this.isLiked) {
+      console.log(this.item);
+      console.log(this.item.games);
       this.favouritesService.addLike(this.item, StorageKey.ITEMS);
     } else {
       this.favouritesService.removeLike(this.item, StorageKey.ITEMS);

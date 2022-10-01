@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { FiltersService } from '@app/core/services/filters/filters.service';
 import { TagsService } from '@app/core/services/filters/tags.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './filter-menu.component.html',
   styleUrls: ['./filter-menu.component.scss']
 })
-export class FilterMenuComponent implements OnDestroy{
+export class FilterMenuComponent implements AfterViewInit, OnDestroy {
 
   constructor(private tagsService: TagsService,
               private filtersService: FiltersService) { }
@@ -20,15 +20,21 @@ export class FilterMenuComponent implements OnDestroy{
 
   @ViewChild('wrapper') wrapper!: ElementRef;
   @ViewChild('inputContainer') inputContainer!: ElementRef;
+  @ViewChild('menuHeight') menuHeightRef!: ElementRef;
 
   @Input() inputType = 'checkbox';
   @Input() title = 'Title'
+  @Input() menuHeight = '200px';
   @Input() searchType: string | null = 'search';
   @Input() items: any[] = [{ name: 'Game', genre: 'casual', selected: false }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true },];
 
 
   ngOnInit() {
     this.resetFilters$();
+  }
+
+  ngAfterViewInit(): void {
+    this.menuHeightRef.nativeElement.style.height = this.menuHeight;
   }
 
   onClickMenu() {

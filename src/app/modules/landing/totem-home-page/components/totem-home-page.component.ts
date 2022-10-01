@@ -195,6 +195,7 @@ export class TotemHomePageComponent implements OnInit {
       this.totemItemsService.games.subscribe((games: any[] | null) => {
         if (games) {
           this.games$.next(games);
+          console.log('games', games)
         }
       })
     );
@@ -203,7 +204,7 @@ export class TotemHomePageComponent implements OnInit {
         console.log(items);
         if (items) {
           this.mostUsedItems$.next(items);
-          console.log(items);
+          console.log('items', items);
 
         }
       })
@@ -219,6 +220,7 @@ export class TotemHomePageComponent implements OnInit {
       this.totemItemsService.avatars.subscribe((avatars: any[] | null) => {
         if (avatars) {
           this.avatars$.next(avatars);
+          console.log('avatars: ', avatars)
         }
       })
     );

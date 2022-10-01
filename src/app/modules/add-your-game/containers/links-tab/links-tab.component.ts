@@ -29,21 +29,23 @@ export class LinksTabComponent implements AfterViewInit {
   constructor(private submitGame: SubmitGameService) { }
 
   get webPageErrors() {
-    const webPage = this.linksForm.get('webPage');
+    const webPage = this.connectionsForm.get('webPage');
     return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
 
-  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },]
+  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
 
   @Output() submit: EventEmitter<any> = new EventEmitter();
 
-  linksForm = new FormGroup({
-    webPage: new FormControl('', Validators.required),
-    rendererUrl: new FormControl(''),
-    videoUrl: new FormControl(''),
-    socialLinks: new FormArray([new FormControl('')])
+  connectionsForm = new FormGroup({
+    webPage: new FormControl(null , Validators.required),
+    rendererUrl: new FormControl(null),
+    videoUrl: new FormControl(null),
+    socialLinks: new FormArray([
+      new FormArray([ new FormControl(), new FormControl('https://')])
+    ])
   })
-  socialLinksForm = this.linksForm.get('socialLinks') as FormArray;
+  socialLinksForm = this.connectionsForm.get('socialLinks') as FormArray;
 
   ngAfterViewInit() {
     this.socialLinksForm.valueChanges.subscribe(() => {
@@ -62,41 +64,50 @@ export class LinksTabComponent implements AfterViewInit {
   }
 
   onAddLink() {
-    this.socialLinksForm.push(new FormControl(null));
+    this.socialLinksForm.push(new FormArray([ new FormControl(), new FormControl('https://')]));
+    this.updateForm();
   }
 
   onRemoveLink(index: number) {
     this.socialLinksForm.removeAt(index);
+    this.updateForm();
   }
 
   onSelectTag(tag: Tag, i: any) {
     const url = this.urlByValue(tag.value);
-    this.socialLinksForm.controls[i].patchValue(url);
-    const link = this.linksForm.value.socialLinks;
-    console.log(link);
+    const link = this.socialLinksForm.controls[i] as FormArray;
+    link.controls[0].patchValue(tag.value);
+    link.controls[1].patchValue(url);
+    // const link = this.connectionsForm.value.socialLinks;
+    this.updateForm();
   }
 
   urlByValue(value: string) {
-    if (value === 'Twitter') return 'twitter.com/';
-    if (value === 'Facebook') return 'facebook.com/';
-    if (value === 'Discord') return 'discord.com/';
+    if (value === 'Twitter') return 'https://twitter.com/';
+    if (value === 'Facebook') return 'https://facebook.com/';
+    if (value === 'Discord') return 'https://discord.com/';
+    if (value === 'Instagram') return 'https://instagram.com/';
     return '';
   }
 
-  saveValue() {
-    const value = this.linksForm.value;
-    this.submitGame.saveForm('links', value);
+  updateForm() {
+    const value = this.connectionsForm.value;
+    this.submitGame.saveForm('connections', value);
+    console.log(value);
   }
 
   retrieveValues() {
-    const values = this.submitGame.getForm('links');
+    const values = this.submitGame.getForm('connections');
     if (!values) return;
-
-    this.linksForm.patchValue({
+    
+    this.connectionsForm.patchValue({
       webPage: values.webPage,
       rendererUrl: values.rendererUrl,
-      videoUrl: values.videoUrl,
-      socialLinks: values.socialLinks,
+      videoUrl: values.videoUrl
+    })
+
+    values.socialLinks.forEach((link: any, index: any) => {
+      this.socialLinksForm.push(new FormArray([ new FormControl(link[0]), new FormControl(link[1])]))
     })
   }
 

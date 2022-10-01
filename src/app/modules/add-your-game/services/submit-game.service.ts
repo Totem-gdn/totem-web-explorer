@@ -49,7 +49,7 @@ export class SubmitGameService {
     if (formName == 'general') this.storage.setItem('general', JSON.stringify(value));
     if (formName == 'details') this.storage.setItem('details', JSON.stringify(value));
     if (formName == 'contacts') this.storage.setItem('contacts', JSON.stringify(value));
-    if (formName == 'links') this.storage.setItem('links', JSON.stringify(value));
+    if (formName == 'connections') this.storage.setItem('connections', JSON.stringify(value));
 
   }
 
