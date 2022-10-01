@@ -26,20 +26,20 @@ export class AvatarsService {
 
     fetchAvatars(wallet: string) {
         return this.http.get<any>(`https://simple-api.totem.gdn/default/avatars/${wallet}`).pipe(
-            map(avatars => this.formatTime(avatars.data)),
+            // map(avatars => this.formatTime(avatars.data)),
             tap(avatars => {
                 this.avatars = avatars;
             }))         
     }
 
-    formatTime(avatars: any[]) {
-        const formattedItems: any[] = [];
-        console.log(avatars)
-        for(let avatar of avatars) {
-            avatar.updatedAt = new Date(avatar.updatedAt).toLocaleDateString();
-            formattedItems.push(avatar);
-        }
+    // formatTime(avatars: any[]) {
+    //     const formattedItems: any[] = [];
+    //     console.log(avatars)
+    //     for(let avatar of avatars) {
+    //         avatar.updatedAt = new Date(avatar.updatedAt).toLocaleDateString();
+    //         formattedItems.push(avatar);
+    //     }
 
-        return formattedItems;
-    }
+    //     return formattedItems;
+    // }
 }

@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from "@angular/core";
+
+import { AfterViewInit, Component, EventEmitter, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
-import { ContactsInfo, SubmitGame } from "@app/core/models/submit-game-interface.model";
-import { Observable, Subscription } from "rxjs";
+import { FormsService } from "@app/modules/add-your-game/forms.service";
+import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
 @Component({
     selector: 'contact-form',
@@ -13,18 +14,12 @@ import { Observable, Subscription } from "rxjs";
     ]
 })
 
-export class ContactFormComponent implements OnDestroy {
+export class ContactFormComponent implements AfterViewInit {
 
-    @Output() contactFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
-    constructor() {
-    }
+    constructor (private submitService: SubmitGameService) {}
 
-    emitFormData() {
-      const formData: any = this.contactForm.value;
-      this.contactFormDataEvent.emit({contacts: {email: formData?.email, discord: formData?.discord}});
-    }
-
-    ngOnDestroy(): void {
+    ngAfterViewInit(): void {
+        this.retrieveValues();
     }
 
     emailErrors(error: string) {
@@ -38,8 +33,30 @@ export class ContactFormComponent implements OnDestroy {
         return email?.errors && (email?.touched || email?.dirty);
     };
 
+    @Output() formValid = new EventEmitter<any>();
+
     contactForm = new FormGroup({
         email: new FormControl(null, [Validators.required, Validators.email]),
         discord: new FormControl(null)
     })
+
+    isFormValid() {
+        this.formValid.emit({formName: 'contacts', value: this.contactForm.valid})
+    }
+
+    saveValue() {
+        const value = this.contactForm.value;
+        this.submitService.saveForm('contacts', value);
+        this.isFormValid();
+    }
+
+    retrieveValues() {
+        const values =  this.submitService.getForm('contacts');
+        if(!values) return;
+        this.contactForm.patchValue({
+            email: values.email,
+            discord: values.discord
+        });
+        this.isFormValid();
+    }
 }

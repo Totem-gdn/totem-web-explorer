@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { ContactsInfo, DetailsInfo, GeneralInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
@@ -8,25 +9,28 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
   templateUrl: './basic-info.component.html',
   styleUrls: ['../form-styles.component.scss'],
   host: {
-        class: 'flex flex-auto w-full h-full'
+    class: 'flex flex-auto w-full h-full'
   }
 })
 export class BasicInfoComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  getFromDataEvent: Subject<void> = new Subject<void>();
-  @Output() formDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
+
+  get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
 
   constructor(private userStateService: UserStateService) {
   }
 
-  getDataFromForms() {
-    this.getFromDataEvent.next();
-  }
+  generalFormValid: boolean = false;
+  detailsFormValid: boolean = false;
+  contactsFormValid: boolean = false;
 
-  updateFormData(event: SubmitGame) {
-    console.log(event);
-    this.formDataEvent.emit(event);
+  checkFormValidity(e: any) {
+    console.log(e);
+    if(e.formName == 'general') this.generalFormValid = e.value;
+    if(e.formName == 'details') this.detailsFormValid = e.value;
+    if(e.formName == 'contacts') this.contactsFormValid = e.value;
+    // console.log(this.generalFormValid)
   }
 
   ngOnInit() {

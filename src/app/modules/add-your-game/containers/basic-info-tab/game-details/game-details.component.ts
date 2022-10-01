@@ -1,8 +1,11 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+
+import { AfterViewInit, Component, EventEmitter, Output } from "@angular/core";
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { DetailsInfo, SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { Tag } from "@app/core/models/tag-interface.model";
+import { FormsService } from "@app/modules/add-your-game/forms.service";
+import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
 
 @Component({
@@ -14,59 +17,95 @@ import { Tag } from "@app/core/models/tag-interface.model";
     ]
 })
 
-export class GameDetailsComponent {
+export class GameDetailsComponent implements AfterViewInit {
+
     get statusErrors() {
         const status = this.gameDetails.get('status')
         return status?.errors && (status?.touched || status?.dirty);
     };
 
+    constructor(private submitService: SubmitGameService) {}
+
+    ngAfterViewInit(): void {
+        this.retrieveValues();
+    }
+
     dropdownPlatforms = [{value: 'Windows'},{value: 'macOS'},{value: 'iOS'},{value: 'Android'}];
     dropdownTouched = false;
-    platforms: Tag[] = [];
+    setItems!: any;
+    platformTags: Tag[] = [];
+
+    @Output() formValid = new EventEmitter<any>();
 
     gameDetails = new FormGroup({
         status: new FormControl(null, Validators.required),
+        platforms: new FormArray([], Validators.required),
         madeWith: new FormControl(null),
-        session: new FormControl(null),
+        avarageSession: new FormControl(null),
         languages: new FormControl(null),
         inputs: new FormControl(null),
     })
+    platformsForm = this.gameDetails.get('platforms') as FormArray;
 
-    @Output() detailsFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
+
+    onSelectTag(tag: Tag) {
+        this.platformTags.push(tag);
+        this.platformsForm.push(new FormControl(tag.value));
+        if(tag.checked === true) {
+            this.dropdownPlatforms.push(tag);
+        }
+        if(tag.checked === false) {
+            this.onRemoveTag(tag);
+        }
+        this.saveValue();
+    }
+
+    onRemoveTag(tag: Tag) {
+        console.log(tag);
+        this.platformTags = this.platformTags.filter(platform => platform.reference != tag.reference);
+        tag.reference.checked = false;
+        this.platformsForm.removeAt(this.platformsForm.controls.findIndex(platform => platform.value === tag.value));
+        this.saveValue();
+    }
+
+    onRemovePlatform(genreControl: any) {
+        const tagToRemove = this.platformTags.filter(tag => { return tag.value == genreControl.value });
+        tagToRemove[0].reference.checked = false;
+
+        this.platformTags = this.platformTags.filter(platform => platform.value != genreControl.value);
+        this.platformsForm.removeAt(this.platformsForm.controls.findIndex(platform => platform.value === genreControl.value));
+        this.saveValue();
+    }
+
+    saveValue() {
+        const value = this.gameDetails.value;
+        this.submitService.saveForm('details', value);
+        this.isFormValid();
+    }
 
     onTouchDropdown() {
         this.dropdownTouched = true;
     }
 
-    emitFormData() {
-      const formData: any = this.gameDetails.value;
-      const platforms: string[] = this.platforms.map((tag: Tag) => tag.value);
-      this.detailsFormDataEvent.emit({
-        details:  {
-          status: formData.status,
-          madeWith: formData.madeWith,
-          session: formData.session,
-          languages: formData.languages,
-          inputs: formData.inputs,
-          platforms: platforms
-        }
-      });
+    retrieveValues() {
+        const values =  this.submitService.getForm('details');
+
+        if(!values) return;
+        this.gameDetails.patchValue({
+            status: values.status,
+            platforms: values.platforms,
+            madeWith: values.madeWith,
+            avarageSession: values.avarageSession,
+            languages: values.languages,
+            inputs: values.inputs,
+
+        });
+        this.setItems = values.platforms;
+        this.isFormValid();
     }
 
-    onSelectTag(tag: Tag) {
-        if(tag.checked === true) {
-            this.platforms.push(tag);
-        }
-        if(tag.checked === false) {
-            this.onRemoveTag(tag);
-        }
-        console.log(this.platforms);
-        this.emitFormData();
-    }
-
-    onRemoveTag(tag: Tag) {
-        this.platforms = this.platforms.filter(platform => platform.reference != tag.reference);
-        tag.reference.checked = false;
+    isFormValid() {
+        this.formValid.emit({formName: 'details', value: this.gameDetails.valid})
     }
 
 }

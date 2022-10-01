@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
-import { ImagesInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
+import { ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
@@ -31,6 +31,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   };
 
   @Output() formDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
+  @Output() imageFilesEvent: EventEmitter<ImagesToUpload> = new EventEmitter();
 
   constructor(readonly matDialog: MatDialog,) {
   }
@@ -56,7 +57,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
         filename: this.finalizedSearchImage.name,
         contentLength: this.finalizedSearchImage.size
       },
-      imagesGallery: [{
+      gallery: [{
         mimeType: this.finalizedGalleryImages[0].type,
         filename: this.finalizedGalleryImages[0].name,
         contentLength: this.finalizedGalleryImages[0].size
@@ -126,6 +127,12 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
         if (type == 'card') this.finalizedCardImage = data;
         if (type == 'search') this.finalizedSearchImage = data;
         if (type == 'gallery') this.finalizedGalleryImages.push(data);
+        this.imageFilesEvent.emit({
+            coverImage: this.finalizedImage,
+            cardImage: this.finalizedCardImage,
+            searchImgae: this.finalizedSearchImage,
+            gallery: this.finalizedGalleryImages
+        })
       })
     )
   }

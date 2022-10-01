@@ -1,28 +1,31 @@
 <div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
 
 
-    <div *ngIf="!avatar?.id?.tokenId" class="img-wrapper">
+    <div *ngIf="!avatar?.tokenId && !avatar?.id?.tokenId" class="img-wrapper">
         <img src="assets/images/avatar.png" alt="">
     </div>
 
+    <div *ngIf="avatar?.tokenId" class="img-wrapper">
+        <img src="{{'https://asset-renderer.totem-explorer.com/avatar/' + (+avatar?.tokenId)}}" alt="">
+    </div>
     <div *ngIf="avatar?.id?.tokenId" class="img-wrapper">
-        <img src="{{'https://asset-renderer.totem-explorer.com/avatar/' + (+avatar?.id?.tokenId % 12 + 1)}}" alt="">
-        <!-- <mat-icon class="text-grey" [svgIcon]="'line:avatar-place'"></mat-icon> -->
+        <img src="{{'https://asset-renderer.totem-explorer.com/avatar/' + (+avatar?.id?.tokenId)}}" alt="">
     </div>
 
     <div class="attributes">
         <div class="top">
-            <h3 *ngIf="!avatar?.id?.tokenId">ID: 1111</h3>
+            <h3 *ngIf="!avatar?.tokenId && !avatar?.id?.tokenId">ID: 1111</h3>
+            <h3 *ngIf="avatar?.tokenId">ID: {{avatar?.tokenId}}</h3>
             <h3 *ngIf="avatar?.id?.tokenId">ID: {{avatar?.id?.tokenId}}</h3>
 
-            <mat-icon *ngIf="isLiked === false" class="like" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-            <mat-icon *ngIf="isLiked === true" class="text-yellow cursor-pointer" [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+            <mat-icon *ngIf="avatar?.isLiked === false" class="like" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+            <mat-icon *ngIf="avatar?.isLiked === true" class="text-yellow cursor-pointer" [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
         </div>
 
         <div class="bottom">
             <div>
                 <h4 *ngIf="!avatar?.updatedAt && !avatar?.timeLastUpdated">24.24.24</h4>
-                <h4 *ngIf="avatar?.updatedAt">{{avatar?.updatedAt}}</h4>
+                <h4 *ngIf="avatar?.updatedAt">{{avatar?.updatedAt | date:'dd/MM/yy'}}</h4>
                 <h4 *ngIf="avatar?.timeLastUpdated">{{avatar?.timeLastUpdated}}</h4>
 
                 <p class="text-light-grey">Last used</p>
@@ -32,7 +35,8 @@
                 <p class="text-light-grey">Rarity</p>
             </div>
             <div>
-                <h4>566</h4>
+                <h4 *ngIf="!avatar?.games && avatar?.games != 0">566</h4>
+                <h4 *ngIf="avatar?.games || avatar?.games == 0">{{avatar?.games}}</h4>
                 <p class="text-light-grey">Games used</p>
             </div>
         </div>

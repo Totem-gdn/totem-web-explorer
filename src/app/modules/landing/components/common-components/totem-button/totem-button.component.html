@@ -3,6 +3,7 @@
   (mouseenter)="onMouseEnter()"
   (mousemove)="onMouseOver($event)"
   (mouseleave)="onMouseLeave()"
+  [disabled]="buttonDisabled"
   class="join-button"
   [ngStyle]="{'width': width, 'height': height}"
   (click)="clickEvent($event)"

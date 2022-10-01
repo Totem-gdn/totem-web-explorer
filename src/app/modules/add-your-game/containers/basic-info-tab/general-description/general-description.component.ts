@@ -3,9 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
 import { Subscription } from "rxjs";
-import { BaseStorageService } from "@app/core/services/base-storage.service";
-import { GeneralInfo, SubmitGame } from "@app/core/models/submit-game-interface.model";
-
+import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
 @Component({
     selector: 'general-description',
@@ -18,52 +16,26 @@ import { GeneralInfo, SubmitGame } from "@app/core/models/submit-game-interface.
 
 export class GeneralDescription implements OnDestroy, AfterViewInit {
 
-    get gameErrors() {
-        const gameName = this.generalDescription.get('gameName')
-        return gameName?.errors && (gameName?.touched || gameName?.dirty);
-
-    };
-    get authorErrors() {
-        const authorName = this.generalDescription.get('authorName');
-        return authorName?.errors && (authorName?.touched || authorName?.dirty);
-    };
-    briefErrors(error: string) {
-        const brief = this.generalDescription.get('briefDescription');
-        if(error === 'required') {
-            return brief?.errors?.['required'] && (brief?.touched || brief?.dirty);
+    checkErrors(controlName: string, errorType: string) {
+        const control = this.generalDescription.get(controlName);
+        if (errorType === 'required') {
+            return control?.errors?.['required'] && (control?.touched || control?.dirty);
         }
-        return brief?.errors && (brief?.touched || brief?.dirty);
-    };
-    get fullErrors() {
-        const full = this.generalDescription.get('fullDescription');
-        return full?.errors && (full?.touched || full?.dirty);
-    };
-
-    @Output() generalFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
-
-    constructor(private storage: BaseStorageService) {}
-
-    ngAfterViewInit() {
-        const controlsNames = ['gameName', 'authorName', 'briefDescription', 'genres', 'fullDescription'];
-
-        for(let controlName of controlsNames) {
-            const value = this.storage.getItem(controlName);
-
-            if(value == null || value == '') continue;
-            if(controlName != 'genres') this.generalDescription.get(controlName)?.setValue(value);
-            if(controlName == 'genres') {
-                const genres = value.split(',');
-                for(let genre of genres) {
-
-                    this.genresForm.push(new FormControl(genre));
-                }
-                this.setItems = genres;
-            }
+        if (errorType === 'all') {
+            return control?.errors && (control?.touched || control?.dirty);
         }
     }
+
+    constructor(private submitService: SubmitGameService) { }
+
+    ngAfterViewInit() {
+        this.retrieveValues();
+    }
+
     setItems!: any;
 
     dropdownItems = [{value: 'Comedy'}, {value: 'Horror'}, {value: 'Music'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}, {value: 'Adventure'}];
+
     dropdownTouched = false;
     genreTags: Tag[] = [];
     genreIndexer: number = 0;
@@ -73,73 +45,65 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     sub!: Subscription;
 
+    @Output() formValid = new EventEmitter<any>();
+
     generalDescription = new FormGroup({
-        gameName: new FormControl(null, [Validators.required]),
-        authorName: new FormControl(null, [Validators.required]),
-        briefDescription: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
+        name: new FormControl(null, [Validators.required]),
+        author: new FormControl(null, [Validators.required]),
+        description: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
         genres: new FormArray([]),
         fullDescription: new FormControl(null, [Validators.maxLength(300)]),
     })
     genresForm = this.generalDescription.get('genres') as FormArray;
 
-    emitFormData() {
-      const formData: any = this.generalDescription.value;
-      this.generalFormDataEvent.emit({
-        general: {
-          name: formData.gameName,
-          author: formData.authorName,
-          description: formData.briefDescription,
-          fullDescription: formData.fullDescription,
-          genre: this.genresForm.value,
-        }
-      });
-    }
-
-    onSetTags(tags: any) {
-        console.log(tags);
-    }
 
     onSelectTag(tag: Tag) {
         this.genreTags.push(tag);
         this.genresForm.push(new FormControl(tag.value));
-        this.saveValue('genres');
+        this.saveValue();
     }
 
     onRemoveTag(tag: Tag) {
         this.genreTags = this.genreTags.filter(genre => genre.reference != tag.reference);
         tag.reference.checked = false;
         this.genresForm.removeAt(this.genresForm.controls.findIndex(genre => genre.value === tag.value));
-        this.saveValue('genres');
+        this.saveValue();
     }
 
     onRemoveGenre(genreControl: any) {
-        const tagToRemove = this.genreTags.filter(tag => { return tag.value == genreControl.value});
+        console.log(genreControl.value);
+        const tagToRemove = this.genreTags.filter(tag => { return tag.value == genreControl.value });
         tagToRemove[0].reference.checked = false;
 
         this.genreTags = this.genreTags.filter(genre => genre.value != genreControl.value);
         this.genresForm.removeAt(this.genresForm.controls.findIndex(genre => genre.value === genreControl.value));
-        this.saveValue('genres');
+        this.saveValue();
     }
 
-    saveValue(controlName: string) {
-        if(controlName != 'genres') {
-            const value = this.generalDescription.get(controlName)?.value;
-            if(value == null || value == '') {
-                this.storage.removeItem(controlName);
-                return;
-            }
-            this.storage.setItem(controlName, value);
-        }
-        if(controlName == 'genres') {
-            const value = this.genresForm.value;
-            if(value == null || value.length == 0) {
-                this.storage.removeItem(controlName);
-                return;
-            }
-            this.storage.setItem(controlName, value);
-        }
-        this.emitFormData();
+    isFormValid() {
+        this.formValid.emit({formName: 'general', value: this.generalDescription.valid});
     }
+
+
+    saveValue() {
+        const value = this.generalDescription.value;
+        this.submitService.saveForm('general', value);
+        this.isFormValid();
+    }
+    retrieveValues() {
+        const values =  this.submitService.getForm('general');
+        if(!values) return;
+        this.generalDescription.patchValue({
+            name: values.name,
+            author: values.author,
+            description: values.description,
+            fullDescription: values.fullDescription,
+        });
+        this.setItems = values.genres;
+        this.isFormValid();
+    }
+
+
 
     briefDescChange(e: any) {
         const length = +e.length;

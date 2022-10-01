@@ -1,35 +1,75 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpEventType, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { SubmitGame } from "@app/core/models/submit-game-interface.model";
+import { ImagesToUpload, ImagesUrls, SubmitGame } from "@app/core/models/submit-game-interface.model";
+import { BaseStorageService } from "@app/core/services/base-storage.service";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, concat, Observable } from "rxjs";
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class SubmitGameService {
 
   baseUrl: string = environment.TOTEM_BASE_API_URL;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private storage: BaseStorageService) {
   }
 
-  postGame(body: SubmitGame | null) {
-    let userInfo: any = JSON.parse(localStorage.getItem('userinfo')!);
-    console.log(userInfo);
+  postGame(body: SubmitGame | null): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/games`, body);
+  }
 
-    const authorization: string = `Bearer ${userInfo.userInfo.idToken} BMUaCGWAqX7ulSauE1dvkhhiGy1OUcVPaDNexeWCj8K9Hs4EFtOMGjhFGMnwxLOypcA4g6UlzAa8UF35POXQFtI`;
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Authorization': authorization
-    }
-    const requestOptions = {
-      headers: new HttpHeaders(headerDict),
-    };
-    this.http.post<any>(`${this.baseUrl}/games`, body, requestOptions).subscribe((data: any) => {
+  getGame() {
+    this.http.get<any>(`${this.baseUrl}/games/6336d28dac1ce79bc5b7604f`).subscribe((data: any) => {
       console.log(data);
+
     })
+  }
+  approveGame() {
+    this.http.patch<any>(`${this.baseUrl}/games/6336d28dac1ce79bc5b7604f/approve`, {}).subscribe((data: any) => {
+      console.log(data);
+
+    })
+  }
+
+  componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls) {
+    let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
+    imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
+    imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
+    imagesWithUrls.push({url: links?.smallThumbnail, file: images?.searchImgae});
+    links.imagesGallery?.forEach((link: string, i: number) => {
+      imagesWithUrls.push({url: link, file: images.gallery![i]});
+    })
+    console.log(imagesWithUrls);
+    this.connectImagesWithUrls(imagesWithUrls);
+  }
+
+  connectImagesWithUrls(imgUrlPair: {url: string | undefined, file: File | undefined}[]) {
+    const imgUrlRequests = imgUrlPair.map(pair => this.uploadImage(pair.url, pair.file));
+    concat(...imgUrlRequests).subscribe((event) => {
+      if (event.type == HttpEventType.UploadProgress) {
+        console.log(Math.round(100 * (event.loaded / event.total)));
+      }
+      console.log(event);
+    });
+  }
+
+  uploadImage(url: string | undefined, file: File | undefined): Observable<any> {
+    return this.http.put<any>(`${url}`, file, { reportProgress: true, observe: 'events' });
+  }
+
+  saveForm(formName: string, value: any) {
+    if (formName == 'general') this.storage.setItem('general', JSON.stringify(value));
+    if (formName == 'details') this.storage.setItem('details', JSON.stringify(value));
+    if (formName == 'contacts') this.storage.setItem('contacts', JSON.stringify(value));
+    if (formName == 'connections') this.storage.setItem('connections', JSON.stringify(value));
+
+  }
+
+  getForm(formName: string) {
+    const values = this.storage.getItem(formName);
+    if (!values) return null;
+    return JSON.parse(values);
   }
 
 }

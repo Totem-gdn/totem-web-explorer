@@ -1,8 +1,8 @@
 <div class="desc-form">
 
-  <general-description (generalFormDataEvent)="updateFormData($event)"></general-description>
-  <game-details (detailsFormDataEvent)="updateFormData($event)"></game-details>
-  <contact-form (contactFormDataEvent)="updateFormData($event)"></contact-form>
-  <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" (click)="getDataFromForms()"></totem-button>
+  <general-description (formValid)="checkFormValidity($event)"></general-description>
+  <game-details (formValid)="checkFormValidity($event)"></game-details>
+  <contact-form (formValid)="checkFormValidity($event)"></contact-form>
+  <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" [disabled]="!buttonDisabled"></totem-button>
 
 </div>

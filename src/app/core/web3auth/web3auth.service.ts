@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { Web3Auth } from "@web3auth/web3auth";
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES, Maybe, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
-
+import { getED25519Key } from "@toruslabs/openlogin-ed25519";
+import { getPublicCompressed } from "@toruslabs/eccrypto";
 
 @Injectable({ providedIn: 'root' })
 
@@ -38,12 +39,29 @@ export class Web3AuthService {
         this.isModalLoaded = true;
     }
 
+    getPubKey = async () => {
+      const web3auth = this.web3auth;
+      const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+        method: "solanaPrivateKey",
+      });
+      const ed25519Key = getED25519Key(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex"));
+      const app_pub_key = ed25519Key.pk.toString("hex");
+    }
+
+    getPublicKey = async () => {
+      const web3auth = this.web3auth;
+      const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+        method: "eth_private_key", // use "private_key" for other non-evm chains
+      });
+      const app_pub_key = getPublicCompressed(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex")).toString("hex");
+      const user = await web3auth?.getUserInfo();
+      return app_pub_key;
+    }
+
     authUser = async () => {
       if (!this.provider) {
-          console.log("provider not initialized yet");
           return;
       }
-      console.log('auth tokens');
       const token = await this.web3auth?.authenticateUser();
       return token;
     }
@@ -53,7 +71,6 @@ export class Web3AuthService {
             console.log("provider not initialized yet");
             return;
         }
-        console.log('Get tokens');
         const rpc = new RPC(this.provider);
         const getTokens = await rpc.getTokens();
         return getTokens;
@@ -68,7 +85,6 @@ export class Web3AuthService {
         document.getElementById('w3a-container')!.style.visibility = 'visible';
         this.provider = await web3auth.connect();
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
-        console.log("logged in");
     };
 
     getUserInfo = async () => {
@@ -169,7 +185,6 @@ export class Web3AuthService {
         }
         await this.web3auth.logout();
         this.provider = null;
-        console.log("logged out");
     };
 
     isLoggedIn() {

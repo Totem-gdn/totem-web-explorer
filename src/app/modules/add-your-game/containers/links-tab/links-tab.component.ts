@@ -5,6 +5,8 @@ import { ConnectionsInfo, SubmitGame } from '@app/core/models/submit-game-interf
 import { Tag } from '@app/core/models/tag-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Subscription } from 'rxjs';
+import { FormsService } from '../../forms.service';
+import { SubmitGameService } from '../../services/submit-game.service';
 
 interface SocialLink {
   tag: Tag;
@@ -24,24 +26,26 @@ interface SocialLink {
 
 export class LinksTabComponent implements AfterViewInit {
 
+  constructor(private submitGame: SubmitGameService) { }
+
   get webPageErrors() {
-    const webPage = this.linksForm.get('webPage');
+    const webPage = this.connectionsForm.get('webPage');
     return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
 
-  dropdownLinks: any[] = [{value: 'Twitter', url: 'https://twitter.com/'},{value: 'Facebook', url: 'https://facebook.com/'},{value: 'Discord', url: 'https://discrod.com/'},]
+  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
 
-  @Output() linkFormDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
-  @Output() submitGame: EventEmitter<any> = new EventEmitter();
-  // links: SocialLink[] = [];
+  @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
-  linksForm = new FormGroup({
-    webPage: new FormControl(null, Validators.required),
+  connectionsForm = new FormGroup({
+    webPage: new FormControl(null , Validators.required),
     rendererUrl: new FormControl(null),
     videoUrl: new FormControl(null),
-    socialLinks: new FormArray([new FormControl(null)])
+    socialLinks: new FormArray([
+      new FormArray([ new FormControl(), new FormControl('https://')])
+    ])
   })
-  socialLinksForm  = this.linksForm.get('socialLinks') as FormArray;
+  socialLinksForm = this.connectionsForm.get('socialLinks') as FormArray;
 
   ngAfterViewInit() {
     this.socialLinksForm.valueChanges.subscribe(() => {
@@ -52,48 +56,60 @@ export class LinksTabComponent implements AfterViewInit {
         // link.patchValue('sefsge')
       })
     })
-  }
-
-  updateFormData() {
-    const formData: any = this.linksForm.value;
-    const formDataToSend: ConnectionsInfo = {
-      webpage: formData?.webPage,
-      assetRenderer: formData?.rendererUrl,
-      promoVideo: formData?.videoUrl,
-      socialLinks: this.socialLinksForm?.value
-    }
-    this.linkFormDataEvent.emit({connections: formDataToSend});
+    this.retrieveValues();
   }
 
   submitGameInfo() {
-    this.submitGame.emit();
+    console.log('evenet');
+    this.submitEvent.emit();
   }
 
   onAddLink() {
-    this.socialLinksForm.push(new FormControl(null));
+    this.socialLinksForm.push(new FormArray([ new FormControl(), new FormControl('https://')]));
+    this.updateForm();
   }
 
   onRemoveLink(index: number) {
     this.socialLinksForm.removeAt(index);
+    this.updateForm();
   }
 
   onSelectTag(tag: Tag, i: any) {
     const url = this.urlByValue(tag.value);
-    this.socialLinksForm.controls[i].patchValue(url);
-    const link = this.linksForm.value.socialLinks;
-    console.log(link);
+    const link = this.socialLinksForm.controls[i] as FormArray;
+    link.controls[0].patchValue(tag.value);
+    link.controls[1].patchValue(url);
+    // const link = this.connectionsForm.value.socialLinks;
+    this.updateForm();
   }
 
   urlByValue(value: string) {
-    if(value === 'Twitter') return 'twitter.com/';
-    if(value === 'Facebook') return 'facebook.com/';
-    if(value === 'Discord') return 'discord.com/';
+    if (value === 'Twitter') return 'https://twitter.com/';
+    if (value === 'Facebook') return 'https://facebook.com/';
+    if (value === 'Discord') return 'https://discord.com/';
+    if (value === 'Instagram') return 'https://instagram.com/';
     return '';
   }
 
-  onRemoveTag(tag: Tag) {
-    // this.links = this.links.filter(link => link.reference != tag.reference);
-    // tag.reference.checked = false;
+  updateForm() {
+    const value = this.connectionsForm.value;
+    this.submitGame.saveForm('connections', value);
+    console.log(value);
+  }
+
+  retrieveValues() {
+    const values = this.submitGame.getForm('connections');
+    if (!values) return;
+
+    this.connectionsForm.patchValue({
+      webPage: values.webPage,
+      rendererUrl: values.rendererUrl,
+      videoUrl: values.videoUrl
+    })
+
+    values.socialLinks.forEach((link: any, index: any) => {
+      this.socialLinksForm.push(new FormArray([ new FormControl(link[0]), new FormControl(link[1])]))
+    })
   }
 
 }

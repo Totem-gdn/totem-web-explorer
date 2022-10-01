@@ -64,7 +64,9 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     console.log(this.file);
     //this.imageReader.readAsDataURL(this.file);
     //this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
-    this.finalizedFile.next(event);
+    if (this.file) {
+      this.finalizedFile.next(event);
+    }
     this.removeHover();
   }
 
