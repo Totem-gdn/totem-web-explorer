@@ -4,7 +4,7 @@ import { Component, Input, } from '@angular/core';
   selector: 'app-games',
   templateUrl: './games.component.html',
   host: {
-      class: 'px-[20px] sm:pt-[40px]'
+      class: 'px-[20px] lg:pt-[40px]'
   }
 })
 export class GamesComponent {

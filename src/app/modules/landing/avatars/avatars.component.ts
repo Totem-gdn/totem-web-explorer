@@ -5,7 +5,7 @@ import { Component, Input, OnInit, } from '@angular/core';
     templateUrl: './avatars.component.html',
     styleUrls: ['./avatars.component.scss'],
     host: {
-        class: 'px-[20px] sm:pt-[40px]'
+        class: 'px-[20px] lg:pt-[40px]'
     }
 })
 export class AvatarsComponent implements OnInit {

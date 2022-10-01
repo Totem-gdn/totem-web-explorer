@@ -1,11 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
-import { ConnectionsInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { Tag } from '@app/core/models/tag-interface.model';
-import { UserStateService } from '@app/core/services/user-state.service';
-import { Subscription } from 'rxjs';
-import { FormsService } from '../../forms.service';
 import { SubmitGameService } from '../../services/submit-game.service';
 
 interface SocialLink {
@@ -36,6 +32,7 @@ export class LinksTabComponent implements AfterViewInit {
   dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
 
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
+  setItems!: any[];
 
   connectionsForm = new FormGroup({
     webPage: new FormControl(null , Validators.required),
@@ -45,18 +42,15 @@ export class LinksTabComponent implements AfterViewInit {
       new FormArray([ new FormControl(), new FormControl('https://')])
     ])
   })
-  socialLinksForm = this.connectionsForm.get('socialLinks') as FormArray;
+  socialLinksForm = this.connectionsForm.get('socialLinks') as any;
 
   ngAfterViewInit() {
-    this.socialLinksForm.valueChanges.subscribe(() => {
-
-      // for(let link of s)
-      this.socialLinksForm.controls.forEach(link => {
-        console.log('change')
-        // link.patchValue('sefsge')
-      })
-    })
     this.retrieveValues();
+    // this.socialLinksForm.controls.forEach
+    // this.dropdowns.forEach(dropdown => {
+    //   console.log('dropdown',dropdown);
+    // })
+    // console.log()
   }
 
   submitGameInfo() {
@@ -75,11 +69,13 @@ export class LinksTabComponent implements AfterViewInit {
   }
 
   onSelectTag(tag: Tag, i: any) {
+    console.log(tag.value)
     const url = this.urlByValue(tag.value);
     const link = this.socialLinksForm.controls[i] as FormArray;
     link.controls[0].patchValue(tag.value);
     link.controls[1].patchValue(url);
-    // const link = this.connectionsForm.value.socialLinks;
+    console.log(link.controls[0].value)
+    
     this.updateForm();
   }
 
@@ -108,7 +104,7 @@ export class LinksTabComponent implements AfterViewInit {
     })
 
     values.socialLinks.forEach((link: any, index: any) => {
-      this.socialLinksForm.push(new FormArray([ new FormControl(link[0]), new FormControl(link[1])]))
+      this.socialLinksForm.controls[index] = new FormArray([ new FormControl(link[0]), new FormControl(link[1])]);
     })
   }
 

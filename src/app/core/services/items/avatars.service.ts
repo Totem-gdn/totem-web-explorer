@@ -32,13 +32,12 @@ export class AvatarsService {
             }))         
     }
 
-    // formatTime(avatars: any[]) {
-    //     const formattedItems: any[] = [];
+    // formatTime(avatars: any[]) {›
     //     console.log(avatars)
     //     for(let avatar of avatars) {
     //         avatar.updatedAt = new Date(avatar.updatedAt).toLocaleDateString();
     //         formattedItems.push(avatar);
-    //     }
+    //     }››
 
     //     return formattedItems;
     // }

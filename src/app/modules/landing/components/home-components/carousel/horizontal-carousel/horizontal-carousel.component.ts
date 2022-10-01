@@ -21,9 +21,10 @@ export class HorizontalCarouselComponent implements AfterViewInit {
 
     @Input() title = '';
     @Input() menuTitle: string | null = '';
+    // @Input() items!: any[] | null;
     @Input() set items(items: any ) {
         this.slides = items;
-        this.swiper.updateSlides();
+        console.log('slides',this.slides)
     }
     slides!: any[];
     @Input() itemType = 'item';
@@ -33,7 +34,6 @@ export class HorizontalCarouselComponent implements AfterViewInit {
 
     
     ngAfterViewInit() {
-        console.log('swiper created')
         this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
             modules: [Navigation, Pagination, Autoplay],
 
