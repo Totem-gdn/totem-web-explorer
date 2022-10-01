@@ -12,8 +12,6 @@ export class TotemPromoGameComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.game);
-
   }
 
 }

@@ -123,11 +123,9 @@ export class TotemHomePageComponent implements OnInit {
   };
 
   particlesLoaded(container: Container): void {
-    console.log(container);
   }
 
   async particlesInit(engine: Engine): Promise<void> {
-    console.log(engine);
 
     // Starting from 1.19.0 you can add custom presets or shape here, using the current tsParticles instance (main)
     // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -200,11 +198,8 @@ export class TotemHomePageComponent implements OnInit {
     );
     this.subs.add(
       this.totemItemsService.mostUsedItems.subscribe((items: any[] | null) => {
-        console.log(items);
         if (items) {
           this.mostUsedItems$.next(items);
-          console.log(items);
-
         }
       })
     );
@@ -229,7 +224,6 @@ export class TotemHomePageComponent implements OnInit {
   }
 
   generateItem(event: MouseEvent) {
-    console.log(event);
     this.router.navigate(['/buy']);
   }
 

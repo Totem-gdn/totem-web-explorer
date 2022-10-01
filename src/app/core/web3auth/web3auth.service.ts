@@ -60,10 +60,8 @@ export class Web3AuthService {
 
     authUser = async () => {
       if (!this.provider) {
-          console.log("provider not initialized yet");
           return;
       }
-      console.log('auth tokens');
       const token = await this.web3auth?.authenticateUser();
       return token;
     }
@@ -73,7 +71,6 @@ export class Web3AuthService {
             console.log("provider not initialized yet");
             return;
         }
-        console.log('Get tokens');
         const rpc = new RPC(this.provider);
         const getTokens = await rpc.getTokens();
         return getTokens;
@@ -88,7 +85,6 @@ export class Web3AuthService {
         document.getElementById('w3a-container')!.style.visibility = 'visible';
         this.provider = await web3auth.connect();
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
-        console.log("logged in");
     };
 
     getUserInfo = async () => {
@@ -189,7 +185,6 @@ export class Web3AuthService {
         }
         await this.web3auth.logout();
         this.provider = null;
-        console.log("logged out");
     };
 
     isLoggedIn() {

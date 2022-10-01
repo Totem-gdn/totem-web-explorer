@@ -44,7 +44,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     fullDescLength = 0;
 
     sub!: Subscription;
-    
+
     @Output() formValid = new EventEmitter<any>();
 
     generalDescription = new FormGroup({
@@ -52,7 +52,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         author: new FormControl(null, [Validators.required]),
         description: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
         genres: new FormArray([]),
-        fullDescription: new FormControl('', [Validators.maxLength(300)]),
+        fullDescription: new FormControl(null, [Validators.maxLength(300)]),
     })
     genresForm = this.generalDescription.get('genres') as FormArray;
 
@@ -103,7 +103,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         this.isFormValid();
     }
 
-    
+
 
     briefDescChange(e: any) {
         const length = +e.length;

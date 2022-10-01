@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
-import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
+import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
 import { SubmitGameService } from './services/submit-game.service';
 
 const BODY: SubmitGame = {
@@ -24,8 +26,9 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   progress: number = 33.3;
   activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
   formsData: SubmitGame | null = null;
+  imagesToUpload!: ImagesToUpload;
 
-  constructor(private userStateService: UserStateService, private submitGameService: SubmitGameService) {
+  constructor(readonly matDialog: MatDialog, private userStateService: UserStateService, private submitGameService: SubmitGameService) {
   }
 
   ngOnInit() {
@@ -34,9 +37,9 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         this.loading$.next(value);
       })
     )
-
-    this.submitGameService.approveGame();
-    this.submitGameService.getGame();
+    this.openImgUploaderDialog();
+    //this.submitGameService.approveGame();
+    //this.submitGameService.getGame();
   }
 
   ngOnDestroy(): void {
@@ -45,7 +48,6 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   updateFormData(event: SubmitGame) {
     console.log(event);
-    console.log(Object.keys(event)[0]);
     let keyToUpdate: string = Object?.keys(event)[0];
     this.formsData = {
       ...this.formsData,
@@ -54,9 +56,51 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     console.log(this.formsData);
   }
 
-  uploadGame() {
-    console.log(this.formsData);
-    this.submitGameService.postGame(this.formsData);
+  uploadGame(event: any) {
+    const formData: SubmitGame = {
+      general: {
+        author: 'afasfa',
+        name: 'Decay',
+        description: 'Survival MMORP game',
+        genre: ['Survival']
+      },
+      details: {
+        status: 'in progress',
+        platforms: ['Windows'],
+        madeWith: 'Angular (ts)',
+        session: '1h-2h',
+        languages: 'eng, rus, ua',
+        inputs: 'Mouse',
+      },
+      images: this.formsData?.images,
+      connections: {
+        webpage: 'https://Creators.itch.io/game',
+        socialLinks: []
+      },
+      contacts: {
+        email: 'iruaasf@afsf.asf'
+      },
+    }
+    console.log(formData);
+    this.postGame(formData);
+  }
+
+  postGame(formData: SubmitGame) {
+    this.subs.add(
+      this.submitGameService.postGame(formData).subscribe((data: any) => {
+        this.processResponse(data);
+      })
+    )
+  }
+
+  processResponse(data: any) {
+    this.submitGameService.componeFilesToUpload(this.imagesToUpload, data.uploadImageURLs)
+  }
+
+  updateImagesToUpload(data: ImagesToUpload) {
+    this.imagesToUpload = data;
+    console.log(this.imagesToUpload);
+
   }
 
   goToTab(tab: string) {
@@ -72,6 +116,30 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       this.activeTab = SUBMISSION_TABS.LINKS;
       this.progress = 100;
     }
+  }
+
+  openUploadModal(): Observable<string> {
+    /* const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
+    const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1; */
+    const options: MatDialogConfig = {
+        disableClose: true,
+        panelClass: 'image-upload-dialog',
+        backdropClass: 'blurred-backdrop',
+        /* data: {
+          file: image,
+          aspectRatio: aspectRation
+        }, */
+        autoFocus: false
+    };
+    return this.matDialog.open(ImageUploaderComponent, options).afterClosed();
+  }
+
+  openImgUploaderDialog() {
+    this.subs.add(
+      this.openUploadModal().subscribe((data: any) => {
+        console.log(data);
+      })
+    )
   }
 
 }

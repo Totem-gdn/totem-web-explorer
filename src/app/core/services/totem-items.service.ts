@@ -160,7 +160,7 @@ export class TotemItemsService {
   }
 
   getAvatars() {
-    this.avatars$.next(AVATARS);
+    //this.avatars$.next(AVATARS);
     this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
       console.log(data);
       if (data && data?.length) {

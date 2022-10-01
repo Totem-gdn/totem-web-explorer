@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
@@ -24,11 +25,11 @@ export class GameCardComponent implements AfterViewInit {
   }
 
   onClickLike() {
-    this.isLiked = !this.isLiked;
-    if (this.isLiked) {
-      this.favouritesService.addLike(this.game, StorageKey.GAMES);
+    this.game.isLiked = !this.game.isLiked;
+    if (this.game.isLiked) {
+      this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id);
     } else {
-      this.favouritesService.removeLike(this.game, StorageKey.GAMES);
+      this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id);
     }
   }
 
