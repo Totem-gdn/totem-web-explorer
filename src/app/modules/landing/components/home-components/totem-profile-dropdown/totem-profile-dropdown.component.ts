@@ -35,8 +35,6 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
-    console.log('Sidedrop inited');
-
     this.sideProfileStateService.sideprofStatus.subscribe((data: boolean) => {
       this.sidebarIsOpen = data;
     });

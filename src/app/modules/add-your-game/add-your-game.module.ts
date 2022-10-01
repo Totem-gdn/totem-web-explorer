@@ -10,6 +10,7 @@ import { GameSubmissionNavModule } from "./components/game-submission-nav/game-s
 import { DetailsTabModule } from "./containers/details-tab/details-tab.module";
 import { LinksTabModule } from "./containers/links-tab/links-tab.module";
 import { BasicInfoModule } from "./containers/basic-info-tab/basic-info.module";
+import { ImageUploaderModule } from "./modules/image-uploader/image-uploader.module";
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { BasicInfoModule } from "./containers/basic-info-tab/basic-info.module";
 
         DetailsTabModule,
         LinksTabModule,
-        BasicInfoModule
+        BasicInfoModule,
+        ImageUploaderModule
     ],
     exports: [
       AddYourGameComponent

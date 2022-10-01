@@ -19,13 +19,11 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean | Promise<boolean> {
         const isAuthenticated = this.userStateService.isLoggedIn();
-        console.log(isAuthenticated);
 
         const isAuthenticatedCache =
             !!(JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!)?.idToken)
             &&
             !!(this.baseStorageService.getItem(StorageKey.ADAPTER));
-        console.log('from cache auth', isAuthenticatedCache);
 
         if (!isAuthenticatedCache && !isAuthenticated) {
             this.router.navigate(['/home']);

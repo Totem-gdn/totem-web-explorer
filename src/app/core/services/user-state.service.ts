@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { StorageKey } from "../enums/storage-keys.enum";
 import { OpenLoginUserInfo, UserEntity } from "../models/user-interface.model";
 import { Web3AuthService } from "../web3auth/web3auth.service";
 
@@ -27,7 +28,6 @@ export class UserStateService implements OnDestroy {
     this.loading$.next(true);
     await this.web3AuthService.init();
     const isLoggedIn = this.web3AuthService.isLoggedIn();
-    console.log('INITED', isLoggedIn);
     if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
     }
@@ -35,10 +35,8 @@ export class UserStateService implements OnDestroy {
   }
 
   async login() {
-    console.log('LOGGG');
     await this.web3AuthService.login();
     this.loading$.next(true);
-    console.log('start loading if user selected login case');
     await this.getUserInfoViaWeb3();
     this.snackNotifierService.open('Logged in');
     this.loading$.next(false);
@@ -48,11 +46,10 @@ export class UserStateService implements OnDestroy {
     const wallet: string = await this.web3AuthService.getAccounts();
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
     //const key: string = await this.web3AuthService.getPrivateKey();
-    const token: any = await this.web3AuthService.authUser();
     const key: string = await this.web3AuthService.getPublicKey();
     //await this.web3AuthService.getPubKey();
-    console.log('user info', userInfo, key, token);
-    localStorage.setItem('userinfo', JSON.stringify({userInfo, key}));
+    //console.log('user info', userInfo, key);
+    localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({userInfo, key}));
     const userToUse: UserEntity = {
       name: userInfo?.name,
       email: userInfo?.email,

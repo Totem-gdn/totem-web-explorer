@@ -35,7 +35,7 @@ export class LinksTabComponent implements AfterViewInit {
 
   dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
 
-  @Output() submit: EventEmitter<any> = new EventEmitter();
+  @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
   connectionsForm = new FormGroup({
     webPage: new FormControl(null , Validators.required),
@@ -60,7 +60,8 @@ export class LinksTabComponent implements AfterViewInit {
   }
 
   submitGameInfo() {
-
+    console.log('evenet');
+    this.submitEvent.emit();
   }
 
   onAddLink() {
@@ -99,7 +100,7 @@ export class LinksTabComponent implements AfterViewInit {
   retrieveValues() {
     const values = this.submitGame.getForm('connections');
     if (!values) return;
-    
+
     this.connectionsForm.patchValue({
       webPage: values.webPage,
       rendererUrl: values.rendererUrl,

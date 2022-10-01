@@ -53,3 +53,19 @@ export interface DetailsInfo {
   languages?: string;
   inputs?: string;
 }
+
+///
+
+export interface ImagesToUpload {
+  coverImage?:  File | undefined;
+  cardImage?: File | undefined;
+  searchImgae?: File | undefined;
+  gallery?: File[] | undefined;
+}
+
+export interface ImagesUrls {
+  coverImage?: string;
+  cardThumbnail?: string;
+  smallThumbnail?: string;
+  imagesGallery?: string[];
+}
