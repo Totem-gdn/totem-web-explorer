@@ -65,11 +65,11 @@
         <div *ngIf="gamesArray | async as items; else noItems" class="items-wrapper">
           <div *ngFor="let item of items" class="item-card" fxLayout="row" fxLayoutAlign="start center">
             <div class="item-prev-icon">
-              <img [src]="item.img" alt="icon">
+              <img [src]="item?.images?.smallThumbnail" alt="icon">
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
-              <div class="item-name">{{item.name}}</div>
-              <div class="item-type">{{item.type}}</div>
+              <div class="item-name">{{item?.general?.name}}</div>
+              <div class="item-type">{{item?.general?.genre![0]}}</div>
             </div>
           </div>
         </div>

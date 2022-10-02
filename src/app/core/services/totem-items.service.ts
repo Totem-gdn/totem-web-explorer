@@ -170,4 +170,8 @@ export class TotemItemsService {
     })
   }
 
+  getGameByName(word: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/games?search=${word}`);
+  }
+
 }
