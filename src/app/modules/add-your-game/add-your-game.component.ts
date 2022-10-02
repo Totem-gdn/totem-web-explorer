@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
-import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
+import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, ImagesToUpload, SubmitGame, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
@@ -110,15 +110,16 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   postGame(formData: SubmitGame) {
     this.subs.add(
-      this.submitGameService.postGame(formData).subscribe((data: any) => {
-        this.processResponse(data);
+      this.submitGameService.postGame(formData).subscribe((data: SubmitGameResponse) => {
+        //this.processResponse(data);
+        this.openImgUploaderDialog(this.imagesToUpload, data);
       })
     )
   }
 
-  processResponse(data: any) {
+  processResponse(data: SubmitGameResponse) {
     this.submitGameService.currentIdToUpload = data.id;
-    this.submitGameService.componeFilesToUpload(this.imagesToUpload, data.uploadImageURLs)
+    this.submitGameService.componeFilesToUpload(this.imagesToUpload, data!.uploadImageURLs)
   }
 
   updateImagesToUpload(data: ImagesToUpload) {
@@ -142,25 +143,25 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  openUploadModal(): Observable<string> {
+  openUploadModal(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse): Observable<string> {
     /* const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1; */
     const options: MatDialogConfig = {
         disableClose: true,
         panelClass: 'image-upload-dialog',
         backdropClass: 'blurred-backdrop',
-        /* data: {
-          file: image,
-          aspectRatio: aspectRation
-        }, */
+        data: {
+          images: imagesToUpload,
+          gameSubmitResponse: gameSubmitResponse
+        },
         autoFocus: false
     };
     return this.matDialog.open(ImageUploaderComponent, options).afterClosed();
   }
 
-  openImgUploaderDialog() {
+  openImgUploaderDialog(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse) {
     this.subs.add(
-      this.openUploadModal().subscribe((data: any) => {
+      this.openUploadModal(imagesToUpload, gameSubmitResponse).subscribe((data: any) => {
         console.log(data);
       })
     )

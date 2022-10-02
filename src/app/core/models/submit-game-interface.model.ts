@@ -69,3 +69,8 @@ export interface ImagesUrls {
   smallThumbnail?: string;
   imagesGallery?: string[];
 }
+
+export interface SubmitGameResponse {
+  id: string;
+  uploadImageURLs: ImagesUrls;
+}
