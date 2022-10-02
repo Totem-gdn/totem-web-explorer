@@ -141,26 +141,42 @@ export class TotemItemsService {
 
   getNewestItems() {
     this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
+      if(data && data?.length) {
         this.newestItems$.next(data);
+      } else {
+        this.newestItems$.next(NEWEST_ITEMS);
+      }
     })
   }
 
   getMostUsedItems() {
     this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
-      this.mostUsedItems$.next(data);
+      if(data && data?.length) {
+        this.mostUsedItems$.next(data);
+      } else {
+        this.mostUsedItems$.next(MOST_USED_ITEMS);
+      }
     })
   }
 
   getAvatars() {
     this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
+      if(data && data?.length) {
         this.avatars$.next(data);
+      } else {
+        this.avatars$.next(AVATARS);
+      }
     })
   }
 
   getGames() {
     this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
+      console.log('games', data)
+      if(data && data?.length) {
         this.games$.next(data);
-        console.log('games: ',data)
+      } else {
+        this.games$.next(POPULAR_GAMES);
+      }
     })
   }
 

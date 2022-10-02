@@ -13,7 +13,7 @@ export class UserGemsComponent implements OnInit {
               private web3Service: Web3AuthService) { }
 
   gems: any[] = [];
-  totalGems = 0;
+  totalGems: undefined | number;
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
@@ -28,9 +28,9 @@ export class UserGemsComponent implements OnInit {
       }
     })
 
-    this.alchemyService.userItemsByType(wallet, 'Gem').subscribe(total => {
-      this.totalGems = total;
-    });
+    this.alchemyService.totalItems.subscribe(total => {
+      this.totalGems = total.totalGems;
+    })
   }
 
 

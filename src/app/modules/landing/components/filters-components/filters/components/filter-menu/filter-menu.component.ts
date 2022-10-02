@@ -33,8 +33,10 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
     this.resetFilters$();
   }
 
-  ngAfterViewInit(): void {
-    this.menuHeightRef.nativeElement.style.height = this.menuHeight;
+  ngAfterViewInit() {
+    if(this.items && this.searchType != 'graph' && this.searchType != 'range') {
+      this.menuHeightRef.nativeElement.style.height = this.menuHeight;
+    }
   }
 
   onClickMenu() {

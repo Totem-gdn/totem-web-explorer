@@ -24,7 +24,6 @@ export class HorizontalCarouselComponent implements AfterViewInit {
     // @Input() items!: any[] | null;
     @Input() set items(items: any ) {
         this.slides = items;
-        console.log('slides',this.slides)
     }
     slides!: any[];
     @Input() itemType = 'item';

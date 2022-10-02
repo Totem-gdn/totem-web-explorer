@@ -17,7 +17,7 @@ export class UserItemsComponent implements OnInit {
   sub!: Subscription;
 
   items: any[] = [];
-  totalItems = 0;
+  totalItems: undefined | number;
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
@@ -36,8 +36,9 @@ export class UserItemsComponent implements OnInit {
       }
     })
 
-    this.alchService.userItemsByType(wallet, 'Item').subscribe(total => {
-      this.totalItems = total;
+    this.alchService.totalItems.subscribe(total => {
+      console.log('totalItems')
+      this.totalItems = total.totalItems;
     });
   }
 
