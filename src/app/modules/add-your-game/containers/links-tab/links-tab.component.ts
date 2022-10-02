@@ -25,7 +25,7 @@ export class LinksTabComponent implements AfterViewInit {
   constructor(private submitGame: SubmitGameService) { }
 
   get webPageErrors() {
-    const webPage = this.connectionsForm.get('webPage');
+    const webPage = this.connectionsForm.get('webpage');
     return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
 
@@ -35,7 +35,7 @@ export class LinksTabComponent implements AfterViewInit {
   setItems!: any[];
 
   connectionsForm = new FormGroup({
-    webPage: new FormControl(null , Validators.required),
+    webpage: new FormControl(null , Validators.required),
     rendererUrl: new FormControl(null),
     videoUrl: new FormControl(null),
     socialLinks: new FormArray([
@@ -98,7 +98,7 @@ export class LinksTabComponent implements AfterViewInit {
     if (!values) return;
 
     this.connectionsForm.patchValue({
-      webPage: values.webPage,
+      webpage: values.webpage,
       rendererUrl: values.rendererUrl,
       videoUrl: values.videoUrl
     })

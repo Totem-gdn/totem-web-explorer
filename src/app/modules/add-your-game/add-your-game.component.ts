@@ -24,9 +24,10 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
-  activeTab: 'basic-information' | 'details' | 'links' = 'links';
+  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
   formsData: SubmitGame | null = null;
   imagesToUpload!: ImagesToUpload;
+  imagesToSubmit!: ImagesInfo;
 
   constructor(readonly matDialog: MatDialog, private userStateService: UserStateService, private submitGameService: SubmitGameService) {
   }
@@ -37,13 +38,19 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         this.loading$.next(value);
       })
     )
-    this.openImgUploaderDialog();
+    //this.openImgUploaderDialog();
     //this.submitGameService.approveGame();
     //this.submitGameService.getGame();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  updateImages(images: ImagesInfo) {
+    console.log('TO SUBMIT: ', images);
+
+    this.imagesToSubmit = images;
   }
 
   updateFormData(event: SubmitGame) {
@@ -57,7 +64,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   }
 
   uploadGame(event: any) {
-    const formData: SubmitGame = {
+    /* const formData: SubmitGame = {
       general: {
         author: 'afasfa',
         name: 'Decay',
@@ -81,8 +88,24 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         email: 'iruaasf@afsf.asf'
       },
     }
-    console.log(formData);
-    this.postGame(formData);
+    console.log(formData); */
+    /* console.log(
+      this.submitGameService.getForm('general'),
+      this.submitGameService.getForm('details'),
+      this.submitGameService.getForm('contacts'),
+      this.submitGameService.getForm('connections'),
+    ); */
+
+    this.formsData = {
+      general: this.submitGameService.getForm('general'),
+      details: this.submitGameService.getForm('details'),
+      contacts: this.submitGameService.getForm('contacts'),
+      connections: this.submitGameService.getForm('connections'),
+      images: this.imagesToSubmit,
+    }
+    console.log(this.formsData);
+
+    this.postGame(this.formsData);
   }
 
   postGame(formData: SubmitGame) {
@@ -94,6 +117,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   }
 
   processResponse(data: any) {
+    this.submitGameService.currentIdToUpload = data.id;
     this.submitGameService.componeFilesToUpload(this.imagesToUpload, data.uploadImageURLs)
   }
 

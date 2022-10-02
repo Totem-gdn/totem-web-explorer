@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
+import { SubmitGameService } from '@app/modules/add-your-game/services/submit-game.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
 import { BehaviorSubject, switchMap, debounceTime, of} from 'rxjs';
 import { Items } from '../models/items-interface.model';
@@ -74,7 +75,7 @@ export class TotemSearchFilterComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
   loading$ = new BehaviorSubject(false);
 
-  constructor(private router: Router, private sidenavStateService: SidenavStateService) { }
+  constructor(private router: Router, private sidenavStateService: SidenavStateService, private submitGameService: SubmitGameService) { }
 
   ngOnInit(): void {
     this.initFormListener();
@@ -107,6 +108,7 @@ export class TotemSearchFilterComponent implements OnInit {
 
   getItems(params: string) {
     this.loading$.next(true);
+    this.submitGameService.getGame(params);
     setTimeout(() => {
       let itemsArray = items.filter((item: Items) => item.name.toLowerCase().includes(params));
       this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);

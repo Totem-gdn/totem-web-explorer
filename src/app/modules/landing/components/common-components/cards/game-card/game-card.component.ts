@@ -19,8 +19,10 @@ export class GameCardComponent implements AfterViewInit {
 
   isLiked = false;
 
+
+
   ngAfterViewInit(): void {
-    //console.log(this.game)
+    console.log(this.game)
     // this.item.nativeElement.style.width = this.width;
   }
 
@@ -31,6 +33,11 @@ export class GameCardComponent implements AfterViewInit {
     } else {
       this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id);
     }
+  }
+
+  check() {
+    console.log('IMAGE ERRRORRORORED', event);
+
   }
 
   onNavigate() {

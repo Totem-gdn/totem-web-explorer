@@ -30,7 +30,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     galleryImgHovered: false,
   };
 
-  @Output() formDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
+  @Output() formDataEvent: EventEmitter<ImagesInfo> = new EventEmitter();
   @Output() imageFilesEvent: EventEmitter<ImagesToUpload> = new EventEmitter();
 
   constructor(readonly matDialog: MatDialog,) {
@@ -57,13 +57,16 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
         filename: this.finalizedSearchImage.name,
         contentLength: this.finalizedSearchImage.size
       },
-      gallery: [{
-        mimeType: this.finalizedGalleryImages[0].type,
-        filename: this.finalizedGalleryImages[0].name,
-        contentLength: this.finalizedGalleryImages[0].size
-      }],
+      gallery:
+        this.finalizedGalleryImages.map((image: File) => {
+          return {
+            mimeType: image.type,
+            filename: image.name,
+            contentLength: image.size
+          }
+        })
     }
-    this.formDataEvent.emit({images: formDataToSend});
+    this.formDataEvent.emit(formDataToSend);
   }
 
   ngOnDestroy(): void {
@@ -122,17 +125,19 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   openCropperDialog(image: any, type: string) {
     this.subs.add(
       this.openCropper(image, type).subscribe((data: any) => {
-        console.log(data);
-        if (type == 'cover') this.finalizedImage = data;
-        if (type == 'card') this.finalizedCardImage = data;
-        if (type == 'search') this.finalizedSearchImage = data;
-        if (type == 'gallery') this.finalizedGalleryImages.push(data);
-        this.imageFilesEvent.emit({
-            coverImage: this.finalizedImage,
-            cardImage: this.finalizedCardImage,
-            searchImgae: this.finalizedSearchImage,
-            gallery: this.finalizedGalleryImages
-        })
+        if (data) {
+          console.log(data);
+          if (type == 'cover') this.finalizedImage = data;
+          if (type == 'card') this.finalizedCardImage = data;
+          if (type == 'search') this.finalizedSearchImage = data;
+          if (type == 'gallery') this.finalizedGalleryImages.push(data);
+          this.imageFilesEvent.emit({
+              coverImage: this.finalizedImage,
+              cardImage: this.finalizedCardImage,
+              searchImgae: this.finalizedSearchImage,
+              gallery: this.finalizedGalleryImages
+          })
+        }
       })
     )
   }

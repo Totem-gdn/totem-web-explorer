@@ -10,6 +10,7 @@ import { BehaviorSubject, concat, Observable } from "rxjs";
 export class SubmitGameService {
 
   baseUrl: string = environment.TOTEM_BASE_API_URL;
+  currentIdToUpload: string = '';
 
   constructor(private http: HttpClient,
               private storage: BaseStorageService) {
@@ -19,14 +20,14 @@ export class SubmitGameService {
     return this.http.post<any>(`${this.baseUrl}/games`, body);
   }
 
-  getGame() {
-    this.http.get<any>(`${this.baseUrl}/games/6336d28dac1ce79bc5b7604f`).subscribe((data: any) => {
-      console.log(data);
+  getGame(id: string) {
+    this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => {
+      console.log(data, '6338aafe7edc08f592ea74e1');
 
     })
   }
-  approveGame() {
-    this.http.patch<any>(`${this.baseUrl}/games/6336d28dac1ce79bc5b7604f/approve`, {}).subscribe((data: any) => {
+  approveGame(id: string) {
+    this.http.patch<any>(`${this.baseUrl}/games/${id}/approve`, {}).subscribe((data: any) => {
       console.log(data);
 
     })
@@ -52,6 +53,13 @@ export class SubmitGameService {
       }
       console.log(event);
     });
+    this.approveGame(this.currentIdToUpload);
+    /* const imgUrlRequests = imgUrlPair.map(pair => {
+      let fileName = pair.file!.name;
+      const formData = new FormData();
+      formData.append("card", pair.file!);
+      return this.uploadImage(pair.url, formData);
+    }); */
   }
 
   uploadImage(url: string | undefined, file: File | undefined): Observable<any> {
