@@ -153,13 +153,14 @@ export class TotemItemsService {
 
   getAvatars() {
     this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
-        this.newestItems$.next(data);
+        this.avatars$.next(data);
     })
   }
 
   getGames() {
     this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
-        this.newestItems$.next(data);
+        this.games$.next(data);
+        console.log('games: ',data)
     })
   }
 
