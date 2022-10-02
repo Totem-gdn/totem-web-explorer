@@ -20,6 +20,9 @@ export class AuthInterceptor implements HttpInterceptor {
       if (request.url.includes(environment.TOTEM_BASE_API_URL)) {
         return next.handle(this.transformRequest(request));
       }
+      //if (request.url.includes('s3')) {
+      //  return next.handle(this.transformRequest2(request));
+      //}
     }
     return next.handle(request);
   }
@@ -30,6 +33,16 @@ export class AuthInterceptor implements HttpInterceptor {
     return request.clone({
         setHeaders: {
           Authorization: authorization,
+        }
+    })
+  }
+
+  transformRequest2(request: HttpRequest<any>) {
+    let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
+    const authorization: string = `Bearer ${creds.userInfo.idToken} ${creds.key}`;
+    return request.clone({
+        setHeaders: {
+          'Content-Type': 'image/png',
         }
     })
   }

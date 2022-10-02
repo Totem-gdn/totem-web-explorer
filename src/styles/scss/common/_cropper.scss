@@ -1,5 +1,8 @@
 image-cropper {
   padding: 0 !important;
+  img {
+    width: auto;
+  }
   div {
     .ngx-ic-overlay {
       //width: 100% !important;
