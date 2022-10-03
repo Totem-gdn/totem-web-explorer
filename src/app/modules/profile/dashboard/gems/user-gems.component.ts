@@ -13,7 +13,6 @@ export class UserGemsComponent implements OnInit {
               private web3Service: Web3AuthService) { }
 
   gems: any[] = [];
-  totalGems: undefined | number;
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
@@ -26,10 +25,6 @@ export class UserGemsComponent implements OnInit {
           this.gems.unshift(nft);
         }
       }
-    })
-
-    this.alchemyService.totalItems.subscribe(total => {
-      this.totalGems = total.totalGems;
     })
   }
 

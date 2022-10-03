@@ -2,7 +2,9 @@
   <div class="profile-stats px-[15px] xs:px-[30px]" fxLayout="row">
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>All :</div>
-      <div class="data-caption">{{total ? total: '--'}}</div>
+      <div *ngIf="totalAvatars | async" class="data-caption">{{totalAvatars | async}}</div>
+      <div *ngIf="!(totalAvatars | async)" class="data-caption">{{'--'}}</div>
+
     </div>
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>Rare :</div>

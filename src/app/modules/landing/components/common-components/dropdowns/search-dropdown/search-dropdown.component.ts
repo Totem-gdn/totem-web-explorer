@@ -87,7 +87,10 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-      if (this.alwaysOpen) this.startScriptTimer(2000, 5000);
+      if (this.alwaysOpen) {
+        this.startScriptTimer(2000, 5000);
+        this.dropdown.nativeElement.style.width = '270px'
+      }
       this.allRadioButtons = this.menuItems.nativeElement.children;
     }
 

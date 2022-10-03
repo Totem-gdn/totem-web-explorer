@@ -18,6 +18,9 @@
 .blur-50 {
     filter: blur(50px);
 }
+.opacity-transition {
+    transition: opacity 0.4s ease-in-out;
+}
 
 .like {
     cursor: pointer;
