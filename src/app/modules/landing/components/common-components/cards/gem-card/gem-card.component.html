@@ -22,7 +22,7 @@
         <div class="bottom">
             <div>
                 <h4 *ngIf="!gem?.updatedAt && !gem?.timeLastUpdated">24.24.24</h4>
-                <h4 *ngIf="gem?.updatedAt">{{gem?.updatedAt | date:'dd.MM.yy'}}</h4>
+                <h4 *ngIf="gem?.updatedAt">{{gem?.updatedAt | date:'dd/MM/yy'}}</h4>
                 <h4 *ngIf="gem?.timeLastUpdated">{{gem?.timeLastUpdated}}</h4>
 
                 <p class="text-light-grey">Last used</p>

@@ -33,7 +33,7 @@
         <div class="bottom">
             <div>
                 <h4 *ngIf="!item?.updatedAt && !item?.timeLastUpdated">24.24.24</h4>
-                <h4 *ngIf="item?.updatedAt">{{item?.updatedAt | date:'dd.MM.yy'}}</h4>
+                <h4 *ngIf="item?.updatedAt">{{item?.updatedAt | date:'dd/MM/yy'}}</h4>
                 <h4 *ngIf="item?.timeLastUpdated">{{item?.timeLastUpdated}}</h4>
 
                 <p class="text-light-grey">Last used</p>

@@ -65,13 +65,12 @@
     }
 
     & .tags {
-      // margin-bottom: 15px;
-      // min-height: 55px;
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       column-gap: 10px;
-      // transition: height .3s ease-in-out;
+      transition: min-height 2s ease-in-out, max-height 2s;
+      max-height: 500px;
       & .tag {
         margin-bottom: 15px;
         cursor: pointer;

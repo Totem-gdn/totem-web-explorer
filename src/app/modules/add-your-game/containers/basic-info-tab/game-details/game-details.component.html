@@ -24,9 +24,9 @@
             [items]="dropdownPlatforms"
             class="outline-light-grey" 
             [ngClass]="dropdownTouched && platformTags.length === 0 ? 'outline-error':''"></form-dropdown>
-            <span @showMessage class="error-message" *ngIf="dropdownTouched && platformTags.length === 0">Required field</span>
+            <span @fade-in class="error-message" *ngIf="dropdownTouched && platformTags.length === 0">Required field</span>
             <div class="tags">
-              <div class="tag" *ngFor="let platform of platformsForm.controls" (click)="onRemovePlatform(platform)">
+              <div @fade-in class="tag" *ngFor="let platform of platformsForm.controls" (click)="onRemovePlatform(platform)">
                 <span>{{platform.value}}</span>
                 <mat-icon [svgIcon]="'line:close'"></mat-icon>
               </div>

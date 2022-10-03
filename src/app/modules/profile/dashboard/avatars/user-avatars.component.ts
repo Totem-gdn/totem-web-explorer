@@ -17,7 +17,6 @@ export class UserAvatarsComponent implements OnInit {
 
   sub!: Subscription;
   avatars: any[] = [];
-  totalAvatars: number | undefined;
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
@@ -35,10 +34,6 @@ export class UserAvatarsComponent implements OnInit {
       }
     })
 
-
-    this.alchService.totalItems.subscribe(total => {
-      this.totalAvatars = total.totalAvatars;
-    });
   }
 
   ngOnDestroy () {

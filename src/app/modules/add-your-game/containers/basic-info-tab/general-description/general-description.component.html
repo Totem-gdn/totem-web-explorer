@@ -47,9 +47,9 @@
                     class="outline-light-grey" 
                     [ngClass]="dropdownTouched && genresForm.controls.length === 0 ? 'outline-error':''"
                     [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
-                    <span @showMessage class="error-message" *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>
+                    <span @fade-in class="error-message" *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>
                     <div class="tags">
-                        <div @tagAnimation class="tag" *ngFor="let genre of genresForm.controls" (click)="onRemoveGenre(genre)">
+                        <div @fade-in class="tag" *ngFor="let genre of genresForm.controls" (click)="onRemoveGenre(genre)">
                             <span>{{genre.value}}</span>
                             <mat-icon [svgIcon]="'line:close'"></mat-icon>
                         </div>
