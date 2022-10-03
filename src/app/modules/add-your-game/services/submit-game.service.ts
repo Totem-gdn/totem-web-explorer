@@ -33,7 +33,7 @@ export class SubmitGameService {
     })
   }
 
-  componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls) {
+  componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls): Observable<any>[] {
     let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
     imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
     imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
@@ -42,18 +42,19 @@ export class SubmitGameService {
       imagesWithUrls.push({url: link, file: images.gallery![i]});
     })
     console.log(imagesWithUrls);
-    this.connectImagesWithUrls(imagesWithUrls);
+    return this.connectImagesWithUrls(imagesWithUrls);
   }
 
-  connectImagesWithUrls(imgUrlPair: {url: string | undefined, file: File | undefined}[]) {
-    const imgUrlRequests = imgUrlPair.map(pair => this.uploadImage(pair.url, pair.file));
-    concat(...imgUrlRequests).subscribe((event) => {
-      if (event.type == HttpEventType.UploadProgress) {
-        console.log(Math.round(100 * (event.loaded / event.total)));
-      }
-      console.log(event);
-    });
-    this.approveGame(this.currentIdToUpload);
+  connectImagesWithUrls(imgUrlPair: {url: string | undefined, file: File | undefined}[]): Observable<any>[] {
+    const imgUrlRequests: Observable<any>[] = imgUrlPair.map(pair => this.uploadImage(pair.url, pair.file));
+    return imgUrlRequests;
+    //concat(...imgUrlRequests).subscribe((event) => {
+    //  if (event.type == HttpEventType.UploadProgress) {
+    //    console.log(Math.round(100 * (event.loaded / event.total)));
+    //  }
+    //  console.log(event);
+    //});
+    //this.approveGame(this.currentIdToUpload);
     /* const imgUrlRequests = imgUrlPair.map(pair => {
       let fileName = pair.file!.name;
       const formData = new FormData();
