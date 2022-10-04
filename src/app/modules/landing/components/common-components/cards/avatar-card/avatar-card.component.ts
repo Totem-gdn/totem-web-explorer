@@ -9,7 +9,7 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
   selector: 'avatar-card',
   templateUrl: './avatar-card.component.html',
   styleUrls: ['../cards.component.scss'],
-  styles: ['img {object-fit: cover !important;}'],
+  // styles: ['img {object-fit: cover !important;}'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarCardComponent {

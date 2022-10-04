@@ -12,6 +12,8 @@
 }
 
 .image-block-title {
+  margin-right: 20px;
+  margin-bottom: 15px;
   font-weight: 500;
   font-size: 20px;
   line-height: 23px;
@@ -51,6 +53,10 @@
         background-color: $grey;
         border-radius: 4px;
 
+        .image-block {
+          display: flex;
+        }
+
         .cover-image-block {
           border-bottom: 1px solid $dark-grey;
 
@@ -75,6 +81,7 @@
             max-width: 1098px;
             width: 100%;
             .card-content, .search-content {
+              gap: 20px;
               background-color: $dark-grey;
               max-width: 1098px;
               width: 100%;
@@ -83,6 +90,7 @@
               //.file-container
 
               .card-preview, .search-preview {
+                margin: auto;
                 max-width: 374px;
                 min-height: 474px;
               }
@@ -97,4 +105,21 @@
     }
 
   }
+}
+
+@media screen and (max-width: 1000px) {
+  .image-block { 
+    flex-wrap: wrap;
+  };
+}
+@media screen and (max-width: 768px) {
+  .card-content, .search-content { 
+    flex-wrap: wrap;
+  };
+  .card-image-wrapper, .search-image-wrapper {
+    & totem-image-dropzone {
+      margin: auto;
+      max-width: 374px;
+    }
+  } 
 }

@@ -119,6 +119,8 @@
     padding: 10px;
   }
   & textarea {
+    overflow-y: auto;
+    resize: none;
     padding: 15px 10px;
   }
 }

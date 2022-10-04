@@ -12,19 +12,20 @@ export class UserGemsComponent implements OnInit {
   constructor(private alchemyService: AlchemyService,
               private web3Service: Web3AuthService) { }
 
-  gems: any[] = [];
+  gems!: any[];
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
 
     this.alchemyService.getNfts(wallet).subscribe((nfts: any[]) => {
-
+      const gems: any[] = [];
       for (let nft of nfts) {
         nft.id.tokenId = parseInt(nft.id.tokenId);
         if (nft.contractMetadata.name === 'Gem') {
-          this.gems.unshift(nft);
+          gems.push(nft);
         }
       }
+      this.gems = gems;
     })
   }
 

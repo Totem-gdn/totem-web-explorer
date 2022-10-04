@@ -8,7 +8,8 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 @Component({
   selector: 'game-card',
   templateUrl: './game-card.component.html',
-  styleUrls: ['../cards.component.scss']
+  styleUrls: ['../cards.component.scss'],
+  // styles: ['img {object-fit: cover !important;}'],
 })
 export class GameCardComponent implements AfterViewInit {
 

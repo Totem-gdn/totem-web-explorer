@@ -1,15 +1,15 @@
 <div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
 
 
-    <div *ngIf="game?.images?.cardThumbnail" class="h-full w-full relative overflow-hidden">
-        <img class="absolute h-full object-cover" [src]="game?.images?.cardThumbnail" alt="Not found">
+    <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper">
+        <img [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>
 
     <div *ngIf="!game?.images?.cardThumbnail" class="placeholder">
         <mat-icon class="text-grey" [svgIcon]="'line:game-place'"></mat-icon>
     </div>
 
-    <div class="p-4 flex flex-col mt-auto bottom-0 h-[175px]">
+    <div class="p-4 flex flex-col mt-auto bottom-0 h-[175px] border-t border-t-dark-grey">
 
         <div class="flex justify-between">
             <div class="flex flex-col">

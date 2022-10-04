@@ -16,23 +16,21 @@ export class UserItemsComponent implements OnInit {
               private alchService: AlchemyService) { }
   sub!: Subscription;
 
-  items: any[] = [];
+  items!: any[];
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
 
-    this.itemsService.fetchItems(wallet).subscribe(items => {
-      this.items = this.items.concat(items);
-    });
-
     this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-
+      const items: any[] = [];
       for(let nft of nfts) {
         nft.id.tokenId = parseInt(nft.id.tokenId);
         if(nft.contractMetadata.name === 'Item') {
-          this.items.unshift(nft);
+          items.push(nft);
+          items.push(nft);
         }
       }
+      this.items = items;
     })
   }
 

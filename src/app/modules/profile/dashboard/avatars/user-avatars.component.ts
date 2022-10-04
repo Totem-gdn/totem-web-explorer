@@ -16,22 +16,21 @@ export class UserAvatarsComponent implements OnInit {
               private alchService: AlchemyService) { }
 
   sub!: Subscription;
-  avatars: any[] = [];
+  avatars!: any[];
 
   async ngOnInit() {
     const wallet = await this.web3Service.getAccounts();
-    this.avatarsService.fetchAvatars(wallet).subscribe(avatars => {
-      this.avatars = this.avatars.concat(avatars);
-    });
 
     this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
+      const avatars: any[] = [];
       console.log(nfts);
       for(let nft of nfts) {
         nft.id.tokenId = parseInt(nft.id.tokenId);
         if(nft.contractMetadata.name === 'Avatar') {
-          this.avatars.unshift(nft);
+          avatars.push(nft);
         }
       }
+      this.avatars = avatars;
     })
 
   }
