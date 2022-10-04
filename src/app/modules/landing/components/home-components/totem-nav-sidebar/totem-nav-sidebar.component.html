@@ -46,12 +46,12 @@
         <!-- Nav Links -->
         <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
           <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Profile</a>
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/">Home</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
           <a>Help</a>
-          <a (click)="onLogout(); close()" routerLink="/home">Sign out</a>
+          <a (click)="onLogout(); close()" routerLink="/">Sign out</a>
         </div>
       </ng-container>
 
@@ -60,7 +60,7 @@
         <div class="unauth-nav-content" fxLayout="column" fxLayoutAlign="space-between">
           <div class="sidenav mtop-60px" fxLayout="column" fxLayoutAlign="start start">
             <a (click)="logIn()">Profile</a>
-            <a (click)="close()" routerLinkActive="active-route" routerLink="/home">Home</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/">Home</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
