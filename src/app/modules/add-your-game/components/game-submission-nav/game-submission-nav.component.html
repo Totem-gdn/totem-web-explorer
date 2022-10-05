@@ -3,10 +3,10 @@
     <div class="nav-block" (click)="goToTab('basic-information')">
       <a [ngClass]="activeTab === 'basic-information' ? 'active-tab': ''">Basic Information</a>
     </div>
-    <div class="nav-block" (click)="goToTab('details')">
+    <div #detailsTab class="nav-block" (click)="goToTab('details')">
       <a [ngClass]="activeTab === 'details' ? 'active-tab': ''">Details</a>
     </div>
-    <div class="nav-block" (click)="goToTab('links')">
+    <div #linksTab class="nav-block" (click)="goToTab('links')">
       <a [ngClass]="activeTab === 'links' ? 'active-tab': ''">Links</a>
     </div>
   </div>

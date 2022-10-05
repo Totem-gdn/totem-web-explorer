@@ -17,8 +17,8 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     }
 
 
-    minValue = 100;
-    maxValue = 200;
+    minValue!: number;
+    maxValue!: number;
 
     marginLeft!: string;
     marginRight!: string;
@@ -33,6 +33,7 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
 
     ngOnInit() {
         this.filtersService.onResetFilters$().subscribe(() => {
+            console.log('subscribe')
             this.tagsService.removeTagByReference(this.sliderThumbMin);
             this.sliderThumbMin.nativeElement.value = 100;
             this.sliderThumbMax.nativeElement.value = 200;
@@ -51,10 +52,10 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.checkThumbPosition();
-        this.changeMaxValue();
-        this.changeMinValue();
-        this.setMargins();
+        // this.checkThumbPosition();
+        // this.changeMaxValue();
+        // this.changeMinValue();
+        // this.setMargins();
     }
 
     update() {
@@ -67,7 +68,6 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     }
 
     changeMinValue() {
-        console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
         const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 14) / (minValue.max - minValue.min));

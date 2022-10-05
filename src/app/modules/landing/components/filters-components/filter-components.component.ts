@@ -24,19 +24,19 @@ export class FilterComponentsComponent {
         // if(this.items === null) {
         //     this.items = [];
         // }
-        if(this.mode != 'active') {
-            if(this.items === undefined) this.items = [];
-            this.items.push(...[].constructor(this.addItems()));
-            console.log(this.items);
+        // if(this.mode != 'active') {
+        //     if(this.items === undefined) this.items = [];
+        //     this.items.push(...[].constructor(this.addItems()));
+        //     console.log(this.items);
 
-        }
+        // }
     }
 
     onLoadMore() {
-        if(this.mode != 'active') {
-            if(this.items === undefined) this.items = [];
-            this.items.push(...[].constructor(this.addItems()));
-        }
+        // if(this.mode != 'active') {
+        //     if(this.items === undefined) this.items = [];
+        //     this.items.push(...[].constructor(this.addItems()));
+        // }
     }
 
     ngAfterViewChecked(): void {
@@ -55,15 +55,15 @@ export class FilterComponentsComponent {
     }
 
     addItems() {
-        const containerWidth = this.wrapper.nativeElement.offsetWidth;
+        // const containerWidth = this.wrapper.nativeElement.offsetWidth;
 
-        let itemsToRender = (Math.floor(containerWidth / 330)) * 3;
-        if(itemsToRender <= 0) {
-            itemsToRender = 3;
-        }
-        this.numberOfItemsToFit();
-        console.log('items to render')
-        return itemsToRender;
+        // let itemsToRender = (Math.floor(containerWidth / 330)) * 3;
+        // if(itemsToRender <= 0) {
+        //     itemsToRender = 3;
+        // }
+        // this.numberOfItemsToFit();
+        // console.log('items to render')
+        // return itemsToRender;
     }
     numberOfItemsToFit() {
         const containerWidth = this.wrapper.nativeElement.offsetWidth;

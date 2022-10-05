@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, map, Observable } from "rxjs";
 
 const NEWEST_ITEMS: any[] = [
   {
@@ -137,6 +137,54 @@ export class TotemItemsService {
   avatars: Observable<any[] | null> = this.avatars$.asObservable();
 
   constructor(private http: HttpClient) {
+  }
+
+  getAvatars$() {
+    return this.http.get<any>(`${this.baseUrl}/assets/avatars`).pipe(
+      map(avatars => {
+        console.log('avatars', avatars)
+        if(avatars && avatars?.length) {
+          return avatars;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+  }
+
+  getGems$() {
+    return this.http.get<any>(`${this.baseUrl}/assets/gems`).pipe(
+      map(avatars => {
+        console.log('avatars', avatars)
+        if(avatars && avatars?.length) {
+          return avatars;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+  }
+
+  getItems$() {
+    return this.http.get<any>(`${this.baseUrl}/assets/items`).pipe(
+      map(avatars => {
+        console.log('avatars', avatars)
+        if(avatars && avatars?.length) {
+          return avatars;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+  }
+
+  getGames$() {
+    return this.http.get<any>(`${this.baseUrl}/games`).pipe(
+      map(avatars => {
+        console.log('avatars', avatars)
+        if(avatars && avatars?.length) {
+          return avatars;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
   }
 
   getNewestItems() {

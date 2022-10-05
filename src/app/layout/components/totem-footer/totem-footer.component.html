@@ -53,13 +53,13 @@
           </div>
           <div fxLayout="column" fxLayoutAlign="start">
             <div class="title marb-10">Account</div>
-            <a>Profile</a>
-            <a>Favorites</a>
+            <a (click)="navigateToProfile()">Profile</a>
+            <a (click)="navigateToProfile()">Favorites</a>
             <a>Settings</a>
           </div>
           <div fxLayout="column" fxLayoutAlign="start">
             <div class="title marb-10">Resources</div>
-            <a>Help</a>
+            <a routerLink="/help">Help</a>
             <a>Blog</a>
             <a class="hidden-about">About</a>
           </div>

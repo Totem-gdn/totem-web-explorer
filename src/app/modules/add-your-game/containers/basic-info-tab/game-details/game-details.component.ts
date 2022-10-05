@@ -4,7 +4,7 @@ import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { DetailsInfo, SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { Tag } from "@app/core/models/tag-interface.model";
-import { FormsService } from "@app/modules/add-your-game/forms.service";
+import { FormsService } from "@app/modules/add-your-game/services/forms.service";
 import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
 
@@ -24,7 +24,7 @@ export class GameDetailsComponent implements AfterViewInit {
         return status?.errors && (status?.touched || status?.dirty);
     };
 
-    constructor(private submitService: SubmitGameService) {}
+    constructor(private formsService: FormsService) {}
 
     ngAfterViewInit(): void {
         this.retrieveValues();
@@ -79,7 +79,7 @@ export class GameDetailsComponent implements AfterViewInit {
 
     saveValue() {
         const value = this.gameDetails.value;
-        this.submitService.saveForm('details', value);
+        this.formsService.saveForm('details', value);
         this.isFormValid();
     }
 
@@ -88,7 +88,7 @@ export class GameDetailsComponent implements AfterViewInit {
     }
 
     retrieveValues() {
-        const values =  this.submitService.getForm('details');
+        const values =  this.formsService.getForm('details');
 
         if(!values) return;
         this.gameDetails.patchValue({

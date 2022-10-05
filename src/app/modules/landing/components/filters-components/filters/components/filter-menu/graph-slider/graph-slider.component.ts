@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, Input, OnDestroy } from "@angular/core";
+import { Component, ElementRef, ViewChild, Input, OnDestroy, AfterViewInit } from "@angular/core";
 import { FiltersService } from "@app/core/services/filters/filters.service";
 import { TagsService } from "@app/core/services/filters/tags.service";
 import { Subscription } from "rxjs";
@@ -123,13 +123,13 @@ const Items: Items[] = [
     styleUrls: ['./graph-slider.component.scss']
 })
 
-export class GraphSliderComponent implements OnDestroy {
+export class GraphSliderComponent implements OnDestroy, AfterViewInit {
 
     constructor(private filtersService: FiltersService,
                 private tagsService: TagsService) {}
 
-    minValue = 0;
-    maxValue = 0;
+    minValue: number = 100;
+    maxValue: number = 200;
 
     marginLeft!: string;
     marginRight!: string;
@@ -186,7 +186,6 @@ export class GraphSliderComponent implements OnDestroy {
       }
 
     changeMinValue() {
-        console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
         const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 18) / (minValue.max - minValue.min));

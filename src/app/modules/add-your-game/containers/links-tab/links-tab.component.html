@@ -72,8 +72,8 @@
     </div>
 
     <div class="py-[80px] flex justify-center">
-      <totem-button class="flex" [caption]="'Continue'"></totem-button>
-      <totem-button class="flex ml-[20px]" [caption]="'Submit Game'" (click)="submitGameInfo()"></totem-button>
+      <!-- <totem-button class="flex" [caption]="'Continue'"></totem-button> -->
+      <totem-button [disabled]="submitDisabled" class="flex ml-[20px]" [caption]="'Submit Game'" (click)="submitGameInfo()"></totem-button>
     </div>
 
 

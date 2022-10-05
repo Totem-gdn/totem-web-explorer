@@ -1,4 +1,5 @@
 import { Component, Input, } from "@angular/core";
+import { TotemItemsService } from "@app/core/services/totem-items.service";
 
 @Component({
     selector: 'app-items',
@@ -10,7 +11,14 @@ import { Component, Input, } from "@angular/core";
 })
 
 export class ItemsComponent {
-  @Input() items: any[] = [0,0,0,0,0,0,0];
+  items!: any[];
 
+  constructor(private itemsService: TotemItemsService) {}
 
+  ngOnInit(): void {
+
+    this.itemsService.getItems$().subscribe(items => {
+      this.items = items;
+    })
+  }
 }

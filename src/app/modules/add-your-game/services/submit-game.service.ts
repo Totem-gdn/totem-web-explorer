@@ -1,9 +1,10 @@
 import { HttpClient, HttpEventType, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ImagesToUpload, ImagesUrls, SubmitGame } from "@app/core/models/submit-game-interface.model";
+import { ConnectionsInfo, ContactsInfo, DetailsInfo, FormValidity, GeneralInfo, ImagesToUpload, ImagesUrls, SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
 import { environment } from "@env/environment";
 import { BehaviorSubject, concat, Observable } from "rxjs";
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -67,18 +68,7 @@ export class SubmitGameService {
     return this.http.put<any>(`${url}`, file, { reportProgress: true, observe: 'events' });
   }
 
-  saveForm(formName: string, value: any) {
-    if (formName == 'general') this.storage.setItem('general', JSON.stringify(value));
-    if (formName == 'details') this.storage.setItem('details', JSON.stringify(value));
-    if (formName == 'contacts') this.storage.setItem('contacts', JSON.stringify(value));
-    if (formName == 'connections') this.storage.setItem('connections', JSON.stringify(value));
 
-  }
 
-  getForm(formName: string) {
-    const values = this.storage.getItem(formName);
-    if (!values) return null;
-    return JSON.parse(values);
-  }
 
 }

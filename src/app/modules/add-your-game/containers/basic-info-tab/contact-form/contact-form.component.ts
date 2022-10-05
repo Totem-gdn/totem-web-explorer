@@ -2,7 +2,7 @@
 import { AfterViewInit, Component, EventEmitter, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
-import { FormsService } from "@app/modules/add-your-game/forms.service";
+import { FormsService } from "@app/modules/add-your-game/services/forms.service";
 import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
 
 @Component({
@@ -16,7 +16,7 @@ import { SubmitGameService } from "@app/modules/add-your-game/services/submit-ga
 
 export class ContactFormComponent implements AfterViewInit {
 
-    constructor (private submitService: SubmitGameService) {}
+    constructor (private formsService: FormsService) {}
 
     ngAfterViewInit(): void {
         this.retrieveValues();
@@ -46,12 +46,12 @@ export class ContactFormComponent implements AfterViewInit {
 
     saveValue() {
         const value = this.contactForm.value;
-        this.submitService.saveForm('contacts', value);
+        this.formsService.saveForm('contacts', value);
         this.isFormValid();
     }
 
     retrieveValues() {
-        const values =  this.submitService.getForm('contacts');
+        const values =  this.formsService.getForm('contacts');
         if(!values) return;
         this.contactForm.patchValue({
             email: values.email,

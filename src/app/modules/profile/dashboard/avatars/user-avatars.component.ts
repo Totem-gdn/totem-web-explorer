@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { AvatarsService } from '@app/core/services/items/avatars.service';
+import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subscription } from 'rxjs';
 
@@ -11,8 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class UserAvatarsComponent implements OnInit {
 
-  constructor(private avatarsService: AvatarsService,
-              private web3Service: Web3AuthService,
+  constructor(private web3Service: Web3AuthService,
               private alchService: AlchemyService) { }
 
   sub!: Subscription;
@@ -23,7 +23,6 @@ export class UserAvatarsComponent implements OnInit {
 
     this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
       const avatars: any[] = [];
-      console.log(nfts);
       for(let nft of nfts) {
         nft.id.tokenId = parseInt(nft.id.tokenId);
         if(nft.contractMetadata.name === 'Avatar') {

@@ -3,6 +3,6 @@
   <general-description (formValid)="checkFormValidity($event)"></general-description>
   <game-details (formValid)="checkFormValidity($event)"></game-details>
   <contact-form (formValid)="checkFormValidity($event)"></contact-form>
-  <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" [disabled]="!buttonDisabled"></totem-button>
+  <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" [disabled]="!buttonDisabled" (click)="onNextTab()"></totem-button>
 
 </div>
