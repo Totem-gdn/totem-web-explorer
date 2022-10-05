@@ -42,7 +42,7 @@
                     
                 </div>
 
-                <div *ngIf="mode != 'active'" class="w-full mt-[60px] flex">
+                <div *ngIf="items && items?.length != 0" class="w-full mt-[60px] flex">
                     <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>
                 </div>
             </div>

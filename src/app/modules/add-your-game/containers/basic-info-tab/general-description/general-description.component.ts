@@ -4,6 +4,7 @@ import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
 import { Subscription } from "rxjs";
 import { SubmitGameService } from "@app/modules/add-your-game/services/submit-game.service";
+import { FormsService } from "@app/modules/add-your-game/services/forms.service";
 
 @Component({
     selector: 'general-description',
@@ -26,7 +27,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         }
     }
 
-    constructor(private submitService: SubmitGameService) { }
+    constructor(private formsService: FormsService) { }
 
     ngAfterViewInit() {
         this.retrieveValues();
@@ -87,11 +88,11 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     saveValue() {
         const value = this.generalDescription.value;
-        this.submitService.saveForm('general', value);
+        this.formsService.saveForm('general', value);
         this.isFormValid();
     }
     retrieveValues() {
-        const values =  this.submitService.getForm('general');
+        const values =  this.formsService.getForm('general');
         if(!values) return;
         this.generalDescription.patchValue({
             name: values.name,

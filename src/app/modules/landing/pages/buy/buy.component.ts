@@ -4,7 +4,7 @@ import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewCh
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { forkJoin, from, fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
-import { SnackNotifierService } from '../modules/snack-bar-notifier/snack-bar-notifier.service';
+import { SnackNotifierService } from '../../modules/snack-bar-notifier/snack-bar-notifier.service';
 
 @Component({
   selector: 'app-buy',

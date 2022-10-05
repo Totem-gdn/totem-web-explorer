@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
-import { FilterComponentsModule } from "../components/filters-components/filter-components.module";
+import { FilterComponentsModule } from "../../components/filters-components/filter-components.module";
 import { GamesComponent } from "./games.component";
 import { GamesRoutes } from "./games.routing";
 

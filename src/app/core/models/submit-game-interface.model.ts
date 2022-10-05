@@ -1,3 +1,9 @@
+
+export interface FormValidity {
+  basicInfoValid?: boolean;
+  detailsValid?: boolean;
+  connectionsValid?: boolean;
+}
 export interface SubmitGame {
   [index: string]: any;
   general?: GeneralInfo;

@@ -25,7 +25,7 @@
         <div class="bottom">
             <div>
                 <h4 *ngIf="!avatar?.updatedAt && !avatar?.timeLastUpdated">24.24.24</h4>
-                <h4 *ngIf="avatar?.updatedAt">{{avatar?.updatedAt | date:'dd.MM.yy'}}</h4>
+                <h4 *ngIf="avatar?.updatedAt">{{avatar?.updatedAt | date:'dd/MM/yy'}}</h4>
                 <h4 *ngIf="avatar?.timeLastUpdated">{{avatar?.timeLastUpdated}}</h4>
 
                 <p class="text-light-grey">Last used</p>

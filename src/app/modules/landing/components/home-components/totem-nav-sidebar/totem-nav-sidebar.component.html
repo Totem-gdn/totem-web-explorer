@@ -16,7 +16,7 @@
 
       <!-- Authenticated User -->
       <ng-container *ngIf="userData; else unauthblock">
-        <a class="user-image" fxLayout="column" fxLayoutAlign="center center" 
+        <a class="user-image" fxLayout="column" fxLayoutAlign="center center"
         (click)="close()" routerLink="/profile">
           <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
         </a>
@@ -50,7 +50,7 @@
           <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
-          <a>Help</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/help">Help</a>
           <a (click)="onLogout(); close()" routerLink="/home">Sign out</a>
         </div>
       </ng-container>

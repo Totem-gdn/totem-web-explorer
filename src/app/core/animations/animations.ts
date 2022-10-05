@@ -58,8 +58,29 @@ export const Animations = {
               transition(
                 ':enter', 
                 [
-                  style({ opacity: 0 }),
+                  style({ opacity: 0, height: 0 }),
                   animate('0.4s ease-in-out', 
+                          style({ opacity: 1, height: 40 }))
+                ]
+              ),
+              transition(
+                ':leave', 
+                [
+                  style({ opacity: 1, height: 40 }),
+                  animate('0.4s ease-in-out', 
+                          style({ opacity: 0, height: 40 }))
+                ]
+              )
+            ]
+          ),
+          trigger(
+            'fade-in-out', 
+            [
+              transition(
+                ':enter', 
+                [
+                  style({ opacity: 0 }),
+                  animate('0.4s ease-in-out',
                           style({ opacity: 1 }))
                 ]
               ),
@@ -72,7 +93,21 @@ export const Animations = {
                 ]
               )
             ]
-          )
+          ),
+          trigger(
+            'fade-in', 
+            [
+              transition(
+                ':enter', 
+                [
+                  style({ opacity: 0 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 1 }))
+                ]
+              ),
+            ]
+          ),
+          
       ]
 
 }

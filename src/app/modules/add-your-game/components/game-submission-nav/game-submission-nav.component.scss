@@ -17,26 +17,28 @@ a, span {
   width: 100%;
   max-width: 1500px;
   height: 31px;
+  border-bottom: 1px solid $dark-grey;
   .submission-nav {
-    flex-flow: row wrap;
     box-sizing: border-box;
     display: flex;
     place-content: center flex-start;
     align-items: center;
     overflow: hidden;
     width: 100%;
+    max-width: 360px;
+    justify-content: space-between;
     height: inherit;
-    border-bottom: 1px solid $dark-grey;
     .nav-block {
+      padding-left: 5px;
+      padding-left: 5px;
       height: inherit;
-      padding-left: 25px;
-      padding-right: 35px;
       flex-direction: column;
       box-sizing: border-box;
       display: flex;
       cursor: pointer;
 
       a {
+        white-space: nowrap;
         position: relative;
         transition: color 0.33s ease-out;
         &:hover {

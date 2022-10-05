@@ -1,8 +1,10 @@
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { FormsService } from '../../services/forms.service';
+import { SubmitGameService } from '../../services/submit-game.service';
 
 @Component({
   selector: 'totem-basic-info',
@@ -12,13 +14,14 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
     class: 'flex flex-auto w-full h-full'
   }
 })
-export class BasicInfoComponent implements OnInit, OnDestroy {
+export class BasicInfoComponent implements OnDestroy {
 
   subs: Subscription = new Subscription();
+  @Output() tabSelected = new EventEmitter<string>();
 
   get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
 
-  constructor(private userStateService: UserStateService) {
+  constructor(private formsService: FormsService) {
   }
 
   generalFormValid: boolean = false;
@@ -26,19 +29,18 @@ export class BasicInfoComponent implements OnInit, OnDestroy {
   contactsFormValid: boolean = false;
 
   checkFormValidity(e: any) {
-    console.log(e);
     if(e.formName == 'general') this.generalFormValid = e.value;
     if(e.formName == 'details') this.detailsFormValid = e.value;
     if(e.formName == 'contacts') this.contactsFormValid = e.value;
-    // console.log(this.generalFormValid)
+    if(this.generalFormValid && this.detailsFormValid && this.contactsFormValid) {
+      this.formsService.setFormValidity('basic-info', true);
+    } else {
+      this.formsService.setFormValidity('basic-info', false);
+    }
   }
 
-  ngOnInit() {
-    /* this.subs.add(
-      this.userStateService.isLoading.subscribe((value: boolean) => {
-        this.loading$.next(value);
-      })
-    ) */
+  onNextTab() {
+    this.tabSelected.emit('details');
   }
 
   ngOnDestroy(): void {
