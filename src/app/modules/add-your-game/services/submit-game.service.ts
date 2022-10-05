@@ -49,26 +49,10 @@ export class SubmitGameService {
   connectImagesWithUrls(imgUrlPair: {url: string | undefined, file: File | undefined}[]): Observable<any>[] {
     const imgUrlRequests: Observable<any>[] = imgUrlPair.map(pair => this.uploadImage(pair.url, pair.file));
     return imgUrlRequests;
-    //concat(...imgUrlRequests).subscribe((event) => {
-    //  if (event.type == HttpEventType.UploadProgress) {
-    //    console.log(Math.round(100 * (event.loaded / event.total)));
-    //  }
-    //  console.log(event);
-    //});
-    //this.approveGame(this.currentIdToUpload);
-    /* const imgUrlRequests = imgUrlPair.map(pair => {
-      let fileName = pair.file!.name;
-      const formData = new FormData();
-      formData.append("card", pair.file!);
-      return this.uploadImage(pair.url, formData);
-    }); */
   }
 
   uploadImage(url: string | undefined, file: File | undefined): Observable<any> {
     return this.http.put<any>(`${url}`, file, { reportProgress: true, observe: 'events' });
   }
-
-
-
 
 }

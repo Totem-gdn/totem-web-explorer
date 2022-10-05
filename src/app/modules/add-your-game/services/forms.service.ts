@@ -8,7 +8,7 @@ import { BehaviorSubject } from "rxjs";
 
 export class FormsService {
 
-  private _formValidity = new BehaviorSubject<FormValidity>({ basicInfoValid: false, detailsValid: true, connectionsValid: false });
+  private _formValidity = new BehaviorSubject<FormValidity>({ basicInfoValid: false, detailsValid: false, connectionsValid: false });
 
   constructor(private storage: BaseStorageService) { }
 
@@ -45,7 +45,7 @@ export class FormsService {
     const formsValidity = this._formValidity.getValue();
 
     formsValidity.basicInfoValid = this.basicInfoValidity();
-    // formsValidity.detailsValid = this.detailsValidity();
+    formsValidity.detailsValid = this.detailsValidity();
     formsValidity.connectionsValid = this.connectionsValidity();
     this._formValidity.next(formsValidity);
   }
@@ -61,7 +61,7 @@ export class FormsService {
     return true;
   }
   detailsValidity() {
-
+    return false; // will be changed, mb we dont save imgs to storage
   }
   connectionsValidity() {
     const connectionsForm: ConnectionsInfo = this.getForm('connections');
