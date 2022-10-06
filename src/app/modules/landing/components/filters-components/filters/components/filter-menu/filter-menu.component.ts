@@ -1,7 +1,8 @@
 
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
-import { FiltersService } from '@app/core/services/filters/filters.service';
-import { TagsService } from '@app/core/services/filters/tags.service';
+import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { FiltersService } from '@app/modules/landing/components/filters-components/services/filters.service';
+import { TagsService } from '@app/modules/landing/components/filters-components/services/tags.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,7 +13,8 @@ import { Subscription } from 'rxjs';
 export class FilterMenuComponent implements AfterViewInit, OnDestroy {
 
   constructor(private tagsService: TagsService,
-              private filtersService: FiltersService) { }
+              private filtersService: FiltersService,
+              private itemsService: TotemItemsService) { }
 
   menuActive = false;
   checkedItems: any = [];
@@ -71,14 +73,14 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
     const reference = event.target;
     if (this.inputType === 'radio') {
       this.tagsService.removeTag(this.checkedItems[0]);
-      this.checkedItems = [{value: value, reference: reference}];
-      this.tagsService.addTag = {value: value, reference: reference};
+      this.checkedItems = [{value: value, type: this.title, reference: reference}];
+      this.tagsService.addTag = {value: value, type: this.title, inputType: this.inputType, reference: reference};
     }
 
     if (this.inputType === 'checkbox') {
       if (event.target.checked) {
-        this.checkedItems.push({value: value, reference: reference});
-        this.tagsService.addTag = {value: value, reference: reference};
+        this.checkedItems.push({value: value, type: this.title, reference: reference});
+        this.tagsService.addTag = {value: value, type: this.title, inputType: this.inputType, reference: reference};
       }
 
       if (!event.target.checked) {
@@ -88,10 +90,9 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
         const newArray = removeFromArray(this.checkedItems, value);
         this.checkedItems = newArray;
         
-        this.tagsService.removeTag({value: value, reference: reference});
+        this.tagsService.removeTag({value: value, type: this.title, inputType: this.inputType, reference: reference});
       }
     }
-
   }
 
   onInput(e: any) {

@@ -23,10 +23,10 @@ export class FormDropdownComponent implements AfterViewInit {
     @Input() title = 'menu';
     @Input() inputType = 'checkbox';
 
-    @Output() selectedTag = new EventEmitter<Tag>();
-    @Output() removeTag = new EventEmitter<Tag>();
+    @Output() selectedTag = new EventEmitter<any>();
+    @Output() removeTag = new EventEmitter<any>();
     @Output() touched = new EventEmitter<boolean>();
-    @Output() valuesReference = new EventEmitter<Tag[]>();
+    @Output() valuesReference = new EventEmitter<any[]>();
 
     @Input() set setTitle(title: any) {
         if (!title) return;
@@ -50,7 +50,7 @@ export class FormDropdownComponent implements AfterViewInit {
         const reference = el;
         const value = el.value;
         const checked = el.checked;
-        const tag: Tag = {
+        const tag: any = {
             reference, value, checked
         }
         if (checked == true) this.selectedTag.emit(tag);

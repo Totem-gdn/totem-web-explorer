@@ -1,7 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { BehaviorSubject, map, Observable } from "rxjs";
+import { ItemParam } from "../models/item-param.model";
 
 const NEWEST_ITEMS: any[] = [
   {
@@ -136,13 +137,51 @@ export class TotemItemsService {
   private avatars$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
   avatars: Observable<any[] | null> = this.avatars$.asObservable();
 
+  private _filters = new BehaviorSubject<ItemParam[]>([]);
+
   constructor(private http: HttpClient) {
   }
 
-  getAvatars$() {
-    return this.http.get<any>(`${this.baseUrl}/assets/avatars`).pipe(
+  set filters(filters: ItemParam[]) {
+    this._filters.next(filters);
+  }
+  get filters$() {
+    return this._filters.asObservable();
+  }
+  resetFilters() {
+    this._filters.next([]);
+  }
+
+  handleParams(filters: ItemParam[] | undefined) {
+    console.log(JSON.stringify(filters))
+    let params = new HttpParams();
+    if(!filters) return params;
+    params = params.append('filters', JSON.stringify(filters));
+
+    return params;
+  }
+
+  getAvatars$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
+
+    return this.http.get<any>(`${this.baseUrl}/assets/avatars`, {params: params}).pipe(
       map(avatars => {
-        console.log('avatars', avatars)
+        if(avatars && avatars?.length) {
+          return avatars;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+
+  }
+
+  getGems$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
+
+    return this.http.get<any>(`${this.baseUrl}/assets/gems`, {params: params}).pipe(
+      map(avatars => {
         if(avatars && avatars?.length) {
           return avatars;
         } else {
@@ -151,10 +190,13 @@ export class TotemItemsService {
       }))
   }
 
-  getGems$() {
-    return this.http.get<any>(`${this.baseUrl}/assets/gems`).pipe(
+  getItems$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
+
+    return this.http.get<any>(`${this.baseUrl}/assets/items`, {params: params}).pipe(
       map(avatars => {
-        console.log('avatars', avatars)
+        console.log('items', avatars)
         if(avatars && avatars?.length) {
           return avatars;
         } else {
@@ -163,22 +205,12 @@ export class TotemItemsService {
       }))
   }
 
-  getItems$() {
-    return this.http.get<any>(`${this.baseUrl}/assets/items`).pipe(
-      map(avatars => {
-        console.log('avatars', avatars)
-        if(avatars && avatars?.length) {
-          return avatars;
-        } else {
-          return [0,0,0,0,0];
-        }  
-      }))
-  }
+  getGames$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
 
-  getGames$() {
-    return this.http.get<any>(`${this.baseUrl}/games`).pipe(
+    return this.http.get<any>(`${this.baseUrl}/games`,  {params: params}).pipe(
       map(avatars => {
-        console.log('avatars', avatars)
         if(avatars && avatars?.length) {
           return avatars;
         } else {

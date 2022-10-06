@@ -12,6 +12,8 @@ export class FiltersService {
     private isDropupOpen = new BehaviorSubject<boolean>(false);
     private _resetFilters = new EventEmitter<any>();
 
+    private _sortBy = new BehaviorSubject<string>('newest');
+
     set dropupOpen(isOpen: boolean) {
         this.isDropupOpen.next(isOpen);
     }
@@ -32,4 +34,13 @@ export class FiltersService {
     onResetFilters$() {
         return this._resetFilters.asObservable();
     }
+
+    set sort(sortName: string) {
+        this._sortBy.next(sortName);
+    }
+
+    sort$() {
+        return this._sortBy.asObservable();
+    }
+
 }

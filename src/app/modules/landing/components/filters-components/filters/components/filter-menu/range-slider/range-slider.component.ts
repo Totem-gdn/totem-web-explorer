@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, Input, ViewChild } from "@angular/core";
-import { FiltersService } from "@app/core/services/filters/filters.service";
-import { TagsService } from "@app/core/services/filters/tags.service";
+import { FiltersService } from "@app/modules/landing/components/filters-components/services/filters.service";
+import { TagsService } from "@app/modules/landing/components/filters-components/services/tags.service";
 import { Subscription } from 'rxjs';
 
 
@@ -47,7 +47,7 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     exportValue() {
         const value = `${this.title} ${this.minValue}-${this.maxValue}`;
         const reference = this.sliderThumbMin;
-        const tag = { value: value, reference: reference }
+        const tag = { value: value, type: this.title, inputType: 'range', reference: reference }
         this.tagsService.handleRangeTag(tag);
     }
 
