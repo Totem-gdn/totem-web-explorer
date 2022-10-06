@@ -19,7 +19,7 @@
    text-overflow: ellipsis;
    display: -webkit-box;
    -webkit-line-clamp: 2; /* number of lines to show */
-           line-clamp: 2; 
+           line-clamp: 2;
    -webkit-box-orient: vertical;
 }
 
@@ -83,6 +83,11 @@
             object-fit: cover;
             transition: all 0.35s ease-in-out;
             border-radius: 0;
+        }
+        &.contain {
+          img {
+            object-fit: contain;
+          }
         }
     }
     & .attributes {
