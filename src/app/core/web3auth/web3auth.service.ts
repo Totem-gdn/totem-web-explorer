@@ -39,20 +39,6 @@ export class Web3AuthService {
             this.provider = web3auth.provider;
         }
         this.isModalLoaded = true;
-
-        /* console.log(this.provider);
-
-        const web3 = new Web3(this.provider as any);
-        const accounts = await web3.eth.getAccounts();
-        var subscription = web3.eth.subscribe('logs', {
-          address: accounts[0],
-          }, function(error, result){
-              if (!error)
-                  console.log(result);
-          });
-
-        console.log('SUB INITED'); */
-
     }
 
     getPubKey = async () => {

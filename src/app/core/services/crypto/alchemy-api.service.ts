@@ -53,7 +53,7 @@ export class AlchemyService {
                 nfts.forEach(nft => {
                     if (nft.contractMetadata.name === 'Avatar') totalAvatars++;
                     if (nft.contractMetadata.name === 'Item') totalItems++;
-                    if (nft.contractMetadata.name === 'Gem') totalGems++;    
+                    if (nft.contractMetadata.name === 'Gem') totalGems++;
                 })
                 console.log('total items ')
                 const cache = this.totalItems.getValue();
