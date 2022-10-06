@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
 import { ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
@@ -30,6 +30,15 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     cardImgHovered: false,
     searchImgHovered: false,
     galleryImgHovered: false,
+  };
+
+  @Input() set savedImages(value: ImagesToUpload) {
+    if (value) {
+      this.finalizedImage = value.coverImage!;
+      this.finalizedCardImage = value.cardImage!;
+      this.finalizedSearchImage = value.searchImage!;
+      this.finalizedGalleryImages = value.gallery!;
+    }
   };
 
   @Output() formDataEvent: EventEmitter<ImagesInfo> = new EventEmitter();
@@ -161,7 +170,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
           this.imageFilesEvent.emit({
               coverImage: this.finalizedImage,
               cardImage: this.finalizedCardImage,
-              searchImgae: this.finalizedSearchImage,
+              searchImage: this.finalizedSearchImage,
               gallery: this.finalizedGalleryImages
           })
           this.isFormValid(); //IMG VALIDATION

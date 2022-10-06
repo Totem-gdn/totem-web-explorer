@@ -65,7 +65,7 @@ export interface DetailsInfo {
 export interface ImagesToUpload {
   coverImage?:  File | undefined;
   cardImage?: File | undefined;
-  searchImgae?: File | undefined;
+  searchImage?: File | undefined;
   gallery?: File[] | undefined;
 }
 

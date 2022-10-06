@@ -25,7 +25,7 @@
         <totem-basic-info (formDataEvent)="updateFormData($event)" (tabSelected)="goToTab($event)"></totem-basic-info>
       </ng-container>
       <ng-container *ngIf="activeTab == 'details'">
-        <totem-details-tab (formDataEvent)="updateImages($event)" (imageFilesEvent)="updateImagesToUpload($event)" (tabSelected)="goToTab($event)"></totem-details-tab>
+        <totem-details-tab [savedImages]="imagesToUpload" (formDataEvent)="updateImages($event)" (imageFilesEvent)="updateImagesToUpload($event)" (tabSelected)="goToTab($event)"></totem-details-tab>
       </ng-container>
       <ng-container *ngIf="activeTab == 'links'">
         <totem-links-tab (submitEvent)="uploadGame($event)"></totem-links-tab>

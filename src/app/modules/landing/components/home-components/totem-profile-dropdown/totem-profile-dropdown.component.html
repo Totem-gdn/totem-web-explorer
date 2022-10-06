@@ -9,8 +9,8 @@
       </div>
       <ng-container *ngIf="userData?.name?.length">
         <div class="user-name">
-          {{userData?.name}}
-          <span class="tooltiptext">{{userFullName}}</span>
+          {{userSlicedName}}
+          <span class="tooltiptext">{{userData?.name}}</span>
         </div>
         <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
           {{walletNumber}}
@@ -25,7 +25,7 @@
       </ng-container>
 
       <!-- Balance -->
-      <div class="pt-[25px] border-b border-dark-grey w-full z-10"></div>
+      <div class="pt-[25px] border-b border-dark-grey w-full z-2"></div>
       <balance [mode]="'small'"></balance>
 
       <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">

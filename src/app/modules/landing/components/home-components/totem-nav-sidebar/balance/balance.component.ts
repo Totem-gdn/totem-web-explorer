@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
+import { TransactionsService } from "@app/core/services/crypto/transactions.service";
 import { UserStateService } from "@app/core/services/user-state.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
-import { Subscription } from "rxjs";
+import { response } from "express";
+import { Subscription, take } from "rxjs";
 
 
 @Component({
@@ -20,11 +22,13 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     constructor(private web3Service: Web3AuthService,
                 private userStateService: UserStateService,
                 private snackService: SnackNotifierService,
-                private paymentService: PaymentService) {}
+                private paymentService: PaymentService,
+                private transactionsService: TransactionsService) {}
 
-    sub!: Subscription;
+    sub: Subscription = new Subscription;
     maticBalance: string | undefined = '0';
     tokenBalance: string | undefined = '0';
+    try: number = 0;
 
     @ViewChild('dropdown') dropdown!: ElementRef;
     @Input() mode = 'normal';
@@ -33,11 +37,14 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     ngAfterViewInit() {
         if(this.mode === 'small') this.isDropdownOpened = true;
         this.toggle();
-        this.sub = this.userStateService.currentUser.subscribe(user => {
+        this.sub.add(
+          this.userStateService.currentUser.subscribe(user => {
             if(user) {
                 this.updateBalance();
             }
-        })
+          })
+        )
+        this.transactionsService.getMaticBalanceViaFaucet().subscribe();
     }
 
     onToggleDropdown() {
@@ -57,20 +64,62 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
     updateBalance() {
         this.web3Service.getBalance().then(balance => {
-          this.maticBalance = balance;       
+            this.maticBalance = balance;
         });
         this.web3Service.getTokenBalance().then(balance => {
           this.tokenBalance = balance;
         })
     }
 
+    async updateBalanceAndGetMatic() {
+      await this.web3Service.getBalance().then(balance => {
+          if (parseFloat(balance!) > parseFloat(this.maticBalance!)) {
+            this.maticBalance = balance;
+            this.onClaim();
+          } else {
+            if (this.try != 10) {
+              this.try += 1;
+              this.updateBalanceAndGetMatic();
+            }
+          }
+      })
+    }
+
+    getMatics() {
+      this.sub.add(
+        this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
+          next: (response: any) => {
+            console.log(response);
+            if (response.status == 'Accepted') {
+              this.snackService.open('Matic tokens has been sent, wait a few seconds');
+              this.updateBalanceAndGetMatic();
+            }
+          },
+          error: (error: any) => {
+            console.log(error);
+            if (error.statusCode == 403) {
+              this.snackService.open('Please Login');
+            }
+            if (error.statusCode == 500) {
+              this.snackService.open('Your authentication token has expired');
+            }
+            if (error.statusCode == 400) {
+              this.snackService.open('You have already received Matic tokens, try again in 24 hours');
+            }
+          }
+        }
+        )
+      )
+    }
+
     async onClaim() {
         if(!this.web3Service.isLoggedIn()) {
-            this.snackService.open('PLEASE Login')
+            this.snackService.open('Please Login')
         }
         const matic = await this.web3Service.getBalance();
         if(!matic || +matic <= 0) {
             this.snackService.open('Insufficient Matic Balance');
+            this.getMatics();
             return;
         }
         this.snackService.open('Claiming USDC');
