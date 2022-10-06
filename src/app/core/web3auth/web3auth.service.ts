@@ -22,6 +22,11 @@ export class Web3AuthService {
         await this.login();
     }
 
+    transactionsLogs() {
+        let web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'))
+        return web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
+    }
+
     init = async () => {
         this.web3auth = new Web3Auth({
             clientId,
@@ -42,30 +47,30 @@ export class Web3AuthService {
     }
 
     getPubKey = async () => {
-      const web3auth = this.web3auth;
-      const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
-        method: "solanaPrivateKey",
-      });
-      const ed25519Key = getED25519Key(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex"));
-      const app_pub_key = ed25519Key.pk.toString("hex");
+        const web3auth = this.web3auth;
+        const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+            method: "solanaPrivateKey",
+        });
+        const ed25519Key = getED25519Key(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex"));
+        const app_pub_key = ed25519Key.pk.toString("hex");
     }
 
     getPublicKey = async () => {
-      const web3auth = this.web3auth;
-      const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
-        method: "eth_private_key", // use "private_key" for other non-evm chains
-      });
-      const app_pub_key = getPublicCompressed(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex")).toString("hex");
-      const user = await web3auth?.getUserInfo();
-      return app_pub_key;
+        const web3auth = this.web3auth;
+        const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+            method: "eth_private_key", // use "private_key" for other non-evm chains
+        });
+        const app_pub_key = getPublicCompressed(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex")).toString("hex");
+        const user = await web3auth?.getUserInfo();
+        return app_pub_key;
     }
 
     authUser = async () => {
-      if (!this.provider) {
-          return;
-      }
-      const token = await this.web3auth?.authenticateUser();
-      return token;
+        if (!this.provider) {
+            return;
+        }
+        const token = await this.web3auth?.authenticateUser();
+        return token;
     }
 
     getTokens = async () => {

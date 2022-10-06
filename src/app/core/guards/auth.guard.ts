@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
             !!(this.baseStorageService.getItem(StorageKey.ADAPTER));
 
         if (!isAuthenticatedCache && !isAuthenticated) {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
         }
         return isAuthenticatedCache || isAuthenticated;
     }

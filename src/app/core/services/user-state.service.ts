@@ -63,7 +63,7 @@ export class UserStateService implements OnDestroy {
     await this.web3AuthService.logout();
     this.snackNotifierService.open('Signed out');
     this.userInfo$.next(null);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 
   isLoggedIn(): boolean {

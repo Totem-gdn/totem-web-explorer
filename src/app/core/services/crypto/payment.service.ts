@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
-import { SafeEventEmitterProvider } from "@web3auth/base";
 import { map, take } from "rxjs";
 import Web3 from "web3";
 
@@ -74,7 +73,7 @@ export class PaymentService {
 
         const tx = await contract.methods.balanceOf(wallet).call()
         return tx;
-      }
+    }
 
       async claimTokens() {
         const web3 = new Web3(this.web3.provider as any);

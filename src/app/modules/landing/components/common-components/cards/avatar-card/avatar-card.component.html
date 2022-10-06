@@ -5,10 +5,10 @@
         <img src="assets/images/avatar.png" alt="">
     </div>
 
-    <div *ngIf="avatar?.tokenId" class="img-wrapper">
+    <div *ngIf="avatar?.tokenId" class="img-wrapper contain">
         <img src="{{'https://asset-renderer.totem-explorer.com/avatar/' + (+avatar?.tokenId)}}" alt="">
     </div>
-    <div *ngIf="avatar?.id?.tokenId" class="img-wrapper">
+    <div *ngIf="avatar?.id?.tokenId" class="img-wrapper contain">
         <img src="{{'https://asset-renderer.totem-explorer.com/avatar/' + (+avatar?.id?.tokenId)}}" alt="">
     </div>
 
