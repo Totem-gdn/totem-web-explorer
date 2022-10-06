@@ -4,9 +4,18 @@ import { AssetTransfersCategory, AssetTransfersOrder, createAlchemyWeb3 } from "
 import { environment } from "@env/environment";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, from, map, publishReplay, shareReplay, take } from "rxjs";
-
-
 const ALCHEMY_KEY = environment.ALCHEMY_KEY;
+//
+import { Alchemy, Network } from "alchemy-sdk";
+// const alchKeenvironment.ALCHEMY_KEY
+const settings = {
+    // apiKey: ALCHEMY_KEY, // Replace with your Alchemy API Key.
+    network: Network.MATIC_MUMBAI, // Replace with your network.
+  };
+const alchemy = new Alchemy(settings);
+
+
+
 const web3 = createAlchemyWeb3(ALCHEMY_KEY)
 
 interface CachedTotalItems {
@@ -14,6 +23,8 @@ interface CachedTotalItems {
     totalAvatars?: number;
     totalGems?: number;
 }
+
+
 @Injectable({ providedIn: 'root' })
 
 export class AlchemyService {
@@ -26,6 +37,24 @@ export class AlchemyService {
         return from(web3.alchemy.getNfts({ owner: wallet })).pipe(
             take(1),
             map(nfts => this.nftsHandler(nfts.ownedNfts)));
+    }
+
+    pendingTransactions() {
+        // alchemy.ws.on(
+        //     {
+        //         method: "alchemy_pendingTransactions",
+        //         // fromAddress: "0x2BF88b64F7cf2A21B2Cb5866e7d4649A123D67f4",
+        //         toAddress: "0xB408CC68A12d7d379434E794880403393B64E44b",
+        //     },
+        //     (tx) => console.log(tx)
+        // );
+        // alchemy.ws.once(
+        //     {
+        //         method: 'alchemy_pendingTransactions',
+        //         toAddress: '0xB408CC68A12d7d379434E794880403393B64E44b'
+        //     },
+        //     res => console.log(res)
+        // );
     }
 
     nftsHandler(nfts: any) {
@@ -53,7 +82,7 @@ export class AlchemyService {
                 nfts.forEach(nft => {
                     if (nft.contractMetadata.name === 'Avatar') totalAvatars++;
                     if (nft.contractMetadata.name === 'Item') totalItems++;
-                    if (nft.contractMetadata.name === 'Gem') totalGems++;    
+                    if (nft.contractMetadata.name === 'Gem') totalGems++;
                 })
                 console.log('total items ')
                 const cache = this.totalItems.getValue();
