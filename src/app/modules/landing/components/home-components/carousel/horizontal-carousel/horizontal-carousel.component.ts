@@ -31,7 +31,7 @@ export class HorizontalCarouselComponent implements AfterViewInit {
 
     @ViewChild('horizontalSwiper') horizontalSwiper!: any;
 
-    
+
     ngAfterViewInit() {
         this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
             modules: [Navigation, Pagination, Autoplay],

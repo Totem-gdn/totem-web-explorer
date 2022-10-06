@@ -6,6 +6,8 @@ import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
 import { getED25519Key } from "@toruslabs/openlogin-ed25519";
 import { getPublicCompressed } from "@toruslabs/eccrypto";
+import Web3 from "web3";
+import { GetTokensABI } from "./abi/getTokens.abi";
 
 @Injectable({ providedIn: 'root' })
 
@@ -37,6 +39,20 @@ export class Web3AuthService {
             this.provider = web3auth.provider;
         }
         this.isModalLoaded = true;
+
+        /* console.log(this.provider);
+
+        const web3 = new Web3(this.provider as any);
+        const accounts = await web3.eth.getAccounts();
+        var subscription = web3.eth.subscribe('logs', {
+          address: accounts[0],
+          }, function(error, result){
+              if (!error)
+                  console.log(result);
+          });
+
+        console.log('SUB INITED'); */
+
     }
 
     getPubKey = async () => {
