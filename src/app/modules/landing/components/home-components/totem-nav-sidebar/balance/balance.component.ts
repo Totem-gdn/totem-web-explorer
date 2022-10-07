@@ -31,6 +31,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   maticBalance: string | undefined = '0';
   tokenBalance: string | undefined = '0';
   try: number = 0;
+  disableButton: boolean = false;
+  maticClaimTimeout: any;
 
   @ViewChild('dropdown') dropdown!: ElementRef;
   @Input() mode = 'normal';
@@ -73,7 +75,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     })
   }
 
-  async updateBalanceAndGetMatic() {
+  /* async updateBalanceAndGetMatic() {
     await this.web3Service.getBalance().then(balance => {
       if (parseFloat(balance!) > parseFloat(this.maticBalance!)) {
         this.maticBalance = balance;
@@ -85,6 +87,24 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
         }
       }
     })
+  } */
+
+  startTimeout() {
+    this.maticClaimTimeout = setTimeout( async () => {
+      const matic = await this.web3Service.getBalance();
+      if(!matic || +matic <= 0) {
+          this.snackService.open('Something went wrong... Try again');
+          this.web3Service.transactionsLogs().unsubscribe();
+          return;
+      }
+      this.updateBalance();
+      this.getUsdc();
+      this.web3Service.transactionsLogs().unsubscribe();
+    }, 120000);
+  }
+
+  closeTimeout() {
+      clearTimeout(this.maticClaimTimeout);
   }
 
   getMatics() {
@@ -94,7 +114,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
           console.log(response);
           if (response.status == 'Accepted') {
             this.snackService.open('Matic tokens has been sent, wait a few seconds');
-            this.updateBalanceAndGetMatic();
+            this.startTimeout();
           }
         },
         error: (error: any) => {
@@ -114,7 +134,26 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     )
   }
 
+  getUsdc() {
+    this.snackService.open('Claiming USDC');
+    this.paymentService.getTokens().then(() => {
+      this.updateBalance();
+      this.snackService.open('USDC balance updated');
+    }).catch(() => {
+      this.snackService.open('Limit exceeded, try later');
+    })
+  }
 
+  listenTransactions(walletAddress: string) {
+    this.web3Service.transactionsLogs().on('data', event => {
+      if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
+        this.closeTimeout();
+        this.updateBalance();
+        this.getUsdc();
+        this.web3Service.transactionsLogs().unsubscribe();
+      }
+    });
+  }
 
   async onClaim() {
     if (!this.web3Service.isLoggedIn()) {
@@ -124,24 +163,15 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
     const wallet = await this.web3Service.getAccounts();
     const walletAddress = wallet.toLowerCase().slice(2);
+    const matic = await this.web3Service.getBalance();
+    if(!matic || +matic <= 0) {
+        this.snackService.open('Insufficient Matic Balance');
+        this.listenTransactions(walletAddress);
+        this.getMatics();
+        return;
+    }
 
-    this.web3Service.transactionsLogs().on('data', event => {
-
-      if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
-        this.updateBalance();
-
-        this.paymentService.getTokens().then(() => {
-          this.updateBalance();
-          this.snackService.open('USDC balance updated');
-        }).catch(() => {
-          this.snackService.open('Limit exceeded, try later');
-        })
-
-        this.web3Service.transactionsLogs().unsubscribe();
-      }
-    });
-
-    this.getMatics();
+    this.getUsdc();
   }
 
   ngOnDestroy(): void {
