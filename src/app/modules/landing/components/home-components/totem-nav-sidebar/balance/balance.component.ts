@@ -95,11 +95,13 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       if(!matic || +matic <= 0) {
           this.snackService.open('Something went wrong... Try again');
           this.web3Service.transactionsLogs().unsubscribe();
+          this.disableButton = false;
           return;
       }
       this.updateBalance();
       this.getUsdc();
       this.web3Service.transactionsLogs().unsubscribe();
+      this.disableButton = false;
     }, 120000);
   }
 
@@ -139,8 +141,10 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     this.paymentService.getTokens().then(() => {
       this.updateBalance();
       this.snackService.open('USDC balance updated');
+      this.disableButton = false;
     }).catch(() => {
       this.snackService.open('Limit exceeded, try later');
+      this.disableButton = false;
     })
   }
 
@@ -160,7 +164,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       this.snackService.open('Please Login')
       return
     }
-
+    this.disableButton = true;
     const wallet = await this.web3Service.getAccounts();
     const walletAddress = wallet.toLowerCase().slice(2);
     const matic = await this.web3Service.getBalance();

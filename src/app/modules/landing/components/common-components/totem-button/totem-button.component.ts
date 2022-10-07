@@ -14,6 +14,11 @@ export class TotemButtonComponent implements OnInit {
   @Input() set disabled(isDisabled: boolean) {
     console.log('is disabled', isDisabled)
     this.buttonDisabled = isDisabled;
+    if (isDisabled) {
+      this.hovered = false;
+    } else {
+      this.hovered = true;
+    }
   };
   @ViewChild('button') button!: ElementRef;
 
