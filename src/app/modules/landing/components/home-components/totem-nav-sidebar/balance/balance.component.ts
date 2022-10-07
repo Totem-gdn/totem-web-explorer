@@ -165,7 +165,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     const walletAddress = wallet.toLowerCase().slice(2);
     const matic = await this.web3Service.getBalance();
     if(!matic || +matic <= 0) {
-        this.snackService.open('Insufficient Matic Balance');
+        //this.snackService.open('Insufficient Matic Balance');
         this.listenTransactions(walletAddress);
         this.getMatics();
         return;
