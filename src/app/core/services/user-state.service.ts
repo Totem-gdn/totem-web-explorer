@@ -48,7 +48,7 @@ export class UserStateService implements OnDestroy {
     //const key: string = await this.web3AuthService.getPrivateKey();
     const key: string = await this.web3AuthService.getPublicKey();
     //await this.web3AuthService.getPubKey();
-    //console.log('user info', userInfo, key);
+    console.log('user info', userInfo, key);
     localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({userInfo, key}));
     const userToUse: UserEntity = {
       name: userInfo?.name,

@@ -22,7 +22,7 @@
         </a>
         <ng-container *ngIf="userData?.name?.length">
           <div class="user-name">
-            {{userSlicedName}}
+            {{userSlicedName || userData.name}}
             <span class="tooltiptext">{{userData.name}}</span>
           </div>
           <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2"
