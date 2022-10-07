@@ -42,7 +42,7 @@ export class GameCardComponent implements AfterViewInit {
   }
 
   onNavigate() {
-    this.router.navigate(['/item-info']);
+    this.router.navigate(['/game-info']);
   }
 
 }
