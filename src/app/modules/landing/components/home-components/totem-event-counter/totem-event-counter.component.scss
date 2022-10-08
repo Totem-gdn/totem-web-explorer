@@ -70,6 +70,10 @@
             @media (max-width: 1080px) {
               font-size: 48px;
               line-height: 48px;
+              img {
+                width: 207px;
+                height: auto;
+              }
             }
           }
           position: relative;
@@ -269,10 +273,8 @@
           @media (max-width: 600px) {
             padding: 53px 39px;
           }
-          @media (max-width: 490px) {
-            padding: 39px 25px;
-          }
           &-title {
+            margin-bottom: 10px;
             &-face, &-blured {
               font-weight: 400;
               font-size: 64px;
@@ -282,10 +284,18 @@
               @media (max-width: 1080px) {
                 font-size: 48px;
                 line-height: 48px;
+                img {
+                  width: 207px;
+                  height: auto;
+                }
               }
               @media (max-width: 490px) {
                 font-size: 32px;
                 line-height: 32px;
+                img {
+                  width: 145px;
+                  height: auto;
+                }
               }
             }
             position: relative;
@@ -294,6 +304,12 @@
               top: 0;
               left: 0;
               filter: blur(3.5px);
+            }
+          }
+          @media (max-width: 490px) {
+            padding: 39px 25px;
+            &-title {
+              margin-bottom: 0px;
             }
           }
 
