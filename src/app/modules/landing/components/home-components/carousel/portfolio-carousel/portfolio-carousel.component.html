@@ -1,0 +1,8 @@
+
+<div #wrapper class="flex overflow-hidden my-[10px]">
+    <div class="two-items" *ngFor="let image of _images">
+    
+        <img *ngIf="!_images || !_images?.length" src="assets/images/game-info/game_slide_top.png" alt="">
+        <img [src]="image" alt="">
+    </div>
+</div>

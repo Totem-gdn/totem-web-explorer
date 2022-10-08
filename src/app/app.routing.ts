@@ -1,7 +1,6 @@
 
 import { Route } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-import { ProfileResolver } from './core/resolvers/profile.resolver';
 import { LayoutComponent } from './layout/layout.component';
 
 export const AppRoutes: Route[] = [

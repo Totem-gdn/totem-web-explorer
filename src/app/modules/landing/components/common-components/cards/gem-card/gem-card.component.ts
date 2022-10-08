@@ -17,6 +17,8 @@ export class GemCardComponent {
   @Input() gem: any;
   isLiked = false;
 
+  ngOnInit() {
+  }
 
   onClickLike() {
     this.gem.isLiked = !this.gem.isLiked;

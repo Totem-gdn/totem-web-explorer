@@ -23,7 +23,7 @@ export class UserItemsComponent implements OnInit {
   async ngOnInit() {
     this.filters$();
     this.fetchItems();
-    this.getNfts();
+    // this.getNfts();
   }
 
 
@@ -39,20 +39,20 @@ export class UserItemsComponent implements OnInit {
     })
   }
 
-  async getNfts() {
-    const wallet = await this.web3Service.getAccounts();
+  // async getNfts() {
+  //   const wallet = await this.web3Service.getAccounts();
 
-    this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-      const items: any[] = [];
-      for(let nft of nfts) {
-        nft.id.tokenId = parseInt(nft.id.tokenId);
-        if(nft.contractMetadata.name === 'Item') {
-          items.push(nft);
-        }
-      }
-      this.items = items;
-    })
-  }
+  //   this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
+  //     const items: any[] = [];
+  //     for(let nft of nfts) {
+  //       nft.id.tokenId = parseInt(nft.id.tokenId);
+  //       if(nft.contractMetadata.name === 'Item') {
+  //         items.push(nft);
+  //       }
+  //     }
+  //     this.items = items;
+  //   })
+  // }
 
   ngOnDestroy () {
     this.subs.next();

@@ -18,12 +18,6 @@ const alchemy = new Alchemy(settings);
 
 const web3 = createAlchemyWeb3(ALCHEMY_KEY)
 
-interface CachedTotalItems {
-    totalItems?: number;
-    totalAvatars?: number;
-    totalGems?: number;
-}
-
 
 @Injectable({ providedIn: 'root' })
 
@@ -31,30 +25,11 @@ export class AlchemyService {
 
     constructor(private http: HttpClient) { }
 
-    totalItems = new BehaviorSubject<CachedTotalItems>({});
 
     getNfts(wallet: string) {
         return from(web3.alchemy.getNfts({ owner: wallet })).pipe(
             take(1),
             map(nfts => this.nftsHandler(nfts.ownedNfts)));
-    }
-
-    pendingTransactions() {
-        // alchemy.ws.on(
-        //     {
-        //         method: "alchemy_pendingTransactions",
-        //         // fromAddress: "0x2BF88b64F7cf2A21B2Cb5866e7d4649A123D67f4",
-        //         toAddress: "0xB408CC68A12d7d379434E794880403393B64E44b",
-        //     },
-        //     (tx) => console.log(tx)
-        // );
-        // alchemy.ws.once(
-        //     {
-        //         method: 'alchemy_pendingTransactions',
-        //         toAddress: '0xB408CC68A12d7d379434E794880403393B64E44b'
-        //     },
-        //     res => console.log(res)
-        // );
     }
 
     nftsHandler(nfts: any) {
@@ -72,27 +47,27 @@ export class AlchemyService {
         return sortedNfts;
     }
 
-    getUserTotalItems(wallet: string) {
-        return this.getNfts(wallet).pipe(
-            map(nfts => {
-                let totalAvatars = 0;
-                let totalItems = 0;
-                let totalGems = 0;
+    // getUserTotalItems(wallet: string) {
+    //     return this.getNfts(wallet).pipe(
+    //         map(nfts => {
+    //             let totalAvatars = 0;
+    //             let totalItems = 0;
+    //             let totalGems = 0;
 
-                nfts.forEach(nft => {
-                    if (nft.contractMetadata.name === 'Avatar') totalAvatars++;
-                    if (nft.contractMetadata.name === 'Item') totalItems++;
-                    if (nft.contractMetadata.name === 'Gem') totalGems++;
-                })
-                console.log('total items ')
-                const cache = this.totalItems.getValue();
-                cache.totalAvatars = totalAvatars;
-                cache.totalItems = totalItems;
-                cache.totalGems = totalGems;
-                this.totalItems.next(cache);
-            })
-        )
-    }
+    //             nfts.forEach(nft => {
+    //                 if (nft.contractMetadata.name === 'Avatar') totalAvatars++;
+    //                 if (nft.contractMetadata.name === 'Item') totalItems++;
+    //                 if (nft.contractMetadata.name === 'Gem') totalGems++;
+    //             })
+    //             console.log('total items ')
+    //             const cache = this.totalItems.getValue();
+    //             cache.totalAvatars = totalAvatars;
+    //             cache.totalItems = totalItems;
+    //             cache.totalGems = totalGems;
+    //             this.totalItems.next(cache);
+    //         })
+    //     )
+    // }
 
     async getNftMetadata(nft: any) {
         return web3.alchemy.getNftMetadata({ contractAddress: nft, tokenId: '0' });

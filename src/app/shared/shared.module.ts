@@ -6,6 +6,7 @@ import { LongPressDirective } from "./directives/long-press.directive";
 import { OnDragDirective } from "./directives/on-drag.directive";
 import { OnResizeDirective } from "./directives/on-resize.directive";
 import { LoadingSpinner } from "./loading-spinner/locading-spinner.component";
+import { TimeCreationPipe } from "./pipes/creationTime.pipe";
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { LoadingSpinner } from "./loading-spinner/locading-spinner.component";
         ClickOutsideDirective,
         LongPressDirective,
         OnDragDirective,
-        OnResizeDirective
+        OnResizeDirective,
+
+        TimeCreationPipe,
     ],
     imports: [
         CommonModule,
@@ -28,7 +31,9 @@ import { LoadingSpinner } from "./loading-spinner/locading-spinner.component";
         LoadingSpinner,
         LongPressDirective,
         OnDragDirective,
-        OnResizeDirective
+        OnResizeDirective,
+
+        TimeCreationPipe
     ]
 })
 

@@ -1,4 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { SubmitGame } from "@app/core/models/submit-game-interface.model";
+import { TotemItemsService } from "@app/core/services/totem-items.service";
+import { Subscription } from "rxjs";
 
 
 @Component({
@@ -8,5 +12,7 @@ import { Component } from "@angular/core";
 })
 
 export class GameDescriptionComponent {
-    
+
+    @Input() game!: SubmitGame | any;
+
 }

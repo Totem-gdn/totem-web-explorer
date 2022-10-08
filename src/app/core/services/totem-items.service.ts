@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { BehaviorSubject, map, Observable } from "rxjs";
 import { ItemParam } from "../models/item-param.model";
+import { CacheService } from "./cache.service";
 
 const NEWEST_ITEMS: any[] = [
   {
@@ -139,7 +140,8 @@ export class TotemItemsService {
 
   private _filters = new BehaviorSubject<ItemParam[]>([]);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private cacheService: CacheService) {
   }
 
   set filters(filters: ItemParam[]) {
@@ -168,6 +170,7 @@ export class TotemItemsService {
     return this.http.get<any>(`${this.baseUrl}/assets/avatars`, {params: params}).pipe(
       map(avatars => {
         if(avatars && avatars?.length) {
+          this.cacheService.setItemCache('avatar', avatars.length);
           return avatars;
         } else {
           return [0,0,0,0,0];
@@ -181,9 +184,10 @@ export class TotemItemsService {
     let params = this.handleParams(queryFilters);
 
     return this.http.get<any>(`${this.baseUrl}/assets/gems`, {params: params}).pipe(
-      map(avatars => {
-        if(avatars && avatars?.length) {
-          return avatars;
+      map(gems => {
+        if(gems && gems?.length) {
+          this.cacheService.setItemCache('gem', gems.length);
+          return gems;
         } else {
           return [0,0,0,0,0];
         }  
@@ -195,10 +199,11 @@ export class TotemItemsService {
     let params = this.handleParams(queryFilters);
 
     return this.http.get<any>(`${this.baseUrl}/assets/items`, {params: params}).pipe(
-      map(avatars => {
-        console.log('items', avatars)
-        if(avatars && avatars?.length) {
-          return avatars;
+      map(items => {
+        console.log('items', items)
+        if(items && items?.length) {
+          this.cacheService.setItemCache('item', items.length);
+          return items;
         } else {
           return [0,0,0,0,0];
         }  
@@ -208,15 +213,20 @@ export class TotemItemsService {
   getGames$(filters?: ItemParam[]) {
     const queryFilters = this._filters.getValue();
     let params = this.handleParams(queryFilters);
-
     return this.http.get<any>(`${this.baseUrl}/games`,  {params: params}).pipe(
-      map(avatars => {
-        if(avatars && avatars?.length) {
-          return avatars;
+      map(games => {
+        console.log(games);
+        if(games && games?.length) {
+          this.cacheService.setItemCache('game', games.length);
+          return games;
         } else {
           return [0,0,0,0,0];
         }  
       }))
+  }
+
+  getGameById(id: string) {
+    return this.http.get(`${this.baseUrl}/games/${id}`);
   }
 
   getNewestItems() {

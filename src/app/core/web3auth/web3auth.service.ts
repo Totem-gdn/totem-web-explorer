@@ -7,7 +7,6 @@ const clientId = environment.WEB3AUTH_ID;
 import { getED25519Key } from "@toruslabs/openlogin-ed25519";
 import { getPublicCompressed } from "@toruslabs/eccrypto";
 import Web3 from "web3";
-import { GetTokensABI } from "./abi/getTokens.abi";
 
 @Injectable({ providedIn: 'root' })
 
@@ -17,23 +16,13 @@ export class Web3AuthService {
     provider: SafeEventEmitterProvider | null = null;
     isModalLoaded = false;
 
-    async get() {
-        await this.init();
-        await this.login();
-    }
-
-    transactionsLogs() {
-        let web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'))
-        return web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
-    }
-
     init = async () => {
         this.web3auth = new Web3Auth({
             clientId,
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
-                rpcTarget: "https://rpc-mumbai.maticvigil.com", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+                rpcTarget: "https://rpc-mumbai.maticvigil.com",
             },
         });
         const web3auth = this.web3auth;
@@ -44,6 +33,12 @@ export class Web3AuthService {
             this.provider = web3auth.provider;
         }
         this.isModalLoaded = true;
+    }
+
+
+    transactionsLogs() {
+        let web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'))
+        return web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
     }
 
     getPubKey = async () => {

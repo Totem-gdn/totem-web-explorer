@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
+import { CacheService } from '@app/core/services/cache.service';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
@@ -10,25 +11,28 @@ import { BehaviorSubject, Subscription } from 'rxjs';
     class: 'flex'
   }
 })
-export class ProfileStatsComponent implements OnDestroy {
+export class ProfileStatsComponent {
 
-  constructor(private alchService: AlchemyService) { }
+  constructor(private alchService: AlchemyService,
+    private cacheService: CacheService) { }
 
-  totalAvatars = new BehaviorSubject<number | string | undefined>('--');
+  _total = new BehaviorSubject<number | string | undefined>('--');
+
   @Input() type = '';
-  @Input() total: undefined | number;
-  sub!: Subscription;
-  
-  ngOnInit() {
-    this.alchService.totalItems.subscribe(total => {
-      if (this.type == 'avatar') this.totalAvatars.next(total.totalAvatars);
-      if (this.type == 'item') this.totalAvatars.next(total.totalItems);
-      if (this.type == 'gem') this.totalAvatars.next(total.totalGems);
-    })
-  }
+  @Input() total: number | undefined;
 
-  ngOnDestroy() {
-    this.sub?.unsubscribe();
+  ngOnInit() {
+    this.cacheService.totalCache$().subscribe(total => {
+      console.log(total);
+      if (this.type == 'avatar') this._total.next(total.totalAvatars);
+      if (this.type == 'item') this._total.next(total.totalItems);
+      if (this.type == 'gem') this._total.next(total.totalGems);
+      if (this.type == 'game') this._total.next(total.totalGames);
+      if (this.type == 'fav_avatar') this._total.next(total.fav_totalAvatars);
+      if (this.type == 'fav_item') this._total.next(total.fav_totalItems);
+      if (this.type == 'fav_gem') this._total.next(total.fav_totalGems);
+      if (this.type == 'fav_game') this._total.next(total.fav_totalGames);
+    })
   }
 
 }

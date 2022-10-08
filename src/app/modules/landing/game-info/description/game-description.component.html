@@ -1,10 +1,12 @@
 <div class="description">
     <div class="images-block pb-[60px]">
-        <img src="assets/images/game-info/game_slide_top.png" alt="">
+        <img *ngIf="game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt="">
+        <img *ngIf="!game?.images?.galley" [src]="game?.images?.gallery[0]" alt="">
+        <portfolio-carousel [images]="game?.images?.gallery"></portfolio-carousel>
     </div>
 
-    <div class="flex gap-[60px]">
-        <div class="flex flex-col">
+    <div class="flex gap-[60px] justify-between">
+        <div *ngIf="game?.general?.fullDescription == undefined && !game" class="flex flex-col">
             <h4 class="mb-[30px]">Description</h4>
             <p class="font-medium">
                 Struggling punk band, Dead Pets, are still looking for their breakthrough after almost 10 years.
@@ -23,13 +25,24 @@
                 harassment. We are working with a consultant with this to ensure the storyline is handled in a
                 sensitive way, and there will be tools implemented for the player to ensure their comfort and
                 safety while playing.
-
+            </p>
+        </div>
+        <div *ngIf="game?.general?.fullDescription" class="flex flex-col">
+            <h4 class="mb-[30px]">Description</h4>
+            <p *ngIf="game?.general?.fullDescription">
+                {{game?.general?.fullDescription}}
             </p>
         </div>
 
-        <div class="flex flex-col w-[200px]">
+        <div class="flex flex-col w-[250px]">
             <h4 class="mb-[30px]">Genre</h4>
-            <div class="tags pb-[60px]">
+            <div *ngIf="game?.general?.genre" class="tags pb-[60px]">
+                <div class="tag" *ngFor="let genre of game?.general?.genre">
+                    <span>{{genre}}</span>
+                </div>
+            </div>
+
+            <div *ngIf="!game?.general?.genre && !game?.general?.genre?.length" class="tags pb-[60px]">
                 <div class="tag" *ngFor="let _ of [].constructor(8)">
                     <span>Meaningful choices</span>
                 </div>

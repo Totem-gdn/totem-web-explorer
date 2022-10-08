@@ -42,7 +42,8 @@ export class GameCardComponent implements AfterViewInit {
   }
 
   onNavigate() {
-    this.router.navigate(['/game-info']);
+    const id = this.game?.id;
+    this.router.navigate(['/game-info'], {queryParams: { id: id }});
   }
 
 }

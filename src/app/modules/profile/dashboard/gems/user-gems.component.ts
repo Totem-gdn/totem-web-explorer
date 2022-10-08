@@ -22,7 +22,6 @@ export class UserGemsComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.filters$();
     this.fetchGems();
-    this.getNfts();
   }
 
   filters$() {
@@ -33,21 +32,6 @@ export class UserGemsComponent implements OnInit, OnDestroy {
 
   fetchGems(filters?: ItemParam[]) {
     this.itemsService.getGems$(filters).pipe(takeUntil(this.subs)).subscribe(gems => {
-      this.gems = gems;
-    })
-  }
-
-  async getNfts() {
-    const wallet = await this.web3Service.getAccounts();
-
-    this.alchemyService.getNfts(wallet).subscribe((nfts: any[]) => {
-      const gems: any[] = [];
-      for (let nft of nfts) {
-        nft.id.tokenId = parseInt(nft.id.tokenId);
-        if (nft.contractMetadata.name === 'Gem') {
-          gems.push(nft);
-        }
-      }
       this.gems = gems;
     })
   }

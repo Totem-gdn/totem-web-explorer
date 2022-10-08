@@ -11,7 +11,6 @@
     display: flex;
     flex-wrap: wrap;
     white-space: nowrap;
-    flex-direction: column;
     column-gap: 6px;
     row-gap: 8px;
     .tag {
@@ -35,4 +34,8 @@
             margin: auto;
         }
     }
+}
+
+img {
+    border-radius: 4px;
 }
