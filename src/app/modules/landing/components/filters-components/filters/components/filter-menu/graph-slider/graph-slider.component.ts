@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, Input, OnDestroy, AfterViewInit } from "@angular/core";
+import { Component, ElementRef, ViewChild, Input, OnDestroy, AfterViewInit, AfterViewChecked, ChangeDetectorRef } from "@angular/core";
 import { FiltersService } from "@app/modules/landing/components/filters-components/services/filters.service";
 import { TagsService } from "@app/modules/landing/components/filters-components/services/tags.service";
 import { Subscription } from "rxjs";
@@ -126,14 +126,14 @@ const Items: Items[] = [
 export class GraphSliderComponent implements OnDestroy, AfterViewInit {
 
     constructor(private filtersService: FiltersService,
-                private tagsService: TagsService) {}
+                private tagsService: TagsService,private changeDetector : ChangeDetectorRef) {}
 
     minValue: number = 100;
     maxValue: number = 200;
 
     marginLeft!: string;
     marginRight!: string;
-    
+
     items: Items[] = Items;
     sub!: Subscription;
 
@@ -150,6 +150,10 @@ export class GraphSliderComponent implements OnDestroy, AfterViewInit {
         this.changeMinValue();
         this.setMargins();
         this.checkRange();
+    }
+
+    ngAfterViewChecked() {
+      this.changeDetector.detectChanges();
     }
 
     update() {
@@ -173,14 +177,14 @@ export class GraphSliderComponent implements OnDestroy, AfterViewInit {
             this.setMargins();
         })
     }
-    
+
     exportValue() {
         const value = `${this.title} ${this.minValue}-${this.maxValue}`;
         const reference = this.sliderThumbMin;
         const tag = {value: value, type: this.title, inputType: 'graph', reference: reference}
         this.tagsService.handleRangeTag(tag);
     }
-    
+
     checkRange() {
         this.items.map((item: Items) => { item.price >= this.minValue && item.price <= this.maxValue ? item.isInRange = true : item.isInRange = false});
       }
@@ -205,7 +209,7 @@ export class GraphSliderComponent implements OnDestroy, AfterViewInit {
         const minValue = this.sliderThumbMin.nativeElement;
         const maxValue = this.sliderThumbMax.nativeElement;
 
-     
+
         if(+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
             maxValue.value = +minValue.value + 1;
         }

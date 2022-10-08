@@ -56,7 +56,6 @@ export class Web3AuthService {
             method: "eth_private_key", // use "private_key" for other non-evm chains
         });
         const app_pub_key = getPublicCompressed(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex")).toString("hex");
-        const user = await web3auth?.getUserInfo();
         return app_pub_key;
     }
 

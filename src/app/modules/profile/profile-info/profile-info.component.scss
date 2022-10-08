@@ -2,6 +2,11 @@
 @import 'assets/fonts/icon-fonts/mail-font.scss';
 
 
+span {
+  font-size: unset;
+  font-weight: unset;
+}
+
 .profile-wrapper {
   max-width: 1500px;
   width: 100%;
