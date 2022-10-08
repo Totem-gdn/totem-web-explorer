@@ -18,9 +18,13 @@
 
     </div>
   </div>
-
+  <div *ngIf="!slides" class="w-full h-[440px] flex spinner-wrapper">
+      <totem-spinner [size]="'36'"></totem-spinner>
+  </div>
   <div #horizontalSwiper class="horizontal-swiper relative">
+
     <div class="swiper-wrapper">
+
       <div *ngFor="let slide of slides" class="swiper-slide">
         <item-card *ngIf="itemType === 'item'" [item]="slide"></item-card>
 

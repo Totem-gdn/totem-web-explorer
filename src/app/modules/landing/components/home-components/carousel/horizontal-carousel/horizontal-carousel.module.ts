@@ -7,6 +7,7 @@ import { AvatarCardModule } from "../../../common-components/cards/avatar-card/a
 import { GameCardModule } from "../../../common-components/cards/game-card/game-card.module";
 import { ItemCardModule } from "../../../common-components/cards/item-card/item-card.module";
 import { SearchDropdownModule } from "../../../common-components/dropdowns/search-dropdown/search-dropdown.module";
+import { TotemSpinnerModule } from "../../../common-components/totem-spinner/totem-spinner.module";
 import { HorizontalCarouselComponent } from "./horizontal-carousel.component";
 
 
@@ -22,7 +23,8 @@ import { HorizontalCarouselComponent } from "./horizontal-carousel.component";
         GameCardModule,
         AvatarCardModule,
         SearchDropdownModule,
-        SwiperModule
+        SwiperModule,
+        TotemSpinnerModule
     ],
     exports: [
         HorizontalCarouselComponent

@@ -115,12 +115,14 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
         next: (response: any) => {
           console.log(response);
           if (response.status == 'Accepted') {
-            this.snackService.open('Matic tokens has been sent, wait a few seconds');
+            this.snackService.open('Tokens has been sent, wait a few seconds');
             this.startTimeout();
           }
         },
         error: (error: any) => {
           console.log(error);
+          this.disableButton = false;
+          this.web3Service.transactionsLogs().unsubscribe();
           if (error.statusCode == 403) {
             this.snackService.open('Please Login');
           }
@@ -128,7 +130,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
             this.snackService.open('Your authentication token has expired');
           }
           if (error.statusCode == 400) {
-            this.snackService.open('You have already received Matic tokens, try again in 24 hours');
+            this.snackService.open('You have already received tokens, try again in 24 hours');
           }
         }
       }
@@ -151,6 +153,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   listenTransactions(walletAddress: string) {
     this.web3Service.transactionsLogs().on('data', event => {
       if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
+        console.log(event);
+
         this.closeTimeout();
         this.updateBalance();
         this.getUsdc();
@@ -165,17 +169,17 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       return
     }
     this.disableButton = true;
+    const matic = await this.web3Service.getBalance();
+    //if(!matic || +matic <= 0) {
+    this.snackService.open('Please wait, claiming tokens...');
     const wallet = await this.web3Service.getAccounts();
     const walletAddress = wallet.toLowerCase().slice(2);
-    const matic = await this.web3Service.getBalance();
-    if(!matic || +matic <= 0) {
-        //this.snackService.open('Insufficient Matic Balance');
-        this.listenTransactions(walletAddress);
-        this.getMatics();
-        return;
-    }
+    this.listenTransactions(walletAddress);
+    this.getMatics();
+    return;
+    //}
 
-    this.getUsdc();
+    //this.getUsdc();
   }
 
   ngOnDestroy(): void {
