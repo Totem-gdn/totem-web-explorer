@@ -27,7 +27,7 @@ export class AlchemyService {
 
 
     getNfts(wallet: string) {
-        return from(web3.alchemy.getNfts({ owner: wallet })).pipe(
+        return from(web3.alchemy.getNfts({ owner: wallet, })).pipe(
             take(1),
             map(nfts => this.nftsHandler(nfts.ownedNfts)));
     }
@@ -44,7 +44,7 @@ export class AlchemyService {
             return Date.parse(a.timeLastUpdated) - Date.parse(b.timeLastUpdated);
 
         });
-        return sortedNfts;
+        return sortedNfts.reverse();
     }
 
     // getUserTotalItems(wallet: string) {

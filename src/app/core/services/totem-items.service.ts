@@ -140,6 +140,8 @@ export class TotemItemsService {
 
   private _filters = new BehaviorSubject<ItemParam[]>([]);
 
+  testItem = new BehaviorSubject<any>({});
+
   constructor(private http: HttpClient,
               private cacheService: CacheService) {
   }
@@ -170,7 +172,7 @@ export class TotemItemsService {
     return this.http.get<any>(`${this.baseUrl}/assets/avatars`, {params: params}).pipe(
       map(avatars => {
         if(avatars && avatars?.length) {
-          this.cacheService.setItemCache('avatar', avatars.length);
+          // this.cacheService.setItemCache('avatar', avatars.length);
           return avatars;
         } else {
           return [0,0,0,0,0];
@@ -186,7 +188,7 @@ export class TotemItemsService {
     return this.http.get<any>(`${this.baseUrl}/assets/gems`, {params: params}).pipe(
       map(gems => {
         if(gems && gems?.length) {
-          this.cacheService.setItemCache('gem', gems.length);
+          // this.cacheService.setItemCache('gem', gems.length);
           return gems;
         } else {
           return [0,0,0,0,0];
@@ -202,7 +204,7 @@ export class TotemItemsService {
       map(items => {
         console.log('items', items)
         if(items && items?.length) {
-          this.cacheService.setItemCache('item', items.length);
+          // this.cacheService.setItemCache('item', items.length);
           return items;
         } else {
           return [0,0,0,0,0];
@@ -217,7 +219,7 @@ export class TotemItemsService {
       map(games => {
         console.log(games);
         if(games && games?.length) {
-          this.cacheService.setItemCache('game', games.length);
+          // this.cacheService.setItemCache('game', games.length);
           return games;
         } else {
           return [0,0,0,0,0];

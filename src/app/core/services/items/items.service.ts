@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { BehaviorSubject, from, map, take, tap } from "rxjs";
@@ -12,7 +13,7 @@ export class ItemsService {
     _items = new BehaviorSubject<any[] | null>(null);
 
     constructor(private http: HttpClient,
-        private web3: Web3AuthService) {
+                private web3: Web3AuthService) {
 
     }
 
@@ -25,62 +26,6 @@ export class ItemsService {
     get $items() {
         // this.fetchItems();
         return this._items.asObservable();
-    }
-
-    fetchItems(wallet: string) {
-        return this.http.get<any>(`https://simple-api.totem.gdn/default/items/${wallet}`).pipe(
-            map(items => this.formatItems(items.data)),
-            tap(items => {
-                this.items = items;
-            }))         
-    }
-
-    private formatItems(items: any) {
-        let formattedItems: any = [];
-
-        for (let item of items) {
-            // Format Time
-            // const creationDate = new Date(item.createdAt).toLocaleDateString();
-            // item.createdAt = creationDate;
-            // const updateDate = new Date(item.updatedAt).toLocaleDateString();
-            // item.updatedAt = updateDate;
-        
-            // Format Tip
-            switch(item.item.tipMaterial) {
-                case 0:
-                    item.item.tipMaterial = '#966F33';
-                    break;
-                case 1:
-                    item.item.tipMaterial = '#e3dac9';
-                    break;
-                case 2:
-                    item.item.tipMaterial = '#6F6A61';
-                    break;
-                case 3:
-                    item.item.tipMaterial = '#2e3134';
-                    break;
-            }
-
-            // Format element
-            switch(item.item.element) {
-                case 0:
-                    item.item.element = '#a6e7ff';
-                    break;
-                case 1:
-                    item.item.element = '#806043';
-                    break;
-                case 2:
-                    item.item.element = '#d4f1f9';
-                    break;
-                case 3:
-                    item.item.element = '#e25822';
-                    break;
-            }
-            formattedItems.push(item);
-        }
-
-
-        return formattedItems;
     }
 
     async getItemsIds() {
@@ -101,7 +46,7 @@ export class ItemsService {
             const contractAddress ='0xfC5654489b23379ebE98BaF37ae7017130B45086';
             const wallet = accounts[0]
             console.log('account', wallet);
-            const tokenContract = GetTokensABI;
+            const tokenContract = AssetsABI;
             const contract = new web3.eth.Contract(tokenContract, contractAddress);
         
             const tx = await contract.methods.ownerOf(2).call();
@@ -109,14 +54,39 @@ export class ItemsService {
             return tx;
     }
 
-    // formatTime(items: any[]) {
-    //     const formattedItems: any[] = [];
-
-    //     for(let item of items) {
-    //         item.updatedAt = new Date(item.updatedAt).toLocaleDateString();
-    //         formattedItems.push(item);
-    //     }
-
-    //     return formattedItems;
-    // }
+    async getListOfNfts() {
+        if (!this.web3.provider) {
+            console.log("provider not initialized yet");
+            return;
+        }
+        const web3 = new Web3(this.web3.provider as any);
+        const accounts = await web3.eth.getAccounts();
+        // console.log(accounts);
+        const Contracts = {
+          Avatar: "0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35", // https://mumbai.polygonscan.com/address/0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35
+          Item: "0xfC5654489b23379ebE98BaF37ae7017130B45086", // https://mumbai.polygonscan.com/address/0xfC5654489b23379ebE98BaF37ae7017130B45086
+          Gem: "0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5", // https://mumbai.polygonscan.com/address/0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5
+        };
+        const contractAddress = Contracts.Gem;
+        const contractABI = GetTokensABI;
+        const wallet = accounts[0];
+    
+        // JSON.parse(JSON.stringify(contractABI))
+        const contract = new web3.eth.Contract(GetTokensABI, contractAddress);
+        console.log(contract);
+        const balanceOf = await contract.methods.tokenOfOwnerByIndex(wallet).call();
+        console.log('balance', balanceOf)
+        // const lastClaimed = await contract.methods.lastClaimed(wallet).call();
+        // console.log(lastClaimed)
+        // const tokenURI = await contract.methods.ownerOf(2).call();
+        // console.log('tokenUri', AssetsABI)
+    
+        // for(let i = 0; i < balanceOf; i++) {
+        //   const tokenId = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
+        //   console.log('tokenId', tokenId);
+        //   const tokenURI = await contract.methods.tokenURI(tokenId).call();
+        //   console.log('tokenUrl: ', tokenURI)
+        // }
+        return balanceOf;
+      }
 }

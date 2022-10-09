@@ -14,7 +14,7 @@ export class ItemDescComponent implements OnInit {
   constructor() { }
   
   @ViewChild('playContainer') playContainer!: ElementRef;
-  @Input() wallet = '0x88644..568f';
+  @Input() item!: any;
   @Input() nft!: any;
 
   isLiked = false;

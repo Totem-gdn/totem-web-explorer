@@ -169,15 +169,15 @@ export class Web3AuthService {
         return privateKey;
     };
 
-    getListOfNfts = async () => {
-        if (!this.provider) {
-            console.log("provider not initialized yet");
-            return;
-        }
-        const rpc = new RPC(this.provider);
-        const tx = await rpc.getListOfNfts();
-        return tx;
-    }
+    // getListOfNfts = async () => {
+    //     if (!this.provider) {
+    //         console.log("provider not initialized yet");
+    //         return;
+    //     }
+    //     const rpc = new RPC(this.provider);
+    //     const tx = await rpc.getListOfNfts();
+    //     return tx;
+    // }
 
     logout = async () => {
         if (!this.web3auth) {
