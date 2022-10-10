@@ -152,6 +152,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
   listenTransactions(walletAddress: string) {
     this.web3Service.transactionsLogs().on('data', event => {
+      if(event.transactionHash == '')
       if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
         console.log(event);
 
