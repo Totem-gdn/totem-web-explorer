@@ -48,6 +48,33 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
         }
       })
     )
+
+    this.sub.add(
+      this.web3Service.maticTransactionListener().subscribe((data: any) => {
+        if (data == 'error') {
+          this.snackService.open('Error occurred while getting tokens, pls try again');
+        }
+        if (data && data != 'error') {
+          this.updateBalance();
+        }
+      })
+    )
+    this.sub.add(
+      this.web3Service.usdcTransactionListener().subscribe((data: any) => {
+        if (data == 'error') {
+          this.snackService.open('Error occurred while getting tokens, pls try again');
+        }
+        if (data && data != 'error') {
+          if (!data.status) {
+            this.disableButton = false;
+            this.snackService.open('Error occurred while getting tokens, pls try again');
+          }
+          this.updateBalance();
+          this.snackService.open('USDC balance updated');
+          this.disableButton = false;
+        }
+      })
+    )
   }
 
   onToggleDropdown() {
@@ -89,7 +116,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     })
   } */
 
-  startTimeout() {
+  /* startTimeout() {
     this.maticClaimTimeout = setTimeout( async () => {
       const matic = await this.web3Service.getBalance();
       if(!matic || +matic <= 0) {
@@ -107,22 +134,28 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
   closeTimeout() {
       clearTimeout(this.maticClaimTimeout);
-  }
+  } */
 
   getMatics() {
+
     this.sub.add(
       this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
         next: (response: any) => {
           console.log(response);
           if (response.status == 'Accepted') {
             this.snackService.open('Tokens has been sent, wait a few seconds');
-            this.startTimeout();
+            //let trans: any = this.web3Service.getTransaction(response.matic);
+            //let transU: any = this.web3Service.getTransaction(response.usdc);
+            //console.log(trans, transU);
+            this.web3Service.isReceiptedMatic(response.matic);
+            this.web3Service.isReceiptedUsdc(response.usdc);
+
+            //this.startTimeout();
           }
         },
         error: (error: any) => {
           console.log(error);
           this.disableButton = false;
-          this.web3Service.transactionsLogs().unsubscribe();
           if (error.statusCode == 403) {
             this.snackService.open('Please Login');
           }
@@ -138,7 +171,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     )
   }
 
-  getUsdc() {
+  /* getUsdc() {
     this.snackService.open('Claiming USDC');
     this.paymentService.getTokens().then(() => {
       this.updateBalance();
@@ -148,20 +181,29 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       this.snackService.open('Limit exceeded, try later');
       this.disableButton = false;
     })
-  }
+  } */
 
-  listenTransactions(walletAddress: string) {
+  /* listenTransactions(walletAddress: string) {
     this.web3Service.transactionsLogs().on('data', event => {
+      //console.log('EVENT EVENT EVENT: ', event);
+
       if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
         console.log(event);
 
-        this.closeTimeout();
+        //this.closeTimeout();
         this.updateBalance();
-        this.getUsdc();
-        this.web3Service.transactionsLogs().unsubscribe();
+        //this.getUsdc();
+        //this.web3Service.transactionsLogs().unsubscribe();
+      }
+      if (event.topics[3] == `0x000000000000000000000000c275dc8be39f50d12f66b6a63629c39da5bae5bd` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
+        console.log('TRANSACTION', event);
+
+        //this.closeTimeout();
+        this.updateBalance();
+        this.disableButton = false;
       }
     });
-  }
+  } */
 
   async onClaim() {
     if (!this.web3Service.isLoggedIn()) {
@@ -174,7 +216,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     this.snackService.open('Please wait, claiming tokens...');
     const wallet = await this.web3Service.getAccounts();
     const walletAddress = wallet.toLowerCase().slice(2);
-    this.listenTransactions(walletAddress);
+    //this.listenTransactions(walletAddress);
     this.getMatics();
     return;
     //}

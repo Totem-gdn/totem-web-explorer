@@ -7,6 +7,7 @@ const clientId = environment.WEB3AUTH_ID;
 import { getED25519Key } from "@toruslabs/openlogin-ed25519";
 import { getPublicCompressed } from "@toruslabs/eccrypto";
 import Web3 from "web3";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 
@@ -15,6 +16,9 @@ export class Web3AuthService {
     web3auth: Web3Auth | null = null;
     provider: SafeEventEmitterProvider | null = null;
     isModalLoaded = false;
+    usdcClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+    maticClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+    web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
 
     init = async () => {
         this.web3auth = new Web3Auth({
@@ -37,9 +41,53 @@ export class Web3AuthService {
 
 
     transactionsLogs() {
-        let web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'))
-        return web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
+        return this.web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
     }
+
+    getTransaction(hash: string) {
+      return this.web3.eth.getTransaction(hash, (callback: any) => callback);
+    }
+
+    isReceiptedMatic(hash: string) {
+      const interval1 = setInterval( async () => {
+        console.log("Attempting to get MATIC transaction receipt...");
+        await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
+          if (err) {
+            this.maticClaimed.next('error');
+            clearInterval(interval1);
+          }
+          if (res) {
+            console.log('found MATIC receipt', res);
+            this.maticClaimed.next(res);
+            clearInterval(interval1);
+          }
+        });
+      }, 1000);
+    }
+    isReceiptedUsdc(hash: string) {
+      const interval2 = setInterval( async () => {
+        console.log("Attempting to get USDC transaction receipt...");
+        await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
+          if (err) {
+            this.usdcClaimed.next('error');
+            clearInterval(interval2);
+          }
+          if (res) {
+            console.log('found USDC receipt', res);
+            this.usdcClaimed.next(res);
+            clearInterval(interval2);
+          }
+        });
+      }, 1000);
+    }
+
+    maticTransactionListener(): Observable<any> {
+      return this.maticClaimed.asObservable();
+    }
+    usdcTransactionListener(): Observable<any> {
+      return this.usdcClaimed.asObservable();
+    }
+
 
     getPubKey = async () => {
         const web3auth = this.web3auth;
