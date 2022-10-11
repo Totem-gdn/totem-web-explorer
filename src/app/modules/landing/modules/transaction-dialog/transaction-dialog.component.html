@@ -1,0 +1,97 @@
+<div class="img-upload-dialog px-[18px] py-[20px]">
+  <div class="img-upload-dialog-wrapper" fxLayout="column" fxLayoutAlign="space-between start">
+    <div class="content-block p-[18px] h-full w-full">
+      <div class="content-block-body pt-[70px] pb-[56px] px-[40px] h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="content-block-body-title font-totem" *ngIf="stepIndex < 2">Transaction initiated</div>
+        <div class="content-block-body-title-2 font-totem" *ngIf="stepIndex == 2">waiting for confirmation</div>
+        <div class="content-block-body-title font-totem" *ngIf="stepIndex == 3">Request complete</div>
+        <div class="content-block-body-subtitle py-[40px]" *ngIf="stepIndex < 2">
+          <div class="w-full">
+            Sending 150 USDC and 0.03 MATIC to your account, please wait a moment
+          </div>
+          <!-- <div class="w-full">Now You can explore Totem website</div> -->
+        </div>
+        <div class="content-block-body-subtitle-2 py-[40px]" *ngIf="stepIndex == 2">
+          <div class="w-full">
+            Transactions have been initiated. Waiting for confirmation
+          </div>
+          <!-- <div class="w-full">Now You can explore Totem website</div> -->
+        </div>
+        <div class="content-block-body-subtitle-2 py-[40px]" *ngIf="stepIndex == 3">
+          <div class="w-full">
+            Congratulations, 150 USDC and 0.03 MATIC was sent to your account
+          </div>
+          <!-- <div class="w-full">Now You can explore Totem website</div> -->
+        </div>
+        <!-- <div class="content-block-body-subtitle" *ngIf="tokensClaimed">
+          <div class="w-full">
+            Congratulations! You successfully filled the application form and now the artwork for your game is being uploaded.
+            After upload finishes, we need up to 3 work days (usually less) to process your submission.
+          </div>
+          <div class="w-full">We will notify you via email about the status of your submission.</div>
+        </div> -->
+        <div @hashAnimation *ngIf="maticHash && usdcHash" class="content-block-body-tx-info px-[20px] py-[24px] mb-[40px]" fxLayout="row" fxLayoutAlign="start center">
+          <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="title">Request type</div>
+            <div class="caption mt-[20px]">150 USDC</div>
+            <div class="caption mt-[8px]">0.03 MATIC</div>
+          </div>
+          <div class="ml-[30px]" fxLayout="column" fxLayoutAlign="center start">
+            <div class="title">Transaction hash</div>
+            <div class="caption-light mt-[20px]">{{usdcHash}}</div>
+            <div class="caption-light mt-[8px]">{{maticHash}}</div>
+          </div>
+        </div>
+        <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center center">
+          <div class="content-block-body-progress-bar px-[60px]" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <div class="circles-wrapper">
+              <totem-spinner @stopLoader *ngIf="!steps[0].step && steps[0].loading" [size]="'14'"></totem-spinner>
+              <div @stopLoader *ngIf="!steps[0].loading" class="disabled-circle" [ngStyle]="{'background-color': steps[0].step ? '#ffd013' : ''}"></div>
+            </div>
+
+            <mat-progress-bar class="progress-bar mx-[5px]" mode="determinate" value="{{steps[0].step ? '100' : '0'}}"></mat-progress-bar>
+
+            <div class="circles-wrapper">
+              <totem-spinner @stopLoader *ngIf="!steps[1].step && steps[1].loading" [size]="'14'"></totem-spinner>
+              <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle" [ngStyle]="{'background-color': steps[1].step ? '#ffd013' : ''}"></div>
+            </div>
+
+            <mat-progress-bar class="progress-bar mx-[5px]" mode="determinate" value="{{steps[1].step ? '100' : '0'}}"></mat-progress-bar>
+
+            <div class="circles-wrapper">
+              <totem-spinner @stopLoader *ngIf="!steps[2].step && steps[2].loading" [size]="'14'"></totem-spinner>
+              <div *ngIf="!steps[2].loading" @stopLoader class="disabled-circle" [ngStyle]="{'background-color': steps[2].step ? '#ffd013' : ''}"></div>
+            </div>
+
+            <mat-progress-bar class="progress-bar mx-[5px]" mode="determinate" value="{{steps[2].step ? '100' : '0'}}"></mat-progress-bar>
+
+            <div class="circles-wrapper">
+              <totem-spinner @stopLoader *ngIf="!steps[3].step && steps[3].loading" [size]="'14'"></totem-spinner>
+              <div *ngIf="!steps[3].loading" @stopLoader class="disabled-circle" [ngStyle]="{'background-color': steps[3].step ? '#ffd013' : ''}"></div>
+            </div>
+
+          </div>
+          <div class="caption-block mt-[10px]" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="caption-section" [ngStyle]="{'color': steps[0].step ? '#ffd013' : ''}">Enter address</div>
+            <div class="caption-section" [ngStyle]="{'color': steps[1].step ? '#ffd013' : ''}">Transaction initiated</div>
+            <div class="caption-section" [ngStyle]="{'color': steps[2].step ? '#ffd013' : ''}">Waiting for confirmation</div>
+            <div class="caption-section" [ngStyle]="{'color': steps[3].step ? '#ffd013' : ''}">Token transferred</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="center center">
+      <div @stopLoader matRipple class="cancel-button" *ngIf="stepIndex != 3" [mat-dialog-close]>
+        Close
+      </div>
+      <totem-button @stopLoader class="!ml-[30px]" *ngIf="stepIndex == 3" [caption]="'Close'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]="tokensClaimed"></totem-button>
+    </div>
+    <!-- <div class="button-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="center center" *ngIf="tokensClaimed">
+      <div matRipple class="cancel-button" [mat-dialog-close]="true">
+        Close
+      </div>
+      <totem-button class="!ml-[30px]" [caption]="'Explore games'" [height]="'40px'" [width]="'140px'" (click)="nextStep()"></totem-button>
+    </div> -->
+  </div>
+</div>
