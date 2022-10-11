@@ -57,6 +57,9 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     })
     genresForm = this.generalDescription.get('genre') as FormArray;
 
+    addJsonFile(event: File) {
+
+    }
 
     onSelectTag(tag: Tag) {
         this.genreTags.push(tag);

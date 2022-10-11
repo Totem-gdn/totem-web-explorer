@@ -40,7 +40,17 @@ export class ItemInfoComponent {
         this.item = asset.item;
         this.sub = this.route.queryParams.subscribe(param => {
             const id = param['id'];
-
+            /* if(id) {
+                this.alchService.getNftMetadata(id).then(meta => {
+                    //this.nftMeta = meta;
+                    console.log(meta);
+                    this.alchService.getTransactionHistory(meta.contract.address).then(transactions => {
+                        console.log(meta.contract.address)
+                        console.log(transactions);
+                    })
+                    //this.wallet = '0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3';
+                })
+            } */
             // if (id) {
             //     this.itemsService.getGameById(id).subscribe(item => {
             //         this.itemsService

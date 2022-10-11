@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
+import { TransactionDialogModule } from "@app/modules/landing/modules/transaction-dialog/transaction-dialog.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { TotemButtonModule } from "../../../common-components/totem-button/totem-button.module";
 import { BalanceComponent } from "./balance.component";
@@ -12,7 +13,8 @@ import { BalanceComponent } from "./balance.component";
     imports: [
         SharedModule,
         MatIconModule,
-        TotemButtonModule
+        TotemButtonModule,
+        TransactionDialogModule
     ],
     exports: [
         BalanceComponent

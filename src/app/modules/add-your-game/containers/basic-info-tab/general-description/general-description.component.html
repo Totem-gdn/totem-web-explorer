@@ -23,28 +23,28 @@
             <div class="block-section">
                 <h4>Brief Description</h4>
                 <div class="input-section">
-                    <textarea class="gradient-border-solid" name="" id="" rows="5" 
+                    <textarea class="gradient-border-solid" name="" id="" rows="5"
                         formControlName="description"
-                        (ngModelChange)="briefDescChange($event)"  
+                        (ngModelChange)="briefDescChange($event)"
                         (blur)="saveValue()"></textarea>
                     <span @showMessage class="error-message" *ngIf="checkErrors('description', 'required')">Required field</span>
 
                     <div class="flex flex-wrap justify-between">
                         <span>The text should not contain more than 300 characters</span>
                         <span [ngClass]="briefDescLength >= 300 ? 'text-error':''">{{briefDescLength}} of 300 characters left</span>
-                    </div>      
+                    </div>
                 </div>
             </div>
 
             <div class="block-section">
                 <h4>Genre</h4>
                 <div class="tags-section">
-                    <form-dropdown 
-                    (selectedTag)="onSelectTag($event)" 
-                    (removeTag)="onRemoveTag($event)" 
+                    <form-dropdown
+                    (selectedTag)="onSelectTag($event)"
+                    (removeTag)="onRemoveTag($event)"
                     (touched)="onTouchDropdown()"
                     [setItems]="setItems"
-                    class="outline-light-grey" 
+                    class="outline-light-grey"
                     [ngClass]="dropdownTouched && genresForm.controls.length === 0 ? 'outline-error':''"
                     [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
                     <span @fade-in class="error-message" *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>
@@ -62,13 +62,24 @@
                 <h4>Full Description<span class="ml-[10px]">(Optional)</span></h4>
                 <div class="input-section">
                     <textarea class="gradient-border-solid" name="" id="" rows="10"
-                        formControlName="fullDescription" 
+                        formControlName="fullDescription"
                         (ngModelChange)="fullDescChange($event)"
                         (blur)="saveValue()"></textarea>
                     <div class="flex flex-wrap justify-between">
                         <span>The text should not contain more than 300 characters</span>
                         <span [ngClass]="fullDescLength >= 300 ? 'text-error':''">{{fullDescLength}} of 300 characters left</span>
                     </div>
+                </div>
+            </div>
+
+            <div class="block-section">
+                <h4>DNA filter</h4>
+                <div class="dta-input-section">
+                  <div class="dropzone-wrapper w-full mb-[15px]">
+                    <totem-image-dropzone [uniqueId]="'json'" [jsonFileType]="true" [dzMinHeight]="'184px'" (finalizedFile)="addJsonFile($event)"></totem-image-dropzone>
+                  </div>
+
+                  <span>Upload JSON file with filters for your game</span>
                 </div>
             </div>
 

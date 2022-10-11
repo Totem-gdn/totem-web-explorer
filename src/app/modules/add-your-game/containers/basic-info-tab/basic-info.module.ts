@@ -11,6 +11,7 @@ import { FormDropdownModule } from "@app/modules/landing/components/common-compo
 import { GeneralDescription } from "./general-description/general-description.component";
 import { GameDetailsComponent } from "./game-details/game-details.component";
 import { ContactFormComponent } from "./contact-form/contact-form.component";
+import { TotemImageDropzoneModule } from "../../components/totem-image-dropzone/totem-image-dropzone.module";
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { ContactFormComponent } from "./contact-form/contact-form.component";
         FormDropdownModule,
         MatRippleModule,
         TotemButtonModule,
+        TotemImageDropzoneModule,
     ],
     exports: [
         BasicInfoComponent

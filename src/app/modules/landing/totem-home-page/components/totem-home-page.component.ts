@@ -52,7 +52,8 @@ export class TotemHomePageComponent implements OnInit {
   testGame: any[] = [{
     name: 'D.I.N.O',
     description: 'A game about a young archaeologist resurrecting dinosaurs from their bones and taking care of them',
-    url: 'assets/images/dino-game.png'
+    url: 'assets/images/dino-game.png',
+    gameUrl: 'https://gandswite.itch.io/project-dino'
   }]
   x: number = 0;
   y: number = 0;
