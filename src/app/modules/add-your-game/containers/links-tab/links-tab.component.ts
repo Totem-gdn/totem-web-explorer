@@ -2,6 +2,8 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, 
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
 import { Tag } from '@app/core/models/tag-interface.model';
+import { Subscription } from 'rxjs';
+import { FormsService } from '../../services/forms.service';
 import { SubmitGameService } from '../../services/submit-game.service';
 
 interface SocialLink {
@@ -20,19 +22,23 @@ interface SocialLink {
   ]
 })
 
-export class LinksTabComponent implements AfterViewInit {
+export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
-  constructor(private submitGame: SubmitGameService) { }
+  constructor(private formsService: FormsService) { }
 
   get webPageErrors() {
     const webPage = this.connectionsForm.get('webpage');
     return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
 
-  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
-
+  
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
+
+  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
   setItems!: any[];
+  submitDisabled = true;
+
+  sub!: Subscription;
 
   connectionsForm = new FormGroup({
     webpage: new FormControl(null , Validators.required),
@@ -46,11 +52,16 @@ export class LinksTabComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.retrieveValues();
-    // this.socialLinksForm.controls.forEach
-    // this.dropdowns.forEach(dropdown => {
-    //   console.log('dropdown',dropdown);
-    // })
-    // console.log()
+  }
+
+  ngOnInit(): void {
+    this.sub = this.formsService.tabsValidity$().subscribe(tabs => {
+      if(tabs.basicInfoValid && tabs.connectionsValid && tabs.detailsValid) {
+        this.submitDisabled = false;
+      } else {
+        this.submitDisabled = true;
+      }
+    })
   }
 
   submitGameInfo() {
@@ -89,12 +100,12 @@ export class LinksTabComponent implements AfterViewInit {
 
   updateForm() {
     const value = this.connectionsForm.value;
-    this.submitGame.saveForm('connections', value);
-    console.log(value);
+    this.formsService.saveForm('connections', value);
+    this.isFormValid();
   }
 
   retrieveValues() {
-    const values = this.submitGame.getForm('connections');
+    const values = this.formsService.getForm('connections');
     if (!values) return;
 
     this.connectionsForm.patchValue({
@@ -106,6 +117,18 @@ export class LinksTabComponent implements AfterViewInit {
     values.socialLinks.forEach((link: any, index: any) => {
       this.socialLinksForm.controls[index] = new FormArray([ new FormControl(link[0]), new FormControl(link[1])]);
     })
+  }
+
+  isFormValid() {
+    if(this.connectionsForm.valid) {
+      this.formsService.setFormValidity('connections', true);
+    } else {
+      this.formsService.setFormValidity('connections', false);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 
 }

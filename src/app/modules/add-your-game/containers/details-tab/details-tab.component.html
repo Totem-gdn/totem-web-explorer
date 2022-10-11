@@ -65,5 +65,5 @@
       </div>
     </div>
   </div>
-  <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" (click)="updateFormData()"></totem-button>
+  <totem-button [disabled]="!allowButton" class="py-[80px] flex justify-center" [caption]="'Continue'" (click)="updateFormData(); onNextTab()"></totem-button>
 </div>

@@ -25,16 +25,19 @@
     </div>
     <div class="content-block">
       <ng-container *ngIf="activeTab === 'items'">
-        <totem-profile-stats class="fav-stats"></totem-profile-stats>
-        <filter-components [filterType]="'item'" [items]="items"></filter-components>
+        <totem-profile-stats [type]="'fav_item'" class="fav-stats"></totem-profile-stats>
+        <filter-components [itemType]="'item'" [items]="items"></filter-components>
       </ng-container>
       <ng-container *ngIf="activeTab === 'avatars'">
-        <totem-profile-stats class="fav-stats"></totem-profile-stats>
-        <filter-components [filterType]="'avatar'" [items]="avatars"></filter-components>
+        <totem-profile-stats [type]="'fav_avatar'" class="fav-stats"></totem-profile-stats>
+        <filter-components [itemType]="'avatar'" [items]="avatars"></filter-components>
       </ng-container>
+      <!-- <ng-container *ngIf="activeTab === 'gems'">
+        <totem-profile-stats [total]="totalItems" class="fav-stats"></totem-profile-stats>
+        <filter-components [itemType]="'gem'" [items]="gems"></filter-components>
+      </ng-container> -->
       <ng-container *ngIf="activeTab === 'games'">
-        <totem-profile-stats class="fav-stats"></totem-profile-stats>
-        <filter-components [filterType]="'game'" [items]="games"></filter-components>
+        <filter-components [itemType]="'game'" [items]="games"></filter-components>
       </ng-container>
     </div>
   </div>

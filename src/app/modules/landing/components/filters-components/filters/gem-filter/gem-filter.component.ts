@@ -1,12 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FiltersService } from '@app/core/services/filters/filters.service';
+import { FiltersService } from '@app/modules/landing/components/filters-components/services/filters.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'gem-filter',
-  templateUrl: './games-filter.component.html',
-  styleUrls: ['./games-filter.component.scss'],
+  templateUrl: './gem-filter.component.html',
   host: {
     class: 'flex filters-wrapper w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]'
   }

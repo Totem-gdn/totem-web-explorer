@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
+import { CacheService } from '@app/core/services/cache.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FavouritesService } from './favourites.service';
@@ -19,7 +20,7 @@ export class FavouritesComponent implements OnInit, OnDestroy {
   games: any[] = [];
   subs: Subscription = new Subscription();
 
-  constructor(private totemItemsService: TotemItemsService, private favouritesService: FavouritesService) { }
+  constructor(private cacheService: CacheService, private totemItemsService: TotemItemsService, private favouritesService: FavouritesService) { }
 
   ngOnInit(): void {
     //this.items = this.favouritesService.getItems(StorageKey.ITEMS);
@@ -51,6 +52,7 @@ export class FavouritesComponent implements OnInit, OnDestroy {
       this.totemItemsService.mostUsedItems.subscribe((items: any[] | null) => {
         if (items) {
           this.items = items.filter((item: any) => item.isLiked);
+          this.cacheService.setItemCache('fav_item', this.items.length);
         }
       })
     );
@@ -67,6 +69,7 @@ export class FavouritesComponent implements OnInit, OnDestroy {
       this.totemItemsService.avatars.subscribe((avatars: any[] | null) => {
         if (avatars) {
           this.avatars = avatars.filter((item: any) => item.isLiked);
+          this.cacheService.setItemCache('fav_avatar', this.avatars.length);
         }
       })
     );

@@ -1,10 +1,14 @@
 <div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
 
 
-    <div *ngIf="!gem?.id?.tokenId" class="img-wrapper">
+    <div *ngIf="!gem?.tokenId && !gem?.id?.tokenId" class="img-wrapper">
         <img src="assets/images/avatar.png" alt="">
     </div>
 
+    <div *ngIf="gem?.tokenId" class="img-wrapper">
+        <img src="{{'https://asset-renderer.totem-explorer.com/gem/' + (+gem?.tokenId % 11 + 1)}}" alt="">
+        <!-- <mat-icon class="text-grey" [svgIcon]="'line:gem-place'"></mat-icon> -->
+    </div>
     <div *ngIf="gem?.id?.tokenId" class="img-wrapper">
         <img src="{{'https://asset-renderer.totem-explorer.com/gem/' + (+gem?.id?.tokenId % 11 + 1)}}" alt="">
         <!-- <mat-icon class="text-grey" [svgIcon]="'line:gem-place'"></mat-icon> -->
@@ -12,7 +16,8 @@
 
     <div class="attributes">
         <div class="top">
-            <h3 *ngIf="!gem?.id?.tokenId">ID: 1111</h3>
+            <h3 *ngIf="!gem?.tokenId && !gem?.id?.tokenId">ID: 1111</h3>
+            <h3 *ngIf="gem?.tokenId">ID: {{gem?.tokenId}}</h3>
             <h3 *ngIf="gem?.id?.tokenId">ID: {{gem?.id?.tokenId}}</h3>
 
             <mat-icon *ngIf="gem?.isLiked === false" class="like" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
@@ -23,16 +28,18 @@
             <div>
                 <h4 *ngIf="!gem?.updatedAt && !gem?.timeLastUpdated">24.24.24</h4>
                 <h4 *ngIf="gem?.updatedAt">{{gem?.updatedAt | date:'dd/MM/yy'}}</h4>
-                <h4 *ngIf="gem?.timeLastUpdated">{{gem?.timeLastUpdated}}</h4>
+                <h4 *ngIf="gem?.timeLastUpdated">{{gem?.timeLastUpdated | date:'dd/MM/yy'}}</h4>
 
                 <p class="text-light-grey">Last used</p>
             </div>
             <div>
-                <h4>100</h4>
+                <h4>--</h4>
                 <p class="text-light-grey">Rarity</p>
             </div>
             <div>
-                <h4>566</h4>
+                <h4 *ngIf="!gem?.games && gem?.games != 0">--</h4>
+                <h4 *ngIf="gem?.games || gem?.games == 0">{{gem?.games}}</h4>
+
                 <p class="text-light-grey">Games used</p>
             </div>
         </div>

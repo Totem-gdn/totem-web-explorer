@@ -1,0 +1,122 @@
+<div class="rewiew lg:max-w-[455px]">
+    <h2 *ngIf="!game?.general?.name" class="mb-[40px]">Dead Peats unleashed</h2>
+    <h2 *ngIf="game?.general?.name" class="mb-[40px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
+
+    <div class="flex flex-wrap justify-between pb-[20px] gap-[10px]">
+        <h4 class="flex whitespace-nowrap"><span class="text-light-grey pr-[10px]">Author:</span>{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
+
+        <div #stars class="stars whitespace-nowrap">
+            <mat-icon #star *ngFor="let rate of rating"
+            [ngClass]="rate ? '!text-yellow': ''"
+            (click)="onSaveStars(star)" 
+            (mouseenter)="onMouseEnter($event)"
+            (mouseleave)="onMouseLeave($event)" 
+            class="star" [svgIcon]="'line:star'"></mat-icon>
+            <p class="ml-[8px]">(--)</p>
+        </div>
+    </div>
+    <!-- Icons -->
+    <div class="icon-wrapper">
+        <div class="icon-set">
+            <div class="icon !pl-0">
+                <mat-icon class="like !w-[18px]" [svgIcon]="'line:like'"></mat-icon>
+                <!-- <mat-icon class="text-yellow !w-[18px]" [svgIcon]="'solid:like'"></mat-icon> -->
+                <!-- <mat-icon *ngIf="isLiked === false" class="like !w-[18px]" [svgIcon]="'line:like'"
+                (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+            <mat-icon *ngIf="isLiked === true" class="text-yellow !w-[18px]" [svgIcon]="'solid:like'"
+                (click)="$event.stopPropagation(); onClickLike()"></mat-icon> -->
+                <p>{{game?.likes ? game?. likes : '0'}}</p>
+            </div>
+            <div class="icon">
+                <mat-icon class="!w-[20px]" [svgIcon]="'line:eye'"></mat-icon>
+                <p>{{game?.views ? game?.views : '0'}}</p>
+            </div>
+        </div>
+        <div class="icon-set">
+            <div class="icon">
+                <mat-icon class="!w-[14px] !h-[19px] mb-auto" [svgIcon]="'line:share'"></mat-icon>
+                <p>Share</p>
+            </div>
+            <div class="icon">
+                <mat-icon class="!w-[16px]" [svgIcon]="'line:refresh'"></mat-icon>
+                <p>Refresh</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text -->
+    <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">Struggling punk band, Dead Pets, are still looking for their breakthrough after
+        almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way. Dead
+        Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner demon!
+        Support us on Kickstarter now!
+    </p>
+    <p *ngIf="game?.general?.description" class="font-medium pb-[40px]">
+        {{game?.general?.description}}
+    </p>
+
+    <!-- Details -->
+    <div class="dropdown-wrapper">
+        <div class="dropdown-button" (click)="onToggle()">
+            <h4>Details</h4>
+            <mat-icon class="text-light-grey !w-[14px] mr-[5px]" [svgIcon]="'line:arrow_up'" [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></mat-icon>
+        </div>
+
+        <div class="dropdown-table-wrapper" [ngClass]="toggleDropdown ? 'max-h-[520px]': 'max-h-[0px]'">
+            <div class="dropdown-table">
+                <div *ngIf="game?.updatedAt" class="row">
+                    <div><span>Updated</span></div>
+                    <div><span>{{game?.updatedAt | date: 'M.dd.yy h:mm'}}</span></div>
+                </div>
+                <div *ngIf="game?.updatedAt" class="row">
+                    <div><span>Published</span></div>
+                    <div><span>{{game?.createdAt | creationTime }}</span></div>
+                </div>
+                <div *ngIf="game?.details?.status" class="row">
+                    <div><span>Status</span></div>
+                    <div><span>{{game?.details?.status}}</span></div>
+                </div>
+                <div *ngIf="game?.details?.platforms" class="row">
+                    <div><span>Platforms</span></div>
+                    <div><span>{{game?.details?.platforms.join(', ')}}</span></div>
+                </div>
+                <div *ngIf="game?.details?.madeWith" class="row">
+                    <div><span>Made with</span></div>
+                    <div><span>{{game?.details?.madeWith}}</span></div>
+                </div>
+                <div *ngIf="game?.details?.session" class="row">
+                    <div><span>Session</span></div>
+                    <div><span>{{game?.details?.session}}</span></div>
+                </div>
+                <div *ngIf="game?.details?.languages" class="row">
+                    <div><span>Languages</span></div>
+                    <div><span>{{game?.details?.languages}}</span></div>
+                </div>
+                <div *ngIf="game?.details?.inputs" class="row">
+                    <div><span>Inputs</span></div>
+                    <div><span>{{game?.details?.inputs}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="play">
+        <div class="flex flex-wrap gap-[13px]">
+            <div class="item-tag">
+                <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
+                <p>Players</p>
+            </div>
+            <div class="item-tag">
+                <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
+                <p>Items</p>
+            </div>
+            <div class="item-tag">
+                <h4>{{game?.assets?.avatars || game?.assets?.avatars == 0 ? game?.assets?.avatars : '24.05.22'}}</h4>
+                <p>Avatars</p>
+            </div>
+        </div>
+
+        <totem-button class="pt-[20px]" [caption]="'Play'" [width]="'100%'"></totem-button>
+    </div>
+
+</div>

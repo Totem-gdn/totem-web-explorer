@@ -5,6 +5,7 @@ import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, Im
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
+import { FormsService } from './services/forms.service';
 import { SubmitGameService } from './services/submit-game.service';
 
 const BODY: SubmitGame = {
@@ -21,15 +22,18 @@ const BODY: SubmitGame = {
 })
 export class AddYourGameComponent implements OnInit, OnDestroy {
 
+
+
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
-  activeTab: 'basic-information' | 'details' | 'links' = 'details';
+  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
   formsData: SubmitGame | null = null;
   imagesToUpload!: ImagesToUpload;
   imagesToSubmit!: ImagesInfo;
 
-  constructor(readonly matDialog: MatDialog, private userStateService: UserStateService, private submitGameService: SubmitGameService) {
+
+  constructor(readonly matDialog: MatDialog, private userStateService: UserStateService, private formsService: FormsService, private submitGameService: SubmitGameService) {
   }
 
   ngOnInit() {
@@ -38,9 +42,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         this.loading$.next(value);
       })
     )
-    //this.openImgUploaderDialog();
-    //this.submitGameService.approveGame();
-    //this.submitGameService.getGame();
+    this.formsService.checkFormsValidity();
   }
 
   ngOnDestroy(): void {
@@ -97,10 +99,10 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     ); */
 
     this.formsData = {
-      general: this.submitGameService.getForm('general'),
-      details: this.submitGameService.getForm('details'),
-      contacts: this.submitGameService.getForm('contacts'),
-      connections: this.submitGameService.getForm('connections'),
+      general: this.formsService.getForm('general'),
+      details: this.formsService.getForm('details'),
+      contacts: this.formsService.getForm('contacts'),
+      connections: this.formsService.getForm('connections'),
       images: this.imagesToSubmit,
     }
     console.log(this.formsData);

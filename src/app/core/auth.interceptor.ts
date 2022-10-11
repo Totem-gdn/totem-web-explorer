@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.isAuth()) {
-      if (request.url.includes(environment.TOTEM_BASE_API_URL)) {
+      if (request.url.includes(environment.TOTEM_BASE_API_URL) || request.url.includes(environment.TOTEM_FAUCET_API_URL)) {
         return next.handle(this.transformRequest(request));
       }
       //if (request.url.includes('s3')) {
@@ -33,16 +33,6 @@ export class AuthInterceptor implements HttpInterceptor {
     return request.clone({
         setHeaders: {
           Authorization: authorization,
-        }
-    })
-  }
-
-  transformRequest2(request: HttpRequest<any>) {
-    let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
-    const authorization: string = `Bearer ${creds.userInfo.idToken} ${creds.key}`;
-    return request.clone({
-        setHeaders: {
-          'Content-Type': 'image/png',
         }
     })
   }

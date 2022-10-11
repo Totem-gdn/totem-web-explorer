@@ -26,17 +26,18 @@
             <div>
                 <h4 *ngIf="!avatar?.updatedAt && !avatar?.timeLastUpdated">24.24.24</h4>
                 <h4 *ngIf="avatar?.updatedAt">{{avatar?.updatedAt | date:'dd/MM/yy'}}</h4>
-                <h4 *ngIf="avatar?.timeLastUpdated">{{avatar?.timeLastUpdated}}</h4>
+                <h4 *ngIf="avatar?.timeLastUpdated">{{avatar?.timeLastUpdated | date:'dd/MM/yy'}}</h4>
 
                 <p class="text-light-grey">Last used</p>
             </div>
             <div>
-                <h4>100</h4>
+                <h4>--</h4>
                 <p class="text-light-grey">Rarity</p>
             </div>
             <div>
-                <h4 *ngIf="!avatar?.games && avatar?.games != 0">566</h4>
+                <h4 *ngIf="!avatar?.games && avatar?.games != 0">--</h4>
                 <h4 *ngIf="avatar?.games || avatar?.games == 0">{{avatar?.games}}</h4>
+                
                 <p class="text-light-grey">Games used</p>
             </div>
         </div>

@@ -1,3 +1,9 @@
+
+export interface FormValidity {
+  basicInfoValid?: boolean;
+  detailsValid?: boolean;
+  connectionsValid?: boolean;
+}
 export interface SubmitGame {
   [index: string]: any;
   general?: GeneralInfo;
@@ -59,7 +65,7 @@ export interface DetailsInfo {
 export interface ImagesToUpload {
   coverImage?:  File | undefined;
   cardImage?: File | undefined;
-  searchImgae?: File | undefined;
+  searchImage?: File | undefined;
   gallery?: File[] | undefined;
 }
 

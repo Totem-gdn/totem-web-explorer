@@ -21,7 +21,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   userData: UserEntity | null = null;
   user$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
   wallet: string | undefined = '';
-  userFullName: string = '';
+  userSlicedName: string = '';
   walletNumber: string = '';
 
   @Input() loggedIn: boolean = false;
@@ -56,10 +56,8 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
         if(!user) this.userData = null;
         if (user) {
           this.userData = user;
-          const userName = user?.name || '';
-          this.userFullName = userName;
           if (this.userData?.name?.length! > 16) {
-            this.userData!.name = userName?.slice(0, 16) + '...';
+            this.userSlicedName = this.userData!.name?.slice(0, 16) + '...';
           }
           this.wallet = this.userData?.wallet;
           this.walletNumber = this.wallet?.slice(0, 6) + '...' + this.wallet?.slice(-4);

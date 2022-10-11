@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '
 import { Router } from '@angular/router';
 import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
+import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 
 @Component({
@@ -11,12 +12,15 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 })
 export class GemCardComponent {
 
-  constructor(private router: Router, private favouritesService: FavouritesService) {}
+  constructor(private router: Router, private favouritesService: FavouritesService,
+              private itemsService: TotemItemsService) {}
 
   @Input() width = 'full';
   @Input() gem: any;
   isLiked = false;
 
+  ngOnInit() {
+  }
 
   onClickLike() {
     this.gem.isLiked = !this.gem.isLiked;
@@ -28,7 +32,10 @@ export class GemCardComponent {
   }
 
   onNavigate() {
-    this.router.navigate(['/item-info']);
+    const id = this.gem?.id;
+    this.itemsService.testItem.next({type: 'gem', item: this.gem});
+
+    this.router.navigate(['/item-info'], {queryParams: { id: id }});
   }
 
 }

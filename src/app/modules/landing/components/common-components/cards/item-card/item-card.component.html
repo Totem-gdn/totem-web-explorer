@@ -34,16 +34,16 @@
             <div>
                 <h4 *ngIf="!item?.updatedAt && !item?.timeLastUpdated">24.24.24</h4>
                 <h4 *ngIf="item?.updatedAt">{{item?.updatedAt | date:'dd/MM/yy'}}</h4>
-                <h4 *ngIf="item?.timeLastUpdated">{{item?.timeLastUpdated}}</h4>
+                <h4 *ngIf="item?.timeLastUpdated">{{item?.timeLastUpdated | date:'dd/MM/yy'}}</h4>
 
                 <p class="text-light-grey">Last used</p>
             </div>
             <div>
-                <h4>100</h4>
+                <h4>--</h4>
                 <p class="text-light-grey">Rarity</p>
             </div>
             <div>
-                <h4 *ngIf="!item?.games && item?.games != 0">566</h4>
+                <h4 *ngIf="!item?.games && item?.games != 0">--</h4>
                 <h4 *ngIf="item?.games || item?.games == 0">{{item?.games}}</h4>
 
                 <p class="text-light-grey">Games used</p>

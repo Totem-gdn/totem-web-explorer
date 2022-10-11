@@ -1,10 +1,11 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
 import { ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
+import { FormsService } from '../../services/forms.service';
 
 @Component({
   selector: 'totem-details-tab',
@@ -22,6 +23,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   finalizedCardImage!: File;
   finalizedSearchImage!: File;
   finalizedGalleryImages: File[] = [];
+  allowButton: boolean = false;
 
   imageHover: any = {
     coverImgHovered: false,
@@ -30,39 +32,57 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     galleryImgHovered: false,
   };
 
+  @Input() set savedImages(value: ImagesToUpload) {
+    if (value) {
+      this.finalizedImage = value.coverImage!;
+      this.finalizedCardImage = value.cardImage!;
+      this.finalizedSearchImage = value.searchImage!;
+      this.finalizedGalleryImages = value.gallery!;
+    }
+  };
+
   @Output() formDataEvent: EventEmitter<ImagesInfo> = new EventEmitter();
   @Output() imageFilesEvent: EventEmitter<ImagesToUpload> = new EventEmitter();
+  @Output() tabSelected = new EventEmitter<string>();
 
-  constructor(readonly matDialog: MatDialog,) {
+  constructor(readonly matDialog: MatDialog, private formsService: FormsService) {
   }
 
   ngOnInit() {
-
+    this.subs.add(
+      this.formsService.tabsValidity$().subscribe(tabs => {
+        if(tabs.basicInfoValid && tabs.detailsValid) {
+          this.allowButton = true;
+        } else {
+          this.allowButton = false;
+        }
+      })
+    )
   }
 
   updateFormData() {
     const formDataToSend: ImagesInfo = {
       coverImage: {
-        mimeType: this.finalizedImage.type,
-        filename: this.finalizedImage.name,
-        contentLength: this.finalizedImage.size
+        mimeType: this.finalizedImage?.type,
+        filename: this.finalizedImage?.name,
+        contentLength: this.finalizedImage?.size
       },
       cardThumbnail: {
-        mimeType: this.finalizedCardImage.type,
-        filename: this.finalizedCardImage.name,
-        contentLength: this.finalizedCardImage.size
+        mimeType: this.finalizedCardImage?.type,
+        filename: this.finalizedCardImage?.name,
+        contentLength: this.finalizedCardImage?.size
       },
       smallThumbnail: {
-        mimeType: this.finalizedSearchImage.type,
-        filename: this.finalizedSearchImage.name,
-        contentLength: this.finalizedSearchImage.size
+        mimeType: this.finalizedSearchImage?.type,
+        filename: this.finalizedSearchImage?.name,
+        contentLength: this.finalizedSearchImage?.size
       },
       gallery:
         this.finalizedGalleryImages.map((image: File) => {
           return {
-            mimeType: image.type,
-            filename: image.name,
-            contentLength: image.size
+            mimeType: image?.type,
+            filename: image?.name,
+            contentLength: image?.size
           }
         })
     }
@@ -103,6 +123,22 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
   }
 
+  isFormValid() {
+    if(this.checkValidity()) {
+      this.formsService.setFormValidity('details', true);
+    } else {
+      this.formsService.setFormValidity('details', false);
+    }
+  }
+
+  checkValidity(): boolean {
+    return this.finalizedImage && this.finalizedCardImage && this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
+  }
+
+  onNextTab() {
+    this.tabSelected.emit('links');
+  }
+
   cropSelectedImage(event: any, type: string) {
     this.openCropperDialog(event, type);
   }
@@ -134,9 +170,10 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
           this.imageFilesEvent.emit({
               coverImage: this.finalizedImage,
               cardImage: this.finalizedCardImage,
-              searchImgae: this.finalizedSearchImage,
+              searchImage: this.finalizedSearchImage,
               gallery: this.finalizedGalleryImages
           })
+          this.isFormValid(); //IMG VALIDATION
         }
       })
     )

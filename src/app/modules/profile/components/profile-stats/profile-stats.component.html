@@ -2,17 +2,17 @@
   <div class="profile-stats px-[15px] xs:px-[30px]" fxLayout="row">
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>All :</div>
-      <div *ngIf="totalAvatars | async" class="data-caption">{{totalAvatars | async}}</div>
-      <div *ngIf="!(totalAvatars | async)" class="data-caption">{{'--'}}</div>
+      <div *ngIf="_total | async" class="data-caption">{{_total | async}}</div>
+      <div *ngIf="!(_total | async)" class="data-caption">{{'--'}}</div>
 
     </div>
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>Rare :</div>
-      <div class="data-caption">123</div>
+      <div class="data-caption">--</div>
     </div>
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>Unique :</div>
-      <div class="data-caption">1</div>
+      <div class="data-caption">--</div>
     </div>
     <!-- <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>Popular Items:</div>

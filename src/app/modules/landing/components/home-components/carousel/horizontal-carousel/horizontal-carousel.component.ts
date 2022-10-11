@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BreakPointRegistry } from '@angular/flex-layout';
 import { Router } from '@angular/router';
 import { ComboBoxService } from '@app/core/services/combobox-state.service';
+import { BehaviorSubject } from 'rxjs';
 
 import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
 
@@ -12,11 +13,6 @@ import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swipe
     styleUrls: ['./horizontal-carousel.component.scss'],
 })
 export class HorizontalCarouselComponent implements AfterViewInit {
-
-    constructor(private router: Router, private comboBoxService: ComboBoxService) {
-
-    }
-
     swiper!: Swiper;
 
     @Input() title = '';
@@ -29,62 +25,71 @@ export class HorizontalCarouselComponent implements AfterViewInit {
     @Input() itemType = 'item';
     @Input() itemsCount = 4;
 
+    // loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
     @ViewChild('horizontalSwiper') horizontalSwiper!: any;
 
-    
+    constructor(private router: Router, private comboBoxService: ComboBoxService) {}
+
     ngAfterViewInit() {
-        this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
-            modules: [Navigation, Pagination, Autoplay],
+        this.initSwiper();
+    }
 
-            speed: 400,
-            // loop: true,
-            coverflowEffect: {
-                slideShadows: false
-            },
+    initSwiper() {
+      this.swiper = new Swiper(this.horizontalSwiper.nativeElement, {
+        modules: [Navigation, Pagination],
+        speed: 400,
+        slidesPerView: 4,
+        spaceBetween: 16,
+        loopPreventsSlide: false,
+        rewind: true,
+        lazy: true,
+        preloadImages: true,
+        updateOnImagesReady: true,
 
-            loopPreventsSlide: false,
-            rewind: true,
-
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                    slidesPerGroup: 1
-                },
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 16,
-                    slidesPerGroup: 1
-                },
-                480: {
-                    slidesPerView: 1,
-                    spaceBetween: 16,
-                    slidesPerGroup: 1
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 16,
-                    slidesPerGroup: 2
-                },
-                1000: {
-                    slidesPerView: 3,
-                    spaceBetween: 16,
-                    slidesPerGroup: 2
-                },
-                1280: {
-                    slidesPerView: 4,
-                    spaceBetween: 16,
-                    slidesPerGroup: 2
-                }
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+                slidesPerGroup: 1
             },
-            // Optional parameters
-            direction: 'horizontal',
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-                type: 'bullets',
-                clickable: true
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 16,
+                slidesPerGroup: 1
             },
-        });
+            480: {
+                slidesPerView: 1,
+                spaceBetween: 16,
+                slidesPerGroup: 1
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+                slidesPerGroup: 2
+            },
+            1000: {
+                slidesPerView: 3,
+                spaceBetween: 16,
+                slidesPerGroup: 2
+            },
+            1280: {
+                slidesPerView: 4,
+                spaceBetween: 16,
+                slidesPerGroup: 2
+            }
+        },
+        // Optional parameters
+        direction: 'horizontal',
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+            clickable: true
+        },
+      });
+      setTimeout(()=>{
+        this.swiper?.update();
+      }, 350)
     }
 
     selectGame(event: any) {
@@ -94,11 +99,11 @@ export class HorizontalCarouselComponent implements AfterViewInit {
     }
 
     onClickRight() {
-        this.swiper.slideNext();
+        this.swiper!.slideNext();
     }
 
     onClickLeft() {
-        this.swiper.slidePrev();
+        this.swiper!.slidePrev();
     }
 
     onClickViewAll() {

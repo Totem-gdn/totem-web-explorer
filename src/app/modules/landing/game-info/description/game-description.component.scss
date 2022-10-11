@@ -1,0 +1,47 @@
+@import 'styles/scss/variables';
+
+.description {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 810px;
+}
+
+.tags {
+    display: flex;
+    // text-indent
+    flex-wrap: wrap;
+    white-space: nowrap;
+    column-gap: 6px;
+    row-gap: 8px;
+    .tag {
+        background-color: $grey;
+        padding: 10px;
+        border-radius: 4px;
+        color: $light-grey;
+    }
+}
+p {
+    white-space: pre-wrap;
+}
+
+.links {
+    display: flex;
+    gap: 16px;
+    .link {
+        display: flex;
+        width: 46px;
+        height: 46px;
+        background-color: $black;
+        border-radius: 9999px;
+
+        mat-icon {
+            margin: auto;
+        }
+    }
+}
+
+img {
+    border-radius: 4px;
+    object-fit: cover;
+}

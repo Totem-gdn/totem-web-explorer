@@ -48,14 +48,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       })
     )
     // Wait for user to login, then get Total Items
-    this.subs.add(this.userStateService.currentUser.subscribe(user => {
-        if(user) {
-          this.web3.getAccounts().then(wallet => {
-            console.log(wallet);
-            this.alchService.getUserTotalItems(wallet).subscribe();
-          })
-        }
-    }))
+    // this.subs.add(this.userStateService.currentUser.subscribe(user => {
+    //     if(user) {
+    //       this.web3.getAccounts().then(wallet => {
+    //         console.log(wallet);
+    //         this.alchService.getUserTotalItems(wallet).subscribe();
+    //       })
+    //     }
+    // }))
   }
 
   ngOnDestroy(): void {

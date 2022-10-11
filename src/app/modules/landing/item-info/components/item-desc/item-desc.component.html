@@ -1,7 +1,7 @@
 <div class="wrapper w-full md:max-w-[456px]">
     
     <div class="pb-[40px]">
-        <h2 *ngIf="!nft?.metadata?.name">ID: 3320324</h2>
+        <h2 *ngIf="!nft?.metadata?.name">ID: {{item?.tokenId}}</h2>
         <h2 *ngIf="nft?.metadata?.name">{{nft.metadata.name}}</h2>
     </div>
     <!-- User -->
@@ -15,7 +15,7 @@
     <div class="flex pb-[20px] items-center">
         <p class="text-light-grey">Current owner </p>
         <!-- <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet}}</a> -->
-        <p class="text-white pl-[10px] text-xl">0x88644..568f</p>
+        <p class="text-white pl-[10px] text-xl truncate w-[200px]">{{item?.owner}}</p>
     </div>
 
     <!-- Icons -->
@@ -24,11 +24,11 @@
             <div class="icon !pl-0">
                 <mat-icon *ngIf="isLiked === false" class="like !w-[18px]" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
                 <mat-icon *ngIf="isLiked === true" class="text-yellow !w-[18px]" [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-                <p>3212</p>
+                <p>{{item?.likes}}</p>
             </div>
             <div class="icon">
                 <mat-icon class="!w-[20px]" [svgIcon]="'line:eye'"></mat-icon>
-                <p>3212</p>
+                <p>{{item?.views}}</p>
             </div>
         </div>
         <div class="flex">

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { FiltersService } from "@app/core/services/filters/filters.service";
-import { TagsService } from "@app/core/services/filters/tags.service";
+import { FiltersService } from "@app/modules/landing/components/filters-components/services/filters.service";
+import { TagsService } from "@app/modules/landing/components/filters-components/services/tags.service";
 
 
 @Component({

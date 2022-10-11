@@ -40,34 +40,6 @@ export default class EthereumRpc {
     return tx;
   }
 
-  async getListOfNfts() {
-    const web3 = new Web3(this.provider as any);
-    const accounts = await web3.eth.getAccounts();
-    const Contracts = {
-      Avatar: "0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35", // https://mumbai.polygonscan.com/address/0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35
-      Item: "0xfC5654489b23379ebE98BaF37ae7017130B45086", // https://mumbai.polygonscan.com/address/0xfC5654489b23379ebE98BaF37ae7017130B45086
-      Gem: "0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5", // https://mumbai.polygonscan.com/address/0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5
-    };
-    const contractAddress = Contracts.Item;
-    const contractABI = GetTokensABI;
-    const wallet = accounts[0];
-
-    // JSON.parse(JSON.stringify(contractABI))
-    const contract = new web3.eth.Contract(contractABI, contractAddress);
-    console.log(contract);
-    const balanceOf = await contract.methods.balanceOf(wallet).call();
-    // const tokenURI = await contract.methods.tokenURI(tokenId);
-    // console.log('tokenUrl: ', tokenURI)
-
-    for(let i = 0; i < balanceOf; i++) {
-      const tokenId = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
-      console.log('tokenId', tokenId);
-      const tokenURI = await contract.methods.tokenURI(tokenId).call();
-      console.log('tokenUrl: ', tokenURI)
-    }
-    return balanceOf;
-  }
-
   async getChainId(): Promise<string> {
     try {
       const web3 = new Web3(this.provider as any);

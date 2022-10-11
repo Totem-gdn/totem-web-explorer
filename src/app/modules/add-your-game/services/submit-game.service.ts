@@ -1,9 +1,10 @@
 import { HttpClient, HttpEventType, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ImagesToUpload, ImagesUrls, SubmitGame } from "@app/core/models/submit-game-interface.model";
+import { ConnectionsInfo, ContactsInfo, DetailsInfo, FormValidity, GeneralInfo, ImagesToUpload, ImagesUrls, SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
 import { environment } from "@env/environment";
 import { BehaviorSubject, concat, Observable } from "rxjs";
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -37,7 +38,7 @@ export class SubmitGameService {
     let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
     imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
     imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
-    imagesWithUrls.push({url: links?.smallThumbnail, file: images?.searchImgae});
+    imagesWithUrls.push({url: links?.smallThumbnail, file: images?.searchImage});
     links.imagesGallery?.forEach((link: string, i: number) => {
       imagesWithUrls.push({url: link, file: images.gallery![i]});
     })
@@ -48,37 +49,10 @@ export class SubmitGameService {
   connectImagesWithUrls(imgUrlPair: {url: string | undefined, file: File | undefined}[]): Observable<any>[] {
     const imgUrlRequests: Observable<any>[] = imgUrlPair.map(pair => this.uploadImage(pair.url, pair.file));
     return imgUrlRequests;
-    //concat(...imgUrlRequests).subscribe((event) => {
-    //  if (event.type == HttpEventType.UploadProgress) {
-    //    console.log(Math.round(100 * (event.loaded / event.total)));
-    //  }
-    //  console.log(event);
-    //});
-    //this.approveGame(this.currentIdToUpload);
-    /* const imgUrlRequests = imgUrlPair.map(pair => {
-      let fileName = pair.file!.name;
-      const formData = new FormData();
-      formData.append("card", pair.file!);
-      return this.uploadImage(pair.url, formData);
-    }); */
   }
 
   uploadImage(url: string | undefined, file: File | undefined): Observable<any> {
     return this.http.put<any>(`${url}`, file, { reportProgress: true, observe: 'events' });
-  }
-
-  saveForm(formName: string, value: any) {
-    if (formName == 'general') this.storage.setItem('general', JSON.stringify(value));
-    if (formName == 'details') this.storage.setItem('details', JSON.stringify(value));
-    if (formName == 'contacts') this.storage.setItem('contacts', JSON.stringify(value));
-    if (formName == 'connections') this.storage.setItem('connections', JSON.stringify(value));
-
-  }
-
-  getForm(formName: string) {
-    const values = this.storage.getItem(formName);
-    if (!values) return null;
-    return JSON.parse(values);
   }
 
 }

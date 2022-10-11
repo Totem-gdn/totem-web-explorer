@@ -1,6 +1,6 @@
-import { Component, ElementRef, ViewChild, Input, OnDestroy } from "@angular/core";
-import { FiltersService } from "@app/core/services/filters/filters.service";
-import { TagsService } from "@app/core/services/filters/tags.service";
+import { Component, ElementRef, ViewChild, Input, OnDestroy, AfterViewInit, AfterViewChecked, ChangeDetectorRef } from "@angular/core";
+import { FiltersService } from "@app/modules/landing/components/filters-components/services/filters.service";
+import { TagsService } from "@app/modules/landing/components/filters-components/services/tags.service";
 import { Subscription } from "rxjs";
 
 export interface Items {
@@ -123,17 +123,17 @@ const Items: Items[] = [
     styleUrls: ['./graph-slider.component.scss']
 })
 
-export class GraphSliderComponent implements OnDestroy {
+export class GraphSliderComponent implements OnDestroy, AfterViewInit {
 
     constructor(private filtersService: FiltersService,
-                private tagsService: TagsService) {}
+                private tagsService: TagsService,private changeDetector : ChangeDetectorRef) {}
 
-    minValue = 0;
-    maxValue = 0;
+    minValue: number = 100;
+    maxValue: number = 200;
 
     marginLeft!: string;
     marginRight!: string;
-    
+
     items: Items[] = Items;
     sub!: Subscription;
 
@@ -150,6 +150,10 @@ export class GraphSliderComponent implements OnDestroy {
         this.changeMinValue();
         this.setMargins();
         this.checkRange();
+    }
+
+    ngAfterViewChecked() {
+      this.changeDetector.detectChanges();
     }
 
     update() {
@@ -173,20 +177,19 @@ export class GraphSliderComponent implements OnDestroy {
             this.setMargins();
         })
     }
-    
+
     exportValue() {
         const value = `${this.title} ${this.minValue}-${this.maxValue}`;
         const reference = this.sliderThumbMin;
-        const tag = {value: value, reference: reference}
+        const tag = {value: value, type: this.title, inputType: 'graph', reference: reference}
         this.tagsService.handleRangeTag(tag);
     }
-    
+
     checkRange() {
         this.items.map((item: Items) => { item.price >= this.minValue && item.price <= this.maxValue ? item.isInRange = true : item.isInRange = false});
       }
 
     changeMinValue() {
-        console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
         const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 18) / (minValue.max - minValue.min));
@@ -206,7 +209,7 @@ export class GraphSliderComponent implements OnDestroy {
         const minValue = this.sliderThumbMin.nativeElement;
         const maxValue = this.sliderThumbMax.nativeElement;
 
-     
+
         if(+minValue.value >= +maxValue.value && +maxValue.value == this.maxValue) {
             maxValue.value = +minValue.value + 1;
         }

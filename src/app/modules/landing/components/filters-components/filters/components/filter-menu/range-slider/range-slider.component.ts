@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, Input, ViewChild } from "@angular/core";
-import { FiltersService } from "@app/core/services/filters/filters.service";
-import { TagsService } from "@app/core/services/filters/tags.service";
+import { FiltersService } from "@app/modules/landing/components/filters-components/services/filters.service";
+import { TagsService } from "@app/modules/landing/components/filters-components/services/tags.service";
 import { Subscription } from 'rxjs';
 
 
@@ -17,8 +17,8 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     }
 
 
-    minValue = 100;
-    maxValue = 200;
+    minValue!: number;
+    maxValue!: number;
 
     marginLeft!: string;
     marginRight!: string;
@@ -33,6 +33,7 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
 
     ngOnInit() {
         this.filtersService.onResetFilters$().subscribe(() => {
+            console.log('subscribe')
             this.tagsService.removeTagByReference(this.sliderThumbMin);
             this.sliderThumbMin.nativeElement.value = 100;
             this.sliderThumbMax.nativeElement.value = 200;
@@ -46,15 +47,15 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     exportValue() {
         const value = `${this.title} ${this.minValue}-${this.maxValue}`;
         const reference = this.sliderThumbMin;
-        const tag = { value: value, reference: reference }
+        const tag = { value: value, type: this.title, inputType: 'range', reference: reference }
         this.tagsService.handleRangeTag(tag);
     }
 
     ngAfterViewInit() {
-        this.checkThumbPosition();
-        this.changeMaxValue();
-        this.changeMinValue();
-        this.setMargins();
+        // this.checkThumbPosition();
+        // this.changeMaxValue();
+        // this.changeMinValue();
+        // this.setMargins();
     }
 
     update() {
@@ -67,7 +68,6 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     }
 
     changeMinValue() {
-        console.log()
         const minValue = this.sliderThumbMin.nativeElement;
 
         const leftIndent = (minValue.value - minValue.min) * ((minValue.getBoundingClientRect().width - 14) / (minValue.max - minValue.min));

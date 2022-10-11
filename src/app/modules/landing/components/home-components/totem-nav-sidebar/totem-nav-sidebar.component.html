@@ -18,12 +18,12 @@
       <ng-container *ngIf="userData; else unauthblock">
         <a class="user-image" fxLayout="column" fxLayoutAlign="center center"
         (click)="close()" routerLink="/profile">
-          <img [src]="userData?.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
+          <img [src]="userData.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
         </a>
         <ng-container *ngIf="userData?.name?.length">
           <div class="user-name">
-            {{userData?.name}}
-            <span class="tooltiptext">{{userFullName}}</span>
+            {{userSlicedName || userData.name}}
+            <span class="tooltiptext">{{userData.name}}</span>
           </div>
           <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2"
             (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
@@ -50,7 +50,7 @@
           <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
-          <a>Help</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/help">Help</a>
           <a (click)="onLogout(); close()" routerLink="/">Sign out</a>
         </div>
       </ng-container>

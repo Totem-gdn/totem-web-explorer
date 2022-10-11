@@ -2,10 +2,10 @@
 
     <div class="flex flex-wrap lg:flex-nowrap justify-between">
         <div class="img-wrapper gradient-border-solid">
-            <img class="rounded" *ngIf="!nftMeta?.metadata?.image" src="assets/images/statue.png" alt="">
-            <img class="rounded" *ngIf="nftMeta?.metadata?.image" [src]="nftMeta?.metadata?.image" alt="">
+            <img *ngIf="!item?.tokenId" class="rounded" src="assets/images/statue.png" alt="">
+            <img *ngIf="item.tokenId" [src]="'https://asset-renderer.totem-explorer.com/' + type + '/' + item?.tokenId" alt="">
         </div>
-        <item-desc class="mt-[60px] px-[30px] lg:mt-0" [wallet]="wallet" [nft]="nftMeta"></item-desc>
+        <item-desc [item]="item" class="mt-[60px] px-[30px] lg:mt-0"></item-desc>
     </div>
 
     <!-- Tabs -->

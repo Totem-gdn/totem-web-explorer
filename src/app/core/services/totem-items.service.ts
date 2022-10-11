@@ -1,7 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, map, Observable } from "rxjs";
+import { ItemParam } from "../models/item-param.model";
+import { CacheService } from "./cache.service";
 
 const NEWEST_ITEMS: any[] = [
   {
@@ -136,7 +138,97 @@ export class TotemItemsService {
   private avatars$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
   avatars: Observable<any[] | null> = this.avatars$.asObservable();
 
-  constructor(private http: HttpClient) {
+  private _filters = new BehaviorSubject<ItemParam[]>([]);
+
+  testItem = new BehaviorSubject<any>({});
+
+  constructor(private http: HttpClient,
+              private cacheService: CacheService) {
+  }
+
+  set filters(filters: ItemParam[]) {
+    this._filters.next(filters);
+  }
+  get filters$() {
+    return this._filters.asObservable();
+  }
+  resetFilters() {
+    this._filters.next([]);
+  }
+
+  handleParams(filters: ItemParam[] | undefined) {
+    console.log(JSON.stringify(filters))
+    let params = new HttpParams();
+    if(!filters) return params;
+    params = params.append('filters', JSON.stringify(filters));
+
+    return params;
+  }
+
+  getAvatars$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
+
+    return this.http.get<any>(`${this.baseUrl}/assets/avatars`, {params: params}).pipe(
+      map(avatars => {
+        if(avatars && avatars?.length) {
+          // this.cacheService.setItemCache('avatar', avatars.length);
+          return avatars;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+
+  }
+
+  getGems$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
+
+    return this.http.get<any>(`${this.baseUrl}/assets/gems`, {params: params}).pipe(
+      map(gems => {
+        if(gems && gems?.length) {
+          // this.cacheService.setItemCache('gem', gems.length);
+          return gems;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+  }
+
+  getItems$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
+
+    return this.http.get<any>(`${this.baseUrl}/assets/items`, {params: params}).pipe(
+      map(items => {
+        console.log('items', items)
+        if(items && items?.length) {
+          // this.cacheService.setItemCache('item', items.length);
+          return items;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+  }
+
+  getGames$(filters?: ItemParam[]) {
+    const queryFilters = this._filters.getValue();
+    let params = this.handleParams(queryFilters);
+    return this.http.get<any>(`${this.baseUrl}/games`,  {params: params}).pipe(
+      map(games => {
+        console.log(games);
+        if(games && games?.length) {
+          // this.cacheService.setItemCache('game', games.length);
+          return games;
+        } else {
+          return [0,0,0,0,0];
+        }  
+      }))
+  }
+
+  getGameById(id: string) {
+    return this.http.get(`${this.baseUrl}/games/${id}`);
   }
 
   getNewestItems() {
