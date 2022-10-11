@@ -18,7 +18,7 @@ export class Web3AuthService {
     isModalLoaded = false;
     usdcClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     maticClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
-    web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
+    web3!: Web3;
 
     init = async () => {
         this.web3auth = new Web3Auth({
@@ -49,6 +49,7 @@ export class Web3AuthService {
     }
 
     isReceiptedMatic(hash: string) {
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
       const interval1 = setInterval( async () => {
         console.log("Attempting to get MATIC transaction receipt...");
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
@@ -65,6 +66,7 @@ export class Web3AuthService {
       }, 1000);
     }
     isReceiptedUsdc(hash: string) {
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
       const interval2 = setInterval( async () => {
         console.log("Attempting to get USDC transaction receipt...");
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {

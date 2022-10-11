@@ -70,6 +70,20 @@ mat-progress-bar {
   }
 }
 
+.tx-dialog {
+  width: 100%;
+  max-width: 1000px !important;
+  //height: 100%;
+  min-height: 486px;
+
+  .mat-dialog-container {
+    border: 1px solid #8A939B;
+    background-color: #2A2D33;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
 .blurred-backdrop {
   background: rgba(67, 67, 67, 0.25);
   backdrop-filter: blur(20px);
