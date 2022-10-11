@@ -7,16 +7,14 @@
     .progress-block {
 
       .banner-info {
-        padding-top: 56px;
-        padding-bottom: 53px;
+        padding-left: 10px;
+        padding-right: 10px;
         background-color: $yellow;
         border-radius: 4px;
         &-title {
-          word-break: break-all;
+          width: 100%;
           text-align: center;
           font-weight: 400;
-          font-size: 48px;
-          line-height: 48px;
           text-transform: uppercase;
           color: $dark;
         }
@@ -24,7 +22,6 @@
           text-align: center;
           font-weight: 500;
           font-size: 20px;
-          line-height: 23px;
           color: $dark;
         }
 

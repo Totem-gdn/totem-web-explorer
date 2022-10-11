@@ -1,5 +1,5 @@
 
-<div class="wrapper flex-wrap lg:flex-nowrap justify-center lg:justify-between p-[25px] lg:p-[25px]">
+<div class="wrapper flex-wrap lg:flex-nowrap justify-around lg:justify-between p-[25px] lg:p-[25px]">
     <bg-circle class="left-[-140px] top-[-140px]" [width]="'280px'" [background]="'#FFD011'"></bg-circle>
     <bg-circle class="left-[200px] top-[-75px]" [width]="'150px'" [background]="'#5823C9'"></bg-circle>
     <bg-circle class="left-[0px] top-[100px]" [width]="'200px'" [background]="'#5823C9'"></bg-circle>
@@ -14,15 +14,15 @@
 
 
 
-    <div class="flex flex-col max-w-[370px] w-full justify-center mb-[30px] xl:m-0 z-12">
+    <div class="flex flex-col max-w-[420px] w-full justify-center xl:m-0 z-12 pt-[20px] lg:p-0">
         <div class="font-totem uppercase text-[20px] sm:text-[32px] pl-0 lg:pl-[25px]">
             Try on your Item for any game!
         </div>
         <p class="mt-[30px] pl-0 lg:pl-[25px]">Choose the game name in the widget & see how item appearance will change!</p>
     </div>
 
-    <div class="flex grow justify-center h-[250px] max-w-[370px]">
-        <div class="mb-auto mt-[10px] lg:my-0 mx-auto lg:mx-[20px] w-full z-12">
+    <div class="flex grow justify-center h-[200px] max-w-[420px] pt-[20px] lg:pt-0">
+        <div class="mb-auto mt-[10px] lg:my-0 mr-auto lg:mr-[20px] z-12 min-w-[280px] lg:min-w-[auto]">
             <search-dropdown [alwaysOpen]="true" [title]="'Game Name'" (onFakeChange)="reselectGames($event)" (onChange)="selectGame($event)"></search-dropdown>
         </div>
     </div>

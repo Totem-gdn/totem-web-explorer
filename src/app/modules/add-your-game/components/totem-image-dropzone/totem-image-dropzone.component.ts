@@ -15,15 +15,15 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   file!: File;
   imageUrl!: string;
   imageReader: FileReader = new FileReader();
-
+  jsonFile!: File;
 
   dzHovered: boolean = false;
 
-  imageChangedEvent: any = '';
   croppedImage: any = '';
 
   @Input() recommendedResolution: string = '';
   @Input() selfFill: boolean = false;
+  @Input() jsonFileType: boolean = false;
   @Input() dzMinHeight: string = '247px';
   @Input() finalizedImage!: File;
   @Input() uniqueId: string = 'file';
@@ -57,14 +57,26 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     this.dzHovered = false;
   }
 
+  validateFile(event: any): boolean {
+    if (this.jsonFileType) {
+      return event?.type === 'application/json' ? true : false;
+    }
+    return event?.type.includes('image/') ? true : false;
+  }
+
   getFile(event: any) {
-    console.log(typeof event);
-    this.imageChangedEvent = event;
-    this.file = event.target.files[0];
-    console.log(this.file);
-    //this.imageReader.readAsDataURL(this.file);
-    //this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
-    this.finalizedFile.next(event);
+
+    const fileToValidate: File = event.target.files[0]; console.log(fileToValidate);
+    if (this.validateFile(fileToValidate)) {
+        this.file = fileToValidate;
+        console.log(this.file);
+        if (this.file) {
+          this.finalizedFile.next(event);
+        }
+    } else {
+      console.log('Your input is incorrect');
+
+    }
     this.removeHover();
   }
 

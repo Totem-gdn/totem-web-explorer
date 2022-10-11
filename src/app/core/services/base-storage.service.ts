@@ -26,12 +26,9 @@ export class BaseStorageService implements Storage {
 
   constructor() {
     this.storage = new LocalStorage();
-    console.log('INITED');
 
     AppComponent.isBrowser.subscribe(isBrowser => {
       if (isBrowser) {
-        console.log('Inited storage');
-
         this.storage = localStorage;
       }
     });

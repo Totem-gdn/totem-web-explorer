@@ -36,19 +36,21 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     subs: Subscription = new Subscription();
 
     ngOnInit() {
-        if(this.alwaysOpen === true) this.menuActive = true;
-
-        this.subs.add(
-          this.comboBoxService.selectedGame.subscribe((game: string) => {
-            if (game) {
-              this.title = game;
-            }
-          })
-        )
+        if(this.alwaysOpen === true) {
+          this.menuActive = true;
+          this.subs.add(
+            this.comboBoxService.selectedGame.subscribe((game: string) => {
+              if (game) {
+                this.title = game;
+              }
+            })
+          )
+        }   
     }
 
     ngOnDestroy(): void {
       this.subs.unsubscribe();
+      this.scriptSubscribe.unsubscribe();
     }
 
     onChangeInput(event: any) {
@@ -87,7 +89,10 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-      if (this.alwaysOpen) this.startScriptTimer(2000, 5000);
+      if (this.alwaysOpen) {
+        this.startScriptTimer(2000, 5000);
+        this.dropdown.nativeElement.style.width = '270px'
+      }
       this.allRadioButtons = this.menuItems.nativeElement.children;
     }
 

@@ -24,20 +24,20 @@ export class GamesService {
 
     fetchGames(wallet: string) {
         return this.http.get<any>(`https://simple-api.totem.gdn/default/gem/${wallet}`).pipe(
-            map(games => this.formatTime(games.data)),
+            // map(games => this.formatTime(games.data)),
             tap(games => {
                 this.games = games;
             }))         
     }
 
-    formatTime(games: any[]) {
-        const formattedItems: any[] = [];
+    // formatTime(games: any[]) {
+    //     const formattedItems: any[] = [];
 
-        for(let game of games) {
-            game.updatedAt = new Date(game.updatedAt).toLocaleDateString();
-            formattedItems.push(game);
-        }
+    //     for(let game of games) {
+    //         game.updatedAt = new Date(game.updatedAt).toLocaleDateString();
+    //         formattedItems.push(game);
+    //     }
 
-        return formattedItems;
-    }
+    //     return formattedItems;
+    // }
 }

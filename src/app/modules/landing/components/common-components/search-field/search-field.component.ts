@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
-import { ItemsService } from "@app/core/items.service";
 import { BehaviorSubject, of, switchMap } from "rxjs";
 
 
@@ -13,8 +12,7 @@ import { BehaviorSubject, of, switchMap } from "rxjs";
 
 export class SearchFieldComponent implements OnInit {
 
-    constructor(private router: Router,
-                private itemsService: ItemsService) {
+    constructor(private router: Router,) {
 
     }
     @Input() itemType: string = '';
@@ -33,7 +31,7 @@ export class SearchFieldComponent implements OnInit {
         //     const items = this.itemsArray.getValue();
         //     console.log(items)
         // },1000)
-        this.items = this.itemsService.items;
+        // this.items = this.itemsService.items;
         this.initFormListener();
       }
     

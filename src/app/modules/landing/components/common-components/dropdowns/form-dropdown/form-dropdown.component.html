@@ -13,7 +13,7 @@
         <div #menuItems class="menu-items">
             <label class="menu-item" *ngFor="let item of items">
                 <span>{{item.value}}</span>
-                <input (change)="onChangeInput($event)" value="{{item.value}}" [type]="inputType" name="input">
+                <input (change)="onChangeInput($event.target)" value="{{item.value}}" [type]="inputType" name="input">
             </label>
         </div>
     </div>

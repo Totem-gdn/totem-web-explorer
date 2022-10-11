@@ -1,0 +1,102 @@
+@import 'styles/scss/variables';
+
+.img-upload-dialog {
+  height: 100%;
+  width: 100%;
+
+  * {
+    color:#FFFFFF;
+  }
+
+  .button-block {
+    * {
+      color: $dark;
+    }
+    .cancel-button {
+      width: 102px;
+      height: 40px;
+      background-color: $dark-grey;
+      color: #FFFFFF;
+      border-radius: 4px;
+      display: flex;
+      place-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      user-select: none;
+    }
+  }
+
+  &-wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    .content-block {
+      border: 1px dashed $light-grey;
+      border-radius: 4px;
+      &-body {
+        background-color: $dark;
+        border-radius: 4px;
+        &-title {
+          font-weight: 400;
+          font-size: 48px;
+          line-height: 48px;
+          text-align: center;
+          text-transform: uppercase;
+          color: #FFFFFF;
+        }
+        &-subtitle {
+          max-width: 599px;
+          width: 100%;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 23px;
+          text-align: center;
+        }
+        &-progress {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 16px;
+          max-width: 543px;
+          width: 100%;
+        }
+      }
+    }
+    .crop-workbench {
+      border: 1px dashed $light-grey;
+      max-height: 630px;
+      height: 100%;
+      border-radius: 4px;
+
+      &-cropground {
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+        overflow: hidden;
+
+        image-cropper {
+          width: 100%;
+          height: 100%;
+        }
+
+      }
+
+      &-loader {
+        left: 0;
+        top: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+    }
+
+    .crop-footer {
+      height: 40px;
+    }
+
+  }
+}

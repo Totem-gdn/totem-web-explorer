@@ -12,8 +12,10 @@ export class TotemPromoGameComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.game);
+  }
 
+  goToGame() {
+    window.open(this.game[0].gameUrl, '_blank');
   }
 
 }

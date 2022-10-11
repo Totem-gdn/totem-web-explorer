@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CacheService } from '@app/core/services/cache.service';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
-import { AvatarsService } from '@app/core/services/items/avatars.service';
+import { ItemsService } from '@app/core/services/items/items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-avatars',
@@ -11,38 +12,53 @@ import { Subscription } from 'rxjs';
 })
 export class UserAvatarsComponent implements OnInit {
 
-  constructor(private avatarsService: AvatarsService,
-              private web3Service: Web3AuthService,
-              private alchService: AlchemyService) { }
+  constructor(private web3Service: Web3AuthService,
+              private alchService: AlchemyService,
+              private itemsService: ItemsService,
+              private cacheService: CacheService) { }
 
-  sub!: Subscription;
-  avatars: any[] = [];
-  totalAvatars = 0;
+  subs = new Subject<void>();
+  avatars!: any[];
 
   async ngOnInit() {
+    // this.filters$();
+    // this.fetchAvatars();
+    this.getNfts();
+  }
+
+  // filters$() {
+  //   this.itemsService.filters$.pipe(takeUntil(this.subs)).subscribe(filters => {
+  //     this.fetchAvatars(filters);
+  //   })
+  // }
+
+  // fetchAvatars(filters?: ItemParam[]) {
+  //   this.itemsService.getAvatars$(filters).pipe(takeUntil(this.subs)).subscribe(avatars => {
+  //     this.avatars = avatars;
+  //   })
+  // }
+
+  async getNfts() {
     const wallet = await this.web3Service.getAccounts();
-    this.avatarsService.fetchAvatars(wallet).subscribe(avatars => {
-      this.avatars = this.avatars.concat(avatars);
-    });
 
     this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-      console.log(nfts);
+      const avatars: any[] = [];
       for(let nft of nfts) {
         nft.id.tokenId = parseInt(nft.id.tokenId);
         if(nft.contractMetadata.name === 'Avatar') {
-          this.avatars.unshift(nft);
+          avatars.push(nft);
         }
       }
+      this.avatars = avatars;
+      this.cacheService.setItemCache('avatar', this.avatars.length);
     })
-
-
-    this.alchService.userItemsByType(wallet, 'Avatar').subscribe(total => {
-      this.totalAvatars = total;
-    });
   }
 
+  
+
   ngOnDestroy () {
-    this.sub?.unsubscribe();
+    this.subs.next();
+    this.subs.complete();
   }
 
 }

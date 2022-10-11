@@ -1,0 +1,11 @@
+<div class="wrapper py-[40px] sm:py-[80px]">
+    <div class="img-wrapper">
+        <img [src]="game?.images?.coverImage ? game?.images?.coverImage : 'assets/images/game-info/head.png'" alt="">
+    </div>
+
+    <div class="flex gap-[60px] justify-between">
+        <game-description [game]="game"></game-description>
+
+        <game-review [game]="game"></game-review>
+    </div>
+</div>

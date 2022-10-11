@@ -4,51 +4,52 @@
     <div class="info-block">
         <div class="info-block-wrapper">
 
-            <div class="block-section pt-[40px]">
+            <div class="block-section pt-[10px] sm:pt-[40px]">
                 <h4>Game Name</h4>
                 <div class="input-section">
-                    <input type="text" formControlName="gameName" (blur)="saveValue('gameName')">
-                    <span @showMessage class="error-message" *ngIf="gameErrors">Required field</span>
+                    <input type="text" formControlName="name" (blur)="saveValue()">
+                    <span @showMessage class="error-message" *ngIf="checkErrors('name', 'required')">Required field</span>
                 </div>
             </div>
 
-            <div class="block-section pt-[40px]">
+            <div class="block-section pt-[10px] sm:pt-[40px]">
                 <h4>Author Name</h4>
                 <div class="input-section">
-                    <input type="text" formControlName="authorName" (blur)="saveValue('authorName')">
-                    <span @showMessage class="error-message" *ngIf="authorErrors">Required field</span>
+                    <input type="text" formControlName="author" (blur)="saveValue()">
+                    <span @showMessage class="error-message" *ngIf="checkErrors('author', 'required')">Required field</span>
                 </div>
             </div>
 
             <div class="block-section">
                 <h4>Brief Description</h4>
                 <div class="input-section">
-                    <textarea class="gradient-border-solid" name="" id="" rows="5" 
-                        formControlName="briefDescription"
-                        (ngModelChange)="briefDescChange($event)"  
-                        (blur)="saveValue('briefDescription')"></textarea>
-                    <span @showMessage class="error-message" *ngIf="briefErrors('required')">Required field</span>
+                    <textarea class="gradient-border-solid" name="" id="" rows="5"
+                        formControlName="description"
+                        (ngModelChange)="briefDescChange($event)"
+                        (blur)="saveValue()"></textarea>
+                    <span @showMessage class="error-message" *ngIf="checkErrors('description', 'required')">Required field</span>
 
                     <div class="flex flex-wrap justify-between">
                         <span>The text should not contain more than 300 characters</span>
                         <span [ngClass]="briefDescLength >= 300 ? 'text-error':''">{{briefDescLength}} of 300 characters left</span>
-                    </div>      
+                    </div>
                 </div>
             </div>
 
             <div class="block-section">
                 <h4>Genre</h4>
                 <div class="tags-section">
-                    <form-dropdown (selectedTag)="onSelectTag($event)" 
-                    (removeTag)="onRemoveTag($event)" 
+                    <form-dropdown
+                    (selectedTag)="onSelectTag($event)"
+                    (removeTag)="onRemoveTag($event)"
                     (touched)="onTouchDropdown()"
                     [setItems]="setItems"
-                    (returnValues)="onSetTags($event)"
-                    class="outline-light-grey" [ngClass]="dropdownTouched && genresForm.controls.length === 0 ? 'outline-error':''"
-                        [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
-                    <span @showMessage class="error-message" *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>
+                    class="outline-light-grey"
+                    [ngClass]="dropdownTouched && genresForm.controls.length === 0 ? 'outline-error':''"
+                    [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
+                    <span @fade-in class="error-message" *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>
                     <div class="tags">
-                        <div @tagAnimation class="tag" *ngFor="let genre of genresForm.controls" (click)="onRemoveGenre(genre)">
+                        <div @fade-in class="tag" *ngFor="let genre of genresForm.controls" (click)="onRemoveGenre(genre)">
                             <span>{{genre.value}}</span>
                             <mat-icon [svgIcon]="'line:close'"></mat-icon>
                         </div>
@@ -61,13 +62,24 @@
                 <h4>Full Description<span class="ml-[10px]">(Optional)</span></h4>
                 <div class="input-section">
                     <textarea class="gradient-border-solid" name="" id="" rows="10"
-                        formControlName="fullDescription" 
+                        formControlName="fullDescription"
                         (ngModelChange)="fullDescChange($event)"
-                        (blur)="saveValue('fullDescription')"></textarea>
+                        (blur)="saveValue()"></textarea>
                     <div class="flex flex-wrap justify-between">
                         <span>The text should not contain more than 300 characters</span>
                         <span [ngClass]="fullDescLength >= 300 ? 'text-error':''">{{fullDescLength}} of 300 characters left</span>
                     </div>
+                </div>
+            </div>
+
+            <div class="block-section">
+                <h4>DNA filter</h4>
+                <div class="dta-input-section">
+                  <div class="dropzone-wrapper w-full mb-[15px]">
+                    <totem-image-dropzone [uniqueId]="'json'" [jsonFileType]="true" [dzMinHeight]="'184px'" (finalizedFile)="addJsonFile($event)"></totem-image-dropzone>
+                  </div>
+
+                  <span>Upload JSON file with filters for your game</span>
                 </div>
             </div>
 

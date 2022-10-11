@@ -4,21 +4,21 @@
     <div class="content-container p-[16px] mt-[20px]">
       <div class="image-upload-block px-[20px] py-[30px]" fxLayout="column" fxLayoutAlign="center start">
 
-        <div class="cover-image-block w-full pb-[16px]" fxLayout="row" fxLayoutAlign="space-between start">
-          <div class="image-block-title mr-[20px]">Cover Image</div>
+        <div class="image-block cover-image-block w-full pb-[16px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title">Cover Image</div>
           <div class="cover-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
-            <div class="file-container p-[20px]">
+            <div class="file-container p-[10px] sm:p-[20px]">
               <totem-image-dropzone [uniqueId]="'cover'" [finalizedImage]="finalizedImage" (finalizedFile)="cropSelectedImage($event, 'cover')" [selfFill]="true" [recommendedResolution]="'1400x400px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
             </div>
             <div class="sub-caption mt-[16px]">Upload cover photo for your game page</div>
           </div>
         </div>
 
-        <div class="card-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
-          <div class="image-block-title mr-[20px]">Card thumbnail</div>
+        <div class="image-block card-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title">Card thumbnail</div>
           <div class="card-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
-            <div class="card-content p-[20px]" fxLayout="row" fxLayoutAlign="start start">
-              <div class="file-container mr-[20px]">
+            <div class="card-content p-[10px] sm:p-[20px]" fxLayout="row" fxLayoutAlign="start start">
+              <div class="file-container">
                 <totem-image-dropzone [uniqueId]="'card'" (finalizedFile)="cropSelectedImage($event, 'card')" [recommendedResolution]="'800x600px'" [dzMinHeight]="'472px'"></totem-image-dropzone>
               </div>
               <div class="preview-block card-preview p-[17px] w-full h-full">
@@ -30,11 +30,11 @@
           </div>
         </div>
 
-        <div class="search-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
-          <div class="image-block-title mr-[20px]">Search thumbnail</div>
+        <div class="image-block search-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title">Search thumbnail</div>
           <div class="search-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
-            <div class="search-content p-[20px]" fxLayout="row" fxLayoutAlign="start start">
-              <div class="file-container mr-[20px]">
+            <div class="search-content p-[10px] sm:p-[20px]" fxLayout="row" fxLayoutAlign="start start">
+              <div class="file-container">
                 <totem-image-dropzone [uniqueId]="'search'" (finalizedFile)="cropSelectedImage($event, 'search')" [recommendedResolution]="'200x200px'" [dzMinHeight]="'402px'"></totem-image-dropzone>
               </div>
               <div class="preview-block search-preview py-[18px] px-[37px] w-full h-full">
@@ -45,22 +45,25 @@
           </div>
         </div>
 
-        <div class="gallery-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
-          <div class="image-block-title mr-[20px]">Images Gallery</div>
+        <div class="image-block gallery-image-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="image-block-title">Images Gallery</div>
           <div class="gallery-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
-            <div class="file-container p-[20px]">
+            <div class="file-container p-[10px] sm:p-[20px]">
               <totem-image-dropzone [uniqueId]="'gallery'" (finalizedFile)="cropSelectedImage($event, 'gallery')" [recommendedResolution]="'1920x1080px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
             </div>
             <div class="sub-caption mt-[16px]">Upload photos for your game page</div>
 
-            <div *ngFor="let image of finalizedGalleryImages" class="mt-[30px]">
-              <totem-gallery-card [finalizedImage]="image"></totem-gallery-card>
+            <div class="mt-[30px] w-full overflow-x-auto" fxLayout="row" fxLayoutAlign="start center">
+              <div *ngFor="let image of finalizedGalleryImages; let i = index" [ngStyle]="{'margin-left' : i != 0 ? '22px' : ''}">
+                <totem-gallery-card [finalizedImage]="image"></totem-gallery-card>
+              </div>
             </div>
+
           </div>
         </div>
 
       </div>
     </div>
   </div>
-  <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" (click)="updateFormData()"></totem-button>
+  <totem-button [disabled]="!allowButton" class="py-[80px] flex justify-center" [caption]="'Continue'" (click)="updateFormData(); onNextTab()"></totem-button>
 </div>

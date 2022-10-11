@@ -12,6 +12,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 export class FilterUpdateComponent {
 
   @Input() number = 1000;
+  @Input() showUpdate = true;
   @ViewChild('icon') icon!: any;
 
   onClick() {

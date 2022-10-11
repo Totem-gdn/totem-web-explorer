@@ -11,11 +11,21 @@ export class TotemButtonComponent implements OnInit {
   @Input() height: string = '50px';
   @Input() caption: string = 'Join community';
   @Input() customId: string = 'totemJoinButton';
+  @Input() set disabled(isDisabled: boolean) {
+    console.log('is disabled', isDisabled)
+    this.buttonDisabled = isDisabled;
+    if (isDisabled) {
+      this.hovered = false;
+    } else {
+      this.hovered = true;
+    }
+  };
   @ViewChild('button') button!: ElementRef;
 
   @Output() clicked = new EventEmitter<MouseEvent>();
 
   x: number = Number(this.width) / 2;
+  buttonDisabled: boolean = false;
   hovered: boolean = false;
   disableRipple: boolean = false;
 

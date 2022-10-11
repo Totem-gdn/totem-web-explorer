@@ -1,2 +1,2 @@
-<totem-profile-stats [total]="totalGems"></totem-profile-stats>
-<filter-components [showUpdate]="false"  [filterType]="'gem'" [items]="gems"></filter-components>
+<totem-profile-stats [type]="'gem'" [total]="gems?.length"></totem-profile-stats>
+<filter-components [showUpdate]="false"  [itemType]="'gem'" [items]="gems"></filter-components>

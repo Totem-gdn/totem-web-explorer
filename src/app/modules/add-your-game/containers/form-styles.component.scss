@@ -55,6 +55,19 @@
     width: 100%;
   }
 
+  .dta-input-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .dropzone-wrapper {
+      height: 225px;
+      padding: 20px;
+      background-color: $dark-grey;
+      border-radius: 4px;
+    }
+  }
+
   .tags-section {
     display: flex;
     flex-direction: column;
@@ -65,13 +78,12 @@
     }
 
     & .tags {
-      // margin-bottom: 15px;
-      // min-height: 55px;
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       column-gap: 10px;
-      // transition: height .3s ease-in-out;
+      transition: min-height 2s ease-in-out, max-height 2s;
+      max-height: 500px;
       & .tag {
         margin-bottom: 15px;
         cursor: pointer;
@@ -101,7 +113,7 @@
     border-radius: 4px;
     font-size: 16px;
     min-height: 40px;
-    
+
     width: 100%;
     background-color: $dark-grey;
     transition: border .3s, background-color .3s;
@@ -120,6 +132,8 @@
     padding: 10px;
   }
   & textarea {
+    overflow-y: auto;
+    resize: none;
     padding: 15px 10px;
   }
 }

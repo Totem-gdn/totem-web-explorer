@@ -52,7 +52,8 @@ export class TotemHomePageComponent implements OnInit {
   testGame: any[] = [{
     name: 'D.I.N.O',
     description: 'A game about a young archaeologist resurrecting dinosaurs from their bones and taking care of them',
-    url: 'assets/images/dino-game.png'
+    url: 'assets/images/dino-game.png',
+    gameUrl: 'https://gandswite.itch.io/project-dino'
   }]
   x: number = 0;
   y: number = 0;
@@ -123,11 +124,9 @@ export class TotemHomePageComponent implements OnInit {
   };
 
   particlesLoaded(container: Container): void {
-    console.log(container);
   }
 
   async particlesInit(engine: Engine): Promise<void> {
-    console.log(engine);
 
     // Starting from 1.19.0 you can add custom presets or shape here, using the current tsParticles instance (main)
     // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -200,11 +199,9 @@ export class TotemHomePageComponent implements OnInit {
     );
     this.subs.add(
       this.totemItemsService.mostUsedItems.subscribe((items: any[] | null) => {
-        console.log(items);
+        console.log('items', items)
         if (items) {
           this.mostUsedItems$.next(items);
-          console.log(items);
-
         }
       })
     );
@@ -229,7 +226,6 @@ export class TotemHomePageComponent implements OnInit {
   }
 
   generateItem(event: MouseEvent) {
-    console.log(event);
     this.router.navigate(['/buy']);
   }
 

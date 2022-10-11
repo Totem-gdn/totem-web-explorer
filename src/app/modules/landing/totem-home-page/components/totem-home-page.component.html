@@ -1,6 +1,5 @@
 <div class="totem-landing" fxLayoutAlign="center">
   <div class="totem-landing-wrapper" fxLayout="column" fxLayoutAlign="start">
-    <!-- <div class="landing-cta-bg"></div> -->
     <div class="landing-cta-content" fxLayout="row wrap" fxLayoutAlign="space-between center">
       <div class="landing-ellipses-bg">
         <div class="ellipse-1"></div>
@@ -11,17 +10,8 @@
         <div class="blured-circle-1"></div>
         <div class="blured-circle-2"></div>
         <div class="blured-circle-3"></div>
-        <!-- <bg-circle class="absolute top-[50px] left-[613px]" [width]="'350px'" [background]="'#FFD011'" [move]="true" [delay]="'-2s'"></bg-circle>
-        <bg-circle class="absolute top-[50px] left-[813px]" [width]="'170px'" [background]="'radial-gradient(330% 330% at 50% 50%, #FF6666 0%, rgba(255, 102, 102, 0) 100%)'" [move]="true" [delay]="'-3s'"></bg-circle>
-        <bg-circle class="absolute top-[50px] left-[371px]" [width]="'303px'" [background]="'radial-gradient(52.97% 52.97% at 50% 50%, #FF66F9 0%, #212326 100%)'" [move]="true" [delay]="'-4s'"></bg-circle>
-        <bg-circle class="absolute top-[50px] left-[91px]" [width]="'170px'" [background]="'radial-gradient(85.59% 85.59% at 50% 50%, #FFE166 0%, #2B2530 100%)'" [move]="true" [delay]="'-5s'"></bg-circle>
-        <bg-circle class="absolute top-[50px] left-[875px]" [width]="'400px'" [background]="'#00BC58'" [move]="true" [delay]="'-6s'"></bg-circle>
-        <bg-circle class="absolute top-[50px] left-[-79px]" [width]="'300px'" [background]="'#5823C9'" [move]="true" [delay]="'-7s'"></bg-circle>
-        <bg-circle class="absolute top-[50px] left-[1058px]" [width]="'350px'" [background]="'#5823C9'" [move]="true" [delay]="'-8s'"></bg-circle> -->
       </div>
       <div fxFlex="100%" class="cta-text-block" fxLayout="column" fxLayoutAlign="start">
-        <!-- <ng-particles class="absolute top-[50px] left-[1058px]" [id]="id" [options]="particlesOptions" [particlesInit]="particlesInit"
-        (particlesLoaded)="particlesLoaded($event)"></ng-particles> -->
         <div class="ellipse-1"></div>
         <div class="ellipse-2"></div>
         <div class="cta-head-text">
@@ -52,6 +42,7 @@
       <horizontal-carousel
         [title]="'The most popular items'"
         [menuTitle]="'Game name'"
+        [itemType]="'item'"
         [items]="mostUsedItems$ | async">
       </horizontal-carousel>
     </div>
@@ -65,7 +56,7 @@
         [title]="'The most used avatars'"
         [itemType]="'avatar'"
         [menuTitle]="'Game name'"
-        [items]="newestItems$ | async">
+        [items]="avatars$ | async">
       </horizontal-carousel>
     </div>
 
@@ -86,8 +77,8 @@
       <horizontal-carousel
         [title]="'Newest Totem Items'"
         [menuTitle]="'Game name'"
-        [itemType]="'avatar'"
-        [items]="avatars$ | async">
+        [itemType]="'item'"
+        [items]="newestItems$ | async">
       </horizontal-carousel>
     </div>
 

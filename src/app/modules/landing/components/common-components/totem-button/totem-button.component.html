@@ -3,6 +3,7 @@
   (mouseenter)="onMouseEnter()"
   (mousemove)="onMouseOver($event)"
   (mouseleave)="onMouseLeave()"
+  [disabled]="buttonDisabled"
   class="join-button"
   [ngStyle]="{'width': width, 'height': height}"
   (click)="clickEvent($event)"
@@ -10,6 +11,6 @@
   [matRippleColor]="'#ffe167'"
   [matRippleDisabled]="!disableRipple"
 >
-  <span [ngClass]="{'glow': hovered}" [ngStyle]="{'transform': 'translateX(' + x + 'px)'}"></span>
+  <span class="glow-opacity" [ngClass]="{'glow': hovered}" [ngStyle]="{'transform': 'translateX(' + x + 'px)'}"></span>
   <span class="caption">{{caption}}</span>
 </button>

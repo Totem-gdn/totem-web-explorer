@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ComboBoxService } from "@app/core/services/combobox-state.service";
+import { FiltersService } from "@app/modules/landing/components/filters-components/services/filters.service";
 
 
 @Component({
@@ -19,4 +20,5 @@ export class FilterNavComponent {
       this.comboBoxService.updateSelectedGame(event);
     }
 
+    
 }

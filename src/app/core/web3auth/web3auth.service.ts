@@ -1,10 +1,13 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { Web3Auth } from "@web3auth/web3auth";
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES, Maybe, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
-
+import { getED25519Key } from "@toruslabs/openlogin-ed25519";
+import { getPublicCompressed } from "@toruslabs/eccrypto";
+import Web3 from "web3";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 
@@ -13,11 +16,9 @@ export class Web3AuthService {
     web3auth: Web3Auth | null = null;
     provider: SafeEventEmitterProvider | null = null;
     isModalLoaded = false;
-
-    async get() {
-        await this.init();
-        await this.login();
-    }
+    usdcClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+    maticClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+    web3!: Web3;
 
     init = async () => {
         this.web3auth = new Web3Auth({
@@ -25,7 +26,7 @@ export class Web3AuthService {
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
-                rpcTarget: "https://rpc-mumbai.maticvigil.com", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+                rpcTarget: "https://rpc-mumbai.maticvigil.com",
             },
         });
         const web3auth = this.web3auth;
@@ -38,14 +39,82 @@ export class Web3AuthService {
         this.isModalLoaded = true;
     }
 
+
+    transactionsLogs() {
+        return this.web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
+    }
+
+    getTransaction(hash: string) {
+      return this.web3.eth.getTransaction(hash, (callback: any) => callback);
+    }
+
+    isReceiptedMatic(hash: string) {
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
+      const interval1 = setInterval( async () => {
+        console.log("Attempting to get MATIC transaction receipt...");
+        await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
+          if (err) {
+            this.maticClaimed.next('error');
+            clearInterval(interval1);
+          }
+          if (res) {
+            console.log('found MATIC receipt', res);
+            this.maticClaimed.next(res);
+            clearInterval(interval1);
+          }
+        });
+      }, 1000);
+    }
+    isReceiptedUsdc(hash: string) {
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
+      const interval2 = setInterval( async () => {
+        console.log("Attempting to get USDC transaction receipt...");
+        await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
+          if (err) {
+            this.usdcClaimed.next('error');
+            clearInterval(interval2);
+          }
+          if (res) {
+            console.log('found USDC receipt', res);
+            this.usdcClaimed.next(res);
+            clearInterval(interval2);
+          }
+        });
+      }, 1000);
+    }
+
+    maticTransactionListener(): Observable<any> {
+      return this.maticClaimed.asObservable();
+    }
+    usdcTransactionListener(): Observable<any> {
+      return this.usdcClaimed.asObservable();
+    }
+
+
+    getPubKey = async () => {
+        const web3auth = this.web3auth;
+        const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+            method: "solanaPrivateKey",
+        });
+        const ed25519Key = getED25519Key(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex"));
+        const app_pub_key = ed25519Key.pk.toString("hex");
+    }
+
+    getPublicKey = async () => {
+        const web3auth = this.web3auth;
+        const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
+            method: "eth_private_key", // use "private_key" for other non-evm chains
+        });
+        const app_pub_key = getPublicCompressed(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex")).toString("hex");
+        return app_pub_key;
+    }
+
     authUser = async () => {
-      if (!this.provider) {
-          console.log("provider not initialized yet");
-          return;
-      }
-      console.log('auth tokens');
-      const token = await this.web3auth?.authenticateUser();
-      return token;
+        if (!this.provider) {
+            return;
+        }
+        const token = await this.web3auth?.authenticateUser();
+        return token;
     }
 
     getTokens = async () => {
@@ -53,7 +122,6 @@ export class Web3AuthService {
             console.log("provider not initialized yet");
             return;
         }
-        console.log('Get tokens');
         const rpc = new RPC(this.provider);
         const getTokens = await rpc.getTokens();
         return getTokens;
@@ -68,7 +136,6 @@ export class Web3AuthService {
         document.getElementById('w3a-container')!.style.visibility = 'visible';
         this.provider = await web3auth.connect();
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
-        console.log("logged in");
     };
 
     getUserInfo = async () => {
@@ -152,15 +219,15 @@ export class Web3AuthService {
         return privateKey;
     };
 
-    getListOfNfts = async () => {
-        if (!this.provider) {
-            console.log("provider not initialized yet");
-            return;
-        }
-        const rpc = new RPC(this.provider);
-        const tx = await rpc.getListOfNfts();
-        return tx;
-    }
+    // getListOfNfts = async () => {
+    //     if (!this.provider) {
+    //         console.log("provider not initialized yet");
+    //         return;
+    //     }
+    //     const rpc = new RPC(this.provider);
+    //     const tx = await rpc.getListOfNfts();
+    //     return tx;
+    // }
 
     logout = async () => {
         if (!this.web3auth) {
@@ -169,7 +236,6 @@ export class Web3AuthService {
         }
         await this.web3auth.logout();
         this.provider = null;
-        console.log("logged out");
     };
 
     isLoggedIn() {

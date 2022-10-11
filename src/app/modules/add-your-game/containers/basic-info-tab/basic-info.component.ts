@@ -1,40 +1,46 @@
+
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { ContactsInfo, DetailsInfo, GeneralInfo, SubmitGame } from '@app/core/models/submit-game-interface.model';
+import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { FormsService } from '../../services/forms.service';
+import { SubmitGameService } from '../../services/submit-game.service';
 
 @Component({
   selector: 'totem-basic-info',
   templateUrl: './basic-info.component.html',
   styleUrls: ['../form-styles.component.scss'],
   host: {
-        class: 'flex flex-auto w-full h-full'
+    class: 'flex flex-auto w-full h-full'
   }
 })
-export class BasicInfoComponent implements OnInit, OnDestroy {
+export class BasicInfoComponent implements OnDestroy {
 
   subs: Subscription = new Subscription();
-  getFromDataEvent: Subject<void> = new Subject<void>();
-  @Output() formDataEvent: EventEmitter<SubmitGame> = new EventEmitter();
+  @Output() tabSelected = new EventEmitter<string>();
 
-  constructor(private userStateService: UserStateService) {
+  get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
+
+  constructor(private formsService: FormsService) {
   }
 
-  getDataFromForms() {
-    this.getFromDataEvent.next();
+  generalFormValid: boolean = false;
+  detailsFormValid: boolean = false;
+  contactsFormValid: boolean = false;
+
+  checkFormValidity(e: any) {
+    if(e.formName == 'general') this.generalFormValid = e.value;
+    if(e.formName == 'details') this.detailsFormValid = e.value;
+    if(e.formName == 'contacts') this.contactsFormValid = e.value;
+    if(this.generalFormValid && this.detailsFormValid && this.contactsFormValid) {
+      this.formsService.setFormValidity('basic-info', true);
+    } else {
+      this.formsService.setFormValidity('basic-info', false);
+    }
   }
 
-  updateFormData(event: SubmitGame) {
-    console.log(event);
-    this.formDataEvent.emit(event);
-  }
-
-  ngOnInit() {
-    /* this.subs.add(
-      this.userStateService.isLoading.subscribe((value: boolean) => {
-        this.loading$.next(value);
-      })
-    ) */
+  onNextTab() {
+    this.tabSelected.emit('details');
   }
 
   ngOnDestroy(): void {

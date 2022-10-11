@@ -3,14 +3,14 @@ import { trigger, state, style, transition, animate, group } from '@angular/anim
 export const Animations = {
     animations: [
         trigger(
-          'showMessage', 
+          'showMessage',
           [
             transition(
-              ':enter', 
+              ':enter',
               [
                 style({ height: 0, opacity: 0 }),
                 group([
-                    animate('0.4s ease-in-out', 
+                    animate('0.4s ease-in-out',
                         style({ height: 36})),
                     animate('0.3s 0.1s ease-in-out',
                         style({opacity: 1}))
@@ -18,11 +18,11 @@ export const Animations = {
               ]
             ),
             transition(
-              ':leave', 
+              ':leave',
               [
                 style({ height: 36, opacity: 1 }),
                 group([
-                    animate('0.3s 0.1s ease-in-out', 
+                    animate('0.3s 0.1s ease-in-out',
                         style({ height: 0})),
                     animate('0.3s ease-in-out',
                         style({opacity: 0}))
@@ -32,43 +32,123 @@ export const Animations = {
           ]
         ),
         trigger(
-            'showInput', 
+            'showInput',
             [
               transition(
-                ':enter', 
+                ':enter',
                 [
                   style({ height: 0, opacity: 0 }),
-                  animate('0.4s ease-in-out', 
+                  animate('0.4s ease-in-out',
                           style({ height: 40, opacity: 1 }))
                 ]
               ),
               transition(
-                ':leave', 
+                ':leave',
                 [
                   style({ height: 40, opacity: 1 }),
-                  animate('0.4s ease-in-out', 
+                  animate('0.4s ease-in-out',
                           style({ height: 0, opacity: 0 }))
                 ]
               )
             ]
           ),
           trigger(
-            'tagAnimation', 
+            'tagAnimation',
             [
               transition(
-                ':enter', 
+                ':enter',
+                [
+                  style({ opacity: 0, height: 0 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 1, height: 40 }))
+                ]
+              ),
+              transition(
+                ':leave',
+                [
+                  style({ opacity: 1, height: 40 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 0, height: 40 }))
+                ]
+              )
+            ]
+          ),
+          trigger(
+            'hashAnimation',
+            [
+              transition(
+                ':enter',
+                [
+                  style({ opacity: 0, height: 0 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 1, height: 128 }))
+                ]
+              ),
+              transition(
+                ':leave',
+                [
+                  style({ opacity: 1, height: 128 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 0, height: 128 }))
+                ]
+              )
+            ]
+          ),
+          trigger(
+            'fade-in-out',
+            [
+              transition(
+                ':enter',
                 [
                   style({ opacity: 0 }),
-                  animate('0.4s ease-in-out', 
+                  animate('0.4s ease-in-out',
                           style({ opacity: 1 }))
                 ]
               ),
               transition(
-                ':leave', 
+                ':leave',
                 [
                   style({ opacity: 1 }),
-                  animate('0.4s ease-in-out', 
+                  animate('0.4s ease-in-out',
                           style({ opacity: 0 }))
+                ]
+              )
+            ]
+          ),
+          trigger(
+            'fade-in',
+            [
+              transition(
+                ':enter',
+                [
+                  style({ opacity: 0 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 1 }))
+                ]
+              ),
+            ]
+          ),
+          trigger (
+            'stopLoader',
+            [
+              transition(
+                ':enter',
+                [
+                  style({ opacity: 0 }),
+                  group([
+                      animate('0.3s 0.1s ease-in-out',
+                          style({opacity: 1}))
+                  ])
+                ]
+              ),
+              transition(
+                ':leave',
+                [
+                  style({ opacity: 1 }),
+                  group([
+                      animate('0.3s ease-in-out',
+                          style({opacity: 0}))
+                  ])
                 ]
               )
             ]

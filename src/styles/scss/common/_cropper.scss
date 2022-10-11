@@ -1,5 +1,11 @@
 image-cropper {
   padding: 0 !important;
+  img {
+    vertical-align: unset;
+    display: unset;
+    width: unset;
+    height: unset;
+  }
   div {
     .ngx-ic-overlay {
       //width: 100% !important;
@@ -8,8 +14,44 @@ image-cropper {
     }
     .ngx-ic-cropper {
       //width: 100% !important;
-
+      color: #fff !important;
       //margin: 0 !important;
+      .ngx-ic-move {
+        border: 1px solid #fff !important;
+      }
+
+      .ngx-ic-bottomright {
+        right: -8px !important;
+        bottom: -8px !important;
+      }
+      .ngx-ic-topright {
+        right: -8px !important;
+        top: -8px !important;
+      }
+      .ngx-ic-topleft {
+        left: -8px !important;
+        top: -8px !important;
+      }
+      .ngx-ic-bottomleft {
+        left: -8px !important;
+        bottom: -8px !important;
+      }
+      .ngx-ic-bottom {
+        bottom: -8px !important;
+      }
+      .ngx-ic-top {
+        top: -8px !important;
+      }
+
+      .ngx-ic-resize {
+        opacity: 1 !important;
+        .ngx-ic-square {
+          width: 10px !important;
+          height: 10px !important;
+          background: #fff !important;
+          border: unset !important;
+        }
+      }
     }
   }
 

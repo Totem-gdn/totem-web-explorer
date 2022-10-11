@@ -12,16 +12,19 @@
     [id]="uniqueId"
     (change)="getFile($event)"
     type="file"
-    accept="images/*"
+    accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
   >
   <div class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
-    <mat-icon [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:no-image'"></mat-icon>
-    <div class="browse-caption mt-[18px]">Drop your image here, or
+    <mat-icon class="doc-image" *ngIf="jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:doc-image'"></mat-icon>
+    <mat-icon *ngIf="!jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:no-image'"></mat-icon>
+    <div class="browse-caption mt-[18px]">{{jsonFileType ? 'Drop your JSON file here, or' : 'Drop your image here, or'}}
       <label [ngStyle]="{'pointer-events' : !dzHovered ? 'all' : 'none'}" class="browse-button" [for]="uniqueId">browse</label>
     </div>
-    <div class="mt-[16px]">Supports: JPG, PNG, GIF</div>
-    <div>The recommended file resolution is {{recommendedResolution}}</div>
-    <div>Max file size 20 MB</div>
+    <div *ngIf="!jsonFileType" class="mt-[15px] gap-[10px] flex flex-col">
+      <span>Supports: JPG, PNG, GIF </span>
+      <span>The recommended file resolution is {{recommendedResolution}} </span>
+      <span>Max file size 20 MB</span>
+    </div>
   </div>
 </div>
 <div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="imageUrl && selfFill">

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FiltersService } from '@app/core/services/filters/filters.service';
+import { FiltersService } from '@app/modules/landing/components/filters-components/services/filters.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -20,6 +20,13 @@ export class AvatarsFilterComponent implements AfterViewInit {
 
   isDropupOpen!: boolean;
   sub!: Subscription;
+  sexes = [{ name: 'Male'},{ name: 'Female'}]
+  skinColors = [{ name: '#f9d4ab'},{ name: '#efd2c4'},{ name: '#e2c6c2'},{ name: '#e0d0bb'},{ name: '#ebb77d'},{ name: '#dca788'},{ name: '#cda093'},{ name: '#ccab80'},{ name: '#c58351'},{ name: '#b37652'},{ name: '#81574b'},{ name: '#8a6743'},{ name: '#7a3e10'},{ name: '#5c2a19'},{ name: '#472422'},{ name: '#362714'},];
+  hairColors = [{ name: '#b1b1b1'},{ name: '#070504'},{ name: '#341c0d'},{ name: '#62422e'},{ name: '#914329'},{ name: '#cd622b'},{ name: '#ad7b41'},{ name: '#e4b877'},];
+  eyeColors = [{ name: '#b5d6e0'},{ name: '#90b4ca'},{ name: '#a7ad7f'},{ name: '#7c8b4f'},{ name: '#c4a05f'},{ name: '#a97e33'},{ name: '#7a3411'},{ name: '#3d0d04'},]
+  hairStyles = [{name: 'afro'},{name: 'asymmetrical'},{name: 'braids'},{name: 'buzz cut'},{name: 'dreadlocks'},{name: 'long'},{name: 'ponytail'},{name: 'short'},];
+  // primaryColor = [{name: '(12,175,254)'}];
+
 
   ngAfterViewInit() {
     this.sub = this.filtersService.dropupOpen$.subscribe(isOpen => {

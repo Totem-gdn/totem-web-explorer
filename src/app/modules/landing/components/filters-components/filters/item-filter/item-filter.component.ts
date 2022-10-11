@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FiltersService } from '@app/core/services/filters/filters.service';
+import { FiltersService } from '@app/modules/landing/components/filters-components/services/filters.service';
 
 import { concat, exhaustMap, fromEvent, map, Subscription, takeUntil, tap } from 'rxjs';
 
@@ -18,6 +18,8 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
               @Inject(DOCUMENT) private document: Document) {}
 
   @ViewChild('dropupMenu') dropupMenu!: ElementRef;
+
+ 
 
   isDropupOpen!: boolean;
   sub!: Subscription;
@@ -69,5 +71,5 @@ export class ItemFilterComponent implements AfterViewInit, OnDestroy {
   elements = [{ name: 'Fire' }, { name: 'Earth' }, { name: 'Air' }, { name: 'Water' }]
   colors = [{ name: 'Red' }, { name: 'Blue' }, { name: 'Yellow' }, { name: 'Green' }, { name: 'Orange' }]
   itemTypes = [{ name: 'Armour', subName: 'Slot' }, { name: 'Arms', subName: 'Slot' }, { name: 'Body', subName: 'Head' }, { name: 'Armour', subName: 'Slot' }]
-  materials = [{ name: 'Bone' }, { name: 'Stone' }, { name: 'Wood' }, { name: 'Metall' }]
+  materials = [{ name: 'Wood' }, { name: 'Bone' }, { name: 'Iron' }, { name: 'Obsidian' }]
 }

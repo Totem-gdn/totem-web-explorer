@@ -1,0 +1,22 @@
+
+@import 'styles/scss/variables';
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .img-wrapper {
+        border-radius: 4px;
+        padding: 18px;
+        background: $linear-glass;
+        margin-bottom: 60px;
+        img {
+            // max-width: 470px;
+            height: auto;
+        }
+    }
+}

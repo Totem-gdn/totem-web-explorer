@@ -1,10 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
+import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { SubmitGameService } from '@app/modules/add-your-game/services/submit-game.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
-import { BehaviorSubject, switchMap, debounceTime, of} from 'rxjs';
-import { Items } from '../models/items-interface.model';
+import { BehaviorSubject, switchMap, debounceTime, of, Subscription, take} from 'rxjs';
+import { Game, Items } from '../models/items-interface.model';
 
 const items: Items[] = [
   {
@@ -49,14 +51,14 @@ const items: Items[] = [
   templateUrl: './totem-search-filter.component.html',
   styleUrls: ['./totem-search-filter.component.scss']
 })
-export class TotemSearchFilterComponent implements OnInit {
+export class TotemSearchFilterComponent implements OnInit, OnDestroy {
   searchInfo = new FormControl('');
   dropdownOpened: boolean = false;
   dropdownHovered: boolean = false;
 
   itemsArray = new BehaviorSubject<Items[] | null>(null);
   avatarsArray = new BehaviorSubject<Items[] | null>(null);
-  gamesArray = new BehaviorSubject<Items[] | null>(null);
+  gamesArray = new BehaviorSubject<Game[] | null>(null);
 
   activeTab: string = 'items';
 
@@ -66,6 +68,10 @@ export class TotemSearchFilterComponent implements OnInit {
     GAMES_TAB: 'games',
   }
 
+  subs: Subscription = new Subscription();
+  itemsSub: Subscription = new Subscription();
+  subbedToItemsListener: boolean = false;
+
   @Input()
   focusState: 'true' | 'false' | undefined = undefined;
   @Output()
@@ -74,7 +80,7 @@ export class TotemSearchFilterComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
   loading$ = new BehaviorSubject(false);
 
-  constructor(private router: Router, private sidenavStateService: SidenavStateService) { }
+  constructor(private router: Router, private sidenavStateService: SidenavStateService, private totemItemsService: TotemItemsService) { }
 
   ngOnInit(): void {
     this.initFormListener();
@@ -89,29 +95,49 @@ export class TotemSearchFilterComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+    this.itemsSub.unsubscribe();
+  }
+
   initFormListener() {
-    this.searchInfo.valueChanges.pipe(
-      debounceTime(600),
-      switchMap((id: string | null) => {
-        return of(id);
+    this.subs.add(
+      this.searchInfo.valueChanges.pipe(
+        debounceTime(600),
+        switchMap((id: string | null) => {
+          return of(id);
+        })
+      )
+      .subscribe((text: string | null) => {
+        console.log(text);
+        if (text?.length) {
+          this.dropdownOpened = true;
+          this.getItems(text);
+        }
       })
-    )
-    .subscribe((text: string | null) => {
-      console.log(text);
-      if (text?.length) {
-        this.dropdownOpened = true;
-        this.getItems(text);
-      }
-    });
+    );
   }
 
   getItems(params: string) {
     this.loading$.next(true);
+    //this.submitGameService.getGame(params);
+      this.itemsSub =
+        this.totemItemsService.getGameByName(params).pipe(take(1)).subscribe((games: any[]) => {
+          if (!games?.length) {
+            this.gamesArray.next(null);
+            this.loading$.next(false);
+            return;
+          }
+          this.gamesArray.next(games);
+          this.loading$.next(false);
+          console.log('SUBBED');
+        })
+
+
     setTimeout(() => {
       let itemsArray = items.filter((item: Items) => item.name.toLowerCase().includes(params));
       this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
       this.processAvatars(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
-      this.processGames(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
     }, 1200);
   }
 
@@ -123,7 +149,7 @@ export class TotemSearchFilterComponent implements OnInit {
     this.loading$.next(false);
     this.avatarsArray.next(items);
   }
-  processGames(items: Items[] | null) {
+  processGames(items: Game[] | null) {
     this.loading$.next(false);
     this.gamesArray.next(items);
   }

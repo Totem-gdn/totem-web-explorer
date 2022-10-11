@@ -1,3 +1,9 @@
+
+export interface FormValidity {
+  basicInfoValid?: boolean;
+  detailsValid?: boolean;
+  connectionsValid?: boolean;
+}
 export interface SubmitGame {
   [index: string]: any;
   general?: GeneralInfo;
@@ -27,7 +33,7 @@ export interface ImagesInfo {
   coverImage?: ImageFileInfo;
   cardThumbnail?: ImageFileInfo;
   smallThumbnail?: ImageFileInfo;
-  imagesGallery?: ImageFileInfo[];
+  gallery?: ImageFileInfo[];
 }
 
 export interface GeneralInfo {
@@ -52,4 +58,25 @@ export interface DetailsInfo {
   session?: string;
   languages?: string;
   inputs?: string;
+}
+
+///
+
+export interface ImagesToUpload {
+  coverImage?:  File | undefined;
+  cardImage?: File | undefined;
+  searchImage?: File | undefined;
+  gallery?: File[] | undefined;
+}
+
+export interface ImagesUrls {
+  coverImage?: string;
+  cardThumbnail?: string;
+  smallThumbnail?: string;
+  imagesGallery?: string[];
+}
+
+export interface SubmitGameResponse {
+  id: string;
+  uploadImageURLs: ImagesUrls;
 }

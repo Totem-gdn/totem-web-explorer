@@ -55,3 +55,36 @@ mat-progress-bar {
   }
 
 }
+
+.image-upload-dialog {
+  width: 100%;
+  max-width: 903px !important;
+  height: 100%;
+  max-height: 595px;
+
+  .mat-dialog-container {
+    border: 1px solid #8A939B;
+    background-color: #2A2D33;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+.tx-dialog {
+  width: 100%;
+  max-width: 1000px !important;
+  //height: 100%;
+  min-height: 486px;
+
+  .mat-dialog-container {
+    border: 1px solid #8A939B;
+    background-color: #2A2D33;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+.blurred-backdrop {
+  background: rgba(67, 67, 67, 0.25);
+  backdrop-filter: blur(20px);
+}
