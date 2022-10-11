@@ -99,7 +99,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
           return;
       }
       this.updateBalance();
-      this.getUsdc();
+      // this.getUsdc();
       this.web3Service.transactionsLogs().unsubscribe();
       this.disableButton = false;
     }, 120000);
@@ -113,7 +113,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     this.sub.add(
       this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
         next: (response: any) => {
-          console.log(response);
+          this.getUsdc(response.usdc);
           if (response.status == 'Accepted') {
             this.snackService.open('Tokens has been sent, wait a few seconds');
             this.startTimeout();
@@ -138,27 +138,27 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     )
   }
 
-  getUsdc() {
-    this.snackService.open('Claiming USDC');
-    this.paymentService.getTokens().then(() => {
-      this.updateBalance();
-      this.snackService.open('USDC balance updated');
-      this.disableButton = false;
-    }).catch(() => {
-      this.snackService.open('Limit exceeded, try later');
-      this.disableButton = false;
-    })
+  getUsdc(hash: string) {
+    console.log(hash)
+    this.web3Service.listenToHash(hash);
+    // this.snackService.open('Claiming USDC');
+    // this.paymentService.getTokens().then(() => {
+    //   this.updateBalance();
+    //   this.snackService.open('USDC balance updated');
+    //   this.disableButton = false;
+    // }).catch(() => {
+    //   this.snackService.open('Limit exceeded, try later');
+    //   this.disableButton = false;
+    // })
   }
 
   listenTransactions(walletAddress: string) {
     this.web3Service.transactionsLogs().on('data', event => {
-      if(event.transactionHash == '')
       if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
         console.log(event);
 
         this.closeTimeout();
         this.updateBalance();
-        this.getUsdc();
         this.web3Service.transactionsLogs().unsubscribe();
       }
     });

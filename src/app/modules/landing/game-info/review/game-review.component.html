@@ -1,13 +1,23 @@
-<div class="rewiew">
+<div class="rewiew lg:max-w-[455px]">
     <h2 *ngIf="!game?.general?.name" class="mb-[40px]">Dead Peats unleashed</h2>
-    <h2 *ngIf="game?.general?.name" class="mb-[40px]">{{game?.general?.name}}</h2>
+    <h2 *ngIf="game?.general?.name" class="mb-[40px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
-    <div class="flex pb-[20px]">
-        <h4><span class="text-light-grey pr-[10px]">Author:</span>{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
+    <div class="flex flex-wrap justify-between pb-[20px] gap-[10px]">
+        <h4 class="flex whitespace-nowrap"><span class="text-light-grey pr-[10px]">Author:</span>{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
+
+        <div #stars class="stars whitespace-nowrap">
+            <mat-icon #star *ngFor="let rate of rating"
+            [ngClass]="rate ? '!text-yellow': ''"
+            (click)="onSaveStars(star)" 
+            (mouseenter)="onMouseEnter($event)"
+            (mouseleave)="onMouseLeave($event)" 
+            class="star" [svgIcon]="'line:star'"></mat-icon>
+            <p class="ml-[8px]">(--)</p>
+        </div>
     </div>
     <!-- Icons -->
-    <div class="flex flex-wrap border-t border-t-light-grey text-light-grey">
-        <div class="flex">
+    <div class="icon-wrapper">
+        <div class="icon-set">
             <div class="icon !pl-0">
                 <mat-icon class="like !w-[18px]" [svgIcon]="'line:like'"></mat-icon>
                 <!-- <mat-icon class="text-yellow !w-[18px]" [svgIcon]="'solid:like'"></mat-icon> -->
@@ -22,14 +32,14 @@
                 <p>{{game?.views ? game?.views : '0'}}</p>
             </div>
         </div>
-        <div class="flex">
+        <div class="icon-set">
+            <div class="icon">
+                <mat-icon class="!w-[14px] !h-[19px] mb-auto" [svgIcon]="'line:share'"></mat-icon>
+                <p>Share</p>
+            </div>
             <div class="icon">
                 <mat-icon class="!w-[16px]" [svgIcon]="'line:refresh'"></mat-icon>
                 <p>Refresh</p>
-            </div>
-            <div class="icon">
-                <mat-icon class="!w-[14px]" [svgIcon]="'line:share'"></mat-icon>
-                <p>Share</p>
             </div>
         </div>
     </div>

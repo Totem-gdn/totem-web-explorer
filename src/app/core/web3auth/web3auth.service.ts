@@ -178,6 +178,16 @@ export class Web3AuthService {
     //     const tx = await rpc.getListOfNfts();
     //     return tx;
     // }
+    listenToHash(hash: string) {
+        const web3 = new Web3(this.provider as any);
+        console.log('hash', hash)
+        setInterval(() => {
+            web3.eth.getTransactionReceipt(hash, (err,res) => {
+                console.log(res)
+                console.log(err);
+            });
+        }, 1000)
+    }
 
     logout = async () => {
         if (!this.web3auth) {
