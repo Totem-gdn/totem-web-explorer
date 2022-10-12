@@ -88,6 +88,10 @@ export class Web3AuthService {
     usdcTransactionListener(): Observable<any> {
       return this.usdcClaimed.asObservable();
     }
+    resetUsdcAndMaticResponse() {
+      this.usdcClaimed.next(null);
+      this.maticClaimed.next(null);
+    }
 
 
     getPubKey = async () => {

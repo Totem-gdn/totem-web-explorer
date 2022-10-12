@@ -28,6 +28,10 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
   steps: any = [
     {
       step: false,
+      loading: false,
+    },
+    {
+      step: false,
       loading: true,
     },
     {
@@ -38,14 +42,13 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
       step: false,
       loading: false,
     },
-    {
-      step: false,
-      loading: false,
-    },
   ];
-  stepIndex: number = 0;
+  stepIndex: number = 1;
   maticHash: string | null = null;
   usdcHash: string | null = null;
+
+  errorMessage: string = '';
+  errorState: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<TransactionDialogComponent>,
@@ -63,12 +66,16 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
       this.web3Service.maticTransactionListener().subscribe((data: any) => {
         if (data == 'error') {
           //this.disableButton = false;
-          this.snackService.open('Error occurred while getting tokens, please try again');
+          //this.snackService.open('There was an error while processing your request.');
+          this.errorMessage = 'There was an error while processing your request.';
+          this.errorState = true;
         }
         if (data && data != 'error') {
           if (!data.status) {
             //this.disableButton = false;
-            this.snackService.open('Error occurred while getting tokens, please try again');
+            //this.snackService.open('There was an error while processing your request.');
+            this.errorMessage = 'There was an error while processing your request.';
+            this.errorState = true;
             return;
           }
           this.tokensClaimed.matic = true;
@@ -83,17 +90,21 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
       this.web3Service.usdcTransactionListener().subscribe((data: any) => {
         if (data == 'error') {
           //this.disableButton = false;
-          this.snackService.open('Error occurred while getting tokens, please try again');
+          //this.snackService.open('There was an error while processing your request.');
+          this.errorMessage = 'There was an error while processing your request.';
+          this.errorState = true;
         }
         if (data && data != 'error') {
           if (!data.status) {
             //this.disableButton = false;
-            this.snackService.open('Error occurred while getting tokens, please try again');
+            //this.snackService.open('There was an error while processing your request.');
+            this.errorMessage = 'There was an error while processing your request.';
+            this.errorState = true;
             return;
           }
           this.tokensClaimed.usdc = true;
           if (this.tokensClaimed.matic) {
-            this.snackService.open('USDC balance updated');
+            //this.snackService.open('USDC balance updated');
             this.nextStep();
           }
           //this.updateBalance();
@@ -113,6 +124,10 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     }, 2000) */
   }
 
+  isEqual(step: number, index: number): boolean {
+    return step === index;
+  }
+
   nextStep() {
     if (this.stepIndex < 3) {
       this.steps[this.stepIndex].step = true;
@@ -124,10 +139,12 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
       this.steps[this.stepIndex].step = true;
       this.steps[this.stepIndex].loading = false;
     }
+    console.log(this.stepIndex, 'CALLED');
+
   }
 
   getMatics() {
-    this.nextStep();
+    //this.nextStep();
     this.subs.add(
       this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
         next: (response: any) => {
@@ -153,11 +170,15 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
             this.snackService.open('Please Login');
           }
           if (error.error.statusCode == 500) {
-            this.snackService.open('Your authentication token has expired');
+            //this.snackService.open('Your authentication token has expired');
+            this.errorMessage = 'Your authentication token has expired. Please relogin.';
+            this.errorState = true;
           }
           if (error.error.statusCode == 400) {
-            this.dialogRef.close({matic: true, usdc: true})
-            this.snackService.open('You have already received tokens, try again in 24 hours');
+            //this.dialogRef.close({matic: true, usdc: true})
+            this.errorMessage = 'You have already claimed the tokens recently. Please try again\n after 24 hours from your original request.';
+            this.errorState = true;
+            //this.snackService.open('You have already received tokens, try again in 24 hours');
           }
         }
       }
@@ -166,6 +187,15 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    /* this.stepIndex = 1;
+    this.maticHash = null;
+    this.usdcHash = null;
+    this.steps.map((step: any) => {
+      step.loading = false;
+      step.step = false;
+    });
+    this.tokensClaimed = {matic: false, usdc: false}; */
+    this.web3Service.resetUsdcAndMaticResponse();
     this.subs.unsubscribe();
   }
 

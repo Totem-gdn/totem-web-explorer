@@ -51,7 +51,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       })
     )
 
-    this.sub.add(
+    /* this.sub.add(
       this.web3Service.maticTransactionListener().subscribe((data: any) => {
         if (data == 'error') {
           this.disableButton = false;
@@ -85,7 +85,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
           this.disableButton = false;
         }
       })
-    )
+    ) */
   }
 
   openTxDialogModal(data: any): Observable<{ matic: boolean, usdc: boolean }> {
@@ -107,6 +107,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
         console.log(data);
         if (data.matic || data.usdc) {
           this.updateBalance();
+          this.snackService.open('USDC balance updated');
           this.disableButton = false;
         }
 
@@ -253,7 +254,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     //this.disableButton = true;
     //const matic = await this.web3Service.getBalance();
     //if(!matic || +matic <= 0) {
-    this.snackService.open('Please wait, claiming tokens...');
+    //this.snackService.open('Please wait, claiming tokens...');
     //const wallet = await this.web3Service.getAccounts();
     //const walletAddress = wallet.toLowerCase().slice(2);
     //this.listenTransactions(walletAddress);

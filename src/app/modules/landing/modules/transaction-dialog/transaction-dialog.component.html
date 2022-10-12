@@ -2,96 +2,103 @@
   <div class="img-upload-dialog-wrapper" fxLayout="column" fxLayoutAlign="space-between start">
     <div class="content-block p-[18px] h-full w-full">
       <div class="content-block-body pt-[70px] pb-[56px] px-[40px] h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
-        <div class="content-block-body-title font-totem" *ngIf="stepIndex < 2">Transaction initiated</div>
-        <div class="content-block-body-title-2 font-totem" *ngIf="stepIndex == 2">waiting for confirmation</div>
-        <div class="content-block-body-title font-totem" *ngIf="stepIndex == 3">Request complete</div>
-        <div class="content-block-body-subtitle py-[40px]" *ngIf="stepIndex < 2">
-          <div class="w-full">
-            Sending 150 USDC and 0.03 MATIC to your account, please wait a moment
-          </div>
-          <!-- <div class="w-full">Now You can explore Totem website</div> -->
+        <div class="content-block-body-title">
+          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 1">Transaction initiated</span>
+          <span @stopLoader class="font-totem title-text-2" *ngIf="stepIndex == 2">waiting for confirmation</span>
+          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 3">Request complete</span>
         </div>
-        <div class="content-block-body-subtitle-2 py-[40px]" *ngIf="stepIndex == 2">
-          <div class="w-full">
-            Transactions have been initiated. Waiting for confirmation
+        <div class="content-block-body-subtitle py-[40px] w-full" [ngStyle]="{'height': stepIndex == 2 ? '103px' : ''}" fxLayout="row" fxLayoutAlign="center center">
+          <div class="w-full content-block-body-subtitle-wrapp"
+            >
+            <span class="subtext" *ngIf="isEqual(stepIndex, 1) && !errorState">
+              <div>Sending 150 USDC and 0.03 MATIC to your</div>
+              <div>account, please wait a moment</div>
+            </span>
+            <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 2) && !errorState">Transactions have been initiated. Waiting for confirmation</span>
+            <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 3) && !errorState">
+              <div>You have successfully claimed the tokens. You can now</div>
+              <div>generate your brand new Totem Asset!</div>
+            </span>
+            <span @stopLoader *ngIf="errorState" [ngStyle]="{'color': '#FF5252'}" class="subtext">{{errorMessage}}</span>
           </div>
-          <!-- <div class="w-full">Now You can explore Totem website</div> -->
         </div>
-        <div class="content-block-body-subtitle-2 py-[40px]" *ngIf="stepIndex == 3">
-          <div class="w-full">
-            Congratulations, 150 USDC and 0.03 MATIC was sent to your account
-          </div>
-          <!-- <div class="w-full">Now You can explore Totem website</div> -->
-        </div>
-        <!-- <div class="content-block-body-subtitle" *ngIf="tokensClaimed">
-          <div class="w-full">
-            Congratulations! You successfully filled the application form and now the artwork for your game is being uploaded.
-            After upload finishes, we need up to 3 work days (usually less) to process your submission.
-          </div>
-          <div class="w-full">We will notify you via email about the status of your submission.</div>
-        </div> -->
-        <div @hashAnimation *ngIf="maticHash && usdcHash" class="content-block-body-tx-info px-[20px] py-[24px] mb-[40px]" fxLayout="row" fxLayoutAlign="start center">
-          <div fxLayout="column" fxLayoutAlign="center start">
+        <div
+          @hashAnimation
+          *ngIf="maticHash && usdcHash"
+          [ngStyle]="{'height': maticHash && usdcHash ? '128px' : '', 'border': errorState ? '1px dashed #FF5252' : ''}"
+          class="content-block-body-tx-info"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          >
+          <div class="ml-[20px]" fxLayout="column" fxLayoutAlign="center start">
             <div class="title">Request type</div>
             <div class="caption mt-[20px]">150 USDC</div>
             <div class="caption mt-[8px]">0.03 MATIC</div>
           </div>
-          <div class="ml-[30px]" fxLayout="column" fxLayoutAlign="center start">
+          <div class="ml-[28px]" fxLayout="column" fxLayoutAlign="center start">
             <div class="title">Transaction hash</div>
             <div class="caption-light mt-[20px]">{{usdcHash}}</div>
             <div class="caption-light mt-[8px]">{{maticHash}}</div>
           </div>
         </div>
-        <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center center">
+        <div class="content-block-body-progress w-full" [ngStyle]="{'margin-top': maticHash && usdcHash ? '40px' : ''}" fxLayout="column" fxLayoutAlign="center center">
           <div class="content-block-body-progress-bar px-[60px]" fxLayout="row" fxLayoutAlign="space-between center">
 
-            <div class="circles-wrapper">
-              <totem-spinner @stopLoader *ngIf="!steps[0].step && steps[0].loading" [size]="'14'"></totem-spinner>
-              <div @stopLoader *ngIf="!steps[0].loading" class="disabled-circle" [ngStyle]="{'background-color': steps[0].step ? '#ffd013' : ''}"></div>
+            <!-- <div class="circles-wrapper">
+              <totem-spinner @stopLoader *ngIf="!steps[0].step && steps[0].loading && !errorState" [size]="'14'"></totem-spinner>
+              <div @stopLoader *ngIf="!steps[0].loading" class="disabled-circle"
+                [ngStyle]="{'background-color': steps[0].step && !errorState ? '#ffd013' : stepIndex >= 0 && errorState ? '#FF5252' : ''}"></div>
+              <mat-icon @stopLoader *ngIf="errorState && stepIndex == 0" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
             </div>
 
-            <mat-progress-bar class="progress-bar mx-[5px]" mode="determinate" value="{{steps[0].step ? '100' : '0'}}"></mat-progress-bar>
+            <mat-progress-bar [ngStyle]="{'color': stepIndex >= 0 && errorState ? '#FF5252' : ''}"
+              class="progress-bar mx-[5px]" mode="determinate" value="{{steps[0].step ? '100' : '0'}}">
+            </mat-progress-bar> -->
 
             <div class="circles-wrapper">
-              <totem-spinner @stopLoader *ngIf="!steps[1].step && steps[1].loading" [size]="'14'"></totem-spinner>
-              <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle" [ngStyle]="{'background-color': steps[1].step ? '#ffd013' : ''}"></div>
+              <totem-spinner *ngIf="!steps[1].step && steps[1].loading && !errorState" [size]="'14'"></totem-spinner>
+              <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle"
+                [ngStyle]="{'background-color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}"></div>
+              <mat-icon @stopLoader *ngIf="errorState && stepIndex == 1" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
             </div>
 
-            <mat-progress-bar class="progress-bar mx-[5px]" mode="determinate" value="{{steps[1].step ? '100' : '0'}}"></mat-progress-bar>
+            <mat-progress-bar [ngStyle]="{'color': stepIndex >= 1 && errorState ? '#FF5252' : ''}"
+              class="progress-bar mx-[5px]" mode="determinate" value="{{steps[1].step ? '100' : '0'}}">
+            </mat-progress-bar>
 
             <div class="circles-wrapper">
-              <totem-spinner @stopLoader *ngIf="!steps[2].step && steps[2].loading" [size]="'14'"></totem-spinner>
-              <div *ngIf="!steps[2].loading" @stopLoader class="disabled-circle" [ngStyle]="{'background-color': steps[2].step ? '#ffd013' : ''}"></div>
+              <totem-spinner @stopLoader *ngIf="!steps[2].step && steps[2].loading && !errorState" [size]="'14'"></totem-spinner>
+              <div @stopLoader *ngIf="!steps[2].loading" class="disabled-circle"
+              [ngStyle]="{'background-color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}"></div>
+              <mat-icon @stopLoader *ngIf="errorState && stepIndex == 2" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
             </div>
 
-            <mat-progress-bar class="progress-bar mx-[5px]" mode="determinate" value="{{steps[2].step ? '100' : '0'}}"></mat-progress-bar>
+            <mat-progress-bar [ngStyle]="{'color': stepIndex >= 2 && errorState ? '#FF5252' : ''}"
+              class="progress-bar mx-[5px]" mode="determinate" value="{{steps[2].step ? '100' : '0'}}">
+            </mat-progress-bar>
 
             <div class="circles-wrapper">
-              <totem-spinner @stopLoader *ngIf="!steps[3].step && steps[3].loading" [size]="'14'"></totem-spinner>
-              <div *ngIf="!steps[3].loading" @stopLoader class="disabled-circle" [ngStyle]="{'background-color': steps[3].step ? '#ffd013' : ''}"></div>
+              <totem-spinner @stopLoader *ngIf="!steps[3].step && steps[3].loading && !errorState" [size]="'14'"></totem-spinner>
+              <div @stopLoader *ngIf="!steps[3].loading" class="disabled-circle"
+              [ngStyle]="{'background-color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}"></div>
+              <mat-icon @stopLoader *ngIf="errorState && stepIndex == 3" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
             </div>
 
           </div>
           <div class="caption-block mt-[10px]" fxLayout="row" fxLayoutAlign="space-between center">
-            <div class="caption-section" [ngStyle]="{'color': steps[0].step ? '#ffd013' : ''}">Enter address</div>
-            <div class="caption-section" [ngStyle]="{'color': steps[1].step ? '#ffd013' : ''}">Transaction initiated</div>
-            <div class="caption-section" [ngStyle]="{'color': steps[2].step ? '#ffd013' : ''}">Waiting for confirmation</div>
-            <div class="caption-section" [ngStyle]="{'color': steps[3].step ? '#ffd013' : ''}">Token transferred</div>
+            <!-- <div class="caption-section" [ngStyle]="{'color': steps[0].step && !errorState ? '#ffd013' : stepIndex >= 0 && errorState ? '#FF5252' : ''}">Enter address</div> -->
+            <div class="caption-section" [ngStyle]="{'color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}">Transaction initiated</div>
+            <div class="caption-section" [ngStyle]="{'color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}">Waiting for confirmation</div>
+            <div class="caption-section" [ngStyle]="{'color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}">Token transferred</div>
           </div>
         </div>
       </div>
     </div>
     <div class="button-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="center center">
-      <div @stopLoader matRipple class="cancel-button" *ngIf="stepIndex != 3" [mat-dialog-close]>
+      <div @fade-in-out matRipple class="cancel-button" *ngIf="stepIndex != 3 && !errorState">
         Close
       </div>
-      <totem-button @stopLoader class="!ml-[30px]" *ngIf="stepIndex == 3" [caption]="'Close'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]="tokensClaimed"></totem-button>
+      <totem-button class="cancel-active-button" @fade-in-out *ngIf="stepIndex == 3 || errorState" [caption]="'Close'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]="tokensClaimed"></totem-button>
     </div>
-    <!-- <div class="button-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="center center" *ngIf="tokensClaimed">
-      <div matRipple class="cancel-button" [mat-dialog-close]="true">
-        Close
-      </div>
-      <totem-button class="!ml-[30px]" [caption]="'Explore games'" [height]="'40px'" [width]="'140px'" (click)="nextStep()"></totem-button>
-    </div> -->
   </div>
 </div>

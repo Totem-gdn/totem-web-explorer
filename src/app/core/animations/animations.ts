@@ -156,20 +156,16 @@ export const Animations = {
                 ':enter',
                 [
                   style({ opacity: 0 }),
-                  group([
-                      animate('0.3s 0.1s ease-in-out',
+                  animate('0.33s ease-out',
                           style({opacity: 1}))
-                  ])
                 ]
               ),
               transition(
                 ':leave',
                 [
                   style({ opacity: 1 }),
-                  group([
-                      animate('0.3s ease-in-out',
+                  animate('0.33s ease-in',
                           style({opacity: 0}))
-                  ])
                 ]
               )
             ]
