@@ -2,6 +2,7 @@ import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, Scroll } from '@angular/router';
 import { Web3Auth } from '@web3auth/web3auth';
+import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/user-state.service';
 import { Web3AuthService } from './core/web3auth/web3auth.service';
@@ -20,8 +21,13 @@ export class AppComponent {
 
   static isBrowser = new BehaviorSubject<boolean | null>(null);
 
-  constructor(private userStateService: UserStateService, @Inject(PLATFORM_ID) private platformId: any, private web3: Web3AuthService,
-              private router: Router, private viewportScroller: ViewportScroller) {
+  constructor(
+    private userStateService: UserStateService,
+    @Inject(PLATFORM_ID) private platformId: any,
+    private web3: Web3AuthService,
+    private router: Router,
+    private viewportScroller: ViewportScroller,
+    private gtag: Gtag) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(platformId));
     this.userStateService.initAccount();
@@ -40,6 +46,8 @@ export class AppComponent {
           viewportScroller.scrollToPosition([0, 0]);
         }
       });
+
+      gtag.pageview();
   }
 
   ngOnInit() {
