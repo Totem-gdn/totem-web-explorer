@@ -21,7 +21,7 @@ export class AppComponent {
   static isBrowser = new BehaviorSubject<boolean | null>(null);
 
   constructor(private userStateService: UserStateService, @Inject(PLATFORM_ID) private platformId: any, private web3: Web3AuthService,
-              private router: Router, private viewportScroller: ViewportScroller) {
+              private router: Router, private viewportScroller: ViewportScroller,) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(platformId));
     this.userStateService.initAccount();

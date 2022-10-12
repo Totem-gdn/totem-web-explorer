@@ -39,7 +39,6 @@ export class Web3AuthService {
         this.isModalLoaded = true;
     }
 
-
     transactionsLogs() {
         return this.web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
     }

@@ -1,8 +1,12 @@
 <div class="flex flex-col wrapper" (onResize)="onResize()">
     <div class="grid-container" #grid>
-        <div #tagWrapper *ngFor="let _ of [].constructor(24)" class="item-tag" (mouseover)="onOver()">
-            <h4 class="truncate">24.05.22</h4>
-            <p class="truncate">Last usedebstenrtn</p>
+        <div class="item-tag" (mouseover)="onOver()">
+            <h4 class="truncate">Last Used</h4>
+            <p class="truncate">{{item?.lastUsed ? item?.lastUsed : '--'}}</p>
+        </div> 
+        <div class="item-tag" (mouseover)="onOver()">
+            <h4 class="truncate">Games</h4>
+            <p class="truncate">{{item?.games || item?.games == 0 ? item?.games : '--'}}</p>
         </div> 
     </div>
     <!-- View All -->

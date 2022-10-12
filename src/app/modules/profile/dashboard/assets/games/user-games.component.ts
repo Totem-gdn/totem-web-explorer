@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { ItemParam } from '@app/core/models/item-param.model';
-import { GamesService } from '@app/core/services/items/games.service';
+import { GamesService } from '@app/core/services/assets/games.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subject, Subscription, takeUntil } from 'rxjs';

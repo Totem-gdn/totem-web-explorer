@@ -39,6 +39,8 @@
 }
 .stars {
     display:flex;
+    white-space: nowrap;
+    color: $light-grey;
     .star {
         transition: color .2s, transform .2s;
         &:hover {
