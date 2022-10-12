@@ -22,7 +22,7 @@
     <!-- CONTENT -->
     <div class="content-block">
       <ng-container *ngIf="activeTab == 'basic-information'">
-        <totem-basic-info (formDataEvent)="updateFormData($event)" (tabSelected)="goToTab($event)"></totem-basic-info>
+        <totem-basic-info (formDataEvent)="updateFormData($event)" (tabSelected)="goToTab($event)" (jsonSelected)="updateJsonFile($event)" [jsonFile]="jsonFileToUpload"></totem-basic-info>
       </ng-container>
       <ng-container *ngIf="activeTab == 'details'">
         <totem-details-tab [savedImages]="imagesToUpload" (formDataEvent)="updateImages($event)" (imageFilesEvent)="updateImagesToUpload($event)" (tabSelected)="goToTab($event)"></totem-details-tab>
