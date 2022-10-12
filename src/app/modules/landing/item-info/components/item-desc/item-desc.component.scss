@@ -11,19 +11,49 @@
         height: 60px;
     }
 
-    .icon {
-        padding: 20px 14px;
-        display: flex;
-        gap: 10px;
-    }
-
     .play {
-        margin: 20px 0 30px 0;
+        margin: 20px 0 0 0;
         padding: 20px;
         display: flex;
         flex-direction: column;
         border: 1px solid $light-grey;
     }
+}
+
+.icon-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid $light-grey;
+    color: $light-grey;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    gap: 20px;
+
+    .icon-set {
+        display: flex;
+        gap: 20px;
+        .icon {
+            gap: 10px;
+            display: flex;         
+        }
+    }
+}
+
+.game-dropdown {
+    margin-bottom: 20px;
+}
+
+.user-id {
+    margin-left: 5px;
+    cursor: pointer;
+}
+.copy-icon {
+    margin-left: 4px;
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+    line-height: 18px;
+    margin-bottom: 4px;
 }
 
 .item-tag {

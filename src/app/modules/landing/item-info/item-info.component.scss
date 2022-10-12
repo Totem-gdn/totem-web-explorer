@@ -1,29 +1,40 @@
 @import 'styles/scss/variables';
 
 .img-wrapper {
+    max-width: 500px;
+    width: 100%;
+    min-height:100%;
+    max-height: 500px;
     border-radius: 4px;
     padding: 15px;
     background: $linear-glass;
-    margin:auto;
+    // margin-bottom: auto;
     img {
         max-width: 470px;
-        height: auto;
+
     }
 }
 
 .tabs-wrapper {
     border-radius: 4px;
-    background-color: $grey;
+    background-color: $dark-grey;
     margin: 40px 0;
     padding: 5px;
 
     .tab {
         cursor: pointer;
+        transition: background-color .3s, color .3s;
         padding: 10px 6px;
+        margin-left: 2px;
+        margin-right: 2px;
         border-radius: 4px;
         color: $light-grey;
         font-size: 14px;
         font-weight: 700;
         white-space: nowrap;
+        &:hover {
+            background-color: $black;
+            color: white;
+        }
     }
 }

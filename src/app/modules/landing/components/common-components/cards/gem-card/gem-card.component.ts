@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 
 @Component({
@@ -13,16 +15,18 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 export class GemCardComponent {
 
   constructor(private router: Router, private favouritesService: FavouritesService,
-              private itemsService: TotemItemsService) {}
+              private itemsService: TotemItemsService,
+              private web3Service: Web3AuthService,
+              private messageService: SnackNotifierService) {}
 
   @Input() width = 'full';
   @Input() gem: any;
-  isLiked = false;
-
-  ngOnInit() {
-  }
 
   onClickLike() {
+    if(!this.web3Service.isLoggedIn()) {
+      this.messageService.open('Unauthorized');
+      return;
+    }
     this.gem.isLiked = !this.gem.isLiked;
     if (this.gem.isLiked) {
       this.favouritesService.addLike(CARD_TYPE.GEM, this.gem.id);
@@ -33,9 +37,9 @@ export class GemCardComponent {
 
   onNavigate() {
     const id = this.gem?.id;
-    this.itemsService.testItem.next({type: 'gem', item: this.gem});
-
-    this.router.navigate(['/item-info'], {queryParams: { id: id }});
+    let type = 'asset';
+    if(this.gem?.id?.tokenId) type = 'nft';
+    this.router.navigate(['/item-info'], {queryParams: { id: id, type: type }});
   }
 
 }

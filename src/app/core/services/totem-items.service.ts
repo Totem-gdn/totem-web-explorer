@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, map, Observable } from "rxjs";
+import { BehaviorSubject, map, Observable, take } from "rxjs";
 import { ItemParam } from "../models/item-param.model";
 import { CacheService } from "./cache.service";
 
@@ -229,6 +229,14 @@ export class TotemItemsService {
 
   getGameById(id: string) {
     return this.http.get(`${this.baseUrl}/games/${id}`);
+  }
+
+  getAssetById(id: string, type: string) {
+    if(type == 'item') type = 'items';
+    if(type == 'avatar') type = 'avatars';
+    if(type == 'gem') type = 'gems';
+
+    return this.http.get(`${this.baseUrl}/assets/${type}/${id}`).pipe(take(1))
   }
 
   getNewestItems() {

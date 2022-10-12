@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ItemParam } from '@app/core/models/item-param.model';
 import { CacheService } from '@app/core/services/cache.service';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
-import { ItemsService } from '@app/core/services/items/items.service';
+import { ItemsService } from '@app/core/services/assets/items.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';

@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
@@ -18,6 +18,8 @@ export class BasicInfoComponent implements OnDestroy {
 
   subs: Subscription = new Subscription();
   @Output() tabSelected = new EventEmitter<string>();
+  @Output() jsonSelected = new EventEmitter<File>();
+  @Input() jsonFile: File | null = null;
 
   get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
 
@@ -41,6 +43,10 @@ export class BasicInfoComponent implements OnDestroy {
 
   onNextTab() {
     this.tabSelected.emit('details');
+  }
+
+  onJsonFileSelected(event: File) {
+    this.jsonSelected.emit(event);
   }
 
   ngOnDestroy(): void {

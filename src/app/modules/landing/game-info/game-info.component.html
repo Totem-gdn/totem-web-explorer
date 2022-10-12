@@ -1,4 +1,4 @@
-<div class="wrapper py-[60px] sm:py-[80px] relative">
+<div *ngIf="game" class="wrapper py-[60px] sm:py-[80px] relative">
 
     <div class="blur-md">
         <bg-circle class="top-[-100px] left-0" [width]="'350px'" [background]="'#FFD011'"></bg-circle>
@@ -15,4 +15,9 @@
 
         <game-review [game]="game"></game-review>
     </div>
+</div>
+
+
+<div *ngIf="!game" class="w-full h-[calc(100vh-70px)] flex justify-center items-center">
+    <loading-spinner></loading-spinner>
 </div>
