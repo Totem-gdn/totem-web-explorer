@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 
 @Component({
@@ -11,24 +13,21 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
   styleUrls: ['../cards.component.scss'],
   // styles: ['img {object-fit: cover !important;}'],
 })
-export class GameCardComponent implements AfterViewInit {
+export class GameCardComponent {
 
-  constructor(private router: Router, private favouritesService: FavouritesService) {}
+  constructor(private router: Router,
+              private favouritesService: FavouritesService,
+              private web3Service: Web3AuthService,
+              private messageService: SnackNotifierService) {}
 
   @Input() width = 'full';
   @Input() game: any;
 
-  isLiked = false;
-
-
-
-  ngAfterViewInit(): void {
-    console.log(this.game)
-    // this.item.nativeElement.style.width = this.width;
-  }
-
   onClickLike() {
-    this.game.isLiked = !this.game.isLiked;
+    if(!this.web3Service.isLoggedIn()) {
+      this.messageService.open('Unauthorized');
+      return;
+    }
     if (this.game.isLiked) {
       this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id);
     } else {

@@ -51,7 +51,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       })
     )
 
-    this.sub.add(
+    /* this.sub.add(
       this.web3Service.maticTransactionListener().subscribe((data: any) => {
         if (data == 'error') {
           this.disableButton = false;
@@ -85,7 +85,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
           this.disableButton = false;
         }
       })
-    )
+    ) */
   }
 
   openTxDialogModal(data: any): Observable<{ matic: boolean, usdc: boolean }> {
@@ -107,6 +107,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
         console.log(data);
         if (data.matic || data.usdc) {
           this.updateBalance();
+          this.snackService.open('USDC balance updated');
           this.disableButton = false;
         }
 
@@ -163,7 +164,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
           return;
       }
       this.updateBalance();
-      this.getUsdc();
+      // this.getUsdc();
       this.web3Service.transactionsLogs().unsubscribe();
       this.disableButton = false;
     }, 120000);
@@ -178,7 +179,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     this.sub.add(
       this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
         next: (response: any) => {
-          console.log(response);
+          this.getUsdc(response.usdc);
           if (response.status == 'Accepted') {
             this.snackService.open('Tokens has been sent, wait a few seconds');
             this.web3Service.isReceiptedMatic(response.matic);
@@ -205,17 +206,21 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     )
   }
 
-  /* getUsdc() {
-    this.snackService.open('Claiming USDC');
-    this.paymentService.getTokens().then(() => {
-      this.updateBalance();
-      this.snackService.open('USDC balance updated');
-      this.disableButton = false;
-    }).catch(() => {
-      this.snackService.open('Limit exceeded, try later');
-      this.disableButton = false;
-    })
-  } */
+
+  getUsdc(hash: string) {
+    console.log(hash)
+    this.web3Service.listenToHash(hash);
+    // this.snackService.open('Claiming USDC');
+    // this.paymentService.getTokens().then(() => {
+    //   this.updateBalance();
+    //   this.snackService.open('USDC balance updated');
+    //   this.disableButton = false;
+    // }).catch(() => {
+    //   this.snackService.open('Limit exceeded, try later');
+    //   this.disableButton = false;
+    // })
+  }
+
 
   /* listenTransactions(walletAddress: string) {
     this.web3Service.transactionsLogs().on('data', event => {
@@ -226,6 +231,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
         //this.closeTimeout();
         this.updateBalance();
+        this.web3Service.transactionsLogs().unsubscribe();
         //this.getUsdc();
         //this.web3Service.transactionsLogs().unsubscribe();
       }
@@ -248,7 +254,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     //this.disableButton = true;
     //const matic = await this.web3Service.getBalance();
     //if(!matic || +matic <= 0) {
-    this.snackService.open('Please wait, claiming tokens...');
+    //this.snackService.open('Please wait, claiming tokens...');
     //const wallet = await this.web3Service.getAccounts();
     //const walletAddress = wallet.toLowerCase().slice(2);
     //this.listenTransactions(walletAddress);

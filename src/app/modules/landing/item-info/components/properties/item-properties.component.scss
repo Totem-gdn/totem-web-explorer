@@ -1,8 +1,9 @@
 @import 'styles/scss/variables';
 
 .wrapper {
-    width: 100%;
-    border: 1px solid $light-grey;
+    // width: 100%;
+    // border: 1px solid $light-grey;
+    //
     position: relative;
 }
 
@@ -11,7 +12,10 @@
 }
 
 .grid-container {
-    width: 100%;
+    // width: 100%;
+    margin:auto;
+    border: 1px solid $light-grey;
+    //
     display: grid;
     padding: 15px;
     gap: 12px;
@@ -21,18 +25,18 @@
     
 
     grid-template-columns:repeat(auto-fill, minmax(100px,1fr));
-    // max-height: calc(680px + 35px);
+    grid-template-columns:repeat(2, minmax(auto,1fr));
 
-    @media screen and (min-width: 480px) {
-        // grid-template-columns:repeat(auto-fill, minmax(100px,1fr));
-    }
-    @media screen and (min-width: 768px) {
-        grid-template-columns:repeat(6, minmax(auto,1fr));
-    }
-    @media screen and (min-width: 1000px) {
-        gap: 16px;
-        grid-template-columns:repeat(8, minmax(auto,1fr));
-    }
+    // @media screen and (min-width: 480px) {
+    //     // grid-template-columns:repeat(auto-fill, minmax(100px,1fr));
+    // }
+    // @media screen and (min-width: 768px) {
+    //     grid-template-columns:repeat(6, minmax(auto,1fr));
+    // }
+    // @media screen and (min-width: 1000px) {
+    //     gap: 16px;
+    //     grid-template-columns:repeat(8, minmax(auto,1fr));
+    // }
 }
 
 .view-all {

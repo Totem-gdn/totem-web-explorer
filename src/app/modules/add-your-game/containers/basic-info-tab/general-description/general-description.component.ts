@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ErrorHandler, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, ErrorHandler, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Tag } from "@app/core/models/tag-interface.model";
 import { Animations } from "@app/core/animations/animations";
@@ -46,7 +46,10 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     sub!: Subscription;
 
+    @Input() selectedJsonFile: File | null = null;
+
     @Output() formValid = new EventEmitter<any>();
+    @Output() onJsonFileSelected = new EventEmitter<any>();
 
     generalDescription = new FormGroup({
         name: new FormControl(null, [Validators.required]),
@@ -57,8 +60,16 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     })
     genresForm = this.generalDescription.get('genre') as FormArray;
 
-    addJsonFile(event: File) {
+    addJsonFile(event: any) {
+      console.log(event);
+      const jsonFile: File = event?.target?.files[0];
+      this.selectedJsonFile = jsonFile;
+      this.onJsonFileSelected.emit(jsonFile);
+    }
 
+    removeFile() {
+      this.selectedJsonFile = null;
+      this.onJsonFileSelected.emit(null);
     }
 
     onSelectTag(tag: Tag) {

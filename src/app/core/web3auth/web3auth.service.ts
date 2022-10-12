@@ -39,7 +39,6 @@ export class Web3AuthService {
         this.isModalLoaded = true;
     }
 
-
     transactionsLogs() {
         return this.web3.eth.subscribe('logs', { address: '0x0000000000000000000000000000000000001010' });
     }
@@ -88,6 +87,10 @@ export class Web3AuthService {
     }
     usdcTransactionListener(): Observable<any> {
       return this.usdcClaimed.asObservable();
+    }
+    resetUsdcAndMaticResponse() {
+      this.usdcClaimed.next(null);
+      this.maticClaimed.next(null);
     }
 
 
@@ -228,6 +231,16 @@ export class Web3AuthService {
     //     const tx = await rpc.getListOfNfts();
     //     return tx;
     // }
+    listenToHash(hash: string) {
+        const web3 = new Web3(this.provider as any);
+        console.log('hash', hash)
+        setInterval(() => {
+            web3.eth.getTransactionReceipt(hash, (err,res) => {
+                console.log(res)
+                console.log(err);
+            });
+        }, 1000)
+    }
 
     logout = async () => {
         if (!this.web3auth) {

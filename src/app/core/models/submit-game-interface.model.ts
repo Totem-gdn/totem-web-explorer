@@ -48,6 +48,7 @@ export interface ConnectionsInfo {
   webpage?: string;
   assetRenderer?: string;
   promoVideo?: string;
+  dnaFilter?: ImageFileInfo;
   socialLinks?: SocialLinksInfo[];
 }
 
@@ -78,5 +79,8 @@ export interface ImagesUrls {
 
 export interface SubmitGameResponse {
   id: string;
+  connections: {
+    dnaFilter?: string;
+  };
   uploadImageURLs: ImagesUrls;
 }

@@ -1,8 +1,21 @@
-
-<div #wrapper class="flex overflow-hidden my-[10px]">
-    <div class="two-items" *ngFor="let image of _images">
+<div class="wrapper">
+    <div #slider class="slider">
+        <ng-container *ngIf="_images">
+            <div class="slide" *ngFor="let image of _images">
     
-        <img *ngIf="!_images || !_images?.length" src="assets/images/game-info/game_slide_top.png" alt="">
-        <img [src]="image" alt="">
+                <img *ngIf="!image" src="assets/images/game-info/game_slide_top.png" alt="">
+                <img class="sm:h-[175px]" [src]="image" alt="" (click)="onClickImg(image)">
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!_images">
+            <div class="slide" *ngFor="let _ of [].constructor(10)">
+                <img src="assets/images/game-info/game_slide_top.png" alt="">
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="arrows-wrapper">
+        <div class="w-[24px] absolute h-[24px] bottom-0 left-0 cursor-pointer" (click)="onClickPrev()"><mat-icon class="left-arrow" [svgIcon]="'line:arrow_left'"></mat-icon></div>
+        <div class="w-[24px] absolute h-[24px] bottom-0 right-0 cursor-pointer" (click)="onClickNext()"><mat-icon class="right-arrow" [svgIcon]="'line:arrow_right'"></mat-icon></div>
     </div>
 </div>

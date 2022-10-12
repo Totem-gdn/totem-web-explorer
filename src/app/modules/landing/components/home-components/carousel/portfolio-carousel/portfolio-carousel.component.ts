@@ -1,6 +1,6 @@
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
-import { Subject, takeUntil } from "rxjs";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
+import { fromEvent, Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: 'portfolio-carousel',
@@ -19,7 +19,9 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
     }
     _images!: string[];
 
-    @ViewChild('wrapper') wrapper!: ElementRef;
+    @ViewChild('slider') slider!: ElementRef;
+    
+    @Output() changeImg = new EventEmitter<string>();
 
     screenObserver() {
         this.breakpointObserver
@@ -29,11 +31,63 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
           });
       }
 
-    itemCount = 3;
+    // itemCount = 3;
+    sliderPosition = 0;
+    currentSlide = 0;
 
     ngAfterViewInit(): void {
-        const wrapperWidth = this.wrapper.nativeElement.offsetWidth;
-        console.log(wrapperWidth)
+        this.onResize();
+    }
+
+    onClickNext() {
+        this.scroll('right');
+    }
+
+    onClickPrev() {
+        this.scroll('left');
+    }
+
+    onClickImg(img: string) {
+        this.changeImg.emit(img);
+    }
+
+    scroll(direction: string) {
+        const slider = this.slider.nativeElement as HTMLElement;
+        
+        const slides = this.slider.nativeElement.children;
+        const itemWidth = slides[0].offsetWidth + 15;
+
+        if(direction == 'right') {
+            if(this.currentSlide != slider.children.length - 2) this.currentSlide += 1;
+            if(this.currentSlide == slider.children.length - 2) this.currentSlide = 0;
+            const scrollWidth = this.currentSlide * itemWidth;
+            slider.scrollTo({left: scrollWidth})
+        }
+
+        if(direction == 'left') {
+            if(this.currentSlide != 0) this.currentSlide -= 1;
+            // if(this.currentSlide == 0) this.currentSlide = slider.children.length - 3;
+
+            const scrollWidth = this.currentSlide * itemWidth;
+            slider.scrollTo({left: scrollWidth})
+        }
+    }
+
+    onResize() {
+        const resize = fromEvent(window, 'resize');
+        resize.subscribe(() => {
+            // const slides = this.wrapper.nativeElement.children;
+            // this.itemWidth = slides[0].offsetWidth;
+        //     const wrapperWidth = this.wrapper.nativeElement.offsetWidth;
+        //     console.log('width', wrapperWidth)
+        //     this.itemWidth = wrapperWidth / this.itemCount;
+        //     console.log('Item Width', this.itemWidth)
+        //     const items = this.wrapper.nativeElement.children;
+        //     for(let item of items) {
+        //         item.style.width = `${this.itemWidth}px`;
+        //         item.style.minWidth = `${this.itemWidth}px`;
+            // }
+        })
     }
 
     itemsOnScreen(quantity: number) {

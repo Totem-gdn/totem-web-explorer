@@ -13,6 +13,17 @@ import { Subscription } from "rxjs";
 
 export class GameDescriptionComponent {
 
-    @Input() game!: SubmitGame | any;
+    @Input() set game(game: any) {
+        this._game = game;
+        this.hlImage = game?.images?.gallery[0];
+        console.log(game)
+    };
+
+    _game: any;
+    hlImage!: string;
+
+    onChangeImg(image: string) {
+        this.hlImage = image;
+    }
 
 }

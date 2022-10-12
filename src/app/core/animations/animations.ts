@@ -95,6 +95,27 @@ export const Animations = {
             ]
           ),
           trigger(
+            'fileAnimation',
+            [
+              transition(
+                ':enter',
+                [
+                  style({ opacity: 0, height: 0 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 1, height: 50 }))
+                ]
+              ),
+              transition(
+                ':leave',
+                [
+                  style({ opacity: 1, height: 50 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 0, height: 0 }))
+                ]
+              )
+            ]
+          ),
+          trigger(
             'fade-in-out',
             [
               transition(
@@ -135,20 +156,16 @@ export const Animations = {
                 ':enter',
                 [
                   style({ opacity: 0 }),
-                  group([
-                      animate('0.3s 0.1s ease-in-out',
+                  animate('0.33s ease-out',
                           style({opacity: 1}))
-                  ])
                 ]
               ),
               transition(
                 ':leave',
                 [
                   style({ opacity: 1 }),
-                  group([
-                      animate('0.3s ease-in-out',
+                  animate('0.33s ease-in',
                           style({opacity: 0}))
-                  ])
                 ]
               )
             ]

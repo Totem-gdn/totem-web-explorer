@@ -49,6 +49,10 @@
 
   }
 
+  .no-border {
+    border-bottom: unset;
+  }
+
   .input-section {
     display: flex;
     flex-direction: column;
@@ -61,10 +65,40 @@
     width: 100%;
 
     .dropzone-wrapper {
-      height: 225px;
+      min-height: 225px;
       padding: 20px;
       background-color: $dark-grey;
       border-radius: 4px;
+    }
+
+    .file-bar {
+      height: 50px;
+      border: 1px solid rgba(95, 99, 105, 0.5);
+      border-radius: 4px;
+      overflow: hidden;
+
+      mat-icon {
+        color: $light-grey;
+        width: auto;
+        height: 23.75px;
+        transition: color 0.33s ease-out;
+      }
+
+      .remove-button {
+        cursor: pointer;
+        &:hover {
+          mat-icon {
+            color: #fff;
+          }
+        }
+      }
+
+      .file-name {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: $light-grey;
+      }
     }
   }
 

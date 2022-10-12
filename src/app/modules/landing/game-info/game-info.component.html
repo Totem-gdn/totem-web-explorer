@@ -1,11 +1,23 @@
-<div class="wrapper py-[40px] sm:py-[80px]">
-    <div class="img-wrapper">
+<div *ngIf="game" class="wrapper py-[60px] sm:py-[80px] relative">
+
+    <div class="blur-md">
+        <bg-circle class="top-[-100px] left-0" [width]="'350px'" [background]="'#FFD011'"></bg-circle>
+        <bg-circle class="top-[100px] left-[25%]" [width]="'200px'" [background]="'#00BC58'"></bg-circle>
+        <bg-circle class="top-[-100px] left-[90%]" [width]="'250px'" [background]="'rgb(189 41 184)'"></bg-circle>
+    </div>
+
+    <div class="z-1 img-wrapper p-[9px] sm:p-[18px]">
         <img [src]="game?.images?.coverImage ? game?.images?.coverImage : 'assets/images/game-info/head.png'" alt="">
     </div>
 
-    <div class="flex gap-[60px] justify-between">
+    <div class="z-1 flex gap-[60px] justify-center lg:justify-between flex-wrap-reverse lg:flex-nowrap">
         <game-description [game]="game"></game-description>
 
         <game-review [game]="game"></game-review>
     </div>
+</div>
+
+
+<div *ngIf="!game" class="w-full h-[calc(100vh-70px)] flex justify-center items-center">
+    <loading-spinner></loading-spinner>
 </div>

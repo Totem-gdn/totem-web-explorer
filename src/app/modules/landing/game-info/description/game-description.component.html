@@ -1,12 +1,12 @@
 <div class="description">
     <div class="images-block pb-[60px]">
-        <img *ngIf="game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt="">
-        <img *ngIf="!game?.images?.galley" [src]="game?.images?.gallery[0]" alt="">
-        <portfolio-carousel [images]="game?.images?.gallery"></portfolio-carousel>
+        <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt="">
+        <img class="sm:h-[430px]" *ngIf="!_game?.images?.galley" [src]="hlImage" alt="">
+        <portfolio-carousel (changeImg)="onChangeImg($event)" [images]="_game?.images?.gallery"></portfolio-carousel>
     </div>
 
-    <div class="flex gap-[60px] justify-between">
-        <div *ngIf="game?.general?.fullDescription == undefined && !game" class="flex flex-col">
+    <div class="flex gap-[60px] justify-between flex-wrap xl:flex-nowrap">
+        <div *ngIf="_game?.general?.fullDescription == undefined && !_game" class="flex flex-col">
             <h4 class="mb-[30px]">Description</h4>
             <p class="font-medium">
                 Struggling punk band, Dead Pets, are still looking for their breakthrough after almost 10 years.
@@ -27,34 +27,48 @@
                 safety while playing.
             </p>
         </div>
-        <div *ngIf="game?.general?.fullDescription" class="flex flex-col">
+
+        <div *ngIf="_game?.general?.fullDescription" class="flex flex-col">
             <h4 class="mb-[30px]">Description</h4>
-            <p *ngIf="game?.general?.fullDescription">
-                {{game?.general?.fullDescription}}
+            <p *ngIf="_game?.general?.fullDescription">
+                {{_game?.general?.fullDescription}}
             </p>
         </div>
 
         <div class="flex flex-col w-[250px]">
             <h4 class="mb-[30px]">Genre</h4>
-            <div *ngIf="game?.general?.genre" class="tags pb-[60px]">
-                <div class="tag" *ngFor="let genre of game?.general?.genre">
+            <div *ngIf="_game?.general?.genre" class="tags pb-[60px]">
+                <div class="tag" *ngFor="let genre of _game?.general?.genre">
                     <span>{{genre}}</span>
                 </div>
             </div>
 
-            <div *ngIf="!game?.general?.genre && !game?.general?.genre?.length" class="tags pb-[60px]">
+            <div *ngIf="!_game?.general?.genre && !_game?.general?.genre?.length" class="tags pb-[60px]">
                 <div class="tag" *ngFor="let _ of [].constructor(8)">
                     <span>Meaningful choices</span>
                 </div>
             </div>
-            <h4 class="pb-[15px]">Links</h4>
 
-            <div class="links">
-                <div class="link"><mat-icon [svgIcon]="'line:discord'"></mat-icon></div>
-                <div class="link"><mat-icon [svgIcon]="'line:facebook'"></mat-icon></div>
-                <div class="link"><mat-icon [svgIcon]="'line:twitter'"></mat-icon></div>
-                <div class="link"><mat-icon [svgIcon]="'line:instagram'"></mat-icon></div>
-            </div>
+            <ng-container *ngIf="_game?.connections?.socialLinks && _game?.connections?.socialLinks?.length != 0">
+                <h4 class="pb-[15px]">Links</h4>
+
+                <div class="links">
+                    <ng-container *ngFor="let link of _game?.connections?.socialLinks">
+                        <div *ngIf="link.type == 'Discord'" class="link">
+                            <mat-icon [svgIcon]="'line:discord'"></mat-icon>
+                        </div>
+                        <div *ngIf="link.type == 'Facebook'" class="link">
+                            <mat-icon [svgIcon]="'line:facebook'"></mat-icon>
+                        </div>
+                        <div *ngIf="link.type == 'Twitter'" class="link">
+                            <mat-icon [svgIcon]="'line:twitter'"></mat-icon>
+                        </div>
+                        <div *ngIf="link.type == 'Instagram'" class="link">
+                            <mat-icon [svgIcon]="'line:instagram'"></mat-icon>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
         </div>
     </div>
 </div>

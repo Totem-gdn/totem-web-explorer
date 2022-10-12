@@ -11,11 +11,10 @@
 
     .img-wrapper {
         border-radius: 4px;
-        padding: 18px;
         background: $linear-glass;
         margin-bottom: 60px;
         img {
-            // max-width: 470px;
+            object-fit: cover;
             height: auto;
         }
     }
