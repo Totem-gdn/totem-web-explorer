@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 
 @Component({
@@ -16,6 +16,7 @@ export class ItemPropertiesComponent implements OnInit, AfterViewChecked, AfterV
   showViewAll: boolean | null = false;
   toggle = false;
 
+  @Input() item!: any;
   @ViewChild('grid') grid!: ElementRef;
   tagsWidth = [];
 
@@ -41,7 +42,6 @@ export class ItemPropertiesComponent implements OnInit, AfterViewChecked, AfterV
   checkTagsOverflow() {
     const tags = this.grid.nativeElement.children;
     const tagWidth = tags[0].offsetWidth - 30;
-    console.log(tagWidth);
 
     for(let tag of tags) {
       if(tagWidth > tag.firstChild.scrollWidth) {

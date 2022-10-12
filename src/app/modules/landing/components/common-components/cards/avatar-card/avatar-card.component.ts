@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
-import { ItemsService } from '@app/core/services/items/items.service';
+import { ItemsService } from '@app/core/services/assets/items.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 
 @Component({
@@ -17,14 +19,19 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 export class AvatarCardComponent {
 
   constructor(private router: Router, private favouritesService: FavouritesService,
-              private itemsService: TotemItemsService) {}
+              private itemsService: TotemItemsService,
+              private messageService: SnackNotifierService,
+              private web3Service: Web3AuthService) {}
 
   @Input() width = 'full';
   @Input() avatar: any;
-  isLiked = false;
 
 
   onClickLike() {
+    if(!this.web3Service.isLoggedIn()) {
+      this.messageService.open('Unauthorized');
+      return;
+    }
     this.avatar.isLiked = !this.avatar.isLiked;
     if (this.avatar.isLiked) {
       this.favouritesService.addLike(CARD_TYPE.AVATAR, this.avatar.id);

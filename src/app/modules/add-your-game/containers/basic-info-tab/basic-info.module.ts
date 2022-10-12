@@ -29,6 +29,8 @@ import { TotemImageDropzoneModule } from "../../components/totem-image-dropzone/
         MatRippleModule,
         TotemButtonModule,
         TotemImageDropzoneModule,
+
+        FlexLayoutModule
     ],
     exports: [
         BasicInfoComponent

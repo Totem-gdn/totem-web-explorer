@@ -1,65 +1,77 @@
-<div class="wrapper w-full md:max-w-[456px]">
+<div class="wrapper w-full lg:max-w-[456px]">
     
     <div class="pb-[40px]">
         <h2 *ngIf="!nft?.metadata?.name">ID: {{item?.tokenId}}</h2>
         <h2 *ngIf="nft?.metadata?.name">{{nft.metadata.name}}</h2>
     </div>
-    <!-- User -->
-    <!-- <div class="flex pt-[30px] pb-[40px]">
-        <img src="assets/images/user-icon.png" alt="">
-        <div class="flex flex-col justify-center pl-[10px]">
-            <h4>User Name</h4>
-            <p class="text-light-grey">Creator</p>
-        </div>
-    </div> -->
+
     <div class="flex pb-[20px] items-center">
-        <p class="text-light-grey">Current owner </p>
+        <p class="text-light-grey">Current owner: </p>
         <!-- <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet}}</a> -->
-        <p class="text-white pl-[10px] text-xl truncate w-[200px]">{{item?.owner}}</p>
+        <!-- <p class="text-white pl-[10px] text-xl truncate w-[200px]">{{item?.owner}}</p> -->
+        <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        [cdkCopyToClipboard]="item?.owner"
+        [cdkCopyToClipboardAttempts]="2"
+        (cdkCopyToClipboardCopied)="walletCopied()"
+        class="user-id"
+        >
+        <p class="user-id">{{item?.owner?.slice(0, 6) + '...' + item?.owner?.slice(-4)}}</p>
+        <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+      </div>
     </div>
 
     <!-- Icons -->
-    <div class="flex flex-wrap border-t border-t-light-grey text-light-grey">
-        <div class="flex">
+    <div class="icon-wrapper">
+        <div class="icon-set">
             <div class="icon !pl-0">
-                <mat-icon *ngIf="isLiked === false" class="like !w-[18px]" [svgIcon]="'line:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-                <mat-icon *ngIf="isLiked === true" class="text-yellow !w-[18px]" [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-                <p>{{item?.likes}}</p>
+                <mat-icon *ngIf="item?.isLiked === false" class="like !w-[18px]" [svgIcon]="'line:like'"
+                    (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+                <mat-icon *ngIf="item?.isLiked === true" class="text-yellow cursor-pointer !w-[18px]" [svgIcon]="'solid:like'"
+                    (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+                <p>{{item?.likes ? item?. likes : '0'}}</p>
             </div>
             <div class="icon">
                 <mat-icon class="!w-[20px]" [svgIcon]="'line:eye'"></mat-icon>
-                <p>{{item?.views}}</p>
+                <p>{{item?.views ? item?.views : '0'}}</p>
             </div>
         </div>
-        <div class="flex">
+        <div class="icon-set">
+            <div class="icon">
+                <mat-icon class="!w-[14px] !h-[19px] mb-auto" [svgIcon]="'line:share'"></mat-icon>
+                <p>Share</p>
+            </div>
             <div class="icon">
                 <mat-icon class="!w-[16px]" [svgIcon]="'line:refresh'"></mat-icon>
                 <p>Refresh</p>
             </div>
-            <div class="icon">
-                <mat-icon class="!w-[14px]" [svgIcon]="'line:share'"></mat-icon>
-                <p>Share</p>
-            </div>
         </div>
     </div>
 
-    <div class="play" #playContainer>
+    <div class="game-dropdown">
+        <search-dropdown [title]="'Game Name'"></search-dropdown>
+    </div>
+
+    <div class="play !mb-[40px] lg:!mb-[0px]" #playContainer>
             <div class="flex flex-wrap gap-[13px]">
                 <div class="item-tag">
-                    <h4>24.05.22</h4>
+                    <h4 *ngIf="item?.lastUsed || item?.lastUsed == 0">{{item?.lastUsed}}</h4>
+                    <h4 *ngIf="!item?.lastUsed">--</h4>
                     <p>Last used</p>
                 </div>
                 <div class="item-tag">
-                    <h4>24.05.22</h4>
-                    <p>Last used</p>
+                    <h4>--</h4>
+                    <p>Rarity</p>
                 </div>
                 <div class="item-tag">
-                    <h4>24.05.22</h4>
-                    <p>Last used</p>
+                    <h4>{{item?.games || item?.games == 0 ? item?.games : '--'}}</h4>
+                    <p>Games Used</p>
                 </div>
         </div>
 
-        <totem-button class="pt-[20px]" [caption]="'Play'" [width]="'100%'"></totem-button>
+        <totem-button (click)="onClickBuy()"
+        [disabled]="item?.owner == myWallet" class="pt-[20px]" [caption]="item?.owner == myWallet ? 'You are the owner': 'Buy Item'" [width]="'100%'"></totem-button>
 
     </div>
 

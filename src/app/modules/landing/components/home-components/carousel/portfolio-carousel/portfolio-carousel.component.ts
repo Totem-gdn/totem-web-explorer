@@ -58,8 +58,8 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
         const itemWidth = slides[0].offsetWidth + 15;
 
         if(direction == 'right') {
-            if(this.currentSlide != slider.children.length - 1) this.currentSlide += 1;
-            if(this.currentSlide == slider.children.length - 1) this.currentSlide = 0;
+            if(this.currentSlide != slider.children.length - 2) this.currentSlide += 1;
+            if(this.currentSlide == slider.children.length - 2) this.currentSlide = 0;
             const scrollWidth = this.currentSlide * itemWidth;
             slider.scrollTo({left: scrollWidth})
         }

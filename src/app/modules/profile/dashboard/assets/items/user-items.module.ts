@@ -1,28 +1,29 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FilterComponentsModule } from "@app/modules/landing/components/filters-components/filter-components.module";
+
 import { SharedModule } from "@app/shared/shared.module";
-import { ProfileStatsModule } from "../../components/profile-stats/profile-stats.module";
-import { UserAvatarsComponent } from "./user-avatars.component";
-import { UserAvatarsRoutes } from "./user-avatars.routing";
+import { ProfileStatsModule } from "../../../components/profile-stats/profile-stats.module";
+import { UserItemsComponent } from "./user-items.component";
+import { UserItemsRoutes } from "./user-items.routing";
 
 
 @NgModule({
     declarations: [
-        UserAvatarsComponent
+        UserItemsComponent
     ],
     imports: [
         SharedModule,
-        RouterModule.forChild(UserAvatarsRoutes),
+        RouterModule.forChild(UserItemsRoutes),
 
         FilterComponentsModule,
         ProfileStatsModule
     ],
     exports: [
-        UserAvatarsComponent
+        UserItemsComponent
     ]
 })
 
-export class UserAvatarsModule {
+export class UserItemsModule {
 
 }
