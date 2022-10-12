@@ -76,6 +76,27 @@ mat-progress-bar {
   //height: 100%;
   min-height: 486px;
 
+  mat-progress-bar {
+    border-radius: 13px;
+
+    .mat-progress-bar-background {
+      fill: $dark-grey;
+    }
+
+    .mat-progress-bar-buffer {
+      background: $dark-grey;
+    }
+
+    .mat-progress-bar-fill {
+      border-radius: 13px;
+    }
+    .mat-progress-bar-fill::after {
+      background-color: currentColor;
+      border-radius: 13px;
+    }
+
+  }
+
   .mat-dialog-container {
     border: 1px solid #8A939B;
     background-color: #2A2D33;
