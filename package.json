@@ -28,6 +28,7 @@
     "@web3auth/base": "^1.2.0",
     "@web3auth/web3auth": "^1.2.0",
     "alchemy-sdk": "^2.1.0",
+    "angular-gtag": "^1.0.4",
     "express": "^4.18.1",
     "ng-particles": "^3.3.2",
     "ngx-image-cropper": "^6.2.2",
