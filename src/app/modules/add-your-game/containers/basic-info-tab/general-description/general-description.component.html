@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="block-section">
+            <div class="block-section no-border">
                 <h4>DNA filter</h4>
                 <div class="dta-input-section">
                   <div class="dropzone-wrapper w-full mb-[15px]">
@@ -80,6 +80,16 @@
                   </div>
 
                   <span>Upload JSON file with filters for your game</span>
+
+                  <div @fileAnimation class="file-bar w-full p-[10px]" *ngIf="selectedJsonFile" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon>
+                      <div class="file-name ml-[14px]">{{selectedJsonFile.name}}</div>
+                    </div>
+                    <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile()">
+                      <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon>
+                    </div>
+                  </div>
                 </div>
             </div>
 
