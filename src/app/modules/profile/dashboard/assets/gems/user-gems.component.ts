@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { ItemParam } from '@app/core/models/item-param.model';
+import { UserAssetsService } from '@app/core/services/assets/user-assets.service';
 import { CacheService } from '@app/core/services/cache.service';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
@@ -13,18 +15,18 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
 })
 export class UserGemsComponent implements OnInit, OnDestroy {
 
-  constructor(private alchService: AlchemyService,
-              private web3Service: Web3AuthService,
-              private itemsService: TotemItemsService,
-              private cacheService: CacheService) { }
+  constructor(private assetsService: UserAssetsService,
+              private alchService: AlchemyService,
+              private web3Service: Web3AuthService) { }
 
-  gems!: any[];
+  gems!: any[] | null;
   subs = new Subject<void>();
 
   async ngOnInit() {
     // this.filters$();
     // this.fetchGems();
     this.getNfts();
+    // this.getGems();
   }
 
   // filters$() {
@@ -39,21 +41,20 @@ export class UserGemsComponent implements OnInit, OnDestroy {
   //   })
   // }
 
+  // getGems() {
+  //   this.assetsService.updateAssets('gem').subscribe();
+  //   this.assetsService.gems$
+  //     .pipe(takeUntil(this.subs))
+  //     .subscribe(gems => {
+  //       this.gems = gems;
+  //     })
+  // }
   async getNfts() {
     const wallet = await this.web3Service.getAccounts();
 
-    this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-      const gems: any[] = [];
-      for(let nft of nfts) {
-        nft.id.tokenId = parseInt(nft.id.tokenId);
-        if(nft.contractMetadata.name === 'Gem') {
-          gems.push(nft);
-        }
-      }
+    this.alchService.getAssetsIds(CARD_TYPE.GEM, wallet).then(gems => {
       this.gems = gems;
-      console.log('gems', this.gems)
-      this.cacheService.setItemCache('gem', this.gems.length);
-    })
+    });
   }
 
   ngOnDestroy(): void {

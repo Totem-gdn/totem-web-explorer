@@ -5,7 +5,9 @@ import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { ItemsService } from '@app/core/services/assets/items.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { Subject, Subscription, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, take, takeUntil } from 'rxjs';
+import { CARD_TYPE } from '@app/core/enums/card-types.enum';
+import { UserAssetsService } from '@app/core/services/assets/user-assets.service';
 
 @Component({
   selector: 'app-user-items',
@@ -14,36 +16,29 @@ import { Subject, Subscription, take, takeUntil } from 'rxjs';
 })
 export class UserItemsComponent implements OnInit {
 
-  constructor(private itemsService: TotemItemsService,
+  constructor(private assetsService: UserAssetsService,
               private web3Service: Web3AuthService,
-              private alchService: AlchemyService,
-              private cacheService: CacheService) { }
+              private alchService: AlchemyService) { }
 
-  items!: any[];
+  // items!: any[];
+  items!: any[] | null;
   subs = new Subject<void>();
 
   async ngOnInit() {
     // this.filters$();
     // this.fetchItems();
+    // this.getItems();
     this.getNfts();
   }
 
-  async getNfts() {
-    const wallet = await this.web3Service.getAccounts();
-
-    this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-      const items: any[] = [];
-      for(let nft of nfts) {
-        nft.id.tokenId = parseInt(nft.id.tokenId);
-        if(nft.contractMetadata.name === 'Item') {
-          items.push(nft);
-        }
-      }
-      this.items = items;
-      console.log('items', this.items)
-      this.cacheService.setItemCache('item', this.items.length);
-    })
-  }
+  // getItems() {
+  //   this.assetsService.updateAssets('item').subscribe();
+  //   this.assetsService.items$
+  //     .pipe(takeUntil(this.subs))
+  //     .subscribe(items => {
+  //       this.items = items;
+  //     })
+  // }
 
   // filters$() {
   //   this.itemsService.filters$.pipe(takeUntil(this.subs)).subscribe(filters => {
@@ -57,20 +52,13 @@ export class UserItemsComponent implements OnInit {
   //   })
   // }
 
-  // async getNfts() {
-  //   const wallet = await this.web3Service.getAccounts();
+  async getNfts() {
+    const wallet = await this.web3Service.getAccounts();
 
-  //   this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-  //     const items: any[] = [];
-  //     for(let nft of nfts) {
-  //       nft.id.tokenId = parseInt(nft.id.tokenId);
-  //       if(nft.contractMetadata.name === 'Item') {
-  //         items.push(nft);
-  //       }
-  //     }
-  //     this.items = items;
-  //   })
-  // }
+    this.alchService.getAssetsIds(CARD_TYPE.ITEM, wallet).then(items => {
+      this.items = items;
+    });
+  }
 
   ngOnDestroy () {
     this.subs.next();

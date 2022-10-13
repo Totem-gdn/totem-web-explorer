@@ -19,13 +19,13 @@
             <div class="flex flex-col w-full">
                 <div #wrapper class="grow grid-item-list relative">
                     <ng-container *ngIf="itemType === 'item'">
-                        <item-card *ngFor="let item of itemsToShow" [item]="item"></item-card>
+                        <asset-card *ngFor="let item of itemsToShow" [asset]="item" [type]="'item'"></asset-card>
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no items</h3></ng-container>
                     </ng-container>
 
                     <ng-container *ngIf="itemType === 'avatar'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no avatars</h3></ng-container>
-                        <avatar-card *ngFor="let item of itemsToShow" [avatar]="item"></avatar-card>
+                        <asset-card *ngFor="let item of itemsToShow" [asset]="item" [type]="'avatar'"></asset-card>
                     </ng-container>
                     
                     <ng-container *ngIf="itemType === 'game'">
@@ -35,7 +35,7 @@
 
                     <ng-container *ngIf="itemType === 'gem'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no gems</h3></ng-container>
-                        <gem-card *ngFor="let item of itemsToShow" [gem]="item"></gem-card>
+                        <asset-card *ngFor="let item of itemsToShow" [asset]="item" [type]="'gem'"></asset-card>
                     </ng-container>
 
                     <div class="absolute w-full h-full flex" *ngIf="! itemsToShow"><loading-spinner class="m-auto"></loading-spinner></div>

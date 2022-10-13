@@ -1,13 +1,12 @@
 <div class="flex flex-col wrapper" (onResize)="onResize()">
     <div class="grid-container" #grid>
-        <div class="item-tag" (mouseover)="onOver()">
-            <h4 class="truncate">Last Used</h4>
-            <p class="truncate">{{item?.lastUsed ? item?.lastUsed : '--'}}</p>
+        <div *ngFor="let propertie of properties" class="item-tag" (mouseover)="onOver()">
+            <h4 class="truncate">{{propertie.title}}</h4>
+            <p class="truncate">{{propertie.value}}</p>
         </div> 
-        <div class="item-tag" (mouseover)="onOver()">
-            <h4 class="truncate">Games</h4>
-            <p class="truncate">{{item?.games || item?.games == 0 ? item?.games : '--'}}</p>
-        </div> 
+        <div class="" *ngFor="let placeholder of placeholders" class="item-tag placeholder">
+            <mat-icon class="text-grey" [svgIcon]="'line:item-place'"></mat-icon>
+        </div>
     </div>
     <!-- View All -->
     <div *ngIf="showViewAll" [attr.offsetWidth]="offset()" class="view-all" (click)="onClickViewAll()">

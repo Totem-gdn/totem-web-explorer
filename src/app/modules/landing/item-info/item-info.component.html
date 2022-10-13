@@ -41,7 +41,7 @@
 
 
     <div>
-        <item-properties [item]="item" *ngIf="activeTab === 'properties'"></item-properties>
+        <item-properties [properties]="properties" *ngIf="activeTab === 'properties'"></item-properties>
         <item-legacy *ngIf="activeTab === 'legacy'"></item-legacy>
         <item-history *ngIf="activeTab === 'history'"></item-history>
     </div>
@@ -53,8 +53,8 @@
         </div>
     </div> -->
 
-    <horizontal-carousel class="mt-[70px]" [title]="'History view'" [menuTitle]="null" [itemType]="'item'"
-        [items]="items | async">
+    <horizontal-carousel class="mt-[70px]" [title]="'History view'" [menuTitle]="null" [itemType]="type"
+        [items]="assets | async">
     </horizontal-carousel>
 </div>
 
