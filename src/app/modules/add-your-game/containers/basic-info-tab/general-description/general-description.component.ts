@@ -35,7 +35,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     setItems!: any;
 
-    dropdownItems = [{value: 'Comedy'}, {value: 'Horror'}, {value: 'Third-person'}, {value: 'Singleplayer'}, {value: 'Action'}, {value: 'Base defense'}, {value: 'Adventure'}];
+    dropdownItems = [{value: 'Comedy'}, {value: 'Horror'}, {value: 'Third-person'}, {value: 'Survival'}, {value: 'Singleplayer'}, {value: 'Action'}, {value: 'Base defense'}, {value: 'Adventure'}, {value: 'MMORPG'}];
 
     dropdownTouched = false;
     genreTags: Tag[] = [];
@@ -56,7 +56,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
         author: new FormControl(null, [Validators.required]),
         description: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
         genre: new FormArray([]),
-        fullDescription: new FormControl(null, [Validators.maxLength(300)]),
+        fullDescription: new FormControl(null, [Validators.maxLength(3000)]),
     })
     genresForm = this.generalDescription.get('genre') as FormArray;
 
