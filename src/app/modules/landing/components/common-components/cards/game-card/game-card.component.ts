@@ -42,7 +42,7 @@ export class GameCardComponent {
 
   onNavigate() {
     const id = this.game?.id;
-    this.router.navigate(['/game-info'], {queryParams: { id: id }});
+    this.router.navigate(['/game-info'], {queryParams: { id: id, type: 'game' }});
   }
 
 }

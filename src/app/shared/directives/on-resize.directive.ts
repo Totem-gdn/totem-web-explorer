@@ -14,7 +14,6 @@ export class OnResizeDirective implements AfterViewInit, OnDestroy {
   
     ngAfterViewInit(): void {
         this.sub = fromEvent(window, 'resize').subscribe(() => {
-            console.log('resize')
             this.onResize.emit();
         })
     }

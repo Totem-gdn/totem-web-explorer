@@ -20,7 +20,8 @@ export class FilterComponentsComponent implements AfterViewInit {
     @Input() showUpdate = true;
     @ViewChild('wrapper') wrapper!: ElementRef;
 
-    @Input() set items(items: any[] | undefined) {
+    @Input() set items(items: any[] | undefined | null) {
+        if(items == null) return;
         this._items = items;
         this.onLoadMore();
     }

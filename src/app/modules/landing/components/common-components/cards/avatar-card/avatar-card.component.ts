@@ -41,9 +41,10 @@ export class AvatarCardComponent {
   }
 
   onNavigate() {
-    const id = this.avatar?.id;
-    this.itemsService.testItem.next({type: 'avatar', item: this.avatar});
-    this.router.navigate(['/item-info'], {queryParams: { id: id }});
+    const id = this.avatar?.id | this.avatar?.id?.tokenId;
+    let type = 'asset';
+    if(this.avatar?.id?.tokenId) type = 'nft';
+    this.router.navigate(['/item-info'], {queryParams: { id: id, assetType: 'avatar', type: type }});
   }
 
 }

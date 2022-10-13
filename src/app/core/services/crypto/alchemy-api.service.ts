@@ -7,6 +7,9 @@ import { BehaviorSubject, from, map, publishReplay, shareReplay, take } from "rx
 const ALCHEMY_KEY = environment.ALCHEMY_KEY;
 //
 import { Alchemy, Network } from "alchemy-sdk";
+import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
+import Web3 from "web3";
+import { CacheService } from "../cache.service";
 // const alchKeenvironment.ALCHEMY_KEY
 const settings = {
     // apiKey: ALCHEMY_KEY, // Replace with your Alchemy API Key.
@@ -23,7 +26,8 @@ const web3 = createAlchemyWeb3(ALCHEMY_KEY)
 
 export class AlchemyService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+                private cacheService: CacheService) { }
 
 
     getNfts(wallet: string) {
@@ -68,6 +72,33 @@ export class AlchemyService {
     //         })
     //     )
     // }
+    async updateTokenBalance() {
+
+    }
+
+    assetAddress(assetType: string)  {
+        if(assetType == 'avatar') return "0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35";
+        if(assetType == 'item') return "0xfC5654489b23379ebE98BaF37ae7017130B45086";
+        if(assetType == 'gem') return "0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5";
+        return '';
+    };
+
+    async getAssetsIds(assetType: string, wallet: string) {
+        // const accounts = await web3.eth.getAccounts();
+        const contractAddress = this.assetAddress(assetType);
+        const assetsABI = AssetsABI;
+        const contract = new web3.eth.Contract(assetsABI, contractAddress);
+    
+        const ids: any[] = [];
+        const balance = await contract.methods.balanceOf(wallet).call();
+        console.log(contract)
+        for (let i = 0; i < balance; i++) {
+          const tokenId = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
+          ids.push({id: {tokenId: tokenId}});
+        }
+        this.cacheService.setItemCache(assetType, ids.length);
+        return ids;
+      }
 
     async getNftMetadata(nft: any) {
         return web3.alchemy.getNftMetadata({ contractAddress: nft, tokenId: '0' });

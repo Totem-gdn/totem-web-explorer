@@ -39,7 +39,7 @@ export class GemCardComponent {
     const id = this.gem?.id;
     let type = 'asset';
     if(this.gem?.id?.tokenId) type = 'nft';
-    this.router.navigate(['/item-info'], {queryParams: { id: id, type: type }});
+    this.router.navigate(['/item-info'], {queryParams: { id: id, assetType: 'gem', type: type }});
   }
 
 }
