@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { TotemSpinnerModule } from '../totem-spinner/totem-spinner.module';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     TotemSearchFilterComponent
   ],
   imports: [
+    SharedModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     MatIconModule,
