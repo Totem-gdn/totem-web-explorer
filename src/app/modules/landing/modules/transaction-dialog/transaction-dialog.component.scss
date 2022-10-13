@@ -12,6 +12,15 @@
     * {
       color: $light-grey;
     }
+    position: relative;
+    height: 40px;
+
+    .cancel-active-button {
+      position: absolute;
+      top: 0;
+      left: calc(50% - 70px);
+      bottom: 0;
+    }
     .cancel-button {
       width: 140px;
       height: 40px;
@@ -26,7 +35,11 @@
       font-size: 16px;
       line-height: 19px;
       user-select: none;
-      //pointer-events: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(50% - 70px);
+      pointer-events: none;
     }
     totem-button {
       button.join-button {
@@ -49,29 +62,67 @@
         background-color: $dark;
         border-radius: 4px;
         &-title {
-          font-weight: 400;
-          font-size: 48px;
-          line-height: 48px;
-          text-align: center;
-          text-transform: uppercase;
-          color: #FFFFFF;
-        }
-        &-title-2 {
-          font-weight: 400;
-          font-size: 40px;
-          line-height: 40px;
-          text-transform: uppercase;
-          color: #FFFFFF;
-        }
-        &-subtitle div {
-          max-width: 456px;
           width: 100%;
-          font-weight: 500;
-          font-size: 20px;
-          line-height: 23px;
-          text-align: center;
-          color: $light-grey;
+          height: 48px;
+          position: relative;
+
+          .title-text, .title-text-2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 48px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #FFFFFF;
+          }
+          .title-text-2 {
+            font-size: 40px;
+            line-height: 40px;
+          }
         }
+        &-subtitle {
+          position: relative;
+          height: 126px;
+          transition: height 0.33s ease-out;
+          &-wrapp {
+            position: relative;
+            max-width: 656px;
+            width: 100%;
+            height: 100%;
+            transition: max-width 0s ease-out;
+
+            .subtext {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              bottom: 0px;
+              right: 0px;
+              font-weight: 500;
+              font-size: 20px;
+              line-height: 23px;
+              text-align: center;
+              color: $light-grey;
+              white-space: pre-line;
+              transition: visibility 0.33s ease-out;
+              div {
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 23px;
+                text-align: center;
+                color: $light-grey;
+              }
+            }
+          }
+        }
+
         &-subtitle-2 div {
           max-width: 800px;
           width: 100%;
@@ -88,13 +139,15 @@
           //max-width: 630px;
           width: 100%;
           flex-shrink: 0;
+          transition: margin-top 0.33s ease-out;
 
           &-bar {
-            max-width: 750px;
+            max-width: 548px;
             width: 100%;
             .progress-bar {
               max-width: 179px;
               width: 100%;
+              color: $yellow;
             }
 
             .circles-wrapper {
@@ -112,6 +165,15 @@
                 border-radius: 50%;
               }
 
+              .warning-icon {
+                color: #FF5252;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 14px;
+                height: 14px;
+              }
+
               .disabled-circle {
                 position: absolute;
                 top: 0;
@@ -127,9 +189,9 @@
           }
 
           .caption-block {
-            width: 96%;
+            width: 73%;
             .caption-section {
-              width: 25%;
+              width: 33.3%;
               text-align: center;
               font-weight: 400;
               font-size: 14px;
@@ -142,10 +204,13 @@
         }
 
         &-tx-info {
+          height: 0px;
           max-width: 630px;
           width: 100%;
           border: 1px dashed $light-grey;
           border-radius: 4px;
+          overflow: hidden;
+          transition: height 0.4s ease-out;
           //height: 128px;
 
           .title {
@@ -157,11 +222,12 @@
           }
           .caption, .caption-light {
             font-weight: 400;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 16px;
             color: $light-grey;
           }
           .caption-light {
+            font-size: 13px;
             color: #CBCBCB;
           }
         }
