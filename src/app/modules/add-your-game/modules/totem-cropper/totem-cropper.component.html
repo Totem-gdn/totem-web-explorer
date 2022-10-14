@@ -15,6 +15,8 @@
           (imageLoaded)="imageLoaded()"
           (cropperReady)="cropperReady()"
           (loadImageFailed)="loadImageFailed()"
+          [transform]="tranformOptions"
+          [imageQuality]="100"
         ></image-cropper>
       </div>
       <div class="crop-workbench-loader" fxLayout="column" fxLayoutAlign="center center" *ngIf="(loading$ | async)">
@@ -22,18 +24,19 @@
       </div>
 
     </div>
-    <div class="crop-footer w-full" fxLayout="row" fxLayoutAlign="space-between center">
-      <div class="crop-tools" fxLayout="row" fxLayoutAlign="start center">
-        <div class="crop-tools-zoom" fxLayout="column" fxLayoutAlign="space-between center">
-          <div class="crop-tools-zoom-state">
-
+    <div class="crop-footer w-full pl-[18px]" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="crop-tools" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="crop-tools-zoom" fxLayout="column" fxLayoutAlign="start start">
+          <div class="crop-tools-zoom-state" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>Size</div>
+            <div>{{scaleValue}}</div>
           </div>
-          <div class="crop-tools-zoom-slider">
-
+          <div class="crop-tools-zoom-slider w-full" [formGroup]="sliderGroup">
+            <input type="range" min="0.1" max="4" step="0.1" formControlName="tick">
           </div>
         </div>
-        <div class="crop-tools-rotate">
-
+        <div class="crop-tools-rotate" (click)="rotateImage()">
+          <mat-icon>refresh</mat-icon>
         </div>
       </div>
       <div class="crop-cta-buttons" fxLayout="row">

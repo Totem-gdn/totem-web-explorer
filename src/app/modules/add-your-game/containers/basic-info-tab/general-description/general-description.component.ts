@@ -65,11 +65,13 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
       const jsonFile: File = event?.target?.files[0];
       this.selectedJsonFile = jsonFile;
       this.onJsonFileSelected.emit(jsonFile);
+      this.isFormValid();
     }
 
     removeFile() {
       this.selectedJsonFile = null;
       this.onJsonFileSelected.emit(null);
+      this.isFormValid();
     }
 
     onSelectTag(tag: Tag) {
@@ -96,7 +98,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     }
 
     isFormValid() {
-        this.formValid.emit({formName: 'general', value: this.generalDescription.valid});
+        this.formValid.emit({formName: 'general', value: this.generalDescription.valid && (this.selectedJsonFile ? true : false)});
     }
 
 

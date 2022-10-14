@@ -24,6 +24,9 @@ img {
         width: 100%;
         border-radius: 4px;
         overflow: hidden;
+        place-content: center center;
+        align-items: center;
+        display: flex;
 
         image-cropper {
           //width: 100%;
@@ -44,6 +47,25 @@ img {
 
     .crop-footer {
       height: 40px;
+
+      .crop-tools {
+        max-width: 412px;
+        width: 100%;
+        margin-right: 20px;
+        color: #fff;
+
+        &-zoom {
+          max-width: 340px;
+          width: 100%;
+          &-state {
+            width: 100%;
+          }
+        }
+        &-rotate {
+          cursor: pointer;
+          padding-top: 16px;
+        }
+      }
     }
 
   }
