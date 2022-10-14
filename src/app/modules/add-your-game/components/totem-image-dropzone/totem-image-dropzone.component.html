@@ -2,7 +2,7 @@
   class="file-container"
   *ngIf="!imageUrl || !selfFill"
   style="--minh: {{dzMinHeight}}"
-  [ngStyle]="{'border' : dzHovered ? '1px dashed #fff;' : ''}"
+  [ngStyle]="{'border' : dzHovered ? '1px dashed #fff;' : errorState ? '1px dashed #FF5252' : ''}"
   (dragenter)="setHover()"
 >
   <input
@@ -22,7 +22,7 @@
     </div>
     <div *ngIf="!jsonFileType" class="mt-[15px] gap-[10px] flex flex-col">
       <span>Supports: JPG, PNG, GIF </span>
-      <span>The recommended file resolution is {{recommendedResolution}} </span>
+      <span>The recommended file resolution is {{recommendedResolution}}px </span>
       <span>Max file size 20 MB</span>
     </div>
   </div>

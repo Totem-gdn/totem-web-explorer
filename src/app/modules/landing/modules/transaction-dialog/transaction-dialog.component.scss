@@ -14,6 +14,7 @@
     }
     position: relative;
     height: 40px;
+    flex-shrink: 0;
 
     .cancel-active-button {
       position: absolute;
@@ -39,7 +40,7 @@
       top: 0;
       bottom: 0;
       left: calc(50% - 70px);
-      pointer-events: none;
+      //pointer-events: none;
     }
     totem-button {
       button.join-button {
@@ -88,13 +89,13 @@
         }
         &-subtitle {
           position: relative;
-          height: 126px;
+          height: 80px;
           transition: height 0.33s ease-out;
           &-wrapp {
             position: relative;
             max-width: 656px;
             width: 100%;
-            height: 100%;
+            height: 46px;
             transition: max-width 0s ease-out;
 
             .subtext {
@@ -204,8 +205,8 @@
         }
 
         &-tx-info {
-          height: 0px;
-          max-width: 630px;
+          height: 128px;
+          max-width: 640px;
           width: 100%;
           border: 1px dashed $light-grey;
           border-radius: 4px;

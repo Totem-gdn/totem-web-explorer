@@ -8,7 +8,7 @@
           <div class="image-block-title">Cover Image</div>
           <div class="cover-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="file-container p-[10px] sm:p-[20px]">
-              <totem-image-dropzone [uniqueId]="'cover'" [finalizedImage]="finalizedImage" (finalizedFile)="cropSelectedImage($event, 'cover')" [selfFill]="true" [recommendedResolution]="'1400x400px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+              <totem-image-dropzone [uniqueId]="'cover'" [finalizedImage]="finalizedImage" (finalizedFile)="cropSelectedImage($event, 'cover')" [selfFill]="true" [recommendedResolution]="'1400x400'" [dzMinHeight]="'247px'"></totem-image-dropzone>
             </div>
             <div class="sub-caption mt-[16px]">Upload cover photo for your game page</div>
           </div>
@@ -19,7 +19,7 @@
           <div class="card-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="card-content p-[10px] sm:p-[20px]" fxLayout="row" fxLayoutAlign="start start">
               <div class="file-container">
-                <totem-image-dropzone [uniqueId]="'card'" (finalizedFile)="cropSelectedImage($event, 'card')" [recommendedResolution]="'800x600px'" [dzMinHeight]="'472px'"></totem-image-dropzone>
+                <totem-image-dropzone [uniqueId]="'card'" (finalizedFile)="cropSelectedImage($event, 'card')" [recommendedResolution]="'800x600'" [dzMinHeight]="'472px'"></totem-image-dropzone>
               </div>
               <div class="preview-block card-preview p-[17px] w-full h-full">
                 <totem-preview-card [finalizedImage]="finalizedCardImage"></totem-preview-card>
@@ -35,7 +35,7 @@
           <div class="search-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="search-content p-[10px] sm:p-[20px]" fxLayout="row" fxLayoutAlign="start start">
               <div class="file-container">
-                <totem-image-dropzone [uniqueId]="'search'" (finalizedFile)="cropSelectedImage($event, 'search')" [recommendedResolution]="'200x200px'" [dzMinHeight]="'402px'"></totem-image-dropzone>
+                <totem-image-dropzone [uniqueId]="'search'" (finalizedFile)="cropSelectedImage($event, 'search')" [recommendedResolution]="'200x200'" [dzMinHeight]="'402px'"></totem-image-dropzone>
               </div>
               <div class="preview-block search-preview py-[18px] px-[37px] w-full h-full">
                 <totem-preview-search-card [finalizedImage]="finalizedSearchImage"></totem-preview-search-card>
@@ -49,7 +49,7 @@
           <div class="image-block-title">Images Gallery</div>
           <div class="gallery-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="file-container p-[10px] sm:p-[20px]">
-              <totem-image-dropzone [uniqueId]="'gallery'" (finalizedFile)="cropSelectedImage($event, 'gallery')" [recommendedResolution]="'1920x1080px'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+              <totem-image-dropzone [uniqueId]="'gallery'" (finalizedFile)="cropSelectedImage($event, 'gallery')" [recommendedResolution]="'1920x1080'" [dzMinHeight]="'247px'"></totem-image-dropzone>
             </div>
             <div class="sub-caption mt-[16px]">Upload photos for your game page</div>
 
