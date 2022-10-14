@@ -1,7 +1,7 @@
 <div class="img-upload-dialog px-[18px] py-[20px]">
   <div class="img-upload-dialog-wrapper" fxLayout="column" fxLayoutAlign="space-between start">
     <div class="content-block p-[18px] h-full w-full">
-      <div class="content-block-body pt-[70px] pb-[36px] px-[20px] h-full w-full" fxLayout="column" fxLayoutAlign="start center">
+      <div class="content-block-body pt-[70px] pb-[36px] px-[20px] h-full w-full" fxLayout="column" fxLayoutAlign="center center">
         <div class="content-block-body-title">
           <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 1">Transaction initiated</span>
           <span @stopLoader class="font-totem title-text-2" *ngIf="stepIndex == 2">waiting for confirmation</span>
@@ -24,6 +24,7 @@
         </div>
         <div
           @hashAnimation
+          *ngIf="usdcHash && maticHash"
           [ngStyle]="{'border': errorState ? '1px dashed #FF5252' : ''}"
           class="content-block-body-tx-info"
           fxLayout="row"
@@ -36,11 +37,11 @@
           </div>
           <div class="ml-[28px]" fxLayout="column" fxLayoutAlign="center start">
             <div class="title">Transaction hash</div>
-            <div class="caption-light mt-[20px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{usdcHash ? usdcHash : errorState ? 'Transaction failed' : 'Please wait until we get USDC transaction hash...'}}</div>
-            <div class="caption-light mt-[8px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{maticHash ? maticHash : errorState ? 'Transaction failed' : 'Please wait until we get MATIC transaction hash...'}}</div>
+            <div class="caption-light mt-[20px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{usdcHash}}</div>
+            <div class="caption-light mt-[8px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{maticHash}}</div>
           </div>
         </div>
-        <div class="content-block-body-progress w-full" [ngStyle]="{'margin-top': '40px'}" fxLayout="column" fxLayoutAlign="center center">
+        <div class="content-block-body-progress w-full" [ngStyle]="{'margin-top': usdcHash && maticHash ? '40px' : ''}" fxLayout="column" fxLayoutAlign="center center">
           <div class="content-block-body-progress-bar px-[60px]" fxLayout="row" fxLayoutAlign="space-between center">
 
             <!-- <div class="circles-wrapper">
