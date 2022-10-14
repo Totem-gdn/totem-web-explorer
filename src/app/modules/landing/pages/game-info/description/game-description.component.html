@@ -30,12 +30,10 @@
 
         <div *ngIf="_game?.general?.fullDescription" class="flex flex-col">
             <h4 class="mb-[30px]">Description</h4>
-            <p *ngIf="_game?.general?.fullDescription">
-                {{_game?.general?.fullDescription}}
-            </p>
+            <p *ngIf="_game?.general?.fullDescription">{{_game?.general?.fullDescription}}</p>
         </div>
 
-        <div class="flex flex-col w-[250px]">
+        <div class="flex flex-col min-w-[250px] w-[250px]">
             <h4 class="mb-[30px]">Genre</h4>
             <div *ngIf="_game?.general?.genre" class="tags pb-[60px]">
                 <div class="tag" *ngFor="let genre of _game?.general?.genre">

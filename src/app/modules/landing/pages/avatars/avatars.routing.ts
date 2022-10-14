@@ -6,6 +6,6 @@ import { AvatarsComponent } from "./avatars.component";
 
 export const AvatarsRoutes: Route[] = [
     {
-        path: '', component: AvatarsComponent
+        path: '', component: AvatarsComponent,
     },
 ]
