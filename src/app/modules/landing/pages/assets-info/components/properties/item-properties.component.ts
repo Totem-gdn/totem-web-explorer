@@ -20,6 +20,7 @@ export class ItemPropertiesComponent implements OnInit, AfterViewInit, OnDestroy
 
   @Input() properties!: any[];
   @ViewChild('grid') grid!: ElementRef;
+
   tagsWidth = [];
   placeholders = [];
 
@@ -73,7 +74,6 @@ export class ItemPropertiesComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngAfterViewInit(): void {
     this.checkTagsOverflow();
-
   }
 
   onResize() {
@@ -87,12 +87,14 @@ export class ItemPropertiesComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   checkTagsOverflow() {
-    const tags = this.grid.nativeElement.children;
-    const tagWidth = tags[0].offsetWidth - 30;
+    const tags = this.grid.nativeElement.getElementsByClassName('item-tag')
+    const tagWidth = tags[0].offsetWidth - 20;
 
     for (let tag of tags) {
-      if (tagWidth > tag.firstChild.scrollWidth) {
-
+      if (tagWidth + 1 < tag.firstChild.scrollWidth) {
+        tag.children[1].style.display = 'block'
+      } else {
+        tag.children[1].style.display = 'none'
       }
     }
   }

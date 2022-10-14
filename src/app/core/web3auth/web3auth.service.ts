@@ -8,6 +8,7 @@ import { getED25519Key } from "@toruslabs/openlogin-ed25519";
 import { getPublicCompressed } from "@toruslabs/eccrypto";
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
+import { AssetsABI } from "./abi/assetsABI";
 
 @Injectable({ providedIn: 'root' })
 

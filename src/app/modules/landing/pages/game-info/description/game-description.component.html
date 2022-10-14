@@ -1,7 +1,7 @@
 <div class="description">
     <div class="images-block pb-[60px]">
         <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt="">
-        <img class="sm:h-[430px]" *ngIf="!_game?.images?.galley" [src]="hlImage" alt="">
+        <img #image class="sm:h-[430px] hl-image" *ngIf="!_game?.images?.galley" [src]="hlImage" [alt]="_game?.general?.name">
         <portfolio-carousel (changeImg)="onChangeImg($event)" [images]="_game?.images?.gallery"></portfolio-carousel>
     </div>
 

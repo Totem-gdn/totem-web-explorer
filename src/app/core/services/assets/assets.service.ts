@@ -49,7 +49,7 @@ export class AssetsService {
         if (type == 'gem') type = 'gems';
 
         return this.http.get<any>(`${this.baseUrl}/assets/${type}/${id}`).pipe(map(asset => {
-            console.log('asset', asset)
+            // console.log('asset', asset)
             if(type == 'items') this._item.next(asset);
             if(type == 'avatars') this._avatar.next(asset);
             if(type == 'gems') this._gem.next(asset);

@@ -74,20 +74,6 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
     }
 
     onResize() {
-        const resize = fromEvent(window, 'resize');
-        resize.subscribe(() => {
-            // const slides = this.wrapper.nativeElement.children;
-            // this.itemWidth = slides[0].offsetWidth;
-        //     const wrapperWidth = this.wrapper.nativeElement.offsetWidth;
-        //     console.log('width', wrapperWidth)
-        //     this.itemWidth = wrapperWidth / this.itemCount;
-        //     console.log('Item Width', this.itemWidth)
-        //     const items = this.wrapper.nativeElement.children;
-        //     for(let item of items) {
-        //         item.style.width = `${this.itemWidth}px`;
-        //         item.style.minWidth = `${this.itemWidth}px`;
-            // }
-        })
     }
 
     itemsOnScreen(quantity: number) {

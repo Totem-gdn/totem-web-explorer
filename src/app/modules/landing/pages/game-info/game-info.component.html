@@ -1,4 +1,4 @@
-<div *ngIf="game" class="wrapper py-[60px] sm:py-[80px] relative">
+<div *ngIf="game" class="wrapper py-[60px] sm:py-[60px] relative">
 
     <div class="blur-md">
         <bg-circle class="top-[-100px] left-0" [width]="'350px'" [background]="'#FFD011'"></bg-circle>
@@ -6,7 +6,7 @@
         <bg-circle class="top-[-100px] left-[90%]" [width]="'250px'" [background]="'rgb(189 41 184)'"></bg-circle>
     </div>
 
-    <div class="z-1 img-wrapper p-[9px] sm:p-[18px]">
+    <div class="z-1 img-wrapper p-[9px] sm:p-[18px] mb-[40px] sm:mb-[60px]">
         <img class="rounded" [src]="game?.images?.coverImage ? game?.images?.coverImage : 'assets/images/game-info/head.png'" alt="">
     </div>
 
@@ -15,6 +15,15 @@
 
         <game-review [game]="game"></game-review>
     </div>
+
+    <iframe *ngIf="game?.connections?.promoVideo" class="promo-video mt-[60px] sm:mt-[80px]" [src]="game?.connections?.promoVideo" frameborder="0"></iframe>
+
+    <horizontal-carousel class=" mt-[60px] sm:mt-[80px]"
+        [title]="'Similar Games'"
+        [menuTitle]="null"
+        [itemType]="'game'"
+        [items]="games">
+    </horizontal-carousel>
 </div>
 
 

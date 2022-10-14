@@ -2,9 +2,7 @@
     <div #slider class="slider">
         <ng-container *ngIf="_images">
             <div class="slide" *ngFor="let image of _images">
-    
-                <img *ngIf="!image" src="assets/images/game-info/game_slide_top.png" alt="">
-                <img class="sm:h-[175px]" [src]="image" alt="" (click)="onClickImg(image)">
+                <img class="sm:h-[175px]" [src]="image" alt="slide" (click)="onClickImg(image)">
             </div>
         </ng-container>
         <ng-container *ngIf="!_images">

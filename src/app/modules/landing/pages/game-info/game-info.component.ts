@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap, Params } from "@angular/router";
 import { SubmitGame } from "@app/core/models/submit-game-interface.model";
+import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { Subject, Subscription, takeUntil } from "rxjs";
@@ -16,11 +17,13 @@ export class GameInfoComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute,
         private itemsService: TotemItemsService,
-        private gameService: GamesService) { }
+        private gameService: GamesService,
+        private assetsService: AssetsService) { }
 
     toggleDropdown = false;
     subs = new Subject<void>();
     game!: SubmitGame | any;
+    games!: any[];
 
     ngOnInit() {
         this.route.paramMap
@@ -36,9 +39,15 @@ export class GameInfoComponent implements OnInit, OnDestroy {
                         this.game = game;
                     })
             })
+
+        this.gameService.fetchGames().subscribe(games => {
+            console.log(games)
+            this.games = games;
+        })
     }
 
     ngOnDestroy(): void {
+        console.log('destroy')
         this.subs.next();
         this.subs.complete();
         this.gameService.setGame = null;

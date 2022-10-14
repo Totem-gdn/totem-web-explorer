@@ -8,7 +8,7 @@
 
         <!-- Stars -->
         <div #stars class="stars">
-            <mat-icon #star *ngFor="let rate of rating" [ngClass]="rate ? '!text-yellow': ''"
+            <mat-icon #star *ngFor="let rate of rating" [ngClass]="rate == true ? '!text-yellow': 'text-light-grey'"
                 (click)="onSaveStars(star)" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)"
                 class="star" [svgIcon]="rate ? 'solid:star': 'line:star'"></mat-icon>
             <p class="ml-[8px]">(--)</p>

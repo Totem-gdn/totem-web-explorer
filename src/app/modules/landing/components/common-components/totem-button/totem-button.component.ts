@@ -12,7 +12,6 @@ export class TotemButtonComponent implements OnInit {
   @Input() caption: string = 'Join community';
   @Input() customId: string = 'totemJoinButton';
   @Input() set disabled(isDisabled: boolean) {
-    console.log('is disabled', isDisabled)
     this.buttonDisabled = isDisabled;
     if (isDisabled) {
       this.hovered = false;
