@@ -7,11 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
 import { CoreModule } from './core/core.module';
-import { SignInComponent } from './modules/auth/sign-in/sign-in.component';
 import { UserStateService } from './core/services/user-state.service';
 import { AuthGuard } from './core/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';
+import { GtagModule } from 'angular-gtag';
+import { environment } from '@env/environment';
 
 
 const routerConfig: ExtraOptions = {
@@ -29,6 +30,7 @@ const routerConfig: ExtraOptions = {
     RouterModule.forRoot(AppRoutes, routerConfig),
     LayoutModule,
     CoreModule,
+    GtagModule.forRoot({ trackingId: environment.TRACKING_G_ID, trackPageviews: true })
   ],
   providers: [
     UserStateService,

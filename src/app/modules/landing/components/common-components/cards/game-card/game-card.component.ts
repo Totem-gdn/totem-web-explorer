@@ -28,10 +28,11 @@ export class GameCardComponent {
       this.messageService.open('Unauthorized');
       return;
     }
+    this.game.isLiked = !this.game.isLiked;
     if (this.game.isLiked) {
-      this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id);
+      this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id).subscribe();
     } else {
-      this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id);
+      this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id).subscribe();
     }
   }
 
@@ -42,7 +43,7 @@ export class GameCardComponent {
 
   onNavigate() {
     const id = this.game?.id;
-    this.router.navigate(['/game-info'], {queryParams: { id: id }});
+    this.router.navigate(['/game', id]);
   }
 
 }

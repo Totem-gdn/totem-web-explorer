@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ItemParam } from '@app/core/models/item-param.model';
-import { CacheService } from '@app/core/services/cache.service';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
-import { ItemsService } from '@app/core/services/assets/items.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { Subject, Subscription, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, take, takeUntil } from 'rxjs';
+import { CARD_TYPE } from '@app/core/enums/card-types.enum';
+import { AssetsService } from '@app/core/services/assets/assets.service';
 
 @Component({
   selector: 'app-user-items',
@@ -14,67 +13,33 @@ import { Subject, Subscription, take, takeUntil } from 'rxjs';
 })
 export class UserItemsComponent implements OnInit {
 
-  constructor(private itemsService: TotemItemsService,
-              private web3Service: Web3AuthService,
-              private alchService: AlchemyService,
-              private cacheService: CacheService) { }
+  constructor(private assetsService: AssetsService,
+    private web3Service: Web3AuthService,
+    private alchService: AlchemyService) { }
 
-  items!: any[];
   subs = new Subject<void>();
+  items!: any[] | null;
 
   async ngOnInit() {
-    // this.filters$();
-    // this.fetchItems();
     this.getNfts();
   }
 
-  async getNfts() {
-    const wallet = await this.web3Service.getAccounts();
-
-    this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-      const items: any[] = [];
-      for(let nft of nfts) {
-        nft.id.tokenId = parseInt(nft.id.tokenId);
-        if(nft.contractMetadata.name === 'Item') {
-          items.push(nft);
-        }
-      }
-      this.items = items;
-      console.log('items', this.items)
-      this.cacheService.setItemCache('item', this.items.length);
-    })
+  getNfts() {
+    this.assetsService.updateAssets('item', 1, 'my').subscribe();
+    this.assetsService.items$
+      .pipe(takeUntil(this.subs))
+      .subscribe(items => {
+        this.items = items;
+      })
+  }
+  onLoadMore(page: number) {
+    this.assetsService.updateAssets('item', page, 'my').subscribe();
   }
 
-  // filters$() {
-  //   this.itemsService.filters$.pipe(takeUntil(this.subs)).subscribe(filters => {
-  //     this.fetchItems(filters);
-  //   })
-  // }
-
-  // fetchItems(filters?: ItemParam[]) {
-  //   this.itemsService.getItems$(filters).pipe(takeUntil(this.subs)).subscribe(items => {
-  //     this.items = items;
-  //   })
-  // }
-
-  // async getNfts() {
-  //   const wallet = await this.web3Service.getAccounts();
-
-  //   this.alchService.getNfts(wallet).subscribe((nfts: any[]) => {
-  //     const items: any[] = [];
-  //     for(let nft of nfts) {
-  //       nft.id.tokenId = parseInt(nft.id.tokenId);
-  //       if(nft.contractMetadata.name === 'Item') {
-  //         items.push(nft);
-  //       }
-  //     }
-  //     this.items = items;
-  //   })
-  // }
-
-  ngOnDestroy () {
+  ngOnDestroy(): void {
     this.subs.next();
     this.subs.complete();
+    this.assetsService.reset();
   }
 
 }

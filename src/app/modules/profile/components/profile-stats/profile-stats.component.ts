@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { CacheService } from '@app/core/services/cache.service';
+import { CacheService } from '@app/core/services/assets/cache.service';
 import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
@@ -23,7 +23,6 @@ export class ProfileStatsComponent {
 
   ngOnInit() {
     this.cacheService.totalCache$().subscribe(total => {
-      console.log(total);
       if (this.type == 'avatar') this._total.next(total.totalAvatars);
       if (this.type == 'item') this._total.next(total.totalItems);
       if (this.type == 'gem') this._total.next(total.totalGems);

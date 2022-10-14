@@ -14,18 +14,21 @@ export class GamesService {
 
     private _games = new BehaviorSubject<any[] | null>(null);
 
-    private _game = new BehaviorSubject<any[] | null>(null);
+    private _game = new BehaviorSubject<any | null>(null);
 
     get games() {
         return this._games.getValue();
     }
-    set games(value: any) {
+    set setGames(value: any[]) {
         this._games.next(value);
     }
-    get $games() {
-        return this._games.asObservable();
+    set setGame(value: any) {
+        this._game.next(value);
     }
 
+    get games$() {
+        return this._games.asObservable();
+    }
     get game$() {
         return this._game.asObservable();
     }
@@ -35,7 +38,7 @@ export class GamesService {
         return this.http.get<any>(`https://simple-api.totem.gdn/default/gem/${wallet}`).pipe(
             // map(games => this.formatTime(games.data)),
             tap(games => {
-                this.games = games;
+                this.setGames = games;
             }))         
     }
 

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
-import { ItemsService } from '@app/core/services/assets/items.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
@@ -41,9 +40,10 @@ export class AvatarCardComponent {
   }
 
   onNavigate() {
-    const id = this.avatar?.id;
-    this.itemsService.testItem.next({type: 'avatar', item: this.avatar});
-    this.router.navigate(['/item-info'], {queryParams: { id: id }});
+    const id = this.avatar?.id | this.avatar?.id?.tokenId;
+    let type = 'asset';
+    if(this.avatar?.id?.tokenId) type = 'nft';
+    this.router.navigate(['/item-info'], {queryParams: { id: id, assetType: 'avatar', type: type }});
   }
 
 }

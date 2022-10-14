@@ -32,8 +32,7 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     @ViewChild('sliderThumbMax') sliderThumbMax!: ElementRef;
 
     ngOnInit() {
-        this.filtersService.onResetFilters$().subscribe(() => {
-            console.log('subscribe')
+        this.sub = this.filtersService.onResetFilters$().subscribe(() => {
             this.tagsService.removeTagByReference(this.sliderThumbMin);
             this.sliderThumbMin.nativeElement.value = 100;
             this.sliderThumbMax.nativeElement.value = 200;

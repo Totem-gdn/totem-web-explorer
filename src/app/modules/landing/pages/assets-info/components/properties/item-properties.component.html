@@ -1,0 +1,17 @@
+<div class="flex flex-col wrapper" (onResize)="onResize()">
+    <div class="grid-container" #grid>
+        <div *ngFor="let propertie of properties" class="item-tag" (mouseover)="onOver()">
+            <h4 class="truncate">{{propertie.title}}</h4>
+            <p class="truncate">{{propertie.value}}</p>
+        </div> 
+        <div class="" *ngFor="let placeholder of placeholders" class="item-tag placeholder">
+            <mat-icon class="text-grey" [svgIcon]="'line:item-place'"></mat-icon>
+        </div>
+    </div>
+    <!-- View All -->
+    <div *ngIf="showViewAll" [attr.offsetWidth]="offset()" class="view-all" (click)="onClickViewAll()">
+        <span class="text-center">{{toggle ? 'View less': 'View all'}}</span>
+        <mat-icon class="!h-[2px] !w-full absolute bottom-0" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
+    </div>
+    
+</div>

@@ -10,14 +10,17 @@
       <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
         <div [ngClass]="{'active-tab': activeTab === tabType.ITEMS_TAB}" class="items-tab" (click)="changeTab(tabType.ITEMS_TAB)">Items</div>
         <div class="active-border" *ngIf="activeTab === tabType.ITEMS_TAB"></div>
+        <div *ngIf="activeTab !== tabType.ITEMS_TAB && (itemsArray | async)?.length" class="items-badge">{{(itemsArray | async)?.length}}</div>
       </div>
       <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
         <div [ngClass]="{'active-tab': activeTab === tabType.AVATARS_TAB}"  class="avatars-tab" (click)="changeTab(tabType.AVATARS_TAB)">Avatars</div>
         <div class="active-border" *ngIf="activeTab === tabType.AVATARS_TAB"></div>
+        <div *ngIf="activeTab !== tabType.AVATARS_TAB && (avatarsArray | async)?.length" class="items-badge">{{(avatarsArray | async)?.length}}</div>
       </div>
       <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
         <div [ngClass]="{'active-tab': activeTab === tabType.GAMES_TAB}"  class="games-tab" (click)="changeTab(tabType.GAMES_TAB)">Games</div>
         <div class="active-border" *ngIf="activeTab === tabType.GAMES_TAB"></div>
+        <div *ngIf="activeTab !== tabType.GAMES_TAB && (gamesArray | async)?.length" class="items-badge">{{(gamesArray | async)?.length}}</div>
       </div>
     </div>
     <!-- Tabs content -->
@@ -25,13 +28,13 @@
 
       <div *ngIf="activeTab === tabType.ITEMS_TAB" class="content-items">
         <div *ngIf="itemsArray | async as items; else noItems" class="items-wrapper">
-          <div *ngFor="let item of items" class="item-card" fxLayout="row" fxLayoutAlign="start center">
-            <div class="item-prev-icon">
-              <img [src]="item.img" alt="icon">
+          <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToItem(item.id)">
+            <div class="item-prev-icon" [ngStyle]="{'background': item.gradient}">
+              <!-- <img [src]="item.img" alt="icon"> -->
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
-              <div class="item-name">{{item.name}}</div>
-              <div class="item-type">{{item.type}}</div>
+              <div class="item-name">ID: {{item.tokenId}}</div>
+              <!-- <div class="item-type">{{item.type}}</div> -->
             </div>
           </div>
         </div>
@@ -44,13 +47,13 @@
 
       <div *ngIf="activeTab === tabType.AVATARS_TAB" class="content-avatars">
         <div *ngIf="avatarsArray | async as items; else noItems" class="items-wrapper">
-          <div *ngFor="let item of items" class="item-card" fxLayout="row" fxLayoutAlign="start center">
-            <div class="item-prev-icon">
-              <img [src]="item.img" alt="icon">
+          <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToAvatar(item.id)">
+            <div class="item-prev-icon" [ngStyle]="{'background': item.gradient}">
+              <!-- <img [src]="item.img" alt="icon"> -->
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
-              <div class="item-name">{{item.name}}</div>
-              <div class="item-type">{{item.type}}</div>
+              <div class="item-name">ID: {{item.tokenId}}</div>
+              <!-- <div class="item-type">{{item.type}}</div> -->
             </div>
           </div>
         </div>
@@ -63,7 +66,7 @@
 
       <div *ngIf="activeTab === tabType.GAMES_TAB" class="content-games">
         <div *ngIf="gamesArray | async as items; else noItems" class="items-wrapper">
-          <div *ngFor="let item of items" class="item-card" fxLayout="row" fxLayoutAlign="start center">
+          <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToGame(item.id)">
             <div class="item-prev-icon">
               <img [src]="item?.images?.smallThumbnail" alt="icon">
             </div>

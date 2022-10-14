@@ -16,17 +16,17 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 })
 export class ItemCardComponent {
 
-  constructor(private router: Router, 
-              private favouritesService: FavouritesService,
-              private itemsService: TotemItemsService,
-              private messageService: SnackNotifierService,
-              private web3Service: Web3AuthService) {}
+  constructor(private router: Router,
+    private favouritesService: FavouritesService,
+    private itemsService: TotemItemsService,
+    private messageService: SnackNotifierService,
+    private web3Service: Web3AuthService) { }
 
   @Input() width = 'full';
-  @Input() item: any;
+  @Input() item: any | null;
 
   onClickLike() {
-    if(!this.web3Service.isLoggedIn()) {
+    if (!this.web3Service.isLoggedIn()) {
       this.messageService.open('Unauthorized');
       return;
     }
@@ -39,9 +39,11 @@ export class ItemCardComponent {
   }
 
   onNavigate() {
-    const id = this.item?.id;
-    this.itemsService.testItem.next({type: 'item', item: this.item});
-    this.router.navigate(['/item-info'], {queryParams: { id: id, type: 'item' }});
+    const id = this.item?.id || this.item?.id?.tokenId;
+    let type = 'asset';
+    if (this.item?.id?.tokenId) type = 'nft';
+    this.itemsService.testItem.next({ type: 'item', item: this.item });
+    this.router.navigate(['/item-info'], { queryParams: { id: id, assetType: 'item', type: type } });
   }
 
 }
