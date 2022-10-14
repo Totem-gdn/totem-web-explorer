@@ -176,7 +176,7 @@ export class TotemItemsService {
           return avatars;
         } else {
           return [0,0,0,0,0];
-        }  
+        }
       }))
 
   }
@@ -192,7 +192,7 @@ export class TotemItemsService {
           return gems;
         } else {
           return [0,0,0,0,0];
-        }  
+        }
       }))
   }
 
@@ -208,7 +208,7 @@ export class TotemItemsService {
           return items;
         } else {
           return [0,0,0,0,0];
-        }  
+        }
       }))
   }
 
@@ -223,7 +223,7 @@ export class TotemItemsService {
           return games;
         } else {
           return [0,0,0,0,0];
-        }  
+        }
       }))
   }
 
@@ -282,6 +282,12 @@ export class TotemItemsService {
 
   getGameByName(word: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/games?search=${word}`);
+  }
+  getItemsByName(word: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/assets/items?search=${word}`);
+  }
+  getAvatarsByName(word: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/assets/avatars?search=${word}`);
   }
 
 }

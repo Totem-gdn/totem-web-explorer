@@ -98,6 +98,22 @@
 
       .dropdown-tab {
         height: 36px;
+        position: relative;
+        .items-badge {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          place-content: center center;
+          line-height: 1;
+          top: -1px;
+          right: -2px;
+          padding: 0px 4px;
+          height: 12px;
+          font-size: 12px;
+          background-color: $yellow;
+          border-radius: 40%;
+          color: $dark;
+        }
       }
 
       .games-tab, .avatars-tab, .items-tab {

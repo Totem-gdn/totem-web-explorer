@@ -23,7 +23,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     allRadioButtons!: any;
     @Input() title: string = '';
     @Input() itemType: string = '';
-    @Input() alwaysOpen = false;
+    @Input() alwaysOpen: boolean = false;
     @Output() onChange: EventEmitter<string> = new EventEmitter();
     @Output() onFakeChange: EventEmitter<string> = new EventEmitter();
     @ViewChild('menu') menu!: ElementRef;
@@ -45,7 +45,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
               }
             })
           )
-        }   
+        }
     }
 
     ngOnDestroy(): void {
@@ -58,7 +58,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
         this.title = value;
         this.onChange.emit(value);
 
-        if (this.alwaysOpen) {
+        if (this.alwaysOpen === true) {
           this.removeScriptSelected();
           this.restartScript(20000, 5000); // only for alwaysOpen === true
           return;
@@ -89,7 +89,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-      if (this.alwaysOpen) {
+      if (this.alwaysOpen === true) {
         this.startScriptTimer(2000, 5000);
         this.dropdown.nativeElement.style.width = '270px'
       }
