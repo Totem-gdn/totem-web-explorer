@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Animations } from '@app/core/animations/animations';
 import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
 import { ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { DropzoneError } from '../../components/totem-image-dropzone/totem-image-dropzone.component';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
 import { FormsService } from '../../services/forms.service';
 
@@ -13,7 +15,8 @@ import { FormsService } from '../../services/forms.service';
   styleUrls: ['./details-tab.component.scss'],
   host: {
         class: 'flex flex-auto w-full h-full'
-  }
+  },
+  animations: Animations.animations
 })
 export class DetailsTabComponent implements OnInit, OnDestroy {
 
@@ -24,6 +27,13 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   finalizedSearchImage!: File;
   finalizedGalleryImages: File[] = [];
   allowButton: boolean = false;
+
+  errorsArr: DropzoneError[] = [
+    {message: '', status: false},
+    {message: '', status: false},
+    {message: '', status: false},
+    {message: '', status: false},
+  ]
 
   imageHover: any = {
     coverImgHovered: false,
@@ -120,6 +130,37 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
     if (type == DROP_BLOCK_TYPE.GALLERY) {
       this.imageHover.galleryImgHovered = false;
+    }
+  }
+
+  removeImage(item: any) {
+    this.finalizedGalleryImages = this.finalizedGalleryImages.filter((image: File) => {
+      return image.name != item.name;
+    })
+  }
+
+  updateCoverError(error: DropzoneError) {
+    if (error) {
+      this.errorsArr[0].message = error.message;
+      this.errorsArr[0].status = error.status;
+    }
+  }
+  updateCardError(error: DropzoneError) {
+    if (error) {
+      this.errorsArr[1].message = error.message;
+      this.errorsArr[1].status = error.status;
+    }
+  }
+  updateThumbError(error: DropzoneError) {
+    if (error) {
+      this.errorsArr[2].message = error.message;
+      this.errorsArr[2].status = error.status;
+    }
+  }
+  updateGalleryError(error: DropzoneError) {
+    if (error) {
+      this.errorsArr[3].message = error.message;
+      this.errorsArr[3].status = error.status;
     }
   }
 

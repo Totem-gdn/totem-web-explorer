@@ -26,6 +26,13 @@
   border-radius: 4px;
 }
 
+.error-message {
+  user-select: none;
+  height: 16px;
+  //margin: 0 !important;
+  color: #FF5252 !important;
+}
+
 .file-container {
   background-color: $dark-grey;
   position: relative;
@@ -108,12 +115,12 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .image-block { 
+  .image-block {
     flex-wrap: wrap;
   };
 }
 @media screen and (max-width: 768px) {
-  .card-content, .search-content { 
+  .card-content, .search-content {
     flex-wrap: wrap;
   };
   .card-image-wrapper, .search-image-wrapper {
@@ -121,5 +128,5 @@
       margin: auto;
       max-width: 374px;
     }
-  } 
+  }
 }

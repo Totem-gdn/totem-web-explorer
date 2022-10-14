@@ -107,18 +107,18 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       }
 
       const reader = new FileReader();
-      reader.onload = (event: any) => {
+      reader.onload = (evt: any) => {
         const img = new Image();
-        console.log(img);
-        img.src = event.target.result;
+        //console.log(img);
+        img.src = evt.target.result;
         img.onload = (rs: any) => {
           const img_height = rs.currentTarget['height'];
           const img_width = rs.currentTarget['width'];
           console.log('asf: ', img_height, img_width);
           console.log('our: ', this.recHeight, this.recWidth);
-          if ((img_height > this.recHeight + 200) && (img_width > this.recWidth + 200) || (img_height < this.recHeight - 200) && (img_width < this.recWidth - 200)) {
-            console.log('This image is more bigger/smaller than recommended image res');
-            this.errorEvent.emit({message: `This image is more bigger/smaller than recommended image resolution: ${this.recWidth}x${this.recHeight}`, status: true})
+          if ((img_height > this.recHeight + 400) && (img_width > this.recWidth + 400) || (img_height < this.recHeight - 400) && (img_width < this.recWidth - 400)) {
+            console.log('The image is much larger/smaller than the recommended resolution.');
+            this.errorEvent.emit({message: `The image is much larger/smaller than the recommended resolution: ${this.recWidth}x${this.recHeight}px`, status: true})
             this.errorState = true;
             return;
           }

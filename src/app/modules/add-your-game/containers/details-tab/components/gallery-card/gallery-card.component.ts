@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'totem-gallery-card',
@@ -12,6 +12,7 @@ export class GalleryCardComponent implements OnInit {
 
   imageUrl: any;
   @Input() finalizedImage: any;
+  @Output() deleteImage: EventEmitter<any> = new EventEmitter();
   imageReader: FileReader = new FileReader();
   imageFile: any;
 
@@ -36,5 +37,8 @@ export class GalleryCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  removeItem(item: any) {
+    this.deleteImage.emit(item);
+  }
 
 }
