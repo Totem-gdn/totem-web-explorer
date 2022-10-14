@@ -6,38 +6,41 @@ import { FavouritesService } from "@app/modules/profile/dashboard/favourites/fav
 
 
 @Component({
-    selector: 'asset-card[type]',
-    templateUrl: './asset-card.component.html',
-    styleUrls: ['../cards.component.scss']
+  selector: 'asset-card[type]',
+  templateUrl: './asset-card.component.html',
+  styleUrls: ['../cards.component.scss']
 })
 
 export class AssetCardComponent {
 
-    constructor(private router: Router,
-                private web3Service: Web3AuthService,
-                private messageService: SnackNotifierService,
-                private favService: FavouritesService) {}
+  constructor(private router: Router,
+    private web3Service: Web3AuthService,
+    private messageService: SnackNotifierService,
+    private favService: FavouritesService) { }
 
-    @Input() asset: any;
-    @Input() type: 'avatar' | 'gem' | 'item' = 'item';
+  @Input() asset: any;
+  @Input() type: string = 'item';
 
-    onLike() {
-        if(!this.web3Service.isLoggedIn()) {
-            this.messageService.open('Unauthorized');
-            return;
-          }
-        if(!this.type) return;
-
-          this.asset.isLiked = !this.asset.isLiked;
-          if (this.asset.isLiked) {
-            this.favService.addLike(this.type, this.asset.id);
-          } else {
-            this.favService.removeLike(this.type, this.asset.id);
-          }
+  onLike() {
+    if (!this.web3Service.isLoggedIn()) {
+      this.messageService.open('Unauthorized');
+      return;
     }
+    if (!this.type) return;
+    this.asset.isLiked = !this.asset.isLiked;
+    if (this.asset.isLiked) {
+      this.favService.addLike(this.type, this.asset.id).subscribe(() => {
 
-    onNavigate() {
-        const id = this.asset?.id || this.asset?.id?.tokenId;
-        this.router.navigate(['/item-info'], {queryParams: { id: id, type: this.type }});
+      });
+    } else {
+      this.favService.removeLike(this.type, this.asset.id).subscribe(() => {
+
+      });
     }
+  }
+
+  onNavigate() {
+    const id = this.asset?.tokenId;
+    this.router.navigate([`/${this.type}`, id]);
+  }
 }

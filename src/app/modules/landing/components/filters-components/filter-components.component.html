@@ -16,36 +16,35 @@
             <games-filter *ngIf="itemType === 'gem'"></games-filter>
 
 
-            <div class="flex flex-col w-full">
+            <div *ngIf="items" class="flex flex-col w-full">
                 <div #wrapper class="grow grid-item-list relative">
                     <ng-container *ngIf="itemType === 'item'">
-                        <asset-card *ngFor="let item of itemsToShow" [asset]="item" [type]="'item'"></asset-card>
+                        <asset-card *ngFor="let item of items" [asset]="item" [type]="'item'"></asset-card>
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no items</h3></ng-container>
                     </ng-container>
 
                     <ng-container *ngIf="itemType === 'avatar'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no avatars</h3></ng-container>
-                        <asset-card *ngFor="let item of itemsToShow" [asset]="item" [type]="'avatar'"></asset-card>
+                        <asset-card *ngFor="let item of items" [asset]="item" [type]="'avatar'"></asset-card>
                     </ng-container>
                     
                     <ng-container *ngIf="itemType === 'game'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no games</h3></ng-container>
-                        <game-card *ngFor="let item of itemsToShow" [game]="item"></game-card>
+                        <game-card *ngFor="let item of items" [game]="item"></game-card>
                     </ng-container>
 
                     <ng-container *ngIf="itemType === 'gem'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no gems</h3></ng-container>
-                        <asset-card *ngFor="let item of itemsToShow" [asset]="item" [type]="'gem'"></asset-card>
-                    </ng-container>
-
-                    <div class="absolute w-full h-full flex" *ngIf="! itemsToShow"><loading-spinner class="m-auto"></loading-spinner></div>
-                    
+                        <asset-card *ngFor="let item of items" [asset]="item" [type]="'gem'"></asset-card>
+                    </ng-container>         
                 </div>
 
-                <div *ngIf="itemsToShow &&  itemsToShow?.length != 0 && showButton" class="w-full mt-[60px] flex">
+                <div *ngIf="showButton" class="w-full mt-[60px] flex">
                     <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>
                 </div>
             </div>
+
+            <div class="w-full h-full flex" *ngIf="!items"><loading-spinner class="m-auto"></loading-spinner></div>
         </div>
 
     </div>

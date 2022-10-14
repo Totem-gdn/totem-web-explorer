@@ -1,2 +1,2 @@
 
-<filter-components class="mt-0 pt-[40px]" [mode]="'test'" [itemType]="'item'" [items]="items"></filter-components>
+<filter-components class="mt-0 pt-[40px]" (loadMore)="onLoadMore($event)" [itemType]="'item'" [pushItems]="items"></filter-components>

@@ -9,7 +9,7 @@ const ALCHEMY_KEY = environment.ALCHEMY_KEY;
 import { Alchemy, Network } from "alchemy-sdk";
 import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import Web3 from "web3";
-import { CacheService } from "../cache.service";
+import { CacheService } from "../assets/cache.service";
 // const alchKeenvironment.ALCHEMY_KEY
 const settings = {
     // apiKey: ALCHEMY_KEY, // Replace with your Alchemy API Key.
@@ -91,7 +91,6 @@ export class AlchemyService {
     
         const ids: any[] = [];
         const balance = await contract.methods.balanceOf(wallet).call();
-        console.log(contract)
         for (let i = 0; i < balance; i++) {
           const tokenId = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
           ids.push({id: {tokenId: tokenId}});
