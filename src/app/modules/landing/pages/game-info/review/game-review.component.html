@@ -1,9 +1,9 @@
-<div class="rewiew lg:max-w-[455px]">
+<div class="rewiew lg:max-w-[470px]">
     <h2 *ngIf="!game?.general?.name" class="mb-[40px]">Dead Peats unleashed</h2>
     <h2 *ngIf="game?.general?.name" class="mb-[40px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
-    <div class="flex flex-wrap justify-between pb-[20px] gap-[10px]">
-        <h4 class="flex whitespace-nowrap"><span class="text-light-grey pr-[10px]">Author:</span>{{game?.general?.author
+    <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
+        <h4 class="flex whitespace-nowrap line-unset"><span class="text-light-grey pr-[10px] line-33">Author:</span>{{game?.general?.author
             ? game?.general?.author : 'Triple Troping'}}</h4>
 
         <!-- Stars -->
@@ -48,20 +48,20 @@
         Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner demon!
         Support us on Kickstarter now!
     </p>
-    <p *ngIf="game?.general?.description" class="font-medium pb-[40px]">
-        {{game?.general?.description}}
-    </p>
+    <p *ngIf="game?.general?.description" class="font-medium pb-[40px]">{{game?.general?.description}}</p>
 
     <!-- Details -->
     <div class="dropdown-wrapper">
-        <div class="dropdown-button" (click)="onToggle()">
+        <div 
+        class="dropdown-button" 
+        (click)="onToggle()">
             <h4>Details</h4>
             <mat-icon class="text-light-grey !w-[14px] mr-[5px]" [svgIcon]="'line:arrow_up'"
                 [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></mat-icon>
         </div>
 
-        <div class="dropdown-table-wrapper" [ngClass]="toggleDropdown ? 'max-h-[520px]': 'max-h-[0px]'">
-            <div class="dropdown-table">
+        <div class="dropdown-table-wrapper" [ngClass]="toggleDropdown ? 'max-h-[520px]': 'max-h-[1px]'">
+            <div class="dropdown-table" [ngClass]="toggleDropdown ? 'rounded': 'rounded-none'">
                 <div *ngIf="game?.updatedAt" class="row">
                     <div><span>Updated</span></div>
                     <div><span>{{game?.updatedAt | date: 'M.dd.yy h:mm'}}</span></div>

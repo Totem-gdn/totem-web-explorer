@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CARD_TYPE } from '@app/core/enums/card-types.enum';
-import { UserAssetsService } from '@app/core/services/assets/user-assets.service';
+import { AssetsService } from '@app/core/services/assets/assets.service';
 import { UserStateService } from '@app/core/services/user-state.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
@@ -20,7 +20,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class ItemDescComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-    private assetsService: UserAssetsService,
+    private assetsService: AssetsService,
     private web3Service: Web3AuthService,
     private favouritesService: FavouritesService,
     private messageService: SnackNotifierService,
@@ -54,11 +54,15 @@ export class ItemDescComponent implements OnInit {
       return;
     }
     if (!this.item.isLiked) {
-      this.favouritesService.addLike(this.type, this.item.id);
+      this.favouritesService.addLike(this.type, this.item.id).subscribe(() => {
+        this.assetsService.updateAsset(this.item.id, this.type).subscribe();
+      });
     } else {
-      this.favouritesService.removeLike(this.type, this.item.id);
+      this.favouritesService.removeLike(this.type, this.item.id).subscribe(() => {
+        this.assetsService.updateAsset(this.item.id, this.type).subscribe();
+      });
     }
-    this.assetsService.updateAsset(this.item.id, this.type).subscribe();
+
   }
 
   walletCopied() {

@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
 import { ItemParam } from '@app/core/models/item-param.model';
+import { AssetsService } from '@app/core/services/assets/assets.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 
@@ -12,30 +13,31 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
     }
 })
 export class AvatarsComponent implements OnInit, OnDestroy {
-  avatars!: any[];
+
+  constructor(private assetsService: AssetsService) {}
+
   subs = new Subject<void>();
+  avatars!: any[] | null;
 
-  constructor(private itemsService: TotemItemsService) {}
-
-  ngOnInit(): void {
-    this.fetchAvatars();
-    this.filters$();
+  async ngOnInit() {
+    this.getAssets();
   }
 
-  filters$() {
-    this.itemsService.filters$.pipe(takeUntil(this.subs)).subscribe(filters => {
-      this.fetchAvatars(filters);
-    })
+  getAssets() {
+    this.assetsService.updateAssets('avatar', 1, 'newest').subscribe();
+    this.assetsService.avatars$
+      .pipe(takeUntil(this.subs))
+      .subscribe(avatars => {
+        this.avatars = avatars;
+      })
   }
-
-  fetchAvatars(filters?: ItemParam[]) {
-    this.itemsService.getAvatars$(filters).pipe(takeUntil(this.subs)).subscribe(avatars => {
-      this.avatars = avatars;
-    })
+  onLoadMore(page: number) {
+    this.assetsService.updateAssets('avatar', page, 'newest').subscribe();
   }
 
   ngOnDestroy(): void {
     this.subs.next();
     this.subs.complete();
+    this.assetsService.reset();
   }
 }

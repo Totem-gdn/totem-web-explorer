@@ -26,11 +26,8 @@
     <div class="swiper-wrapper">
 
       <div *ngFor="let slide of slides" class="swiper-slide">
-        <item-card *ngIf="itemType === 'item'" [item]="slide"></item-card>
-
-        <game-card *ngIf="itemType === 'game'" [game]="slide"></game-card>
-
-        <avatar-card *ngIf="itemType === 'avatar'" [avatar]="slide"></avatar-card>
+        <asset-card *ngIf="itemType != 'game'" [type]="itemType" [asset]="slide"></asset-card>
+        <game-card *ngIf="itemType == 'game'" [game]="slide"></game-card>
       </div>
     </div>
     <div class="swiper-pagination lg:hidden"></div>

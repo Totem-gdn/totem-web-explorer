@@ -7,7 +7,7 @@ import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
 import { Subscription } from "rxjs";
-import { SnackNotifierService } from "../../modules/snack-bar-notifier/snack-bar-notifier.service";
+import { SnackNotifierService } from "../../../modules/snack-bar-notifier/snack-bar-notifier.service";
 
 @Component({
     selector: 'game-review',
@@ -41,11 +41,14 @@ export class GameReviewComponent implements OnInit {
             return;
         }
         if (!this.game.isLiked) {
-            this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id);
+            this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
+                this.gamesService.updateGame(this.game.id).subscribe();
+            });
         } else {
-            this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id);
+            this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
+                this.gamesService.updateGame(this.game.id).subscribe();
+            });
         }
-        this.gamesService.updateGame(this.game.id).subscribe();
     }
 
     onMouseEnter(e: any) {
@@ -55,14 +58,11 @@ export class GameReviewComponent implements OnInit {
             star.style.color = '#ffd013';
             if (star == e.target) break;
         }
-
-        console.log(e)
     }
     onMouseLeave(e: any) {
         const container = this.stars.nativeElement as any;
         const stars = container.getElementsByClassName('star');
         for (let star of stars) {
-
             star.style.color = 'unset';
         }
     }
@@ -81,7 +81,7 @@ export class GameReviewComponent implements OnInit {
 
     resetStars() {
         for (let i = 0; i < this.rating.length; i++) {
-            // if(this.rating[i] == false) break;
+            if(this.rating[i] == false) continue;
             this.rating[i] = false;
         }
     }

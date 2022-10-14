@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
 import { environment } from "@env/environment";
+import { take } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 
@@ -19,7 +20,7 @@ export class FavouritesService {
   //  }
   //}
 
-  addLike(itemType: string, itemId: string): any {
+  addLike(itemType: string, itemId: string) {
     let apiRoute: string = '';
     if (itemType === 'item' || 'avatar' || 'gem') {
       apiRoute = 'assets/' + itemType + 's';
@@ -27,12 +28,10 @@ export class FavouritesService {
     if (itemType === 'game') {
       apiRoute = 'games'
     }
-    this.http.patch<any>(`${this.baseUrl}/${apiRoute}/${itemId}/like`, {}).subscribe((data: any) => {
-      console.log(data);
-    })
+    return this.http.patch<any>(`${this.baseUrl}/${apiRoute}/${itemId}/like`, {}).pipe(take(1));
   }
 
-  removeLike(itemType: string, itemId: string): any {
+  removeLike(itemType: string, itemId: string) {
     let apiRoute: string = '';
     if (itemType === 'item' || 'avatar' || 'gem') {
       apiRoute = 'assets/' + itemType + 's';
@@ -40,9 +39,7 @@ export class FavouritesService {
     if (itemType === 'game') {
       apiRoute = 'games'
     }
-    this.http.patch<any>(`${this.baseUrl}/${apiRoute}/${itemId}/dislike`, {}).subscribe((data: any) => {
-      console.log(data);
-    })
+    return this.http.patch<any>(`${this.baseUrl}/${apiRoute}/${itemId}/dislike`, {}).pipe(take(1));
   }
 
   //removeLike(item: any, key: string) {

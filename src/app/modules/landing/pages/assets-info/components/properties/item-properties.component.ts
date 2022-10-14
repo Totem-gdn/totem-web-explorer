@@ -10,7 +10,7 @@ import { fromEvent, Subject, takeUntil } from 'rxjs';
   //   class: 'flex'
   // }
 })
-export class ItemPropertiesComponent implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
+export class ItemPropertiesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private media: BreakpointObserver) { }
 
