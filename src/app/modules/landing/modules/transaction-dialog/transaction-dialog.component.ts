@@ -151,7 +151,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
           console.log(response);
           if (response.status == 'Accepted') {
 
-            this.snackService.open('Tokens has been sent, wait a few seconds');
+            //this.snackService.open('Tokens has been sent, wait a few seconds');
 
             this.nextStep();
             this.maticHash = response.matic;

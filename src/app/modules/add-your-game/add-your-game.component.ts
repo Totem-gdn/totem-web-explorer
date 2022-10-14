@@ -116,14 +116,29 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     if (tab == SUBMISSION_TABS.BASIC_INFO) {
       this.activeTab = SUBMISSION_TABS.BASIC_INFO;
       this.progress = 33.3;
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     }
     if (tab == SUBMISSION_TABS.DETAILS) {
       this.activeTab = SUBMISSION_TABS.DETAILS;
       this.progress = 66.6;
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     }
     if (tab == SUBMISSION_TABS.LINKS) {
       this.activeTab = SUBMISSION_TABS.LINKS;
       this.progress = 100;
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     }
   }
 

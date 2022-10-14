@@ -1,13 +1,13 @@
 <div class="img-upload-dialog px-[18px] py-[20px]">
   <div class="img-upload-dialog-wrapper" fxLayout="column" fxLayoutAlign="space-between start">
     <div class="content-block p-[18px] h-full w-full">
-      <div class="content-block-body pt-[70px] pb-[56px] px-[40px] h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
+      <div class="content-block-body pt-[70px] pb-[36px] px-[20px] h-full w-full" fxLayout="column" fxLayoutAlign="start center">
         <div class="content-block-body-title">
           <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 1">Transaction initiated</span>
           <span @stopLoader class="font-totem title-text-2" *ngIf="stepIndex == 2">waiting for confirmation</span>
           <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 3">Request complete</span>
         </div>
-        <div class="content-block-body-subtitle py-[40px] w-full" [ngStyle]="{'height': stepIndex == 2 ? '103px' : ''}" fxLayout="row" fxLayoutAlign="center center">
+        <div class="content-block-body-subtitle mt-[14px] mb-[16px] w-full" fxLayout="row" fxLayoutAlign="center center">
           <div class="w-full content-block-body-subtitle-wrapp"
             >
             <span class="subtext" *ngIf="isEqual(stepIndex, 1) && !errorState">
@@ -24,8 +24,7 @@
         </div>
         <div
           @hashAnimation
-          *ngIf="maticHash && usdcHash"
-          [ngStyle]="{'height': maticHash && usdcHash ? '128px' : '', 'border': errorState ? '1px dashed #FF5252' : ''}"
+          [ngStyle]="{'border': errorState ? '1px dashed #FF5252' : ''}"
           class="content-block-body-tx-info"
           fxLayout="row"
           fxLayoutAlign="start center"
@@ -37,11 +36,11 @@
           </div>
           <div class="ml-[28px]" fxLayout="column" fxLayoutAlign="center start">
             <div class="title">Transaction hash</div>
-            <div class="caption-light mt-[20px]">{{usdcHash}}</div>
-            <div class="caption-light mt-[8px]">{{maticHash}}</div>
+            <div class="caption-light mt-[20px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{usdcHash ? usdcHash : errorState ? 'Transaction failed' : 'Please wait until we get USDC transaction hash...'}}</div>
+            <div class="caption-light mt-[8px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{maticHash ? maticHash : errorState ? 'Transaction failed' : 'Please wait until we get MATIC transaction hash...'}}</div>
           </div>
         </div>
-        <div class="content-block-body-progress w-full" [ngStyle]="{'margin-top': maticHash && usdcHash ? '40px' : ''}" fxLayout="column" fxLayoutAlign="center center">
+        <div class="content-block-body-progress w-full" [ngStyle]="{'margin-top': '40px'}" fxLayout="column" fxLayoutAlign="center center">
           <div class="content-block-body-progress-bar px-[60px]" fxLayout="row" fxLayoutAlign="space-between center">
 
             <!-- <div class="circles-wrapper">
