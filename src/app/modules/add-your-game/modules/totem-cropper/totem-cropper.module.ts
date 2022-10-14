@@ -8,6 +8,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from "@angular/material/button";
 import { ImageCropperModule } from "ngx-image-cropper";
 import { TotemSpinnerModule } from "@app/modules/landing/components/common-components/totem-spinner/totem-spinner.module";
+import { ReactiveFormsModule } from "@angular/forms";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
     declarations: [
@@ -15,12 +17,14 @@ import { TotemSpinnerModule } from "@app/modules/landing/components/common-compo
     ],
     imports: [
         SharedModule,
+        MatIconModule,
         FlexLayoutModule,
         MatProgressBarModule,
         MatDialogModule,
         MatButtonModule,
         ImageCropperModule,
-        TotemSpinnerModule
+        TotemSpinnerModule,
+        ReactiveFormsModule
     ],
     exports: [
       TotemCropperComponent

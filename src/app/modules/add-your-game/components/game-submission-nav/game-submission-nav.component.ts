@@ -17,7 +17,7 @@ export class GameSubmissionNavComponent implements OnDestroy, AfterViewInit {
   @Input() activeTab: string = 'basic-information';
   @Output() tabSelected: EventEmitter<string> = new EventEmitter();
 
-  
+
   @ViewChild('detailsTab') detailsTab!: ElementRef;
   @ViewChild('linksTab') linksTab!: ElementRef;
 
@@ -35,20 +35,20 @@ export class GameSubmissionNavComponent implements OnDestroy, AfterViewInit {
         this.detailsTab.nativeElement.style.pointerEvents = 'none';
         this.linksTab.nativeElement.style.pointerEvents = 'none';
 
-        if(this.activeTab != 'basic-information') {
+        /* if(this.activeTab != 'basic-information') {
           this.goToTab('basic-information');
-        }
+        } */
       }
 
       if(tabs.detailsValid) {
         this.linksTab.nativeElement.style.pointerEvents = 'all';
       } else {
         this.linksTab.nativeElement.style.pointerEvents = 'none';
-        if(this.activeTab == 'links' && tabs.basicInfoValid) {
+        /* if(this.activeTab == 'links' && tabs.basicInfoValid) {
           this.goToTab('details');
         } else {
           this.goToTab('basic-info');
-        }
+        } */
       }
     })
   }

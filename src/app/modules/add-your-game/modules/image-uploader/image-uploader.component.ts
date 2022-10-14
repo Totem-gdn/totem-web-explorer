@@ -33,7 +33,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    this.filesToUploadNumber = this.filesToUpload.gameSubmitResponse.uploadImageURLs.imagesGallery!.length + 3;
+    this.filesToUploadNumber = this.filesToUpload.gameSubmitResponse.uploadImageURLs.imagesGallery!.length + 3 + (this.data.jsonFile ? 1 : 0);
     this.linkImagesToGame(this.filesToUpload);
     this.submitGameService.approveGame(this.filesToUpload.gameSubmitResponse.id);
   }

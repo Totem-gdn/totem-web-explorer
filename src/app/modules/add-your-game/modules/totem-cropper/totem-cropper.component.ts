@@ -1,6 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
+import { ImageCroppedEvent, LoadedImage, base64ToFile, ImageTransform } from 'ngx-image-cropper';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -17,6 +18,12 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
   croppedImage: any = '';
   aspectRatio: number = 0;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  tranformOptions: ImageTransform = {};
+  rotateValue: number = 0;
+  scaleValue: number = 1;
+  sliderGroup = new FormGroup({
+    tick: new FormControl<number>(1),
+  })
 
   constructor(
     public dialogRef: MatDialogRef<TotemCropperComponent>,
@@ -28,9 +35,29 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
     this.loading$.next(true);
     this.imageChangedEvent = this.data.file;
     this.aspectRatio = this.data.aspectRatio;
+    this.sliderGroup.get('tick')!.valueChanges.subscribe((x: number | null) => {
+      console.log(x);
+      this.scaleValue = x!;
+      this.scaleImage();
+    })
   }
 
   ngOnDestroy(): void {
+  }
+
+  rotateImage() {
+    this.rotateValue = this.rotateValue >= 0 && this.rotateValue < 360 ? this.rotateValue + 90 : 90;
+    this.tranformOptions = {
+      ...this.tranformOptions,
+      rotate: this.rotateValue
+    }
+  }
+
+  scaleImage() {
+    this.tranformOptions = {
+      ...this.tranformOptions,
+      scale: this.scaleValue
+    }
   }
 
   /* imageCropped(event: ImageCroppedEvent) {
