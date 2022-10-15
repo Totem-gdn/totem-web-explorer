@@ -50,7 +50,4 @@ export class AppComponent {
       gtag.pageview();
   }
 
-  ngOnInit() {
-  }
-
 }

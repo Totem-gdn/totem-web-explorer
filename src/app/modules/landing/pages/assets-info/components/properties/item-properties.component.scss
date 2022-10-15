@@ -19,6 +19,7 @@
     // width: 100%;
     margin:auto;
     border: 1px solid $light-grey;
+    overflow-x: hidden;
     //
     display: grid;
     padding: 15px;
@@ -57,3 +58,44 @@
         margin-top: auto;
     }
 }
+
+.item-tag {
+    user-select: none;
+    position: relative;
+    .circle-wrapper {
+        position: absolute;
+        padding: 8px;
+        display: none;
+        top: 0;
+        right: 0;
+        .circle {
+            // position: absolute;
+            width: 8px !important;
+            height: 8px !important;
+            color: $yellow;
+        }
+    }
+
+    .tooltip {
+        display: flex;
+        opacity: 0;
+        flex-direction: column;
+        z-index: 1;
+        transition: opacity 0.2s;
+        position: absolute;
+        visibility: hidden;
+        left: 50%;
+        top: 0;
+        padding: 15px;
+        background: rgba(8, 9, 10, 0.5);
+        backdrop-filter: blur(10px);
+        border-radius: 4px;
+        color: $light-grey;
+    }
+    &:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+

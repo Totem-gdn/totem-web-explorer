@@ -1,10 +1,10 @@
 <div *ngIf="item" class="relative py-[40px] lg:py-[60px] px-[20px] flex flex-col relative max-w-[1164px] m-auto">
 
-    <!-- <div class="blur-md">
+    <div class="blur-md">
         <bg-circle class="top-[-100px] left-0" [width]="'350px'" [background]="'#FFD011'"></bg-circle>
         <bg-circle class="top-[100px] left-[25%]" [width]="'200px'" [background]="'#00BC58'"></bg-circle>
         <bg-circle class="top-[-100px] left-[90%]" [width]="'250px'" [background]="'rgb(189 41 184)'"></bg-circle>
-    </div> -->
+    </div>
 
     <div class="flex flex-col justify-center">
         <div class="flex flex-col lg:flex-row lg:flex-nowrap justify-center">
@@ -54,7 +54,7 @@
     </div> -->
 
     <horizontal-carousel class="mt-[70px]" [title]="'History view'" [menuTitle]="null" [itemType]="type"
-        [items]="assets | async">
+        [items]="assets">
     </horizontal-carousel>
 </div>
 

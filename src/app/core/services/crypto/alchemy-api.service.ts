@@ -76,6 +76,11 @@ export class AlchemyService {
 
     }
 
+    tokenTransactionsById(id: string) {
+        web3.alchemy.getAssetTransfers( {})
+    }
+
+
     assetAddress(assetType: string)  {
         if(assetType == 'avatar') return "0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35";
         if(assetType == 'item') return "0xfC5654489b23379ebE98BaF37ae7017130B45086";

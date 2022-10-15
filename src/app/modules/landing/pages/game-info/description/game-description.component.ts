@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
@@ -18,12 +18,17 @@ export class GameDescriptionComponent {
         this.hlImage = game?.images?.gallery[0];
         console.log(game)
     };
+    @ViewChild('image') image!: ElementRef;
 
     _game: any;
     hlImage!: string;
 
     onChangeImg(image: string) {
-        this.hlImage = image;
+        this.image.nativeElement.style.opacity = '0';
+        setTimeout(() => {
+            this.hlImage = image;
+            this.image.nativeElement.style.opacity = '1';       
+        }, 200)
     }
 
 }

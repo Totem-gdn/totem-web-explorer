@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, map, tap } from "rxjs";
+import { BehaviorSubject, map, take, tap } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 
@@ -34,9 +34,9 @@ export class GamesService {
     }
 
 
-    fetchGames(wallet: string) {
-        return this.http.get<any>(`https://simple-api.totem.gdn/default/gem/${wallet}`).pipe(
-            // map(games => this.formatTime(games.data)),
+    fetchGames() {
+        return this.http.get<any>(`${this.baseUrl}/games`).pipe(
+            take(1),
             tap(games => {
                 this.setGames = games;
             }))         

@@ -46,7 +46,7 @@
         <!-- Nav Links -->
         <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
           <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">Profile</a>
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/">Home</a>
+          <a (click)="close()" routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">Home</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
           <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>

@@ -7,6 +7,6 @@
       <div>{{imageFile.name}}</div>
       <div class="file-size mt-[6px]">{{imageFile.size  | number: '1.2-2'}} MB</div>
     </div>
-    <div>Delete</div>
+    <div class="delete-button" (click)="removeItem(imageFile)"><mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon></div>
   </div>
 </div>

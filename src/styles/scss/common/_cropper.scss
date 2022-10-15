@@ -1,5 +1,6 @@
 image-cropper {
   padding: 0 !important;
+  overflow: unset !important;
   img {
     vertical-align: unset;
     display: unset;
@@ -11,6 +12,7 @@ image-cropper {
       //width: 100% !important;
       //height: 100% !important;
       //margin: 0 !important;
+      outline: unset !important;
     }
     .ngx-ic-cropper {
       //width: 100% !important;
