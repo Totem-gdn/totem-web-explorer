@@ -27,8 +27,8 @@
         <div class="bottom">
             <div>
                 <h4 *ngIf="!asset?.updatedAt && !asset?.timeLastUpdated">24.24.24</h4>
-                <h4 *ngIf="asset?.updatedAt">{{asset?.updatedAt | date:'dd/MM/yy'}}</h4>
-                <h4 *ngIf="asset?.timeLastUpdated">{{asset?.timeLastUpdated | date:'dd/MM/yy'}}</h4>
+                <h4 *ngIf="asset?.updatedAt">{{asset?.updatedAt | date:'dd.MM.yy'}}</h4>
+                <h4 *ngIf="asset?.timeLastUpdated">{{asset?.timeLastUpdated | date:'dd.MM.yy'}}</h4>
 
                 <p class="text-light-grey">Last used</p>
             </div>
