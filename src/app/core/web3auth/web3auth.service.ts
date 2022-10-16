@@ -34,7 +34,7 @@ export class Web3AuthService {
         const web3auth = this.web3auth;
         const metamaskAdapter = new MetamaskAdapter({
             clientId: clientId,
-        });
+          });
         web3auth.configureAdapter(metamaskAdapter);
 
         await web3auth.initModal();
@@ -110,9 +110,6 @@ export class Web3AuthService {
     }
 
     getPublicKey = async () => {
-        // const app_scoped_privkey: Maybe<any> = await this.getPrivateKey();
-        const prvKey = this.getPrivateKey();
-        console.log('prv key', prvKey)
         const web3auth = this.web3auth;
         const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
             method: "eth_private_key", // use "private_key" for other non-evm chains
