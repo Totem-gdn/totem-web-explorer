@@ -9,6 +9,7 @@ import { getPublicCompressed } from "@toruslabs/eccrypto";
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AssetsABI } from "./abi/assetsABI";
+import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 
 @Injectable({ providedIn: 'root' })
 
@@ -31,6 +32,10 @@ export class Web3AuthService {
             },
         });
         const web3auth = this.web3auth;
+        const metamaskAdapter = new MetamaskAdapter({
+            clientId: clientId,
+          });
+        web3auth.configureAdapter(metamaskAdapter);
 
         await web3auth.initModal();
 
