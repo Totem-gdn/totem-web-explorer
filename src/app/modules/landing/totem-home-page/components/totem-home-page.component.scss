@@ -307,12 +307,13 @@
       }
       .games-preview-block {
         position: absolute;
-        max-width: 800px;
+        max-width: 740px;
         width: 100%;
-        height: 800px;
-        right: -100px;
-        top: -85px;
+        height: 760px;
+        right: -70px;
+        top: -64px;
         z-index: 1;
+        animation: float 7s ease-in-out infinite;
 
         ng-particles {
           position: absolute;
@@ -330,18 +331,25 @@
           max-width: 800px;
           width: 100%;
           height: auto;
-          animation: float 7s ease-in-out infinite;
+          //animation: float 7s ease-in-out infinite;
           z-index: 3;
         }
         @media (max-width: 1000px) {
           //top: -60px;
           .img-1, .img-2 {
-            max-width: 500px;
-            min-width: 460px;
+            //max-width: 500px;
+            max-width: 460px;
+            //min-width: 460px;
+            min-width: 420px;
+            right: -20px;
           }
         }
         @media (max-width: 479px) {
-          top: -95px;
+          top: -85px;
+          .img-2 {
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+          }
         }
       }
       @keyframes float {
