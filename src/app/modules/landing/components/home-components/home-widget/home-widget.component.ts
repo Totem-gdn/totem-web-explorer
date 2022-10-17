@@ -62,8 +62,8 @@ export class HomeWidgetComponent {
     userSelected: boolean = false;
     cardsToShow: any[] = [];
 
-    testImgURL_1: string = '../../../../../../assets/images/widget-image-1.png';
-    testImgURL_2: string = '../../../../../../assets/images/widget-image-2.png';
+    testImgURL_1: string = '../../../../../../assets/images/widget-image-1.webp';
+    testImgURL_2: string = '../../../../../../assets/images/widget-image-2.webp';
 
     constructor(private comboBoxService: ComboBoxService, private totemItemsService: TotemItemsService) {
       this.totemItemsService.avatars.subscribe((data: any[] | null) => {

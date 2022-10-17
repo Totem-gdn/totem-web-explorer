@@ -41,7 +41,7 @@
       height: 303px;
       left: 371px;
       top: 50px;
-      background: radial-gradient(52.97% 52.97% at 50% 50%, #FF66F9 0%, #212326 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+      background: radial-gradient(52.97% 52.97% at 50% 50%, #FF66F9 0%, #212326 100%);
       animation: MoveUpDown 10s linear infinite;
       animation-delay: var(--i);
     }
@@ -52,8 +52,7 @@
       left: 91px;
       top: 50px;
 
-      background: radial-gradient(85.59% 85.59% at 50% 50%, #FFE166 0%, #2B2530 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-      animation: MoveUpDown 10s linear infinite;
+      background: radial-gradient(85.59% 85.59% at 50% 50%, #FFE166 0%, #2B2530 100%);
       animation-delay: var(--i);
     }
     .fifth-circle {
