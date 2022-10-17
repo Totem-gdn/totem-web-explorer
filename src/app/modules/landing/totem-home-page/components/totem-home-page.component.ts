@@ -52,7 +52,7 @@ export class TotemHomePageComponent implements OnInit {
   testGame: any[] = [{
     name: 'D.I.N.O',
     description: 'A game about a young archaeologist resurrecting dinosaurs from their bones and taking care of them',
-    url: 'assets/images/dino-game.png',
+    url: 'assets/images/dino-game.webp',
     gameUrl: 'https://gandswite.itch.io/project-dino'
   }]
   x: number = 0;
@@ -127,10 +127,6 @@ export class TotemHomePageComponent implements OnInit {
   }
 
   async particlesInit(engine: Engine): Promise<void> {
-
-    // Starting from 1.19.0 you can add custom presets or shape here, using the current tsParticles instance (main)
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
     await loadFull(engine);
   }
 
