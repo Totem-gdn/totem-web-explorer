@@ -2,6 +2,7 @@
 import { Route } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
+import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 
 export const AppRoutes: Route[] = [
 
@@ -17,9 +18,9 @@ export const AppRoutes: Route[] = [
       { path: 'buy', loadChildren: () => import('@app/modules/landing/pages/buy/buy.module').then(m => m.BuyModule)},
       { path: 'help', loadChildren: () => import('@app/modules/landing/pages/help/help.module').then(m => m.HelpModule)},
       { path: 'profile', loadChildren: () => import('app/modules/profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },
-      
+
       { path: 'submit-game', loadChildren: () => import('app/modules/add-your-game/add-your-game.module').then(m => m.AddYourGameModule) },
-      
+
       { path: 'game/:id', loadChildren: () => import('@app/modules/landing/pages/game-info/game-info.module').then(m => m.GameInfoModule)},
       { path: 'avatar/:id', loadChildren: () => import('@app/modules/landing/pages/assets-info/avatar-info/avatar-info.module').then(m => m.AvatarInfoModule)},
       { path: 'gem/:id', loadChildren: () => import('@app/modules/landing/pages/assets-info/gem-info/gem-info.module').then(m => m.GemInfoModule)},
@@ -27,5 +28,10 @@ export const AppRoutes: Route[] = [
 
     ]
   },
+  {
+    path: '**',
+    pathMatch: 'full',
+    loadChildren: () => import('@app/modules/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
+  }
 
 ]

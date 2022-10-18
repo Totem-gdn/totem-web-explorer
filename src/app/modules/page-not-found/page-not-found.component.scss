@@ -1,0 +1,18 @@
+@import 'styles/scss/variables';
+
+.pnf-wrapper {
+  background-color: $dark;
+  color: $yellow;
+
+  .back-button {
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+    background-color: $grey;
+    cursor: pointer;
+    transition: background-color 0.33s ease-out;
+    &:hover {
+      background-color: $dark-grey;
+    }
+  }
+}
