@@ -14,7 +14,7 @@ import { BalanceComponent } from "./balance.component";
         SharedModule,
         MatIconModule,
         TotemButtonModule,
-        TransactionDialogModule
+        TransactionDialogModule,
     ],
     exports: [
         BalanceComponent

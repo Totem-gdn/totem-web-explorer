@@ -1,41 +1,44 @@
-
 <!-- Balance -->
-<div class="balance"
-[ngClass]="mode != 'small' ? 'pl-[12px]': ''">
-    <div *ngIf="mode != 'small'" class="title" (click)="onToggleDropdown()">
-      <h3>Balance</h3>
-      <mat-icon [ngStyle]="{'transform': isDropdownOpened === true ? 'rotate(180deg)': 'rotate(0deg)'}" [svgIcon]="'line:arrow_up'"></mat-icon>
+<div class="balance" [ngClass]="mode != 'small' ? 'pl-[12px]': ''">
+  <div *ngIf="mode != 'small'" class="title" (click)="onToggleDropdown()">
+    <h3>Balance</h3>
+    <mat-icon [ngStyle]="{'transform': isDropdownOpened === true ? 'rotate(180deg)': 'rotate(0deg)'}"
+      [svgIcon]="'line:arrow_up'"></mat-icon>
+  </div>
+
+  <div class="dropdown" #dropdown>
+
+    <div class="item !pt-[25px]">
+      <img src="assets/images/usdc.png" alt="">
+      <div class="flex flex-col justify-between">
+        <p>USDC</p>
+        <span class="truncate text-light-grey">{{tokenBalance}}</span>
+      </div>
     </div>
 
-    <div class="dropdown" #dropdown>
+    <div class="item">
+      <a class="cursor-pointer" href="https://mumbaifaucet.com/" target="_blank">
+        <img src="assets/images/matic.png" alt="">
+      </a>
 
-      <div class="item !pt-[25px]">
-        <img src="assets/images/usdc.png" alt="">
-        <div class="flex flex-col justify-between">
-          <p>USDC</p>
-          <span class="truncate text-light-grey">{{tokenBalance}}</span>
-        </div>
+      <div class="flex flex-col justify-between">
+        <p>Matic</p>
+        <span class="truncate text-light-grey">{{maticBalance}}</span>
       </div>
+    </div>
 
-      <div class="item">
-        <a class="cursor-pointer" href="https://mumbaifaucet.com/" target="_blank">
-            <img src="assets/images/matic.png" alt="">
-        </a>
-
-        <div class="flex flex-col justify-between">
-          <p>Matic</p>
-          <span class="truncate text-light-grey">{{maticBalance}}</span>
-        </div>
+    <div class="item">
+      <img src="assets/images/social.png" alt="">
+      <div class="flex flex-col justify-between">
+        <p>Totem</p>
+        <span class="truncate text-light-grey">Soon...</span>
       </div>
-
-      <div class="item">
-          <img src="assets/images/social.png" alt="">
-        <div class="flex flex-col justify-between">
-          <p>Totem</p>
-          <span class="truncate text-light-grey">Soon...</span>
-        </div>
-      </div>
-
-      <totem-button class="pb-[25px] pt-[10px]" [disabled]="disableButton" [caption]="'Claim'" [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
+    </div>
+    <div class="flex gap-[20px]">
+      <totem-button class="pb-[25px] pt-[10px] basis-1/2" [caption]="'Send'" [width]="'100%'" (click)="onSend()">
+      </totem-button>
+      <totem-button class="pb-[25px] pt-[10px] basis-1/2" [disabled]="disableButton" [caption]="'Claim'"
+        [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
     </div>
   </div>
+</div>

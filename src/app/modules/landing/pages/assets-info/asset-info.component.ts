@@ -5,6 +5,7 @@ import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { BehaviorSubject, Subject, Subscription, takeUntil } from "rxjs";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { DNAParserService } from "@app/core/services/dna-parser.service";
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
 // import * as DNA from 'dna-parser'
 
@@ -23,21 +24,20 @@ export class AssetInfoComponent {
     constructor(private route: ActivatedRoute,
         private itemsService: TotemItemsService,
         private alchService: AlchemyService,
-        private web3: Web3AuthService) { }
+        private web3: Web3AuthService,
+        private dnaService: DNAParserService) { }
 
     activeTab = 'properties';
     subs = new Subject<void>();
 
+    @Input() type!: string;
     @Input() set item(item: any) {
-        // if(!item) return;
         this._item = item;
-        if(!item) return;
-        // item.rarity = new DNAParser().getItemRarity(item?.tokenId);
-       this.processItem(item?.tokenId, this.type)
+        if (!item) return;
+        this.processItem(item?.tokenId)
     }
 
     _item!: any;
-    @Input() type!: string;
     assets!: any[];
 
     properties!: any[];
@@ -50,13 +50,10 @@ export class AssetInfoComponent {
 
     ngOnInit() {
         this.sliderItems();
-        // this.alchService.tokenTransactionsById(this.item?.tokenId);
-        // contractHandler.getDNA()
 
-        if (this.type == 'item') this.properties = [{ title: 'Type', id: 'classical_element', value: '--', tooltip: false }, { title: 'Damage', id: 'damage_nd', value: '--', tooltip: false }, { title: 'Range', id: 'range_nd', value: '--', tooltip: false }, { title: 'Power', id: 'power_nd', value: '--', tooltip: false }, { title: 'Magical Power', id: 'magical_exp', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false },]
-        if (this.type == 'gem') this.properties = [{ title: 'Type', value: '--', tooltip: false }, { title: 'Damage', value: '--', tooltip: false }, { title: 'Range', value: '--', tooltip: false }, { title: 'Power', value: '--', tooltip: false }, { title: 'Magical Power', value: '--', tooltip: false }, { title: 'Weapon Material', value: '--', tooltip: false }, { title: 'Primary Color', value: '--', tooltip: false },]
-        if (this.type == 'avatar') this.properties = [{ title: 'Sex', id: 'sex_bio', value: '--', tooltip: false }, { title: 'Body Strength', id: 'body_strength', value: '--', tooltip: false }, { title: 'Body Type', id: 'body_type', value: '--', tooltip: false }, { title: 'Skin Color', id: 'human_skin_color', value: '--', tooltip: false }, { title: 'Hair Color', id: 'human_hair_color', value: '--', tooltip: false }, { title: 'Eye Color', id: 'human_eye_color', value: '--', tooltip: false }, { title: 'Hair Style', id: 'hair_styles', value: '--', tooltip: false }, { title: 'Weapon Type', id: 'weapon_type', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false },]
-
+        if (this.type == 'item' || 'gem') this.properties = [{ title: 'Type', id: 'classical_element', value: '--', tooltip: false }, { title: 'Damage', id: 'damage_nd', value: '--', tooltip: false }, { title: 'Range', id: 'range_nd', value: '--', tooltip: false }, { title: 'Power', id: 'power_nd', value: '--', tooltip: false }, { title: 'Magical Power', id: 'magical_exp', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
+        // if (this.type == 'gem') this.properties = [{ title: 'Type', value: '--', tooltip: false }, { title: 'Damage', value: '--', tooltip: false }, { title: 'Range', value: '--', tooltip: false }, { title: 'Power', value: '--', tooltip: false }, { title: 'Magical Power', value: '--', tooltip: false }, { title: 'Weapon Material', value: '--', tooltip: false }, { title: 'Primary Color', value: '--', tooltip: false },]
+        if (this.type == 'avatar') this.properties = [{ title: 'Sex', id: 'sex_bio', value: '--', tooltip: false }, { title: 'Body Strength', id: 'body_strength', value: '--', tooltip: false }, { title: 'Body Type', id: 'body_type', value: '--', tooltip: false }, { title: 'Skin Color', id: 'human_skin_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Color', id: 'human_hair_color', value: '--', tooltip: false, showColor: true }, { title: 'Eye Color', id: 'human_eye_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Style', id: 'hair_styles', value: '--', tooltip: false }, { title: 'Weapon Type', id: 'weapon_type', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
     }
 
 
@@ -81,7 +78,7 @@ export class AssetInfoComponent {
         }
     }
 
-    async processItem (id: number, type: string) {
+    async processItem(id: number) {
         const url = 'https://matic-mumbai.chainstacklabs.com'
         let contract = ''
         let json = ''
@@ -98,14 +95,20 @@ export class AssetInfoComponent {
         const contractHandler = new ContractHandler(url, contract)
 
         const DNA = await contractHandler.getDNA(id)
-        
+
         const parser = new DNAParser(json, DNA)
 
         this._item.rarity = parser.getItemRarity(id)
 
         this.properties.map((prop) => {
-            prop.value = parser.getField(prop.id)
+            // prop.value = parser.getField(prop.id)
+            const value = parser.getField(prop.id);
+            prop.value = this.dnaService.handleDNAField(prop.id, value);
         })
+    }
+
+    handleProperties(title: string, value: string) {
+        
     }
 
     ngOnDestroy() {
