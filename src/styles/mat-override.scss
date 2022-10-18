@@ -76,6 +76,10 @@ mat-progress-bar {
   //height: 100%;
   height: 633px;
 
+  @media (max-width: 600px) {
+    height: 486px;
+  }
+
   mat-progress-bar {
     border-radius: 13px;
 
