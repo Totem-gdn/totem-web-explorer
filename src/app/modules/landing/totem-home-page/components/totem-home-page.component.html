@@ -2,18 +2,18 @@
   <div class="totem-landing-wrapper" fxLayout="column" fxLayoutAlign="start">
     <div class="landing-cta-content" fxLayout="row wrap" fxLayoutAlign="space-between center">
       <div class="landing-ellipses-bg">
-        <div class="ellipse-1"></div>
-        <div class="ellipse-2"></div>
-        <div class="ellipse-3"></div>
+        <span class="ellipse-1"></span>
+        <span class="ellipse-2"></span>
+        <span class="ellipse-3"></span>
       </div>
       <div class="landing-cta-bg">
-        <div class="blured-circle-1"></div>
-        <div class="blured-circle-2"></div>
-        <div class="blured-circle-3"></div>
+        <span class="blured-circle-1"></span>
+        <span class="blured-circle-2"></span>
+        <span class="blured-circle-3"></span>
       </div>
       <div fxFlex="100%" class="cta-text-block" fxLayout="column" fxLayoutAlign="start">
-        <div class="ellipse-1"></div>
-        <div class="ellipse-2"></div>
+        <span class="ellipse-1"></span>
+        <span class="ellipse-2"></span>
         <div class="cta-head-text">
           <p class="font-totem totem-caption">TOTEM</p>
           <p class="font-totem totem-subcaption mt-[12px]">Web Explorer</p>
@@ -29,8 +29,8 @@
       <div class="games-preview-block">
         <ng-particles [id]="id" [options]="particlesOptions" [particlesInit]="particlesInit"
         (particlesLoaded)="particlesLoaded($event)"></ng-particles>
-        <img [@hideFirstState]="imgChange" class="img-1" src="../../../../../../assets/images/knight-model.png" alt="">
-        <img [@hideSecondState]="imgChange" class="img-2" src="../../../../../../assets/images/t-rex-model.png" alt="">
+        <img [@hideFirstState]="imgChange" class="img-1" src="../../../../../../assets/images/knight-image.webp" alt="">
+        <img [@hideSecondState]="imgChange" class="img-2" src="../../../../../../assets/images/t-rex-image.webp" alt="">
       </div>
     </div>
 

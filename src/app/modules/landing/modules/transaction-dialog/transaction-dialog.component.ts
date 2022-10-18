@@ -23,7 +23,7 @@ import { SnackNotifierService } from '../snack-bar-notifier/snack-bar-notifier.s
 export class TransactionDialogComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  tokensClaimed: { matic: boolean, usdc: boolean } = { matic: false, usdc: false } ;
+  tokensClaimed: { MATIC: boolean, USDC: boolean } = { MATIC: false, USDC: false } ;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   steps: any = [
     {
@@ -78,8 +78,8 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
             this.errorState = true;
             return;
           }
-          this.tokensClaimed.matic = true;
-          if (this.tokensClaimed.usdc) {
+          this.tokensClaimed.MATIC = true;
+          if (this.tokensClaimed.USDC) {
             this.nextStep();
           }
           //this.disableButton = false;
@@ -102,8 +102,8 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
             this.errorState = true;
             return;
           }
-          this.tokensClaimed.usdc = true;
-          if (this.tokensClaimed.matic) {
+          this.tokensClaimed.USDC = true;
+          if (this.tokensClaimed.MATIC) {
             //this.snackService.open('USDC balance updated');
             this.nextStep();
           }
@@ -154,12 +154,12 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
             //this.snackService.open('Tokens has been sent, wait a few seconds');
 
             this.nextStep();
-            this.maticHash = response.matic;
-            this.usdcHash = response.usdc;
+            this.maticHash = response.MATIC;
+            this.usdcHash = response.USDC;
 
-            this.web3Service.isReceiptedMatic(response.matic);
+            this.web3Service.isReceiptedMatic(response.MATIC);
             setTimeout(() => {
-              this.web3Service.isReceiptedUsdc(response.usdc);
+              this.web3Service.isReceiptedUsdc(response.USDC);
             }, 400);
 
           }
@@ -175,7 +175,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
             this.errorState = true;
           }
           if (error.error.statusCode == 400) {
-            //this.dialogRef.close({matic: true, usdc: true})
+            //this.dialogRef.close({MATIC: true, USDC: true})
             this.errorMessage = 'You have already claimed the tokens recently. Please try again\n after 24 hours from your original request.';
             this.errorState = true;
             //this.snackService.open('You have already received tokens, try again in 24 hours');
@@ -194,7 +194,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
       step.loading = false;
       step.step = false;
     });
-    this.tokensClaimed = {matic: false, usdc: false}; */
+    this.tokensClaimed = {MATIC: false, USDC: false}; */
     this.web3Service.resetUsdcAndMaticResponse();
     this.subs.unsubscribe();
   }
