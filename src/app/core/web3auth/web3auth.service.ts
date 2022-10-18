@@ -9,12 +9,10 @@ import { getPublicCompressed } from "@toruslabs/eccrypto";
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AssetsABI } from "./abi/assetsABI";
-import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 
 @Injectable({ providedIn: 'root' })
 
 export class Web3AuthService {
-
     web3auth: Web3Auth | null = null;
     provider: SafeEventEmitterProvider | null = null;
     isModalLoaded = false;
@@ -23,6 +21,7 @@ export class Web3AuthService {
     web3!: Web3;
 
     init = async () => {
+        console.log('Init')
         this.web3auth = new Web3Auth({
             clientId,
             chainConfig: {
@@ -32,10 +31,10 @@ export class Web3AuthService {
             },
         });
         const web3auth = this.web3auth;
-        const metamaskAdapter = new MetamaskAdapter({
-            clientId: clientId,
-          });
-        web3auth.configureAdapter(metamaskAdapter);
+        // const metamaskAdapter = new MetamaskAdapter({
+        //     clientId: clientId,
+        //   });
+        // web3auth.configureAdapter(metamaskAdapter);
 
         await web3auth.initModal();
 
@@ -43,6 +42,30 @@ export class Web3AuthService {
             this.provider = web3auth.provider;
         }
         this.isModalLoaded = true;
+    }
+
+    login = async () => {
+        console.log('login')
+        if (!this.web3auth) {
+            console.log("web3auth not initialized yet");
+            return;
+        }
+        const web3auth = this.web3auth;
+        document.getElementById('w3a-container')!.style.visibility = 'visible';
+
+        this.provider = await web3auth.connect();
+        document.getElementById('w3a-container')!.style.visibility = 'hidden';
+    };
+
+    walletIdToken = async() => {
+        if(!this.web3auth) return;
+        const web3 = this.web3auth;
+        const key = await web3.authenticateUser();
+        const userInfo = await this.web3auth.getUserInfo();
+        
+        console.log('user info', userInfo)
+        console.log('token', key)
+        return key.idToken;
     }
 
     transactionsLogs() {
@@ -99,25 +122,6 @@ export class Web3AuthService {
       this.maticClaimed.next(null);
     }
 
-
-    getPubKey = async () => {
-        const web3auth = this.web3auth;
-        const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
-            method: "solanaPrivateKey",
-        });
-        const ed25519Key = getED25519Key(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex"));
-        const app_pub_key = ed25519Key.pk.toString("hex");
-    }
-
-    getPublicKey = async () => {
-        const web3auth = this.web3auth;
-        const app_scoped_privkey: Maybe<any> = await web3auth?.provider?.request({
-            method: "eth_private_key", // use "private_key" for other non-evm chains
-        });
-        const app_pub_key = getPublicCompressed(Buffer.from(app_scoped_privkey!.padStart(64, "0"), "hex")).toString("hex");
-        return app_pub_key;
-    }
-
     authUser = async () => {
         if (!this.provider) {
             return;
@@ -135,17 +139,6 @@ export class Web3AuthService {
         const getTokens = await rpc.getTokens();
         return getTokens;
     }
-
-    login = async () => {
-        if (!this.web3auth) {
-            console.log("web3auth not initialized yet");
-            return;
-        }
-        const web3auth = this.web3auth;
-        document.getElementById('w3a-container')!.style.visibility = 'visible';
-        this.provider = await web3auth.connect();
-        document.getElementById('w3a-container')!.style.visibility = 'hidden';
-    };
 
     getUserInfo = async () => {
         if (!this.web3auth) {

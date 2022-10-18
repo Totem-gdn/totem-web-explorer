@@ -31,13 +31,11 @@ export class GameInfoComponent implements OnInit, OnDestroy {
             .subscribe((params: ParamMap) => {
                 const id = params.get('id');
                 if (!id) return;
-                this.gameService.updateGame(id).subscribe();
-                this.gameService.game$
-                    .pipe(takeUntil(this.subs))
-                    .subscribe(game => {
-                        if(!game) return;
-                        this.game = game;
-                    })
+                this.game = undefined;
+                this.gameService.updateGame(id).subscribe(game => {
+                    console.log('game', game);
+                    this.game = game;
+                });
             })
 
         this.gameService.fetchGames().subscribe(games => {

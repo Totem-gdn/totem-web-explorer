@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { AlchemyService } from "@app/core/services/crypto/alchemy-api.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TransactionsService } from "@app/core/services/crypto/transactions.service";
-import { UserStateService } from "@app/core/services/user-state.service";
+import { UserStateService } from "@app/core/services/auth.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { TransactionDialogComponent } from "@app/modules/landing/modules/transaction-dialog/transaction-dialog.component";

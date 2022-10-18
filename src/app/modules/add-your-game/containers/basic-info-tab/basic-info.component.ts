@@ -1,7 +1,7 @@
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
-import { UserStateService } from '@app/core/services/user-state.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
 import { SubmitGameService } from '../../services/submit-game.service';

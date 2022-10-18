@@ -23,12 +23,11 @@ export class GemInfoComponent implements OnInit, OnDestroy {
                 const id = params.get('id');
                 if (!id) return;
 
-                this.assetsService.updateAsset(id, 'gem').subscribe();
-                this.assetsService.gem$
-                    .pipe(takeUntil(this.subs))
-                    .subscribe(gem => {
-                        this.gem = gem;
-                    })
+                this.gem = undefined;
+                this.assetsService.updateAsset(id, 'gem').subscribe(gem => {
+                    this.gem = gem;
+                });
+                
             });
     }
 

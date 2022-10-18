@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { StorageKey } from '@app/core/enums/storage-keys.enum';
 import { UserEntity } from '@app/core/models/user-interface.model';
 import { BaseStorageService } from '@app/core/services/base-storage.service';
-import { UserStateService } from '@app/core/services/user-state.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, map, Subscription, take, takeUntil } from 'rxjs';
 import { Meta } from '@angular/platform-browser';

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
 import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, ImagesToUpload, SubmitGame, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
-import { UserStateService } from '@app/core/services/user-state.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
 import { FormsService } from './services/forms.service';

@@ -98,7 +98,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     }
 
     isFormValid() {
-        this.formValid.emit({formName: 'general', value: this.generalDescription.valid && (this.selectedJsonFile ? true : false)});
+        this.formValid.emit({formName: 'general', value: this.generalDescription.valid});
     }
 
 

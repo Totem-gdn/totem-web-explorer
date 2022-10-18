@@ -23,12 +23,10 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
                 const id = params.get('id');
                 if (!id) return;
 
-                this.assetsService.updateAsset(id, 'item').subscribe();
-                this.assetsService.item$
-                    .pipe(takeUntil(this.subs))
-                    .subscribe(item => {
-                        this.item = item;
-                    })
+                this.item = undefined;
+                this.assetsService.updateAsset(id, 'item').subscribe(item => {
+                    this.item = item;
+                });
             });
     }
 

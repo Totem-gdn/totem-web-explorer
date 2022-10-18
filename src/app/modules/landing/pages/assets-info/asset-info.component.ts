@@ -12,7 +12,10 @@ const DNA = require('dna-parser');
 @Component({
     selector: 'asset-info',
     templateUrl: './asset-info.component.html',
-    styleUrls: ['./asset-info.component.scss']
+    styleUrls: ['./asset-info.component.scss'],
+    host: {
+        class: 'relative'
+    }
 })
 
 export class AssetInfoComponent {
@@ -25,7 +28,14 @@ export class AssetInfoComponent {
     activeTab = 'properties';
     subs = new Subject<void>();
 
-    @Input() item!: any;
+    @Input() set item(item: any) {
+        // if(!item) return;
+        this._item = item;
+        if(!item) return;
+        item.rarity = new DNA().getItemRarity(item?.tokenId);
+    }
+
+    _item!: any;
     @Input() type!: string;
     assets!: any[];
 
@@ -38,21 +48,13 @@ export class AssetInfoComponent {
     }
 
     ngOnInit() {
-
-        // const item = new DNA().getDefaultFilter('item')
-        // console.log('item: ', item)
-        // const avatar = new DNA().getDefaultFilter('avatar')
-        // console.log('avatar: ', avatar)
-        // const gem = new DNA().getDefaultFilter('gem')
-        // console.log('gem: ', gem)
-
-
         this.sliderItems();
-        this.alchService.tokenTransactionsById(this.item?.tokenId);
+        // this.alchService.tokenTransactionsById(this.item?.tokenId);
 
         if (this.type == 'item') this.properties = [{ title: 'Type', value: '--', tooltip: false }, { title: 'Damage', value: '--', tooltip: false }, { title: 'Range', value: '--', tooltip: false }, { title: 'Power', value: '--', tooltip: false }, { title: 'Magical Power', value: '--', tooltip: false }, { title: 'Weapon Material', value: '--', tooltip: false }, { title: 'Primary Color', value: '--', tooltip: false },]
         if (this.type == 'gem') this.properties = [{ title: 'Type', value: '--', tooltip: false }, { title: 'Damage', value: '--', tooltip: false }, { title: 'Range', value: '--', tooltip: false }, { title: 'Power', value: '--', tooltip: false }, { title: 'Magical Power', value: '--', tooltip: false }, { title: 'Weapon Material', value: '--', tooltip: false }, { title: 'Primary Color', value: '--', tooltip: false },]
         if (this.type == 'avatar') this.properties = [{ title: 'Sex', value: '--', tooltip: false }, { title: 'Body Strength', value: '--', tooltip: false }, { title: 'Body Type', value: '--', tooltip: false }, { title: 'Skin Color', value: '--', tooltip: false }, { title: 'Hair Color', value: '--', tooltip: false }, { title: 'Eye Color', value: '--', tooltip: false }, { title: 'Hair Style', value: '--', tooltip: false }, { title: 'Weapon Type', value: '--', tooltip: false }, { title: 'Weapon Material', value: '--', tooltip: false }, { title: 'Primary Color', value: '--', tooltip: false },]
+
     }
 
 

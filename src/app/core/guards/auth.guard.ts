@@ -7,7 +7,7 @@ import {
 } from "@angular/router";
 import { StorageKey } from "../enums/storage-keys.enum";
 import { BaseStorageService } from "../services/base-storage.service";
-import { UserStateService } from "../services/user-state.service";
+import { UserStateService } from "../services/auth.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
