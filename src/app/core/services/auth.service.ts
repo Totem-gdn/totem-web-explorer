@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
+import { Gtag } from "angular-gtag";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { StorageKey } from "../enums/storage-keys.enum";
 import { OpenLoginUserInfo, UserEntity } from "../models/user-interface.model";
@@ -21,7 +22,8 @@ export class UserStateService implements OnDestroy {
   constructor(
     private web3AuthService: Web3AuthService,
     private snackNotifierService: SnackNotifierService,
-    private router: Router
+    private router: Router,
+    private gtag: Gtag
   ) { }
 
   async initAccount() {
@@ -38,7 +40,10 @@ export class UserStateService implements OnDestroy {
     console.log('login')
     await this.web3AuthService.login();
     this.loading$.next(true);
-    await this.getUserInfoViaWeb3();
+    const currentUser = await this.getUserInfoViaWeb3();
+    this.gtag.event('login', {
+      'event_label': `login user ${currentUser?.name} with provider ${currentUser?.typeOfLogin}`,
+    });
     this.snackNotifierService.open('Logged in');
     this.loading$.next(false);
   }
@@ -71,6 +76,7 @@ export class UserStateService implements OnDestroy {
       wallet: wallet
     }
     this.userInfo$.next(userToUse);
+    return userInfo;
   }
 
   async logout() {

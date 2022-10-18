@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, } from '@angular/core';
 import { ItemParam } from '@app/core/models/item-param.model';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { Gtag } from 'angular-gtag';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
@@ -14,7 +15,9 @@ export class GamesComponent implements OnDestroy {
   games!: any[];
   subs = new Subject<void>();
 
-  constructor(private itemsService: TotemItemsService) {}
+  constructor(private itemsService: TotemItemsService, private gtag: Gtag) {
+    gtag.event('page_view');
+  }
 
   ngOnInit(): void {
     this.fetchGames();

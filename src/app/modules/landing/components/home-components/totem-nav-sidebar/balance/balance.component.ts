@@ -9,6 +9,7 @@ import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-not
 import { TransactionDialogComponent } from "@app/modules/landing/modules/transaction-dialog/transaction-dialog.component";
 import { response } from "express";
 import { Observable, Subscription, take } from "rxjs";
+import { Gtag } from "angular-gtag";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     private userStateService: UserStateService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
-    readonly matDialog: MatDialog
+    readonly matDialog: MatDialog,
+    private gtag: Gtag
     ) { }
 
   sub: Subscription = new Subscription;
@@ -247,9 +249,15 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
   async onClaim() {
     if (!this.web3Service.isLoggedIn()) {
-      this.snackService.open('Please Login')
-      return
+      this.snackService.open('Please Login');
+      this.gtag.event('click', {
+        'event_label': 'Claim when user is not login',
+      });
+      return;
     }
+    this.gtag.event('click', {
+      'event_label': 'Claim token',
+    });
     this.openTxDialog({});
     //this.disableButton = true;
     //const matic = await this.web3Service.getBalance();

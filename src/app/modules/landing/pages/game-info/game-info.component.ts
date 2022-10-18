@@ -4,6 +4,7 @@ import { SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
+import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
 
 
@@ -18,7 +19,10 @@ export class GameInfoComponent implements OnInit, OnDestroy {
     constructor(private route: ActivatedRoute,
         private itemsService: TotemItemsService,
         private gameService: GamesService,
-        private assetsService: AssetsService) { }
+        private assetsService: AssetsService,
+        private gtag: Gtag) {
+          gtag.event('page_view');
+        }
 
     toggleDropdown = false;
     subs = new Subject<void>();
