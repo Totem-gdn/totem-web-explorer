@@ -1,13 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { AlchemyService } from "@app/core/services/crypto/alchemy-api.service";
-import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TransactionsService } from "@app/core/services/crypto/transactions.service";
 import { UserStateService } from "@app/core/services/auth.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { TransactionDialogComponent } from "@app/modules/landing/modules/transaction-dialog/transaction-dialog.component";
-import { response } from "express";
 import { Observable, Subscription, take } from "rxjs";
 import { Animations } from "@app/core/animations/animations";
 
@@ -36,6 +33,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   tokenBalance: string | undefined = '0';
   try: number = 0;
   disableButton: boolean = false;
+  sendPopupDisabled = true;
   maticClaimTimeout: any;
   balanceFlag: boolean = false;
   balanceInterval: any;
@@ -229,29 +227,9 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     // })
   }
 
-
-  /* listenTransactions(walletAddress: string) {
-    this.web3Service.transactionsLogs().on('data', event => {
-      //console.log('EVENT EVENT EVENT: ', event);
-
-      if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
-        console.log(event);
-
-        //this.closeTimeout();
-        this.updateBalance();
-        this.web3Service.transactionsLogs().unsubscribe();
-        //this.getUsdc();
-        //this.web3Service.transactionsLogs().unsubscribe();
-      }
-      if (event.topics[3] == `0x000000000000000000000000c275dc8be39f50d12f66b6a63629c39da5bae5bd` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
-        console.log('TRANSACTION', event);
-
-        //this.closeTimeout();
-        this.updateBalance();
-        this.disableButton = false;
-      }
-    });
-  } */
+  onSend() {
+    this.sendPopupDisabled = false;
+  }
 
   async onClaim() {
     if (!this.web3Service.isLoggedIn()) {

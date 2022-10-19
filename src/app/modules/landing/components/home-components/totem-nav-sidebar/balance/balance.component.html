@@ -1,4 +1,3 @@
-
 <!-- Balance -->
 <div class="balance"
 [ngClass]="mode != 'small' ? 'pl-[12px]': ''">
@@ -23,39 +22,39 @@
       <mat-icon class="z-2" [ngStyle]="{'transform': isDropdownOpened === true ? 'rotate(0deg)': 'rotate(180deg)'}" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
-    <div class="dropdown" #dropdown>
+  <div class="dropdown" #dropdown>
 
-      <div class="item !pt-[25px]">
-        <img src="assets/images/usdc.webp" alt="">
-        <div class="flex flex-col justify-between">
-          <p>USDC</p>
-          <span class="truncate text-light-grey">{{tokenBalance}}</span>
-        </div>
+    <div class="item !pt-[25px]">
+      <img src="assets/images/usdc.webp" alt="">
+      <div class="flex flex-col justify-between">
+        <p>USDC</p>
+        <span class="truncate text-light-grey">{{tokenBalance}}</span>
       </div>
-
-      <div class="item">
-        <a class="cursor-pointer" href="https://mumbaifaucet.com/" target="_blank">
-            <img src="assets/images/matic.webp" alt="">
-        </a>
-
-        <div class="flex flex-col justify-between">
-          <p>Matic</p>
-          <span class="truncate text-light-grey">{{maticBalance}}</span>
-        </div>
-      </div>
-
-      <div class="item">
-          <img src="assets/images/social.png" alt="">
-        <div class="flex flex-col justify-between">
-          <p>Totem</p>
-          <span class="truncate text-light-grey">Soon...</span>
-        </div>
-      </div>
-
-      <div class="button-wrapper w-full flex flex-row pb-[25px] pt-[10px]">
-          <button matRipple (click)="''" class="w-full send-button" fxFlex="48%">Send</button>
-          <totem-button class="w-full" fxFlex="48%" [disabled]="disableButton" [caption]="'Claim'" [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
-      </div>
-
     </div>
+
+    <div class="item">
+      <a class="cursor-pointer" href="https://mumbaifaucet.com/" target="_blank">
+        <img src="assets/images/matic.webp" alt="">
+      </a>
+
+      <div class="flex flex-col justify-between">
+        <p>Matic</p>
+        <span class="truncate text-light-grey">{{maticBalance}}</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="assets/images/social.png" alt="">
+      <div class="flex flex-col justify-between">
+        <p>Totem</p>
+        <span class="truncate text-light-grey">Soon...</span>
+      </div>
+    </div>
+
+    <div class="button-wrapper w-full flex flex-row pb-[25px] pt-[10px]">
+      <button matRipple (click)="onSend()" class="w-full send-button" fxFlex="48%">Send</button>
+      <totem-button class="w-full" fxFlex="48%" [disabled]="disableButton" [caption]="'Claim'" [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
+    </div>
+      
   </div>
+</div>
