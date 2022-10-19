@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
-const DNA = require('dna-parser');
+const { DNAParser } = require('totem-dna-parser');
 
 @Component({
   selector: 'asset-card[type]',
@@ -21,7 +21,8 @@ export class AssetCardComponent {
   @Input() set asset(asset: any) {
     this._asset = asset;
     if(!asset) return;
-    asset.rarity = new DNA().getItemRarity(asset?.tokenId);
+    const parser = new DNAParser()
+    asset.rarity = parser.getItemRarity(asset?.tokenId)
   };
   @Input() type: string = 'item';
 

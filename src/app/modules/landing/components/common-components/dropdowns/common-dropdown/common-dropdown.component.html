@@ -1,0 +1,20 @@
+<div class="dropdown" (clickOutside)="onClick($event)">
+    <div #menu class="dropdown-toggle" (click)="menuActive = !menuActive">
+
+        <span>{{title}}</span>
+        <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
+        <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+
+    </div>
+
+    <div #dropdown class="menu w-full"
+        [ngClass]="menuActive ? 'appear': ''">
+
+        <div #menuItems class="menu-items">
+            <label class="menu-item" *ngFor="let item of items">
+                <span>{{item.value}}</span>
+                <input (change)="onChangeInput($event.target)" value="{{item.value}}" [type]="'radio'" name="input">
+            </label>
+        </div>
+    </div>
+</div>

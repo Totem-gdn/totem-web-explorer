@@ -1,0 +1,64 @@
+@import 'styles/scss/variables';
+@import 'styles/scss/placeholders';
+
+.dropdown {
+    max-width: 300px;
+    width: 100%;
+
+    .dropdown-toggle {
+        width: 100%;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 12px;
+        height: 40px;
+        background-color: $dark-grey;
+        align-items: center;
+        color: $light-grey;
+        span {
+            white-space: nowrap;
+            user-select: none;
+        }
+        .mat-icon {
+            width: 12px !important;
+        }
+    }
+    .menu {
+        margin-top: 10px;
+        width: 100%;
+        @extend %gradient-border-solid;
+        position: absolute !important;
+        backdrop-filter: blur(24px);
+        visibility: hidden;
+        opacity: 0;
+        padding: 9px;
+        background-color: $transparent-light;
+        z-index: 30;
+        transition: opacity 0.4s, visibility 0.4s;
+
+        .menu-items {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            .menu-item {
+                position: relative;
+                border-radius: 4px;
+                padding: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: pointer;
+                height: 50px;
+                min-height: 50px;
+                width: 100%;
+                transition: background-color .3s;
+
+                &:hover {
+
+                    background-color: $grey;
+                }
+            }
+        }
+    }
+}
