@@ -93,12 +93,12 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             console.log('user', user);
             if (user) {
                 this.web3Service.getBalance().then(balance => {
-                    this.menuItems[0].value = balance;
+                    this.menuItems[1].value = balance;
                     console.log(balance)
                     console.log('menu items', this.menuItems);
                 });
                 this.web3Service.getTokenBalance().then(balance => {
-                    this.menuItems[1].value = balance;
+                    this.menuItems[0].value = balance;
                 })
             }
         })

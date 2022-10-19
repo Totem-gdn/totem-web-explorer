@@ -55,14 +55,14 @@ export class PaymentService {
     async transferMatic(address: string, amount: number) {
         const web3 = new Web3(this.web3.provider as any);
         const myWallet = await this.web3.getAccounts();
+        const amountToSend = web3.utils.toWei(amount.toString());
 
-        // Submit transaction to the blockchain and wait for it to be mined
         const receipt = await web3.eth.sendTransaction({
           from: myWallet,
           to: address,
-          value: amount,
-          maxPriorityFeePerGas: "5000000000", // Max priority fee per gas
-          maxFeePerGas: "6000000000000", // Max fee per gas
+          value: amountToSend,
+          maxPriorityFeePerGas: "5000000000",
+          maxFeePerGas: "6000000000000",
         });
         return receipt;
     }
