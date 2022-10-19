@@ -21,7 +21,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   maticBalance: any = 0;
   tokenBalance: any = 0;
-  assets: any[] = [];
+  assets: any[] = [{type: 'item'},{type: 'avatar'},{type: 'gem'},];
 
   disableButton: boolean | null = null;
   disableLoop = {disable: false, immutable: false};
@@ -90,7 +90,6 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updateAssets() {
     this.paymentService.getAssets().subscribe(assets => {
-      console.log('assets: ', assets)
       this.paymentInfo(assets);
     })
   }
@@ -98,11 +97,10 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
   paymentInfo(assets: any[]) {
     assets.forEach(asset => {
       this.paymentService.getPaymentInfo(asset).subscribe(info => {
-        const newAsset = {
-          type: asset,
-          paymentInfo: info
-        };
-        this.assets.push(newAsset);
+        if(asset == 'item') this.assets[0].paymentInfo = info;
+        if(asset == 'avatar') this.assets[1].paymentInfo = info;
+        if(asset == 'gem') this.assets[2].paymentInfo = info;
+        console.log(this.assets)
         if(this.assets.length == 3) {
           this.playAnimation();
         }
