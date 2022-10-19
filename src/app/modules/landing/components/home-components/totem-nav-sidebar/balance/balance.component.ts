@@ -8,6 +8,7 @@ import { TransactionDialogComponent } from "@app/modules/landing/modules/transac
 import { Observable, Subscription, take } from "rxjs";
 import { Animations } from "@app/core/animations/animations";
 import { Gtag } from "angular-gtag";
+import { TokenTransactionService } from "@app/layout/components/token-transaction/token-transaction.service";
 
 
 @Component({
@@ -26,6 +27,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     private userStateService: UserStateService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
+    private sendTokensPopup: TokenTransactionService,
     readonly matDialog: MatDialog,
     private gtag: Gtag
     ) { }
@@ -35,7 +37,6 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   tokenBalance: string | undefined = '0';
   try: number = 0;
   disableButton: boolean = false;
-  sendPopupDisabled = true;
   maticClaimTimeout: any;
   balanceFlag: boolean = false;
   balanceInterval: any;
@@ -230,7 +231,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   onSend() {
-    this.sendPopupDisabled = false;
+    this.sendTokensPopup.showPopup();
   }
 
   async onClaim() {

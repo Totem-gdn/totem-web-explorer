@@ -5,6 +5,12 @@ import { BehaviorSubject } from "rxjs";
 
 export class TokenTransactionService {
 
-    showPopup = new BehaviorSubject<boolean>(false);
+    private _showPopup = new BehaviorSubject<boolean>(false);
 
+    showPopup() {
+        this._showPopup.next(true);
+    }
+    showPopup$() {
+        return this._showPopup.asObservable();
+    }
 }

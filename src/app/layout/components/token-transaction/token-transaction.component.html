@@ -1,33 +1,37 @@
 
-<!-- <div class="overlay">
+<div *ngIf="showPopup" class="overlay">
 
    <div class="wrapper">
         <div class="main-block-wrapper">
-            <div class="main-block">
+            <form class="main-block" [formGroup]="transferForm">
                 <section>
                     <h3>Token</h3>
 
-                    <common-dropdown class="mb-[15px]" [title]="'Select Token'" [items]="menuItems"></common-dropdown>
+                    <common-dropdown class="mb-[15px]" [title]="'Select Token'" (selectedToken)="onSelectToken($event)" [items]="menuItems"></common-dropdown>
 
                     <span>Select the token you want to send</span>
                 </section>
                 <section>
                     <h3>To</h3>
-                    <input type="text">
+                    <input  formControlName="address" placeholder="Recipient address" type="text">
                     <span>Write the address for the transfer</span>
                 </section>
                 <section>
                     <h3>Amount</h3>
-                    <input type="text">
-                    <span>Write the number of tokens to transfer</span>
+                    <div class="relative" [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
+                        <input formControlName="amount" class="!mb-0 amount-input" type="number" (input)="onInputChange($event)" placeholder="0">
+                        <p #suffix class="suffix">{{selectedToken ? selectedToken.title : 'Token'}}</p>
+                        <span class="gas-fee">Gas fee</span>
+                    </div>
+                    <span class="!border-0">Write the number of tokens to transfer</span>
                 </section>
-            </div>
+            </form>
         </div>
         
         <div class="buttons">
-            <button>Cancel</button>
-            <button>Confirm</button>
+            <button (click)="onClose()">Cancel</button>
+            <button (click)="onTransfer()">Confirm</button>
         </div>
    </div>
 
-</div> -->
+</div>

@@ -43,7 +43,7 @@ export class PaymentService {
         return checkBalance;
     }
 
-    buyItem = async (address: string, amount: number) => {
+    sendUSDC = async (address: string, amount: number) => {
         if (!this.web3.provider) {
             console.log("provider not initialized yet");
             return;
@@ -51,6 +51,21 @@ export class PaymentService {
         const tx = await this.sendTransaction(address, amount);
         return tx;
     };
+
+    async transferMatic(address: string, amount: number) {
+        const web3 = new Web3(this.web3.provider as any);
+        const myWallet = await this.web3.getAccounts();
+
+        // Submit transaction to the blockchain and wait for it to be mined
+        const receipt = await web3.eth.sendTransaction({
+          from: myWallet,
+          to: address,
+          value: amount,
+          maxPriorityFeePerGas: "5000000000", // Max priority fee per gas
+          maxFeePerGas: "6000000000000", // Max fee per gas
+        });
+        return receipt;
+    }
 
     getTokens = async () => {
         if (!this.web3.provider) {
