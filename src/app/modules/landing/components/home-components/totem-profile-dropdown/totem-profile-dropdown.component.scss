@@ -30,7 +30,7 @@
       box-sizing: border-box;
       background: #202225;
       border-radius: 4px;
-      padding: 30px 32px;
+      padding: 20px 20px 40px 20px;
       z-index: 20;
       overflow: hidden;
       transition: transform 0.33s ease-out;
@@ -44,8 +44,8 @@
         pointer-events: none;
         z-index: 1;
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: -120px;
+        left: -10px;
         //filter: blur(50px);
         .first-circle {
           z-index: 4;
@@ -173,7 +173,7 @@
       .sidenav {
         z-index: 2;
         width: 100%;
-        margin-top: 37px;
+        margin-top: 30px;
         a {
           font-weight: 400;
           font-size: 16px;
