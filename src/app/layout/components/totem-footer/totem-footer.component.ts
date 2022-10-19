@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserStateService } from '@app/core/services/user-state.service';
+import { UserStateService } from '@app/core/services/auth.service';
 
 @Component({
   selector: 'totem-footer',

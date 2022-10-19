@@ -1,14 +1,13 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { AlchemyService } from "@app/core/services/crypto/alchemy-api.service";
-import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TransactionsService } from "@app/core/services/crypto/transactions.service";
-import { UserStateService } from "@app/core/services/user-state.service";
+import { UserStateService } from "@app/core/services/auth.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { TransactionDialogComponent } from "@app/modules/landing/modules/transaction-dialog/transaction-dialog.component";
-import { response } from "express";
 import { Observable, Subscription, take } from "rxjs";
+import { Animations } from "@app/core/animations/animations";
+import { Gtag } from "angular-gtag";
 
 
 @Component({
@@ -17,7 +16,8 @@ import { Observable, Subscription, take } from "rxjs";
   styleUrls: ['./balance.component.scss'],
   host: {
     class: 'w-full'
-  }
+  },
+  animations: Animations.animations
 })
 
 export class BalanceComponent implements OnDestroy, AfterViewInit {
@@ -26,7 +26,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     private userStateService: UserStateService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
-    readonly matDialog: MatDialog
+    readonly matDialog: MatDialog,
+    private gtag: Gtag
     ) { }
 
   sub: Subscription = new Subscription;
@@ -34,14 +35,17 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   tokenBalance: string | undefined = '0';
   try: number = 0;
   disableButton: boolean = false;
+  sendPopupDisabled = true;
   maticClaimTimeout: any;
+  balanceFlag: boolean = false;
+  balanceInterval: any;
 
   @ViewChild('dropdown') dropdown!: ElementRef;
   @Input() mode = 'normal';
   isDropdownOpened = false;
 
   ngAfterViewInit() {
-    if (this.mode === 'small') this.isDropdownOpened = true;
+    //if (this.mode === 'small') this.isDropdownOpened = true;
     this.toggle();
     this.sub.add(
       this.userStateService.currentUser.subscribe(user => {
@@ -51,6 +55,9 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       })
     )
 
+    this.balanceInterval = setInterval(()=>{
+      this.balanceFlag = !this.balanceFlag;
+    }, 3000)
     /* this.sub.add(
       this.web3Service.maticTransactionListener().subscribe((data: any) => {
         if (data == 'error') {
@@ -116,7 +123,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   onToggleDropdown() {
-    if (this.mode != 'small') this.isDropdownOpened = !this.isDropdownOpened;
+    /* if (this.mode != 'small')  */
+    this.isDropdownOpened = !this.isDropdownOpened;
     this.toggle();
   }
 
@@ -221,35 +229,21 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     // })
   }
 
-
-  /* listenTransactions(walletAddress: string) {
-    this.web3Service.transactionsLogs().on('data', event => {
-      //console.log('EVENT EVENT EVENT: ', event);
-
-      if (event.topics[3] == `0x000000000000000000000000${walletAddress}` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
-        console.log(event);
-
-        //this.closeTimeout();
-        this.updateBalance();
-        this.web3Service.transactionsLogs().unsubscribe();
-        //this.getUsdc();
-        //this.web3Service.transactionsLogs().unsubscribe();
-      }
-      if (event.topics[3] == `0x000000000000000000000000c275dc8be39f50d12f66b6a63629c39da5bae5bd` && event.topics[2] == '0x0000000000000000000000003a3ad312450140cca7e24d36567a2931f717884b') {
-        console.log('TRANSACTION', event);
-
-        //this.closeTimeout();
-        this.updateBalance();
-        this.disableButton = false;
-      }
-    });
-  } */
+  onSend() {
+    this.sendPopupDisabled = false;
+  }
 
   async onClaim() {
     if (!this.web3Service.isLoggedIn()) {
-      this.snackService.open('Please Login')
-      return
+      this.snackService.open('Please Login');
+      this.gtag.event('click', {
+        'event_label': 'Claim when user is not login',
+      });
+      return;
     }
+    this.gtag.event('click', {
+      'event_label': 'Claim token',
+    });
     this.openTxDialog({});
     //this.disableButton = true;
     //const matic = await this.web3Service.getBalance();
@@ -262,6 +256,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    clearInterval(this.balanceInterval);
     this.sub?.unsubscribe();
   }
 

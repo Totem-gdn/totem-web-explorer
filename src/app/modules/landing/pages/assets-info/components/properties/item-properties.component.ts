@@ -10,7 +10,7 @@ import { fromEvent, Subject, takeUntil } from 'rxjs';
   //   class: 'flex'
   // }
 })
-export class ItemPropertiesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   constructor(private media: BreakpointObserver) { }
 
@@ -24,7 +24,8 @@ export class ItemPropertiesComponent implements OnInit, AfterViewInit, OnDestroy
   tagsWidth = [];
   placeholders = [];
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.checkTagsOverflow();
     const queries = {sm: '(min-width: 480px)', md: '(min-width: 768px)', lg: '(min-width: 1000px)'}
     this.media
       .observe(['(min-width: 480px)', '(min-width: 768px)', '(min-width: 1000px)'])
@@ -70,10 +71,6 @@ export class ItemPropertiesComponent implements OnInit, AfterViewInit, OnDestroy
         //   // }
         // }
       });
-  }
-
-  ngAfterViewInit(): void {
-    this.checkTagsOverflow();
   }
 
   onResize() {

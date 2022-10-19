@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, } from "@angular/core";
 import { ItemParam } from "@app/core/models/item-param.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
+import { Gtag } from "angular-gtag";
 import { Subject, Subscription, take, takeUntil } from "rxjs";
 
 @Component({
@@ -15,7 +16,9 @@ import { Subject, Subscription, take, takeUntil } from "rxjs";
 
 export class ItemsComponent implements OnDestroy {
 
-  constructor(private assetsService: AssetsService) {}
+  constructor(private assetsService: AssetsService, private gtag: Gtag) {
+    gtag.event('page_view');
+  }
 
   subs = new Subject<void>();
   items!: any[] | null;

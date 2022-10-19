@@ -4,7 +4,8 @@ import { SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
-import { Subject, Subscription, takeUntil } from "rxjs";
+import { Gtag } from "angular-gtag";
+import { Subject, takeUntil } from "rxjs";
 
 
 @Component({
@@ -18,7 +19,10 @@ export class GameInfoComponent implements OnInit, OnDestroy {
     constructor(private route: ActivatedRoute,
         private itemsService: TotemItemsService,
         private gameService: GamesService,
-        private assetsService: AssetsService) { }
+        private assetsService: AssetsService,
+        private gtag: Gtag) {
+          gtag.event('page_view');
+        }
 
     toggleDropdown = false;
     subs = new Subject<void>();
@@ -31,17 +35,14 @@ export class GameInfoComponent implements OnInit, OnDestroy {
             .subscribe((params: ParamMap) => {
                 const id = params.get('id');
                 if (!id) return;
-                this.gameService.updateGame(id).subscribe();
-                this.gameService.game$
-                    .pipe(takeUntil(this.subs))
-                    .subscribe(game => {
-                        if(!game) return;
-                        this.game = game;
-                    })
+                this.game = undefined;
+                this.gameService.updateGame(id).subscribe(game => {
+                    console.log('game', game);
+                    this.game = game;
+                });
             })
 
         this.gameService.fetchGames().subscribe(games => {
-            console.log(games)
             this.games = games;
         })
     }

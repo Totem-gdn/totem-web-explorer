@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
-import { BehaviorSubject, map, tap } from "rxjs";
+import { BehaviorSubject, map, Subject, tap } from "rxjs";
 import Web3 from "web3";
 import { CacheService } from "./cache.service";
 
@@ -30,6 +30,13 @@ export class AssetsService {
     get item$() { return this._item.asObservable() }
     get gem$() { return this._gem.asObservable() }
 
+    set avatars(value: any) { this._avatars.next(value) }
+    set items(value: any) { this._items.next(value) }
+    set gems(value: any) { this._gems.next(value) }
+    set avatar(value: any) { this._avatar.next(value) }
+    set item(value: any) { this._item.next(value) }
+    set gem(value: any) { this._gem.next(value) }
+
     updateAssets(type: string, page: number, list: string) {
         if (type == 'avatar') type = 'avatars';
         if (type == 'item') type = 'items';
@@ -48,7 +55,7 @@ export class AssetsService {
         if (type == 'avatar') type = 'avatars';
         if (type == 'gem') type = 'gems';
 
-        return this.http.get<any>(`${this.baseUrl}/assets/${type}/${id}`).pipe(map(asset => {
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}/${id}`).pipe(tap(asset => {
             // console.log('asset', asset)
             if(type == 'items') this._item.next(asset);
             if(type == 'avatars') this._avatar.next(asset);

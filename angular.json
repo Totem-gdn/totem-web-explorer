@@ -56,6 +56,10 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "index": {
+                "input": "src/index.prod.html",
+                "output": "index.html"
+              },
               "outputHashing": "all"
             },
             "development": {
@@ -67,7 +71,7 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserEntity } from '@app/core/models/user-interface.model';
-import { UserStateService } from '@app/core/services/user-state.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
 import { ProfileStateService } from '@app/shared/services/profile-state.service';
@@ -158,6 +158,7 @@ export class TotemNavigationComponent implements OnInit, OnDestroy {
   }
 
   navigateToBuy() {
+    // view_item_list gtag
     this.router.navigate(['/buy']);
   }
 

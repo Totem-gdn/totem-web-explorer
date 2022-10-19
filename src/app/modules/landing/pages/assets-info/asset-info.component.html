@@ -1,4 +1,4 @@
-<div *ngIf="item" class="relative py-[40px] lg:py-[60px] px-[20px] flex flex-col relative max-w-[1164px] m-auto">
+<div *ngIf="_item" class="relative py-[40px] lg:py-[60px] px-[20px] flex flex-col relative max-w-[1164px] m-auto">
 
     <div class="blur-md">
         <bg-circle class="top-[-100px] left-0" [width]="'350px'" [background]="'#FFD011'"></bg-circle>
@@ -10,14 +10,13 @@
         <div class="flex flex-col lg:flex-row lg:flex-nowrap justify-center">
             <!-- Main Image -->
             <div class="img-wrapper gradient-border-solid m-auto lg:m-0">
-                <img *ngIf="!item?.tokenId" class="rounded" src="assets/images/statue.png" alt="">
-                <img *ngIf="item?.tokenId" class="rounded"
-                    [src]="'https://asset-renderer.totem-explorer.com/' + type + '/' + item?.tokenId + '?width=500&height=500'"
+                <img *ngIf="!_item?.tokenId" class="rounded" src="assets/images/statue.png" alt="">
+                <img *ngIf="_item?.tokenId" class="rounded"
+                    [src]="'https://asset-renderer.totem-explorer.com/' + type + '/' + _item?.tokenId + '?width=500&height=500'"
                     alt="">
             </div>
 
-            <item-desc [type]="type" [item]="item" class="px-[0] lg:px-[30px] mt-[60px] lg:mt-0 min-w[unset] lg:min-w-[400px]"></item-desc>
-
+            <item-desc [type]="type" [item]="_item" class="px-[0] lg:px-[30px] mt-[60px] lg:mt-0 min-w[unset] lg:min-w-[400px]"></item-desc>
         </div>
 
         <!-- Tabs -->
@@ -58,6 +57,6 @@
     </horizontal-carousel>
 </div>
 
-<div class="flex w-full h-[calc(100vh-70px)]" *ngIf="!item">
+<div class="flex w-full min-h-screen h-[calc(100vh-70px)]" *ngIf="!_item">
     <loading-spinner class="m-auto"></loading-spinner>
 </div>

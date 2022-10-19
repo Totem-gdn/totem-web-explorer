@@ -43,7 +43,7 @@ export class GamesService {
     }
 
     updateGame(id: string) {
-        return this.http.get<any>(`${this.baseUrl}/games/${id}`).pipe(map(game => {
+        return this.http.get<any>(`${this.baseUrl}/games/${id}`).pipe(tap(game => {
             this._game.next(game);
         }));
     }

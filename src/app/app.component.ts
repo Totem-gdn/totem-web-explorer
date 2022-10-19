@@ -4,7 +4,7 @@ import { Router, Scroll } from '@angular/router';
 import { Web3Auth } from '@web3auth/web3auth';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
-import { UserStateService } from './core/services/user-state.service';
+import { UserStateService } from './core/services/auth.service';
 import { Web3AuthService } from './core/web3auth/web3auth.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class AppComponent {
         }
       });
 
-      gtag.pageview();
+      gtag.event('page_view');
   }
 
 }

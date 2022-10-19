@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
 import { CoreModule } from './core/core.module';
-import { UserStateService } from './core/services/user-state.service';
+import { UserStateService } from './core/services/auth.service';
 import { AuthGuard } from './core/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';

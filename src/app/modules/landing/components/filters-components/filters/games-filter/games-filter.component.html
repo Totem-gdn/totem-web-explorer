@@ -13,11 +13,11 @@
         </div>
 
         <div class="py-[45px] lg:py-0">
-            <filter-menu [title]="'Rarity'" [searchType]="'graph'" [items]="games"></filter-menu>
+            <filter-menu [title]="'Game Name'" [inputType]="'radio'" [items]="games"></filter-menu>
 
             <!-- <filter-menu [title]="'Game name'" [inputType]="'radio'"></filter-menu> -->
 
-            <!-- <filter-menu [title]="'Genre'" [searchType]="null"></filter-menu> -->
+            <filter-menu [title]="'Genre'" [searchType]="null" [items]="genres"></filter-menu>
         </div>
 
         <div class="dropup-buttons lg:!hidden">

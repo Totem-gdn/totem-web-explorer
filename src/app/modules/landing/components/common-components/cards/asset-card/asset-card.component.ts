@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
-
+const { DNAParser } = require('totem-dna-parser');
 
 @Component({
   selector: 'asset-card[type]',
@@ -18,8 +18,15 @@ export class AssetCardComponent {
     private messageService: SnackNotifierService,
     private favService: FavouritesService) { }
 
-  @Input() asset: any;
+  @Input() set asset(asset: any) {
+    this._asset = asset;
+    if(!asset) return;
+    const parser = new DNAParser()
+    asset.rarity = parser.getItemRarity(asset?.tokenId)
+  };
   @Input() type: string = 'item';
+
+  _asset: any;
 
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
@@ -27,20 +34,20 @@ export class AssetCardComponent {
       return;
     }
     if (!this.type) return;
-    this.asset.isLiked = !this.asset.isLiked;
-    if (this.asset.isLiked) {
-      this.favService.addLike(this.type, this.asset.id).subscribe(() => {
+    this._asset.isLiked = !this._asset.isLiked;
+    if (this._asset.isLiked) {
+      this.favService.addLike(this.type, this._asset.id).subscribe(() => {
 
       });
     } else {
-      this.favService.removeLike(this.type, this.asset.id).subscribe(() => {
+      this.favService.removeLike(this.type, this._asset.id).subscribe(() => {
 
       });
     }
   }
 
   onNavigate() {
-    const id = this.asset?.tokenId;
+    const id = this._asset?.tokenId;
     this.router.navigate([`/${this.type}`, id]);
   }
 }
