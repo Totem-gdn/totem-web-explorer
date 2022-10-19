@@ -2,15 +2,31 @@
 <!-- Balance -->
 <div class="balance"
 [ngClass]="mode != 'small' ? 'pl-[12px]': ''">
-    <div *ngIf="mode != 'small'" class="title" (click)="onToggleDropdown()">
-      <h3>Balance</h3>
-      <mat-icon [ngStyle]="{'transform': isDropdownOpened === true ? 'rotate(180deg)': 'rotate(0deg)'}" [svgIcon]="'line:arrow_up'"></mat-icon>
+    <!-- *ngIf="mode != 'small'" -->
+    <div class="title" (click)="onToggleDropdown()">
+      <h3 *ngIf="mode != 'small'">Balance</h3>
+      <h4 *ngIf="mode == 'small'">Balance</h4>
+      <div class="balance-preview" [ngStyle]="{'opacity': isDropdownOpened === true ? '0': '1'}">
+        <div class="balance-info">
+          <div *ngIf="balanceFlag" @fade-in-out class="balance-info-item flex flex-row z-2">
+            <img src="assets/images/usdc.webp" alt="USDC">
+            <p class="truncate balance-value ml-[8px]">{{tokenBalance | currencySuffix : 1}}</p>
+            <span class="ml-[2px]">USDC</span>
+          </div>
+          <div *ngIf="!balanceFlag" @fade-in-out class="balance-info-item flex flex-row z-2">
+            <img src="assets/images/matic.webp" alt="MATIC">
+            <p class="truncate balance-value ml-[8px]">{{maticBalance}}</p>
+            <span class="ml-[2px]">MATIC</span>
+          </div>
+        </div>
+      </div>
+      <mat-icon class="z-2" [ngStyle]="{'transform': isDropdownOpened === true ? 'rotate(0deg)': 'rotate(180deg)'}" [svgIcon]="'line:arrow_up'"></mat-icon>
     </div>
 
     <div class="dropdown" #dropdown>
 
       <div class="item !pt-[25px]">
-        <img src="assets/images/usdc.png" alt="">
+        <img src="assets/images/usdc.webp" alt="">
         <div class="flex flex-col justify-between">
           <p>USDC</p>
           <span class="truncate text-light-grey">{{tokenBalance}}</span>
@@ -19,7 +35,7 @@
 
       <div class="item">
         <a class="cursor-pointer" href="https://mumbaifaucet.com/" target="_blank">
-            <img src="assets/images/matic.png" alt="">
+            <img src="assets/images/matic.webp" alt="">
         </a>
 
         <div class="flex flex-col justify-between">
@@ -36,6 +52,10 @@
         </div>
       </div>
 
-      <totem-button class="pb-[25px] pt-[10px]" [disabled]="disableButton" [caption]="'Claim'" [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
+      <div class="button-wrapper w-full flex flex-row pb-[25px] pt-[10px]">
+          <button matRipple (click)="''" class="w-full send-button" fxFlex="48%">Send</button>
+          <totem-button class="w-full" fxFlex="48%" [disabled]="disableButton" [caption]="'Claim'" [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
+      </div>
+
     </div>
   </div>
