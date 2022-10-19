@@ -3,7 +3,11 @@
         <div *ngFor="let propertie of properties" class="item-tag" (mouseover)="onOver()">
             <p class="title truncate !text-white">{{propertie.title}}</p>
             <div class="circle-wrapper"><mat-icon class="circle" [svgIcon]="'solid:point'"></mat-icon></div>
-            <span class="truncate !text-light-grey">{{propertie.value}}</span>
+
+            <div class="flex justify-center items-center mt-[2px]">
+                <div *ngIf="propertie?.showColor" class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]" [style.background-color]="propertie.value"></div>
+                <span class="truncate !text-light-grey">{{propertie.value}}</span>
+            </div>
             <!-- <div class="tooltip">
                 <span class="whitespace-nowrap">{{propertie.title}}</span>
                 <span class="whitespace-nowrap">{{propertie.value}}</span>
