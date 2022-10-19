@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { Gtag } from 'angular-gtag';
 import { forkJoin, from, fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
 import { SnackNotifierService } from '../../modules/snack-bar-notifier/snack-bar-notifier.service';
 
@@ -17,7 +18,10 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
     private web3Service: Web3AuthService,
     private snackService: SnackNotifierService,
     private breakpointObserver: BreakpointObserver,
-    @Inject(DOCUMENT) private document: Document) { }
+    @Inject(DOCUMENT) private document: Document,
+    private gtag: Gtag) {
+      gtag.event('page_view');
+    }
 
   maticBalance: any = 0;
   tokenBalance: any = 0;
@@ -46,7 +50,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((state: BreakpointState) => {
         const items = this.itemsRef.nativeElement;
         if (state.matches) {
-          this.disableLoop = { disable: false, immutable: false};         
+          this.disableLoop = { disable: false, immutable: false};
         } else {
           this.disableLoop = { disable: true, immutable: true};
           fromEvent(window, 'scroll').pipe(takeUntil(this.subs)).subscribe(() => {
@@ -64,16 +68,21 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  async onBuyItem(address: string, amount: any) {
+  async onBuyItem(address: string, amount: any, type: string) {
 
     if (!this.web3Service.isLoggedIn()) {
       this.snackService.open('PLEASE Login');
+      this.gtag.event('click', {
+        'event_label': 'Generate item when user is not login',
+      });
       return;
     }
 
     const matic = await this.web3Service.getBalance();
     const usdc = await this.web3Service.getTokenBalance();
-
+    this.gtag.event('click', {
+      'event_label': `Click on Generate ${type}`,
+    });
     if (!matic || +matic <= 0) {
       this.snackService.open('Insufficient MATIC balance');
       return;
@@ -82,6 +91,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       this.snackService.open('Insufficient USDC balance');
       return;
     }
+
     this.snackService.open('Your payment has been sent');
     this.paymentService.buyItem(address, amount).then(res => {
       this.snackService.open('Your Totem Asset has been created successfully');
@@ -96,6 +106,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   paymentInfo(assets: any[]) {
     assets.forEach(asset => {
+      console.log(this.assets)
       this.paymentService.getPaymentInfo(asset).subscribe(info => {
         if(asset == 'item') this.assets[0].paymentInfo = info;
         if(asset == 'avatar') this.assets[1].paymentInfo = info;

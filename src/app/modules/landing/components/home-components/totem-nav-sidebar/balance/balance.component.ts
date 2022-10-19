@@ -6,6 +6,8 @@ import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { TransactionDialogComponent } from "@app/modules/landing/modules/transaction-dialog/transaction-dialog.component";
 import { Observable, Subscription, take } from "rxjs";
+import { Animations } from "@app/core/animations/animations";
+import { Gtag } from "angular-gtag";
 
 
 @Component({
@@ -14,7 +16,8 @@ import { Observable, Subscription, take } from "rxjs";
   styleUrls: ['./balance.component.scss'],
   host: {
     class: 'w-full'
-  }
+  },
+  animations: Animations.animations
 })
 
 export class BalanceComponent implements OnDestroy, AfterViewInit {
@@ -23,7 +26,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     private userStateService: UserStateService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
-    readonly matDialog: MatDialog
+    readonly matDialog: MatDialog,
+    private gtag: Gtag
     ) { }
 
   sub: Subscription = new Subscription;
@@ -33,13 +37,15 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   disableButton: boolean = false;
   sendPopupDisabled = true;
   maticClaimTimeout: any;
+  balanceFlag: boolean = false;
+  balanceInterval: any;
 
   @ViewChild('dropdown') dropdown!: ElementRef;
   @Input() mode = 'normal';
   isDropdownOpened = false;
 
   ngAfterViewInit() {
-    if (this.mode === 'small') this.isDropdownOpened = true;
+    //if (this.mode === 'small') this.isDropdownOpened = true;
     this.toggle();
     this.sub.add(
       this.userStateService.currentUser.subscribe(user => {
@@ -49,6 +55,9 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       })
     )
 
+    this.balanceInterval = setInterval(()=>{
+      this.balanceFlag = !this.balanceFlag;
+    }, 3000)
     /* this.sub.add(
       this.web3Service.maticTransactionListener().subscribe((data: any) => {
         if (data == 'error') {
@@ -114,7 +123,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   onToggleDropdown() {
-    if (this.mode != 'small') this.isDropdownOpened = !this.isDropdownOpened;
+    /* if (this.mode != 'small')  */
+    this.isDropdownOpened = !this.isDropdownOpened;
     this.toggle();
   }
 
@@ -225,9 +235,15 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
   async onClaim() {
     if (!this.web3Service.isLoggedIn()) {
-      this.snackService.open('Please Login')
-      return
+      this.snackService.open('Please Login');
+      this.gtag.event('click', {
+        'event_label': 'Claim when user is not login',
+      });
+      return;
     }
+    this.gtag.event('click', {
+      'event_label': 'Claim token',
+    });
     this.openTxDialog({});
     //this.disableButton = true;
     //const matic = await this.web3Service.getBalance();
@@ -240,6 +256,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    clearInterval(this.balanceInterval);
     this.sub?.unsubscribe();
   }
 

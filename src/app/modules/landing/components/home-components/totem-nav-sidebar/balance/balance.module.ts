@@ -1,4 +1,6 @@
 import { NgModule } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { TransactionDialogModule } from "@app/modules/landing/modules/transaction-dialog/transaction-dialog.module";
 import { SharedModule } from "@app/shared/shared.module";
@@ -15,6 +17,8 @@ import { BalanceComponent } from "./balance.component";
         MatIconModule,
         TotemButtonModule,
         TransactionDialogModule,
+        FlexLayoutModule,
+        MatRippleModule
     ],
     exports: [
         BalanceComponent
