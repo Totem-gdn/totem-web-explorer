@@ -47,7 +47,7 @@ export class AppComponent {
         }
       });
 
-      gtag.pageview();
+      gtag.event('page_view');
   }
 
 }

@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
 import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, ImagesToUpload, SubmitGame, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
+import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
 import { FormsService } from './services/forms.service';
@@ -33,7 +34,13 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   imagesToSubmit!: ImagesInfo;
   jsonFileToUpload: File | null = null;
 
-  constructor(readonly matDialog: MatDialog, private userStateService: UserStateService, private formsService: FormsService, private submitGameService: SubmitGameService) {
+  constructor(
+    readonly matDialog: MatDialog,
+    private userStateService: UserStateService,
+    private formsService: FormsService,
+    private submitGameService: SubmitGameService,
+    private gtag: Gtag) {
+      gtag.event('page_view');
   }
 
   ngOnInit() {

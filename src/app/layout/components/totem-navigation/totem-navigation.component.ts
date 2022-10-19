@@ -158,6 +158,7 @@ export class TotemNavigationComponent implements OnInit, OnDestroy {
   }
 
   navigateToBuy() {
+    // view_item_list gtag
     this.router.navigate(['/buy']);
   }
 

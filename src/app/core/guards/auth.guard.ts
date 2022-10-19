@@ -19,14 +19,25 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean | Promise<boolean> {
         const isAuthenticated = this.userStateService.isLoggedIn();
+        console.log('this.isAuthenticated.isAuthenticated', isAuthenticated);
+
+        const openLogin = JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!);
 
         const isAuthenticatedCache =
-            !!(JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!)?.idToken)
+            !!(openLogin?.idToken)
             &&
             !!(this.baseStorageService.getItem(StorageKey.ADAPTER));
 
+
         if (!isAuthenticatedCache && !isAuthenticated) {
             this.router.navigate(['/']);
+        }
+        // add check on expire date Token
+        const jwtInfo = this.userStateService.parseJwt(openLogin.idToken);
+        const expDate = new Date(+(jwtInfo.exp + '000'));
+        if (expDate < new Date()) {
+          this.userStateService.logout();
+          this.router.navigate(['/']);
         }
         return isAuthenticatedCache || isAuthenticated;
     }

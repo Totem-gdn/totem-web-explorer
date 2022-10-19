@@ -62,7 +62,7 @@ export class Web3AuthService {
         const web3 = this.web3auth;
         const key = await web3.authenticateUser();
         const userInfo = await this.web3auth.getUserInfo();
-        
+
         console.log('user info', userInfo)
         console.log('token', key)
         return key.idToken;
