@@ -43,7 +43,6 @@
                 span {
                     color: $light-grey;
                     padding-bottom: 15px;
-                    border-bottom: 1px solid $dark-grey;
                 }
             }
         }
@@ -121,4 +120,14 @@ input {
         justify-content: center;
     }
 }
+.invalid-input {
+    border: 1px solid #FF5252;
+}
+.error-message {
+    user-select: none;
+    height: 36px;
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+    color: #FF5252 !important;
+  }
 

@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
+import { NotFoundModule } from "@app/modules/page-not-found/not-found/not-found.module";
+import { PageNotFoundModule } from "@app/modules/page-not-found/page-not-found.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { BackgroundCircleModule } from "../../components/common-components/bg-circle/bg-circle.module";
 import { ItemCardModule } from "../../components/common-components/cards/item-card/item-card.module";
@@ -29,7 +31,8 @@ import { ItemPropertiesModule } from "./components/properties/item-properties.mo
         ItemPropertiesModule,
         CarouselModule,
         FlexLayoutModule,
-        BackgroundCircleModule
+        BackgroundCircleModule,
+        NotFoundModule
     ],
     exports: [
         AssetInfoComponent

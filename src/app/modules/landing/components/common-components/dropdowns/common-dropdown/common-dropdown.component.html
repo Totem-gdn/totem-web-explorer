@@ -20,7 +20,7 @@
     <div #dropdown class="menu w-full" [ngClass]="menuActive ? 'appear': ''">
 
         <div #menuItems class="menu-items">
-            <label class="menu-item" *ngFor="let item of items">
+            <label class="menu-item" *ngFor="let item of _items">
                 <div class="flex items-center">
                     <img *ngIf="item?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
                     <img *ngIf="item?.title == 'USDC'" src="assets/images/usdc.webp" alt="">

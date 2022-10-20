@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { Web3Auth } from "@web3auth/web3auth";
+// import { Web3AuthCore } from "@web3auth/core";
+import { Web3Auth } from '@web3auth/modal';
 import { CHAIN_NAMESPACES, Maybe, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
@@ -35,7 +36,7 @@ export class Web3AuthService {
         //     clientId: clientId,
         //   });
         // web3auth.configureAdapter(metamaskAdapter);
-
+        // await web3auth.init();
         await web3auth.initModal();
 
         if (web3auth.provider) {

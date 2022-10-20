@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, ValidatorFn } from "@angular/forms";
+import { Animations } from "@app/core/animations/animations";
 import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
@@ -7,13 +8,23 @@ import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-not
 import { Subscription, take, takeUntil, takeWhile } from "rxjs";
 import { TokenTransactionService } from "./token-transaction.service";
 
+
+interface TokenBalance {
+    title: string | undefined;
+    value: string | undefined;
+}
 @Component({
     selector: 'token-transaction',
     templateUrl: './token-transaction.component.html',
     styleUrls: ['./token-transaction.component.scss'],
+    animations: [
+        Animations.animations
+    ]
 })
 
 export class TokenTransactionComponent implements OnInit, OnDestroy {
+    
+    addressValid = true;
 
     constructor(private txService: TokenTransactionService,
         private web3Service: Web3AuthService,
@@ -22,11 +33,13 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         private paymentService: PaymentService,
         private showPopupService: TokenTransactionService) { }
 
+    
+    @ViewChild('suffix') suffix!: ElementRef;
     showPopup = true;
     sub!: Subscription;
-    @ViewChild('suffix') suffix!: ElementRef;
 
-    menuItems: any = [{ title: 'USDC', value: '0' }, { title: 'MATIC', value: '0' }]
+    menuItems: TokenBalance[] = [{ title: 'USDC', value: '0' }, { title: 'MATIC', value: '0' }];
+
     selectedToken: any;
 
     transferForm = new FormGroup({
@@ -54,10 +67,23 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         this.showPopup = false;
     }
 
+    async isAddressValid() {
+        const address = this.transferForm.get('address')?.value;
+        const isValid =  await this.paymentService.checkAddressValidity(address);
+        this.addressValid = !!isValid;
+    }
+
     async onTransfer() {
         const address = this.transferForm.get('address')?.value;
         const amount = this.transferForm.get('amount')?.value;
 
+        // Check address validity
+        const isAddressValid = await this.paymentService.checkAddressValidity(address);
+        if(!isAddressValid && isAddressValid) {
+            this.addressValid = true;
+            return;
+        }
+        
         const matic = await this.web3Service.getBalance();
         const usdc = await this.web3Service.getTokenBalance();
 
@@ -73,7 +99,6 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
         this.snackService.open('Your transaction has been sent');
         if(this.selectedToken.title =='USDC') {
-            console.log('send usdc')
             this.paymentService.sendUSDC(address, amount).then(res => {
                 this.snackService.open('Success');
                 this.updateBalance();

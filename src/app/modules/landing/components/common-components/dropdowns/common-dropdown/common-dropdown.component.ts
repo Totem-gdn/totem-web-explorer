@@ -10,9 +10,14 @@ export class CommonDropdownComponent {
 
     @ViewChild('dropdown') dropdown!: ElementRef;
 
-    @Input() title = '';
-    @Input() items!: any[];
     @Output() selectedToken = new EventEmitter<any>();
+    @Input() title = '';
+    @Input() set items(items: any[]) {
+        console.log(items);
+        this._items = items;
+    }
+
+    _items!: any[];
     menuActive = false;
     highlightedToken!: any;
 

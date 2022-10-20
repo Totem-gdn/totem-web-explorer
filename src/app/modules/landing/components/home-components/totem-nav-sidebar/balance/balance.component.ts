@@ -9,6 +9,7 @@ import { Observable, Subscription, take } from "rxjs";
 import { Animations } from "@app/core/animations/animations";
 import { Gtag } from "angular-gtag";
 import { TokenTransactionService } from "@app/layout/components/token-transaction/token-transaction.service";
+import { PaymentService } from "@app/core/services/crypto/payment.service";
 
 
 @Component({
@@ -28,6 +29,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
     private sendTokensPopup: TokenTransactionService,
+    private paymentService: PaymentService,
     readonly matDialog: MatDialog,
     private gtag: Gtag
     ) { }
@@ -46,8 +48,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   isDropdownOpened = false;
 
   ngAfterViewInit() {
-    //if (this.mode === 'small') this.isDropdownOpened = true;
     this.toggle();
+    this.balance$();
     this.sub.add(
       this.userStateService.currentUser.subscribe(user => {
         if (user) {
@@ -59,6 +61,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     this.balanceInterval = setInterval(()=>{
       this.balanceFlag = !this.balanceFlag;
     }, 3000)
+
     /* this.sub.add(
       this.web3Service.maticTransactionListener().subscribe((data: any) => {
         if (data == 'error') {
@@ -94,6 +97,13 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
         }
       })
     ) */
+  }
+
+  balance$() {
+    this.paymentService.tokenBalance$.subscribe(balance => {
+      this.maticBalance = balance.matic;
+      this.tokenBalance = balance.usdc;
+    })
   }
 
   openTxDialogModal(data: any): Observable<{ matic: boolean, usdc: boolean }> {
@@ -140,13 +150,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
 
   updateBalance() {
-    this.web3Service.getBalance().then(balance => {
-      this.maticBalance = balance;
-      console.log(this.maticBalance);
-    });
-    this.web3Service.getTokenBalance().then(balance => {
-      this.tokenBalance = balance;
-    })
+    this.paymentService.updateTokenBalance();
   }
 
   /* async updateBalanceAndGetMatic() {

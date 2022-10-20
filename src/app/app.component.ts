@@ -1,7 +1,6 @@
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, Scroll } from '@angular/router';
-import { Web3Auth } from '@web3auth/web3auth';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/auth.service';

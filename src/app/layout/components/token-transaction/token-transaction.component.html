@@ -1,25 +1,30 @@
+<div @fade-in-out *ngIf="showPopup" class="overlay">
 
-<div *ngIf="showPopup" class="overlay">
-
-   <div class="wrapper">
+    <div class="wrapper">
         <div class="main-block-wrapper">
             <form class="main-block" [formGroup]="transferForm">
-                <section>
+                <section class="border-b border-dark-grey">
                     <h3>Token</h3>
 
-                    <common-dropdown class="mb-[15px]" [title]="'Select Token'" (selectedToken)="onSelectToken($event)" [items]="menuItems"></common-dropdown>
+                    <common-dropdown class="mb-[15px]" [title]="'Select Token'" (selectedToken)="onSelectToken($event)"
+                        [items]="menuItems"></common-dropdown>
 
                     <span>Select the token you want to send</span>
                 </section>
-                <section>
+                <section class="border-b border-dark-grey">
                     <h3>To</h3>
-                    <input  formControlName="address" placeholder="Recipient address" type="text">
+                    <input formControlName="address" placeholder="Recipient address" type="text"
+                        (focus)="addressValid = true" (blur)="isAddressValid()">
+                        
                     <span>Write the address for the transfer</span>
+                    <span @showMessage class="error-message" *ngIf="!addressValid">Invalid address</span>
                 </section>
                 <section>
                     <h3>Amount</h3>
-                    <div class="relative" [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
-                        <input formControlName="amount" class="!mb-0 amount-input" type="number" (input)="onInputChange($event)" placeholder="0">
+                    <div class="relative"
+                        [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
+                        <input formControlName="amount" class="!mb-0 amount-input" type="number"
+                            (input)="onInputChange($event)" placeholder="0">
                         <p #suffix class="suffix">{{selectedToken ? selectedToken.title : 'Token'}}</p>
                         <span class="gas-fee">Gas fee</span>
                     </div>
@@ -27,11 +32,11 @@
                 </section>
             </form>
         </div>
-        
+
         <div class="buttons">
             <button (click)="onClose()">Cancel</button>
             <button (click)="onTransfer()">Confirm</button>
         </div>
-   </div>
+    </div>
 
 </div>
