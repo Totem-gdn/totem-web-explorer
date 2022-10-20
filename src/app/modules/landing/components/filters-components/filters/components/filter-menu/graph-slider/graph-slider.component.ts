@@ -17,104 +17,69 @@ const Items: Items[] = [
   },
   {
   amountOfItems: 30,
-  price: 50,
+  price: 5,
   isInRange: false,
   },
   {
   amountOfItems: 47,
-  price: 100,
+  price: 10,
   isInRange: false,
   },
   {
   amountOfItems: 56,
-  price: 150,
+  price: 20,
   isInRange: false,
   },
   {
   amountOfItems: 50,
-  price: 200,
+  price: 30,
   isInRange: false,
   },
   {
   amountOfItems: 50,
-  price: 250,
+  price: 40,
   isInRange: false,
   },
   {
   amountOfItems: 30,
-  price: 300,
+  price: 50,
   isInRange: false,
   },
   {
   amountOfItems: 30,
-  price: 350,
+  price: 60,
   isInRange: false,
   },
   {
   amountOfItems: 10,
-  price: 400,
+  price: 70,
   isInRange: false,
   },
   {
   amountOfItems: 10,
-  price: 450,
+  price: 80,
   isInRange: false,
   },
   {
   amountOfItems: 60,
-  price: 500,
+  price: 85,
   isInRange: false,
   },
   {
   amountOfItems: 60,
-  price: 550,
+  price: 90,
   isInRange: false,
   },
   {
   amountOfItems: 50,
-  price: 600,
+  price: 95,
   isInRange: false,
   },
   {
   amountOfItems: 50,
-  price: 650,
+  price: 100,
   isInRange: false,
-  },
-  {
-  amountOfItems: 30,
-  price: 700,
-  isInRange: false,
-  },
-  {
-  amountOfItems: 30,
-  price: 750,
-  isInRange: false,
-  },
-  {
-  amountOfItems: 20,
-  price: 800,
-  isInRange: false,
-  },
-  {
-  amountOfItems: 20,
-  price: 850,
-  isInRange: false,
-  },
-  {
-  amountOfItems: 40,
-  price: 900,
-  isInRange: false,
-  },
-  {
-  amountOfItems: 40,
-  price: 950,
-  isInRange: false,
-  },
-  {
-  amountOfItems: 90,
-  price: 1000,
-  isInRange: false,
-  },
+  }
 ]
 
 @Component({

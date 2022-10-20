@@ -1,4 +1,4 @@
-<div *ngIf="game" class="wrapper py-[60px] sm:py-[60px] relative">
+<div *ngIf="game" class="wrapper py-[60px] sm:py-[80px] relative">
 
     <div class="blur-md">
         <bg-circle class="top-[-100px] left-0" [width]="'350px'" [background]="'#FFD011'"></bg-circle>
@@ -6,8 +6,8 @@
         <bg-circle class="top-[-100px] left-[90%]" [width]="'250px'" [background]="'rgb(189 41 184)'"></bg-circle>
     </div>
 
-    <div class="z-1 img-wrapper p-[9px] sm:p-[18px] mb-[40px] sm:mb-[60px]">
-        <img class="rounded" [src]="game?.images?.coverImage ? game?.images?.coverImage : 'assets/images/game-info/head.png'" alt="">
+    <div class="z-1 img-wrapper p-[9px] sm:p-[18px] mb-[60px] sm:mb-[80px]">
+        <img class="rounded min-h-[160px]" [src]="game?.images?.coverImage ? game?.images?.coverImage : 'assets/images/game-info/head.png'" alt="">
     </div>
 
     <div class="z-1 flex gap-[60px] justify-center lg:justify-between flex-wrap-reverse lg:flex-nowrap">

@@ -5,7 +5,8 @@
     </div> -->
 
     <div class="img-wrapper" *ngIf="_asset?.tokenId">
-        <img src="{{'https://asset-renderer.totem-explorer.com/' + type + '/' + (+_asset?.tokenId)}}" alt="">
+        <img *ngIf="type != 'gem'" src="{{'https://asset-renderer.totem-explorer.com/' + type + '/' + (+_asset?.tokenId)}}" alt="">
+        <img *ngIf="type == 'gem'" src="{{'https://asset-renderer.totem-explorer.com/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="">
     </div>
     <div class="img-wrapper" *ngIf="asset?.id?.tokenId">
         <img src="{{'https://asset-renderer.totem-explorer.com/item/' + (+_asset?.id?.tokenId)}}" alt="">
