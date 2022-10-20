@@ -125,11 +125,13 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     briefDescChange(e: any) {
         const length = +e.length;
         this.briefDescLength = length;
+        if (length >= 300) {this.briefDescLength = 300};
     }
 
     fullDescChange(e: any) {
         const length = +e.length;
         this.fullDescLength = length;
+        if (length >= 3000) {this.fullDescLength = 3000};
     }
 
     onTouchDropdown() {
