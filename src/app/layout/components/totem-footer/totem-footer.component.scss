@@ -1,4 +1,5 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/mail-font.scss';
 
 .totem-footer {
   background: rgba(53, 56, 64, 0.37);
@@ -82,6 +83,31 @@
               width: 100%;
               height: auto;
             }
+
+            a {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              place-content: center;
+              align-items: center;
+              .icon-font-discord,
+              .icon-font-facebook,
+              .icon-font-twitter,
+              .icon-font-instagram {
+                color: #fff;
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                font-size: 24px;
+                display: flex;
+                place-content: center;
+                align-items: center;
+                &::before {
+                  width: inherit;
+                  height: inherit;
+                }
+              }
+            }
           }
         }
         //width: 260px;
@@ -147,6 +173,30 @@
                 width: 100%;
                 height: auto;
               }
+              a {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                place-content: center;
+                align-items: center;
+                .icon-font-discord,
+                .icon-font-facebook,
+                .icon-font-twitter,
+                .icon-font-instagram {
+                  color: #fff;
+                  width: 24px;
+                  height: 24px;
+                  cursor: pointer;
+                  font-size: 24px;
+                  display: flex;
+                  place-content: center;
+                  align-items: center;
+                  &::before {
+                    width: inherit;
+                    height: inherit;
+                  }
+                }
+              }
             }
           }
           //width: 260px;
@@ -173,23 +223,6 @@
           color: #fff;
         }
       }
-
-      //.hidden-about {
-      //  display: none;
-      //  @media (max-width: 600px) {
-      //    display: block;
-      //  }
-      //}
-      //.visible-about {
-      //  flex-direction: column;
-      //  box-sizing: border-box;
-      //  display: flex;
-      //  place-content: stretch flex-start;
-      //  align-items: stretch;
-      //  @media (max-width: 600px) {
-      //    display: none;
-      //  }
-      //}
     }
 
     .footer-copyright-block {

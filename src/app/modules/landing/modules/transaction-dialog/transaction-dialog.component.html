@@ -12,40 +12,65 @@
             <div class="w-full content-block-body-subtitle-wrapp"
               >
               <span class="subtext" *ngIf="isEqual(stepIndex, 1) && !errorState">
-                <div>Sending 150 USDC and 0.03 MATIC to your</div>
-                <div>account, please wait a moment</div>
+                <div>Sending 150 USDC and 0.03 MATIC to your account, please wait a moment</div>
+                <!-- <div>account, please wait a moment</div> -->
               </span>
-              <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 2) && !errorState">Transactions have been initiated. Waiting for confirmation</span>
+              <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 2) && !errorState">
+                <div>Transactions have been initiated. Waiting for confirmation</div>
+              </span>
               <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 3) && !errorState">
-                <div>You have successfully claimed the tokens. You can now</div>
-                <div>generate your brand new Totem Asset!</div>
+                <div>You have successfully claimed the tokens. You can now generate your brand new Totem Asset!</div>
+                <!-- <div></div> -->
               </span>
-              <span @stopLoader *ngIf="errorState" [ngStyle]="{'color': '#FF5252'}" class="subtext">{{errorMessage}}</span>
+              <span @stopLoader *ngIf="errorState" class="subtext">
+                <div [ngStyle]="{'color': '#FF5252'}">{{errorMessage}}</div>
+              </span>
             </div>
           </div>
+          <!-- *ngIf="usdcHash && maticHash" -->
           <div
             @hashAnimation
             *ngIf="usdcHash && maticHash"
-            [ngStyle]="{'border': errorState ? '1px dashed #FF5252' : ''}"
-            class="content-block-body-tx-info"
+            fxHide.xs
+            [ngStyle]="{'border': errorState ? '1px dashed #FF5252' : '', 'margin-bottom': usdcHash && maticHash ? '40px' : ''}"
+            class="content-block-body-tx-info truncate"
             fxLayout="row"
             fxLayoutAlign="start center"
             >
-            <div class="ml-[20px]" fxLayout="column" fxLayoutAlign="center start">
+            <div class="mr-[28px]" fxLayout="column" fxLayoutAlign="center start">
               <div class="title">Request type</div>
               <div class="caption mt-[20px]">150 USDC</div>
               <div class="caption mt-[8px]">0.03 MATIC</div>
             </div>
-            <div class="ml-[28px]" fxLayout="column" fxLayoutAlign="center start">
-              <div fxHide.xs class="title">Transaction hash</div>
-              <div fxHide.gt-xs class="title">TX</div>
-              <div fxHide.xs class="caption-light mt-[20px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{usdcHash}}</div>
-              <div fxHide.xs class="caption-light mt-[8px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{maticHash}}</div>
-              <div fxHide.gt-xs class="caption-light mt-[20px]"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></div>
-              <div fxHide.gt-xs class="caption-light mt-[8px]"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></div>
+            <div class="tx-info truncate" fxLayout="column" fxLayoutAlign="center start">
+              <div class="title">Transaction hash</div>
+              <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light truncate mt-[20px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{usdcHash}}</a>
+              <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light truncate mt-[8px]" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{maticHash}}</a>
             </div>
           </div>
-          <div class="content-block-body-progress w-full" [ngStyle]="{'margin-top': usdcHash && maticHash ? '40px' : ''}" fxLayout="column" fxLayoutAlign="center center">
+          <div
+            @hashAnimationMobile
+            *ngIf="usdcHash && maticHash"
+            fxHide.gt-xs
+            [ngStyle]="{'border': errorState ? '1px dashed #FF5252' : '', 'margin-bottom': usdcHash && maticHash ? '16px' : ''}"
+            class="content-block-body-tx-info-mobile"
+            fxLayout="column"
+            fxLayoutAlign="start center"
+            >
+            <div class="w-full" fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="title">Request type</div>
+              <div class="title">TX</div>
+            </div>
+            <div class="w-full mt-[22px]" fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="caption">150 USDC</div>
+              <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></a>
+            </div>
+            <div class="w-full mt-[20px]" fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="caption">0.03 MATIC</div>
+              <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></a>
+            </div>
+          </div>
+          <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center center">
             <div class="content-block-body-progress-bar" fxLayout="row" fxLayoutAlign="space-between center">
 
               <!-- <div class="circles-wrapper">
