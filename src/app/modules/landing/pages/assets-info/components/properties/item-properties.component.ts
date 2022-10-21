@@ -90,8 +90,10 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     for (let tag of tags) {
       if (tagWidth + 1 < tag.firstChild.scrollWidth) {
         tag.children[1].style.display = 'block'
+        tag.children[3].style.display = 'flex'
       } else {
         tag.children[1].style.display = 'none'
+        tag.children[3].style.display = 'none'
       }
     }
   }

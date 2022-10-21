@@ -106,10 +106,13 @@ export class PaymentService {
         const myWallet = await this.web3.getAccounts();
         const amountToSend = web3.utils.toWei(amount.toString());
 
+        console.log('Amount to send')
+        const res = (await web3.eth.getBlock('latest')).gasLimit;
+        console.log('gas limit', res)
         const gasPrice = await web3.eth.estimateGas({
             from: myWallet,
             to: to,
-            value: amountToSend
+            // value: amountToSend
         });
         const gasFee = web3.utils.fromWei(gasPrice.toString());
         return gasFee;
@@ -128,8 +131,8 @@ export class PaymentService {
 
         const tx = await contract.methods.claim().send({
           from: wallet,
-          maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
-          maxFeePerGas: "200000000000"
+        //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+        //   maxFeePerGas: "200000000000"
         })
         return tx;
     }
@@ -157,8 +160,8 @@ export class PaymentService {
 
         const tx = await contract.methods.transfer(to, amount).send({
           from: wallet,
-          maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
-          maxFeePerGas: "200000000000"
+        //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+        //   maxFeePerGas: "200000000000"
         })
 
         return tx;
