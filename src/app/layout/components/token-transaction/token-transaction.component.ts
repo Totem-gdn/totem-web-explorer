@@ -51,7 +51,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.updateBalance();
         this.showPopupService.showPopup$().subscribe(show => {
-            // this.showPopup = show;
+            this.showPopup = show;
         })
     }
 
