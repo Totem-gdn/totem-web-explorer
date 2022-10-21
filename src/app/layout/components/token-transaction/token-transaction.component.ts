@@ -68,6 +68,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     onClose() {
         this.showPopup = false;
+        
     }
 
     async estimateGas(tokenTitle: string, value: string) {
