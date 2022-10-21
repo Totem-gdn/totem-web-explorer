@@ -15,18 +15,24 @@
                     <h3>To</h3>
                     <input formControlName="address" placeholder="Recipient address" type="text"
                         (focus)="addressValid = true" (blur)="isAddressValid()">
-                        
+
                     <span>Write the address for the transfer</span>
                     <span @showMessage class="error-message" *ngIf="!addressValid">Invalid address</span>
                 </section>
                 <section>
                     <h3>Amount</h3>
-                    <div class="relative"
+                    <div class="relative mb-[15px]"
                         [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
-                        <input formControlName="amount" class="!mb-0 amount-input" type="number"
-                            (input)="onInputChange($event)" placeholder="0">
+                        <input 
+                        formControlName="amount" 
+                        class="!mb-0 amount-input" 
+                        type="number"
+                        (input)="onInputChange($event)" 
+                        placeholder="0"
+                        (blur)="estimateGas(selectedToken.title, selectedToken.value)">
+
                         <p #suffix class="suffix">{{selectedToken ? selectedToken.title : 'Token'}}</p>
-                        <span class="gas-fee">Gas fee</span>
+                        <span class="gas-fee">Gas fee: {{gasFee ? gasFee + ' MATIC': gasFee}} </span>
                     </div>
                     <span class="!border-0">Write the number of tokens to transfer</span>
                 </section>
@@ -34,8 +40,8 @@
         </div>
 
         <div class="buttons">
-            <button (click)="onClose()">Cancel</button>
-            <button (click)="onTransfer()">Confirm</button>
+            <button matRipple (click)="onClose()">Cancel</button>
+            <button matRipple [disabled]="!amount || !addressValid" (click)="onTransfer()">Confirm</button>
         </div>
     </div>
 

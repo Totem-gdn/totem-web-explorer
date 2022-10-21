@@ -99,6 +99,21 @@ export class PaymentService {
         });
         return receipt;
     }
+    async estimateMaticGasFee(to: string, amount: number) {
+        console.log('amount', amount)
+        if(!amount) return;
+        const web3 = new Web3(this.web3.provider as any);
+        const myWallet = await this.web3.getAccounts();
+        const amountToSend = web3.utils.toWei(amount.toString());
+
+        const gasPrice = await web3.eth.estimateGas({
+            from: myWallet,
+            to: to,
+            value: amountToSend
+        });
+        const gasFee = web3.utils.fromWei(gasPrice.toString());
+        return gasFee;
+    }
 
     claimUSDC = async () => {
         if (!this.web3.provider) return;
@@ -119,8 +134,20 @@ export class PaymentService {
         return tx;
     }
 
+    async estimateUSDCGasFee(to: string, amount: string) {
+        const web3 = new Web3(this.web3.provider as any);
+        const wallet = await this.web3.getAccounts();
+        if(!amount) return;
+        const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+        const tokenContract = GetTokensABI;
+        const contract = new web3.eth.Contract(tokenContract, contractAddress);
+
+        const gasPrice = await contract.methods.transfer(to, amount).estimateGas({from: wallet});
+        const gasFee = web3.utils.fromWei(gasPrice.toString());
+        return gasFee;
+    }
+
     async sendTransaction(to: string, amount: number) {
-        // this.provider = (this.web3.provider as SafeEventEmitterProvider);
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
         const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';

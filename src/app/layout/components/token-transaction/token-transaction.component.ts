@@ -23,7 +23,7 @@ interface TokenBalance {
 })
 
 export class TokenTransactionComponent implements OnInit, OnDestroy {
-    
+    get amount() { return this.transferForm.get('amount')?.value};
     addressValid = true;
 
     constructor(private txService: TokenTransactionService,
@@ -41,6 +41,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     menuItems: TokenBalance[] = [{ title: 'USDC', value: '0' }, { title: 'MATIC', value: '0' }];
 
     selectedToken: any;
+    gasFee: string | number | undefined;
 
     transferForm = new FormGroup({
         address: new FormControl(null),
@@ -50,12 +51,14 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.updateBalance();
         this.showPopupService.showPopup$().subscribe(show => {
-            this.showPopup = show;
+            // this.showPopup = show;
         })
     }
 
     onSelectToken(e: any) {
         this.selectedToken = e;
+        this.gasFee = undefined;
+        this.transferForm.get('amount')?.patchValue(null);
     }
 
     onInputChange(e: any) {
@@ -65,6 +68,14 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     onClose() {
         this.showPopup = false;
+    }
+
+    async estimateGas(tokenTitle: string, value: string) {
+        const address = this.transferForm.get('address')?.value;
+        if(!address) return;
+        if(tokenTitle == 'USDC') this.gasFee = await this.paymentService.estimateUSDCGasFee(address, value);
+        if(tokenTitle == 'MATIC') this.gasFee = await this.paymentService.estimateMaticGasFee(address, +value);
+
     }
 
     async isAddressValid() {
@@ -102,6 +113,8 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             this.paymentService.sendUSDC(address, amount).then(res => {
                 this.snackService.open('Success');
                 this.updateBalance();
+            }).catch(() => {
+                this.snackService.open('Error')
             })
         }
         if(this.selectedToken.title == 'MATIC') {
@@ -109,6 +122,8 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             this.paymentService.transferMatic(address, amount).then(res => {
                 this.snackService.open('Succeess');
                 this.updateBalance();
+            }).catch(() => {
+                this.snackService.open('Error');
             })
         }
     }

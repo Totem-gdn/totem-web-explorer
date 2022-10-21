@@ -116,8 +116,18 @@ input {
         width: 140px;
         display: flex;
         background-color: $dark-grey;
+        transition: background-color .3s, color .3s;
         color: white;
         justify-content: center;
+        &:hover {
+            background-color: $yellow;
+            font-weight: 700;
+            color: $black;
+        }
+        &:disabled {
+            pointer-events: none;
+            color: $light-grey;
+        }
     }
 }
 .invalid-input {
