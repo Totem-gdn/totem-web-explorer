@@ -11,8 +11,8 @@
         display: flex;
         justify-content: space-between;
         cursor: pointer;
-        padding: 12px;
-        height: 40px;
+        padding: 8px 12px;
+        // height: 40px;
         background-color: $dark-grey;
         align-items: center;
         color: $light-grey;
@@ -21,6 +21,8 @@
             user-select: none;
         }
         .mat-icon {
+            margin-bottom: auto;
+            transition: transform .3s;
             width: 12px !important;
         }
     }
@@ -29,7 +31,7 @@
         width: 100%;
         @extend %gradient-border-solid;
         position: absolute !important;
-        backdrop-filter: blur(24px);
+        backdrop-filter: blur(10px);
         visibility: hidden;
         opacity: 0;
         padding: 9px;
@@ -57,6 +59,10 @@
                 &:hover {
 
                     background-color: $grey;
+                }
+                img {
+                    width: 36px;
+                    height: 36px;
                 }
             }
         }

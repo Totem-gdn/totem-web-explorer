@@ -1,16 +1,17 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { FiltersService } from '@app/modules/landing/components/filters-components/services/filters.service';
 import { Subscription } from 'rxjs';
+import { TagsService } from './services/tags.service';
 
 @Component({
     selector: 'filter-components',
     templateUrl: './filter-components.component.html',
 })
 
-export class FilterComponentsComponent {
+export class FilterComponentsComponent implements OnDestroy {
 
-    constructor() {}
+    constructor(private tagsService: TagsService) {}
 
     @Output() loadMore = new EventEmitter<number>();
     @Input() itemType = 'item';
@@ -54,5 +55,8 @@ export class FilterComponentsComponent {
         if(width <= 560) {
             this.wrapper.nativeElement.style.gridTemplateColumns = '1fr';
         }
+    }
+    ngOnDestroy(): void {
+        this.tagsService.clear();
     }
 }

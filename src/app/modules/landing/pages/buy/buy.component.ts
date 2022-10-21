@@ -93,7 +93,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.snackService.open('Your payment has been sent');
-    this.paymentService.buyItem(address, amount).then(res => {
+    this.paymentService.sendUSDC(address, amount).then(res => {
       this.snackService.open('Your Totem Asset has been created successfully');
     })
   }
@@ -106,12 +106,10 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   paymentInfo(assets: any[]) {
     assets.forEach(asset => {
-      console.log(this.assets)
       this.paymentService.getPaymentInfo(asset).subscribe(info => {
         if(asset == 'item') this.assets[0].paymentInfo = info;
         if(asset == 'avatar') this.assets[1].paymentInfo = info;
         if(asset == 'gem') this.assets[2].paymentInfo = info;
-        console.log(this.assets)
         if(this.assets.length == 3) {
           this.playAnimation();
         }

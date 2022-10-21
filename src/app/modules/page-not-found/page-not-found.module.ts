@@ -1,8 +1,7 @@
 import { NgModule } from "@angular/core";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
+import { NotFoundModule } from "./not-found/not-found.module";
 import { PageNotFoundComponent } from "./page-not-found.component";
 import { PageNotFoundRoutes } from "./page-not-found.routing";
 
@@ -14,8 +13,7 @@ import { PageNotFoundRoutes } from "./page-not-found.routing";
     imports: [
         SharedModule,
         RouterModule.forChild(PageNotFoundRoutes),
-        FlexLayoutModule,
-        MatIconModule
+        NotFoundModule,
     ],
     exports: [
       PageNotFoundComponent

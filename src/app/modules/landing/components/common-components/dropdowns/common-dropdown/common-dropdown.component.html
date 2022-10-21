@@ -1,19 +1,35 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
     <div #menu class="dropdown-toggle" (click)="menuActive = !menuActive">
 
-        <span>{{title}}</span>
-        <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
-        <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+        <span *ngIf="!highlightedToken">{{title}}</span>
+        <div *ngIf="highlightedToken" class="flex truncate">
+            <img class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
+            <img class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
+            <div class="flex flex-col ml-[10px]">
+                <p class="text-white ">{{highlightedToken?.value}}</p>
+                <span *ngIf="highlightedToken?.title == 'MATIC'">MATIC Coin</span>
+                <span *ngIf="highlightedToken?.title == 'USDC'">USD Coin</span>
+            </div>
+        </div>
+
+        <!-- <mat-icon [svgIcon]="'line:arrow_down'"></mat-icon> -->
+        <mat-icon [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_up'"></mat-icon>
 
     </div>
 
-    <div #dropdown class="menu w-full"
-        [ngClass]="menuActive ? 'appear': ''">
+    <div #dropdown class="menu w-full" [ngClass]="menuActive ? 'appear': ''">
 
         <div #menuItems class="menu-items">
-            <label class="menu-item" *ngFor="let item of items">
-                <span>{{item.value}}</span>
-                <input (change)="onChangeInput($event.target)" value="{{item.value}}" [type]="'radio'" name="input">
+            <label class="menu-item" *ngFor="let item of _items">
+                <div class="flex items-center">
+                    <img *ngIf="item?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
+                    <img *ngIf="item?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
+                    <div class="flex flex-col ml-[10px]">
+                        <p class="truncate">{{item.title}}</p>
+                        <span class="truncate text-light-grey">{{item.value}}</span>
+                    </div>
+                </div>
+                <input class="min-w-[24px]" (change)="onChangeInput($event.target, item?.title)" value="{{item.value}}" [type]="'radio'" name="input">
             </label>
         </div>
     </div>

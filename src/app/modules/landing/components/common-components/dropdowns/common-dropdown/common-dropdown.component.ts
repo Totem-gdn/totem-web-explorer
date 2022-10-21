@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 
 @Component({
     selector: 'common-dropdown',
@@ -10,9 +10,16 @@ export class CommonDropdownComponent {
 
     @ViewChild('dropdown') dropdown!: ElementRef;
 
+    @Output() selectedToken = new EventEmitter<any>();
     @Input() title = '';
-    @Input() items!: any[];
+    @Input() set items(items: any[]) {
+        console.log(items);
+        this._items = items;
+    }
+
+    _items!: any[];
     menuActive = false;
+    highlightedToken!: any;
 
 
     onClick(isClickedInside: any) {
@@ -20,7 +27,9 @@ export class CommonDropdownComponent {
             this.menuActive = false;
         }
     }
-    onChangeInput(value: any) {
-        console.log(value);
+    onChangeInput(event: any, title: string) {
+        const token = {value: event.value, title: title};
+        this.highlightedToken = token;
+        this.selectedToken.emit(token);
     }
 }

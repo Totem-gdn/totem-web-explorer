@@ -14,8 +14,8 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
     constructor(private assetsService: AssetsService,
         private route: ActivatedRoute,
         private gtag: Gtag) {
-          gtag.event('page_view');
-        }
+        gtag.event('page_view');
+    }
 
     item: any;
     subs = new Subject<void>();
@@ -28,8 +28,13 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
                 if (!id) return;
 
                 this.item = undefined;
-                this.assetsService.updateAsset(id, 'item').subscribe(item => {
-                    this.item = item;
+                this.assetsService.updateAsset(id, 'item').subscribe({
+                    next: item => {
+                        this.item = item;
+                    },
+                    error: error => {
+                        this.item = null;
+                    }
                 });
             });
     }

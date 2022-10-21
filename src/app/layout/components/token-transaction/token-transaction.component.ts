@@ -1,26 +1,150 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormControl, FormGroup, ValidatorFn } from "@angular/forms";
+import { Animations } from "@app/core/animations/animations";
+import { UserStateService } from "@app/core/services/auth.service";
+import { PaymentService } from "@app/core/services/crypto/payment.service";
+import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
+import { Subscription, take, takeUntil, takeWhile } from "rxjs";
 import { TokenTransactionService } from "./token-transaction.service";
 
+
+interface TokenBalance {
+    title: string | undefined;
+    value: string | undefined;
+}
 @Component({
     selector: 'token-transaction',
     templateUrl: './token-transaction.component.html',
     styleUrls: ['./token-transaction.component.scss'],
+    animations: [
+        Animations.animations
+    ]
 })
 
-export class TokenTransactionComponent {
+export class TokenTransactionComponent implements OnInit, OnDestroy {
+    get amount() { return this.transferForm.get('amount')?.value};
+    addressValid = true;
 
-    constructor(private txService: TokenTransactionService) {}
+    constructor(private txService: TokenTransactionService,
+        private web3Service: Web3AuthService,
+        private authService: UserStateService,
+        private snackService: SnackNotifierService,
+        private paymentService: PaymentService,
+        private showPopupService: TokenTransactionService) { }
+
     
+    @ViewChild('suffix') suffix!: ElementRef;
     showPopup = true;
+    sub!: Subscription;
 
-    menuItems = [{value: 'USDC'}, {value: 'MATIC'}]
-    // updateBalance() {
-    //     this.web3Service.getBalance().then(balance => {
-    //       this.maticBalance = balance;
-    //       console.log(this.maticBalance);
-    //     });
-    //     this.web3Service.getTokenBalance().then(balance => {
-    //       this.tokenBalance = balance;
-    //     })
-    //   }
+    menuItems: TokenBalance[] = [{ title: 'USDC', value: '0' }, { title: 'MATIC', value: '0' }];
+
+    selectedToken: any;
+    gasFee: string | number | undefined;
+
+    transferForm = new FormGroup({
+        address: new FormControl(null),
+        amount: new FormControl(null)
+    })
+
+    ngOnInit() {
+        this.updateBalance();
+        this.showPopupService.showPopup$().subscribe(show => {
+            this.showPopup = show;
+        })
+    }
+
+    onSelectToken(e: any) {
+        this.selectedToken = e;
+        this.gasFee = undefined;
+        this.transferForm.get('amount')?.patchValue(null);
+    }
+
+    onInputChange(e: any) {
+        const textLength = e.target.value.length;
+        this.suffix.nativeElement.style.marginLeft = `${25 + (textLength * 8.8)}px`
+    }
+
+    onClose() {
+        this.showPopup = false;
+    }
+
+    async estimateGas(tokenTitle: string, value: string) {
+        const address = this.transferForm.get('address')?.value;
+        if(!address) return;
+        if(tokenTitle == 'USDC') this.gasFee = await this.paymentService.estimateUSDCGasFee(address, value);
+        if(tokenTitle == 'MATIC') this.gasFee = await this.paymentService.estimateMaticGasFee(address, +value);
+
+    }
+
+    async isAddressValid() {
+        const address = this.transferForm.get('address')?.value;
+        const isValid =  await this.paymentService.checkAddressValidity(address);
+        this.addressValid = !!isValid;
+    }
+
+    async onTransfer() {
+        const address = this.transferForm.get('address')?.value;
+        const amount = this.transferForm.get('amount')?.value;
+
+        // Check address validity
+        const isAddressValid = await this.paymentService.checkAddressValidity(address);
+        if(!isAddressValid && isAddressValid) {
+            this.addressValid = true;
+            return;
+        }
+        
+        const matic = await this.web3Service.getBalance();
+        const usdc = await this.web3Service.getTokenBalance();
+
+        if(!address || !amount) return;
+        if (!matic || +matic <= 0) {
+            this.snackService.open('Insufficient MATIC balance');
+            return;
+        }
+        if (!usdc || +usdc <= 0) {
+            this.snackService.open('Insufficient USDC balance');
+            return;
+        }
+
+        this.snackService.open('Your transaction has been sent');
+        if(this.selectedToken.title =='USDC') {
+            this.paymentService.sendUSDC(address, amount).then(res => {
+                this.snackService.open('Success');
+                this.updateBalance();
+            }).catch(() => {
+                this.snackService.open('Error')
+            })
+        }
+        if(this.selectedToken.title == 'MATIC') {
+            console.log('send matic')
+            this.paymentService.transferMatic(address, amount).then(res => {
+                this.snackService.open('Succeess');
+                this.updateBalance();
+            }).catch(() => {
+                this.snackService.open('Error');
+            })
+        }
+    }
+
+    updateBalance() {
+        this.sub = this.authService.currentUser.pipe(takeWhile(val => !val, true)).subscribe(user => {
+            console.log('user', user);
+            if (user) {
+                this.web3Service.getBalance().then(balance => {
+                    this.menuItems[1].value = balance;
+                    console.log(balance)
+                    console.log('menu items', this.menuItems);
+                });
+                this.web3Service.getTokenBalance().then(balance => {
+                    this.menuItems[0].value = balance;
+                })
+            }
+        })
+    }
+
+    ngOnDestroy() {
+        this.sub?.unsubscribe();
+    }
 }

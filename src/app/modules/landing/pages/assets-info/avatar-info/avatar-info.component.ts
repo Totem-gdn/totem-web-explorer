@@ -28,11 +28,14 @@ export class AvatarInfoComponent implements OnInit, OnDestroy {
       .subscribe((params: ParamMap) => {
         const id = params.get('id');
         if (!id) return;
-
         this.avatar = undefined;
-        this.assetsService.updateAsset(id, 'avatar').subscribe(avatar => {
-          console.log('avatar', avatar)
-          this.avatar = avatar;
+        this.assetsService.updateAsset(id, 'avatar').subscribe({
+          next: avatar => {
+            this.avatar = avatar;
+          },
+          error: error => {
+            this.avatar = null;
+          }
         });
         // this.assetsService.avatar$
         // .pipe(takeUntil(this.subs))

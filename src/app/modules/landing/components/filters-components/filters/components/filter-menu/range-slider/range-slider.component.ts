@@ -17,8 +17,8 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     }
 
 
-    minValue!: number;
-    maxValue!: number;
+    minValue: number = 0;
+    maxValue: number = 0;
 
     marginLeft!: string;
     marginRight!: string;
@@ -51,10 +51,10 @@ export class RangeSliderComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        // this.checkThumbPosition();
-        // this.changeMaxValue();
-        // this.changeMinValue();
-        // this.setMargins();
+        this.checkThumbPosition();
+        this.changeMaxValue();
+        this.changeMinValue();
+        this.setMargins();
     }
 
     update() {

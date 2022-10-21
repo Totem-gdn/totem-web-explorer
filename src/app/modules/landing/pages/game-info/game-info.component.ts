@@ -21,10 +21,11 @@ export class GameInfoComponent implements OnInit, OnDestroy {
         private gameService: GamesService,
         private assetsService: AssetsService,
         private gtag: Gtag) {
-          gtag.event('page_view');
-        }
+        gtag.event('page_view');
+    }
 
     toggleDropdown = false;
+    pageNotFound = false;
     subs = new Subject<void>();
     game!: SubmitGame | any;
     games!: any[];
@@ -36,9 +37,14 @@ export class GameInfoComponent implements OnInit, OnDestroy {
                 const id = params.get('id');
                 if (!id) return;
                 this.game = undefined;
-                this.gameService.updateGame(id).subscribe(game => {
-                    console.log('game', game);
-                    this.game = game;
+                this.gameService.updateGame(id).subscribe({
+                    next: game => {
+                        console.log('game', game);
+                        this.game = game;
+                    },
+                    error: error => {
+                        this.pageNotFound = true;
+                    }
                 });
             })
 

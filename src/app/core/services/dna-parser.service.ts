@@ -7,7 +7,10 @@ export class DNAParserService {
 
     handleDNAField(id: string, value: string) {
 
-        if(id == 'primary_color') return this.rgba2hex(value);
+        if(id == 'primary_color') {
+            console.log('primary', value)
+            return this.rgba2hex(value);
+        }
         if(id == 'sex_bio') {
             if(value == '0') return 'Male';
             if(value == '1') return 'Female';

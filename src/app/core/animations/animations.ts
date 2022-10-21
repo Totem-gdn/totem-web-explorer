@@ -124,6 +124,27 @@ export const Animations = {
             ]
           ),
           trigger(
+            'hashAnimationMobile',
+            [
+              transition(
+                ':enter',
+                [
+                  style({ opacity: 0, height: 0 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 1, height: 139 }))
+                ]
+              ),
+              transition(
+                ':leave',
+                [
+                  style({ opacity: 1, height: 139 }),
+                  animate('0.4s ease-in-out',
+                          style({ opacity: 0, height: 0 }))
+                ]
+              )
+            ]
+          ),
+          trigger(
             'fileAnimation',
             [
               transition(

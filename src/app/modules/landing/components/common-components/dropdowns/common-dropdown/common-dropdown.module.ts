@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "@app/shared/shared.module";
 import { CommonDropdownComponent } from "./common-dropdown.component";
@@ -9,7 +10,8 @@ import { CommonDropdownComponent } from "./common-dropdown.component";
     ],
     imports: [
         SharedModule,
-        MatIconModule
+        MatIconModule,
+        FormsModule
     ],
     exports: [
         CommonDropdownComponent

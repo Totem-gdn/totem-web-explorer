@@ -71,11 +71,10 @@ export class TagsService {
         const tags = this._tags.getValue();
         const queryArray: ItemParam[] = [];
         loop: for (let tag of tags) {
-            if(tag.inputType == 'range' || tag.inputType == 'graph') {
-                const indexOfSpace = tag.value.indexOf(' ');
-                tag.value = tag.value.substring(indexOfSpace + 1);
-                console.log('tag value', tag.value);
-            }
+            // if(tag.inputType == 'range' || tag.inputType == 'graph') {
+            //     const indexOfSpace = tag.value.indexOf(' ');
+            //     tag.value = tag.value.substring(indexOfSpace + 1);
+            // }
             const query: ItemParam = { values: [tag.value], type: tag.type };
             for (let fields of queryArray) {
                 if (fields.type == query.type) {

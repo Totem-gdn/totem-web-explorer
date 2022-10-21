@@ -14,8 +14,8 @@ export class GemInfoComponent implements OnInit, OnDestroy {
     constructor(private assetsService: AssetsService,
         private route: ActivatedRoute,
         private gtag: Gtag) {
-          gtag.event('page_view');
-        }
+        gtag.event('page_view');
+    }
 
     gem: any;
     subs = new Subject<void>();
@@ -28,8 +28,13 @@ export class GemInfoComponent implements OnInit, OnDestroy {
                 if (!id) return;
 
                 this.gem = undefined;
-                this.assetsService.updateAsset(id, 'gem').subscribe(gem => {
-                    this.gem = gem;
+                this.assetsService.updateAsset(id, 'gem').subscribe({
+                    next: gem => {
+                        this.gem = gem;
+                    },
+                    error: error => {
+                        this.gem = null;
+                    }
                 });
 
             });
