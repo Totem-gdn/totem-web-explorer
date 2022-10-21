@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
+import { TotemButtonModule } from "@app/modules/landing/components/common-components/totem-button/totem-button.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { NotFoundComponent } from "./not-found.component";
 
@@ -13,7 +14,8 @@ import { NotFoundComponent } from "./not-found.component";
         SharedModule,
         FlexLayoutModule,
         RouterModule,
-        MatIconModule
+        MatIconModule,
+        TotemButtonModule
     ],
     exports: [
         NotFoundComponent
