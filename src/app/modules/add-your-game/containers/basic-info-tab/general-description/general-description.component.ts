@@ -35,7 +35,25 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     setItems!: any;
 
-    dropdownItems = [{value: 'Comedy'}, {value: 'Horror'}, {value: 'Third-person'}, {value: 'Survival'}, {value: 'Singleplayer'}, {value: 'Action'}, {value: 'Base defense'}, {value: 'Adventure'}, {value: 'MMORPG'}];
+    dropdownItems = [
+      {value: 'Adventure'},
+      {value: 'Action'},
+      {value: 'Visual Novel'},
+      {value: 'Role Playing'},
+      {value: 'Puzzle'},
+      {value: 'Platformer'},
+      {value: 'Simulation'},
+      {value: 'Survival'},
+      {value: 'Interactive Fiction'},
+      {value: 'Shooter'},
+      {value: 'Strategy'},
+      {value: 'Fighting'},
+      {value: 'Racing'},
+      {value: 'Card Game'},
+      {value: 'Educational'},
+      {value: 'Rhythm'},
+      {value: 'Sports'}
+    ];
 
     dropdownTouched = false;
     genreTags: Tag[] = [];
