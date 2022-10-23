@@ -13,8 +13,9 @@ export class CommonDropdownComponent {
     @Output() selectedToken = new EventEmitter<any>();
     @Input() title = '';
     @Input() set items(items: any[]) {
-        console.log(items);
+        console.log('set items',items);
         this._items = items;
+        this.update();
     }
 
     _items!: any[];
@@ -27,9 +28,23 @@ export class CommonDropdownComponent {
             this.menuActive = false;
         }
     }
+
+    update() {
+        console.log(this._items)
+        for(let item of this._items) {
+            if(this.highlightedToken.title == item.title) {
+                console.log('item', item)
+            }
+        }
+    }
     onChangeInput(event: any, title: string) {
-        const token = {value: event.value, title: title};
-        this.highlightedToken = token;
-        this.selectedToken.emit(token);
+        this.menuActive = false;
+        console.log(title);
+        for(let i = 0; i < this._items.length; i++) {
+            if(this._items[i].title == title) {
+                this.highlightedToken = this._items[i];
+                this.selectedToken.emit(this._items[i])
+            }
+        }
     }
 }

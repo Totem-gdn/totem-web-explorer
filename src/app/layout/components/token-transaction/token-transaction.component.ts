@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, ValidatorFn } from "@angular/forms";
+import { FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
@@ -24,6 +24,10 @@ interface TokenBalance {
 
 export class TokenTransactionComponent implements OnInit, OnDestroy {
     get amount() { return this.transferForm.get('amount')?.value};
+    get addressTouched() {
+        const address = this.transferForm.get('address')
+        return (!address?.touched || !address?.dirty);
+    }
     addressValid = true;
 
     constructor(private txService: TokenTransactionService,
@@ -33,8 +37,6 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         private paymentService: PaymentService,
         private showPopupService: TokenTransactionService) { }
 
-    
-    @ViewChild('suffix') suffix!: ElementRef;
     showPopup = true;
     sub!: Subscription;
 
@@ -44,7 +46,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     gasFee: string | number | undefined;
 
     transferForm = new FormGroup({
-        address: new FormControl(null),
+        address: new FormControl(null, Validators.required),
         amount: new FormControl(null)
     })
 
@@ -56,6 +58,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     }
 
     onSelectToken(e: any) {
+        console.log(console.log(e))
         this.selectedToken = e;
         this.gasFee = undefined;
         this.transferForm.get('amount')?.patchValue(null);
@@ -63,11 +66,18 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     onInputChange(e: any) {
         const textLength = e.target.value.length;
-        this.suffix.nativeElement.style.marginLeft = `${25 + (textLength * 8.8)}px`
+    }
+
+    async onClickMax() {
+        const value = this.selectedToken.value;
+        this.transferForm.get('amount')?.patchValue(value);
+        const estimate = await this.estimateGas(this.selectedToken.title, value);
+        console.log(estimate);
     }
 
     onClose() {
         this.showPopup = false;
+        
     }
 
     async estimateGas(tokenTitle: string, value: string) {
@@ -75,7 +85,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         if(!address) return;
         if(tokenTitle == 'USDC') this.gasFee = await this.paymentService.estimateUSDCGasFee(address, value);
         if(tokenTitle == 'MATIC') this.gasFee = await this.paymentService.estimateMaticGasFee(address, +value);
-
+        return this.gasFee;
     }
 
     async isAddressValid() {
@@ -101,10 +111,6 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         if(!address || !amount) return;
         if (!matic || +matic <= 0) {
             this.snackService.open('Insufficient MATIC balance');
-            return;
-        }
-        if (!usdc || +usdc <= 0) {
-            this.snackService.open('Insufficient USDC balance');
             return;
         }
 

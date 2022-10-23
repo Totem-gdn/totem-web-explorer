@@ -9,20 +9,20 @@
 
 .history-grid {
     display: grid;
-    grid-template-columns: 50px minmax(150px, 2fr) minmax(160px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)  minmax(40px, calc(1fr/2));
-
+    grid-template-columns: 60px minmax(210px, 2fr) minmax(240px, 1fr) minmax(150px, 1fr) minmax(200px, 1fr)  minmax(40px, calc(1fr/2));
+    min-width: 900px;
 }
 
 span {
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .transaction {
     margin: 5px 0;
     // display: flex;
     padding: 7px;
-    padding-right: 20px;
-    padding-left: 20px;
+    // padding-right: 20px;
+    // padding-left: 20px;
     background-color: $grey;
     border-radius: 4px;
     font-size: 14px;
@@ -33,7 +33,7 @@ span {
     img {
         width: 40px;
         height: 40px;
-        margin-right: 10px;
+        margin-right: 20px;
     }
 
     .mat-icon {

@@ -9,12 +9,12 @@
 
 .history-grid {
     display: grid;
-    grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) minmax(210px, 1fr) minmax(210px, 1fr) 100px;
-
+    grid-template-columns: minmax(180px, 250px) minmax(200px, 280px) minmax(340px, 1fr) 100px;
+    min-width: 850px;
 }
 
 span {
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .transaction {
