@@ -1,10 +1,16 @@
-<div class="pnf-wrapper w-full h-full" fxLayout="column" fxLayoutAlign="center center">
-    <div>
-      <h1>404 Error</h1>
-      <h2 class="mt-[6px]">Page Not Found</h2>
+<div class="pnf-wrapper w-full h-full" fxLayout="row wrap-reverse" fxLayoutAlign="row center">
+
+    <div class="content-wrapper" fxFlex="100%">
+      <p fxHide.xs class="title-caption font-totem">Oops! PAGE NOT FOUND</p>
+      <p fxHide.gt-xs class="title-caption-mob font-totem">Oops!</p>
+      <p fxHide.gt-xs class="title-caption-mob-light font-totem mt-[14px]">PAGE NOT FOUND</p>
+      <p class="subcaption">The page you are looking for might have been removed had its name changed or is temporatily unavalaible</p>
+      <div class="button-wrapper">
+        <totem-button routerLink="/" [width]="'220px'" [height]="'50px'" [caption]="'GO TO HOMEPAGE'"></totem-button>
+      </div>
     </div>
-    <div class="back-button mt-[28px]" routerLink="/" fxLayout="column" fxLayoutAlign="center center">
-      <mat-icon class="!w-3 mr-[4px]" [svgIcon]="'line:arrow_left'"></mat-icon>
+
+    <div class="image-wrapper">
+      <img src="assets/images/not-found-image.webp" alt="">
     </div>
-    <p class="mt-[10px]">Back to homepage</p>
-  </div>
+</div>
