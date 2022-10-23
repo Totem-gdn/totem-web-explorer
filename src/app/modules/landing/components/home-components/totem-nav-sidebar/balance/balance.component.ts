@@ -150,7 +150,8 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
 
   updateBalance() {
-    this.paymentService.updateTokenBalance();
+    console.log('update balance component')
+    this.paymentService.updateBalance();
   }
 
   /* async updateBalanceAndGetMatic() {

@@ -3,6 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { ImagesToUpload, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
+import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { TransactionsService } from '@app/core/services/crypto/transactions.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
@@ -56,6 +57,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     private web3Service: Web3AuthService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
+    private paymentService: PaymentService
     ) {
       console.log(this.data);
 
@@ -138,6 +140,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     if (this.stepIndex == 3) {
       this.steps[this.stepIndex].step = true;
       this.steps[this.stepIndex].loading = false;
+      this.paymentService.updateBalance();
     }
     console.log(this.stepIndex, 'CALLED');
 

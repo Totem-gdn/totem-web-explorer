@@ -23,7 +23,8 @@ export class PaymentService {
         return this._tokenBalance.asObservable();
     }
 
-    updateTokenBalance() {
+    updateBalance() {
+        console.log('update balance')
         this.getUSDCBalance().then(usdcBalance => {
             let tokenBalance = this._tokenBalance.getValue();
             tokenBalance.usdc = usdcBalance;

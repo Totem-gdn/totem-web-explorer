@@ -135,6 +135,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     }
 
     updateBalance() {
+        this.paymentService.updateBalance();
         this.sub = this.authService.currentUser.pipe(takeWhile(val => !val, true)).subscribe(user => {
             console.log('user', user);
             if (user) {
