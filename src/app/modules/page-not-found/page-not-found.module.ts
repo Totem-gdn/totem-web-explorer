@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
 import { NotFoundModule } from "./not-found/not-found.module";
@@ -14,6 +15,7 @@ import { PageNotFoundRoutes } from "./page-not-found.routing";
         SharedModule,
         RouterModule.forChild(PageNotFoundRoutes),
         NotFoundModule,
+        FlexLayoutModule
     ],
     exports: [
       PageNotFoundComponent
