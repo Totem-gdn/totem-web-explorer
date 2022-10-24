@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build && gzipper compress --verbose --output-file-format [filename].[compressExt].[ext] ./dist",
+    "build": "ng build",
+    "dev-build-compress": "ng build && gzipper compress --verbose --output-file-format [filename].[compressExt].[ext] ./dist",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prod-build-compress": "ng build --configuration production && gzipper compress --verbose --output-file-format [filename].[compressExt].[ext] ./dist"
