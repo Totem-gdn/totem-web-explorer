@@ -85,6 +85,19 @@ p {
             transition: border-radius .5s ease-in-out;
             border: 1px solid $light-grey;
             padding: 12px;
+
+            p {
+                font-weight: 500;
+            }
+            span {
+                -webkit-line-clamp: 2;
+                line-clamp: 2; 
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
             .row {
                 display: flex;
                 border-bottom: 1px solid $light-grey;
@@ -95,7 +108,8 @@ p {
                 }
                 div:first-child {
                     font-weight: 500;
-                    width: 120px;
+                    width: 130px;
+                    min-width: 130px;
                     height: 60px;
                     padding-left: 12px;
                     border-right: 1px solid $light-grey;
@@ -103,6 +117,7 @@ p {
                 div:last-child {
                     padding-left: 12px;
                     width: 100%;
+                    max-height: 60px;
                 }
                 &:last-child {
                     border-bottom: none;

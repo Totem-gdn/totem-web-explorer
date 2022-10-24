@@ -1,7 +1,7 @@
 <div class="flex flex-col card-item gradient-border" (click)="onNavigate()">
 
 
-    <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper">
+    <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper !max-h-[calc(100%-175px)]">
         <img [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>
 
@@ -9,7 +9,7 @@
         <mat-icon class="text-grey" [svgIcon]="'line:game-place'"></mat-icon>
     </div>
 
-    <div class="p-4 flex flex-col mt-auto bottom-0 h-[175px] border-t border-t-dark-grey">
+    <div class="p-4 flex flex-col mt-auto absolute left-0 right-0 bottom-0 h-[175px] border-t border-t-dark-grey justify-end">
 
         <div class="flex justify-between">
             <div class="flex flex-col">
@@ -22,7 +22,7 @@
         </div>
 
         <div class="flex py-2">
-            <p class="text-light-grey text-ellipsis max-2-lines">{{game?.general?.description}}</p>
+            <p class="text-light-grey text-ellipsis max-2-lines max-w-[410px]">{{game?.general?.description}}</p>
         </div>
 
         <div class="flex justify-between max-w-[320px] pt-2">
