@@ -24,7 +24,6 @@ export class PaymentService {
     }
 
     updateBalance() {
-        console.log('update balance')
         this.getUSDCBalance().then(usdcBalance => {
             let tokenBalance = this._tokenBalance.getValue();
             tokenBalance.usdc = usdcBalance;
