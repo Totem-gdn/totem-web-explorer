@@ -28,7 +28,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
-  activeTab: 'basic-information' | 'details' | 'links' = 'links';
+  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
   formsData: SubmitGame | null = null;
   imagesToUpload!: ImagesToUpload;
   imagesToSubmit!: ImagesInfo;
@@ -85,11 +85,11 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       contacts: this.formsService.getForm('contacts'),
       connections:
       {
-        dnaFilter: this.jsonFileToUpload ? {
+        dnaFilter: {
           filename: this.jsonFileToUpload!.name,
           mimeType: this.jsonFileToUpload!.type,
           contentLength: this.jsonFileToUpload!.size,
-        } : undefined,
+        },
         ...this.formsService.getForm('connections')
       },
       images: this.imagesToSubmit,
@@ -149,7 +149,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  openUploadModal(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null): Observable<string> {
+  openUploadModal(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null): Observable<string> {
     /* const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1; */
     const options: MatDialogConfig = {
@@ -159,14 +159,14 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         data: {
           images: imagesToUpload,
           gameSubmitResponse: gameSubmitResponse,
-          jsonFile: jsonFile ? jsonFile : undefined
+          jsonFile: jsonFile
         },
         autoFocus: false
     };
     return this.matDialog.open(ImageUploaderComponent, options).afterClosed();
   }
 
-  openImgUploaderDialog(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null) {
+  openImgUploaderDialog(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null) {
     this.subs.add(
       this.openUploadModal(imagesToUpload, gameSubmitResponse, jsonFile).subscribe((data: any) => {
         console.log(data);

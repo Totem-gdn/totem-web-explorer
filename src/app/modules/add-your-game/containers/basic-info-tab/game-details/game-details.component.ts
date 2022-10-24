@@ -31,6 +31,8 @@ export class GameDetailsComponent implements AfterViewInit {
     }
 
     dropdownPlatforms = [{value: 'Windows'},{value: 'macOS'},{value: 'iOS'},{value: 'Android'}];
+    // dropdownPlatforms = [{}];
+
     dropdownTouched = false;
     setItems!: any;
     platformTags: Tag[] = [];
@@ -51,17 +53,10 @@ export class GameDetailsComponent implements AfterViewInit {
     onSelectTag(tag: Tag) {
         this.platformTags.push(tag);
         this.platformsForm.push(new FormControl(tag.value));
-        if(tag.checked === true) {
-            this.dropdownPlatforms.push(tag);
-        }
-        if(tag.checked === false) {
-            this.onRemoveTag(tag);
-        }
         this.saveValue();
     }
 
     onRemoveTag(tag: Tag) {
-        console.log(tag);
         this.platformTags = this.platformTags.filter(platform => platform.reference != tag.reference);
         tag.reference.checked = false;
         this.platformsForm.removeAt(this.platformsForm.controls.findIndex(platform => platform.value === tag.value));
@@ -88,12 +83,12 @@ export class GameDetailsComponent implements AfterViewInit {
     }
 
     retrieveValues() {
-        const values =  this.formsService.getForm('details');
+        const values = this.formsService.getForm('details');
 
         if(!values) return;
         this.gameDetails.patchValue({
             status: values.status,
-            platforms: values.platforms,
+            // platforms: values.platforms,
             madeWith: values.madeWith,
             avarageSession: values.avarageSession,
             languages: values.languages,
