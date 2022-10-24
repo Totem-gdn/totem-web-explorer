@@ -42,13 +42,13 @@
 
             <ng-container [formArrayName]="i" *ngFor="let socialLink of socialLinksForm.controls; index as i">
               <div [formGroup]="socialLink" class="social-link flex-wrap lg:flex-nowrap">
-                  <form-dropdown 
+                  <form-dropdown
                   #dropdown
-                  @showInput 
-                  (selectedTag)="onSelectTag($event, i)" 
-                  class="!max-w-[180px] w-full mb-[15px] mr-[20px]" 
-                  [inputType]="'radio'" 
-                  [title]="'Select type'" 
+                  @showInput
+                  (selectedTag)="onSelectTag($event, i)"
+                  class="!max-w-[180px] w-full mb-[15px] mr-[20px]"
+                  [inputType]="'radio'"
+                  [title]="'Select type'"
                   [setTitle]="socialLink.get('type')?.value"
                   [setItems]="setItems"
                   [items]="dropdownLinks"></form-dropdown>

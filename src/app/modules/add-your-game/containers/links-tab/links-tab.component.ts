@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
+import { ConnectionsInfo, SocialLinksInfo } from '@app/core/models/submit-game-interface.model';
 import { Tag } from '@app/core/models/tag-interface.model';
 import { Subscription } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
@@ -24,7 +25,7 @@ interface SocialLink {
 
 export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
-  constructor(private formsService: FormsService) { }
+  constructor(private formsService: FormsService, private fb: FormBuilder) { }
 
   get webPageErrors() {
     const webPage = this.connectionsForm.get('webpage');
@@ -102,6 +103,10 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
   updateForm() {
     let form = this.connectionsForm.value;
+    let socLinksArr: any[] | undefined = (form.socialLinks as SocialLinksInfo[]).filter((link: SocialLinksInfo) => {
+      return link?.type !== null && link?.url !== 'https://'
+    });
+    form.socialLinks = socLinksArr;
 
     this.formsService.saveForm('connections', form);
     this.isFormValid();
@@ -119,16 +124,16 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
     for (let index = 0; index < values.socialLinks.length; index++) {
       const link = values.socialLinks[index];
-
       if (this.socialLinksForm.controls[index]) {
         this.socialLinksForm.controls[index].get('type')?.patchValue(link?.type);
         this.socialLinksForm.controls[index].get('url')?.patchValue(link?.url);
       } else {
-        this.socialLinksForm.controls[index] = new FormGroup({ type: new FormControl(link.type), url: new FormControl(link.url) });
+        this.socialLinksForm.push(this.fb.group({
+          type: new FormControl(link?.type),
+          url: new FormControl(link?.url)
+        }));
       }
     }
-    console.log('form',this.connectionsForm)
-    console.log('form value', this.connectionsForm?.value)
     this.updateForm();
   }
 
