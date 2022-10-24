@@ -42,7 +42,9 @@ export class SubmitGameService {
     links.imagesGallery?.forEach((link: string, i: number) => {
       imagesWithUrls.push({url: link, file: images.gallery![i]});
     })
-    imagesWithUrls.push({url: connections?.dnaFilter, file: jsonFile ? jsonFile : undefined})
+    if (jsonFile) {
+      imagesWithUrls.push({url: connections?.dnaFilter, file: jsonFile ? jsonFile : undefined})
+    }
     console.log(imagesWithUrls);
     return this.connectImagesWithUrls(imagesWithUrls);
   }

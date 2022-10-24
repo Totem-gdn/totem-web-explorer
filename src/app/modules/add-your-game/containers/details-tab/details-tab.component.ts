@@ -167,6 +167,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   isFormValid() {
     if(this.checkValidity()) {
       this.formsService.setFormValidity('details', true);
+      this.updateFormData();
     } else {
       this.formsService.setFormValidity('details', false);
     }
