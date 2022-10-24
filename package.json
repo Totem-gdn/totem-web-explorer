@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build",
+    "build": "ng build && gzipper compress --verbose --output-file-format [filename].[compressExt].[ext] ./dist",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prod-build-compress": "ng build --configuration production && gzipper compress --verbose --output-file-format [filename].[compressExt].[ext] ./dist"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +31,7 @@
     "alchemy-sdk": "^2.1.0",
     "angular-gtag": "^1.0.4",
     "express": "^4.18.2",
+    "gzipper": "^7.1.0",
     "ng-particles": "^3.3.2",
     "ngx-image-cropper": "^6.2.2",
     "rxjs": "~7.5.0",
