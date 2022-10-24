@@ -53,6 +53,7 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit() {
     this.retrieveValues();
+    // this.updateForm();
   }
 
   ngOnInit(): void {
@@ -80,16 +81,14 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     this.updateForm();
   }
 
-  onSelectTag(tag: Tag, i: any) {
-    console.log(this.socialLinksForm.controls)
+  onSelectTag(tag: Tag, index: any) {
     const url = this.urlByValue(tag.value);
-    const link = this.socialLinksForm.controls[i] as FormArray;
-    link.get('type')?.patchValue(tag.value);
-    link.get('url')?.patchValue(url);
-    // link.controls[0].patchValue(tag.value);
-    // link.controls[1].patchValue(url);
-    // console.log(link.controls[0].value)
-
+    if (this.socialLinksForm.controls[index]) {
+      this.socialLinksForm.controls[index]?.get('type')?.patchValue(tag.value);
+      this.socialLinksForm.controls[index]?.get('url')?.patchValue(url);
+    } else {
+      this.socialLinksForm.controls[index] = new FormGroup({ type: new FormControl(tag.value), url: new FormControl(url) })
+    }
     this.updateForm();
   }
 
@@ -102,8 +101,9 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   updateForm() {
-    const value = this.connectionsForm.value;
-    this.formsService.saveForm('connections', value);
+    let form = this.connectionsForm.value;
+
+    this.formsService.saveForm('connections', form);
     this.isFormValid();
   }
 
@@ -115,18 +115,21 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
       webpage: values.webpage,
       rendererUrl: values.rendererUrl,
       videoUrl: values.videoUrl
-    })
+    });
 
-    values.socialLinks.forEach((link: any, index: any) => {
-      console.log('link',link);
-      
-      this.socialLinksForm.controls[index] = new FormGroup({ type: new FormControl(link?.type), url: new FormControl(link?.url)})
-      console.log('form array', this.socialLinksForm.controls)
-      // const linksArray = this.socialLinksForm.controls[index];
-      // linksArray.get('type')?.patchValue(link.type);
-      // linksArray.get('url')?.patchValue(link.url);
-      // this.socialLinksForm.controls[index] = new FormGroup({ type: new FormControl(link?.type), url: new FormControl(link?.url)})
-    })
+    for (let index = 0; index < values.socialLinks.length; index++) {
+      const link = values.socialLinks[index];
+
+      if (this.socialLinksForm.controls[index]) {
+        this.socialLinksForm.controls[index].get('type')?.patchValue(link?.type);
+        this.socialLinksForm.controls[index].get('url')?.patchValue(link?.url);
+      } else {
+        this.socialLinksForm.controls[index] = new FormGroup({ type: new FormControl(link.type), url: new FormControl(link.url) });
+      }
+    }
+    console.log('form',this.connectionsForm)
+    console.log('form value', this.connectionsForm?.value)
+    this.updateForm();
   }
 
   isFormValid() {

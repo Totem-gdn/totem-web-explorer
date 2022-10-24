@@ -1,8 +1,129 @@
 @import 'styles/scss/variables';
 
-.pnf-wrapper {
+.not-found-wrapper {
   background-color: $dark;
+  not-found {
+    max-width: 1440px;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.pnf-wrapper {
+  //background-color: $dark;
+  position: relative;
   color: $yellow;
+  width: 100%;
+  height: 100%;
+  place-content: center space-between;
+  align-items: center;
+  padding: 0 20px;
+  overflow: hidden;
+
+  .content-wrapper {
+    //margin-top: 10%;
+    position: absolute;
+    top: 55%;
+    left: 20px;
+    width: calc(100% - 40px);
+    flex-shrink: 0;
+    z-index: 2;
+    @media (max-width: 1000px) {
+      top: 60%;
+    }
+    @media (max-height: 700px) {
+      top: unset;
+      bottom: 60px;
+    }
+    @media (max-width: 600px) {
+      top: unset;
+      bottom: 60px;
+    }
+    .subcaption {
+      margin-top: 32px;
+      font-family: 'DM Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 31px;
+      color: #FFFFFF;
+      max-width: 624px;
+      width: 100%;
+
+      @media (max-width: 600px) {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        margin-top: 17px;
+      }
+    }
+
+    .title-caption,
+    .title-caption-mob,
+    .title-caption-mob-light {
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 48px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      place-content: center center;
+      align-items: center;
+      .title-caption-mob {
+        font-size: 40px;
+        line-height: 40px;
+      }
+      .title-caption-mob-light {
+        font-size: 36px;
+        line-height: 36px;
+      }
+    }
+
+    .button-wrapper {
+      margin-top: 32px;
+      @media (max-width: 600px) {
+        margin-top: 23px;
+      }
+    }
+
+  }
+
+  .image-wrapper {
+    //margin-left: 50%;
+    position: absolute;
+    right: 20px;
+    max-width: 867px;
+    width: calc(100% - 533px);
+    height: calc(100% - 723px);
+    max-height: 677px;
+    min-width: 360px;
+    min-height: 440px;
+    z-index: 1;
+    top: 14%;
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 1000px) {
+      top: 8%;
+      width: 533px;
+    }
+    @media (max-height: 700px) {
+      width: calc(100% - 833px);
+    }
+    @media (max-width: 600px) {
+      top: 8%;
+      right: -30px;
+      width: 100%;
+    }
+    @media (max-width: 469px) {
+      top: 6%;
+      width: 100%;
+    }
+  }
 
   .back-button {
     height: 56px;
@@ -15,4 +136,5 @@
       background-color: $dark-grey;
     }
   }
+
 }

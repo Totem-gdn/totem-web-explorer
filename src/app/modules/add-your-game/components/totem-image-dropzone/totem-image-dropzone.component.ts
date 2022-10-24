@@ -106,7 +106,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const reader = new FileReader();
+      /* const reader = new FileReader();
       reader.onload = (evt: any) => {
         const img = new Image();
         //console.log(img);
@@ -121,11 +121,11 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
             this.errorEvent.emit({message: `The image is much larger/smaller than the recommended resolution: ${this.recWidth}x${this.recHeight}px`, status: true})
             this.errorState = true;
             return;
-          }
-          this.finalizedFile.next(event);
-        };
+          } */
+      this.finalizedFile.next(event);
+      /*   };
       };
-      reader.readAsDataURL(fileToValidate);
+      reader.readAsDataURL(fileToValidate); */
       return;
     }
 
