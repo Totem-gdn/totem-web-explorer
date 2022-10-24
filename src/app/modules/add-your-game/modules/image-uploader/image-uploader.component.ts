@@ -15,7 +15,7 @@ import { SubmitGameService } from '../../services/submit-game.service';
   }
 })
 export class ImageUploaderComponent implements OnInit, OnDestroy {
-  filesToUpload!: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null };
+  filesToUpload!: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null };
   uploadProgress: number = 0;
   filesToUploadNumber: number = 0;
   filesUploaded: number = 0;
@@ -24,7 +24,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialogRef: MatDialogRef<ImageUploaderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null },
+    @Inject(MAT_DIALOG_DATA) public data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null },
     private submitGameService: SubmitGameService,
     ) {
       console.log(this.data);
@@ -38,7 +38,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     this.submitGameService.approveGame(this.filesToUpload.gameSubmitResponse.id);
   }
 
-  linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null }) {
+  linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null }) {
     this.submitGameService.currentIdToUpload = data.gameSubmitResponse.id;
     const linkedImagesToUrlsObservable: Observable<any>[] = this.submitGameService.componeFilesToUpload(
       data.images,

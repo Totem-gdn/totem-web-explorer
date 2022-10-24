@@ -31,7 +31,7 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
 
-  
+
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
   dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
@@ -52,6 +52,7 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit() {
     this.retrieveValues();
+    this.updateForm();
   }
 
   ngOnInit(): void {
@@ -86,7 +87,7 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     link.controls[0].patchValue(tag.value);
     link.controls[1].patchValue(url);
     console.log(link.controls[0].value)
-    
+
     this.updateForm();
   }
 
@@ -99,7 +100,12 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   updateForm() {
-    const value = this.connectionsForm.value;
+    let value = this.connectionsForm.value;
+    const socLinks = value.socialLinks?.map((item: any) => {
+      return item[1] == 'https://' ? undefined : item;
+    })
+    value.socialLinks = socLinks && socLinks[0] ? socLinks : [];
+    console.log(value);
     this.formsService.saveForm('connections', value);
     this.isFormValid();
   }
@@ -112,11 +118,15 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
       webpage: values.webpage,
       rendererUrl: values.rendererUrl,
       videoUrl: values.videoUrl
-    })
+    });
 
-    values.socialLinks.forEach((link: any, index: any) => {
-      this.socialLinksForm.controls[index] = new FormArray([ new FormControl(link[0]), new FormControl(link[1])]);
-    })
+    if (values?.socialLinks && values?.socialLinks.length) {
+      values?.socialLinks.forEach((link: any, index: any) => {
+        this.socialLinksForm.controls[index] = new FormArray([ new FormControl(link[0]), new FormControl(link[1])]);
+      });
+    }
+
+    this.updateForm();
   }
 
   isFormValid() {
