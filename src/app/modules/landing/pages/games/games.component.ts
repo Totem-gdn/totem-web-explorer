@@ -32,6 +32,7 @@ export class GamesComponent implements OnDestroy {
 
   fetchGames(filters?: ItemParam[]) {
     this.itemsService.getGames$(filters).pipe(takeUntil(this.subs)).subscribe(games => {
+      
       this.games = games;
     })
   }
