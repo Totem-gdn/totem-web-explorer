@@ -3,8 +3,10 @@
     <h2 *ngIf="game?.general?.name" class="mb-[40px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
     <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
-        <h4 class="flex whitespace-nowrap line-unset"><span class="text-light-grey pr-[10px] line-33">Author:</span>{{game?.general?.author
-            ? game?.general?.author : 'Triple Troping'}}</h4>
+        <h4 class="flex whitespace-nowrap line-unset">
+            <p class="text-light-grey pr-[10px] line-33">Author:</p>{{game?.general?.author
+            ? game?.general?.author : 'Triple Troping'}}
+        </h4>
 
         <!-- Stars -->
         <div #stars class="stars">
@@ -20,8 +22,8 @@
             <div class="icon !pl-0">
                 <mat-icon *ngIf="game?.isLiked === false" class="like !w-[18px]" [svgIcon]="'line:like'"
                     (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-                <mat-icon *ngIf="game?.isLiked === true" class="text-yellow cursor-pointer !w-[18px]" [svgIcon]="'solid:like'"
-                    (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+                <mat-icon *ngIf="game?.isLiked === true" class="text-yellow cursor-pointer !w-[18px]"
+                    [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
                 <p>{{game?.likes ? game?. likes : '0'}}</p>
             </div>
             <div class="icon">
@@ -42,19 +44,22 @@
     </div>
 
     <!-- Text -->
-    <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">Struggling punk band, Dead Pets, are still
-        looking for their breakthrough after
-        almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way. Dead
-        Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner demon!
-        Support us on Kickstarter now!
-    </p>
-    <p *ngIf="game?.general?.description" class="font-medium pb-[40px]">{{game?.general?.description}}</p>
+    <div class="flex max-w-[calc(100vw-40px)]">
+        <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">Struggling punk band, Dead Pets, are still
+            looking for their breakthrough after
+            almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way.
+            Dead
+            Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner
+            demon!
+            Support us on Kickstarter now!
+        </p>
+        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">
+            {{game?.general?.description}}</p>
+    </div>
 
     <!-- Details -->
     <div class="dropdown-wrapper">
-        <div 
-        class="dropdown-button" 
-        (click)="onToggle()">
+        <div class="dropdown-button" (click)="onToggle()">
             <h4>Details</h4>
             <mat-icon class="text-light-grey !w-[14px] mr-[5px]" [svgIcon]="'line:arrow_down'"
                 [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></mat-icon>
@@ -63,35 +68,51 @@
         <div class="dropdown-table-wrapper" [ngClass]="toggleDropdown ? 'max-h-[520px]': 'max-h-[1px]'">
             <div class="dropdown-table" [ngClass]="toggleDropdown ? 'rounded': 'rounded-none'">
                 <div *ngIf="game?.updatedAt" class="row">
-                    <div><span>Updated</span></div>
+                    <div>
+                        <p>Updated</p>
+                    </div>
                     <div><span>{{game?.updatedAt | date: 'M.dd.yy h:mm'}}</span></div>
                 </div>
                 <div *ngIf="game?.updatedAt" class="row">
-                    <div><span>Published</span></div>
+                    <div>
+                        <p>Published</p>
+                    </div>
                     <div><span>{{game?.createdAt | creationTime }}</span></div>
                 </div>
                 <div *ngIf="game?.details?.status" class="row">
-                    <div><span>Status</span></div>
+                    <div>
+                        <p>Status</p>
+                    </div>
                     <div><span>{{game?.details?.status}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.platforms" class="row">
-                    <div><span>Platforms</span></div>
+                    <div>
+                        <p>Platforms</p>
+                    </div>
                     <div><span>{{game?.details?.platforms.join(', ')}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.madeWith" class="row">
-                    <div><span>Made with</span></div>
+                    <div>
+                        <p>Made with</p>
+                    </div>
                     <div><span>{{game?.details?.madeWith}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.session" class="row">
-                    <div><span>Session</span></div>
+                    <div>
+                        <p>Session</p>
+                    </div>
                     <div><span>{{game?.details?.session}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.languages" class="row">
-                    <div><span>Languages</span></div>
+                    <div>
+                        <p>Languages</p>
+                    </div>
                     <div><span>{{game?.details?.languages}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.inputs" class="row">
-                    <div><span>Inputs</span></div>
+                    <div>
+                        <p>Inputs</p>
+                    </div>
                     <div><span>{{game?.details?.inputs}}</span></div>
                 </div>
             </div>

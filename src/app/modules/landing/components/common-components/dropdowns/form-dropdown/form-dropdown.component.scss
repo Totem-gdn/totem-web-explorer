@@ -22,6 +22,8 @@
         }
         .mat-icon {
             width: 12px !important;
+            transition: transform .3s;
+            pointer-events: none;
         }
     }
     .menu {

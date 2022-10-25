@@ -18,6 +18,7 @@
           <div class="tags-section">
             <form-dropdown 
             (selectedTag)="onSelectTag($event)" 
+            (removeTag)="onRemoveTag($event)"
             (touched)="onTouchDropdown()" 
             [setItems]="setItems"
             [title]="'Add platforms'" 

@@ -41,19 +41,20 @@
           <div class="input-section" formArrayName="socialLinks">
 
             <ng-container [formArrayName]="i" *ngFor="let socialLink of socialLinksForm.controls; index as i">
-              <div class="social-link flex-wrap lg:flex-nowrap">
-                  <form-dropdown 
+              <div [formGroup]="socialLink" class="social-link flex-wrap lg:flex-nowrap">
+                  <form-dropdown
                   #dropdown
-                  @showInput 
-                  (selectedTag)="onSelectTag($event, i)" 
-                  class="!max-w-[180px] w-full mb-[15px] mr-[20px]" 
-                  [inputType]="'radio'" 
-                  [title]="'Select type'" 
+                  @showInput
+                  (selectedTag)="onSelectTag($event, i)"
+                  class="!max-w-[180px] w-full mb-[15px] mr-[20px]"
+                  [inputType]="'radio'"
+                  [title]="'Select type'"
+                  [setTitle]="socialLink.get('type')?.value"
                   [setItems]="setItems"
                   [items]="dropdownLinks"></form-dropdown>
 
                   <div @showInput class="flex w-full items-center">
-                    <input type="text" [formControlName]="1" (blur)="updateForm()">
+                    <input type="text" [formControlName]="'url'" (blur)="updateForm()">
                     <mat-icon class="trash-icon" [svgIcon]="'line:trash'" (click)="onRemoveLink(i)"></mat-icon>
                   </div>
               </div>

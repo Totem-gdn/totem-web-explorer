@@ -77,7 +77,18 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     this.checkTagsOverflow();
   }
 
-  onOver() {
+  onOver(e: any) {
+    const pos = e.target.getBoundingClientRect().x;
+    const width = e.target.offsetWidth;
+
+    if(window.innerWidth - 80 < pos + width) {
+      const tooltip = e.target.getElementsByClassName('tooltip');
+      tooltip[0].style.left = '0px';
+      console.log('overflowing')
+    } else {
+      const tooltip = e.target.getElementsByClassName('tooltip');
+      tooltip[0].style.left = '50%';
+    }
   }
 
   offset() {

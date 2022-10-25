@@ -1,6 +1,6 @@
 <div class="flex flex-col wrapper" (onResize)="onResize()">
     <div class="grid-container" #grid>
-        <div *ngFor="let propertie of properties" class="item-tag" (mouseover)="onOver()">
+        <div *ngFor="let propertie of properties" class="item-tag" (mouseover)="onOver($event)">
             <p class="line-1 text-lg title truncate !text-white">{{propertie.title}}</p>
             <div class="circle-wrapper !pt-[0]"><mat-icon class="circle" [svgIcon]="'solid:point'"></mat-icon></div>
 

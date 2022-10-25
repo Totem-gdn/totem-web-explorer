@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
+import { ConnectionsInfo, SocialLinksInfo } from '@app/core/models/submit-game-interface.model';
 import { Tag } from '@app/core/models/tag-interface.model';
 import { Subscription } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
@@ -24,7 +25,7 @@ interface SocialLink {
 
 export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
-  constructor(private formsService: FormsService) { }
+  constructor(private formsService: FormsService, private fb: FormBuilder) { }
 
   get webPageErrors() {
     const webPage = this.connectionsForm.get('webpage');
@@ -34,30 +35,31 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
-  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' },{ value: 'Instagram', url: 'https://instagram.com/' },]
+  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' }, { value: 'Instagram', url: 'https://instagram.com/' },]
   setItems!: any[];
   submitDisabled = true;
 
   sub!: Subscription;
 
   connectionsForm = new FormGroup({
-    webpage: new FormControl(null , Validators.required),
+    webpage: new FormControl(null, Validators.required),
     rendererUrl: new FormControl(null),
     videoUrl: new FormControl(null),
     socialLinks: new FormArray([
-      new FormArray([ new FormControl(), new FormControl('https://')])
+      // new FormArray([type: new FormControl(null), url: new FormControl('https://')])
+      new FormGroup({ type: new FormControl(null), url: new FormControl('https://') })
     ])
   })
   socialLinksForm = this.connectionsForm.get('socialLinks') as any;
 
   ngAfterViewInit() {
     this.retrieveValues();
-    this.updateForm();
+    // this.updateForm();
   }
 
   ngOnInit(): void {
     this.sub = this.formsService.tabsValidity$().subscribe(tabs => {
-      if(tabs.basicInfoValid && tabs.connectionsValid && tabs.detailsValid) {
+      if (tabs.basicInfoValid && tabs.connectionsValid && tabs.detailsValid) {
         this.submitDisabled = false;
       } else {
         this.submitDisabled = true;
@@ -71,7 +73,7 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onAddLink() {
-    this.socialLinksForm.push(new FormArray([ new FormControl(), new FormControl('https://')]));
+    this.socialLinksForm.push(new FormGroup({ type: new FormControl(null), url: new FormControl('https://') }));
     this.updateForm();
   }
 
@@ -80,14 +82,14 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     this.updateForm();
   }
 
-  onSelectTag(tag: Tag, i: any) {
-    console.log(tag.value)
+  onSelectTag(tag: Tag, index: any) {
     const url = this.urlByValue(tag.value);
-    const link = this.socialLinksForm.controls[i] as FormArray;
-    link.controls[0].patchValue(tag.value);
-    link.controls[1].patchValue(url);
-    console.log(link.controls[0].value)
-
+    if (this.socialLinksForm.controls[index]) {
+      this.socialLinksForm.controls[index]?.get('type')?.patchValue(tag.value);
+      this.socialLinksForm.controls[index]?.get('url')?.patchValue(url);
+    } else {
+      this.socialLinksForm.controls[index] = new FormGroup({ type: new FormControl(tag.value), url: new FormControl(url) })
+    }
     this.updateForm();
   }
 
@@ -100,13 +102,13 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   updateForm() {
-    let value = this.connectionsForm.value;
-    const socLinks = value.socialLinks?.map((item: any) => {
-      return item[1] == 'https://' ? undefined : item;
-    })
-    value.socialLinks = socLinks && socLinks[0] ? socLinks : [];
-    console.log(value);
-    this.formsService.saveForm('connections', value);
+    let form = this.connectionsForm.value;
+    let socLinksArr: any[] | undefined = (form.socialLinks as SocialLinksInfo[]).filter((link: SocialLinksInfo) => {
+      return link?.type !== null && link?.url !== 'https://'
+    });
+    form.socialLinks = socLinksArr;
+
+    this.formsService.saveForm('connections', form);
     this.isFormValid();
   }
 
@@ -120,17 +122,23 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
       videoUrl: values.videoUrl
     });
 
-    if (values?.socialLinks && values?.socialLinks.length) {
-      values?.socialLinks.forEach((link: any, index: any) => {
-        this.socialLinksForm.controls[index] = new FormArray([ new FormControl(link[0]), new FormControl(link[1])]);
-      });
+    for (let index = 0; index < values.socialLinks.length; index++) {
+      const link = values.socialLinks[index];
+      if (this.socialLinksForm.controls[index]) {
+        this.socialLinksForm.controls[index].get('type')?.patchValue(link?.type);
+        this.socialLinksForm.controls[index].get('url')?.patchValue(link?.url);
+      } else {
+        this.socialLinksForm.push(this.fb.group({
+          type: new FormControl(link?.type),
+          url: new FormControl(link?.url)
+        }));
+      }
     }
-
     this.updateForm();
   }
 
   isFormValid() {
-    if(this.connectionsForm.valid) {
+    if (this.connectionsForm.valid) {
       this.formsService.setFormValidity('connections', true);
     } else {
       this.formsService.setFormValidity('connections', false);

@@ -47,7 +47,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     transferForm = new FormGroup({
         address: new FormControl(null, Validators.required),
-        amount: new FormControl(null)
+        amount: new FormControl()
     })
 
     ngOnInit() {
@@ -69,10 +69,15 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     }
 
     async onClickMax() {
-        const value = this.selectedToken.value;
+        let value = this.selectedToken.value;
         this.transferForm.get('amount')?.patchValue(value);
         const estimate = await this.estimateGas(this.selectedToken.title, value);
-        console.log(estimate);
+
+        if(this.selectedToken.title == 'MATIC') {
+            if(!estimate) return;
+            value -= +estimate;
+        }
+        this.transferForm.get('amount')?.patchValue(value)
     }
 
     onClose() {
@@ -106,7 +111,6 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         }
         
         const matic = await this.web3Service.getBalance();
-        const usdc = await this.web3Service.getTokenBalance();
 
         if(!address || !amount) return;
         if (!matic || +matic <= 0) {
@@ -124,13 +128,15 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             })
         }
         if(this.selectedToken.title == 'MATIC') {
-            console.log('send matic')
-            this.paymentService.transferMatic(address, amount).then(res => {
+            const amountToSend = amount + this.gasFee;
+            this.paymentService.transferMatic(address, amountToSend).then(res => {
                 this.snackService.open('Succeess');
                 this.updateBalance();
-            }).catch(() => {
-                this.snackService.open('Error');
             })
+            // .catch(error => {
+            //     console.log('error', error);
+            //     this.snackService.open('Error');
+            // })
         }
     }
 
