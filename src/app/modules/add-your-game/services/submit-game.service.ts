@@ -33,6 +33,12 @@ export class SubmitGameService {
 
     })
   }
+  deleteGame(id: string) {
+    this.http.delete<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => {
+      console.log(data);
+
+    })
+  }
 
   componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilter?: string }, jsonFile?: File | null): Observable<any>[] {
     let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
