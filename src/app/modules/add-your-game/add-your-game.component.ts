@@ -85,11 +85,11 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       contacts: this.formsService.getForm('contacts'),
       connections:
       {
-        dnaFilter: {
+        dnaFilter: this.jsonFileToUpload ? {
           filename: this.jsonFileToUpload!.name,
           mimeType: this.jsonFileToUpload!.type,
           contentLength: this.jsonFileToUpload!.size,
-        },
+        } : undefined,
         ...this.formsService.getForm('connections')
       },
       images: this.imagesToSubmit,
