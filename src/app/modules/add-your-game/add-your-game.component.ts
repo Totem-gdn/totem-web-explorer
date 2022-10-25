@@ -50,6 +50,8 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       })
     )
     this.formsService.checkFormsValidity();
+    //this.submitGameService.approveGame('635809e9d11c69a425e5ee6d');
+    //this.submitGameService.deleteGame('6357bd4abdf86cafd8392b58');
   }
 
   ngOnDestroy(): void {

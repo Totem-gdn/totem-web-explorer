@@ -53,8 +53,7 @@
             demon!
             Support us on Kickstarter now!
         </p>
-        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">
-            {{game?.general?.description}}</p>
+        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">{{game?.general?.description}}</p>
     </div>
 
     <!-- Details -->
@@ -136,7 +135,7 @@
             </div>
         </div>
 
-        <totem-button class="pt-[20px]" [caption]="'Play'" [width]="'100%'"></totem-button>
+        <a class="w-full p-[0px] m-[0px] mt-[20px]" href="{{game.connections.webpage}}" target="_blank"><totem-button [caption]="'Play'" [width]="'100%'"></totem-button></a>
     </div>
 
 </div>
