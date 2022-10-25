@@ -34,8 +34,8 @@ export class GamesService {
     }
 
 
-    fetchGames() {
-        return this.http.get<any>(`${this.baseUrl}/games`).pipe(
+    updateGames(list = 'latest') {
+        return this.http.get<any>(`${this.baseUrl}/games?list=${list}`).pipe(
             take(1),
             tap(games => {
                 this.setGames = games;
@@ -48,4 +48,7 @@ export class GamesService {
         }));
     }
     
+    clearGames() {
+        this._games.next(null);
+    }
 }

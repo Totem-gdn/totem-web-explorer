@@ -1,44 +1,54 @@
-import { Component, Input, OnDestroy, } from '@angular/core';
-import { ItemParam } from '@app/core/models/item-param.model';
-import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { Component, EventEmitter, Input, OnDestroy, } from '@angular/core';
+import { GamesService } from '@app/core/services/assets/games.service';
 import { Gtag } from 'angular-gtag';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
   host: {
-      class: 'px-[20px] lg:pt-[40px]'
+    class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
   }
 })
 export class GamesComponent implements OnDestroy {
-  games!: any[];
+  games: any[] | undefined  | null;
+
   subs = new Subject<void>();
 
-  constructor(private itemsService: TotemItemsService, private gtag: Gtag) {
+  constructor(private gamesService: GamesService, private gtag: Gtag) {
     gtag.event('page_view');
   }
 
   ngOnInit(): void {
-    this.fetchGames();
-    this.filters$();
+    this.updateGames();
+    this.games$();
+    // this.filters$();
   }
 
-  filters$() {
-    this.itemsService.filters$.pipe(takeUntil(this.subs)).subscribe(filters => {
-      this.fetchGames(filters);
-    })
+  updateGames(filters: 'latest' | 'popular' = 'latest') {
+    this.gamesService.updateGames(filters)
+      .pipe(takeUntil(this.subs))
+      .subscribe(games => {
+        this.games = games;
+      })
   }
 
-  fetchGames(filters?: ItemParam[]) {
-    this.itemsService.getGames$(filters).pipe(takeUntil(this.subs)).subscribe(games => {
-      
-      this.games = games;
-    })
+  games$() {
+    this.gamesService.games$
+      .pipe(takeUntil(this.subs))
+      .subscribe(games => {
+        
+        this.games = games;
+      })
+  }
+
+  onSort(sortMethod: any) {
+    this.updateGames(sortMethod);
   }
 
   ngOnDestroy(): void {
     this.subs.next();
     this.subs.complete();
+    this.gamesService.clearGames();
   }
 }

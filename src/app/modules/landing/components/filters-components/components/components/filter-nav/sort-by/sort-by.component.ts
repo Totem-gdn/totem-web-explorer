@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FiltersService } from '@app/modules/landing/components/filters-components/services/filters.service';
 
 @Component({
@@ -11,8 +11,8 @@ export class SortByComponent {
   menuActive = false;
 
   @ViewChild('dropdown') dropdown!: ElementRef;
-
-  constructor(private filtersService: FiltersService) {}
+  @Output() sort = new EventEmitter<string>();
+  title = 'Sort by';
 
   onClickMenu (){
     this.menuActive = !this.menuActive;
@@ -25,6 +25,9 @@ export class SortByComponent {
   }
 
   onSort(option: string) {
-    this.filtersService.sort = option;
+    if(option == 'latest') this.title = 'Newest';
+    if(option == 'popular') this.title = 'Most Popular';
+
+    this.sort.emit(option);
   }
 }

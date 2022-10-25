@@ -31,25 +31,25 @@ export class GameInfoComponent implements OnInit, OnDestroy {
     games!: any[];
 
     ngOnInit() {
+        this.game$();
         this.route.paramMap
             .pipe(takeUntil(this.subs))
             .subscribe((params: ParamMap) => {
                 const id = params.get('id');
                 if (!id) return;
                 this.game = undefined;
-                this.gameService.updateGame(id).subscribe({
-                    next: game => {
-                        console.log('game', game);
-                        this.game = game;
-                    },
-                    error: error => {
-                        this.pageNotFound = true;
-                    }
-                });
+                this.gameService.updateGame(id).subscribe();
             })
 
-        this.gameService.fetchGames().subscribe(games => {
+        this.gameService.updateGames().subscribe(games => {
             this.games = games;
+        })
+    }
+
+    game$() {
+        this.gameService.game$.subscribe(game => {
+            console.log('game', game);
+            this.game = game;
         })
     }
 

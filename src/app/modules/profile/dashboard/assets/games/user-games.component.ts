@@ -8,29 +8,37 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-user-games',
   templateUrl: './user-games.component.html',
-  styleUrls: ['./user-games.component.scss']
+  styleUrls: ['./user-games.component.scss'],
+  // host: {
+  //   class: 'min-h-[calc(100vh-70px)]'
+  // }
 })
 export class UserGamesComponent {
-  games!: any[];
+  games!: any[] | undefined | null;
   subs = new Subject<void>();
 
-  constructor(private itemsService: TotemItemsService) {}
+  constructor(private gamesService: GamesService) {}
 
   ngOnInit(): void {
-    this.fetchGames();
-    this.filters$();
+    this.updateGames();
+    // this.filters$();
+    this.games$();
   }
 
-  filters$() {
-    this.itemsService.filters$.pipe(takeUntil(this.subs)).subscribe(filters => {
-      this.fetchGames(filters);
-    })
+  games$() {
+    this.gamesService.games$
+      .pipe(takeUntil(this.subs))
+      .subscribe(games => {
+        this.games = games;
+      })
   }
 
-  fetchGames(filters?: ItemParam[]) {
-    this.itemsService.getGames$(filters).pipe(takeUntil(this.subs)).subscribe(games => {
-      this.games = games;
-    })
+  updateGames(filters: 'latest' | 'popular' = 'latest') {
+    this.gamesService.updateGames(filters)
+      .pipe(takeUntil(this.subs))
+      .subscribe(games => {
+        this.games = games;
+      })
   }
 
   ngOnDestroy(): void {

@@ -9,7 +9,10 @@ import { AssetsService } from '@app/core/services/assets/assets.service';
 @Component({
   selector: 'app-user-avatars',
   templateUrl: './user-avatars.component.html',
-  styleUrls: ['./user-avatars.component.scss']
+  styleUrls: ['./user-avatars.component.scss'],
+  // host: {
+  //   class: 'pb-[60px]'
+  // }
 })
 export class UserAvatarsComponent implements OnInit, OnDestroy {
 
@@ -21,10 +24,10 @@ export class UserAvatarsComponent implements OnInit, OnDestroy {
   avatars!: any[] | null;
 
   async ngOnInit() {
-    this.getAssets();
+    this.updateAssets();
   }
 
-  getAssets() {
+  updateAssets() {
     this.assetsService.updateAssets('avatar', 1, 'my').subscribe();
     this.assetsService.avatars$
       .pipe(takeUntil(this.subs))
@@ -32,6 +35,7 @@ export class UserAvatarsComponent implements OnInit, OnDestroy {
         this.avatars = avatars;
       })
   }
+
   onLoadMore(page: number) {
     this.assetsService.updateAssets('avatar', page, 'my').subscribe();
   }

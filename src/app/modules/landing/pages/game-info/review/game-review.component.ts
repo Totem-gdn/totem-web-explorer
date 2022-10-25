@@ -42,6 +42,7 @@ export class GameReviewComponent implements OnInit {
         }
         if (!this.game.isLiked) {
             this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
+                console.log('Add Like')
                 this.gamesService.updateGame(this.game.id).subscribe();
             });
         } else {

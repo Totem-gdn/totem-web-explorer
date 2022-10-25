@@ -3,8 +3,7 @@
     [ngClass]="menuActive ? 'gradient-border-solid': ''">
 
         <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
-        <mat-icon class="pointer-events-none" *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
-        <mat-icon class="pointer-events-none" *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+        <mat-icon class="pointer-events-none" [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_down'"></mat-icon>
 
     </div>
 

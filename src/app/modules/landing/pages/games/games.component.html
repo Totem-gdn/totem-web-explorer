@@ -1,2 +1,2 @@
 
-<filter-components class="mt-0" [itemType]="'game'" [setItems]="games"></filter-components>
+<filter-components (sort)="onSort($event)" class="mt-0" [itemType]="'game'" [pushItems]="games"></filter-components>

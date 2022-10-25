@@ -8,13 +8,12 @@
 }
 
 .hl-image {
-    // transition: opacity .3s;
     transition: opacity .2s;
+    border: 1px solid $light-grey;
 }
 
 .tags {
     display: flex;
-    // text-indent
     flex-wrap: wrap;
     white-space: nowrap;
     column-gap: 6px;

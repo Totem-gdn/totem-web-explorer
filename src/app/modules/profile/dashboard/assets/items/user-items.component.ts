@@ -9,7 +9,10 @@ import { AssetsService } from '@app/core/services/assets/assets.service';
 @Component({
   selector: 'app-user-items',
   templateUrl: './user-items.component.html',
-  styleUrls: ['./user-items.component.scss']
+  styleUrls: ['./user-items.component.scss'],
+  // host: {
+  //   class: 'min-h-[calc(100vh-70px)]'
+  // }
 })
 export class UserItemsComponent implements OnInit {
 

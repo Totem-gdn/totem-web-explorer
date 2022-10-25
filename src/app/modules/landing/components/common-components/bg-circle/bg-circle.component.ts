@@ -15,18 +15,20 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular
 
 export class BackgroundCircleComponent implements AfterViewInit {
 
-    @Input() width = '100px';
-    @Input() background = 'green';
-    @Input() move = false;
+    @Input() width: string | null = null;
+    @Input() background: string | null = 'green';
+    @Input() move: string | null = null;
     @Input() delay = '0';
     @ViewChild('circle') circle!: ElementRef;
 
     ngAfterViewInit() {
         const circle = this.circle.nativeElement.style;
 
-        circle.width = this.width;
-        circle.height = this.width;
-        circle.background = this.background;
+        if(this.width) {
+            circle.width = this.width;
+            circle.height = this.width;
+        }
+        if(this.background) circle.background = this.background;
 
         if(this.move) {
             circle.animationDelay = this.delay;

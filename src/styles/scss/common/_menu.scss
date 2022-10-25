@@ -13,6 +13,10 @@
     cursor: pointer;
     transition: all 0.2s;
 
+    mat-icon {
+        transition: transform .3s;
+    }
+
     & .mat-icon {
         color: $white;
         height: 7px;

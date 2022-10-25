@@ -10,7 +10,7 @@ import { Subject, Subscription, take, takeUntil } from "rxjs";
   templateUrl: './items.component.html',
   styleUrls: ['./items.component.scss'],
   host: {
-    class: 'px-[20px] lg:pt-[40px]'
+    class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
   }
 })
 
@@ -24,10 +24,11 @@ export class ItemsComponent implements OnDestroy {
   items!: any[] | null;
 
   async ngOnInit() {
-    this.getAssets();
+    this.updateAssets();
+    this.assets$();
   }
 
-  getAssets() {
+  updateAssets() {
     this.assetsService.updateAssets('item', 1, 'newest').subscribe();
     this.assetsService.items$
       .pipe(takeUntil(this.subs))
@@ -35,6 +36,20 @@ export class ItemsComponent implements OnDestroy {
         this.items = items;
       })
   }
+
+  assets$() {
+    this.assetsService.items$
+      .pipe(takeUntil(this.subs))
+      .subscribe(items => {
+        
+        this.items = items;
+      })
+  }
+
+  onSort(sortMethod: any) {
+    this.assetsService.updateAssets('item', 1, sortMethod).subscribe();
+  }
+
   onLoadMore(page: number) {
     this.assetsService.updateAssets('item', page, 'newest').subscribe();
   }

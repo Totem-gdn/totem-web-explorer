@@ -12,7 +12,7 @@ export interface Items {
 const Items: Items[] = [
   {
   amountOfItems: 40,
-  price: 0,
+  price: 1,
   isInRange: false,
   },
   {
@@ -27,57 +27,97 @@ const Items: Items[] = [
   },
   {
   amountOfItems: 56,
+  price: 15,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
   price: 20,
   isInRange: false,
   },
   {
   amountOfItems: 50,
+  price: 25,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
   price: 30,
   isInRange: false,
   },
   {
-  amountOfItems: 50,
+  amountOfItems: 30,
+  price: 35,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 10,
   price: 40,
   isInRange: false,
   },
   {
-  amountOfItems: 30,
+  amountOfItems: 10,
+  price: 45,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 60,
   price: 50,
   isInRange: false,
   },
   {
-  amountOfItems: 30,
+  amountOfItems: 60,
+  price: 55,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 50,
   price: 60,
   isInRange: false,
   },
   {
-  amountOfItems: 10,
+  amountOfItems: 50,
+  price: 65,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 60,
   price: 70,
   isInRange: false,
   },
   {
-  amountOfItems: 10,
+  amountOfItems: 40,
+  price: 70,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 30,
+  price: 75,
+  isInRange: false,
+  },
+  {
+  amountOfItems: 20,
   price: 80,
   isInRange: false,
   },
   {
-  amountOfItems: 60,
+  amountOfItems: 15,
   price: 85,
   isInRange: false,
   },
   {
-  amountOfItems: 60,
+  amountOfItems: 40,
   price: 90,
   isInRange: false,
   },
   {
-  amountOfItems: 50,
+  amountOfItems: 30,
   price: 95,
   isInRange: false,
   },
   {
-  amountOfItems: 50,
-  price: 100,
+  amountOfItems: 10,
+  price: 99,
   isInRange: false,
   }
 ]
@@ -151,7 +191,7 @@ export class GraphSliderComponent implements OnDestroy, AfterViewInit {
     }
 
     checkRange() {
-        this.items.map((item: Items) => { item.price >= this.minValue && item.price <= this.maxValue ? item.isInRange = true : item.isInRange = false});
+        this.items.map((item: Items) => { item.price >= this.minValue && item.price <= (+this.maxValue + 1) ? item.isInRange = true : item.isInRange = false});
       }
 
     changeMinValue() {

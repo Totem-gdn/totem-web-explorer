@@ -21,6 +21,9 @@
 .opacity-transition {
     transition: opacity 0.4s ease-in-out;
 }
+.nav-item {
+    margin: 15px 15px 10px 0;
+}
 
 .rotate-x-180 {
     transform: rotateX(-180deg) !important;

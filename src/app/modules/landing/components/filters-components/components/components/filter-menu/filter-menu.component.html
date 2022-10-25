@@ -8,8 +8,7 @@
         <div class="menu-filter mb-3" (click)="onClickMenu()"
             [ngClass]="menuActive ? 'gradient-border-solid bg-grey': ''">
             <p>{{title}}</p>
-            <mat-icon *ngIf="menuActive === false" [svgIcon]="'line:arrow_down'"></mat-icon>
-            <mat-icon *ngIf="menuActive === true" [svgIcon]="'line:arrow_up'"></mat-icon>
+            <mat-icon [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_down'"></mat-icon>
         </div>
     
         <search-field  *ngIf="searchType === 'search'"></search-field>

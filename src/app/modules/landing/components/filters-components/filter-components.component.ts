@@ -1,7 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { TotemItemsService } from '@app/core/services/totem-items.service';
-import { FiltersService } from '@app/modules/landing/components/filters-components/services/filters.service';
-import { Subscription } from 'rxjs';
+import { ComboBoxService } from '@app/core/services/combobox-state.service';
 import { TagsService } from './services/tags.service';
 
 @Component({
@@ -11,16 +9,18 @@ import { TagsService } from './services/tags.service';
 
 export class FilterComponentsComponent implements OnDestroy {
 
-    constructor(private tagsService: TagsService) {}
+    constructor(private tagsService: TagsService, private comboBoxService: ComboBoxService) {}
 
     @Output() loadMore = new EventEmitter<number>();
+    @Output() sort = new EventEmitter<string>();
     @Input() itemType = 'item';
     @Input() showUpdate = true;
 
     @ViewChild('wrapper') wrapper!: ElementRef;
 
     @Input() set setItems(items: any[] | undefined | null) {
-        if(items == null) return;
+        // if(items == null) return;
+        console.log('set items')
         this.items = items;
         this.page = 1;
         this.showButton = false;
@@ -35,9 +35,20 @@ export class FilterComponentsComponent implements OnDestroy {
         this.page++;
     }
 
-    items!: any[];
+    items: any[] | undefined | null = undefined;
     showButton = true;
     page = 1;
+
+
+    onSort(sortMethod: any) {
+        this.sort.emit(sortMethod);
+        this.items = undefined;
+    }
+
+    selectGame(event: any) {
+      console.log(event);
+      this.comboBoxService.updateSelectedGame(event);
+    }
 
     onLoadMore() {    
         this.loadMore.emit(this.page); 

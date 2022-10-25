@@ -10,7 +10,7 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
     templateUrl: './avatars.component.html',
     styleUrls: ['./avatars.component.scss'],
     host: {
-        class: 'px-[20px] lg:pt-[40px]'
+        class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
     }
 })
 export class AvatarsComponent implements OnInit, OnDestroy {
@@ -23,10 +23,11 @@ export class AvatarsComponent implements OnInit, OnDestroy {
   avatars!: any[] | null;
 
   async ngOnInit() {
-    this.getAssets();
+    this.updateAssets();
+    this.assets$();
   }
 
-  getAssets() {
+  updateAssets() {
     this.assetsService.updateAssets('avatar', 1, 'newest').subscribe();
     this.assetsService.avatars$
       .pipe(takeUntil(this.subs))
@@ -34,6 +35,20 @@ export class AvatarsComponent implements OnInit, OnDestroy {
         this.avatars = avatars;
       })
   }
+
+  assets$() {
+    this.assetsService.avatars$
+      .pipe(takeUntil(this.subs))
+      .subscribe(avatars => {
+        
+        this.avatars = avatars;
+      })
+  }
+
+  onSort(sortMethod: any) {
+    this.assetsService.updateAssets('avatar', 1, sortMethod).subscribe();
+  }
+
   onLoadMore(page: number) {
     this.assetsService.updateAssets('avatar', page, 'newest').subscribe();
   }

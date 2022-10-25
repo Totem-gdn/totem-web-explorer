@@ -30,6 +30,7 @@ export class FavouritesService {
     }
     return this.http.patch<any>(`${this.baseUrl}/${apiRoute}/${itemId}/like`, {}).pipe(take(1));
   }
+  
 
   removeLike(itemType: string, itemId: string) {
     let apiRoute: string = '';
