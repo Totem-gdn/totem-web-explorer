@@ -1,0 +1,47 @@
+<div *ngIf="games && games.length && !(loading$ | async)" class="wrapper py-[30px] relative" fxLayout="column" fxLayoutAlign="start start">
+  <div class="w-full h-[24px] mb-[30px]" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="title">Games to approve:</div>
+    <div (click)="getGames()" class="cursor-pointer" fxLayout="row" fxLayoutAlign="flex-end center">
+      <p>Refresh</p>
+      <mat-icon class="ml-[10px]">refresh</mat-icon>
+    </div>
+
+  </div>
+
+  <div class="h-[60px] w-full px-[16px] mb-[10px] game-row" *ngFor="let game of games" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="w-full h-full" fxLayout="row" fxLayoutAlign="start center">
+      <div class="h-[40px] w-[40px] img-wrapper">
+        <img src="{{game.images.smallThumbnail}}" alt="{{game.general.name}}">
+      </div>
+      <p class="ml-[16px]">{{game.general.name}}</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="flex-end center">
+      <button matRipple class="cta-button" (click)="gameDetails(game.id)">View</button>
+      <button
+        matRipple
+        [disabled]="approveLoading$ | async"
+        class="cta-button ml-[16px]"
+        (click)="deleteGame(game.id)"
+        [ngStyle]="{'pointer-events': game.deleted ? 'none' : '', 'background-color': game.deleted ? '#ff6b66' : ''}"
+      >
+      {{game.deleted ? 'Deleted' : 'Delete'}}
+      </button>
+      <button
+        matRipple
+        [disabled]="approveLoading$ | async"
+        class="cta-button ml-[16px]"
+        (click)="approveGame(game.id)"
+        [ngStyle]="{'pointer-events': game.approved ? 'none' : '', 'background-color': game.approved ? '#16da20' : ''}"
+      >
+      {{game.approved ? 'Approved' : 'Approve'}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<p class="w-full h-[60vh] flex justify-center items-center" *ngIf="games && !games.length && !(loading$ | async)">No unlisted games found</p>
+
+<div *ngIf="(loading$ | async)" class="w-full h-[60vh] flex justify-center items-center">
+    <loading-spinner></loading-spinner>
+</div>
+
