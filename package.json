@@ -5,10 +5,10 @@
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
-    "dev-build-compress": "ng build && gzipper compress --verbose --output-file-format [filename].[compressExt].[ext] ./dist",
+    "dev-build-compress": "ng build && gzipper compress --verbose ./dist",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prod-build-compress": "ng build --configuration production && gzipper compress --verbose --output-file-format [filename].[compressExt].[ext] ./dist"
+    "prod-build-compress": "ng build --configuration production && gzipper compress --verbose ./dist"
   },
   "private": true,
   "dependencies": {
