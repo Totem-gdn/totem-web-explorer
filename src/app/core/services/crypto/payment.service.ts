@@ -86,35 +86,39 @@ export class PaymentService {
     };
 
     async transferMatic(address: string, amount: number) {
+        console.log('amountToSend',amount)
         const web3 = new Web3(this.web3.provider as any);
         const myWallet = await this.web3.getAccounts();
-        const amountToSend = web3.utils.toWei(amount.toString());
+
+        const gasPrice = await web3.eth.getGasPrice();
+        const gasLimit = await web3.eth.estimateGas({from: myWallet, to: address, gasPrice:  gasPrice});
+
+        const convertedAmount = web3.utils.toWei(amount.toString());
+        const amountToSend = +convertedAmount - (+gasPrice * gasLimit);
+        console.log(web3.utils.fromWei(amountToSend.toString()))
 
         const receipt = await web3.eth.sendTransaction({
           from: myWallet,
           to: address,
           value: amountToSend,
-          maxPriorityFeePerGas: "5000000000",
-          maxFeePerGas: "6000000000000",
+          gasPrice: gasPrice,
         });
         return receipt;
     }
     async estimateMaticGasFee(to: string, amount: number) {
-        console.log('amount', amount)
         if(!amount) return;
         const web3 = new Web3(this.web3.provider as any);
         const myWallet = await this.web3.getAccounts();
-        const amountToSend = web3.utils.toWei(amount.toString());
+        const gasPrice = await web3.eth.getGasPrice();
 
-        console.log('Amount to send')
-        const res = (await web3.eth.getBlock('latest')).gasLimit;
-        console.log('gas limit', res)
-        const gasPrice = await web3.eth.estimateGas({
+        const transactionReceipt = {
             from: myWallet,
             to: to,
-            // value: amountToSend
-        });
-        const gasFee = web3.utils.fromWei(gasPrice.toString());
+            gasPrice: gasPrice,
+        };
+        const gasLimit = await web3.eth.estimateGas(transactionReceipt);
+        const fee = gasLimit * +gasPrice;
+        const gasFee = web3.utils.fromWei(fee.toString());
         return gasFee;
     }
 

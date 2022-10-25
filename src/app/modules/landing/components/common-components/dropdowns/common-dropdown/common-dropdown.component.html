@@ -21,12 +21,12 @@
 
         <div #menuItems class="menu-items">
             <label class="menu-item" *ngFor="let item of _items">
-                <div class="flex items-center">
+                <div class="flex items-center grow">
                     <img *ngIf="item?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
                     <img *ngIf="item?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
-                    <div class="flex flex-col ml-[10px]">
+                    <div class="flex flex-col ml-[10px] grow">
                         <p class="truncate">{{item.title}}</p>
-                        <span class="truncate text-light-grey">{{item.value}}</span>
+                        <div class="relative flex h-[24px] mr-[5px] overflow-hidden"><span class="w-full absolute truncate text-light-grey">{{item.value}}</span></div>
                     </div>
                 </div>
                 <input class="min-w-[24px]" (change)="onChangeInput($event.target, item?.title)" value="{{item.value}}" [type]="'radio'" name="input">

@@ -10,6 +10,21 @@
   height: 100%;
 }
 
+.title {
+  margin-left: 42px;
+  margin-right: 24px;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    left: 0;
+    top: calc(50% - (18px / 2));
+    background-color: $yellow;
+  }
+}
+
 .spinner-wrapper {
   place-content: center center;
   align-items: center;
