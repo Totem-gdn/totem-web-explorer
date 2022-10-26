@@ -15,6 +15,7 @@ export class FilterComponentsComponent implements OnDestroy {
     @Output() sort = new EventEmitter<string>();
     @Input() itemType = 'item';
     @Input() showUpdate = true;
+    @Input() showSort = true;
 
     @ViewChild('wrapper') wrapper!: ElementRef;
 
@@ -38,6 +39,7 @@ export class FilterComponentsComponent implements OnDestroy {
     items: any[] | undefined | null = undefined;
     showButton = true;
     page = 1;
+
 
 
     onSort(sortMethod: any) {

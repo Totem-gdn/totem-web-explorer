@@ -65,11 +65,11 @@ bg-circle {
         .card-body {
           height: 259.16px;
         }
-        avatar-card {
+        asset-card {
           position: absolute;
           left: -26px;
           top: -85px;
-          transform: scale(0.75);
+          transform: scale(0.65);
           width: 100%;
         }
     }
@@ -87,11 +87,11 @@ bg-circle {
         .card-body {
           height: 336.92px;
         }
-        item-card {
+        asset-card {
           position: absolute;
-          left: 24px;
+          // left: 24px;
           top: -47px;
-          transform: scale(0.85);
+          transform: scale(0.75);
           width: 100%;
         }
     }

@@ -11,7 +11,7 @@
                     (onChange)="selectGame($event)"></search-dropdown>
             </div>
     
-            <sort-by (sort)="onSort($event)" class="nav-item !ml-auto !mr-0"></sort-by>
+            <sort-by *ngIf="showSort" (sort)="onSort($event)" class="nav-item !ml-auto !mr-0"></sort-by>
         </div>
     </div>
 
