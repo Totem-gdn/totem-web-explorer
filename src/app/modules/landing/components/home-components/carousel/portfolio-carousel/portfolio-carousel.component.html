@@ -2,12 +2,12 @@
     <div #slider class="slider">
         <ng-container *ngIf="_images">
             <div class="slide" *ngFor="let image of _images">
-                <img class="sm:h-[175px]" [src]="image" alt="slide" (click)="onClickImg(image)">
+                <img loading="lazy" class="sm:h-[175px]" [src]="image" alt="slide" (click)="onClickImg(image)">
             </div>
         </ng-container>
         <ng-container *ngIf="!_images">
             <div class="slide" *ngFor="let _ of [].constructor(10)">
-                <img src="assets/images/game-info/game_slide_top.png" alt="">
+                <img loading="lazy" src="assets/images/game-info/game_slide_top.png" alt="">
             </div>
         </ng-container>
     </div>

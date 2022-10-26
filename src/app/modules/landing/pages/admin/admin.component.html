@@ -11,7 +11,7 @@
   <div class="h-[60px] w-full px-[16px] mb-[10px] game-row" *ngFor="let game of games" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="w-full h-full" fxLayout="row" fxLayoutAlign="start center">
       <div class="h-[40px] w-[40px] img-wrapper">
-        <img src="{{game.images.smallThumbnail}}" alt="{{game.general.name}}">
+        <img loading="lazy" src="{{game.images.smallThumbnail}}" alt="{{game.general.name}}">
       </div>
       <p class="ml-[16px]">{{game.general.name}}</p>
     </div>

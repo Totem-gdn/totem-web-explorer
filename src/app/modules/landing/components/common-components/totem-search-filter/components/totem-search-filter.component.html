@@ -1,5 +1,5 @@
 <div class="search-filter">
-  <img class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
+  <img loading="lazy" class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
   <mat-icon *ngIf="searchInfo.value" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" class="close-icon" (click)="eraseInput()">close</mat-icon>
 
   <input class="search-filter-input" #searchInput type="text" id="filter" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search..">
@@ -68,7 +68,7 @@
         <div *ngIf="gamesArray | async as items; else noItems" class="items-wrapper">
           <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToGame(item.id)">
             <div class="item-prev-icon">
-              <img [src]="item?.images?.smallThumbnail" alt="icon">
+              <img loading="lazy" [src]="item?.images?.smallThumbnail" alt="icon">
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
               <div class="item-name">{{item?.general?.name}}</div>
