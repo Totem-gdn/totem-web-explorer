@@ -17,6 +17,7 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   aspectRatio: number = 0;
+  widthToResize: number = 0;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   tranformOptions: ImageTransform = {};
   rotateValue: number = 0;
@@ -33,8 +34,9 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log(this.data);
     this.loading$.next(true);
-    this.imageChangedEvent = this.data.file;
+    this.widthToResize = this.data.widthToResize;
     this.aspectRatio = this.data.aspectRatio;
+    this.imageChangedEvent = this.data.file;
     this.sliderGroup.get('tick')!.valueChanges.subscribe((x: number | null) => {
       console.log(x);
       this.scaleValue = x!;
