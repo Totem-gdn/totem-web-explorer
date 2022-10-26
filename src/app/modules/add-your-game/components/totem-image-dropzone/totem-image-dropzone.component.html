@@ -28,5 +28,5 @@
   </div>
 </div>
 <div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="imageUrl && selfFill">
-  <img class="uploaded-image" [src]="imageUrl || ''" alt="">
+  <img loading="lazy" class="uploaded-image" [src]="imageUrl || ''" alt="">
 </div>

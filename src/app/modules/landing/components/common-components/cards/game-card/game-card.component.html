@@ -2,7 +2,7 @@
 
 
     <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper !max-h-[calc(100%-175px)]">
-        <img [src]="game?.images?.cardThumbnail" alt="Not found">
+        <img loading="lazy" [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>
 
     <div *ngIf="!game?.images?.cardThumbnail" class="placeholder">

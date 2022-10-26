@@ -11,8 +11,8 @@
             <div class="flex flex-col lg:flex-row lg:flex-nowrap justify-center">
                 <!-- Main Image -->
                 <div class="img-wrapper gradient-border-solid m-auto lg:m-0">
-                    <img *ngIf="!_item?.tokenId" class="rounded" src="assets/images/statue.png" alt="">
-                    <img *ngIf="_item?.tokenId" class="rounded"
+                    <img loading="lazy" *ngIf="!_item?.tokenId" class="rounded" src="assets/images/statue.png" alt="">
+                    <img loading="lazy" *ngIf="_item?.tokenId" class="rounded"
                         [src]="'https://asset-renderer.totem-explorer.com/' + type + '/' + _item?.tokenId + '?width=500&height=500'"
                         alt="">
                 </div>
