@@ -1,8 +1,7 @@
 <div class="search-filter">
-  <img loading="lazy" class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
   <mat-icon *ngIf="searchInfo.value" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" class="close-icon" (click)="eraseInput()">close</mat-icon>
 
-  <input class="search-filter-input" #searchInput type="text" id="filter" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search..">
+  <input autocomplete="off" class="search-filter-input" #searchInput type="text" id="filter" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search..">
 
   <div class="totem-dropdown" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" *ngIf="dropdownOpened">
     <!-- Navigation -->
