@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { Animations } from '@app/core/animations/animations';
 import { ConnectionsInfo, SocialLinksInfo } from '@app/core/models/submit-game-interface.model';
 import { Tag } from '@app/core/models/tag-interface.model';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, map, merge, Subject, Subscription, takeUntil } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
 import { SubmitGameService } from '../../services/submit-game.service';
 
@@ -35,9 +35,16 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
-  dropdownLinks: any[] = [{ value: 'Twitter', url: 'https://twitter.com/' }, { value: 'Facebook', url: 'https://facebook.com/' }, { value: 'Discord', url: 'https://discrod.com/' }, { value: 'Instagram', url: 'https://instagram.com/' },]
+  dropdownLinks: any[] = [
+    { value: 'Twitter', url: 'https://twitter.com/' },
+    { value: 'Facebook', url: 'https://facebook.com/' },
+    { value: 'Discord', url: 'https://discord.com/' },
+    { value: 'Instagram', url: 'https://instagram.com/' },
+    { value: 'Other', url: 'https://' }
+  ]
   setItems!: any[];
   submitDisabled = true;
+  urlRegEx: RegExp = /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
 
   sub!: Subscription;
 
@@ -65,6 +72,31 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
         this.submitDisabled = true;
       }
     })
+  }
+
+  matchUrl(control: AbstractControl, index: number) {
+    if (control.get('url')!.value.includes('twitter.com')) {
+      this.socialLinksForm.controls[index]?.get('type').patchValue('Twitter');
+      this.updateForm();
+      return;
+    }
+    if (control.get('url')!.value.includes('facebook.com')) {
+      this.socialLinksForm.controls[index]?.get('type').patchValue('Facebook');
+      this.updateForm();
+      return;
+    }
+    if (control.get('url')!.value.includes('discord')) {
+      this.socialLinksForm.controls[index]?.get('type').patchValue('Discord');
+      this.updateForm();
+      return;
+    }
+    if (control.get('url')!.value.includes('instagram.com')) {
+      this.socialLinksForm.controls[index]?.get('type').patchValue('Instagram');
+      this.updateForm();
+      return;
+    }
+    this.socialLinksForm.controls[index]?.get('type').patchValue('Other');
+    this.updateForm();
   }
 
   submitGameInfo() {
@@ -98,13 +130,14 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     if (value === 'Facebook') return 'https://facebook.com/';
     if (value === 'Discord') return 'https://discord.com/';
     if (value === 'Instagram') return 'https://instagram.com/';
+    if (value === 'Other') return 'https://';
     return '';
   }
 
   updateForm() {
     let form = this.connectionsForm.value;
     let socLinksArr: any[] | undefined = (form.socialLinks as SocialLinksInfo[]).filter((link: SocialLinksInfo) => {
-      return link?.type !== null && link?.url !== 'https://'
+      return link?.type !== null && link?.url !== 'https://' && this.urlRegEx.test(link.url!);
     });
     form.socialLinks = socLinksArr;
 

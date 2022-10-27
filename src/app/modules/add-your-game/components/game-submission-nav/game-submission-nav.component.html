@@ -1,10 +1,10 @@
 <div class="submission-nav-wrapper">
   <div class="submission-nav mx-[0px] sm:mx-[25px]">
     <div class="nav-block" (click)="goToTab('basic-information')">
-      <a [ngClass]="activeTab === 'basic-information' ? 'active-tab': ''">Basic Information</a>
+      <a [ngClass]="activeTab === 'basic-information' ? 'active-tab': ''">General Information</a>
     </div>
     <div #detailsTab class="nav-block" (click)="goToTab('details')">
-      <a [ngClass]="activeTab === 'details' ? 'active-tab': ''">Details</a>
+      <a [ngClass]="activeTab === 'details' ? 'active-tab': ''">Artwork</a>
     </div>
     <div #linksTab class="nav-block" (click)="goToTab('links')">
       <a [ngClass]="activeTab === 'links' ? 'active-tab': ''">Links</a>

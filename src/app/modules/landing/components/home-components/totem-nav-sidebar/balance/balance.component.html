@@ -7,12 +7,12 @@
       <h4 *ngIf="mode == 'small'">Balance</h4>
       <div class="balance-preview" [ngStyle]="{'opacity': isDropdownOpened === true ? '0': '1'}">
         <div class="balance-info">
-          <div *ngIf="balanceFlag" @fade-in-out class="balance-info-item flex flex-row z-2">
+          <div [ngStyle]="{'opacity': balanceFlag ? '1' : '0'}" class="balance-info-item flex flex-row z-2">
             <img loading="lazy" src="assets/images/usdc.webp" alt="USDC">
             <p class="truncate balance-value ml-[8px]">{{tokenBalance | currencySuffix : 1}}</p>
             <span class="ml-[2px]">USDC</span>
           </div>
-          <div *ngIf="!balanceFlag" @fade-in-out class="balance-info-item flex flex-row z-2">
+          <div [ngStyle]="{'opacity': !balanceFlag ? '1' : '0'}" class="balance-info-item flex flex-row z-2">
             <img loading="lazy" src="assets/images/matic.webp" alt="MATIC">
             <p class="truncate balance-value ml-[8px]">{{maticBalance}}</p>
             <span class="ml-[2px]">MATIC</span>
@@ -55,6 +55,6 @@
       <button matRipple (click)="onSend()" class="w-full send-button" fxFlex="48%">Send</button>
       <totem-button class="w-full" fxFlex="48%" [disabled]="disableButton" [caption]="'Claim'" [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
     </div>
-      
+
   </div>
 </div>

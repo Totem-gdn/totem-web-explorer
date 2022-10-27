@@ -36,6 +36,7 @@
             align-items: flex-end;
             place-content: center center;
             min-width: 0;
+            transition: opacity 0.4s ease-in-out;
             span, p {
               font-weight: 400;
               font-size: 14px;
