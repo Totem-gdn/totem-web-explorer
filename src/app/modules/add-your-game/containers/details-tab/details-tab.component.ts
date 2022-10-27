@@ -188,12 +188,14 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   openCropper(image: any, type: string): Observable<string> {
     const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1;
+    const widthToResize: number = type == 'cover' ? 1400 : type == 'search' ? 100 : type == 'gallery' ? 1920 : 400;
     const options: MatDialogConfig = {
         disableClose: false,
         panelClass: dialogType,
         data: {
           file: image,
-          aspectRatio: aspectRation
+          aspectRatio: aspectRation,
+          widthToResize: widthToResize
         },
         autoFocus: false
     };

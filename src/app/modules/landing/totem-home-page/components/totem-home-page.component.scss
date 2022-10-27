@@ -310,7 +310,7 @@
         max-width: 740px;
         width: 100%;
         height: 760px;
-        right: -70px;
+        right: 0px;
         top: -64px;
         z-index: 1;
         animation: float 7s ease-in-out infinite;
@@ -326,26 +326,31 @@
         .img-1, .img-2 {
           position: absolute;
           top: 0;
-          right: 0;
-          //border: 1px solid $grey;
+          //right: 0;
+          right: -80px;
           max-width: 800px;
           width: 100%;
           height: auto;
-          //animation: float 7s ease-in-out infinite;
           z-index: 3;
         }
         @media (max-width: 1000px) {
-          //top: -60px;
           .img-1, .img-2 {
-            //max-width: 500px;
             max-width: 460px;
-            //min-width: 460px;
             min-width: 420px;
             right: -20px;
           }
         }
+        @media (max-width: 600px) {
+          height: 460px;
+          .img-1, .img-2 {
+            right: -80px;
+          }
+        }
         @media (max-width: 479px) {
           top: -85px;
+          .img-1, .img-2 {
+            right: -90px;
+          }
           .img-2 {
             -webkit-transform: scaleX(-1);
             transform: scaleX(-1);

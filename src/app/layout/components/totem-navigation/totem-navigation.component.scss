@@ -127,6 +127,11 @@
       height: 18px;
       width: auto;
     }
+    .search-icon {
+      width: 18px;
+      height: 18px;
+      color: $light-grey;
+    }
     @media (max-width: 767px) {
       display: flex;
     }

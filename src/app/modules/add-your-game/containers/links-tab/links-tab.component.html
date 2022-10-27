@@ -54,7 +54,7 @@
                   [items]="dropdownLinks"></form-dropdown>
 
                   <div @showInput class="flex w-full items-center">
-                    <input type="text" [formControlName]="'url'" (blur)="updateForm()">
+                    <input type="text" [formControlName]="'url'" (blur)="matchUrl(socialLink, i); updateForm()">
                     <mat-icon class="trash-icon" [svgIcon]="'line:trash'" (click)="onRemoveLink(i)"></mat-icon>
                   </div>
               </div>

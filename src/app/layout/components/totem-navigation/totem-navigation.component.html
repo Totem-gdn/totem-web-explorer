@@ -6,8 +6,8 @@
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
       <div class="logo-block">
-        <a href="/"><img class="hidden sm:block w-[130px]" src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
-        <a href="/"><img class="block sm:hidden w-[40px] h-[40px]" src="assets/icons/nav/logo-small.svg" alt="TOTEM"></a>
+        <a href="/"><img loading="lazy" class="hidden sm:block w-[130px]" src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
+        <a href="/"><img loading="lazy" class="block sm:hidden w-[40px] h-[40px]" src="assets/icons/nav/logo-small.svg" alt="TOTEM"></a>
       </div>
       <div class="search-block">
         <totem-search-filter></totem-search-filter>
@@ -28,12 +28,12 @@
         [caption]="'Generate'" (click)="navigateToBuy()"></totem-button>
       <!-- User -->
       <div class="profile-block cursor-pointer" (click)="isLoggedIn ? openSideProfile() : logIn()">
-        <img class="fake-profile-icon" *ngIf="!(currUser | async)?.profileImage && !(loading$ | async)"
+        <img loading="lazy" class="fake-profile-icon" *ngIf="!(currUser | async)?.profileImage && !(loading$ | async)"
           src="assets/icons/nav/account_circle.svg" alt="profile-icon">
         <div class="nav-loader" *ngIf="(loading$ | async)" fxLayout="column" fxLayoutAlign="center center">
           <loading-spinner></loading-spinner>
         </div>
-        <img *ngIf="(currUser | async)?.profileImage && !(loading$ | async)" [src]="(currUser | async)?.profileImage"
+        <img loading="lazy" *ngIf="(currUser | async)?.profileImage && !(loading$ | async)" [src]="(currUser | async)?.profileImage"
           alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
       </div>
     </div>
@@ -41,14 +41,14 @@
     <div class="tablet-menu">
       <!-- Search -->
       <div (click)="openSidefilter()" class="search-mobile">
-        <img class="search-icon" src="assets/icons/nav/search-icon.svg" alt="TOTEM">
+        <mat-icon [svgIcon]="'line:search'" class="search-icon"></mat-icon>
       </div>
       <!-- Button -->
       <totem-button class="pl-[20px] pr-[16px] sm:px-[30px]" [width]="'100px'" [height]="'46px'"
         [caption]="'Generate'" (click)="navigateToBuy()"></totem-button>
       <!-- Burger -->
       <div class="menu-button">
-        <img (click)="openSidenav()" src="assets/icons/Menu.svg" alt="menu">
+        <img loading="lazy" (click)="openSidenav()" src="assets/icons/Menu.svg" alt="menu">
       </div>
     </div>
 

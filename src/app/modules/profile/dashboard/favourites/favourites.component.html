@@ -2,7 +2,7 @@
   <div class="favourites-body w-full">
     <totem-profile-back-button class="back-button" [routeName]="'Favorites'"></totem-profile-back-button>
     <div class="banner-image">
-      <img [src]="user?.image || 'assets/images/banner.png'" alt="banner">
+      <img loading="lazy" [src]="user?.image || 'assets/images/banner.png'" alt="banner">
     </div>
     <div class="fav-nav-wrapper">
       <div class="fav-nav">

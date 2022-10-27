@@ -60,7 +60,16 @@
                 "input": "src/index.prod.html",
                 "output": "index.html"
               },
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "deleteOutputPath": true
             },
             "development": {
               "buildOptimizer": false,

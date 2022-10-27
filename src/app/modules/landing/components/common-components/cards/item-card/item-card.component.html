@@ -5,10 +5,10 @@
     </div>
 
     <div class="img-wrapper" *ngIf="item?.tokenId">
-        <img src="{{'https://asset-renderer.totem-explorer.com/item/' + (+item?.tokenId)}}" alt="">
+        <img loading="lazy" src="{{'https://asset-renderer.totem-explorer.com/item/' + (+item?.tokenId)}}" alt="">
     </div>
     <div class="img-wrapper" *ngIf="item?.id?.tokenId">
-        <img src="{{'https://asset-renderer.totem-explorer.com/item/' + (+item?.id?.tokenId)}}" alt="">
+        <img loading="lazy" src="{{'https://asset-renderer.totem-explorer.com/item/' + (+item?.id?.tokenId)}}" alt="">
     </div>
 
     <svg-sword

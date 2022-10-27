@@ -2,15 +2,15 @@
 
 
     <div *ngIf="!gem?.tokenId && !gem?.id?.tokenId" class="img-wrapper">
-        <img src="assets/images/avatar.png" alt="">
+        <img loading="lazy" src="assets/images/avatar.png" alt="">
     </div>
 
     <div *ngIf="gem?.tokenId" class="img-wrapper">
-        <img src="{{'https://asset-renderer.totem-explorer.com/gem/' + (+gem?.tokenId % 11 + 1)}}" alt="">
+        <img loading="lazy" src="{{'https://asset-renderer.totem-explorer.com/gem/' + (+gem?.tokenId % 11 + 1)}}" alt="">
         <!-- <mat-icon class="text-grey" [svgIcon]="'line:gem-place'"></mat-icon> -->
     </div>
     <div *ngIf="gem?.id?.tokenId" class="img-wrapper">
-        <img src="{{'https://asset-renderer.totem-explorer.com/gem/' + (+gem?.id?.tokenId % 11 + 1)}}" alt="">
+        <img loading="lazy" src="{{'https://asset-renderer.totem-explorer.com/gem/' + (+gem?.id?.tokenId % 11 + 1)}}" alt="">
         <!-- <mat-icon class="text-grey" [svgIcon]="'line:gem-place'"></mat-icon> -->
     </div>
 

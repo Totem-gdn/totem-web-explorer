@@ -35,7 +35,7 @@
             </a>
           </div>
           <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-            <a>
+            <a href="https://www.instagram.com/" target="_blank">
               <span class="icon-font-instagram"></span>
             </a>
             <!-- <img src="assets/images/Instagram.png" alt="icon"> -->
@@ -48,7 +48,7 @@
 
       <div fxFlex="32%" fxFlex.lt-md="32%" fxFlex.lt-sm="100%" class="totem-company-info" fxLayout="column" fxLayoutAlign="start">
         <div>
-          <a href="/"><img src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
+          <a href="/"><img loading="lazy" src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
         </div>
         <div class="company-description">
           Totem is an indie game development collective that unites creators and players around a universe of interconnected game experiences. Totem Web Explorer is developed and maintained by IT-Dimension with support and supervising from Totem Foundation. Totem Web Explorer is a third-party software, it is recommended for usage by Totem but is not a part of Totem's core infrastructure.
@@ -59,21 +59,21 @@
         <div class="totem-content w-full" fxLayout="row" fxLayoutAlign="space-between">
           <div fxLayout="column" fxLayoutAlign="start">
             <div class="title mb-[6px]">Explore</div>
-            <a routerLinkActive="active-route" routerLink="/items">Items</a>
-            <a routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
-            <a routerLinkActive="active-route" routerLink="/games">Games</a>
+            <a routerLinkActive="active-route" href="/items" routerLink="/items">Items</a>
+            <a routerLinkActive="active-route" href="/avatars" routerLink="/avatars">Avatars</a>
+            <a routerLinkActive="active-route" href="/games" routerLink="/games">Games</a>
           </div>
           <div fxLayout="column" fxLayoutAlign="start">
             <div class="title mb-[6px]">Account</div>
-            <a>Profile</a>
-            <a>Favorites</a>
-            <a>Settings</a>
+            <a routerLinkActive="active-route" routerLink="/profile">Profile</a>
+            <a routerLinkActive="active-route" routerLink="/profile/favorites">Favorites</a>
+            <a routerLinkActive="active-route" routerLink="/profile">Settings</a>
           </div>
           <div fxLayout="column" fxLayoutAlign="start">
             <div class="title mb-[6px]">Resources</div>
-            <a routerLink="/help">Help</a>
-            <a>Blog</a>
-            <a class="hidden-about">About</a>
+            <a routerLinkActive="active-route" routerLink="/help">Help</a>
+            <a routerLinkActive="active-route" routerLink="/terms-and-policy">Blog</a>
+            <a routerLinkActive="active-route" routerLink="/terms-and-policy" class="hidden-about">About</a>
           </div>
           <!-- <div class="visible-about">
             <div class="title marb-10">Company</div>
@@ -103,7 +103,7 @@
               </a>
             </div>
             <div class="contact-link" fxLayout="column" fxLayoutAlign="center center">
-              <a>
+              <a href="https://www.instagram.com/" target="_blank">
                 <span class="icon-font-instagram"></span>
               </a>
               <!-- <img src="assets/images/Instagram.png" alt="icon"> -->
@@ -120,8 +120,8 @@
       </div>
 
       <div class="co-links">
-        <a class="privacy-link">Privacy Policy</a>
-        <a class="terms-link">Terms of service</a>
+        <a routerLinkActive="active-route" routerLink="/terms-and-policy" class="privacy-link">Privacy Policy</a>
+        <a routerLinkActive="active-route" routerLink="/terms-and-policy" class="terms-link">Terms of service</a>
       </div>
 
     </div>
