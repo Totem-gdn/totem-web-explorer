@@ -60,7 +60,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
     this.balanceInterval = setInterval(()=>{
       this.balanceFlag = !this.balanceFlag;
-    }, 3000)
+    }, 3400)
 
     /* this.sub.add(
       this.web3Service.maticTransactionListener().subscribe((data: any) => {
