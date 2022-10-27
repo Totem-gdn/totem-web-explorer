@@ -12,9 +12,9 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
   selector: 'user-gems',
   templateUrl: './user-gems.component.html',
   styleUrls: ['./user-gems.component.scss'],
-  // host: {
-  //   class: 'min-h-[calc(100vh-70px)]'
-  // }
+  host: {
+    class: 'min-h-[calc(100vh-70px)]'
+  }
 })
 export class UserGemsComponent implements OnInit, OnDestroy {
 

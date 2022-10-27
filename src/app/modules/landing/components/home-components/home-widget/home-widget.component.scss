@@ -21,7 +21,7 @@ bg-circle {
 }
 
 .img-wrapper {
-    margin-top: auto;
+    // margin-top: auto;
     height: 336px;
     max-width: 400px;
     display: flex;
@@ -71,6 +71,11 @@ bg-circle {
           top: -85px;
           transform: scale(0.65);
           width: 100%;
+
+          @media screen and (max-width: 370px) {
+            transform: scale(0.4);
+            margin-top: 50px;
+          }
         }
     }
 
@@ -93,6 +98,11 @@ bg-circle {
           top: -47px;
           transform: scale(0.75);
           width: 100%;
+
+          @media screen and (max-width: 370px) {
+            transform: scale(0.5);
+            margin-top: 50px;
+          }
         }
     }
 

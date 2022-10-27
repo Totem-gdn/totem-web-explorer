@@ -19,13 +19,13 @@
     </div>
 
     <div class="flex grow justify-center h-[200px] max-w-[420px] pt-[20px] lg:pt-0">
-        <div class="mb-auto mt-[10px] lg:my-0 mr-auto lg:mr-[20px] z-12 min-w-[280px] lg:min-w-[auto]">
+        <div class="mb-auto mt-[10px] lg:my-0 mr-auto lg:mr-[20px] z-12 min-w-[240px] sm:min-w-[280px] lg:min-w-[auto]">
             <search-dropdown [alwaysOpen]="true" [title]="'Game Name'" (onFakeChange)="reselectGames($event)" (onChange)="selectGame($event)"></search-dropdown>
         </div>
     </div>
 
-    <div class="img-wrapper mt-[30px] xl:m-0">
-      <!-- <div [@hideFirstState]="gameChanged" class="img-card bottom-0 sm:bottom-auto">
+    <div class="img-wrapper xl:m-0">
+      <div [@hideFirstState]="gameChanged" class="img-card">
           <div class="img-1">
               <img [src]="testImgURL_1" alt="">
           </div>
@@ -33,15 +33,15 @@
               <img [src]="testImgURL_1" alt="">
           </div>
       </div>
-      <div [@hideSecondState]="gameChanged" class="img-card bottom-0 sm:bottom-auto">
+      <div [@hideSecondState]="gameChanged" class="img-card">
           <div class="img-1">
               <img [src]="testImgURL_2" alt="">
           </div>
           <div class="img-2 z-12">
               <img [src]="testImgURL_2" alt="">
           </div>
-      </div> -->
-      <div class="img-card sm:bottom-auto">
+      </div>
+      <div [@hideThirdState]="gameChanged" class="img-card">
         <div class="card-1">
           <!-- <ng-container *ngTemplateOutlet="cardTemplate; context: { cardInfo: cardsToShow[0] }"></ng-container> -->
           <asset-card [type]="'avatar'" [asset]="cardsToShow[0]"></asset-card>

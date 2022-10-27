@@ -16,7 +16,7 @@ import { Gtag } from 'angular-gtag';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   host: {
-    class: 'flex flex-auto w-full h-full'
+    class: 'flex flex-auto w-full h-full min-h-[calc(100vh-70px)]'
   }
 })
 export class ProfileComponent implements OnInit, OnDestroy {

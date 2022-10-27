@@ -2,14 +2,11 @@ import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 // import { Web3AuthCore } from "@web3auth/core";
 import { Web3Auth } from '@web3auth/modal';
-import { CHAIN_NAMESPACES, Maybe, SafeEventEmitterProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES, SafeEventEmitterProvider, WALLET_ADAPTERS } from "@web3auth/base";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
-import { getED25519Key } from "@toruslabs/openlogin-ed25519";
-import { getPublicCompressed } from "@toruslabs/eccrypto";
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
-import { AssetsABI } from "./abi/assetsABI";
 
 @Injectable({ providedIn: 'root' })
 
@@ -29,15 +26,27 @@ export class Web3AuthService {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
                 rpcTarget: "https://rpc-mumbai.maticvigil.com",
+                
             },
+            
         });
         const web3auth = this.web3auth;
-        // const metamaskAdapter = new MetamaskAdapter({
-        //     clientId: clientId,
-        //   });
-        // web3auth.configureAdapter(metamaskAdapter);
-        // await web3auth.init();
-        await web3auth.initModal();
+        await web3auth.initModal({
+            modalConfig: {
+                [WALLET_ADAPTERS.TORUS_EVM]: {
+                    label: 'torus-evm',
+                    // showOnDesktop: false,
+                    // showOnMobile: false,
+                    showOnModal: false
+                },
+                [WALLET_ADAPTERS.TORUS_SOLANA]: {
+                    label: 'torus-solana',
+                    // showOnDesktop: false,
+                    // showOnMobile: false,
+                    showOnModal: false,
+                }
+            }
+        });
 
         if (web3auth.provider) {
             this.provider = web3auth.provider;
