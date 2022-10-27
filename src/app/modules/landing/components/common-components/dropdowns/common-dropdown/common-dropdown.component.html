@@ -3,8 +3,8 @@
 
         <span *ngIf="!highlightedToken">{{title}}</span>
         <div *ngIf="highlightedToken" class="flex truncate">
-            <img class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
-            <img class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
+            <img loading="lazy" class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
+            <img loading="lazy" class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
             <div class="flex flex-col ml-[10px]">
                 <p class="text-white ">{{highlightedToken?.value}}</p>
                 <span *ngIf="highlightedToken?.title == 'MATIC'">MATIC Coin</span>
@@ -22,8 +22,8 @@
         <div #menuItems class="menu-items">
             <label class="menu-item" *ngFor="let item of _items">
                 <div class="flex items-center grow">
-                    <img *ngIf="item?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
-                    <img *ngIf="item?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
+                    <img loading="lazy" *ngIf="item?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
+                    <img loading="lazy" *ngIf="item?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
                     <div class="flex flex-col ml-[10px] grow">
                         <p class="truncate">{{item.title}}</p>
                         <div class="relative flex h-[24px] mr-[5px] overflow-hidden"><span class="w-full absolute truncate text-light-grey">{{item.value}}</span></div>

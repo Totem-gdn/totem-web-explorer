@@ -18,7 +18,7 @@
         <div *ngIf="!imageUrl" class="preview-placeholder" fxLayout="column" fxLayoutAlign="center center">
           <mat-icon [svgIcon]="'solid:no-image'"></mat-icon>
         </div>
-        <img *ngIf="imageUrl" [src]="imageUrl" alt="preview">
+        <img loading="lazy" *ngIf="imageUrl" [src]="imageUrl" alt="preview">
       </div>
       <div class="ml-[10px]" fxLayout="column" fxLayoutAlign="center start">
         <div class="game-name">

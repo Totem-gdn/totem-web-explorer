@@ -1,7 +1,7 @@
 <div class="card-body h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
   <div class="img-preview h-full w-full" fxLayout="column" fxLayoutAlign="center center">
     <mat-icon *ngIf="!imageUrl" [svgIcon]="'solid:no-image'"></mat-icon>
-    <img *ngIf="imageUrl" [src]="imageUrl" alt="preview">
+    <img loading="lazy" *ngIf="imageUrl" [src]="imageUrl" alt="preview">
   </div>
   <div class="info w-full px-[18px] py-[18px]" fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between center">

@@ -32,7 +32,7 @@
                             (blur)="estimateGas(selectedToken.title, selectedToken.value)">
 
                         <div *ngIf="selectedToken?.title" class="suffix">
-                            <img class="mr-[5px]" [src]="selectedToken?.title == 'MATIC' ? 'assets/images/matic.webp' : 'assets/images/usdc.webp'" alt=""> 
+                            <img loading="lazy" class="mr-[5px]" [src]="selectedToken?.title == 'MATIC' ? 'assets/images/matic.webp' : 'assets/images/usdc.webp'" alt=""> 
                             <p>{{selectedToken?.title}}</p>
                         </div>
 

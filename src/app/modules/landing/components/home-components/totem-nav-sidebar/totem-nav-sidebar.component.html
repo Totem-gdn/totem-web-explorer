@@ -18,7 +18,7 @@
       <ng-container *ngIf="userData; else unauthblock">
         <a class="user-image" fxLayout="column" fxLayoutAlign="center center"
         (click)="close()" routerLink="/profile">
-          <img [src]="userData.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
+          <img loading="lazy" [src]="userData.profileImage || 'assets/images/user-icon.png'" alt="user-icon">
         </a>
         <ng-container *ngIf="userData?.name?.length">
           <div class="user-name">

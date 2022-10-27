@@ -27,18 +27,18 @@
     <div class="img-wrapper xl:m-0">
       <div [@hideFirstState]="gameChanged" class="img-card">
           <div class="img-1">
-              <img [src]="testImgURL_1" alt="">
+              <img loading="lazy" [src]="testImgURL_1" alt="">
           </div>
           <div class="img-2 z-12">
-              <img [src]="testImgURL_1" alt="">
+              <img loading="lazy" [src]="testImgURL_1" alt="">
           </div>
       </div>
       <div [@hideSecondState]="gameChanged" class="img-card">
           <div class="img-1">
-              <img [src]="testImgURL_2" alt="">
+              <img loading="lazy" [src]="testImgURL_2" alt="">
           </div>
           <div class="img-2 z-12">
-              <img [src]="testImgURL_2" alt="">
+              <img loading="lazy" [src]="testImgURL_2" alt="">
           </div>
       </div>
       <div [@hideThirdState]="gameChanged" class="img-card">
@@ -59,7 +59,7 @@
   <div class="card-body h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
     <div class="img-preview h-full w-full" fxLayout="column" fxLayoutAlign="center center">
       <mat-icon *ngIf="!data.image" [svgIcon]="'solid:no-image'"></mat-icon>
-      <img *ngIf="data.image" [src]="data.image" alt="preview">
+      <img loading="lazy" *ngIf="data.image" [src]="data.image" alt="preview">
     </div>
     <div class="info w-full px-[18px] py-[18px]" fxLayout="column">
       <div fxLayout="row" fxLayoutAlign="space-between center">
