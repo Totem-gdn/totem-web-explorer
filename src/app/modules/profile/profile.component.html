@@ -5,11 +5,9 @@
       <totem-profile-navigation></totem-profile-navigation>
     </ng-container>
 
-    <div class="flex flex-col w-full p-[20px]">
-        <div class="h-full">
+    <div class="flex flex-col w-full p-[20px] min-h-[calc(100vh-70px)]">
             <router-outlet></router-outlet>
-        </div>
     </div>
 </div>
 
-<loading-spinner class="m-auto" *ngIf="loading$ | async"></loading-spinner>
+<totem-spinner class="m-auto flex items-center min-h-[calc(100vh-70px)]" *ngIf="loading$ | async"></totem-spinner>

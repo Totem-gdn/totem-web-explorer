@@ -10,11 +10,16 @@
     padding-right: 20px;
 
     .img-wrapper {
+        max-height: 390px;
+        // height: 100%;
+        display: flex;
         border-radius: 4px;
         background: $linear-glass;
         img {
             object-fit: cover;
-            height: auto;
+            border-radius: 4px;
+            min-height: 160px;
+            // height: 100%;
         }
     }
 }

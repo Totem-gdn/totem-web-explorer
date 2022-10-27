@@ -83,10 +83,11 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
     if(window.innerWidth - 80 < pos + width) {
       const tooltip = e.target.getElementsByClassName('tooltip');
+      if(!tooltip[0]) return;
       tooltip[0].style.left = '0px';
-      console.log('overflowing')
     } else {
       const tooltip = e.target.getElementsByClassName('tooltip');
+      if(!tooltip[0]) return;
       tooltip[0].style.left = '50%';
     }
   }
@@ -96,13 +97,15 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   checkTagsOverflow() {
     const tags = this.grid.nativeElement.getElementsByClassName('item-tag')
-    const tagWidth = tags[0].offsetWidth - 20;
+    const tagWidth = tags[4].getBoundingClientRect().width - 20;
 
     for (let tag of tags) {
-      if (tagWidth + 1 < tag.firstChild.scrollWidth) {
+      if (+tagWidth.toFixed(1) + 0.4 < +tag.firstChild.scrollWidth) {
+        if(!tag.children[1] || !tag.children[3]) return;
         tag.children[1].style.display = 'block'
         tag.children[3].style.display = 'flex'
       } else {
+        if(!tag.children[1] || !tag.children[3]) return;
         tag.children[1].style.display = 'none'
         tag.children[3].style.display = 'none'
       }
@@ -118,8 +121,6 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
       this.grid.nativeElement.style.maxHeight = '687px';
       this.toggle = false;
     }
-
-    // this.showViewAll = null;
   }
 
   ngAfterViewChecked(): void {

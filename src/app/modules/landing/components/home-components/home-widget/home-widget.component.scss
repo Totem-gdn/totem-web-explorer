@@ -21,7 +21,7 @@ bg-circle {
 }
 
 .img-wrapper {
-    margin-top: auto;
+    // margin-top: auto;
     height: 336px;
     max-width: 400px;
     display: flex;
@@ -65,12 +65,17 @@ bg-circle {
         .card-body {
           height: 259.16px;
         }
-        avatar-card {
+        asset-card {
           position: absolute;
           left: -26px;
           top: -85px;
-          transform: scale(0.75);
+          transform: scale(0.65);
           width: 100%;
+
+          @media screen and (max-width: 370px) {
+            transform: scale(0.4);
+            margin-top: 50px;
+          }
         }
     }
 
@@ -87,12 +92,17 @@ bg-circle {
         .card-body {
           height: 336.92px;
         }
-        item-card {
+        asset-card {
           position: absolute;
-          left: 24px;
+          // left: 24px;
           top: -47px;
-          transform: scale(0.85);
+          transform: scale(0.75);
           width: 100%;
+
+          @media screen and (max-width: 370px) {
+            transform: scale(0.5);
+            margin-top: 50px;
+          }
         }
     }
 
