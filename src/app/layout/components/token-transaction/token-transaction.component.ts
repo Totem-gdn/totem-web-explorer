@@ -128,7 +128,6 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
                   'event_label': 'USDC transaction has been sent',
                 });
                 this.updateBalance();
-                this.onClose();
             }).catch(() => {
                 this.snackService.open('Error')
             })
