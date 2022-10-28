@@ -3,6 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { ArraySlicePipe } from "@app/core/pipes/array-slice.pipe";
 import { ThousandSuffixPipe } from "@app/core/pipes/thousand-suffix.pipe";
+import { NgxMaskModule } from "ngx-mask";
 import { ClickOutsideDirective } from "./directives/click-outside.directive";
 import { DigitOnlyDirective } from "./directives/digit-only.directive";
 import { LongPressDirective } from "./directives/long-press.directive";
@@ -28,6 +29,7 @@ import { TimeCreationPipe } from "./pipes/creationTime.pipe";
     imports: [
         CommonModule,
         HttpClientModule,
+        NgxMaskModule.forRoot(),
     ],
     exports: [
         CommonModule,
@@ -40,7 +42,8 @@ import { TimeCreationPipe } from "./pipes/creationTime.pipe";
         DigitOnlyDirective,
         TimeCreationPipe,
         ArraySlicePipe,
-        ThousandSuffixPipe
+        ThousandSuffixPipe,
+        NgxMaskModule
     ]
 })
 
