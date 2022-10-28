@@ -29,8 +29,8 @@
       <div class="games-preview-block">
         <ng-particles [id]="id" [options]="particlesOptions" [particlesInit]="particlesInit"
         (particlesLoaded)="particlesLoaded($event)"></ng-particles>
-        <img loading="lazy" [@hideFirstState]="imgChange" class="img-1" src="../../../../../../assets/images/knight-image.webp" alt="knight-image">
-        <img loading="lazy" [@hideSecondState]="imgChange" class="img-2" src="../../../../../../assets/images/t-rex-image.webp" alt="t-rex-image">
+        <img [@hideFirstState]="imgChange" class="img-1" src="../../../../../../assets/images/knight-image.webp" alt="knight-image">
+        <img [@hideSecondState]="imgChange" class="img-2" src="../../../../../../assets/images/t-rex-image.webp" alt="t-rex-image">
       </div>
     </div>
 

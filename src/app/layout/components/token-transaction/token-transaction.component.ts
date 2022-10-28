@@ -5,6 +5,7 @@ import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
+import { Gtag } from "angular-gtag";
 import { Subscription, take, takeUntil, takeWhile } from "rxjs";
 import { TokenTransactionService } from "./token-transaction.service";
 
@@ -35,7 +36,8 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         private authService: UserStateService,
         private snackService: SnackNotifierService,
         private paymentService: PaymentService,
-        private showPopupService: TokenTransactionService) { }
+        private showPopupService: TokenTransactionService,
+        private gtag: Gtag) { }
 
     showPopup = true;
     sub!: Subscription;
@@ -82,7 +84,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     onClose() {
         this.showPopup = false;
-        
+
     }
 
     async estimateGas(tokenTitle: string, value: string) {
@@ -109,7 +111,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             this.addressValid = true;
             return;
         }
-        
+
         const matic = await this.web3Service.getBalance();
 
         if(!address || !amount) return;
@@ -122,7 +124,11 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         if(this.selectedToken.title =='USDC') {
             this.paymentService.sendUSDC(address, amount).then(res => {
                 this.snackService.open('Success');
+                this.gtag.event('send', {
+                  'event_label': 'USDC transaction has been sent',
+                });
                 this.updateBalance();
+                this.onClose();
             }).catch(() => {
                 this.snackService.open('Error')
             })
@@ -131,6 +137,9 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             const amountToSend = amount + this.gasFee;
             this.paymentService.transferMatic(address, amountToSend).then(res => {
                 this.snackService.open('Succeess');
+                this.gtag.event('send', {
+                  'event_label': 'MATIC transaction has been sent',
+                });
                 this.updateBalance();
             })
             // .catch(error => {

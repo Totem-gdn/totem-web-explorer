@@ -97,10 +97,10 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   checkTagsOverflow() {
     const tags = this.grid.nativeElement.getElementsByClassName('item-tag')
-    const tagWidth = tags[4].getBoundingClientRect().width - 20;
-
+    // const wrapperWidth = tags[0].firstChild.clientWidth;
+    // console.log(wrapperWidth, tags[0].firstChild.scrollWidth);
     for (let tag of tags) {
-      if (+tagWidth.toFixed(1) + 0.4 < +tag.firstChild.scrollWidth) {
+        if(+tag.firstChild.offsetWidth < +tag.firstChild.scrollWidth) {
         if(!tag.children[1] || !tag.children[3]) return;
         tag.children[1].style.display = 'block'
         tag.children[3].style.display = 'flex'
