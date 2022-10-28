@@ -247,7 +247,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       });
       return;
     }
-    this.gtag.event('click', {
+    this.gtag.event('buy token', {
       'event_label': 'Claim token',
     });
     this.openTxDialog({});
