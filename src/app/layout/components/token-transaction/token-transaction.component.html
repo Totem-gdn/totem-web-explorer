@@ -34,7 +34,7 @@
                             mask="{{maskForAmount}}"
                             (input)="onInputChange($event)" placeholder="0 Token"
                             (blur)="estimateGas(selectedToken.title, selectedToken.value)">
-
+                            <span @showMessage class="error-message" *ngIf="ammountError | async">You don't have enough tokens of this type.</span>
                         <div *ngIf="selectedToken?.title" class="suffix">
                           <div class="token-wrapper mr-[5px]">
                             <span [ngClass]="selectedToken?.title == 'MATIC' ? 'icon-font-MATIC' : 'icon-font-USDC'"></span>

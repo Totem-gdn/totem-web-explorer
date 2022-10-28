@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormControlStatus, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
-import { DECIMALS } from "@app/core/enums/decimals.enum";
+import { TOKEN } from "@app/core/enums/token.enum";
 import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { Gtag } from "angular-gtag";
-import { Subscription, takeWhile } from "rxjs";
+import { BehaviorSubject, max, Subscription, takeWhile } from "rxjs";
 import { TokenTransactionService } from "./token-transaction.service";
 
 
@@ -32,6 +32,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     }
     addressValid = true;
     maskForAmount: string = '';
+    ammountError: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(private txService: TokenTransactionService,
         private web3Service: Web3AuthService,
@@ -61,12 +62,20 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         })
     }
 
-    onSelectToken(e: any) {
-        console.log(console.log(e))
+    onSelectToken(e: { title: TOKEN, value: string }): void {
         this.selectedToken = e;
-        this.maskForAmount = e.title === 'USDC' ? `separator.${DECIMALS.USDC}` : `separator.${DECIMALS.MATIC}`;
         this.gasFee = undefined;
         this.transferForm.get('amount')?.patchValue(null);
+        this.transferForm.get('amount')?.setValidators(Validators.max(Number(e.value)))
+        this.transferForm.get('amount')?.statusChanges.subscribe((status: FormControlStatus) => {
+            this.ammountError.next(status === "INVALID" ? true : false)
+        })
+        this.setMaskForAmount(e.title);
+    }
+
+    private async setMaskForAmount(token: TOKEN) {
+        const decimals = await this.paymentService.getDecimals(token)
+        this.maskForAmount = `separator.${decimals}`; 
     }
 
     onInputChange(e: any) {
@@ -144,22 +153,15 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
                 });
                 this.updateBalance();
             })
-            // .catch(error => {
-            //     console.log('error', error);
-            //     this.snackService.open('Error');
-            // })
         }
     }
 
     updateBalance() {
         this.paymentService.updateBalance();
         this.sub = this.authService.currentUser.pipe(takeWhile(val => !val, true)).subscribe(user => {
-            console.log('user', user);
             if (user) {
                 this.web3Service.getBalance().then(balance => {
                     this.menuItems[1].value = balance;
-                    console.log(balance)
-                    console.log('menu items', this.menuItems);
                 });
                 this.web3Service.getTokenBalance().then(balance => {
                     this.menuItems[0].value = balance;
