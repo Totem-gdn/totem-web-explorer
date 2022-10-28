@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { TOKEN } from "@app/core/enums/token.enum";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { BehaviorSubject, map, take } from "rxjs";
@@ -55,7 +56,7 @@ export class PaymentService {
         return await this.web3.getBalance();
     }
 
-    async getUSDCBalance() {
+    async getUSDCBalance():Promise<string | undefined> {
         if (!this.web3.provider) return;
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
@@ -139,6 +140,18 @@ export class PaymentService {
         //   maxFeePerGas: "200000000000"
         })
         return tx;
+    }
+
+    async getDecimals(token: TOKEN): Promise<number> {
+        const web3 = new Web3(this.web3.provider as any);
+        const contract = new web3.eth.Contract(GetTokensABI, this.getContractAddress(token));
+        return await contract.methods.decimals().call();
+    }
+
+    private getContractAddress(token: TOKEN): string {
+        if (token === TOKEN.MATIC) return '0x0000000000000000000000000000000000001010'
+        if (token === TOKEN.USDC) return '0xB408CC68A12d7d379434E794880403393B64E44b'
+        return '';
     }
 
     async estimateUSDCGasFee(to: string, amount: string) {

@@ -32,7 +32,7 @@ export class CommonDropdownComponent {
     update() {
         console.log(this._items)
         for(let item of this._items) {
-            if(this.highlightedToken.title == item.title) {
+            if(this.highlightedToken?.title == item.title) {
                 console.log('item', item)
             }
         }
