@@ -17,7 +17,7 @@
         <div #menuItems class="menu-items">
             <div class="menu-item" *ngFor="let item of items; let i = index" [id]="'item' + i"
                 [ngClass]="alwaysOpen ? 'demo-border': ''">
-                <input (change)="onChangeInput($event)" value="{{item.name}}"
+                <input aria-label="item.name" (change)="onChangeInput($event)" value="{{item.name}}"
                     class="w-6 h-6 bg-transparent checked radio-game-selector" type="radio" name="input">
 
                 <div class="content">
