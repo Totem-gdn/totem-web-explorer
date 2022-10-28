@@ -27,7 +27,7 @@
                     </div>
                     <div class="relative"
                         [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
-                        <input formControlName="amount" class="!mb-0 amount-input" type="number"
+                        <input digitOnly formControlName="amount" class="!mb-0 amount-input" type="number"
                             (input)="onInputChange($event)" placeholder="0 Token"
                             (blur)="estimateGas(selectedToken.title, selectedToken.value)">
 
