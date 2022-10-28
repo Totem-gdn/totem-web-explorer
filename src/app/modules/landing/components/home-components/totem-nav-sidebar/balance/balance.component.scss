@@ -126,6 +126,26 @@
 
       .item {
 
+        .discord-token-wrapper {
+          height: 46px;
+          width: 46px;
+          background-color: $light-grey;
+          border-radius: 50%;
+          display: flex;
+          place-content: center;
+          align-items: center;
+          .icon-font-discord {
+            width: 24px;
+            height: auto;
+            color: $dark;
+            &::before {
+              width: inherit;
+              height: auto;
+              font-size: 24px;
+            }
+          }
+        }
+
         .token-wrapper {
           height: 46px;
           width: 46px;
