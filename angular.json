@@ -68,7 +68,7 @@
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": true,
-              "serviceWorker": true,
+              "serviceWorker": false,
               "deleteOutputPath": true
             },
             "development": {
