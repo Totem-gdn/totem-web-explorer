@@ -8,12 +8,20 @@
       <div class="balance-preview" [ngStyle]="{'opacity': isDropdownOpened === true ? '0': '1'}">
         <div class="balance-info">
           <div [ngStyle]="{'opacity': balanceFlag ? '1' : '0'}" class="balance-info-item flex flex-row z-2">
-            <img loading="lazy" src="assets/images/usdc.webp" alt="USDC">
+            <!-- <img loading="lazy" src="assets/images/usdc.webp" alt="USDC"> -->
+            <div class="token-wrapper">
+              <span class="icon-font-USDC"></span>
+              <span class="token-background"></span>
+            </div>
             <p class="truncate balance-value ml-[8px]">{{tokenBalance | currencySuffix : 1}}</p>
             <span class="ml-[2px]">USDC</span>
           </div>
           <div [ngStyle]="{'opacity': !balanceFlag ? '1' : '0'}" class="balance-info-item flex flex-row z-2">
-            <img loading="lazy" src="assets/images/matic.webp" alt="MATIC">
+            <!-- <img loading="lazy" src="assets/images/matic.webp" alt="MATIC"> -->
+            <div class="token-wrapper">
+              <span class="icon-font-MATIC"></span>
+              <span class="token-background"></span>
+            </div>
             <p class="truncate balance-value ml-[8px]">{{maticBalance}}</p>
             <span class="ml-[2px]">MATIC</span>
           </div>
@@ -25,7 +33,11 @@
   <div class="dropdown" #dropdown>
 
     <div class="item !pt-[25px]">
-      <img loading="lazy" src="assets/images/usdc.webp" alt="">
+      <div class="cursor-pointer token-wrapper mr-[20px]">
+        <span class="icon-font-USDC"></span>
+        <span class="token-background"></span>
+      </div>
+
       <div class="flex flex-col justify-between">
         <p>USDC</p>
         <span class="truncate text-light-grey">{{tokenBalance}}</span>
@@ -33,12 +45,13 @@
     </div>
 
     <div class="item">
-      <a class="cursor-pointer" href="https://mumbaifaucet.com/" target="_blank">
-        <img loading="lazy" src="assets/images/matic.webp" alt="">
+      <a class="cursor-pointer token-wrapper mr-[20px]" href="https://mumbaifaucet.com/" target="_blank">
+        <span class="icon-font-MATIC"></span>
+        <span class="token-background"></span>
       </a>
 
       <div class="flex flex-col justify-between">
-        <p>Matic</p>
+        <p>MATIC</p>
         <span class="truncate text-light-grey">{{maticBalance}}</span>
       </div>
     </div>

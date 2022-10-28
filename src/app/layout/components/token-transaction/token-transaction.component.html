@@ -4,41 +4,48 @@
         <div class="main-block-wrapper">
             <form class="main-block" [formGroup]="transferForm">
                 <section class="border-b border-dark-grey">
-                    <h3>Token</h3>
+                    <h4 class="marb-16-to-12">Token</h4>
 
-                    <common-dropdown class="mb-[15px]" [title]="'Select Token'" (selectedToken)="onSelectToken($event)"
+                    <common-dropdown class="marb-16-to-12" [title]="'Select Token'" (selectedToken)="onSelectToken($event)"
                         [items]="menuItems"></common-dropdown>
 
-                    <span>Select the token you want to send</span>
+                    <span class="padb-16-to-12">Select the token you want to send</span>
                 </section>
                 <section class="border-b border-dark-grey">
-                    <h3>To</h3>
+                    <h4 class="marb-16-to-12">To</h4>
                     <input formControlName="address" placeholder="Recipient address" type="text"
                         (blur)="isAddressValid()">
 
-                    <span>Write the address for the transfer</span>
+                    <span class="padb-16-to-12">Enter the address for the transfer</span>
                     <span @showMessage class="error-message" *ngIf="!addressValid">Incorrect address</span>
                 </section>
 
                 <section>
-                    <div class="flex justify-between items-center">
-                        <h3>Amount</h3>
-                        <span [ngClass]="selectedToken && !addressTouched && addressValid ? 'pointer-events-all !text-yellow': 'pointer-events-none text-light-grey'" class="transition-color cursor-pointer" (click)="onClickMax()">Max</span>
+                    <div class="flex justify-between items-center marb-16-to-12">
+                        <h4>Amount to send</h4>
+                        <span [ngClass]="selectedToken && !addressTouched && addressValid ? 'pointer-events-all !text-yellow': 'pointer-events-none text-light-grey'" class="max-button transition-color cursor-pointer" (click)="onClickMax()">MAX</span>
                     </div>
-                    <div class="relative mb-[15px]"
+                    <div class="relative"
                         [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
                         <input formControlName="amount" class="!mb-0 amount-input" type="number"
-                            (input)="onInputChange($event)" placeholder="0"
+                            (input)="onInputChange($event)" placeholder="0 Token"
                             (blur)="estimateGas(selectedToken.title, selectedToken.value)">
 
                         <div *ngIf="selectedToken?.title" class="suffix">
-                            <img loading="lazy" class="mr-[5px]" [src]="selectedToken?.title == 'MATIC' ? 'assets/images/matic.webp' : 'assets/images/usdc.webp'" alt=""> 
+                          <div class="token-wrapper mr-[5px]">
+                            <span [ngClass]="selectedToken?.title == 'MATIC' ? 'icon-font-MATIC' : 'icon-font-USDC'"></span>
+                            <span class="token-background"></span>
+                          </div>
+                            <!-- <img loading="lazy" class="mr-[5px]" [src]="selectedToken?.title == 'MATIC' ? 'assets/images/matic.webp' : 'assets/images/usdc.webp'" alt=""> -->
                             <p>{{selectedToken?.title}}</p>
                         </div>
 
-                        <span class="gas-fee">Gas fee: {{gasFee ? gasFee: '0'}} MATIC </span>
                     </div>
-                    <span class="!border-0">Write the number of tokens to transfer</span>
+                    <div @showGas *ngIf="gasFee" class="flex flex-row gas-fee-wrapper mt-[8px]">
+                      <mat-icon class="mr-[6px]" [svgIcon]="'line:info'"></mat-icon>
+                      <span class="gas-fee">Gas fee: {{gasFee ? gasFee: '0'}} MATIC </span>
+                    </div>
+                    <span class="!border-0 amount-caption mart-16-to-12 padb-16-to-12">Enter the number of tokens</span>
                 </section>
             </form>
         </div>

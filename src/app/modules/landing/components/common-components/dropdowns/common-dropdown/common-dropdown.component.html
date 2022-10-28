@@ -3,12 +3,16 @@
 
         <span *ngIf="!highlightedToken">{{title}}</span>
         <div *ngIf="highlightedToken" class="flex truncate">
-            <img loading="lazy" class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
-            <img loading="lazy" class="mt-[2px] !w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
-            <div class="flex flex-col ml-[10px]">
-                <p class="text-white ">{{highlightedToken?.value}}</p>
-                <span *ngIf="highlightedToken?.title == 'MATIC'">MATIC Coin</span>
-                <span *ngIf="highlightedToken?.title == 'USDC'">USD Coin</span>
+            <div class="token-wrapper">
+              <span [ngClass]="highlightedToken?.title == 'MATIC' ? 'icon-font-MATIC' : 'icon-font-USDC'"></span>
+              <span class="token-background"></span>
+            </div>
+            <!-- <img loading="lazy" class="!w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
+            <img loading="lazy" class="!w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'USDC'" src="assets/images/usdc.webp" alt=""> -->
+            <div class="flex flex-row ml-[10px] selected-token-info">
+                <p class="text-white truncate token-amount">{{highlightedToken?.value}}</p>
+                <span class="text-white ml-[4px]" *ngIf="highlightedToken?.title == 'MATIC'">MATIC</span>
+                <span class="text-white ml-[4px]" *ngIf="highlightedToken?.title == 'USDC'">USDC</span>
             </div>
         </div>
 
@@ -22,8 +26,12 @@
         <div #menuItems class="menu-items">
             <label class="menu-item" *ngFor="let item of _items">
                 <div class="flex items-center grow">
-                    <img loading="lazy" *ngIf="item?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
-                    <img loading="lazy" *ngIf="item?.title == 'USDC'" src="assets/images/usdc.webp" alt="">
+                    <div class="token-wrapper">
+                      <span [ngClass]="item?.title == 'MATIC' ? 'icon-font-MATIC' : 'icon-font-USDC'"></span>
+                      <span class="token-background"></span>
+                    </div>
+                    <!-- <img loading="lazy" *ngIf="item?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
+                    <img loading="lazy" *ngIf="item?.title == 'USDC'" src="assets/images/usdc.webp" alt=""> -->
                     <div class="flex flex-col ml-[10px] grow">
                         <p class="truncate">{{item.title}}</p>
                         <div class="relative flex h-[24px] mr-[5px] overflow-hidden"><span class="w-full absolute truncate text-light-grey">{{item.value}}</span></div>
