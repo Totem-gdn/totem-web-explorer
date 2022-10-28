@@ -9,10 +9,21 @@
   font-style: normal;
   font-display: block;
 }
+@font-face {
+  font-family: 'CustomTokenFontIcons';
+  src:  url('./token-font/CustomFontIcons.eot?e3py8b');
+  src:  url('./token-font/CustomFontIcons.eot?e3py8b#iefix') format('embedded-opentype'),
+    url('./token-font/CustomFontIcons.ttf?e3py8b') format('truetype'),
+    url('./token-font/CustomFontIcons.woff?e3py8b') format('woff'),
+    url('./token-font/CustomFontIcons.svg?e3py8b#CustomFontIcons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
 
 [class^="icon-font-"], [class*=" icon-font-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'CustomFontIcons' !important;
+  font-family: 'CustomFontIcons', 'CustomTokenFontIcons' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -66,4 +77,28 @@
 }
 .icon-font-checked:before {
   content: "\e90e";
+}
+.icon-font-USDC:before {
+  content: "\75";
+}
+.icon-font-MATIC:before {
+  content: "\6d";
+}
+
+.icon-font-USDC, .icon-font-MATIC {
+  display: flex;
+  place-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  &::before {
+    width: inherit;
+    height: inherit;
+  }
+}
+.icon-font-USDC {
+  color: #2775CA !important;
+}
+.icon-font-MATIC {
+  color: #8247E5 !important;
 }
