@@ -54,7 +54,6 @@ export class GameInfoComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        console.log('destroy')
         this.subs.next();
         this.subs.complete();
         this.gameService.setGame = null;

@@ -1,0 +1,37 @@
+<div class="dropdown" (clickOutside)="onClick($event)">
+    <div #menu class="dropdown-toggle" (click)="menuActive = !menuActive">
+
+        <span>{{title}}</span>
+        <mat-icon [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_up'"></mat-icon>
+
+    </div>
+
+    <div #dropdown class="menu w-[200px] sm:w-[300px]" [ngClass]="menuActive ? 'appear': ''">
+        <!-- Search -->
+        <div class="search">
+            <search-field (filteredGames)="onFilterGames($event)"></search-field>
+        </div>
+        <!-- Items -->
+        <div #menuItems class="menu-items">
+            <label class="menu-item" *ngFor="let item of items">
+                <div class="content">
+                    <div class="square"><img [src]="item?.img" alt=""></div>
+
+                    <div class="flex flex-col ml-[10px] grow">
+                        <div class="h-[24px] pr-[10px] relative overflow-hidden"><p class="truncate absolute w-full">{{item.name}}</p></div>
+                        <div class="h-[21px] pr-[10px] relative overflow-hidden"><span class="truncate absolute w-full">{{item.genres}}</span></div>
+                    </div>
+                </div>
+                <input class="min-w-[24px]" (change)="onChangeInput($event)" value="{{item.name}}"
+                    [type]="'radio'" name="input">
+            </label>
+        </div>
+        <!-- View All -->
+        <div class="view-all">
+            <div class="content" (click)="onClickViewAll()">
+                <span class="text-center">View all</span>
+                <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
+            </div>
+        </div>
+    </div>
+</div>
