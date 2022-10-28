@@ -17,6 +17,7 @@ export const AppRoutes: Route[] = [
       { path: 'games', loadChildren: () => import('@app/modules/landing/pages/games/games.module').then(m => m.GamesModule) },
       { path: 'buy', loadChildren: () => import('@app/modules/landing/pages/buy/buy.module').then(m => m.BuyModule)},
       { path: 'help', loadChildren: () => import('@app/modules/landing/pages/help/help.module').then(m => m.HelpModule)},
+      { path: 'terms-and-policy', loadChildren: () => import('@app/modules/landing/pages/terms-and-policy/terms-and-policy.module').then(m => m.TermsAndPolicyModule)},
       { path: 'profile', loadChildren: () => import('app/modules/profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },
 
       { path: 'submit-game', loadChildren: () => import('app/modules/add-your-game/add-your-game.module').then(m => m.AddYourGameModule), canActivate: [AuthGuard] },

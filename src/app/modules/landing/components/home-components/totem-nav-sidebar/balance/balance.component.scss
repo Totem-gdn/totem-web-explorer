@@ -1,4 +1,11 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/mail-font.scss';
+
+.icon-font-USDC, .icon-font-MATIC {
+  width: 46px;
+  height: 46px;
+  font-size: 46px;
+}
 
 .balance {
     width: 100%;
@@ -36,6 +43,31 @@
             align-items: flex-end;
             place-content: center center;
             min-width: 0;
+            transition: opacity 0.4s ease-in-out;
+
+            .token-wrapper {
+              height: 20px;
+              width: 20px;
+              position: relative;
+              .icon-font-USDC, .icon-font-MATIC {
+                height: 20px;
+                width: 20px;
+                font-size: 20px;
+                &::before {
+                  height: auto;
+                }
+              }
+              .token-background {
+                z-index: 1;
+                position: absolute;
+                top: 1px;
+                left: 1px;
+                width: 18px;
+                height: 18px;
+                background-color: #fff;
+                border-radius: 50%;
+              }
+            }
             span, p {
               font-weight: 400;
               font-size: 14px;
@@ -93,6 +125,22 @@
       }
 
       .item {
+
+        .token-wrapper {
+          height: 46px;
+          width: 46px;
+          position: relative;
+          .token-background {
+            z-index: 1;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+          }
+        }
 
         img {
           height: 46px;
