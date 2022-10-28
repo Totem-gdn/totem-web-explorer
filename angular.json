@@ -67,8 +67,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
-              "deleteOutputPath": true
+              "buildOptimizer": true
             },
             "development": {
               "buildOptimizer": false,
