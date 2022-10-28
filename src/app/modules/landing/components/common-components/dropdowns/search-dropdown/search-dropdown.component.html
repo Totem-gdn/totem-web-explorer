@@ -1,15 +1,14 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
     <div #menu class="menu-filter bg-grey" (click)="onClickMenu($event)"
-    [ngClass]="menuActive ? 'gradient-border-solid': ''">
+        [ngClass]="menuActive ? 'gradient-border-solid': ''">
 
         <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
-        <mat-icon class="pointer-events-none" [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_down'"></mat-icon>
+        <mat-icon class="pointer-events-none" [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_down'">
+        </mat-icon>
 
     </div>
 
-    <div #dropdown class="dropdown-menu w-[200px] lg:w-[300px]"
-        [ngClass]="menuActive ? 'appear': ''"
-        >
+    <div #dropdown class="dropdown-menu w-[200px] lg:w-[300px]" [ngClass]="menuActive ? 'appear': ''">
 
         <div class="search">
             <search-field></search-field>
@@ -17,8 +16,9 @@
 
         <div #menuItems class="menu-items">
             <div class="menu-item" *ngFor="let item of items; let i = index" [id]="'item' + i"
-            [ngClass]="alwaysOpen ? 'demo-border': ''">
-                <input (change)="onChangeInput($event)" value="{{item.name}}" class="w-6 h-6 bg-transparent checked radio-game-selector" type="radio" name="input">
+                [ngClass]="alwaysOpen ? 'demo-border': ''">
+                <input (change)="onChangeInput($event)" value="{{item.name}}"
+                    class="w-6 h-6 bg-transparent checked radio-game-selector" type="radio" name="input">
 
                 <div class="content">
                     <div class="p-2 w-9 h-9 img rounded item-gradient"></div>

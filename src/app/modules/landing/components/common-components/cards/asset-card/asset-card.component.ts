@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
+import { Gtag } from "angular-gtag";
 const { DNAParser } = require('totem-dna-parser');
 
 @Component({
@@ -16,7 +17,8 @@ export class AssetCardComponent {
   constructor(private router: Router,
     private web3Service: Web3AuthService,
     private messageService: SnackNotifierService,
-    private favService: FavouritesService) { }
+    private favService: FavouritesService,
+    private gtag: Gtag) { }
 
   @Input() set asset(asset: any) {
     this._asset = asset;
@@ -37,11 +39,15 @@ export class AssetCardComponent {
     this._asset.isLiked = !this._asset.isLiked;
     if (this._asset.isLiked) {
       this.favService.addLike(this.type, this._asset.id).subscribe(() => {
-
+        this.gtag.event('add like', {
+          'event_label': `add like for ${this.type} with id ${this._asset.id}`,
+        });
       });
     } else {
       this.favService.removeLike(this.type, this._asset.id).subscribe(() => {
-
+        this.gtag.event('remove like', {
+          'event_label': `remove like for ${this.type} with id ${this._asset.id}`,
+        });
       });
     }
   }

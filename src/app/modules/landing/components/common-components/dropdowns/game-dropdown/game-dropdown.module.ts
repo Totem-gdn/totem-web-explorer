@@ -1,24 +1,24 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "@app/shared/shared.module";
-import { SearchFieldComponent } from "./search-field.component";
+import { SearchFieldModule } from "../../search-field/search-field.module";
+import { GameDropdownComponent } from "./game-dropdown.component";
 
 
 @NgModule({
     declarations: [
-        SearchFieldComponent
+        GameDropdownComponent
     ],
     imports: [
         SharedModule,
         MatIconModule,
-        FormsModule,
+        SearchFieldModule
     ],
     exports: [
-        SearchFieldComponent
+        GameDropdownComponent
     ]
 })
 
-export class SearchFieldModule {
-    
+export class GameDropdownModule {
+
 }

@@ -7,8 +7,7 @@
                 <filter-slider class="nav-item lg:w-[320px] lg:!hidden"></filter-slider>
                 <clear-all class="nav-item lg:w-[320px] lg:!block !hidden"></clear-all>
     
-                <search-dropdown *ngIf="itemType != 'game'" class="nav-item" [title]="'Game name'"
-                    (onChange)="selectGame($event)"></search-dropdown>
+                <game-dropdown *ngIf="itemType != 'game'" class="nav-item" [title]="'Game name'"></game-dropdown>
             </div>
     
             <sort-by *ngIf="showSort" (sort)="onSort($event)" class="nav-item !ml-auto !mr-0"></sort-by>

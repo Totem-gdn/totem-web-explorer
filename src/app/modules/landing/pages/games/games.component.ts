@@ -22,7 +22,6 @@ export class GamesComponent implements OnDestroy {
   ngOnInit(): void {
     this.updateGames();
     this.games$();
-    // this.filters$();
   }
 
   updateGames(filters: 'latest' | 'popular' = 'latest') {

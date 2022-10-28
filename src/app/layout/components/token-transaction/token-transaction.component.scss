@@ -1,4 +1,5 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/mail-font.scss';
 
 .overlay {
     position: fixed;
@@ -11,6 +12,8 @@
     backdrop-filter: blur(20px);
     z-index: 100;
 }
+
+
 
 .wrapper {
     margin: auto;
@@ -36,16 +39,26 @@
             section {
                 display: flex;
                 flex-direction: column;
-                h3 {
-                    margin-bottom: 15px;
-                }
 
                 span {
                     color: $light-grey;
-                    padding-bottom: 15px;
+                }
+
+                .amount-caption {
+                    padding-bottom: 0px;
                 }
             }
         }
+    }
+    @media (max-width: 475px) {
+      padding: 10px;
+      max-width: 86vw;
+      .main-block-wrapper {
+        padding: 10px;
+        .main-block {
+          padding: 20px 10px;
+        }
+      }
     }
 }
 
@@ -70,7 +83,7 @@
     align-items: center;
     color: $light-grey;
     right: 0;
-    margin-top: 10px;
+    margin-top: 8px;
     margin-right: 10px;
     top: 0;
     & img {
@@ -78,19 +91,34 @@
         height: 20px !important;
     }
 }
+
+.gas-fee-wrapper {
+  align-items: center;
+  place-content: center start;
+  mat-icon {
+    color: $light-grey;
+    font-size: 17px;
+    width: 17px;
+    height: 17px;
+  }
+
+}
+
 .gas-fee {
     pointer-events: none;
-    position: absolute;
+    color: #fff !important;
+    /* position: absolute;
     bottom: 0;
-    left: 0;
-    padding-left: 10px;
+    left: 0; */
+    //padding-left: 10px;
     // padding-bottom: 0 !important;
     border: 0 !important;
-    padding-bottom: 8px !important;
+    //padding-bottom: 8px !important;
+    padding-bottom: 0px !important;
 }
 .amount-input {
-    padding-bottom: 30px;
-    padding-top: 10px;
+    /* padding-bottom: 10px;
+    padding-top: 10px; */
     padding-right: 90px;
 }
 input {
@@ -125,8 +153,8 @@ input {
 .buttons {
     gap: 20px;
     display: flex;
-    margin-top: 30px;
-    margin-bottom: 40px;
+    margin-top: 32px;
+    margin-bottom: 16px;
     justify-content: center;
     button {
         border-radius: 4px;
@@ -138,6 +166,9 @@ input {
         transition: background-color .3s, color .3s;
         color: white;
         justify-content: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
         &:hover {
             background-color: $yellow;
             font-weight: 700;
@@ -157,6 +188,12 @@ input {
             font-weight: 500;
         }
     }
+
+    @media (max-width: 475px) {
+      padding: 0px 14px;
+      margin-top: 24px;
+      margin-bottom: 14px;
+    }
 }
 .invalid-input {
     border: 1px solid #FF5252;
@@ -173,3 +210,49 @@ input {
     transition: color .3s;
 }
 
+.max-button {
+  padding: 4px 5px !important;
+  background-color: $grey;
+  border-radius: 4px;
+}
+
+.token-wrapper {
+  width: 20px !important;
+  height: 20px !important;
+  position: relative;
+  .token-background {
+    z-index: 1;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 18px;
+    height: 18px;
+    background-color: #fff !important;
+    border-radius: 50%;
+  }
+}
+.icon-font-USDC, .icon-font-MATIC {
+  width: 20px !important;
+  height: 20px !important;
+  font-size: 20px !important;
+  padding-bottom: 0px !important;
+}
+
+.mart-16-to-12 {
+  margin-top: 16px;
+  @media (max-width: 475px) {
+    margin-top: 12px;
+  }
+}
+.marb-16-to-12 {
+  margin-bottom: 16px;
+  @media (max-width: 475px) {
+    margin-bottom: 12px;
+  }
+}
+.padb-16-to-12 {
+  padding-bottom: 16px;
+  @media (max-width: 475px) {
+    padding-bottom: 12px;
+  }
+}

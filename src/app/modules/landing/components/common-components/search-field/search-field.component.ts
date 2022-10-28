@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
 import { BehaviorSubject, of, switchMap } from "rxjs";
@@ -17,6 +17,7 @@ export class SearchFieldComponent implements OnInit {
     }
     @Input() itemType: string = '';
     @ViewChild('searchInput') searchInput!: ElementRef;
+    @Output() search = new EventEmitter<any>();
     
     items: any[] = [];
     itemsArray = new BehaviorSubject<any[] | null>(null);
@@ -25,6 +26,9 @@ export class SearchFieldComponent implements OnInit {
     searchActive = false;
     searchInfo = new FormControl('');
 
+    onChangeInput(e: any) {
+      console.log(e);
+    }
 
     ngOnInit(): void {
         // setInterval(() => {

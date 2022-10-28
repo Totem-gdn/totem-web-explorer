@@ -13,7 +13,6 @@ export class GamesService {
     }
 
     private _games = new BehaviorSubject<any[] | null>(null);
-
     private _game = new BehaviorSubject<any | null>(null);
 
     get games() {
