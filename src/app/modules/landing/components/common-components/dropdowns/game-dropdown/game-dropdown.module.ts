@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "@app/shared/shared.module";
 import { SearchFieldModule } from "../../search-field/search-field.module";
+import { TotemSpinnerModule } from "../../totem-spinner/totem-spinner.module";
 import { GameDropdownComponent } from "./game-dropdown.component";
 
 
@@ -12,7 +13,8 @@ import { GameDropdownComponent } from "./game-dropdown.component";
     imports: [
         SharedModule,
         MatIconModule,
-        SearchFieldModule
+        SearchFieldModule,
+        TotemSpinnerModule
     ],
     exports: [
         GameDropdownComponent

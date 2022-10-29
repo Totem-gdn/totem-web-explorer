@@ -25,28 +25,29 @@ export class Web3AuthService {
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
-                rpcTarget: "https://rpc-mumbai.maticvigil.com",
-                
+                rpcTarget: "https://rpc-mumbai.maticvigil.com",       
             },
             
         });
         const web3auth = this.web3auth;
-        await web3auth.initModal({
-            modalConfig: {
-                [WALLET_ADAPTERS.TORUS_EVM]: {
-                    label: 'torus-evm',
-                    // showOnDesktop: false,
-                    // showOnMobile: false,
-                    showOnModal: false
-                },
-                [WALLET_ADAPTERS.TORUS_SOLANA]: {
-                    label: 'torus-solana',
-                    // showOnDesktop: false,
-                    // showOnMobile: false,
-                    showOnModal: false,
-                }
-            }
-        });
+        await web3auth.initModal(
+        //     {
+        //     modalConfig: {
+        //         [WALLET_ADAPTERS.TORUS_EVM]: {
+        //             label: 'torus-evm',
+        //             // showOnDesktop: false,
+        //             // showOnMobile: false,
+        //             showOnModal: false
+        //         },
+        //         [WALLET_ADAPTERS.TORUS_SOLANA]: {
+        //             label: 'torus-solana',
+        //             // showOnDesktop: false,
+        //             // showOnMobile: false,
+        //             showOnModal: false,
+        //         }
+        //     }
+        // }
+        );
 
         if (web3auth.provider) {
             this.provider = web3auth.provider;

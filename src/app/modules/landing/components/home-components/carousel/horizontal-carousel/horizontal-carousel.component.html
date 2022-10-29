@@ -7,8 +7,7 @@
     </div>
 
     <div class="mb-7" *ngIf="menuTitle">
-      <game-dropdown [title]="menuTitle" [type]="itemType" (changeInput)="selectGame($event)"></game-dropdown>
-      <!-- <search-dropdown [title]="menuTitle" [itemType]="itemType" (onChange)="selectGame($event)"></search-dropdown> -->
+      <game-dropdown [title]="menuTitle" [type]="itemType"></game-dropdown>
     </div>
 
     <div class="ml-auto mb-7 hidden lg:flex">

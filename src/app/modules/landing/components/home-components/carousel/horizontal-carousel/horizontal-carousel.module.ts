@@ -19,7 +19,6 @@ import { HorizontalCarouselComponent } from "./horizontal-carousel.component";
         ArrowsModule,
         MatIconModule,
         CardsModule,
-        SearchDropdownModule,
         GameDropdownModule,
         
         SwiperModule,

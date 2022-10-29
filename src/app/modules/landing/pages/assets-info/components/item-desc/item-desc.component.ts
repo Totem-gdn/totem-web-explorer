@@ -66,7 +66,7 @@ export class ItemDescComponent implements OnInit {
   }
 
   walletCopied() {
-    this.messageService.open('Copied');
+    this.messageService.open('Copied to the clipboard');
   }
 
   onClickBuy() {

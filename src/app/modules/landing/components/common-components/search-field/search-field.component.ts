@@ -16,18 +16,23 @@ export class SearchFieldComponent implements OnInit {
 
     }
     @Input() itemType: string = '';
+    @Input() set reset(reset:any) {
+      this.searchControl.patchValue('');
+      this.onChangeInput('');
+    }
     @ViewChild('searchInput') searchInput!: ElementRef;
-    @Output() search = new EventEmitter<any>();
+    @Output() filter = new EventEmitter<any>();
     
     items: any[] = [];
     itemsArray = new BehaviorSubject<any[] | null>(null);
+    searchControl = new FormControl('');
 
     menuActive: boolean = false;
     searchActive = false;
     searchInfo = new FormControl('');
 
     onChangeInput(e: any) {
-      console.log(e);
+      this.filter.emit(e);
     }
 
     ngOnInit(): void {

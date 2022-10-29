@@ -126,18 +126,18 @@ export class PaymentService {
         if (!this.web3.provider) return;
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
-
+        
         const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
         const wallet = accounts[0];
         console.log('account', wallet);
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
-
+        
         const tx = await contract.methods.claim().send({
           from: wallet,
         //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
         //   maxFeePerGas: "200000000000"
-        })
+        });
         return tx;
     }
 
@@ -148,9 +148,11 @@ export class PaymentService {
         const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
+        const gasPrice = await web3.eth.getGasPrice();
 
-        const gasPrice = await contract.methods.transfer(to, amount).estimateGas({from: wallet});
-        const gasFee = web3.utils.fromWei(gasPrice.toString());
+        const gasLimit = await contract.methods.transfer(to, amount).estimateGas({from: wallet});
+        const fee = gasLimit * +gasPrice;
+        const gasFee = web3.utils.fromWei(fee.toString());
         return gasFee;
     }
 

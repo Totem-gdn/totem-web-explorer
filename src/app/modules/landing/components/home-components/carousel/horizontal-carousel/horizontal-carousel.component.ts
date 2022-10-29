@@ -92,12 +92,6 @@ export class HorizontalCarouselComponent implements AfterViewInit {
       }, 350)
     }
 
-    selectGame(event: any) {
-      console.log(event);
-
-      this.comboBoxService.updateSelectedGame(event);
-    }
-
     onClickRight() {
         this.swiper!.slideNext();
     }

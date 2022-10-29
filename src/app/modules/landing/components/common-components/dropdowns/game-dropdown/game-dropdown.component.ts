@@ -1,7 +1,9 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { GamesService } from "@app/core/services/assets/games.service";
+import { ComboBoxService } from "@app/core/services/combobox-state.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
-import { Subject } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 
 @Component({
@@ -10,54 +12,73 @@ import { Subject } from "rxjs";
     styleUrls: ['./game-dropdown.component.scss']
 })
 
-export class GameDropdownComponent implements OnDestroy, OnInit {
+export class GameDropdownComponent implements OnDestroy, AfterViewInit {
 
     constructor(private router: Router,
-                private itemsService: TotemItemsService) {}
+        private gamesService: GamesService,
+        private comboService: ComboBoxService) { }
 
     @Input() type: string = 'game';
     @Input() title = 'Menu';
-    @Input() items: any = [{ name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' }, { name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' },]
+    @Input() games!: any;
     @Output() changeInput = new EventEmitter<any>();
+    resetSearch: boolean = false;
 
     subs = new Subject<void>();
 
     @ViewChild('dropdown') dropdown!: ElementRef;
+    @ViewChild('menuItems') menuItems!: ElementRef;
 
     menuActive = false;
 
-    ngOnInit() {
+    set selectedGame(game: any) {
+        if (!game) return;
+        this._selectedGame = game;
+    };
+    _selectedGame: any;
+
+    ngAfterViewInit() {
         this.filterGames('');
-    }
-
-    onFilterGames(e: any) {
-
+        this.games$();
+        this.selectedGame$();
     }
 
     filterGames(filter: any) {
-        this.itemsService.getGameByName(filter).subscribe(games => {
-            this.items = [];
-            for(let game of games) {
-                const name = game.general.name;
-                const img = game.images.smallThumbnail;
-                const genres = game.general.genre.join(', ')
-                this.items.push({name, img, genres});
-            }
-        })
+        this.games = undefined;
+        this.gamesService.filterDropdownGames(filter).subscribe();
+    }
+    games$() {
+        this.gamesService.dropdownGames$
+            .pipe(takeUntil(this.subs))
+            .subscribe(games => {
+                this.games = games;
+                if (games) this.selectedGame = this.gamesService.selectedGame;
+            })
+    }
+    selectedGame$() {
+        this.gamesService.selectedGame$
+            .pipe(takeUntil(this.subs))
+            .subscribe(game => {
+                if (game) this.selectedGame = game;
+            })
     }
 
-    onChangeInput(event: any) {
-        const value = event.target.value;
-        this.title = value;
-        this.changeInput.emit(value);
 
+
+    onChangeInput(game: any) {
+        this.selectedGame = game;
+        this.gamesService.selectedGame = this._selectedGame;
+        this.changeInput.emit(game);
         this.menuActive = false;
+        this.resetSearch = !this.resetSearch;
+        // console.log(this.resetSearch)
     }
 
     onClick(isClickedInside: any) {
         // if(this.alwaysOpen) return;
         if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
             this.menuActive = false;
+            this.resetSearch = !this.resetSearch;
         }
     }
 

@@ -4,5 +4,5 @@
 class="wrapper flex text-base"
 [ngClass]="searchActive ? '!border-yellow': '!border-light-grey'">
     <mat-icon [svgIcon]="'line:search'"></mat-icon>
-    <input #searchInput  (ngModelChange)="onChangeInput($event)" (focus)="onFocus()" (blur)="onBlur()" class="w-full ml-3 bg-transparent" type="text" placeholder="Search...">
+    <input #searchInput [formControl]="searchControl" (ngModelChange)="onChangeInput($event)" (focus)="onFocus()" (blur)="onBlur()" class="w-full ml-3 bg-transparent" type="text" placeholder="Search...">
 </div>
