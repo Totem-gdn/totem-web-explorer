@@ -12,7 +12,8 @@ import { Subject, takeUntil } from "rxjs";
     styleUrls: ['./game-dropdown.component.scss']
 })
 
-export class GameDropdownComponent implements OnDestroy, OnInit {
+export class GameDropdownComponent implements OnDestroy, AfterViewInit, OnInit {
+
     @Input() type: string = 'game';
     @Input() title = 'Menu';
     @Input() games!: any;
@@ -32,15 +33,16 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
     };
     _selectedGame: any;
 
-    constructor(
-        private router: Router,
+    constructor(private router: Router,
         private gamesService: GamesService,
-        private comboService: ComboBoxService
-    ) { }
+        private comboService: ComboBoxService) { }
 
     ngOnInit(): void {
-        this.filterGames('');
         this.games$();
+    }
+
+    ngAfterViewInit() {
+        this.filterGames('');
         this.selectedGame$();
     }
 
@@ -72,7 +74,6 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
         this.changeInput.emit(game);
         this.menuActive = false;
         this.resetSearch = !this.resetSearch;
-        // console.log(this.resetSearch)
     }
 
     onClick(isClickedInside: any) {
@@ -84,7 +85,6 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
     }
 
     onClickViewAll() {
-        console.log(this.type)
         if (this.type === 'item') {
             this.router.navigate(['/items']);
         } else if (this.type === 'game') {
