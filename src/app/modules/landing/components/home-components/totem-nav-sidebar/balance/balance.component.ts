@@ -24,16 +24,6 @@ import { PaymentService } from "@app/core/services/crypto/payment.service";
 
 export class BalanceComponent implements OnDestroy, AfterViewInit {
 
-  constructor(private web3Service: Web3AuthService,
-    private userStateService: UserStateService,
-    private snackService: SnackNotifierService,
-    private transactionsService: TransactionsService,
-    private sendTokensPopup: TokenTransactionService,
-    private paymentService: PaymentService,
-    readonly matDialog: MatDialog,
-    private gtag: Gtag
-    ) { }
-
   sub: Subscription = new Subscription;
   maticBalance: string | undefined = '0';
   tokenBalance: string | undefined = '0';
@@ -47,9 +37,24 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   @Input() mode = 'normal';
   isDropdownOpened = false;
 
+  constructor(private web3Service: Web3AuthService,
+    private userStateService: UserStateService,
+    private snackService: SnackNotifierService,
+    private transactionsService: TransactionsService,
+    private sendTokensPopup: TokenTransactionService,
+    private paymentService: PaymentService,
+    readonly matDialog: MatDialog,
+    private gtag: Gtag
+    ) { }
+
+
+
+  ngOnInit(): void {
+    this.balance$();
+  }
+
   ngAfterViewInit() {
     this.toggle();
-    this.balance$();
     this.sub.add(
       this.userStateService.currentUser.subscribe(user => {
         if (user) {
