@@ -5,7 +5,7 @@ import { SidebarState } from '@app/core/models/sidebar-type-interface.model';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { SubmitGameService } from '@app/modules/add-your-game/services/submit-game.service';
 import { SidenavStateService } from '@app/shared/services/sidenav-state.service';
-import { BehaviorSubject, switchMap, debounceTime, of, Subscription, take} from 'rxjs';
+import { BehaviorSubject, switchMap, debounceTime, of, Subscription, take, combineLatest, map} from 'rxjs';
 import { Game, Items } from '../models/items-interface.model';
 import { GradientService } from '../services/items-gradient.service';
 
@@ -127,7 +127,24 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
   getItems(params: string) {
     this.loading$.next(true);
     //this.submitGameService.getGame(params);
-      this.itemsSub.add(
+    combineLatest([
+        this.totemItemsService.getGameByName(params),
+        this.totemItemsService.getItemsByName(params),
+        this.totemItemsService.getAvatarsByName(params)
+      ]).pipe(
+          take(1),
+          map(([games, items, avatars]) => { return { games, items, avatars } })
+        )
+        .subscribe((data) => {
+          this.gamesArray.next(data.games && data.games?.length ? data.games : null);
+          data.items.map((item: Items) => item.gradient = this.getGradient());
+          this.itemsArray.next(data.items && data.items?.length ? data.items : null);
+          data.avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
+          this.avatarsArray.next(data.avatars && data.avatars?.length ? data.avatars : null);
+          this.checkTabAfterSearch(data.items?.length || 0, data.avatars?.length | 0, data.games?.length | 0);
+          this.loading$.next(false);
+        });
+      /* this.itemsSub.add(
         this.totemItemsService.getGameByName(params).pipe(take(1)).subscribe((games: any[]) => {
           if (!games?.length) {
             this.gamesArray.next(null);
@@ -166,7 +183,7 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
           this.loading$.next(false);
           console.log('SUBBED');
         })
-      );
+      ); */
 
 
 
@@ -175,6 +192,33 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
       this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
       this.processAvatars(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
     }, 1200); */
+  }
+
+  checkTabAfterSearch(itemsLength: number, avatarsLength: number, gamesLength: number) {
+    if (itemsLength == 0 && avatarsLength == 0 && gamesLength == 0) {
+      return;
+    }
+    if (this.activeTab == this.tabType.ITEMS_TAB) {
+      if (itemsLength == 0 && avatarsLength == 0) {
+        this.changeTab(this.tabType.GAMES_TAB);
+      } else if (itemsLength == 0 && avatarsLength > 0) {
+        this.changeTab(this.tabType.AVATARS_TAB);
+      }
+    }
+    if (this.activeTab == this.tabType.AVATARS_TAB) {
+      if (avatarsLength == 0 && gamesLength == 0) {
+        this.changeTab(this.tabType.ITEMS_TAB);
+      } else if (avatarsLength == 0 && gamesLength > 0) {
+        this.changeTab(this.tabType.GAMES_TAB);
+      }
+    }
+    if (this.activeTab == this.tabType.GAMES_TAB) {
+      if (gamesLength == 0 && itemsLength == 0) {
+        this.changeTab(this.tabType.AVATARS_TAB);
+      } else if (gamesLength == 0 && itemsLength > 0) {
+        this.changeTab(this.tabType.ITEMS_TAB);
+      }
+    }
   }
 
   processItems(items: Items[] | null) {
@@ -192,12 +236,8 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
 
   getGradient(): any {
     const gradients = this.gradientService.gradients;
-    const pick = Math.round(Math.random() * (gradients.length - 1))
-
-    console.log(gradients.length)
-    console.log('pick', pick)
-
-    return `linear-gradient(${gradients[pick].colors[0]}, ${gradients[pick].colors[1]})`
+    const pick = Math.round(Math.random() * (gradients.length - 1));
+    return `linear-gradient(${gradients[pick].colors[0]}, ${gradients[pick].colors[1]})`;
   }
 
   goToPage() {
