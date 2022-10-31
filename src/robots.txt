@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /profile/
+Disallow: /game/
+Disallow: /item/
+Disallow: /gem/
+Disallow: /avatar/
+Disallow: /approve-game/
+Disallow: /submit-game/
+Disallow: /approve-game/
+Allow: /
+
+Sitemap: http://www.example.com/sitemap.xml
