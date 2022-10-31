@@ -56,7 +56,7 @@
 
         <div class="buttons">
             <button matRipple (click)="onClose()">Cancel</button>
-            <button matRipple class="button-2" [disabled]="!amount || !addressValid || addressTouched" (click)="onTransfer()">Confirm</button>
+            <button matRipple class="button-2" [disabled]="!amount || !addressValid || addressTouched || (ammountError |async)" (click)="onTransfer()">Confirm</button>
         </div>
     </div>
 
