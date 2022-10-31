@@ -43,12 +43,10 @@
       </div>
       <div [@hideThirdState]="gameChanged" class="img-card">
         <div class="card-1">
-          <!-- <ng-container *ngTemplateOutlet="cardTemplate; context: { cardInfo: cardsToShow[0] }"></ng-container> -->
-          <asset-card [type]="'avatar'" [asset]="cardsToShow[0]"></asset-card>
+          <asset-card *ngIf="gameChanged === 'selected'" [type]="'avatar'" [asset]="cardsToShow[0]"></asset-card>
         </div>
         <div class="card-2 z-12">
-          <!-- <ng-container *ngTemplateOutlet="cardTemplate; context: { cardInfo: cardsToShow[1] }"></ng-container> -->
-          <asset-card [type]="'item'" [asset]="cardsToShow[1]"></asset-card>
+          <asset-card *ngIf="gameChanged === 'selected'" [type]="'item'" [asset]="cardsToShow[1]"></asset-card>
         </div>
       </div>
     </div>

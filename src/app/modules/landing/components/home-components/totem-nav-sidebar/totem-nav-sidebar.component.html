@@ -59,12 +59,12 @@
       <ng-template #unauthblock>
         <div class="unauth-nav-content" fxLayout="column" fxLayoutAlign="space-between">
           <div class="sidenav mtop-60px" fxLayout="column" fxLayoutAlign="start start">
-            <a (click)="logIn()">Profile</a>
+            <span aria-label="profile-log-in-button" (click)="logIn()">Profile</span>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/">Home</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/items">Items</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
             <a (click)="close()" routerLinkActive="active-route" routerLink="/games">Games</a>
-            <a>Help</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/help">Help</a>
           </div>
           <div>
             <totem-button (click)="logIn()" [caption]="'Login'"
