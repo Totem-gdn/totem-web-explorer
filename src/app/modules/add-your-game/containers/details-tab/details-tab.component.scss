@@ -42,6 +42,32 @@
   border-radius: 4px;
 }
 
+.edit-button, .del-button {
+  z-index: 3;
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  place-content: center center;
+  background-color: $dark;
+  border-radius: 50%;
+  cursor: pointer;
+  mat-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    line-height: 22px;
+    color: $light-grey;
+  }
+}
+
+.edit-button {
+  right: 78px;
+}
+
 .details-tab {
   &-wrapper {
 
@@ -70,6 +96,7 @@
           .cover-image-wrapper {
             max-width: 1098px;
             width: 100%;
+            position: relative;
 
             //.file-container
 
@@ -100,9 +127,18 @@
                 margin: auto;
                 max-width: 374px;
                 min-height: 474px;
+                position: relative;
               }
               .search-preview {
                 min-height: 402px;
+                .edit-button {
+                  top: 10px;
+                  right: 60px;
+                }
+                .del-button {
+                  top: 10px;
+                  right: 10px;
+                }
               }
             }
           }

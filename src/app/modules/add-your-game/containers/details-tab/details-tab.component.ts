@@ -22,9 +22,12 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
   imageReader: FileReader = new FileReader();
-  finalizedImage!: File;
-  finalizedCardImage!: File;
-  finalizedSearchImage!: File;
+  finalizedImage!: File | undefined;
+  finalizedCardImage!: File | undefined;
+  finalizedSearchImage!: File | undefined;
+  finalizedImageEvent!: any;
+  finalizedCardImageEvent!: any;
+  finalizedSearchImageEvent!: any;
   finalizedGalleryImages: File[] = [];
   allowButton: boolean = false;
 
@@ -133,10 +136,24 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeImage(item: any) {
+  removeGalleryImage(item: any) {
     this.finalizedGalleryImages = this.finalizedGalleryImages.filter((image: File) => {
       return image.name != item.name;
     })
+    this.isFormValid();
+  }
+
+  removeImage(type: string) {
+    if (type == 'cover') {
+      this.finalizedImage = undefined;
+    }
+    if (type == 'card') {
+      this.finalizedCardImage = undefined;
+    }
+    if (type == 'search') {
+      this.finalizedSearchImage = undefined;
+    }
+    this.isFormValid();
   }
 
   updateCoverError(error: DropzoneError) {
@@ -174,15 +191,30 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   }
 
   checkValidity(): boolean {
-    return this.finalizedImage && this.finalizedCardImage && this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
+    return !!this.finalizedImage && !!this.finalizedCardImage && !!this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
   }
 
   onNextTab() {
     this.tabSelected.emit('links');
   }
 
-  cropSelectedImage(event: any, type: string) {
-    this.openCropperDialog(event, type);
+  cropSelectedImage(event: any, type: string, edit?: boolean) {
+    if (type == 'cover' && !edit) {
+      this.finalizedImageEvent = event;
+    }
+    if (type == 'card' && !edit) {
+      this.finalizedCardImageEvent = event;
+    }
+    if (type == 'search' && !edit) {
+      this.finalizedSearchImageEvent = event;
+    }
+    if (edit) {
+      this.openCropperDialog(
+        type == 'cover' ? this.finalizedImageEvent : type == 'card' ? this.finalizedCardImageEvent : this.finalizedSearchImageEvent, type
+        );
+    } else {
+      this.openCropperDialog(event, type);
+    }
   }
 
   openCropper(image: any, type: string): Observable<string> {
