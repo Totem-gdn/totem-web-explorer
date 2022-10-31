@@ -25,7 +25,7 @@
                         <h4>Amount to send</h4>
                         <span [ngClass]="selectedToken && !addressTouched && addressValid ? 'pointer-events-all !text-yellow': 'pointer-events-none text-light-grey'" class="max-button transition-color cursor-pointer" (click)="onClickMax()">MAX</span>
                     </div>
-                    <div class="relative"
+                    <div class="relative marb-16-to-12"
                         [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
                         <input 
                             formControlName="amount" 
@@ -33,8 +33,7 @@
                             [allowNegativeNumbers]="false" 
                             mask="{{maskForAmount}}"
                             (input)="onInputChange($event)" placeholder="0 Token"
-                            (blur)="estimateGas(selectedToken.title, selectedToken.value)">
-                            <span @showMessage class="error-message" *ngIf="ammountError | async">You don't have enough tokens of this type.</span>
+                            (blur)="estimateGas(selectedToken.title, selectedToken.value)"> 
                         <div *ngIf="selectedToken?.title" class="suffix">
                           <div class="token-wrapper mr-[5px]">
                             <span [ngClass]="selectedToken?.title == 'MATIC' ? 'icon-font-MATIC' : 'icon-font-USDC'"></span>
@@ -43,11 +42,12 @@
                             <!-- <img loading="lazy" class="mr-[5px]" [src]="selectedToken?.title == 'MATIC' ? 'assets/images/matic.webp' : 'assets/images/usdc.webp'" alt=""> -->
                             <p>{{selectedToken?.title}}</p>
                         </div>
-
                     </div>
-                    <div @showGas *ngIf="gasFee" class="flex flex-row gas-fee-wrapper mt-[8px]">
+                    <span @showMessage class="error-message" *ngIf="ammountError | async">You don't have enough tokens of this type.</span>
+                    <div @showGas *ngIf="gasFee" class="flex flex-row gas-fee-wrapper">
                       <mat-icon class="mr-[6px]" [svgIcon]="'line:info'"></mat-icon>
                       <span class="gas-fee">Gas fee: {{gasFee ? gasFee: '0'}} MATIC </span>
+                      <!-- <span class="gas-fee" style="white-space: pre;">Gas fee: 0.0000699770005445634573673467573736737934 MATIC </span> -->
                     </div>
                     <span class="!border-0 amount-caption mart-16-to-12 padb-16-to-12">Enter the number of tokens</span>
                 </section>
