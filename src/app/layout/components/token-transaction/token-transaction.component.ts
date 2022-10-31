@@ -121,6 +121,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         }
 
         this.snackService.open('Your transaction has been sent');
+        this.onClose();
         if(this.selectedToken.title =='USDC') {
             this.paymentService.sendUSDC(address, amount).then(res => {
                 this.snackService.open('Success');
@@ -128,7 +129,6 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
                   'event_label': 'USDC transaction has been sent',
                 });
                 this.updateBalance();
-                this.onClose();
             }).catch(() => {
                 this.snackService.open('Error')
             })
