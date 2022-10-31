@@ -12,12 +12,7 @@ import { Subject, takeUntil } from "rxjs";
     styleUrls: ['./game-dropdown.component.scss']
 })
 
-export class GameDropdownComponent implements OnDestroy, AfterViewInit {
-
-    constructor(private router: Router,
-        private gamesService: GamesService,
-        private comboService: ComboBoxService) { }
-
+export class GameDropdownComponent implements OnDestroy, OnInit {
     @Input() type: string = 'game';
     @Input() title = 'Menu';
     @Input() games!: any;
@@ -37,7 +32,13 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
     };
     _selectedGame: any;
 
-    ngAfterViewInit() {
+    constructor(
+        private router: Router,
+        private gamesService: GamesService,
+        private comboService: ComboBoxService
+    ) { }
+
+    ngOnInit(): void {
         this.filterGames('');
         this.games$();
         this.selectedGame$();
