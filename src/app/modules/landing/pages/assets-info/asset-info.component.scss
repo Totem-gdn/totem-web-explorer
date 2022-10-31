@@ -10,8 +10,15 @@
     background: $linear-glass;
     // margin-bottom: auto;
     img {
-        max-width: 470px;
-        max-height: 470px;
+        max-width: 455px;
+        max-height: 455px;
+        border-radius: 4px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin:auto;
         background-color: $grey;
     }
 }
