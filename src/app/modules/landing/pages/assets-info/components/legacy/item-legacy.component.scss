@@ -1,4 +1,5 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
 
 .wrapper {
     padding: 10px;
@@ -33,7 +34,8 @@ span {
         margin-right: 10px;
     }
 
-    .mat-icon {
+    .icon {
+        line-height: 0.9;
         // padding: 20px;
         width:14px;
         height:14px;

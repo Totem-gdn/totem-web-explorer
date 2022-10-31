@@ -10,7 +10,6 @@ import { ItemPropertiesComponent } from "./item-properties.component";
     ],
     imports: [
         SharedModule,
-        MatIconModule
     ],
     exports: [
         ItemPropertiesComponent

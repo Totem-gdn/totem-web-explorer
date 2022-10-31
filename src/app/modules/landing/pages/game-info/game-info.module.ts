@@ -23,7 +23,6 @@ import { GameReviewComponent } from "./review/game-review.component";
         SharedModule,
         RouterModule.forChild(GameInfoRoutes),
 
-        MatIconModule,
         TotemButtonModule,
         CarouselModule,
         BackgroundCircleModule,
