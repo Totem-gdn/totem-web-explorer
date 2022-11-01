@@ -1,8 +1,10 @@
 <div class="flex flex-col wrapper" (onResize)="onResize()">
     <div class="grid-container" #grid>
         <div *ngFor="let propertie of properties" class="item-tag" (mouseover)="onOver($event)">
-            <p class="line-1 text-lg title truncate !text-white">{{propertie.title}}</p>
-            <div class="circle-wrapper !pt-[0]"><mat-icon class="circle" [svgIcon]="'solid:point'"></mat-icon></div>
+            <p class="lh-1 text-lg title truncate !text-white">{{propertie.title}}</p>
+            <div class="circle-wrapper">
+                <div class="circle"></div>
+            </div>
 
             <div class="flex justify-center items-center mt-[2px]">
                 <div *ngIf="propertie?.showColor" class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]" [style.background-color]="propertie.value"></div>
@@ -14,13 +16,13 @@
             </div>
         </div> 
         <div class="" *ngFor="let placeholder of placeholders" class="item-tag placeholder">
-            <mat-icon class="!text-grey" [svgIcon]="'line:item-place'"></mat-icon>
+            <div class="line-item_placeholder"></div>
         </div>
     </div>
     <!-- View All -->
     <div *ngIf="showViewAll" [attr.offsetWidth]="offset()" class="view-all" (click)="onClickViewAll()">
         <span class="text-center">{{toggle ? 'View less': 'View all'}}</span>
-        <mat-icon class="!h-[2px] !w-full absolute bottom-0" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
+        <!-- <mat-icon class="!h-[2px] !w-full absolute bottom-0" [svgIcon]="'solid:bottom_rectangle'"></mat-icon> -->
     </div>
     
 </div>

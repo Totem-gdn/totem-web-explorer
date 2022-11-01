@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { id } from 'alchemy-sdk/dist/src/api/utils';
 import { Subscription } from 'rxjs';
 
 export interface DropzoneError {

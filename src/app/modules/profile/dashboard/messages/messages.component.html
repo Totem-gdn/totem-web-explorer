@@ -8,7 +8,8 @@
           <label for="checkall" class="icon-font-checkbox"></label>
 
           <div class="mark-dropdown" (click)="openSelection()">
-            <mat-icon [svgIcon]="'line:arrow_down'"></mat-icon><span class="tooltiptext">Select</span>
+            <div class="line-arrow_down"></div>
+            <span class="tooltiptext">Select</span>
           </div>
 
           <div #dropdown class="dropdown-menu backdrop-blur-xl" [ngClass]="selectionActive ? 'appear': ''">
@@ -37,7 +38,7 @@
 
       <div class="right-side-setting">
         <div class="refresh-button">
-          <mat-icon>refresh</mat-icon>
+          <div class="line-refresh"></div>
           <span class="tooltiptext">Refresh</span>
         </div>
         <totem-pagination fxHide.xs [totalValue]="total" (paginationEvent)="pageEvent($event)"></totem-pagination>
@@ -127,14 +128,16 @@
               <div>{{message.date}}</div>
             </div>
             <div class="mark-dropdown" fxHide fxShow.xs>
-              <mat-icon [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}" [svgIcon]="'line:arrow_down'"></mat-icon>
+              <!-- <mat-icon [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}" [svgIcon]="'line:arrow_down'"></mat-icon> -->
+              <div class="line-arrow_down" [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}"></div>
             </div>
           </div>
 
           <div class="hide-button-wrapper" fxLayout="row" fxLayoutAlign="flex-end center" fxHide.xs>
             <div fxHide.sm class="hide-button" [ngStyle]="message.isOpened ? {'opacity' : '1'} : {'opacity' : '0'}">Hide</div>
             <div class="mark-dropdown">
-              <mat-icon [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}" [svgIcon]="'line:arrow_down'"></mat-icon>
+              <!-- <mat-icon [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}" [svgIcon]="'line:arrow_down'"></mat-icon> -->
+              <div class="line-arrow_down" [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}"></div>
             </div>
           </div>
 

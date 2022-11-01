@@ -3,41 +3,41 @@
     <h2 *ngIf="game?.general?.name" class="mb-[40px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
     <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
-        <h4 class="flex whitespace-nowrap line-unset">
-            <p class="text-light-grey pr-[10px] line-33">Author:</p>{{game?.general?.author
+        <h4 class="flex whitespace-nowrap lh-unset">
+            <p class="text-light-grey pr-[10px] lh-33">Author:</p>{{game?.general?.author
             ? game?.general?.author : 'Triple Troping'}}
         </h4>
 
         <!-- Stars -->
         <div #stars class="stars">
-            <mat-icon #star *ngFor="let rate of rating" [ngClass]="rate == true ? '!text-yellow': 'text-light-grey'"
+            <div #star *ngFor="let rate of rating" [ngClass]="rate == true ? '!text-yellow': 'text-light-grey'"
                 (click)="onSaveStars(star)" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)"
-                class="star" [svgIcon]="rate ? 'solid:star': 'line:star'"></mat-icon>
-            <p class="ml-[8px]">(--)</p>
+                class="star" [ngClass]="rate ? 'solid-star': 'line-star'"></div>
+            <p class="ml-[8px] my-auto">(--)</p>
         </div>
     </div>
     <!-- Icons -->
     <div class="icon-wrapper">
         <div class="icon-set">
             <div class="icon !pl-0">
-                <mat-icon *ngIf="game?.isLiked === false" class="like !w-[18px]" [svgIcon]="'line:like'"
-                    (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-                <mat-icon *ngIf="game?.isLiked === true" class="text-yellow cursor-pointer !w-[18px]"
-                    [svgIcon]="'solid:like'" (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
+                <div *ngIf="game?.isLiked === false" class="like line-like !w-[18px]"
+                    (click)="$event.stopPropagation(); onClickLike()"></div>
+                <div *ngIf="game?.isLiked === true" class="text-yellow line-like cursor-pointer !w-[18px]"
+                    (click)="$event.stopPropagation(); onClickLike()"></div>
                 <p>{{game?.likes ? game?. likes : '0'}}</p>
             </div>
             <div class="icon">
-                <mat-icon class="!w-[20px]" [svgIcon]="'line:eye'"></mat-icon>
+                <div class="!w-[20px] line-eye"></div>
                 <p>{{game?.views ? game?.views : '0'}}</p>
             </div>
         </div>
         <div class="icon-set">
             <div class="icon">
-                <mat-icon class="!w-[14px] !h-[19px] mb-auto" [svgIcon]="'line:share'"></mat-icon>
+                <div class="!w-[14px] !h-[19px] line-share"></div>
                 <p>Share</p>
             </div>
             <div class="icon">
-                <mat-icon class="!w-[16px]" [svgIcon]="'line:refresh'"></mat-icon>
+                <div class="!w-[16px] line-refresh"></div>
                 <p>Refresh</p>
             </div>
         </div>
@@ -60,8 +60,8 @@
     <div class="dropdown-wrapper">
         <div class="dropdown-button" (click)="onToggle()">
             <h4>Details</h4>
-            <mat-icon class="text-light-grey !w-[14px] mr-[5px]" [svgIcon]="'line:arrow_down'"
-                [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></mat-icon>
+            <div class="text-light-grey !w-[14px] mr-[5px] line-arrow_down"
+                [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></div>
         </div>
 
         <div class="dropdown-table-wrapper" [ngClass]="toggleDropdown ? 'max-h-[520px]': 'max-h-[1px]'">

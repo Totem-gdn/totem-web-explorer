@@ -1,5 +1,7 @@
 @import 'assets/fonts/icon-fonts/mail-font.scss';
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 * {
   transition: color 0.33s ease-out, background-color 0.33s ease-out;
@@ -50,8 +52,8 @@
       }
 
 
-      mat-icon {
-        font-size: 22px;
+      .line-refresh {
+        font-size: 15px;
         color: $light-grey;
 
         height: 36px;
@@ -98,6 +100,7 @@
       .mark-dropdown {
         width: 20px;
         height: 20px;
+        color: $light-grey;
         display: flex;
         place-content: center;
         align-items: center;
@@ -111,17 +114,16 @@
         }
 
         &:hover {
-          mat-icon {
+          .line-arrow_down {
             color: #fff;
           }
         }
-        mat-icon {
+        .line-arrow_down {
           font-style: normal;
           font-weight: 500;
           color: $light-grey;
-          height: 7.14px;
           width: auto;
-          font-size: 12px;
+          font-size: 7px;
         }
 
       }

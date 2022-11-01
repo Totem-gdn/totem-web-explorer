@@ -1,7 +1,6 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';

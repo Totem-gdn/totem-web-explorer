@@ -30,9 +30,12 @@
                             </h2>
                         </div>
 
-                        <mat-icon *ngIf="asset.type === 'avatar'" [svgIcon]="'solid:buy-avatar'"></mat-icon>
-                        <mat-icon *ngIf="asset.type === 'item'" [svgIcon]="'solid:buy-item'"></mat-icon>
-                        <mat-icon *ngIf="asset.type === 'gem'" [svgIcon]="'solid:buy-gem'"></mat-icon>
+                        <!-- <mat-icon *ngIf="asset.type === 'avatar'" [svgIcon]="'solid:buy-avatar'"></mat-icon> -->
+                        <!-- <mat-icon *ngIf="asset.type === 'item'" [svgIcon]="'solid:buy-item'"></mat-icon> -->
+                        <!-- <mat-icon *ngIf="asset.type === 'gem'" [svgIcon]="'solid:buy-gem'"></mat-icon> -->
+                        <div *ngIf="asset.type === 'avatar'" class="icon solid-buy-avatar"></div>
+                        <div *ngIf="asset.type === 'item'" class="icon solid-buy-item"></div>
+                        <div *ngIf="asset.type === 'gem'" class="icon solid-buy-gem"></div>
                     </div>
                 </div>
 

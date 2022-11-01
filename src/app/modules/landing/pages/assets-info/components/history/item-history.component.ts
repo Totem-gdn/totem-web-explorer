@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 
 @Component({
   selector: 'item-history',
@@ -8,7 +7,7 @@ import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 })
 export class ItemHistoryComponent implements OnInit {
 
-  constructor(private alchService: AlchemyService) { }
+  // constructor(private alchService: AlchemyService) { }
 
   ngOnInit(): void {
     // this.alchService.

@@ -7,8 +7,9 @@
         (click)="onToggleMenu()"
         [ngClass]="isMenuOpen ? 'border border-yellow': 'border border-grey'">
 
-            <mat-icon *ngIf="isMenuOpen === false" [svgIcon]="'line:tune'"></mat-icon>
-            <mat-icon class="!h-12px" *ngIf="isMenuOpen === true" [svgIcon]="'line:arrow_left'"></mat-icon>
+            <div *ngIf="isMenuOpen === false" class="line-tune"></div>
+            <!-- <mat-icon class="!h-12px" *ngIf="isMenuOpen === true" [svgIcon]="'line:arrow_left'"></mat-icon> -->
+            <div class="line-arrow_left !h-12px" *ngIf="isMenuOpen === true"></div>
 
             <span>Filter</span>
         </div>

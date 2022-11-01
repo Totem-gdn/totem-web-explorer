@@ -29,7 +29,8 @@
             <div class="tags">
               <div @fade-in class="tag" *ngFor="let platform of platformsForm.controls" (click)="onRemovePlatform(platform)">
                 <span>{{platform.value}}</span>
-                <mat-icon [svgIcon]="'line:close'"></mat-icon>
+                <!-- <mat-icon [svgIcon]="'line:close'"></mat-icon> -->
+                <div class="line-close"></div>
               </div>
             </div>
             <span>Choose the platforms the game supports</span>

@@ -1,5 +1,6 @@
 @import 'styles/scss/variables';
 @import 'styles/scss/placeholders';
+@import 'assets/fonts/icon-fonts/line/line.scss';
 
 .dropdown {
     max-width: 300px;
@@ -20,7 +21,7 @@
             white-space: nowrap;
             user-select: none;
         }
-        .mat-icon {
+        .line-arrow_down {
             width: 12px !important;
             transition: transform .3s;
             pointer-events: none;
