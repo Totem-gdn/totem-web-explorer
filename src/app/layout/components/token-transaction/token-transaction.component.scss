@@ -47,6 +47,20 @@
                 .amount-caption {
                     padding-bottom: 0px;
                 }
+
+                .captions-wrapper {
+                  height: 36px;
+                  width: 100%;
+                  position: relative;
+                  span {
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    right: 0px;
+                    width: 100%;
+                    line-height: 16px;
+                  }
+                }
             }
         }
     }
@@ -202,7 +216,7 @@ input {
     user-select: none;
     height: 36px;
     padding-bottom: 0 !important;
-    margin: 0 !important;
+    margin: 0;
     color: #FF5252 !important;
   }
 
