@@ -35,16 +35,14 @@ p {
 .links {
     display: flex;
     gap: 16px;
+    justify-content: center;
     .link {
         display: flex;
         width: 46px;
         height: 46px;
         background-color: $black;
         border-radius: 9999px;
-
-        mat-icon {
-            margin: auto;
-        }
+        font-size: 24px;
     }
 }
 

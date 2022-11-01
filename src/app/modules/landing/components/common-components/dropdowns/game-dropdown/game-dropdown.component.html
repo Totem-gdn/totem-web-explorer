@@ -2,7 +2,8 @@
     <div #menu class="dropdown-toggle" (click)="menuActive = !menuActive">
 
         <span>{{title}}</span>
-        <mat-icon [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_up'"></mat-icon>
+        <!-- <mat-icon [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_up'"></mat-icon> -->
+        <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
 
     </div>
 
@@ -29,8 +30,9 @@
         <!-- View All -->
         <div class="view-all">
             <div class="content" (click)="onClickViewAll()">
-                <span class="text-center">View all</span>
-                <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
+                <div class="text-center bottom-rectangle">View all</div>
+                <!-- <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon> -->
+                <!-- <div class="solid-bottom_rectangle !h-[2px] !w-full"></div> -->
             </div>
         </div>
     </div>

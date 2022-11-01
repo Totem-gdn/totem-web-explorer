@@ -1,6 +1,5 @@
 import { AfterViewChecked, Component, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { AlchemyService } from "@app/core/services/crypto/alchemy-api.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { BehaviorSubject, Subject, Subscription, takeUntil } from "rxjs";
@@ -23,7 +22,6 @@ export class AssetInfoComponent {
 
     constructor(private route: ActivatedRoute,
         private itemsService: TotemItemsService,
-        private alchService: AlchemyService,
         private web3: Web3AuthService,
         private dnaService: DNAParserService) { }
 

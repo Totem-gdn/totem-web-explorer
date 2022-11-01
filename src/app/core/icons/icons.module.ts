@@ -15,8 +15,8 @@ export class IconsModule
     {
         // Register icon sets
         this._matIconRegistry.addSvgIconSet(this._domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/main.svg'));
-        this._matIconRegistry.addSvgIconSetInNamespace('line', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/line.svg'));
-        this._matIconRegistry.addSvgIconSetInNamespace('solid', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/solid.svg'));
+        // this._matIconRegistry.addSvgIconSetInNamespace('line', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/line.svg'));
+        // this._matIconRegistry.addSvgIconSetInNamespace('solid', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/solid.svg'));
 
 
     }

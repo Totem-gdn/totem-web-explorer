@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { CacheService } from '@app/core/services/assets/cache.service';
-import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
@@ -13,8 +12,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 })
 export class ProfileStatsComponent {
 
-  constructor(private alchService: AlchemyService,
-    private cacheService: CacheService) { }
+  constructor(private cacheService: CacheService) { }
 
   _total = new BehaviorSubject<number | string | undefined>('--');
 

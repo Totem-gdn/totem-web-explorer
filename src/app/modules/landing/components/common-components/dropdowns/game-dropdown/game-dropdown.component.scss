@@ -1,6 +1,9 @@
 @import 'styles/scss/variables';
 @import 'styles/scss/placeholders';
 
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
 .dropdown {
     max-width: 300px;
     width: 100%;
@@ -25,7 +28,7 @@
             user-select: none;
             pointer-events: none;
         }
-        .mat-icon {
+        .line-arrow_down {
             // margin-bottom: auto;
             transition: transform .3s;
             width: 12px !important;
@@ -112,6 +115,7 @@
         }
     }
 }
+
 .search {
     padding: 6px 6px 10px 6px;
     width: 100%;

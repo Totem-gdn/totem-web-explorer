@@ -21,7 +21,9 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  margin: auto;
+  // margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
@@ -34,11 +36,13 @@
   }
 }
 .line-item_placeholder {
+  font-size: 40px;
   &:before {
     content: $line-item_placeholder; 
   }
 }
 .line-trash {
+  font-size: 22px;
   &:before {
     content: $line-trash; 
   }
@@ -58,6 +62,7 @@
   }
 }
 .line-arrow_down {
+  font-size: 8px;
   &:before {
     content: $line-arrow_down; 
   }
@@ -78,6 +83,7 @@
   }
 }
 .line-close {
+  font-size: 8px;
   &:before {
     content: $line-close; 
   }
@@ -112,12 +118,17 @@
   }
 }
 .line-refresh {
+  margin-top: auto;
+  margin-bottom: auto;
   width: 16px;
   &:before {
     content: $line-refresh; 
   }
 }
 .line-search {
+  // width: 18px;
+  // height: 18px;
+  font-size: 18px;
   &:before {
     content: $line-search; 
   }
@@ -126,7 +137,7 @@
   width: 14px;
   height: 19px;
   font-size: 18px;
-  margin-top: 0 !important;
+  // margin-top: 0 !important;
   &:before {
     content: $line-share; 
   }
@@ -138,6 +149,7 @@
   }
 }
 .line-tune {
+  font-size: 18px;
   &:before {
     content: $line-tune; 
   }
@@ -149,6 +161,7 @@
   }
 }
 .line-update {
+  font-size: 21px;
   &:before {
     content: $line-update; 
   }

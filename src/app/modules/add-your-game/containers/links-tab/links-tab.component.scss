@@ -1,5 +1,5 @@
 @import 'styles/scss/variables';
-
+@import 'assets/fonts/icon-fonts/line/line.scss';
 
 .social-link {
   display: flex;
@@ -8,6 +8,7 @@
 
 .trash-icon {
   color: $light-grey;
+  margin-top: 0;
   margin-left: 20px;
   margin-bottom: 15px;
   min-width: 24px !important;

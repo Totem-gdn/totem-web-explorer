@@ -47,7 +47,8 @@
 
                     </div>
                     <div @showGas *ngIf="gasFee" class="flex flex-row gas-fee-wrapper mt-[8px]">
-                      <mat-icon class="mr-[6px]" [svgIcon]="'line:info'"></mat-icon>
+                      <!-- <mat-icon class="mr-[6px]" [svgIcon]="'line:info'"></mat-icon> -->
+                      <div class="line-info mr-[6px]"></div>
                       <span class="gas-fee">Gas fee: {{gasFee ? gasFee: '0'}} MATIC </span>
                     </div>
                     <span class="!border-0 amount-caption mart-16-to-12 padb-16-to-12">Enter the number of tokens</span>

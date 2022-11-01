@@ -1,8 +1,5 @@
 <div class="card-item gradient-border" (click)="onNavigate()">
 
-    <!-- <div *ngIf="!item?.id?.tokenId && !item?.itemType && !item?.tokenId || item?.itemType === 'Item'" class="placeholder">
-        <mat-icon class="text-grey" [svgIcon]="'line:item-place'"></mat-icon>
-    </div> -->
 
     <div class="img-wrapper" *ngIf="_asset?.tokenId">
         <img loading="lazy" *ngIf="type != 'gem'" src="{{'https://asset-renderer.totem-explorer.com/' + type + '/' + (+_asset?.tokenId)}}" alt="">
@@ -19,10 +16,10 @@
             <h3 *ngIf="_asset?.tokenId">ID: {{_asset?.tokenId}}</h3>
             <h3 *ngIf="_asset?.id?.tokenId">ID: {{_asset?.id?.tokenId}}</h3>
 
-            <mat-icon *ngIf="_asset?.isLiked === false" class="like" [svgIcon]="'line:like'"
-                (click)="$event.stopPropagation(); onLike()"></mat-icon>
-            <mat-icon *ngIf="_asset?.isLiked === true" class="text-yellow cursor-pointer" [svgIcon]="'solid:like'"
-                (click)="$event.stopPropagation(); onLike()"></mat-icon>
+            <div *ngIf="_asset?.isLiked === false" class="like line-like"
+                (click)="$event.stopPropagation(); onLike()"></div>
+            <div *ngIf="_asset?.isLiked === true" class="!text-yellow like solid-like"
+                (click)="$event.stopPropagation(); onLike()"></div>
         </div>
 
         <div class="bottom">

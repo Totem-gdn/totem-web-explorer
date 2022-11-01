@@ -1,4 +1,5 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
 
 .wrapper {
     // width: 100%;
@@ -9,12 +10,11 @@
 
 .placeholder {
     background-color: $dark-grey;
-    mat-icon {
-        height:100% !important;
-        width: auto !important
+    .line-item_placeholder {
+        color: $grey;
     }
 }
-.line-1 {
+.lh-1 {
     line-height: 1.3;
 }
 
@@ -73,7 +73,9 @@
             // position: absolute;
             width: 8px !important;
             height: 8px !important;
-            color: $yellow;
+            border-radius: 9999px;
+            background-color: $yellow;
+            // color: $yellow;
         }
     }
 

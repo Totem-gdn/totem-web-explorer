@@ -24,6 +24,20 @@
 .nav-item {
     margin: 15px 15px 10px 0;
 }
+.bottom-rectangle {
+    position: relative;
+    padding-bottom: 6px;
+    &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: -10%;
+        width: 120%;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        border-bottom: 2px solid $yellow;
+    }
+}
 
 .rotate-x-180 {
     transform: rotateX(-180deg) !important;
