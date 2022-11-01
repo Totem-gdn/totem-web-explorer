@@ -1,15 +1,9 @@
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { Component } from "@angular/core";
-import { ComboBoxService } from "@app/core/services/combobox-state.service";
+import { GamesService } from "@app/core/services/assets/games.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
+import { Observable } from "rxjs";
 
-
-const IMGS = {
-  img1: '../../../../../../assets/images/widget-image-1.png',
-  img2: '../../../../../../assets/images/widget-image-2.png',
-  img3: '../../../../../../assets/images/widget-image-2.png',
-  img4: '../../../../../../assets/images/widget-image-2.png',
-}
 
 @Component({
     selector: 'home-widget',
@@ -57,15 +51,9 @@ const IMGS = {
 
 export class HomeWidgetComponent {
 
-    //gameChanged: string = 'default';
-    isChanged: boolean = false;
-    userSelected: boolean = false;
     cardsToShow: any[] = [];
 
-    testImgURL_1: string = '../../../../../../assets/images/widget-image-1.webp';
-    testImgURL_2: string = '../../../../../../assets/images/widget-image-2.webp';
-
-    constructor(private comboBoxService: ComboBoxService, private totemItemsService: TotemItemsService) {
+    constructor(private gamesService: GamesService, private totemItemsService: TotemItemsService) {
       this.totemItemsService.avatars.subscribe((data: any[] | null) => {
         if (data && data.length) {
           this.cardsToShow[0] = data![0];
@@ -74,28 +62,11 @@ export class HomeWidgetComponent {
       this.totemItemsService.newestItems.subscribe((data: any[] | null) => {
         if (data && data.length) {
           this.cardsToShow[1] = data![1];
-          console.log(this.cardsToShow);
         }
       })
     }
-    selectGame(event: any) {
-      console.log(event);
 
-      this.comboBoxService.updateSelectedGame(event);
-      this.userSelected = true;
-    }
-
-    get gameChanged() {
-      return this.userSelected ? 'selected' : this.isChanged ? 'changed' : 'default';
-    }
-
-    toggle() {
-      this.isChanged = !this.isChanged;
-    }
-
-    reselectGames(event: string) {
-      console.log(event);
-      if (!this.userSelected) this.toggle();
-      if (this.userSelected) this.userSelected = false;
+    getSelectedGames(): Observable<any> {
+      return this.gamesService.selectedGame$;
     }
 }

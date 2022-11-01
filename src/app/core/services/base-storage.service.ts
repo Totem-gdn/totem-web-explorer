@@ -22,14 +22,17 @@ class LocalStorage implements Storage {
 })
 export class BaseStorageService implements Storage {
 
-  private storage: Storage;
-
+  private local: Storage;
+  private sesion: Storage;
   constructor() {
-    this.storage = new LocalStorage();
+    this.local = new LocalStorage();
+
+    this.sesion = new LocalStorage();
 
     AppComponent.isBrowser.subscribe(isBrowser => {
       if (isBrowser) {
-        this.storage = localStorage;
+        this.local = localStorage;
+        this.sesion = sessionStorage;
       }
     });
   }
@@ -38,23 +41,23 @@ export class BaseStorageService implements Storage {
 
   length!: number;
 
-  clear(): void {
-    this.storage.clear();
+  clear(nameStorage = 'local'): void {
+    this[nameStorage].clear();
   }
 
-  getItem(key: string): string | null {
-    return this.storage.getItem(key);
+  getItem(key: string, nameStorage = 'local'): string | null {
+    return this[nameStorage].getItem(key);
   }
 
-  key(index: number): string | null {
-    return this.storage.key(index);
+  key(index: number, nameStorage = 'local'): string | null {
+    return this[nameStorage].key(index);
   }
 
-  removeItem(key: string): void {
-    return this.storage.removeItem(key);
+  removeItem(key: string, nameStorage = 'local'): void {
+    return this[nameStorage].removeItem(key);
   }
 
-  setItem(key: string, value: string): void {
-    return this.storage.setItem(key, value);
+  setItem(key: string, value: string, nameStorage = 'local'): void {
+    return this[nameStorage].setItem(key, value);
   }
 }

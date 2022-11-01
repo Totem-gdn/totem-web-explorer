@@ -84,3 +84,9 @@ export interface SubmitGameResponse {
   };
   uploadImageURLs: ImagesUrls;
 }
+
+export interface ImageEvents {
+  coverEvent?: any | null;
+  cardEvent?: any | null;
+  searchEvent?: any | null;
+}

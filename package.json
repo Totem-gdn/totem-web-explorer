@@ -5,10 +5,10 @@
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
-    "dev-build-compress": "ng build && gzipper compress --verbose --include js,css,html ./dist",
+    "dev-build-compress": "ng build && gzipper compress --verbose --include js,css,html ./dist  && gulp purifyCSS",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prod-build-compress": "ng build --configuration production && gzipper compress --verbose ./dist"
+    "prod-build-compress": "ng build --configuration production && gzipper compress --verbose ./dist && gulp purifyCSS"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +52,8 @@
     "autoprefixer": "^10.4.8",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
+    "gulp": "^4.0.2",
+    "gulp-purifycss": "^0.2.0",
     "https-browserify": "^1.0.0",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",

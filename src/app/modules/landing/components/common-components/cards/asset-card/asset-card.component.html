@@ -2,11 +2,11 @@
 
 
     <div class="img-wrapper" *ngIf="_asset?.tokenId">
-        <img loading="lazy" *ngIf="type != 'gem'" src="{{'https://asset-renderer.totem-explorer.com/' + type + '/' + (+_asset?.tokenId)}}" alt="">
-        <img loading="lazy" *ngIf="type == 'gem'" src="{{'https://asset-renderer.totem-explorer.com/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="">
+        <img loading="lazy" *ngIf="type != 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId)}}" alt="">
+        <img loading="lazy" *ngIf="type == 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="">
     </div>
     <div class="img-wrapper" *ngIf="asset?.id?.tokenId">
-        <img loading="lazy" src="{{'https://asset-renderer.totem-explorer.com/item/' + (+_asset?.id?.tokenId)}}" alt="">
+        <img loading="lazy" src="{{assetRendererUrl+ '/' + (+_asset?.id?.tokenId)}}" alt="">
     </div>
 
     <div class="attributes">

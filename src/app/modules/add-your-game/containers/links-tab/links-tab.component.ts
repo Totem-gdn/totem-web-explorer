@@ -31,6 +31,14 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     const webPage = this.connectionsForm.get('webpage');
     return webPage?.errors?.['required'] && (webPage?.touched || webPage?.dirty);
   }
+  get assetRendererErrors() {
+    const assetRenderer = this.connectionsForm.get('assetRenderer');
+    return !assetRenderer?.value ? false : !this.urlRegEx.test(assetRenderer?.value!);
+  }
+  get promoVideoErrors() {
+    const promoVideo = this.connectionsForm.get('promoVideo');
+    return !promoVideo?.value ? false : !this.urlRegEx.test(promoVideo?.value!);
+  }
 
 
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
@@ -50,8 +58,8 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
   connectionsForm = new FormGroup({
     webpage: new FormControl(null, Validators.required),
-    rendererUrl: new FormControl(null),
-    videoUrl: new FormControl(null),
+    assetRenderer: new FormControl(null, Validators.pattern(this.urlRegEx)),
+    promoVideo: new FormControl(null, Validators.pattern(this.urlRegEx)),
     socialLinks: new FormArray([
       // new FormArray([type: new FormControl(null), url: new FormControl('https://')])
       new FormGroup({ type: new FormControl(null), url: new FormControl('https://') })
@@ -140,6 +148,8 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
       return link?.type !== null && link?.url !== 'https://' && this.urlRegEx.test(link.url!);
     });
     form.socialLinks = socLinksArr;
+    form.assetRenderer = form.assetRenderer ? form.assetRenderer : null;
+    form.promoVideo = form.promoVideo ? form.promoVideo : null;
 
     this.formsService.saveForm('connections', form);
     this.isFormValid();
@@ -151,8 +161,8 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
     this.connectionsForm.patchValue({
       webpage: values.webpage,
-      rendererUrl: values.rendererUrl,
-      videoUrl: values.videoUrl
+      assetRenderer: values.assetRenderer,
+      promoVideo: values.promoVideo
     });
 
     for (let index = 0; index < values.socialLinks.length; index++) {

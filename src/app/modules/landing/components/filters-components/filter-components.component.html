@@ -6,10 +6,10 @@
             <div class="flex flex-wrap sm:flex-nowrap w-full max-w-[350px] justify-between">
                 <filter-slider class="nav-item lg:w-[320px] lg:!hidden"></filter-slider>
                 <clear-all class="nav-item lg:w-[320px] lg:!block !hidden"></clear-all>
-    
+
                 <game-dropdown *ngIf="itemType != 'game'" class="nav-item" [title]="'Game name'"></game-dropdown>
             </div>
-    
+
             <sort-by *ngIf="showSort" (sort)="onSort($event)" class="nav-item !ml-auto !mr-0"></sort-by>
         </div>
     </div>
@@ -37,7 +37,7 @@
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no avatars</h3></ng-container>
                         <asset-card *ngFor="let item of items" [asset]="item" [type]="'avatar'"></asset-card>
                     </ng-container>
-                    
+
                     <ng-container *ngIf="itemType === 'game'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no games</h3></ng-container>
                         <game-card *ngFor="let item of items" [game]="item"></game-card>
@@ -46,7 +46,7 @@
                     <ng-container *ngIf="itemType === 'gem'">
                         <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no gems</h3></ng-container>
                         <asset-card *ngFor="let item of items" [asset]="item" [type]="'gem'"></asset-card>
-                    </ng-container>         
+                    </ng-container>
                 </div>
 
                 <div *ngIf="showButton" class="w-full mt-[60px] flex">

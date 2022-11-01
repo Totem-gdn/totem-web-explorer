@@ -20,33 +20,17 @@
 
     <div class="flex grow justify-center h-[200px] max-w-[420px] pt-[20px] lg:pt-0">
         <div class="mb-auto mt-[10px] lg:my-0 mr-auto lg:mr-[20px] z-12 min-w-[240px] sm:min-w-[280px] lg:min-w-[auto]">
-            <search-dropdown [alwaysOpen]="true" [title]="'Game Name'" (onFakeChange)="reselectGames($event)" (onChange)="selectGame($event)"></search-dropdown>
+            <game-dropdown [menuActive]="true" [title]="'Game name'"></game-dropdown>
         </div>
     </div>
 
     <div class="img-wrapper xl:m-0">
-      <div [@hideFirstState]="gameChanged" class="img-card">
-          <div class="img-1">
-              <img loading="lazy" [src]="testImgURL_1" alt="">
-          </div>
-          <div class="img-2 z-12">
-              <img loading="lazy" [src]="testImgURL_1" alt="">
-          </div>
-      </div>
-      <div [@hideSecondState]="gameChanged" class="img-card">
-          <div class="img-1">
-              <img loading="lazy" [src]="testImgURL_2" alt="">
-          </div>
-          <div class="img-2 z-12">
-              <img loading="lazy" [src]="testImgURL_2" alt="">
-          </div>
-      </div>
-      <div [@hideThirdState]="gameChanged" class="img-card">
+      <div [@hideThirdState]="'selected'" class="img-card">
         <div class="card-1">
-          <asset-card *ngIf="gameChanged === 'selected'" [type]="'avatar'" [asset]="cardsToShow[0]"></asset-card>
+          <asset-card [type]="'avatar'" [asset]="cardsToShow[0]" [selectedGame]="getSelectedGames() | async"></asset-card>
         </div>
         <div class="card-2 z-12">
-          <asset-card *ngIf="gameChanged === 'selected'" [type]="'item'" [asset]="cardsToShow[1]"></asset-card>
+          <asset-card [type]="'item'" [asset]="cardsToShow[1]" [selectedGame]="getSelectedGames() | async"></asset-card>
         </div>
       </div>
     </div>

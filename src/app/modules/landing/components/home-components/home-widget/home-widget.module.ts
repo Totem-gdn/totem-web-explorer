@@ -4,6 +4,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "@app/shared/shared.module";
 import { BackgroundCircleModule } from "../../common-components/bg-circle/bg-circle.module";
 import { CardsModule } from "../../common-components/cards/cards.module";
+import { GameDropdownModule } from "../../common-components/dropdowns/game-dropdown/game-dropdown.module";
 import { SearchDropdownModule } from "../../common-components/dropdowns/search-dropdown/search-dropdown.module";
 import { HomeWidgetComponent } from "./home-widget.component";
 
@@ -19,7 +20,7 @@ import { HomeWidgetComponent } from "./home-widget.component";
         SearchDropdownModule,
         BackgroundCircleModule,
         MatIconModule,
-
+        GameDropdownModule,
         CardsModule
     ],
     exports: [
