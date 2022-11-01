@@ -2,7 +2,7 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ImagesToUpload, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
-import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
+import { CompressImageService } from '@app/shared/services/compress-image.service';
 import { BehaviorSubject, concat, Observable } from 'rxjs';
 import { SubmitGameService } from '../../services/submit-game.service';
 
@@ -11,7 +11,7 @@ import { SubmitGameService } from '../../services/submit-game.service';
   templateUrl: './image-uploader.component.html',
   styleUrls: ['./image-uploader.component.scss'],
   host: {
-        class: 'flex flex-auto w-full h-full'
+    class: 'flex flex-auto w-full h-full'
   }
 })
 export class ImageUploaderComponent implements OnInit, OnDestroy {
@@ -26,11 +26,10 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<ImageUploaderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null },
     private submitGameService: SubmitGameService,
-    ) {
-      console.log(this.data);
-
-      this.filesToUpload = this.data;
-    }
+    private compressImageService: CompressImageService,
+  ) {
+    this.filesToUpload = this.data;
+  }
 
   ngOnInit() {
     this.filesToUploadNumber = this.filesToUpload.gameSubmitResponse.uploadImageURLs.imagesGallery!.length + 3 + (this.data.jsonFile ? 1 : 0);
@@ -38,7 +37,9 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     //this.submitGameService.approveGame(this.filesToUpload.gameSubmitResponse.id);
   }
 
-  linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null }) {
+  async linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null }) {
+    data.images = await this.compreseImages(data.images)
+
     this.submitGameService.currentIdToUpload = data.gameSubmitResponse.id;
     const linkedImagesToUrlsObservable: Observable<any>[] = this.submitGameService.componeFilesToUpload(
       data.images,
@@ -62,11 +63,26 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
         }
         console.log(event);
       }
-      //console.log(event);
     });
   }
 
   ngOnDestroy(): void {
+  }
+
+  async compreseImages(images: ImagesToUpload): Promise<ImagesToUpload> {
+    images.cardImage = await this.compressImageService.compressImage(images.cardImage as File);
+    images.coverImage = await this.compressImageService.compressImage(images.coverImage as File);
+    images.searchImage = await this.compressImageService.compressImage(images.searchImage as File);
+
+    const promises: Promise<File>[] = images.gallery!.map((file: File) => {
+      return this.compressImageService.compressImage(file);
+    })
+
+    Promise.all(promises).then((files: File[]) => {
+      images.gallery = files;
+    })
+
+    return images;
   }
 
 }
