@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { DROP_BLOCK_TYPE } from '@app/core/enums/submission-tabs.enum';
-import { ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
+import { ImageEvents, ImagesInfo, ImagesToUpload, SubmitGame } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { DropzoneError } from '../../components/totem-image-dropzone/totem-image-dropzone.component';
@@ -22,9 +22,12 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
   imageReader: FileReader = new FileReader();
-  finalizedImage!: File;
-  finalizedCardImage!: File;
-  finalizedSearchImage!: File;
+  finalizedImage!: File | undefined;
+  finalizedCardImage!: File | undefined;
+  finalizedSearchImage!: File | undefined;
+  @Input() finalizedImageEvent!: any | null;
+  @Input() finalizedCardImageEvent!: any | null;
+  @Input() finalizedSearchImageEvent!: any | null;
   finalizedGalleryImages: File[] = [];
   allowButton: boolean = false;
 
@@ -51,6 +54,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
   };
 
+  @Output() fileEvents: EventEmitter<ImageEvents> = new EventEmitter();
   @Output() formDataEvent: EventEmitter<ImagesInfo> = new EventEmitter();
   @Output() imageFilesEvent: EventEmitter<ImagesToUpload> = new EventEmitter();
   @Output() tabSelected = new EventEmitter<string>();
@@ -133,10 +137,26 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeImage(item: any) {
+  removeGalleryImage(item: any) {
     this.finalizedGalleryImages = this.finalizedGalleryImages.filter((image: File) => {
       return image.name != item.name;
-    })
+    });
+    this.updateFilesToUpload();
+    this.isFormValid();
+  }
+
+  removeImage(type: string) {
+    if (type == 'cover') {
+      this.finalizedImage = undefined;
+    }
+    if (type == 'card') {
+      this.finalizedCardImage = undefined;
+    }
+    if (type == 'search') {
+      this.finalizedSearchImage = undefined;
+    }
+    this.updateFilesToUpload();
+    this.isFormValid();
   }
 
   updateCoverError(error: DropzoneError) {
@@ -174,15 +194,40 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   }
 
   checkValidity(): boolean {
-    return this.finalizedImage && this.finalizedCardImage && this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
+    return !!this.finalizedImage && !!this.finalizedCardImage && !!this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
   }
 
   onNextTab() {
     this.tabSelected.emit('links');
   }
 
-  cropSelectedImage(event: any, type: string) {
-    this.openCropperDialog(event, type);
+  updateFilesToUpload() {
+    this.imageFilesEvent.emit({
+      coverImage: this.finalizedImage,
+      cardImage: this.finalizedCardImage,
+      searchImage: this.finalizedSearchImage,
+      gallery: this.finalizedGalleryImages
+    });
+  }
+
+  cropSelectedImage(event: any, type: string, edit?: boolean) {
+    if (type == 'cover' && !edit) {
+      this.finalizedImageEvent = event;
+    }
+    if (type == 'card' && !edit) {
+      this.finalizedCardImageEvent = event;
+    }
+    if (type == 'search' && !edit) {
+      this.finalizedSearchImageEvent = event;
+    }
+    this.fileEvents.emit({coverEvent: this.finalizedImageEvent, cardEvent: this.finalizedCardImageEvent, searchEvent: this.finalizedSearchImageEvent});
+    if (edit) {
+      this.openCropperDialog(
+        type == 'cover' ? this.finalizedImageEvent : type == 'card' ? this.finalizedCardImageEvent : this.finalizedSearchImageEvent, type
+        );
+    } else {
+      this.openCropperDialog(event, type);
+    }
   }
 
   openCropper(image: any, type: string): Observable<string> {
@@ -211,12 +256,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
           if (type == 'card') this.finalizedCardImage = data;
           if (type == 'search') this.finalizedSearchImage = data;
           if (type == 'gallery') this.finalizedGalleryImages.push(data);
-          this.imageFilesEvent.emit({
-              coverImage: this.finalizedImage,
-              cardImage: this.finalizedCardImage,
-              searchImage: this.finalizedSearchImage,
-              gallery: this.finalizedGalleryImages
-          })
+          this.updateFilesToUpload();
           this.isFormValid(); //IMG VALIDATION
         }
       })

@@ -19,6 +19,8 @@ export class PreviewSearchCardComponent implements OnInit {
       if (this.finalizedImage) {
         this.imageReader.readAsDataURL(this.finalizedImage);
         this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
+      } else {
+        this.imageUrl = '';
       }
     }
   }

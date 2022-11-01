@@ -43,7 +43,7 @@ export class GameDetailsComponent implements AfterViewInit {
         status: new FormControl(null, Validators.required),
         platforms: new FormArray([], Validators.required),
         madeWith: new FormControl(null),
-        avarageSession: new FormControl(null),
+        session: new FormControl(null),
         languages: new FormControl(null),
         inputs: new FormControl(null),
     })
@@ -90,7 +90,7 @@ export class GameDetailsComponent implements AfterViewInit {
             status: values.status,
             // platforms: values.platforms,
             madeWith: values.madeWith,
-            avarageSession: values.avarageSession,
+            session: values.session,
             languages: values.languages,
             inputs: values.inputs,
 

@@ -71,7 +71,7 @@
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
               <div class="item-name">{{item?.general?.name}}</div>
-              <div class="item-type">{{item?.general?.genre![0]}}</div>
+              <div class="item-type">{{item?.general?.genre ? item?.general.genre[0] : 'Action'}}</div>
             </div>
           </div>
         </div>
