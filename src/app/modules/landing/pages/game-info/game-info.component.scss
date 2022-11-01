@@ -17,6 +17,7 @@
         border-radius: 4px;
         background: $linear-glass;
         img {
+          z-index: 1;
             object-fit: cover;
             border-radius: 4px;
             min-height: 160px;
@@ -27,16 +28,16 @@
             right: 0;
             left: 0;
         }
-        // &::before {
-        //   content: '';
-        //   position: absolute;
-        //   top: 15px;
-        //   bottom: 15px;
-        //   right: 15px;
-        //   left: 15px;
-        //   border-radius: 4px;
-        //   background-color: $grey;
-        // }
+  //       &::before {
+  //         content: '';
+  //         position: absolute;
+  //         border-radius: 4px;
+  //         bottom: 15px;
+  //         right: 15px;
+  //         left: 15px;
+  //         top: 15px;
+  //         background-color: $grey;
+  // }
     }
 }
 
