@@ -25,7 +25,7 @@
     <div class="swiper-wrapper">
 
       <div *ngFor="let slide of slides" class="swiper-slide">
-        <asset-card *ngIf="itemType != 'game'" [type]="itemType" [asset]="slide"></asset-card>
+        <asset-card *ngIf="itemType != 'game'" [type]="itemType" [asset]="slide" [selectedGame]="getSelectedGames() | async"></asset-card>
         <game-card *ngIf="itemType == 'game'" [game]="slide"></game-card>
       </div>
     </div>

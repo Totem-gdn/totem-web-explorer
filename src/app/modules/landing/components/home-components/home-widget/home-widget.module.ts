@@ -6,6 +6,7 @@ import { BackgroundCircleModule } from "../../common-components/bg-circle/bg-cir
 import { AvatarCardModule } from "../../common-components/cards/avatar-card/avatar-card.module";
 import { CardsModule } from "../../common-components/cards/cards.module";
 import { ItemCardModule } from "../../common-components/cards/item-card/item-card.module";
+import { GameDropdownModule } from "../../common-components/dropdowns/game-dropdown/game-dropdown.module";
 import { SearchDropdownModule } from "../../common-components/dropdowns/search-dropdown/search-dropdown.module";
 import { HomeWidgetComponent } from "./home-widget.component";
 
@@ -21,7 +22,7 @@ import { HomeWidgetComponent } from "./home-widget.component";
         SearchDropdownModule,
         BackgroundCircleModule,
         MatIconModule,
-
+        GameDropdownModule,
         CardsModule
     ],
     exports: [
