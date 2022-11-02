@@ -4,8 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "set NODE_ENV=https://dev.totem-explorer.com/&& ng build && npm run generate-sitemap",
-    "build:prod": "set NODE_ENV=https://totem-explorer.com/&& ng build && npm run generate-sitemap",
+    "build": "ng build && npm run generate-sitemap",
     "dev-build-compress": "ng build && gzipper compress --verbose --include js,css,html ./dist  && gulp purifyCSS",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

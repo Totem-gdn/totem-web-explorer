@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
-        <loc>prod </loc>
-        <lastmod>Thu Nov 03 2022 00:38:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://dev.totem-explorer.com/</loc>
+        <lastmod>Thu Nov 03 2022 01:51:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>prod items</loc>
-        <lastmod>Thu Nov 03 2022 00:38:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://dev.totem-explorer.com/items</loc>
+        <lastmod>Thu Nov 03 2022 01:51:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>prod avatars</loc>
-        <lastmod>Thu Nov 03 2022 00:38:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://dev.totem-explorer.com/avatars</loc>
+        <lastmod>Thu Nov 03 2022 01:51:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>prod games</loc>
-        <lastmod>Thu Nov 03 2022 00:38:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://dev.totem-explorer.com/games</loc>
+        <lastmod>Thu Nov 03 2022 01:51:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>prod help</loc>
-        <lastmod>Thu Nov 03 2022 00:38:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://dev.totem-explorer.com/help</loc>
+        <lastmod>Thu Nov 03 2022 01:51:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>prod buy</loc>
-        <lastmod>Thu Nov 03 2022 00:38:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://dev.totem-explorer.com/buy</loc>
+        <lastmod>Thu Nov 03 2022 01:51:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>prod terms-and-policy</loc>
-        <lastmod>Thu Nov 03 2022 00:38:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://dev.totem-explorer.com/terms-and-policy</loc>
+        <lastmod>Thu Nov 03 2022 01:51:58 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 </urlset>

@@ -48,6 +48,21 @@ var routes = [
   },
 ];
 
+const robots = `User-agent: *
+Disallow: /profile/
+Disallow: /game/
+Disallow: /item/
+Disallow: /gem/
+Disallow: /avatar/
+Disallow: /approve-game/
+Disallow: /submit-game/
+Disallow: /approve-game/
+Allow: /
+
+Sitemap: ${HOSTNAME}/sitemap.xml`
+
+fs.writeFileSync(path.join(__dirname, "./src/robots.txt"), robots);
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`
   .concat(
@@ -55,7 +70,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
       .map((route) => {
         return `
         <url>
-        <loc>${HOSTNAME}${route.data.loc}</loc>
+        <loc>${HOSTNAME}/${route.data.loc}</loc>
         <lastmod>${route.data.lastmod}</lastmod>
         <changefreq>weekly</changefreq>
         </url>`;
@@ -64,6 +79,5 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
       .join("\n")
   )
   .concat("\n</urlset>");
-console.log(process.env);
 
 fs.writeFileSync(path.join(__dirname, "./src/sitemap.xml"), sitemap);
