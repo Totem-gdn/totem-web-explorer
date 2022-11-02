@@ -12,6 +12,7 @@
     z-index: 101;
 
     .popup {
+        position: relative;
         margin: auto;
         background-color: $grey;
         border-radius: 4px;
@@ -30,6 +31,4 @@
     bottom: 0;
     left: 0;
     right: 0;
-    opacity: 0;
-    transition: opacity .8s .2s ease-in-out;
 }
