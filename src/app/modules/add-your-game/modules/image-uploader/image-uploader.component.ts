@@ -2,7 +2,6 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ImagesToUpload, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
-import { CompressImageService } from '@app/shared/services/compress-image.service';
 import { BehaviorSubject, concat, Observable } from 'rxjs';
 import { SubmitGameService } from '../../services/submit-game.service';
 
@@ -26,7 +25,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<ImageUploaderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null },
     private submitGameService: SubmitGameService,
-    private compressImageService: CompressImageService,
+
   ) {
     this.filesToUpload = this.data;
   }
@@ -38,7 +37,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
   }
 
   async linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null }) {
-    data.images = await this.compreseImages(data.images)
+    console.log('converted data', data);
 
     this.submitGameService.currentIdToUpload = data.gameSubmitResponse.id;
     const linkedImagesToUrlsObservable: Observable<any>[] = this.submitGameService.componeFilesToUpload(
@@ -69,20 +68,6 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  async compreseImages(images: ImagesToUpload): Promise<ImagesToUpload> {
-    images.cardImage = await this.compressImageService.compressImage(images.cardImage as File);
-    images.coverImage = await this.compressImageService.compressImage(images.coverImage as File);
-    images.searchImage = await this.compressImageService.compressImage(images.searchImage as File);
 
-    const promises: Promise<File>[] = images.gallery!.map((file: File) => {
-      return this.compressImageService.compressImage(file);
-    })
-
-    Promise.all(promises).then((files: File[]) => {
-      images.gallery = files;
-    })
-
-    return images;
-  }
 
 }

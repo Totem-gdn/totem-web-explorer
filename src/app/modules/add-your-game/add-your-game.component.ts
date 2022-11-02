@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
 import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, ImagesToUpload, SubmitGame, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
+import { CompressImageService } from '@app/shared/services/compress-image.service';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
@@ -18,7 +19,7 @@ const BODY: SubmitGame = {
   templateUrl: './add-your-game.component.html',
   styleUrls: ['./add-your-game.component.scss'],
   host: {
-        class: 'flex flex-auto w-full h-full'
+    class: 'flex flex-auto w-full h-full'
   }
 })
 export class AddYourGameComponent implements OnInit, OnDestroy {
@@ -39,8 +40,10 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     private userStateService: UserStateService,
     private formsService: FormsService,
     private submitGameService: SubmitGameService,
-    private gtag: Gtag) {
-      gtag.event('page_view');
+    private compressImageService: CompressImageService,
+    private gtag: Gtag
+  ) {
+    gtag.event('page_view');
   }
 
   ngOnInit() {
@@ -115,10 +118,9 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     this.submitGameService.componeFilesToUpload(this.imagesToUpload, data!.uploadImageURLs, data!.connections, this.jsonFileToUpload)
   }
 
-  updateImagesToUpload(data: ImagesToUpload) {
-    this.imagesToUpload = data;
-    console.log(this.imagesToUpload);
-
+  async updateImagesToUpload(data: ImagesToUpload) {
+    this.imagesToUpload = await this.compreseImages(data);
+    console.log('imagesToUpload',this.imagesToUpload);
   }
 
   goToTab(tab: string) {
@@ -155,15 +157,15 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     /* const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1; */
     const options: MatDialogConfig = {
-        disableClose: true,
-        panelClass: 'image-upload-dialog',
-        backdropClass: 'blurred-backdrop',
-        data: {
-          images: imagesToUpload,
-          gameSubmitResponse: gameSubmitResponse,
-          jsonFile: jsonFile
-        },
-        autoFocus: false
+      disableClose: true,
+      panelClass: 'image-upload-dialog',
+      backdropClass: 'blurred-backdrop',
+      data: {
+        images: imagesToUpload,
+        gameSubmitResponse: gameSubmitResponse,
+        jsonFile: jsonFile
+      },
+      autoFocus: false
     };
     return this.matDialog.open(ImageUploaderComponent, options).afterClosed();
   }
@@ -174,6 +176,22 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         console.log(data);
       })
     )
+  }
+
+  async compreseImages(images: ImagesToUpload): Promise<ImagesToUpload> {
+    images.cardImage  = await this.compressImageService.compressImage(images.cardImage as File);
+    images.coverImage = await this.compressImageService.compressImage(images.coverImage as File);
+    images.searchImage = await this.compressImageService.compressImage(images.searchImage as File);
+
+    const promises: Promise<File>[] = images.gallery!.map((file: File) => {
+      return this.compressImageService.compressImage(file);
+    })
+
+    Promise.all(promises).then((files: File[]) => {
+      images.gallery = files;
+    })
+
+    return images;
   }
 
 }
