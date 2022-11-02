@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    <span @showMessage class="error-message" *ngIf="ammountError | async">You don't have enough tokens of this type.</span>
+                    <!-- <span @showMessage class="error-message" *ngIf="ammountError | async">You don't have enough tokens of this type.</span> -->
                     <div @showGas *ngIf="gasFee" class="flex flex-row gas-fee-wrapper">
                         <div class="line-info mr-[6px]"></div>
                       <span class="gas-fee">Gas fee: {{gasFee ? gasFee: '0'}} MATIC </span>

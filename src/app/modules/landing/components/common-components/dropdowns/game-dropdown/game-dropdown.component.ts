@@ -1,8 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
 import { filter, Subject, takeUntil } from "rxjs";
+
+
+import { Game } from "../../totem-search-filter/models/items-interface.model";
 
 
 @Component({
@@ -11,25 +14,32 @@ import { filter, Subject, takeUntil } from "rxjs";
   styleUrls: ['./game-dropdown.component.scss']
 })
 
-export class GameDropdownComponent implements OnDestroy, AfterViewInit, OnInit {
+export class GameDropdownComponent implements OnDestroy, AfterViewInit {
 
   @Input() type: string = 'game';
-  @Input() title: string = 'Menu';
+  @Input() title = 'Menu';
+  @Input() games: Game[] = [];
   @Input() menuActive = false;
+  @Input() alwaysOpen = false;
+  @Input() borderStyle = false;
+  @Input() bluffChanges = false;
+  @Output() changeGame: EventEmitter<Game> = new EventEmitter<Game>();
+
+  // @Input() onBluffChange = new EventEmitter();
   resetSearch: boolean = false;
-  games: any = [];
-  selectedItem: any;
+  initGamesList!: Game[];
+  selectedItem!: Game;
   subs = new Subject<void>();
   uniqKey = 'gamesDropdown';
   @ViewChild('dropdown') dropdown!: ElementRef;
   @ViewChild('menuItems') menuItems!: ElementRef;
 
 
-  set selectedGame(game: any) {
+  set selectedGame(game: Game) {
     if (!game) return;
     this._selectedGame = game;
   };
-  _selectedGame: any;
+  _selectedGame!: Game;
 
   constructor(private router: Router,
     private gamesService: GamesService,
@@ -40,26 +50,48 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.filterGames('');
+    this.games$(true);
     this.selectedGame$();
   }
 
-  filterGames(filter?: any) {
+  initBluffChanges() {
+    if (this.bluffChanges && this.initGamesList) {
+      let idx = 1;
+      const inter = setInterval(() => {
+        if (!this.baseStorageService.getItem(this.uniqKey, 'sesion')) {
+          this.onChangeInput(this.initGamesList[idx], true);
+          if (idx < this.initGamesList.length) {
+            idx++;
+          } else {
+            idx = 0;
+          }
+        } else {
+          clearInterval(inter);
+        }
+      }, 6000)
+    }
+  }
+
+  filterGames(filter: string) {
     this.games = [];
     this.gamesService.filterDropdownGames(filter).subscribe();
   }
-  games$() {
+  games$(initGames = false) {
     this.gamesService.dropdownGames$
       .pipe(
         takeUntil(this.subs),
         filter(Boolean),
       ).subscribe(games => {
         this.games = games;
+        if (initGames) {
+          this.initGamesList = games;
+        }
         if (games) {
           this.selectedGame = this.gamesService.selectedGame;
           let sessionValue = this.baseStorageService.getItem(this.uniqKey, 'sesion');
           this.title = sessionValue || this.games[0].general.name;
           if (!this.selectedGame) {
-            const game = games.find((el: any) => el.general.name === this.title);
+            const game = games.find((el: Game) => el.general.name === this.title);
             if (game) {
               this.gamesService.selectedGame = this._selectedGame;
               this.title = game.general.name;
@@ -67,6 +99,8 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit, OnInit {
 
           }
         }
+
+        this.initBluffChanges();
 
       })
   }
@@ -76,24 +110,31 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit, OnInit {
       .pipe(takeUntil(this.subs))
       .subscribe(game => {
         if (game) {
+          this.changeGame.emit(game);
           this.selectedGame = game;
           this.title = game.general.name;
         }
       })
   }
 
-  onChangeInput(game: any) {
+  onChangeInput(game: Game, fromInterval = false) {
     this.selectedGame = game;
     this.gamesService.selectedGame = this._selectedGame;
     this.title = game.general.name;
-    this.baseStorageService.setItem(this.uniqKey, this.title, 'sesion');
-    this.menuActive = false;
+    if (!fromInterval) {
+      this.baseStorageService.setItem(this.uniqKey, this.title, 'sesion');
+    }
+    if (!this.alwaysOpen) {
+      this.menuActive = false;
+    }
     this.resetSearch = !this.resetSearch;
   }
 
   onClick(isClickedInside: any) {
     if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
-      this.menuActive = false;
+      if (!this.alwaysOpen) {
+        this.menuActive = false;
+      }
       this.resetSearch = !this.resetSearch;
     }
   }
@@ -111,5 +152,10 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit, OnInit {
   ngOnDestroy(): void {
     this.subs.next();
     this.subs.unsubscribe();
+  }
+
+  toggleList() {
+    if(this.alwaysOpen) return;
+    this.menuActive = !this.menuActive;
   }
 }

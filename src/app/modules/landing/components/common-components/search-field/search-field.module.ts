@@ -20,5 +20,5 @@ import { SearchFieldComponent } from "./search-field.component";
 })
 
 export class SearchFieldModule {
-    
+
 }
