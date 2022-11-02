@@ -30,10 +30,20 @@
   align-items: center;
 }
 
+.swiper-wrapper {
+  @media (min-width: 999px) {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .swiper-slide {
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
+    @media (min-width: 999px) {
+      max-width: 24%;
+      margin-right: 16px;
+    }
 
     img {
       display: block;
@@ -42,6 +52,7 @@
       object-fit: cover;
     }
   }
+}
 
   .swiper-pagination {
     bottom: -40px;
