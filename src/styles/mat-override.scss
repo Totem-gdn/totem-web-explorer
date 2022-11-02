@@ -31,6 +31,18 @@ mat-progress-bar {
 
 // dialogs
 
+.welcome-dialog-panel {
+  width: 100%;
+  max-width: 800px !important;
+  height: 100%;
+  max-height: 400px;
+
+  .mat-dialog-container {
+    background-color: #2A2D33;
+    padding: 0;
+  }
+}
+
 .large-dialog {
   width: 100%;
   max-width: 1400px !important;
