@@ -19,7 +19,6 @@ export class Web3AuthService {
     web3!: Web3;
 
     init = async () => {
-        console.log('Init')
         this.web3auth = new Web3Auth({
             clientId,
             chainConfig: {
@@ -30,28 +29,15 @@ export class Web3AuthService {
             
         });
         const web3auth = this.web3auth;
-        await web3auth.initModal(
-        //     {
-        //     modalConfig: {
-        //         [WALLET_ADAPTERS.TORUS_EVM]: {
-        //             label: 'torus-evm',
-        //             // showOnDesktop: false,
-        //             // showOnMobile: false,
-        //             showOnModal: false
-        //         },
-        //         [WALLET_ADAPTERS.TORUS_SOLANA]: {
-        //             label: 'torus-solana',
-        //             // showOnDesktop: false,
-        //             // showOnMobile: false,
-        //             showOnModal: false,
-        //         }
-        //     }
-        // }
-        );
+        await web3auth.initModal();
+        document.getElementById('w3a-container')!.style.visibility = 'hidden';
 
         if (web3auth.provider) {
             this.provider = web3auth.provider;
         }
+        // this.web3auth.addListener('CONNECTED', () => {
+        //     console.log('CONNECTED')
+        // })
         this.isModalLoaded = true;
     }
 

@@ -1,0 +1,35 @@
+@import 'styles/scss/variables';
+
+.overlay {
+    position: fixed;
+    display: flex; 
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(67, 67, 67, 0.25);
+    backdrop-filter: blur(20px);
+    z-index: 101;
+
+    .popup {
+        margin: auto;
+        background-color: $grey;
+        border-radius: 4px;
+        border: 1px solid $light-grey;
+        padding: 15px;
+        max-width: 280px;
+        max-height: 400px;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.circle-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity .8s .2s ease-in-out;
+}

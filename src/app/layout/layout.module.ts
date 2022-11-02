@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { LayoutComponentsModule } from './components/layout-components.module';
+import { LogoutModule } from './components/logout/logout.module';
 import { TokenTransactionModule } from './components/token-transaction/token-transaction.module';
 import { LayoutComponent } from './layout.component';
 
@@ -16,7 +17,8 @@ import { LayoutComponent } from './layout.component';
         RouterModule,
         LayoutComponentsModule,
 
-        TokenTransactionModule
+        TokenTransactionModule,
+        LogoutModule
     ],
     exports     : [
         LayoutComponent,

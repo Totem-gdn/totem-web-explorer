@@ -6,7 +6,4 @@
     width: 100%;
     max-width: 100%;
 }
-router-outlet + * {
-    min-width: calc(100vh - 70px);
-    display: flex;
-  }
+
