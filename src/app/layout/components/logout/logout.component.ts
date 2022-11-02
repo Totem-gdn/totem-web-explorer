@@ -11,7 +11,7 @@ import { Animations } from "@app/core/animations/animations";
 })
 
 export class LogoutComponent {
-    showPopup = true;
+    showPopup = false;
 
 
 }
