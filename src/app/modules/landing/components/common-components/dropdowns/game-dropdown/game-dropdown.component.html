@@ -1,5 +1,5 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
-    <div #menu class="dropdown-toggle" (click)="menuActive = !menuActive">
+    <div #menu class="dropdown-toggle" (click)="toggleList()">
 
 
         <span>{{title || 'Game Name'}}</span>
@@ -14,8 +14,10 @@
         </div>
         <!-- Items -->
         <div #menuItems class="menu-items">
-            <ng-container *ngIf="games && games?.length > 0">
-                <label class="menu-item" *ngFor="let game of games">
+            <ng-container *ngIf="games?.length">
+                <label
+                class="menu-item" *ngFor="let game of games"
+                [ngClass]="(borderStyle && game.general.name === title) ? 'checked': ''">
                     <div class="content">
                         <div class="square"><img [src]="game.images.smallThumbnail" alt=""></div>
 
@@ -24,11 +26,10 @@
                                 <p class="truncate absolute w-full">{{game.general.name}}</p>
                             </div>
                             <div class="h-[21px] pr-[10px] relative overflow-hidden"><span
-                                    class="truncate absolute w-full">{{game.general?.genre?.length &&
-                                    game.general?.genre[0]}}</span></div>
+                                    class="truncate absolute w-full">{{game && game?.general?.genre?.[0]}}</span></div>
                         </div>
                     </div>
-                    <input class="min-w-[24px]" (change)="onChangeInput(game)" [value]="game.general.name"
+                    <input [ngClass]="borderStyle ? 'borderStyle' : ''"class="min-w-[24px]" (change)="onChangeInput(game)" [value]="game.general.name"
                         [(ngModel)]="title" type="radio" [name]="'item-' + uniqKey">
                 </label>
             </ng-container>

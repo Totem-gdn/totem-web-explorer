@@ -19,11 +19,10 @@ export class SearchFieldComponent implements OnInit {
     @Input() set reset(reset:any) {
       if(this.searchControl.value == '') return;
       this.searchControl.patchValue('');
-      this.onChangeInput('');
+      this.onChangeInput();
     }
-    @ViewChild('searchInput') searchInput!: ElementRef;
     @Output() filter = new EventEmitter<any>();
-    
+
     items: any[] = [];
     itemsArray = new BehaviorSubject<any[] | null>(null);
     searchControl = new FormControl('');
@@ -32,8 +31,8 @@ export class SearchFieldComponent implements OnInit {
     searchActive = false;
     searchInfo = new FormControl('');
 
-    onChangeInput(e: any) {
-      this.filter.emit(e);
+    onChangeInput(target?: any) {
+      this.filter.emit(target?.value || '');
     }
 
     ngOnInit(): void {
@@ -44,7 +43,7 @@ export class SearchFieldComponent implements OnInit {
         // this.items = this.itemsService.items;
         this.initFormListener();
       }
-    
+
       initFormListener() {
         this.searchInfo.valueChanges.pipe(
           switchMap((id: string | null) => {
@@ -63,7 +62,7 @@ export class SearchFieldComponent implements OnInit {
           let itemsArray = this.items.filter((item: any) => item.name.toLowerCase().includes(params));
           this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
       }
-    
+
       processItems(items: any[] | null) {
         this.itemsArray.next(items);
       }
