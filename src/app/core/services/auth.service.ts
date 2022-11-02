@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { Gtag } from "angular-gtag";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { WelcomeDialogService } from "../dialogs/welcome-dialog/services/welcome-dialog.service";
 import { StorageKey } from "../enums/storage-keys.enum";
 import { OpenLoginUserInfo, UserEntity } from "../models/user-interface.model";
 import { Web3AuthService } from "../web3auth/web3auth.service";
@@ -23,7 +24,8 @@ export class UserStateService implements OnDestroy {
     private web3AuthService: Web3AuthService,
     private snackNotifierService: SnackNotifierService,
     private router: Router,
-    private gtag: Gtag
+    private gtag: Gtag,
+    private welcomeDialogService: WelcomeDialogService,
   ) { }
 
   async initAccount() {
@@ -33,6 +35,12 @@ export class UserStateService implements OnDestroy {
     if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
     }
+    if (!localStorage.getItem('claim-used')) {
+      console.log(JSON.parse(localStorage.getItem('claim-used')!));
+      localStorage.setItem('claim-used', JSON.stringify({status: 'warned'}));
+      this.welcomeDialogService.openWelcomeDialog().subscribe();
+    }
+
     this.loading$.next(false);
   }
 

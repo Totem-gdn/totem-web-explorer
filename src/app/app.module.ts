@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { GtagModule } from 'angular-gtag';
 import { environment } from '@env/environment';
+import { WelcomeDialogModule } from './core/dialogs/welcome-dialog/welcome-dialog.module';
 
 
 const routerConfig: ExtraOptions = {
@@ -30,7 +31,8 @@ const routerConfig: ExtraOptions = {
     RouterModule.forRoot(AppRoutes, routerConfig),
     LayoutModule,
     CoreModule,
-    GtagModule.forRoot({ trackingId: environment.TRACKING_G_ID, trackPageviews: true })
+    GtagModule.forRoot({ trackingId: environment.TRACKING_G_ID, trackPageviews: true }),
+    WelcomeDialogModule
   ],
   providers: [
     UserStateService,
