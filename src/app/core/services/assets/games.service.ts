@@ -52,7 +52,7 @@ export class GamesService {
                 genre: ['Canonical', 'View']
               },
               connections: {
-                assetRenderer: 'https://asset-renderer.totem-explorer.com'
+                assetRenderer: environment.ASSET_RENDERER_URL
               },
               images: {
                 smallThumbnail: 'assets/icons/nav/logo-small.svg'

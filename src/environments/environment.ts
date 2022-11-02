@@ -8,6 +8,7 @@ export const environment = {
   ALCHEMY_KEY: 'https://polygon-mumbai.g.alchemy.com/v2/VUUTlTODWEJGbHRQ55qIGovGX_FUOa5L',
   TOTEM_BASE_API_URL: 'https://dev-api.totem-explorer.com',
   TOTEM_FAUCET_API_URL: 'https://faucet.totem-explorer.com',
+  ASSET_RENDERER_URL: 'https://asset-renderer.totem-explorer.com',
   TRACKING_G_ID: 'G-L6K946DQFY'
 };
 
