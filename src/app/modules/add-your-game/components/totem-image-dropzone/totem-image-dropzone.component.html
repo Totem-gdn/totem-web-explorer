@@ -15,8 +15,11 @@
     accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
   >
   <div class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
-    <mat-icon class="doc-image" *ngIf="jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:doc-image'"></mat-icon>
-    <mat-icon *ngIf="!jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:no-image'"></mat-icon>
+    <!-- <mat-icon class="doc-image" *ngIf="jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:doc-image'"></mat-icon> -->
+    <!-- <mat-icon *ngIf="!jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:no-image'"></mat-icon> -->
+    <div class="solid-doc-image doc-image" *ngIf="jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}"></div>
+    <div class="solid-no-image" *ngIf="!jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}"></div>
+
     <div class="browse-caption mt-[18px]">{{jsonFileType ? 'Drop your JSON file here, or' : 'Drop your image here, or'}}
       <label [ngStyle]="{'pointer-events' : !dzHovered ? 'all' : 'none'}" class="browse-button" [for]="uniqueId">browse</label>
     </div>

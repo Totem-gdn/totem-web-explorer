@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { MatIconModule } from "@angular/material/icon";
 import { SearchDropdownModule } from "@app/modules/landing/components/common-components/dropdowns/search-dropdown/search-dropdown.module";
 import { TotemButtonModule } from "@app/modules/landing/components/common-components/totem-button/totem-button.module";
 import { SharedModule } from "@app/shared/shared.module";
@@ -16,8 +15,7 @@ import { GameDropdownModule } from "@app/modules/landing/components/common-compo
     ],
     imports: [
         SharedModule,
-        MatIconModule,
-
+        
         TotemButtonModule,
         SearchDropdownModule,
         ClipboardModule,

@@ -1,5 +1,6 @@
 @import 'styles/scss/variables';
 @import 'assets/fonts/icon-fonts/mail-font.scss';
+@import 'assets/fonts/icon-fonts/line/line.scss';
 
 .overlay {
     position: fixed;
@@ -109,7 +110,7 @@
 .gas-fee-wrapper {
   align-items: center;
   place-content: center start;
-  mat-icon {
+  .line-info {
     color: $light-grey;
     font-size: 17px;
     width: 17px;

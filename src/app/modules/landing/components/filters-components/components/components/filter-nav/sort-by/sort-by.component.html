@@ -3,7 +3,7 @@
     <div class="menu-filter bg-grey" (click)="onClickMenu()" 
     [ngClass]="menuActive ? 'gradient-border-solid': ''">
         <span class="whitespace-nowrap">{{title}}</span>
-        <mat-icon [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_down'"></mat-icon>
+        <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
     </div>
 
     <div #dropdown class="dropdown-menu backdrop-blur-xl gradient-border-solid" [ngClass]="menuActive ? 'appear': ''"

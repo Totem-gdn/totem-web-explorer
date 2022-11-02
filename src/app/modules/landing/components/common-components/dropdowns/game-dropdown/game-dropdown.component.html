@@ -1,8 +1,9 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
     <div #menu class="dropdown-toggle" (click)="menuActive = !menuActive">
 
+
         <span>{{title || 'Game Name'}}</span>
-        <mat-icon [ngClass]="menuActive ? 'rotate-x-180': ''" [svgIcon]="'line:arrow_up'"></mat-icon>
+        <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
 
     </div>
 
@@ -19,29 +20,31 @@
                         <div class="square"><img [src]="game.images.smallThumbnail" alt=""></div>
 
                         <div class="flex flex-col ml-[10px] grow">
-                            <div class="h-[24px] pr-[10px] relative overflow-hidden"><p class="truncate absolute w-full">{{game.general.name}}</p></div>
-                            <div class="h-[21px] pr-[10px] relative overflow-hidden"><span class="truncate absolute w-full">{{game.general?.genre?.length && game.general?.genre[0]}}</span></div>
+                            <div class="h-[24px] pr-[10px] relative overflow-hidden">
+                                <p class="truncate absolute w-full">{{game.general.name}}</p>
+                            </div>
+                            <div class="h-[21px] pr-[10px] relative overflow-hidden"><span
+                                    class="truncate absolute w-full">{{game.general?.genre?.length &&
+                                    game.general?.genre[0]}}</span></div>
                         </div>
                     </div>
-                    <input
-                    class="min-w-[24px]"
-                    (change)="onChangeInput(game)"
-                    [value]="game.general.name"
-                    [(ngModel)]="title"
-                    type="radio"
-                    [name]="'item-' + uniqKey">
+                    <input class="min-w-[24px]" (change)="onChangeInput(game)" [value]="game.general.name"
+                        [(ngModel)]="title" type="radio" [name]="'item-' + uniqKey">
                 </label>
             </ng-container>
 
             <span class="flex m-auto items-center h-[50px]" *ngIf="games?.length == 0">No Games Found</span>
 
-            <div *ngIf="!games" class="flex m-auto items-center h-[50px]"><totem-spinner></totem-spinner></div>
+            <div *ngIf="!games" class="flex m-auto items-center h-[50px]">
+                <totem-spinner></totem-spinner>
+            </div>
         </div>
         <!-- View All -->
         <div class="view-all">
             <div class="content" (click)="onClickViewAll()">
-                <span class="text-center">View all</span>
-                <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon>
+                <div class="text-center bottom-rectangle">View all</div>
+                <!-- <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon> -->
+                <!-- <div class="solid-bottom_rectangle !h-[2px] !w-full"></div> -->
             </div>
         </div>
     </div>

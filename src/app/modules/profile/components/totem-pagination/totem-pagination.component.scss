@@ -1,10 +1,12 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 :host {
   min-width: 120px;
 }
 
-mat-icon, * {
+.line-arrow_left, .line-arrow_right, * {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
@@ -36,13 +38,12 @@ mat-icon, * {
       align-items: center;
       cursor: pointer;
       &:hover {
-        mat-icon {
+        .line-arrow_left, .line-arrow_right {
           color: #fff;
         }
       }
 
-      mat-icon {
-        height: 12.5px;
+      .line-arrow_left, .line-arrow_right {
         width: auto;
         font-size: 12px;
       }

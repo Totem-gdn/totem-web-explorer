@@ -57,7 +57,7 @@
 
                   <div @showInput class="flex w-full items-center">
                     <input type="text" [formControlName]="'url'" (blur)="matchUrl(socialLink, i); updateForm()">
-                    <mat-icon class="trash-icon" [svgIcon]="'line:trash'" (click)="onRemoveLink(i)"></mat-icon>
+                    <div class="line-trash trash-icon"  (click)="onRemoveLink(i)"></div>
                   </div>
               </div>
             </ng-container>

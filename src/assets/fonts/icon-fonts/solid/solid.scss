@@ -1,0 +1,93 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$solid-font-family}';
+  src:  url('./#{$solid-font-family}.eot?f9yxhc');
+  src:  url('./#{$solid-font-family}.eot?f9yxhc#iefix') format('embedded-opentype'),
+    url('./#{$solid-font-family}.ttf?f9yxhc') format('truetype'),
+    url('./#{$solid-font-family}.woff?f9yxhc') format('woff'),
+    url('./#{$solid-font-family}.svg?f9yxhc##{$solid-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="solid-"], [class*=" solid-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$solid-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  // margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.solid-bottom_rectangle {
+  &:before {
+    content: $icon-bottom_rectangle;     
+    color: #ffd011;
+  }
+}
+.solid-buy-avatar {
+  font-size: 215px;
+  &:before {
+    content: $icon-buy-avatar; 
+  }
+}
+.solid-buy-gem {
+  font-size: 215px;
+
+  &:before {
+    content: $icon-buy-gem; 
+  }
+}
+.solid-buy-item {
+  font-size: 215px;
+
+  &:before {
+    content: $icon-buy-item; 
+  }
+}
+.solid-delete-icon {
+  &:before {
+    content: $icon-delete-icon; 
+  }
+}
+.solid-doc-image {
+  &:before {
+    content: $icon-doc-image; 
+  }
+}
+.solid-like {
+  font-size: 16px;
+  // margin: auto;
+  &:before {
+    content: $icon-like; 
+  }
+}
+.solid-no-image {
+  &:before {
+    content: $icon-no-image; 
+  }
+}
+.solid-star {
+  font-size: 18px;
+  &:before {
+    content: $icon-star;     
+    color: #ffd011;
+  }
+}
+.solid-warning-icon {
+  &:before {
+    content: $icon-warning-icon; 
+  }
+}
+

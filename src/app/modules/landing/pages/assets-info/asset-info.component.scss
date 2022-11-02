@@ -8,19 +8,30 @@
     border-radius: 4px;
     padding: 15px;
     background: $linear-glass;
-    // margin-bottom: auto;
-    img {
-        max-width: 455px;
-        max-height: 455px;
-        border-radius: 4px;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin:auto;
-        background-color: $grey;
-    }
+
+        img {
+            z-index: 1;
+            max-width: 455px;
+            max-height: 455px;
+            border-radius: 4px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin:auto;
+            background-color: $grey;
+        }
+    // &::after {
+    //         content: '';
+    //         position: absolute;
+    //         border-radius: 4px;
+    //         bottom: 0px;
+    //         right: 0px;
+    //         left: 0px;
+    //         top: 0px;
+    //         background-color: $grey;
+    // }
 }
 
 .tabs-wrapper {

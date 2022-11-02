@@ -11,15 +11,14 @@ import { TotemMeetUsModule } from '../components/home-components/totem-meet-us/t
 import { TotemEmailSubModule } from '../components/home-components/totem-email-sub/totem-email-sub.module';
 import { TotemEventCounterModule } from '../components/home-components/totem-event-counter/totem-event-counter.module';
 import { ArrowsModule } from '../components/common-components/arrows/arrows.module';
-import { ItemCardModule } from '../components/common-components/cards/item-card/item-card.module';
 import { GameCardModule } from '../components/common-components/cards/game-card/game-card.module';
-import { AvatarCardModule } from '../components/common-components/cards/avatar-card/avatar-card.module';
 import { CarouselModule } from '../components/home-components/carousel/carousel.module';
 import { TotemButtonModule } from '../components/common-components/totem-button/totem-button.module';
 import { HomeWidgetModule } from '../components/home-components/home-widget/home-widget.module';
 import { BackgroundCircleModule } from '../components/common-components/bg-circle/bg-circle.module';
 import { NgParticlesModule } from 'ng-particles';
 import { RouterModule } from '@angular/router';
+import { CardsModule } from '../components/common-components/cards/cards.module';
 
 @NgModule({
   declarations: [
@@ -40,11 +39,10 @@ import { RouterModule } from '@angular/router';
 
     SharedModule,
     ArrowsModule,
-    ItemCardModule,
     GameCardModule,
-    AvatarCardModule,
     CarouselModule,
     HomeWidgetModule,
+    CardsModule,
 
     BackgroundCircleModule,
     TotemButtonModule,

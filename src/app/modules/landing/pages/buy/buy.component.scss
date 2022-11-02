@@ -1,4 +1,6 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 .wrapper {
     display: flex;
@@ -64,7 +66,7 @@
             width: 100%;
             padding: 20px;
     
-            .mat-icon {
+            .icon {
                 max-width: 260px;
                 width: 100%;
                 height: auto;
