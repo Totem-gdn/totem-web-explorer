@@ -43,8 +43,8 @@ export class HorizontalCarouselComponent implements AfterViewInit {
         spaceBetween: 16,
         loopPreventsSlide: false,
         rewind: true,
+        preloadImages: false,
         lazy: true,
-        preloadImages: true,
         updateOnImagesReady: true,
 
         breakpoints: {
