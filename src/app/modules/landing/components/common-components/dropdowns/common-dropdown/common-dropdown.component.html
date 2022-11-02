@@ -2,14 +2,14 @@
     <div #menu class="dropdown-toggle" (click)="menuActive = !menuActive">
 
         <span *ngIf="!highlightedToken">{{title}}</span>
-        <div *ngIf="highlightedToken" class="flex truncate">
+        <div *ngIf="highlightedToken" class="flex truncate h-[24px] align-items-center">
             <div class="token-wrapper">
               <span [ngClass]="highlightedToken?.title == 'MATIC' ? 'icon-font-MATIC' : 'icon-font-USDC'"></span>
               <span class="token-background"></span>
             </div>
             <!-- <img loading="lazy" class="!w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'MATIC'" src="assets/images/matic.webp" alt="">
             <img loading="lazy" class="!w-[20px] !h-[20px]" *ngIf="highlightedToken?.title == 'USDC'" src="assets/images/usdc.webp" alt=""> -->
-            <div class="flex flex-row ml-[10px] selected-token-info">
+            <div class="flex flex-row ml-[10px] selected-token-info align-items-center">
                 <p class="text-white truncate token-amount">{{highlightedToken?.value}}</p>
                 <span class="text-white ml-[4px]" *ngIf="highlightedToken?.title == 'MATIC'">MATIC</span>
                 <span class="text-white ml-[4px]" *ngIf="highlightedToken?.title == 'USDC'">USDC</span>
