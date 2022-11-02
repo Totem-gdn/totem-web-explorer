@@ -4,7 +4,7 @@
       <div class="crop-workbench-cropground" [ngStyle]="{'opacity': !(loading$ | async) ? '1' : '0'}">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
-          format="png"
+          format="webp"
           [maintainAspectRatio]="true"
           [aspectRatio]="aspectRatio"
           [alignImage]="'center'"
