@@ -16,9 +16,11 @@
                     <h4 class="marb-16-to-12">To</h4>
                     <input formControlName="address" placeholder="Recipient address" type="text"
                         (blur)="isAddressValid()">
+                    <div class="captions-wrapper">
+                      <span @showMessage class="padb-16-to-12" *ngIf="addressValid">Enter the address for the transfer</span>
+                      <span @showMessage class="error-message padb-16-to-12" *ngIf="!addressValid">Incorrect address</span>
+                    </div>
 
-                    <span class="padb-16-to-12">Enter the address for the transfer</span>
-                    <span @showMessage class="error-message" *ngIf="!addressValid">Incorrect address</span>
                 </section>
 
                 <section>
@@ -28,10 +30,10 @@
                     </div>
                     <div class="relative marb-16-to-12"
                         [ngClass]="selectedToken ? 'text-white': 'text-light-grey pointer-events-none'">
-                        <input 
-                            formControlName="amount" 
-                            class="!mb-0 amount-input" type="text" 
-                            [allowNegativeNumbers]="false" 
+                        <input
+                            formControlName="amount"
+                            class="!mb-0 amount-input" type="text"
+                            [allowNegativeNumbers]="false"
                             mask="{{maskForAmount}}"
                             (input)="onInputChange($event)" placeholder="0 Token"
                             (blur)="estimateGas(selectedToken.title, selectedToken.value)"> 
@@ -50,7 +52,10 @@
                         <div class="line-info mr-[6px]"></div>
                       <span class="gas-fee">Gas fee: {{gasFee ? gasFee: '0'}} MATIC </span>
                     </div>
-                    <span class="!border-0 amount-caption mart-16-to-12 padb-16-to-12">Enter the number of tokens</span>
+                    <div class="captions-wrapper">
+                      <span @showMessage class="!border-0 amount-caption mart-16-to-12 padb-16-to-12" *ngIf="!(ammountError | async)">Enter the number of tokens</span>
+                      <span @showMessage class="error-message mart-16-to-12 padb-16-to-12" *ngIf="ammountError | async">You don't have enough tokens of this type.</span>
+                    </div>
                 </section>
             </form>
         </div>
