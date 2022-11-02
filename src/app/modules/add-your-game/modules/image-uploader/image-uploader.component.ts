@@ -36,9 +36,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     //this.submitGameService.approveGame(this.filesToUpload.gameSubmitResponse.id);
   }
 
-  async linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null }) {
-    console.log('converted data', data);
-
+  linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null }) {
     this.submitGameService.currentIdToUpload = data.gameSubmitResponse.id;
     const linkedImagesToUrlsObservable: Observable<any>[] = this.submitGameService.componeFilesToUpload(
       data.images,
