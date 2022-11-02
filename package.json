@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build && npm run generate-sitemap",
+    "build": "npm run generate-sitemap && ng build",
     "dev-build-compress": "ng build && gzipper compress --verbose --include js,css,html ./dist  && gulp purifyCSS",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
