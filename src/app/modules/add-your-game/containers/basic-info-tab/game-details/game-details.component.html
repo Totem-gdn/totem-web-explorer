@@ -16,20 +16,21 @@
         <div class="block-section">
           <h4>Platforms</h4>
           <div class="tags-section">
-            <form-dropdown 
-            (selectedTag)="onSelectTag($event)" 
+            <form-dropdown
+            (selectedTag)="onSelectTag($event)"
             (removeTag)="onRemoveTag($event)"
-            (touched)="onTouchDropdown()" 
+            (touched)="onTouchDropdown()"
             [setItems]="setItems"
-            [title]="'Add platforms'" 
+            [title]="'Add platforms'"
             [items]="dropdownPlatforms"
-            class="outline-light-grey" 
+            class="outline-light-grey"
             [ngClass]="dropdownTouched && platformTags.length === 0 ? 'outline-error':''"></form-dropdown>
             <span @fade-in class="error-message" *ngIf="dropdownTouched && platformTags.length === 0">Required field</span>
             <div class="tags">
               <div @fade-in class="tag" *ngFor="let platform of platformsForm.controls" (click)="onRemovePlatform(platform)">
                 <span>{{platform.value}}</span>
-                <mat-icon [svgIcon]="'line:close'"></mat-icon>
+                <!-- <mat-icon [svgIcon]="'line:close'"></mat-icon> -->
+                <div class="line-close"></div>
               </div>
             </div>
             <span>Choose the platforms the game supports</span>
@@ -47,7 +48,7 @@
         <div class="block-section pt-[10px] sm:pt-[40px]">
           <h4>Session<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
-            <input type="text" formControlName="avarageSession" (blur)="saveValue()">
+            <input type="text" formControlName="session" (blur)="saveValue()">
             <span>Write time of average session</span>
           </div>
         </div>

@@ -7,7 +7,6 @@ import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, map, Subscription, take, takeUntil } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
-import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Gtag } from 'angular-gtag';
 
@@ -28,7 +27,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
     private userStateService: UserStateService,
     private metaTag: Meta,
-    private alchService: AlchemyService,
     private web3: Web3AuthService,
     private assetsService: AssetsService,
     private gtag: Gtag) {

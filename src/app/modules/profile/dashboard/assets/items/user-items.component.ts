@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AlchemyService } from '@app/core/services/crypto/alchemy-api.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, Subject, Subscription, take, takeUntil } from 'rxjs';
@@ -17,8 +16,7 @@ import { AssetsService } from '@app/core/services/assets/assets.service';
 export class UserItemsComponent implements OnInit {
 
   constructor(private assetsService: AssetsService,
-    private web3Service: Web3AuthService,
-    private alchService: AlchemyService) { }
+    private web3Service: Web3AuthService,) { }
 
   subs = new Subject<void>();
   items!: any[] | null;

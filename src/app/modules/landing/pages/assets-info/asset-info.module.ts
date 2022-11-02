@@ -1,12 +1,9 @@
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatIconModule } from "@angular/material/icon";
-import { RouterModule } from "@angular/router";
+
 import { NotFoundModule } from "@app/modules/page-not-found/not-found/not-found.module";
-import { PageNotFoundModule } from "@app/modules/page-not-found/page-not-found.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { BackgroundCircleModule } from "../../components/common-components/bg-circle/bg-circle.module";
-import { ItemCardModule } from "../../components/common-components/cards/item-card/item-card.module";
 import { TotemSpinnerModule } from "../../components/common-components/totem-spinner/totem-spinner.module";
 import { CarouselModule } from "../../components/home-components/carousel/carousel.module";
 import { AssetInfoComponent } from "./asset-info.component";
@@ -23,10 +20,8 @@ import { ItemPropertiesModule } from "./components/properties/item-properties.mo
     ],
     imports: [
         SharedModule,
-        MatIconModule,
 
         ItemDescModule,
-        ItemCardModule,
         ItemLegacyModule,
         ItemHistoryModule,
         ItemPropertiesModule,

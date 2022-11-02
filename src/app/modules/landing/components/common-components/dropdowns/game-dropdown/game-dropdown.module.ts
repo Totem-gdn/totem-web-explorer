@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "@app/shared/shared.module";
 import { SearchFieldModule } from "../../search-field/search-field.module";
@@ -14,7 +15,8 @@ import { GameDropdownComponent } from "./game-dropdown.component";
         SharedModule,
         MatIconModule,
         SearchFieldModule,
-        TotemSpinnerModule
+        TotemSpinnerModule,
+        FormsModule
     ],
     exports: [
         GameDropdownComponent

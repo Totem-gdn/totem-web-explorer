@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { id } from 'alchemy-sdk/dist/src/api/utils';
 import { Subscription } from 'rxjs';
 
 export interface DropzoneError {
@@ -37,7 +36,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   @Input() selfFill: boolean = false;
   @Input() jsonFileType: boolean = false;
   @Input() dzMinHeight: string = '247px';
-  @Input() finalizedImage!: File;
+  @Input() finalizedImage!: File | undefined;
   @Input() uniqueId: string = 'file';
 
   @Output() finalizedFile: EventEmitter<any> = new EventEmitter<any>();
@@ -62,6 +61,8 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       if (this.finalizedImage) {
         this.imageReader.readAsDataURL(this.finalizedImage);
         this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
+      } else if (this.selfFill) {
+        this.imageUrl = '';
       }
     }
   }

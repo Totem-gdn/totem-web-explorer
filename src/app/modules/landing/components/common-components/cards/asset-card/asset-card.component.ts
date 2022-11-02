@@ -27,9 +27,14 @@ export class AssetCardComponent {
     asset.rarity = parser.getItemRarity(asset?.tokenId)
   };
   @Input() type: string = 'item';
-
+  @Input() set selectedGame(game: any) {
+    if(!game) return;
+    if (game?.assetRenderer) {
+      this.assetRendererUrl = game?.assetRenderer;
+    }
+  }
   _asset: any;
-
+  assetRendererUrl = 'https://asset-renderer.totem-explorer.com';
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
       this.messageService.open('Unauthorized');

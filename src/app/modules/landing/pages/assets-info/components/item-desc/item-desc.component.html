@@ -1,11 +1,11 @@
 <div class="wrapper w-full lg:max-w-[456px]">
-    
+
     <div class="pb-[40px]">
         <h2 *ngIf="!nft?.metadata?.name">ID: {{item?.tokenId}}</h2>
         <h2 *ngIf="nft?.metadata?.name">{{nft.metadata.name}}</h2>
     </div>
 
-    <div class="flex pb-[20px] items-center">
+    <div class="flex pb-[18px] items-center">
         <p class="text-light-grey">Current owner: </p>
         <!-- <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet}}</a> -->
         <!-- <p class="text-white pl-[10px] text-xl truncate w-[200px]">{{item?.owner}}</p> -->
@@ -18,7 +18,7 @@
         class="user-id"
         >
         <p class="user-id">{{item?.owner?.slice(0, 6) + '...' + item?.owner?.slice(-4)}}</p>
-        <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+        <div class="line-copy_small !ml-[7px] !mb-[6px]"></div>
       </div>
     </div>
 
@@ -26,24 +26,24 @@
     <div class="icon-wrapper">
         <div class="icon-set">
             <div class="icon !pl-0">
-                <mat-icon *ngIf="item?.isLiked === false" class="like !w-[18px]" [svgIcon]="'line:like'"
-                    (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-                <mat-icon *ngIf="item?.isLiked === true" class="text-yellow cursor-pointer !w-[18px]" [svgIcon]="'solid:like'"
-                    (click)="$event.stopPropagation(); onClickLike()"></mat-icon>
-                <p>{{item?.likes ? item?. likes : '0'}}</p>
+                <div *ngIf="item?.isLiked === false" class="like line-like !w-[18px]"
+                    (click)="$event.stopPropagation(); onClickLike()"></div>
+                <div *ngIf="item?.isLiked === true" class="text-yellow solid-like cursor-pointer !w-[18px]"
+                    (click)="$event.stopPropagation(); onClickLike()"></div>
+                <p>{{item?.likes ? item?.likes : '0'}}</p>
             </div>
             <div class="icon">
-                <mat-icon class="!w-[20px]" [svgIcon]="'line:eye'"></mat-icon>
+                <div class="line-eye"></div>
                 <p>{{item?.views ? item?.views : '0'}}</p>
             </div>
         </div>
         <div class="icon-set">
             <div class="icon">
-                <mat-icon class="!w-[14px] !h-[19px] mb-auto" [svgIcon]="'line:share'"></mat-icon>
+                <div class="line-share"></div>
                 <p>Share</p>
             </div>
             <div class="icon">
-                <mat-icon class="!w-[16px]" [svgIcon]="'line:refresh'"></mat-icon>
+                <div class="line-refresh"></div>
                 <p>Refresh</p>
             </div>
         </div>

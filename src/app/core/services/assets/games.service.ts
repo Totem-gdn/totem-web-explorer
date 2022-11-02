@@ -34,7 +34,7 @@ export class GamesService {
             take(1),
             tap(games => {
                 this.setGames = games;
-            }))         
+            }))
     }
 
     updateGame(id: string) {
@@ -45,10 +45,25 @@ export class GamesService {
 
     filterDropdownGames(filter: string) {
         return this.http.get<any>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
+          if ('totem'.includes(filter.toLowerCase())) {
+            games.unshift({
+              general: {
+                name: 'Totem',
+                genre: ['Canonical', 'View']
+              },
+              connections: {
+                assetRenderer: 'https://asset-renderer.totem-explorer.com'
+              },
+              images: {
+                smallThumbnail: 'assets/icons/nav/logo-small.svg'
+              }
+            })
+          }
+
             this._dropdownGames.next(games);
         }));
     }
-    
+
     clearGames() {
         this._games.next(null);
     }

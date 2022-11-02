@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
-import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImagesInfo, ImagesToUpload, SubmitGame, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
+import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImageEvents, ImagesInfo, ImagesToUpload, SubmitGame, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { CompressImageService } from '@app/shared/services/compress-image.service';
 import { Gtag } from 'angular-gtag';
@@ -29,11 +29,12 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
-  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
+  activeTab: 'basic-information' | 'details' | 'links' = 'details';
   formsData: SubmitGame | null = null;
   imagesToUpload!: ImagesToUpload;
   imagesToSubmit!: ImagesInfo;
   jsonFileToUpload: File | null = null;
+  imageEvents!: ImageEvents | null;
 
   constructor(
     readonly matDialog: MatDialog,
@@ -71,6 +72,10 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     console.log('TO UPLOAD JSON: ', file);
 
     this.jsonFileToUpload = file;
+  }
+
+  saveEvents(event: ImageEvents) {
+    this.imageEvents = event;
   }
 
   updateFormData(event: SubmitGame) {

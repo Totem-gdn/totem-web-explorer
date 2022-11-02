@@ -8,7 +8,7 @@
           <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 3">Request complete</span>
         </div>
         <div class="h-full w-full" fxLayout="column" fxLayoutAlign="center center">
-          <div class="content-block-body-subtitle mt-[14px] mb-[16px] w-full" fxLayout="row" fxLayoutAlign="center center">
+          <div class="content-block-body-subtitle mt-[16px] mb-[14px] w-full" fxLayout="row" fxLayoutAlign="center center">
             <div class="w-full content-block-body-subtitle-wrapp"
               >
               <span class="subtext" *ngIf="isEqual(stepIndex, 1) && !errorState">
@@ -63,11 +63,17 @@
             </div>
             <div class="w-full mt-[22px]" fxLayout="row" fxLayoutAlign="space-between center">
               <div class="caption">150 USDC</div>
-              <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></a>
+              <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light">
+                <!-- <mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon> -->
+                <div class="line-open_new ml-[5px]"></div>
+              </a>
             </div>
             <div class="w-full mt-[20px]" fxLayout="row" fxLayoutAlign="space-between center">
               <div class="caption">0.03 MATIC</div>
-              <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></a>
+              <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light">
+                <!-- <mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon> -->
+                <div class="line-open_new ml-[5px]"></div>
+              </a>
             </div>
           </div>
           <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center center">
@@ -88,7 +94,8 @@
                 <totem-spinner *ngIf="!steps[1].step && steps[1].loading && !errorState" [size]="'14'"></totem-spinner>
                 <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle"
                   [ngStyle]="{'background-color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}"></div>
-                <mat-icon @stopLoader *ngIf="errorState && stepIndex == 1" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
+                <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 1" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
+                <div class="solid-warning-icon" @stopLoader *ngIf="errorState && stepIndex == 1"></div>
               </div>
 
               <mat-progress-bar [ngStyle]="{'color': stepIndex >= 1 && errorState ? '#FF5252' : ''}"
@@ -99,7 +106,9 @@
                 <totem-spinner @stopLoader *ngIf="!steps[2].step && steps[2].loading && !errorState" [size]="'14'"></totem-spinner>
                 <div @stopLoader *ngIf="!steps[2].loading" class="disabled-circle"
                 [ngStyle]="{'background-color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}"></div>
-                <mat-icon @stopLoader *ngIf="errorState && stepIndex == 2" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
+                <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 2" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
+                <div class="solid-warning-icon" @stopLoader *ngIf="errorState && stepIndex == 2"></div>
+                
               </div>
 
               <mat-progress-bar [ngStyle]="{'color': stepIndex >= 2 && errorState ? '#FF5252' : ''}"
@@ -110,7 +119,8 @@
                 <totem-spinner @stopLoader *ngIf="!steps[3].step && steps[3].loading && !errorState" [size]="'14'"></totem-spinner>
                 <div @stopLoader *ngIf="!steps[3].loading" class="disabled-circle"
                 [ngStyle]="{'background-color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}"></div>
-                <mat-icon @stopLoader *ngIf="errorState && stepIndex == 3" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
+                <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 3" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
+                <div class="solid-warning-icon" @stopLoader *ngIf="errorState && stepIndex == 3"></div>
               </div>
 
             </div>

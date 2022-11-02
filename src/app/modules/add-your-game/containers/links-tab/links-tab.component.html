@@ -19,8 +19,9 @@
         <div class="block-section flex-wrap !border-0">
           <h4>Asset renderer URL<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
-            <input type="text" formControlName="rendererUrl" (change)="updateForm()">
+            <input type="text" formControlName="assetRenderer" (change)="updateForm()">
             <span>Enter the URL of your custom asset renderer Web-service</span>
+            <span @showMessage class="error-message" *ngIf="assetRendererErrors">Input must be a url</span>
           </div>
         </div>
       </div>
@@ -29,8 +30,9 @@
         <div class="block-section flex-wrap !border-0">
           <h4>Promo video link<span class="pl-[10px]">(Optional)</span></h4>
           <div class="input-section">
-            <input type="text" formControlName="videoUrl" (change)="updateForm()">
+            <input type="text" formControlName="promoVideo" (change)="updateForm()">
             <span>Share promo video. Enter the full URL, for example, https://twitter.com</span>
+            <span @showMessage class="error-message" *ngIf="promoVideoErrors">Input must be a url</span>
           </div>
         </div>
       </div>
@@ -55,7 +57,7 @@
 
                   <div @showInput class="flex w-full items-center">
                     <input type="text" [formControlName]="'url'" (blur)="matchUrl(socialLink, i); updateForm()">
-                    <mat-icon class="trash-icon" [svgIcon]="'line:trash'" (click)="onRemoveLink(i)"></mat-icon>
+                    <div class="line-trash trash-icon"  (click)="onRemoveLink(i)"></div>
                   </div>
               </div>
             </ng-container>

@@ -17,6 +17,7 @@ export class SearchFieldComponent implements OnInit {
     }
     @Input() itemType: string = '';
     @Input() set reset(reset:any) {
+      if(this.searchControl.value == '') return;
       this.searchControl.patchValue('');
       this.onChangeInput('');
     }

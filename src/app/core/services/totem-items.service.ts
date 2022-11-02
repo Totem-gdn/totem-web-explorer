@@ -158,7 +158,6 @@ export class TotemItemsService {
   }
 
   handleParams(filters: ItemParam[] | undefined) {
-    console.log(JSON.stringify(filters))
     let params = new HttpParams();
     if(!filters) return params;
     params = params.append('filters', JSON.stringify(filters));
@@ -203,7 +202,6 @@ export class TotemItemsService {
 
     return this.http.get<any>(`${this.baseUrl}/assets/items`, {params: params}).pipe(
       map(items => {
-        console.log('items', items)
         if(items && items?.length) {
           // this.cacheService.setItemCache('item', items.length);
           return items;
@@ -218,7 +216,6 @@ export class TotemItemsService {
     let params = this.handleParams(queryFilters);
     return this.http.get<any>(`${this.baseUrl}/games`,  {params: params}).pipe(
       map(games => {
-        console.log(games);
         if(games && games?.length) {
           // this.cacheService.setItemCache('game', games.length);
           return games;
@@ -272,7 +269,6 @@ export class TotemItemsService {
 
   getGames() {
     this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
-      console.log('games', data)
       if(data && data?.length) {
         this.games$.next(data);
       } else {

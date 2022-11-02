@@ -1,10 +1,9 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { BreakPointRegistry } from '@angular/flex-layout';
+import { AfterViewInit,  Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ComboBoxService } from '@app/core/services/combobox-state.service';
-import { BehaviorSubject } from 'rxjs';
+import { GamesService } from '@app/core/services/assets/games.service';
+import { Observable } from 'rxjs';
 
-import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
+import Swiper, { Navigation, Pagination } from 'swiper';
 
 
 @Component({
@@ -17,7 +16,6 @@ export class HorizontalCarouselComponent implements AfterViewInit {
 
     @Input() title = '';
     @Input() menuTitle: string | null = '';
-    // @Input() items!: any[] | null;
     @Input() set items(items: any ) {
         this.slides = items;
     }
@@ -25,14 +23,16 @@ export class HorizontalCarouselComponent implements AfterViewInit {
     @Input() itemType = 'item';
     @Input() itemsCount = 4;
 
-    // loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
     @ViewChild('horizontalSwiper') horizontalSwiper!: any;
 
-    constructor(private router: Router, private comboBoxService: ComboBoxService) {}
+    constructor(private router: Router, private gamesService: GamesService) {}
 
     ngAfterViewInit() {
         this.initSwiper();
+    }
+
+    getSelectedGames(): Observable<any> {
+      return this.gamesService.selectedGame$;
     }
 
     initSwiper() {

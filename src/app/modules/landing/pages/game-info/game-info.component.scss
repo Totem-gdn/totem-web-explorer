@@ -11,16 +11,33 @@
 
     .img-wrapper {
         max-height: 390px;
+        position: relative;
         // height: 100%;
         display: flex;
         border-radius: 4px;
         background: $linear-glass;
         img {
+          z-index: 1;
             object-fit: cover;
             border-radius: 4px;
             min-height: 160px;
             // height: 100%;
+            border-radius: 4px;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
         }
+  //       &::before {
+  //         content: '';
+  //         position: absolute;
+  //         border-radius: 4px;
+  //         bottom: 15px;
+  //         right: 15px;
+  //         left: 15px;
+  //         top: 15px;
+  //         background-color: $grey;
+  // }
     }
 }
 

@@ -1,6 +1,7 @@
 <div class="description">
     <div class="images-block pb-[60px]">
         <!-- <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt=""> -->
+        <!-- <div class=""></div> -->
         <img loading="lazy" #image class="sm:h-[430px] hl-image" *ngIf="!_game?.images?.galley" [src]="hlImage" [alt]="_game?.general?.name">
         <portfolio-carousel (changeImg)="onChangeImg($event)" [images]="_game?.images?.gallery"></portfolio-carousel>
     </div>
@@ -53,16 +54,16 @@
                 <div class="links">
                     <ng-container *ngFor="let link of _game?.connections?.socialLinks">
                         <a *ngIf="link.type == 'Discord'" class="link" [href]="link.url" target="_blank">
-                            <mat-icon [svgIcon]="'line:discord'"></mat-icon>
+                            <div class="line-discord"></div>
                         </a>
                         <a *ngIf="link.type == 'Facebook'" class="link" [href]="link.url" target="_blank">
-                            <mat-icon [svgIcon]="'line:facebook'"></mat-icon>
+                            <div class="line-facebook"></div>
                         </a>
                         <a *ngIf="link.type == 'Twitter'" class="link" [href]="link.url" target="_blank">
-                            <mat-icon [svgIcon]="'line:twitter'"></mat-icon>
+                            <div class="line-twitter"></div>
                         </a>
                         <a *ngIf="link.type == 'Instagram'" class="link" [href]="link.url" target="_blank">
-                            <mat-icon [svgIcon]="'line:instagram'"></mat-icon>
+                            <div class="line-instagram"></div>
                         </a>
                     </ng-container>
                 </div>

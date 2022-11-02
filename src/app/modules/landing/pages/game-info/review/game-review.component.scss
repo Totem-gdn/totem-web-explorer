@@ -1,5 +1,8 @@
 @import 'styles/scss/variables';
 
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
 .rewiew {
     display: flex;
     flex-direction: column;
@@ -51,10 +54,10 @@
     }
 }
 
-.line-unset {
+.lh-unset {
     line-height: unset;
 }
-.line-33 {
+.lh-33 {
     line-height: 33px;
 }
 

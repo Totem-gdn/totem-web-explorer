@@ -1,0 +1,174 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$line-font-family}';
+  src:  url('./#{$line-font-family}.eot?mtblia');
+  src:  url('./#{$line-font-family}.eot?mtblia#iefix') format('embedded-opentype'),
+    url('./#{$line-font-family}.ttf?mtblia') format('truetype'),
+    url('./#{$line-font-family}.woff?mtblia') format('woff'),
+    url('./#{$line-font-family}.svg?mtblia##{$line-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="line-"], [class*=" line-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$line-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  // margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.line-info {
+  &:before {
+    content: $line-info; 
+  }
+}
+.line-item_placeholder {
+  font-size: 40px;
+  &:before {
+    content: $line-item_placeholder; 
+  }
+}
+.line-trash {
+  font-size: 22px;
+  &:before {
+    content: $line-trash; 
+  }
+}
+.line-copy_small {
+  font-size: 16px;
+  &:before {
+    content: $line-copy_small;     
+    // color: #8a939b;
+  }
+}
+.line-eye {
+  font-size: 20px;
+  &:before {
+    content: $line-eye;     
+    color: #8a939b;
+  }
+}
+.line-arrow_down {
+  font-size: 8px;
+  &:before {
+    content: $line-arrow_down; 
+  }
+}
+.line-arrow_left {
+  &:before {
+    content: $line-arrow_left; 
+  }
+}
+.line-arrow_right {
+  &:before {
+    content: $line-arrow_right; 
+  }
+}
+.line-arrow_up {
+  &:before {
+    content: $line-arrow_up; 
+  }
+}
+.line-close {
+  font-size: 8px;
+  &:before {
+    content: $line-close; 
+  }
+}
+.line-discord {
+  &:before {
+    content: $line-discord;     
+    color: #fff;
+  }
+}
+.line-facebook {
+  &:before {
+    content: $line-facebook;     
+    color: #fff;
+  }
+}
+.line-instagram {
+  &:before {
+    content: $line-instagram;     
+    color: #fff;
+  }
+}
+.line-like {
+  font-size: 16px;
+  &:before {
+    content: $line-like; 
+  }
+}
+.line-open_new {
+  &:before {
+    content: $line-open_new; 
+  }
+}
+.line-refresh {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 16px;
+  &:before {
+    content: $line-refresh; 
+  }
+}
+.line-search {
+  // width: 18px;
+  // height: 18px;
+  font-size: 18px;
+  &:before {
+    content: $line-search; 
+  }
+}
+.line-share {
+  width: 14px;
+  height: 19px;
+  font-size: 18px;
+  // margin-top: 0 !important;
+  &:before {
+    content: $line-share; 
+  }
+}
+.line-star {
+  font-size: 18px;
+  &:before {
+    content: $line-star; 
+  }
+}
+.line-tune {
+  font-size: 18px;
+  &:before {
+    content: $line-tune; 
+  }
+}
+.line-twitter {
+  &:before {
+    content: $line-twitter;     
+    color: #fff;
+  }
+}
+.line-update {
+  font-size: 21px;
+  &:before {
+    content: $line-update; 
+  }
+}
+.line-user {
+  &:before {
+    content: $line-user; 
+  }
+}
+
