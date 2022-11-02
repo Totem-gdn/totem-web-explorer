@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
-import { Subject, takeUntil } from "rxjs";
+import { filter, Subject, takeUntil } from "rxjs";
 
 
 @Component({
@@ -11,18 +11,13 @@ import { Subject, takeUntil } from "rxjs";
   styleUrls: ['./game-dropdown.component.scss']
 })
 
-export class GameDropdownComponent implements OnDestroy, AfterViewInit {
-
-  constructor(private router: Router,
-    private gamesService: GamesService,
-    private baseStorageService: BaseStorageService) { }
+export class GameDropdownComponent implements OnDestroy, AfterViewInit, OnInit {
 
   @Input() type: string = 'game';
-  @Input() title = 'Menu';
-  @Input() games!: any;
+  @Input() title: string = 'Menu';
   @Input() menuActive = false;
   resetSearch: boolean = false;
-
+  games: any = [];
   selectedItem: any;
   subs = new Subject<void>();
   uniqKey = 'gamesDropdown';
@@ -36,20 +31,28 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
   };
   _selectedGame: any;
 
+  constructor(private router: Router,
+    private gamesService: GamesService,
+    private baseStorageService: BaseStorageService) { }
+  ngOnInit(): void {
+    this.games$();
+  }
+
   ngAfterViewInit() {
     this.filterGames('');
-    this.games$();
     this.selectedGame$();
   }
 
-  filterGames(filter: any) {
-    this.games = undefined;
+  filterGames(filter?: any) {
+    this.games = [];
     this.gamesService.filterDropdownGames(filter).subscribe();
   }
   games$() {
     this.gamesService.dropdownGames$
-      .pipe(takeUntil(this.subs))
-      .subscribe(games => {
+      .pipe(
+        takeUntil(this.subs),
+        filter(Boolean),
+      ).subscribe(games => {
         this.games = games;
         if (games) {
           this.selectedGame = this.gamesService.selectedGame;
