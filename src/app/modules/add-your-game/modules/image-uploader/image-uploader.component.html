@@ -36,10 +36,10 @@
       <totem-button class="!ml-[30px]" [caption]="'Finish'" [height]="'40px'" [width]="'102px'" (click)="''"></totem-button>
     </div>
     <div class="button-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="center center" *ngIf="allImagesUploaded">
-      <div matRipple class="cancel-button" [mat-dialog-close]>
+      <div matRipple class="cancel-button" [mat-dialog-close]="{redirect: false}">
         Close
       </div>
-      <totem-button class="!ml-[30px]" [caption]="'Explore games'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]></totem-button>
+      <totem-button class="!ml-[30px]" [caption]="'Explore games'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]="{redirect: true}"></totem-button>
     </div>
   </div>
 </div>

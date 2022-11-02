@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { SUBMISSION_TABS } from '@app/core/enums/submission-tabs.enum';
 import { ConnectionsInfo, ContactsInfo, DetailsInfo, GeneralInfo, ImageEvents, ImagesInfo, ImagesToUpload, SubmitGame, SubmitGameResponse } from '@app/core/models/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
@@ -29,7 +30,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
-  activeTab: 'basic-information' | 'details' | 'links' = 'details';
+  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
   formsData: SubmitGame | null = null;
   imagesToUpload!: ImagesToUpload;
   imagesToSubmit!: ImagesInfo;
@@ -42,7 +43,8 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     private formsService: FormsService,
     private submitGameService: SubmitGameService,
     private compressImageService: CompressImageService,
-    private gtag: Gtag
+    private gtag: Gtag,
+    private router: Router,
   ) {
     gtag.event('page_view');
   }
@@ -124,8 +126,38 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   }
 
   async updateImagesToUpload(data: ImagesToUpload) {
+    //this.imagesToUpload = data;
+    console.log('IT WAS: ', data);
     this.imagesToUpload = await this.compreseImages(data);
-    console.log('imagesToUpload',this.imagesToUpload);
+
+    console.log('IT BECAME: ',this.imagesToUpload);
+
+    const formDataToSend: ImagesInfo = {
+      coverImage: {
+        mimeType: this.imagesToUpload?.coverImage?.type,
+        filename: this.imagesToUpload?.coverImage?.name,
+        contentLength: this.imagesToUpload?.coverImage?.size
+      },
+      cardThumbnail: {
+        mimeType: this.imagesToUpload?.cardImage?.type,
+        filename: this.imagesToUpload?.cardImage?.name,
+        contentLength: this.imagesToUpload?.cardImage?.size
+      },
+      smallThumbnail: {
+        mimeType: this.imagesToUpload?.searchImage?.type,
+        filename: this.imagesToUpload?.searchImage?.name,
+        contentLength: this.imagesToUpload?.searchImage?.size
+      },
+      gallery:
+        this.imagesToUpload?.gallery?.map((image: File) => {
+          return {
+            mimeType: image?.type,
+            filename: image?.name,
+            contentLength: image?.size
+          }
+        })
+    }
+    this.imagesToSubmit = formDataToSend;
   }
 
   goToTab(tab: string) {
@@ -158,7 +190,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  openUploadModal(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null): Observable<string> {
+  openUploadModal(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null): Observable<{redirect: boolean} | null> {
     /* const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1; */
     const options: MatDialogConfig = {
@@ -177,24 +209,36 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   openImgUploaderDialog(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null) {
     this.subs.add(
-      this.openUploadModal(imagesToUpload, gameSubmitResponse, jsonFile).subscribe((data: any) => {
+      this.openUploadModal(imagesToUpload, gameSubmitResponse, jsonFile).subscribe((data: {redirect: boolean} | null) => {
         console.log(data);
+        if (data?.redirect == true) {
+          this.router.navigate(['/games']);
+        } else {
+          this.goToTab(SUBMISSION_TABS.BASIC_INFO);
+        }
       })
     )
   }
 
   async compreseImages(images: ImagesToUpload): Promise<ImagesToUpload> {
-    images.cardImage  = await this.compressImageService.compressImage(images.cardImage as File);
-    images.coverImage = await this.compressImageService.compressImage(images.coverImage as File);
-    images.searchImage = await this.compressImageService.compressImage(images.searchImage as File);
+    if (images.cardImage) {
+      images.cardImage  = await this.compressImageService.compressImage(images.cardImage);
+    }
+    if (images.coverImage) {
+      images.coverImage = await this.compressImageService.compressImage(images.coverImage);
+    }
+    if (images.searchImage) {
+      images.searchImage = await this.compressImageService.compressImage(images.searchImage);
+    }
+    if (images.gallery && images.gallery.length) {
+      const promises: Promise<File>[] = images.gallery!.map(async (file: File) => {
+        return await this.compressImageService.compressImage(file);
+      })
 
-    const promises: Promise<File>[] = images.gallery!.map((file: File) => {
-      return this.compressImageService.compressImage(file);
-    })
-
-    Promise.all(promises).then((files: File[]) => {
-      images.gallery = files;
-    })
+      await Promise.all(promises).then((files: File[]) => {
+        images.gallery = files;
+      })
+    }
 
     return images;
   }

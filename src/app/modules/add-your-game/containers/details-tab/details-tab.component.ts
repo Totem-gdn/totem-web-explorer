@@ -74,7 +74,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     )
   }
 
-  updateFormData() {
+  /* updateFormData() {
     const formDataToSend: ImagesInfo = {
       coverImage: {
         mimeType: this.finalizedImage?.type,
@@ -101,7 +101,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
         })
     }
     this.formDataEvent.emit(formDataToSend);
-  }
+  } */
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -187,7 +187,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   isFormValid() {
     if(this.checkValidity()) {
       this.formsService.setFormValidity('details', true);
-      this.updateFormData();
+      //this.updateFormData();
     } else {
       this.formsService.setFormValidity('details', false);
     }
@@ -198,7 +198,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   }
 
   onNextTab() {
-    this.tabSelected.emit('links');
+    if (this.allowButton) this.tabSelected.emit('links');
   }
 
   updateFilesToUpload() {
