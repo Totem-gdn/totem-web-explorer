@@ -61,7 +61,7 @@
             flex-direction: column;
             max-height: 200px;
             .menu-item {
-                
+
                 position: relative;
                 border-radius: 4px;
                 padding: 6px;
@@ -81,6 +81,15 @@
                 img {
                     width: 36px;
                     height: 36px;
+                }
+                &.checked {
+                  border: 1px solid $yellow;
+                  border-radius: 4px;
+                }
+                input {
+                  &.borderStyle {
+                    display: none;
+                  }
                 }
 
                 .content {

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
+import { environment } from "@env/environment";
 import { Gtag } from "angular-gtag";
 const { DNAParser } = require('totem-dna-parser');
 
@@ -34,7 +35,7 @@ export class AssetCardComponent {
     }
   }
   _asset: any;
-  assetRendererUrl = 'https://asset-renderer.totem-explorer.com';
+  assetRendererUrl = environment.ASSET_RENDERER_URL;
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
       this.messageService.open('Unauthorized');
