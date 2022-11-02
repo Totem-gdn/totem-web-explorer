@@ -8,7 +8,8 @@ export const environment = {
   TOTEM_BASE_API_URL: 'https://dev-api.totem-explorer.com',
   TOTEM_FAUCET_API_URL: 'https://faucet.totem-explorer.com',
   ASSET_RENDERER_URL: 'https://asset-renderer.totem-explorer.com',
-  TRACKING_G_ID: 'G-L6K946DQFY'
+  TRACKING_G_ID: 'G-L6K946DQFY',
+  TOTEM_WEB_EXPLORER_URL: 'https://dev.totem-explorer.com/'
 };
 
 /*
