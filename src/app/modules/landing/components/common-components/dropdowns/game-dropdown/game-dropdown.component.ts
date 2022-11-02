@@ -22,7 +22,7 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
 
   @Input() type: string = 'game';
   @Input() title = 'Menu';
-  @Input() games: Game[] = [];
+  games: Game[] = [];
   @Input() menuActive = false;
   @Input() alwaysOpen = false;
   @Input() borderStyle = false;
@@ -56,12 +56,18 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
       let idx = 1;
       const inter = setInterval(() => {
         if (!this.baseStorageService.getItem(this.uniqKey, 'sesion')) {
-          this.onChangeInput(this.initGamesList[idx], true);
-          if (idx < this.initGamesList.length) {
-            idx++;
-          } else {
+          if (this.initGamesList[idx]) {
+            this.onChangeInput(this.initGamesList[idx], true);
+            if (idx < this.initGamesList.length) {
+              idx++;
+            } else {
+              idx = 0;
+            }
+          } else if (this.initGamesList?.length) {
             idx = 0;
+            this.onChangeInput(this.initGamesList[idx], true);
           }
+
         } else {
           clearInterval(inter);
         }
