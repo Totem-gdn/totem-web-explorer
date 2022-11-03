@@ -1,5 +1,8 @@
 @import 'styles/scss/variables';
 
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
 .file-container {
   position: relative;
   width: 100%;
@@ -37,7 +40,7 @@
       transition: color 0.33s ease-out;
     }
     .doc-image {
-      width: 66px;
+      // width: 66px;
       height: auto;
       color: $grey;
       transition: color 0.33s ease-out;
@@ -67,6 +70,10 @@
     text-align: center;
     border-radius: 4px;
   }
+}
+
+.solid-no-image {
+  color: $grey;
 }
 
 @media screen and (max-width: 768px) {

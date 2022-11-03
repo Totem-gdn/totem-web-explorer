@@ -59,6 +59,7 @@ export class FormDropdownComponent implements AfterViewInit {
         if (this.inputType === 'radio') {
             this.title = value;
         }
+        this.menuActive = false;
     }
 
     ngAfterViewInit() {

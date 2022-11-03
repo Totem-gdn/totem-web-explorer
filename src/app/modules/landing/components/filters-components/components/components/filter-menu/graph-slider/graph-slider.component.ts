@@ -128,7 +128,7 @@ const Items: Items[] = [
     styleUrls: ['./graph-slider.component.scss']
 })
 
-export class GraphSliderComponent implements OnDestroy, AfterViewInit {
+export class GraphSliderComponent implements AfterViewChecked, OnDestroy, AfterViewInit {
 
     constructor(private filtersService: FiltersService,
                 private tagsService: TagsService,private changeDetector : ChangeDetectorRef) {}

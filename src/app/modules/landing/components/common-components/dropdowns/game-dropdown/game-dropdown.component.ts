@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
@@ -11,15 +11,16 @@ import { Game } from "../../totem-search-filter/models/items-interface.model";
   styleUrls: ['./game-dropdown.component.scss']
 })
 
-export class GameDropdownComponent implements OnDestroy, AfterViewInit {
+export class GameDropdownComponent implements AfterViewChecked, OnDestroy, AfterViewInit {
 
   constructor(private router: Router,
     private gamesService: GamesService,
-    private baseStorageService: BaseStorageService) { }
+    private baseStorageService: BaseStorageService,
+    private changeDetector: ChangeDetectorRef) { }
 
   @Input() type: string = 'game';
-  @Input() title = 'Menu';
-  games: Game[] = [];
+  @Input() title: string | undefined = 'Menu';
+  games!: Game[];
   @Input() menuActive = false;
   @Input() alwaysOpen = false;
   @Input() borderStyle = false;
@@ -39,9 +40,13 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
   _selectedGame!: Game;
 
   ngAfterViewInit() {
+    this.filterGames('');
     this.games$();
     this.selectedGame$();
-    this.filterGames('');
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetector.detectChanges();
   }
 
   filterGames(filter: string) {
@@ -52,6 +57,7 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
     this.gamesService.dropdownGames$
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
+        console.log('games',games);
         if (games) {
           this.games = games;
           this.selectedGame = this.gamesService.selectedGame;

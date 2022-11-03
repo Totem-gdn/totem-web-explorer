@@ -1,7 +1,6 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
     <div #menu class="dropdown-toggle" (click)="toggleList()">
 
-
         <span>{{title || 'Game Name'}}</span>
         <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
 

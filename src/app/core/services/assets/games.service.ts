@@ -45,7 +45,12 @@ export class GamesService {
     }
 
   filterDropdownGames(filter: string, updateStateGames = true) {
-    if(filter == this._lastDropdownFilter.getValue() && !this._dropdownGames.getValue()) return of(this._dropdownGames.getValue());
+    console.log('update state', updateStateGames)
+    console.log(this._lastDropdownFilter.getValue() == filter)
+    if(filter == this._lastDropdownFilter.getValue()) {
+      console.log('get ga,es')
+      return this._dropdownGames.asObservable();
+    }
     this._lastDropdownFilter.next(filter);
 
     return this.http.get<any>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
@@ -63,9 +68,10 @@ export class GamesService {
           }
         })
       }
-      if (updateStateGames) {
-        this._dropdownGames.next(games);
-      }
+      console.log('update state games',updateStateGames)
+      // if (updateStateGames) {
+      // }
+      this._dropdownGames.next(games);
       return games;
     }));
   }

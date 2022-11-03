@@ -1,6 +1,7 @@
 @import 'styles/scss/variables';
 @import 'assets/fonts/icon-fonts/line/line.scss';
 @import 'assets/fonts/icon-fonts/solid/solid.scss';
+@import 'styles/scss/placeholders';
 
 :host {
   z-index: 20;
@@ -24,6 +25,7 @@
     transition: opacity 0.33s ease-out;
 
     .totem-sidebar {
+      // @extend %gradient-border-solid;
       overflow-y: overlay;
       pointer-events: all;
       position: absolute;
@@ -311,7 +313,7 @@
         position: absolute;
         z-index: 2;
         inset: 0;
-        padding: 1px;
+        padding-left: 1px;
         border-radius: 4px;
         background: $linear-light-nav;
         -webkit-mask:

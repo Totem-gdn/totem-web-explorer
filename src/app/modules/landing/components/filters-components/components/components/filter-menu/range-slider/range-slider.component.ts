@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, Input, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, Input, ViewChild, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
 import { FiltersService } from "@app/modules/landing/components/filters-components/services/filters.service";
 import { TagsService } from "@app/modules/landing/components/filters-components/services/tags.service";
 import { Subscription } from 'rxjs';
@@ -10,12 +10,16 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./range-slider.component.scss']
 })
 
-export class RangeSliderComponent implements AfterViewInit, OnDestroy {
+export class RangeSliderComponent implements AfterViewChecked, AfterViewInit, OnDestroy {
 
     constructor(private tagsService: TagsService,
-        private filtersService: FiltersService) {
+        private filtersService: FiltersService,
+        private changeDetector: ChangeDetectorRef) {
     }
 
+    ngAfterViewChecked() {
+        this.changeDetector.detectChanges();
+      }
 
     minValue: number = 0;
     maxValue: number = 0;
