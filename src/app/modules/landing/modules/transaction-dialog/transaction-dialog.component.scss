@@ -201,6 +201,10 @@
             .progress-bar {
               max-width: 179px;
               width: 100%;
+              color: $dark-grey;
+              transition: color 0.3s ease-out;
+            }
+            .allow-progress-color {
               color: $yellow;
             }
 
