@@ -10,7 +10,6 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
   selector: 'game-card',
   templateUrl: './game-card.component.html',
   styleUrls: ['../cards.component.scss'],
-  // styles: ['img {object-fit: cover !important;}'],
 })
 export class GameCardComponent {
 
@@ -22,6 +21,10 @@ export class GameCardComponent {
 
   @Input() width = 'full';
   @Input() game: any;
+
+  ngOnInit() {
+    console.log('is liked', this.game.isLiked);
+  }
 
   onClickLike() {
     if(!this.web3Service.isLoggedIn()) {

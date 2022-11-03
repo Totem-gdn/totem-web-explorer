@@ -25,7 +25,8 @@
    -webkit-box-orient: vertical;
 }
 .like {
-    font-size: 22px;
+    font-size: 22px !important;
+    cursor: pointer;
     width: 22px !important;
     height: 22px !important;
     position: relative;

@@ -40,7 +40,6 @@ export class AvatarsComponent implements OnInit, OnDestroy {
     this.assetsService.avatars$
       .pipe(takeUntil(this.subs))
       .subscribe(avatars => {
-        
         this.avatars = avatars;
       })
   }

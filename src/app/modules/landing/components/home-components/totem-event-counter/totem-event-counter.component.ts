@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -17,6 +17,8 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
 
   eventDateTime: number = 0;
 
+  heightForBanner!: number;
+
   constructor(){}
 
   ngOnInit(): void {
@@ -25,6 +27,7 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
     if (this.eventDateTime > currentDate) {
       this.calcRemainingTime();
     }
+    this.calcSizeForBanner();
   }
 
   calcRemainingTime() {
@@ -50,4 +53,21 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
       this.subscribe?.unsubscribe();
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.calcSizeForBanner();
+  }
+
+  calcSizeForBanner() {
+    const innerWidth = window.innerWidth
+    if(innerWidth > 961) {
+      this.heightForBanner = 438;
+    }
+    if(innerWidth < 600) {
+      this.heightForBanner = 280;
+    }
+    if(innerWidth < 490) {
+      this.heightForBanner = 205;
+    }
+  }
 }

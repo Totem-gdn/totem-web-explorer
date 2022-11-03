@@ -5,7 +5,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
 import { ProfileBackButtonModule } from "../../components/profile-back-button/profile-back-button.module";
-import { TotemPaginationModule } from "../../components/totem-pagination/totem-pagination.module";
 import { FavouritesRoutes } from "./favourites.routing";
 import { FavouritesComponent } from "./favourites.component";
 import { ProfileStatsModule } from "../../components/profile-stats/profile-stats.module";

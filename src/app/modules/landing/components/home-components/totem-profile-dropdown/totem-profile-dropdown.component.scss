@@ -1,4 +1,6 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 :host {
   z-index: 20;
@@ -158,12 +160,9 @@
         line-height: 19px;
         color: $light-grey;
         transition: color 0.33s ease-out;
-        .copy-icon {
+        .line-copy_small {
           margin-left: 6px;
-          height: 22px;
-          width: 16px;
-          font-size: 16px;
-          line-height: 19px;
+          margin-bottom: 3px;
         }
         &:hover {
           color: #fff;

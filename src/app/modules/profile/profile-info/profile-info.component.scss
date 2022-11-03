@@ -1,6 +1,6 @@
 @import 'styles/scss/variables';
 @import 'assets/fonts/icon-fonts/mail-font.scss';
-
+@import 'assets/fonts/icon-fonts/line/line.scss';
 
 span {
   font-size: unset;
@@ -108,12 +108,9 @@ span {
           line-height: 28px;
           color: #FFFFFF;
           cursor: pointer;
-          .copy-icon {
+          .line-copy_small {
             margin-left: 10px;
-            height: 32px;
-            width: 26px;
-            font-size: 24px;
-            line-height: 28px;
+            margin-bottom: 3px;
           }
         }
         .user-id {
@@ -124,12 +121,9 @@ span {
           line-height: 16px;
           color: $light-grey;
           transition: color 0.33s ease-out;
-          .copy-icon {
+          .line-copy_small {
             margin-left: 6px;
-            height: 16px;
-            width: 16px;
-            font-size: 16px;
-            line-height: 16px;
+            margin-bottom: 3px;
           }
           &:hover {
             color: #fff;

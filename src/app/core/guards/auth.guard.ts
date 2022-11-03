@@ -8,13 +8,16 @@ import {
 import { StorageKey } from "../enums/storage-keys.enum";
 import { BaseStorageService } from "../services/base-storage.service";
 import { UserStateService } from "../services/auth.service";
+import { PopupService } from "@app/layout/components/popup.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(
         private userStateService: UserStateService,
         private router: Router,
-        private baseStorageService: BaseStorageService) { }
+        private baseStorageService: BaseStorageService,
+        private popupService: PopupService) { }
+
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean | Promise<boolean> {
@@ -36,8 +39,9 @@ export class AuthGuard implements CanActivate {
         const jwtInfo = this.userStateService.parseJwt(openLogin.idToken);
         const expDate = new Date(+(jwtInfo.exp + '000'));
         if (expDate < new Date()) {
+          this.popupService.showLogoutPopup = true;
           this.userStateService.logout();
-          this.router.navigate(['/']);
+        //   this.router.navigate(['/']);
         }
         return isAuthenticatedCache || isAuthenticated;
     }

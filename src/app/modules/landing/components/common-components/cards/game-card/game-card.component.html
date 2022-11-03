@@ -18,7 +18,7 @@
             </div>
 
             <div *ngIf="game?.isLiked === false" class="like line-like" (click)="$event.stopPropagation(); onClickLike()"></div>
-            <div *ngIf="game?.isLiked === true" class="text-yellow cursor-pointer solid-lile" (click)="$event.stopPropagation(); onClickLike()"></div>
+            <div *ngIf="game?.isLiked === true" class="!text-yellow like solid-like" (click)="$event.stopPropagation(); onClickLike()"></div>
         </div>
 
         <div class="flex py-2">

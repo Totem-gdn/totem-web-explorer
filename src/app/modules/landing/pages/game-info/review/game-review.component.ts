@@ -1,14 +1,15 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, Input } from "@angular/core";
 import { CARD_TYPE } from "@app/core/enums/card-types.enum";
 import { SubmitGame } from "@app/core/models/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
-import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
-import { Subscription } from "rxjs";
 import { SnackNotifierService } from "../../../modules/snack-bar-notifier/snack-bar-notifier.service";
 
+interface Rate {
+    isHovered: boolean;
+    selected: boolean;
+}
 @Component({
     selector: 'game-review',
     templateUrl: './game-review.component.html',
@@ -18,7 +19,7 @@ import { SnackNotifierService } from "../../../modules/snack-bar-notifier/snack-
     }
 })
 
-export class GameReviewComponent implements OnInit {
+export class GameReviewComponent {
 
     constructor(private favouritesService: FavouritesService,
         private messageService: SnackNotifierService,
@@ -28,12 +29,7 @@ export class GameReviewComponent implements OnInit {
     @Input() game!: SubmitGame | any;
     toggleDropdown = false;
 
-    @ViewChild('stars') stars!: ElementRef;
-    rating: boolean[] = [false, false, false, false, false];
-
-    ngOnInit() {
-
-    }
+    rating: Rate[] = [{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false}]
 
     onClickLike() {
         if (!this.web3Service.isLoggedIn()) {
@@ -52,38 +48,27 @@ export class GameReviewComponent implements OnInit {
         }
     }
 
-    onMouseEnter(e: any) {
-        const container = this.stars.nativeElement as any;
-        const stars = container.getElementsByClassName('star');
-        for (let star of stars) {
-            star.style.color = '#ffd013';
-            if (star == e.target) break;
+    starsAction(action: string, index: number) {
+        if(action == 'hover') {
+            for(let i = 0; i <= index; i++) {
+                this.rating[i].isHovered = true;
+            }
+        }
+        if(action == 'leave') {
+            for(let i = 0; i <= index; i++) {
+                this.rating[i].isHovered = false;
+            }
+        }
+        if(action == 'save') {
+            this.starsReset();
+            for(let i = 0; i <= index; i++) {
+                this.rating[i].selected = true;
+            }
         }
     }
-    onMouseLeave(e: any) {
-        const container = this.stars.nativeElement as any;
-        const stars = container.getElementsByClassName('star');
-        for (let star of stars) {
-            star.style.color = 'unset';
-        }
-    }
-
-    onSaveStars(e: any) {
-        this.resetStars();
-        const container = this.stars.nativeElement as any;
-        const selectedStar = e._elementRef.nativeElement;
-        const stars = container.getElementsByClassName('star');
-
-        for (let i = 0; i < this.rating.length; i++) {
-            this.rating[i] = true;
-            if (stars[i] == selectedStar) break;
-        }
-    }
-
-    resetStars() {
-        for (let i = 0; i < this.rating.length; i++) {
-            if(this.rating[i] == false) continue;
-            this.rating[i] = false;
+    starsReset() {
+        for(let i = 0; i < this.rating.length; i++) {
+            this.rating[i].selected = false;
         }
     }
 

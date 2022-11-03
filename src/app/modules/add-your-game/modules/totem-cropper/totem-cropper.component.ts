@@ -32,13 +32,13 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit() {
-    console.log(this.data);
+    //console.log(this.data);
     this.loading$.next(true);
     this.widthToResize = this.data.widthToResize;
     this.aspectRatio = this.data.aspectRatio;
     this.imageChangedEvent = this.data.file;
     this.sliderGroup.get('tick')!.valueChanges.subscribe((x: number | null) => {
-      console.log(x);
+      //console.log(x);
       this.scaleValue = x!;
       this.scaleImage();
     })
@@ -71,7 +71,6 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
       // show cropper
   }
   cropperReady() {
-    console.log('READY');
     this.loading$.next(false);
   }
   loadImageFailed() {
@@ -86,7 +85,6 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
       event.base64,
       this.imageChangedEvent.target.files[0].name,
     )
-    console.log(fileToReturn);
     this.croppedImage = fileToReturn;
   }
 

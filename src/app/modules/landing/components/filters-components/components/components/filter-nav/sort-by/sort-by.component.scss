@@ -1,7 +1,20 @@
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'styles/scss/variables';
+
 
 .menu-filter {
     width: auto !important;
 }
+.dropdown {
+    min-width: 100px;
+}
 .dropdown-menu {
     width: 100%;
+}
+
+.line-arrow_down {
+    transition: transform .3s, color .3s, background-color .3s;
+}
+.menu-filter:hover .line-arrow_down {
+    color: $black !important; 
 }

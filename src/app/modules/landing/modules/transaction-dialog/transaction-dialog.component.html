@@ -99,6 +99,7 @@
               </div>
 
               <mat-progress-bar [ngStyle]="{'color': stepIndex >= 1 && errorState ? '#FF5252' : ''}"
+                [ngClass]="{'allow-progress-color' : stepIndex >= 2}"
                 class="progress-bar mx-[5px]" mode="determinate" value="{{steps[1].step ? '100' : '0'}}">
               </mat-progress-bar>
 
@@ -108,10 +109,11 @@
                 [ngStyle]="{'background-color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}"></div>
                 <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 2" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
                 <div class="solid-warning-icon" @stopLoader *ngIf="errorState && stepIndex == 2"></div>
-                
+
               </div>
 
               <mat-progress-bar [ngStyle]="{'color': stepIndex >= 2 && errorState ? '#FF5252' : ''}"
+                [ngClass]="{'allow-progress-color' : stepIndex >= 2}"
                 class="progress-bar mx-[5px]" mode="determinate" value="{{steps[2].step ? '100' : '0'}}">
               </mat-progress-bar>
 

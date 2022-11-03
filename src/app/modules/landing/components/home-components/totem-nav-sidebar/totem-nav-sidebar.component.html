@@ -29,7 +29,8 @@
           <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2"
             (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-id">
             {{walletNumber}}
-            <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+            <!-- <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon> -->
+            <div class="line-copy_small"></div>
             <!-- <img [cdkCopyToClipboard]="wallet" [cdkCopyToClipboardAttempts]="2" class="copy-icon" src="assets/icons/copy_icon.svg" alt="copy-icon"> -->
           </div>
         </ng-container>
@@ -37,7 +38,7 @@
           <div [cdkCopyToClipboard]="wallet || ''" [cdkCopyToClipboardAttempts]="2"
             (cdkCopyToClipboardCopied)="notify()" fxLayout="row" fxLayoutAlign="center end" class="user-name">
             {{walletNumber}}
-            <mat-icon class="copy-icon" fontSet="material-icons-round">content_copy</mat-icon>
+            <div class="line-copy_small"></div>
           </div>
         </ng-container>
 

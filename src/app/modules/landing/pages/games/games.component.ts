@@ -25,18 +25,23 @@ export class GamesComponent implements OnDestroy {
   }
 
   updateGames(filters: 'latest' | 'popular' = 'latest') {
-    this.gamesService.updateGames(filters)
+    this.gamesService.updateGames(1, filters)
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
+        console.log('games', games)
         this.games = games;
       })
+  }
+
+  onLoadMore(page: number) {
+    this.gamesService.updateGames(page, 'latest').subscribe();
   }
 
   games$() {
     this.gamesService.games$
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
-        
+        console.log('get games')
         this.games = games;
       })
   }

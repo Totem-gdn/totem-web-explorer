@@ -7,6 +7,6 @@
     </div>
   </div>
   <div class="img-wrapper">
-    <img loading="lazy" [src]="game[0].url" alt="game-icon">
+    <img loading="lazy" [src]="game[0].url" alt="game-icon" width="100%" [height]="innerWidth > 767 ? 260 : 460">
   </div>
 </div>

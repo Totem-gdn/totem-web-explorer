@@ -195,7 +195,6 @@ export class TotemHomePageComponent implements OnInit {
     );
     this.subs.add(
       this.totemItemsService.mostUsedItems.subscribe((items: any[] | null) => {
-        console.log('items', items)
         if (items) {
           this.mostUsedItems$.next(items);
         }
