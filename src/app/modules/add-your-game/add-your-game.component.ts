@@ -126,11 +126,11 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   }
 
   async updateImagesToUpload(data: ImagesToUpload) {
-    //this.imagesToUpload = data;
-    console.log('IT WAS: ', data);
-    this.imagesToUpload = await this.compreseImages(data);
+    this.imagesToUpload = data;
+    //console.log('IT WAS: ', data);
+    //this.imagesToUpload = await this.compreseImages(data);
 
-    console.log('IT BECAME: ',this.imagesToUpload);
+    console.log('IT BECAME: ', this.imagesToUpload);
 
     const formDataToSend: ImagesInfo = {
       coverImage: {
