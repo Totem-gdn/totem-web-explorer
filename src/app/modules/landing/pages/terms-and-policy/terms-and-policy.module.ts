@@ -4,8 +4,8 @@ import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
-import { BackgroundCircleModule } from "../../components/common-components/bg-circle/bg-circle.module";
-import { TotemButtonModule } from "../../components/common-components/totem-button/totem-button.module";
+import { BackgroundCircleModule } from "../../../../components/utils/bg-circle/bg-circle.module";
+import { TotemButtonModule } from "../../../../components/utils/totem-button/totem-button.module";
 import { TermsAndPolicyComponent } from "./terms-and-policy.component";
 import { TermsAndPolicyRoutes } from "./terms-and-policy.routing";
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, Subject, Subscription, take, takeUntil } from 'rxjs';
-import { CARD_TYPE } from '@app/core/enums/card-types.enum';
+import { CARD_TYPE } from '@app/core/models/enums/card-types.enum';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
 

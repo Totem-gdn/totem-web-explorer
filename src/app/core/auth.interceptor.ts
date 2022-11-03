@@ -2,8 +2,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core"
 import { environment } from "@env/environment";
 import { Observable, tap } from "rxjs"
-import { StorageKey } from "./enums/storage-keys.enum";
-import { BaseStorageService } from "./services/base-storage.service";
+import { StorageKey } from "./models/enums/storage-keys.enum";
+import { BaseStorageService } from "./services/utils/base-storage.service";
 import { Web3AuthService } from "./web3auth/web3auth.service";
 
 

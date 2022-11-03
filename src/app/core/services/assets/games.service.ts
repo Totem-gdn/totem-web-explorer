@@ -45,10 +45,8 @@ export class GamesService {
     }
 
   filterDropdownGames(filter: string, updateStateGames = true) {
-    console.log('update state', updateStateGames)
     console.log(this._lastDropdownFilter.getValue() == filter)
     if(filter == this._lastDropdownFilter.getValue()) {
-      console.log('get ga,es')
       return this._dropdownGames.asObservable();
     }
     this._lastDropdownFilter.next(filter);
@@ -68,9 +66,6 @@ export class GamesService {
           }
         })
       }
-      console.log('update state games',updateStateGames)
-      // if (updateStateGames) {
-      // }
       this._dropdownGames.next(games);
       return games;
     }));

@@ -1,11 +1,10 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
-import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
+import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Gtag } from "angular-gtag";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
-import { WelcomeDialogService } from "../dialogs/welcome-dialog/services/welcome-dialog.service";
-import { StorageKey } from "../enums/storage-keys.enum";
-import { OpenLoginUserInfo, UserEntity } from "../models/user-interface.model";
+import { StorageKey } from "../models/enums/storage-keys.enum";
+import { OpenLoginUserInfo, UserEntity } from "../models/interfaces/user-interface.model";
 import { Web3AuthService } from "../web3auth/web3auth.service";
 
 
@@ -25,7 +24,6 @@ export class UserStateService implements OnDestroy {
     private snackNotifierService: SnackNotifierService,
     private router: Router,
     private gtag: Gtag,
-    private welcomeDialogService: WelcomeDialogService,
   ) { }
 
   async initAccount() {
@@ -53,11 +51,6 @@ export class UserStateService implements OnDestroy {
   async getUserInfoViaWeb3() {
     const wallet: string = await this.web3AuthService.getAccounts();
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
-    //if (!localStorage.getItem('claim-used')) {
-    //  console.log(JSON.parse(localStorage.getItem('claim-used')!));
-    //  localStorage.setItem('claim-used', JSON.stringify({status: 'warned'}));
-    //  this.welcomeDialogService.openWelcomeDialog().subscribe();
-    //}
     let token = userInfo?.idToken;
     let publicKey;
     if(userInfo?.idToken) {
@@ -69,7 +62,6 @@ export class UserStateService implements OnDestroy {
       // External Wallets
       token = await this.web3AuthService.walletIdToken();
       publicKey = this.parseJwt(token).wallets[0].address;
-      console.log(this.parseJwt(token))
       const userInfo = {
         idToken: token
       }

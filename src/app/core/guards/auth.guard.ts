@@ -5,8 +5,8 @@ import {
     Router,
     RouterStateSnapshot
 } from "@angular/router";
-import { StorageKey } from "../enums/storage-keys.enum";
-import { BaseStorageService } from "../services/base-storage.service";
+import { StorageKey } from "../models/enums/storage-keys.enum";
+import { BaseStorageService } from "../services/utils/base-storage.service";
 import { UserStateService } from "../services/auth.service";
 import { PopupService } from "@app/layout/components/popup.service";
 
