@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { BehaviorSubject, Subscription, timer } from 'rxjs';
 import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
 import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Router } from '@angular/router';
+import { Router, Scroll } from '@angular/router';
 
 
 @Component({
@@ -40,6 +40,13 @@ import { Router } from '@angular/router';
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotemHomePageComponent implements OnInit {
+  showMeetUs: boolean = false;
+
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll() {
+    this.showMeetUs = true;
+  }
+  
   swiper!: Swiper;
   subs: Subscription = new Subscription();
   imgChange: 'first' | 'second' = 'first';
