@@ -3,10 +3,7 @@ import { Router } from "@angular/router";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { BaseStorageService } from "@app/core/services/base-storage.service";
 import { Subject, takeUntil } from "rxjs";
-
-
 import { Game } from "../../totem-search-filter/models/items-interface.model";
-
 
 @Component({
   selector: 'game-dropdown',
@@ -26,12 +23,8 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
   @Input() menuActive = false;
   @Input() alwaysOpen = false;
   @Input() borderStyle = false;
-  @Input() bluffChanges = false;
-  @Output() changeGame: EventEmitter<Game> = new EventEmitter<Game>();
 
-  // @Input() onBluffChange = new EventEmitter();
   resetSearch: boolean = false;
-  initGamesList!: Game[];
   selectedItem!: Game;
   subs = new Subject<void>();
   uniqKey = 'gamesDropdown';
@@ -47,47 +40,20 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.filterGames('');
-    this.games$(true);
+    this.games$();
     this.selectedGame$();
-  }
-
-  initBluffChanges() {
-    if (this.bluffChanges && this.initGamesList) {
-      let idx = 1;
-      const inter = setInterval(() => {
-        if (!this.baseStorageService.getItem(this.uniqKey, 'sesion')) {
-          if (this.initGamesList[idx]) {
-            this.onChangeInput(this.initGamesList[idx], true);
-            if (idx < this.initGamesList.length) {
-              idx++;
-            } else {
-              idx = 0;
-            }
-          } else if (this.initGamesList?.length) {
-            idx = 0;
-            this.onChangeInput(this.initGamesList[idx], true);
-          }
-
-        } else {
-          clearInterval(inter);
-        }
-      }, 6000)
-    }
   }
 
   filterGames(filter: string) {
     this.games = [];
     this.gamesService.filterDropdownGames(filter).subscribe();
   }
-  games$(initGames = false) {
+  games$() {
     this.gamesService.dropdownGames$
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
-        this.games = games;
-        if (initGames) {
-          this.initGamesList = games;
-        }
         if (games) {
+          this.games = games;
           this.selectedGame = this.gamesService.selectedGame;
           let sessionValue = this.baseStorageService.getItem(this.uniqKey, 'sesion');
           this.title = sessionValue || this.games[0].general.name;
@@ -100,9 +66,6 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
 
           }
         }
-
-        this.initBluffChanges();
-
       })
   }
 
@@ -111,20 +74,17 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
       .pipe(takeUntil(this.subs))
       .subscribe(game => {
         if (game) {
-          this.changeGame.emit(game);
           this.selectedGame = game;
           this.title = game.general.name;
         }
       })
   }
 
-  onChangeInput(game: Game, fromInterval = false) {
+  onChangeInput(game: Game) {
     this.selectedGame = game;
     this.gamesService.selectedGame = this._selectedGame;
     this.title = game.general.name;
-    if (!fromInterval) {
-      this.baseStorageService.setItem(this.uniqKey, this.title, 'sesion');
-    }
+    this.baseStorageService.setItem(this.uniqKey, this.title, 'sesion');
     if (!this.alwaysOpen) {
       this.menuActive = false;
     }

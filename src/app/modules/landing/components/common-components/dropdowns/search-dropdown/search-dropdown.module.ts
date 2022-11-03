@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { SearchFieldModule } from "@app/modules/landing/components/common-components/search-field/search-field.module";
 import { ClickOutsideDirective } from "@app/shared/directives/click-outside.directive";
@@ -13,6 +14,7 @@ import { SearchDropdownComponent } from "./search-dropdown.component";
     imports: [
         SharedModule,
         MatIconModule,
+        FormsModule,
         SearchFieldModule,
     ],
     exports: [
@@ -23,5 +25,5 @@ import { SearchDropdownComponent } from "./search-dropdown.component";
 })
 
 export class SearchDropdownModule {
-    
+
 }

@@ -11,21 +11,26 @@
     <div #dropdown class="dropdown-menu w-[200px] lg:w-[300px]" [ngClass]="menuActive ? 'appear': ''">
 
         <div class="search">
-            <search-field></search-field>
+            <search-field (filter)="loadGames($event)"></search-field>
         </div>
 
         <div #menuItems class="menu-items">
             <div class="menu-item" *ngFor="let item of items; let i = index" [id]="'item' + i"
                 [ngClass]="alwaysOpen ? 'demo-border': ''">
-                <input aria-label="item.name" (change)="onChangeInput($event)" value="{{item.name}}"
-                    class="w-6 h-6 bg-transparent checked radio-game-selector" type="radio" name="input">
+                <input
+                aria-label="item.general.name"
+                (change)="onChangeInput(item)"
+                [value]="item.general.name"
+                [(ngModel)]="title"
+                type="radio"
+                [name]="'widget-item'"
+                class="w-6 h-6 bg-transparent checked radio-game-selector">
 
                 <div class="content">
-                    <div class="p-2 w-9 h-9 img rounded item-gradient"></div>
-
-                    <div class="flex flex-col my-auto px-2.5">
-                        <span>{{item.name}}</span>
-                        <span class="text-light-grey">{{item.genre}}</span>
+                    <div class="square"><img [src]="item.images.smallThumbnail" alt=""></div>
+                    <div class="info flex flex-col my-auto px-2.5">
+                        <span>{{item.general.name}}</span>
+                        <span class="text-light-grey">{{item.general.genre[0]}}</span>
                     </div>
                 </div>
 
@@ -34,9 +39,7 @@
 
         <div class="flex justify-center pt-[10px]">
             <div class="flex flex-col pb-[1px] cursor-pointer" (click)="onClickViewAll()">
-                <span class="text-center">View all</span>
-                <!-- <mat-icon class="!h-[2px] !w-full" [svgIcon]="'solid:bottom_rectangle'"></mat-icon> -->
-                <div class="solid-bottom_rectangle !h-[2px] !w-full"></div>
+                <span class="text-center bottom-rectangle">View all</span>
             </div>
         </div>
 

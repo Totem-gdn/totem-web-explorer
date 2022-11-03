@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, map, take, tap } from "rxjs";
+import { BehaviorSubject, take, tap } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 
@@ -43,26 +43,28 @@ export class GamesService {
         }));
     }
 
-    filterDropdownGames(filter: string) {
-        return this.http.get<any>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
-          if ('totem'.includes(filter.toLowerCase())) {
-            games.unshift({
-              general: {
-                name: 'Totem',
-                genre: ['Canonical', 'View']
-              },
-              connections: {
-                assetRenderer: environment.ASSET_RENDERER_URL
-              },
-              images: {
-                smallThumbnail: 'assets/icons/nav/logo-small.svg'
-              }
-            })
+  filterDropdownGames(filter: string, updateStateGames = true) {
+    return this.http.get<any>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
+      if ('totem'.includes(filter.toLowerCase())) {
+        games.unshift({
+          general: {
+            name: 'Totem',
+            genre: ['Canonical', 'View']
+          },
+          connections: {
+            assetRenderer: environment.ASSET_RENDERER_URL
+          },
+          images: {
+            smallThumbnail: 'assets/icons/nav/logo-small.svg'
           }
-
-            this._dropdownGames.next(games);
-        }));
-    }
+        })
+      }
+      if (updateStateGames) {
+        this._dropdownGames.next(games);
+      }
+      return games;
+    }));
+  }
 
     clearGames() {
         this._games.next(null);

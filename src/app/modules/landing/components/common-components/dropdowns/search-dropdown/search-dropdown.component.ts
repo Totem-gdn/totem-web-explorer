@@ -1,8 +1,10 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { ComboBoxService } from "@app/core/services/combobox-state.service";
-import { Observable, Subscription, timer } from "rxjs";
+import { GamesService } from "@app/core/services/assets/games.service";
+import { WidgetService } from "@app/core/services/widget-state.service";
+import { Subscription, timer } from "rxjs";
+import { Game } from "../../totem-search-filter/models/items-interface.model";
 
 
 @Component({
@@ -18,19 +20,20 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router,
         @Inject(DOCUMENT) private document: Document,
-        private comboBoxService: ComboBoxService) { }
+        private gamesService: GamesService,
+        private widgetService: WidgetService) { }
 
     allRadioButtons!: any;
     @Input() title: string = '';
     @Input() itemType: string = '';
     @Input() alwaysOpen: boolean = false;
-    @Output() onChange: EventEmitter<string> = new EventEmitter();
-    @Output() onFakeChange: EventEmitter<string> = new EventEmitter();
+    @Output() onChange: EventEmitter<Game> = new EventEmitter();
+    @Output() onFakeChange: EventEmitter<Game> = new EventEmitter();
     @ViewChild('menu') menu!: ElementRef;
     @ViewChild('dropdown') dropdown!: ElementRef;
     @ViewChild('menuItems') menuItems!: ElementRef<any>;
 
-    items = [{ name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' }, { name: 'Mr.Krabs', genre: 'horror' }, { name: 'GTA 6', genre: 'Arcade' }, { name: 'SontaCity', genre: 'Shooter' }, { name: 'Mineground', genre: 'Sandbox' },]
+    items: Game[] = [];
     menuActive: boolean = false;
 
     subs: Subscription = new Subscription();
@@ -39,13 +42,20 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
         if(this.alwaysOpen === true) {
           this.menuActive = true;
           this.subs.add(
-            this.comboBoxService.selectedGame.subscribe((game: string) => {
+            this.widgetService.selectedGame.subscribe((game) => {
               if (game) {
-                this.title = game;
+                this.title = game.general.name;
               }
             })
           )
         }
+      this.loadGames('');
+    }
+
+    loadGames(filter: string) {
+      this.gamesService.filterDropdownGames(filter, false).subscribe(games => {
+        this.items = games;
+      })
     }
 
     ngOnDestroy(): void {
@@ -53,14 +63,13 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
       this.scriptSubscribe.unsubscribe();
     }
 
-    onChangeInput(event: any) {
-        const value = event.target.value;
-        this.title = value;
-        this.onChange.emit(value);
+    onChangeInput(game: Game) {
+        this.title = game.general.name;
+        this.onChange.emit(game);
 
         if (this.alwaysOpen === true) {
           this.removeScriptSelected();
-          this.restartScript(20000, 5000); // only for alwaysOpen === true
+          this.restartScript(20000, 5000);
           return;
         }
         this.menuActive = false;
@@ -79,13 +88,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     onClickViewAll() {
-        if (this.itemType === 'item') {
-            this.router.navigate(['/items']);
-        } else if (this.itemType === 'game') {
-            this.router.navigate(['/games']);
-        } else if (this.itemType === 'avatar') {
-            this.router.navigate(['/avatars']);
-        }
+      this.router.navigate(['/games']);
     }
 
     ngAfterViewInit() {
@@ -104,7 +107,6 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
 
     restartScript(start: number, nextTime: number) {
       this.scriptSubscribe.unsubscribe();
-      console.log('Restarted by mouseleave');
 
       this.startScriptTimer(start, nextTime);
     }
@@ -140,7 +142,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
       };
     }
 
-    selectThisGame(i: number, itemToSelect?: any) {
+    selectThisGame(i: number, itemToSelect?: Game) {
       setTimeout(() => {
         if (!itemToSelect) {
           document?.getElementById('item' + (i-1).toString())?.classList.remove('script-hovered');
@@ -148,8 +150,8 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
         } else {
           document?.getElementById('item' + (i-1).toString())?.classList.remove('script-hovered');
           document?.getElementById('item' + i.toString())?.classList.add('script-selected');
-          this.title = itemToSelect.name;
-          this.onFakeChange.emit('changed');
+          this.title = itemToSelect.general.name;
+          this.onFakeChange.emit(itemToSelect);
           this.scriptSubscribe.unsubscribe();
           this.startScriptTimer(5000, 5000);
           for (let i = 0; i < this.allRadioButtons.length; i++) {
