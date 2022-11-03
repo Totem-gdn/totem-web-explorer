@@ -41,14 +41,15 @@ export class GameInfoComponent implements OnInit, OnDestroy {
                 this.gameService.updateGame(id).subscribe();
             })
 
-        this.gameService.updateGames().subscribe(games => {
+        this.gameService.updateGames(1).subscribe(games => {
             this.games = games;
         })
     }
 
     game$() {
-        this.gameService.game$.subscribe(game => {
-            console.log('game', game);
+        this.gameService.game$
+        .pipe(takeUntil(this.subs))
+        .subscribe(game => {
             this.game = game;
         })
     }
@@ -57,5 +58,6 @@ export class GameInfoComponent implements OnInit, OnDestroy {
         this.subs.next();
         this.subs.complete();
         this.gameService.setGame = null;
+        this.gameService.clearGames();
     }
 }

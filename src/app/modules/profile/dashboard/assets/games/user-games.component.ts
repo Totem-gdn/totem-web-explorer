@@ -34,7 +34,7 @@ export class UserGamesComponent {
   }
 
   updateGames(filters: 'latest' | 'popular' = 'latest') {
-    this.gamesService.updateGames(filters)
+    this.gamesService.updateGames(1, filters)
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
         this.games = games;

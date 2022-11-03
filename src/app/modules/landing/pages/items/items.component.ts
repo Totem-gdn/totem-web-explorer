@@ -29,7 +29,9 @@ export class ItemsComponent implements OnDestroy {
   }
 
   updateAssets() {
-    this.assetsService.updateAssets('item', 1, 'newest').subscribe();
+    this.assetsService.updateAssets('item', 1, 'newest').subscribe(() => {
+      console.log('update assets')
+    });
     this.assetsService.items$
       .pipe(takeUntil(this.subs))
       .subscribe(items => {

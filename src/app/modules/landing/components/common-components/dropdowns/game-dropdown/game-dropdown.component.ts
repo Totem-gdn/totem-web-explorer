@@ -46,9 +46,9 @@ export class GameDropdownComponent implements OnDestroy, AfterViewInit {
   _selectedGame!: Game;
 
   ngAfterViewInit() {
-    this.filterGames('');
     this.games$(true);
     this.selectedGame$();
+    this.filterGames('');
   }
 
   initBluffChanges() {
