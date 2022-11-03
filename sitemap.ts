@@ -1,9 +1,18 @@
 import * as fs from "fs";
 import * as path from "path";
-import { environment } from './src/environments/environment'
 
-const HOSTNAME = process.env['NODE_ENV'] || environment.TOTEM_WEB_EXPLORER_URL;
-var routes = [
+const ENVS: {dev: string, prod: string} = {
+  dev: 'development',
+  prod: 'production',
+};
+
+const developmentUrl: string = 'https://dev.totem-explorer.com';
+const productionUrl: string = 'https://totem-explorer.com';
+
+const CURRENT_ENV = process.env['NODE_ENV'];
+const HOSTNAME = CURRENT_ENV == ENVS.dev ? developmentUrl : productionUrl;
+
+const routes = [
   {
     data: {
       loc: '',
@@ -59,7 +68,7 @@ Disallow: /submit-game/
 Disallow: /approve-game/
 Allow: /
 
-Sitemap: ${HOSTNAME}/sitemap.xml`
+Sitemap: ${HOSTNAME}/sitemap.xml`;
 
 fs.writeFileSync(path.join(__dirname, "./src/robots.txt"), robots);
 
