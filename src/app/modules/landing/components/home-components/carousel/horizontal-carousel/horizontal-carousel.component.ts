@@ -1,4 +1,4 @@
-import { AfterViewInit,  Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Observable } from 'rxjs';
@@ -43,8 +43,8 @@ export class HorizontalCarouselComponent implements AfterViewInit {
         spaceBetween: 16,
         loopPreventsSlide: false,
         rewind: true,
+        preloadImages: false,
         lazy: true,
-        preloadImages: true,
         updateOnImagesReady: true,
 
         breakpoints: {
@@ -87,9 +87,6 @@ export class HorizontalCarouselComponent implements AfterViewInit {
             clickable: true
         },
       });
-      setTimeout(()=>{
-        this.swiper?.update();
-      }, 350)
     }
 
     onClickRight() {
