@@ -1,0 +1,40 @@
+<div class="w-full h-full flex flex-col mx-auto overflow-x-hidden overflow-y-hidden">
+
+  <div class="flex items-center flex-wrap">
+
+    <div class="flex items-center mb-7 relative">
+      <h2 class="title text-2xl sm:text-4xl">{{title}}</h2>
+    </div>
+
+    <div class="mb-7" *ngIf="menuTitle">
+      <game-dropdown [title]="menuTitle" [type]="itemType"></game-dropdown>
+    </div>
+
+    <div class="ml-auto mb-7 hidden lg:flex">
+
+      <arrow-left class="pr-7" (click)="onClickLeft()"></arrow-left>
+      <arrow-right (click)="onClickRight()"></arrow-right>
+
+    </div>
+  </div>
+  <div *ngIf="!slides" class="w-full h-[440px] flex spinner-wrapper">
+      <totem-spinner [size]="'36'"></totem-spinner>
+  </div>
+  <div #horizontalSwiper class="horizontal-swiper relative">
+
+    <div class="swiper-wrapper">
+
+      <div *ngFor="let slide of slides" class="swiper-slide">
+        <asset-card *ngIf="itemType != 'game'" [type]="itemType" [asset]="slide" [selectedGame]="getSelectedGames() | async"></asset-card>
+        <game-card *ngIf="itemType == 'game'" [game]="slide"></game-card>
+      </div>
+    </div>
+    <div class="swiper-pagination lg:hidden"></div>
+
+
+  </div>
+
+  <div class="flex pt-[20px] relative">
+    <span class="z-10 cursor-pointer ml-auto text-light-grey" (click)="onClickViewAll()">View all</span>
+  </div>
+</div>
