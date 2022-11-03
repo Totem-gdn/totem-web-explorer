@@ -35,9 +35,10 @@ p {
 .links {
     display: flex;
     gap: 16px;
-    justify-content: center;
+    // justify-content: center;
     .link {
         display: flex;
+        justify-content: center;
         width: 46px;
         height: 46px;
         background-color: $black;

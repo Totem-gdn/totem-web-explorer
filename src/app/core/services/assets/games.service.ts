@@ -45,7 +45,7 @@ export class GamesService {
     }
 
   filterDropdownGames(filter: string, updateStateGames = true) {
-    if(filter == this._lastDropdownFilter.getValue()) return of(this._dropdownGames.getValue());
+    if(filter == this._lastDropdownFilter.getValue() && !this._dropdownGames.getValue()) return of(this._dropdownGames.getValue());
     this._lastDropdownFilter.next(filter);
 
     return this.http.get<any>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
