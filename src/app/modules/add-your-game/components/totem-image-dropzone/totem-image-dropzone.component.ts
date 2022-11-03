@@ -102,6 +102,27 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
 
     if (this.isImage(fileToValidate)) {
 
+
+      //this.imageReader.onload = (event: any) => {
+      //  /* event.target.result */
+      //  this.imageCompress.compressFile(event.target.result, -1, 50, 50).then(
+      //    result => {
+      //      this.selfFill = true;
+      //      this.imageUrl = result;
+      //      /* console.log(res);
+      //      const imageFile = new File([result], fileToValidate.name, { type: fileToValidate.type });
+      //      console.log(imageFile);
+      //      this.finalizedImage = imageFile;
+      //      this.selfFill = true;
+      //      this.imageReader.readAsDataURL(this.finalizedImage);
+      //      console.log(this.finalizedImage);
+      //      this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result }; */
+      //    }
+      //  );
+//
+      //};
+      //this.imageReader.readAsDataURL(fileToValidate);
+
       if (fileToValidate.size > 20971520) {
         console.log('File size is big');
         return;
@@ -124,6 +145,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
             return;
           } */
       this.finalizedFile.next(event);
+      this.removeHover();
       /*   };
       };
       reader.readAsDataURL(fileToValidate); */
