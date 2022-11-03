@@ -6,7 +6,7 @@
 .wrapper {
     margin-bottom: 5px !important;
     border-radius: 4px;
-    padding: 9px;
+    padding: 9px 0px;
     align-items: center;
     border: 1px solid $light-grey;
     transition: border 0.5s;
@@ -17,7 +17,9 @@
     }
 
     input {
+        padding-left: 38px;
         outline: none;
+        background: transparent url('./../../../../../../assets/icons/nav/search-icon.svg') no-repeat 12px center;
     }
 
 
