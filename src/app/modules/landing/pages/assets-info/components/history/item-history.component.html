@@ -8,7 +8,7 @@
             <p>Game Played</p>
             <p class="ml-auto w-[40px] text-center">TX</p>
         </div>
-        <div *ngFor="let _ of [].constructor(5)" class="transaction history-grid">
+        <div *ngFor="let story of history" class="transaction history-grid">
             <div class="mr-[10px]"><img loading="lazy" src="assets/images/transaction-avatar.png" alt=""></div>
             <span class="truncate mr-[60px]">0x88644f6bbe25dc5f4c6992cfcb4bf0be1653568f</span>
             <span class="truncate">Aug 30, 2022, 11:16AM</span>

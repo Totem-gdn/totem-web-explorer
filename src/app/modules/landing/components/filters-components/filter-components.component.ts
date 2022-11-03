@@ -1,4 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { CacheService } from '@app/core/services/assets/cache.service';
 import { ComboBoxService } from '@app/core/services/combobox-state.service';
 import { TagsService } from './services/tags.service';
 
@@ -9,7 +10,7 @@ import { TagsService } from './services/tags.service';
 
 export class FilterComponentsComponent implements OnDestroy {
 
-    constructor(private tagsService: TagsService, private comboBoxService: ComboBoxService) {}
+    constructor(private tagsService: TagsService, private comboBoxService: ComboBoxService, private cacheService: CacheService) {}
 
     @Output() loadMore = new EventEmitter<number>();
     @Output() sort = new EventEmitter<string>();
@@ -31,7 +32,8 @@ export class FilterComponentsComponent implements OnDestroy {
         if(items == null) return;
         if(!this.items?.length) this.items = [];
         this.items = this.items.concat(items);
-        
+        this.cacheService.totalByAssetType(this.itemType, this.items);
+
         if(items.length < 10) this.showButton = false;
         this.page++;
     }

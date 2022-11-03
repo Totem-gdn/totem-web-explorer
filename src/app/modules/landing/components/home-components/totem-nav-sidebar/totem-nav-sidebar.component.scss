@@ -1,4 +1,6 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 :host {
   z-index: 20;
@@ -201,13 +203,6 @@
         max-height: 32px;
         color: #fff;
         cursor: pointer;
-        .copy-icon {
-          margin-left: 6px;
-          height: 32px;
-          width: 26px;
-          font-size: 24px;
-          line-height: 28px;
-        }
 
         .tooltiptext {
           pointer-events: none;
@@ -242,12 +237,10 @@
         line-height: 19px;
         color: $light-grey;
         transition: color 0.33s ease-out;
-        .copy-icon {
+        .line-copy_small {
           margin-left: 6px;
-          height: 22px;
-          width: 16px;
-          font-size: 16px;
-          line-height: 19px;
+          margin-bottom: 3px;
+          // color: white;
         }
         &:hover {
           color: #fff;
@@ -340,4 +333,5 @@
     -webkit-backdrop-filter: blur(40px);
   }
 }
+
 

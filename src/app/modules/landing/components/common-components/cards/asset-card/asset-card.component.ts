@@ -36,6 +36,7 @@ export class AssetCardComponent {
   }
   _asset: any;
   assetRendererUrl = environment.ASSET_RENDERER_URL;
+  
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
       this.messageService.open('Unauthorized');

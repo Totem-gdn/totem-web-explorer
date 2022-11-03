@@ -8,7 +8,7 @@ import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
 import { Gtag } from "angular-gtag";
 import { BehaviorSubject, max, Subscription, takeWhile } from "rxjs";
-import { TokenTransactionService } from "./token-transaction.service";
+import { PopupService } from "../popup.service";
 
 
 interface TokenBalance {
@@ -34,12 +34,12 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
     maskForAmount: string = '';
     ammountError: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    constructor(private txService: TokenTransactionService,
+    constructor(
         private web3Service: Web3AuthService,
         private authService: UserStateService,
         private snackService: SnackNotifierService,
         private paymentService: PaymentService,
-        private showPopupService: TokenTransactionService,
+        private showPopupService: PopupService,
         private gtag: Gtag) { }
 
     showPopup = true;
@@ -57,7 +57,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.updateBalance();
-        this.showPopupService.showPopup$().subscribe(show => {
+        this.showPopupService.showTokenPopup$().subscribe(show => {
             this.showPopup = show;
         })
     }
@@ -96,7 +96,6 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     onClose() {
         this.showPopup = false;
-
     }
 
     async estimateGas(tokenTitle: string, value: string) {

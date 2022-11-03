@@ -12,18 +12,33 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 })
 export class ProfileStatsComponent {
 
-  constructor(private cacheService: CacheService) { }
+  constructor(
+    private cacheService: CacheService) { }
 
   _total = new BehaviorSubject<number | string | undefined>('--');
+  _rare = new BehaviorSubject<number | string | undefined>('--');
+  _unique = new BehaviorSubject<number | string | undefined>('--');
 
   @Input() type = '';
   @Input() total: number | undefined;
 
   ngOnInit() {
     this.cacheService.totalCache$().subscribe(total => {
-      if (this.type == 'avatar') this._total.next(total.totalAvatars);
-      if (this.type == 'item') this._total.next(total.totalItems);
-      if (this.type == 'gem') this._total.next(total.totalGems);
+      if (this.type == 'avatar') {
+        this._total.next(total.totalAvatars);
+        this._rare.next(total.totalRareAvatars);
+        this._unique.next(total.totalUniqueAvatars);
+      }
+      if (this.type == 'item') {
+        this._total.next(total.totalItems);
+        this._rare.next(total.totalRareItems);
+        this._unique.next(total.totalUniqueItems);
+      }
+      if (this.type == 'gem') {
+        this._total.next(total.totalGems);
+        this._rare.next(total.totalRareGems);
+        this._unique.next(total.totalUniqueGems);
+      }
       if (this.type == 'game') this._total.next(total.totalGames);
       if (this.type == 'fav_avatar') this._total.next(total.fav_totalAvatars);
       if (this.type == 'fav_item') this._total.next(total.fav_totalItems);

@@ -4,6 +4,7 @@ import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, Subject, Subscription, take, takeUntil } from 'rxjs';
 import { CARD_TYPE } from '@app/core/enums/card-types.enum';
 import { AssetsService } from '@app/core/services/assets/assets.service';
+import { CacheService } from '@app/core/services/assets/cache.service';
 
 @Component({
   selector: 'app-user-items',
@@ -16,7 +17,8 @@ import { AssetsService } from '@app/core/services/assets/assets.service';
 export class UserItemsComponent implements OnInit {
 
   constructor(private assetsService: AssetsService,
-    private web3Service: Web3AuthService,) { }
+    private web3Service: Web3AuthService,
+    private cacheService: CacheService) { }
 
   subs = new Subject<void>();
   items!: any[] | null;
@@ -31,6 +33,8 @@ export class UserItemsComponent implements OnInit {
       .pipe(takeUntil(this.subs))
       .subscribe(items => {
         this.items = items;
+        if(!this.items) return;
+        this.cacheService.totalByAssetType('item', this.items);
       })
   }
   onLoadMore(page: number) {

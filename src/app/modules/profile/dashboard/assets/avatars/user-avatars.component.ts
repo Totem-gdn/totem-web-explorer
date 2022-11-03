@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';
 import { AssetsService } from '@app/core/services/assets/assets.service';
+import { CacheService } from '@app/core/services/assets/cache.service';
 
 @Component({
   selector: 'app-user-avatars',
@@ -14,7 +15,8 @@ import { AssetsService } from '@app/core/services/assets/assets.service';
 export class UserAvatarsComponent implements OnInit, OnDestroy {
 
   constructor(private web3Service: Web3AuthService,
-    private assetsService: AssetsService) { }
+    private assetsService: AssetsService,
+    private cacheService: CacheService) { }
 
   subs = new Subject<void>();
   avatars!: any[] | null;
@@ -29,6 +31,8 @@ export class UserAvatarsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.subs))
       .subscribe(avatars => {
         this.avatars = avatars;
+        if(!this.avatars) return;
+        this.cacheService.totalByAssetType('avatar', this.avatars);
       })
   }
 

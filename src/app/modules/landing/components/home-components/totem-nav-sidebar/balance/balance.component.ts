@@ -8,8 +8,8 @@ import { TransactionDialogComponent } from "@app/modules/landing/modules/transac
 import { Observable, Subscription, take } from "rxjs";
 import { Animations } from "@app/core/animations/animations";
 import { Gtag } from "angular-gtag";
-import { TokenTransactionService } from "@app/layout/components/token-transaction/token-transaction.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
+import { PopupService } from "@app/layout/components/popup.service";
 
 
 @Component({
@@ -41,7 +41,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     private userStateService: UserStateService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
-    private sendTokensPopup: TokenTransactionService,
+    private sendTokensPopup: PopupService,
     private paymentService: PaymentService,
     readonly matDialog: MatDialog,
     private gtag: Gtag
@@ -241,7 +241,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   onSend() {
-    this.sendTokensPopup.showPopup();
+    this.sendTokensPopup.showTokenPopup();
   }
 
   async onClaim() {
