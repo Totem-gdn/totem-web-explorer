@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, map, of, take, tap } from "rxjs";
+import { BehaviorSubject, of, take, tap } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 
@@ -44,29 +44,31 @@ export class GamesService {
         }));
     }
 
-    filterDropdownGames(filter: string) {
-        if(filter == this._lastDropdownFilter.getValue()) return of(this._dropdownGames.getValue());
-        this._lastDropdownFilter.next(filter);
-        
-        return this.http.get<any>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
-          if ('totem'.includes(filter.toLowerCase())) {
-            games.unshift({
-              general: {
-                name: 'Totem',
-                genre: ['Canonical', 'View']
-              },
-              connections: {
-                assetRenderer: environment.ASSET_RENDERER_URL
-              },
-              images: {
-                smallThumbnail: 'assets/icons/nav/logo-small.svg'
-              }
-            })
-          }
+  filterDropdownGames(filter: string, updateStateGames = true) {
+    if(filter == this._lastDropdownFilter.getValue()) return of(this._dropdownGames.getValue());
+    this._lastDropdownFilter.next(filter);
 
-            this._dropdownGames.next(games);
-        }));
-    }
+    return this.http.get<any>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
+      if ('totem'.includes(filter.toLowerCase())) {
+        games.unshift({
+          general: {
+            name: 'Totem',
+            genre: ['Canonical', 'View']
+          },
+          connections: {
+            assetRenderer: environment.ASSET_RENDERER_URL
+          },
+          images: {
+            smallThumbnail: 'assets/icons/nav/logo-small.svg'
+          }
+        })
+      }
+      if (updateStateGames) {
+        this._dropdownGames.next(games);
+      }
+      return games;
+    }));
+  }
 
     clearGames() {
         this._games.next(null);

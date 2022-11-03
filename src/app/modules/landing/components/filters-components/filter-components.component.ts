@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CacheService } from '@app/core/services/assets/cache.service';
-import { ComboBoxService } from '@app/core/services/combobox-state.service';
+import { GamesService } from '@app/core/services/assets/games.service';
+
 import { TagsService } from './services/tags.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { TagsService } from './services/tags.service';
 
 export class FilterComponentsComponent implements OnDestroy {
 
-    constructor(private tagsService: TagsService, private comboBoxService: ComboBoxService, private cacheService: CacheService) {}
+    constructor(private tagsService: TagsService, private gamesService: GamesService, private cacheService: CacheService) {}
 
     @Output() loadMore = new EventEmitter<number>();
     @Output() sort = new EventEmitter<string>();
@@ -50,12 +51,11 @@ export class FilterComponentsComponent implements OnDestroy {
     }
 
     selectGame(event: any) {
-      console.log(event);
-      this.comboBoxService.updateSelectedGame(event);
+      this.gamesService.selectedGame(event);
     }
 
-    onLoadMore() {    
-        this.loadMore.emit(this.page); 
+    onLoadMore() {
+        this.loadMore.emit(this.page);
     }
 
     ngAfterViewChecked(): void {

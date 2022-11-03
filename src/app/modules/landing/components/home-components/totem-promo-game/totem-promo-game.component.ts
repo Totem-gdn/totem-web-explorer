@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -8,14 +8,20 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class TotemPromoGameComponent implements OnInit {
   @Input() game!: any[];
-
+  innerWidth: number = 0;
   constructor() { }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
   }
 
   goToGame() {
     window.open(this.game[0].gameUrl, '_blank');
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
   }
 
 }

@@ -20,13 +20,7 @@
 
     <div class="flex grow justify-center h-[200px] max-w-[420px] pt-[20px] lg:pt-0">
         <div class="mb-auto mt-[10px] lg:my-0 mr-auto lg:mr-[20px] z-12 min-w-[240px] sm:min-w-[280px] lg:min-w-[auto]">
-            <game-dropdown
-            [menuActive]="true"
-            [alwaysOpen]="true"
-            [borderStyle]="true"
-            [bluffChanges]="true"
-            [title]="'Game name'"
-            (changeGame)="onChangeGame($event)"></game-dropdown>
+            <search-dropdown [alwaysOpen]="true" [title]="'Game Name'" (onFakeChange)="selectGame($event)" (onChange)="selectGame($event)"></search-dropdown>
         </div>
     </div>
 

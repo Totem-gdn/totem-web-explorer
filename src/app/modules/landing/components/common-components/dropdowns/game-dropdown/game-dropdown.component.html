@@ -14,7 +14,7 @@
         </div>
         <!-- Items -->
         <div #menuItems class="menu-items">
-            <ng-container *ngIf="games?.length">
+            <ng-container>
                 <label
                 class="menu-item" *ngFor="let game of games"
                 [ngClass]="(borderStyle && game.general.name === title) ? 'checked': ''">
