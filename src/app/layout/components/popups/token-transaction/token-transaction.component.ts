@@ -96,6 +96,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     onClose() {
         this.showPopup = false;
+        this.resetForm();
     }
 
     async estimateGas(tokenTitle: string, value: string) {
@@ -132,7 +133,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         }
 
         this.snackService.open('Your transaction has been sent');
-        this.onClose();
+
         if(this.selectedToken.title =='USDC') {
             this.paymentService.sendUSDC(address, amount).then(res => {
                 this.snackService.open('Success');
@@ -154,6 +155,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
                 this.updateBalance();
             })
         }
+        this.onClose();
     }
 
     updateBalance() {
@@ -168,6 +170,11 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
                 })
             }
         })
+    }
+
+    private resetForm():void{
+        this.transferForm.reset();
+        this.gasFee = undefined;
     }
 
     ngOnDestroy() {
