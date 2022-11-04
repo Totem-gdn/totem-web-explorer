@@ -26,8 +26,8 @@
         <a routerLinkActive="active-route" routerLink="/help">Help</a>
       </div>
       <!-- Button -->
-      <totem-button class="pl-[50px] pr-[40px]" [width]="'100px'" [height]="'46px'" [caption]="'Generate'"
-        (click)="navigateToBuy()"></totem-button>
+      <totem-button class="pl-[50px] pr-[40px]" [width]="'100px'" [height]="'46px'"
+        [caption]="'Purchase'" (click)="navigateToBuy()"></totem-button>
       <!-- User -->
       <div class="profile-block cursor-pointer" (click)="isLoggedIn ? openSideProfile() : logIn()">
         <img loading="lazy" class="fake-profile-icon" *ngIf="!(currUser | async)?.profileImage && !(loading$ | async)"
