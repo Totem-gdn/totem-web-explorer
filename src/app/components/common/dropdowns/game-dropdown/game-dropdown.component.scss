@@ -5,127 +5,148 @@
 @import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 .dropdown {
-    max-width: 200px;
-    width: 100%;
+  max-width: 200px;
+  width: 100%;
 
-    .dropdown-toggle {
-        @extend %gradient-border;
-        color: $white;
-        width: 200px;
-        height: 50px;
+  .dropdown-toggle {
+    color: $white;
+    width: 200px;
+    height: 50px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $grey;
+    cursor: pointer;
+    padding: 8px 12px;
+    align-items: center;
+    font-weight: 500;
+
+    transition: background-color .3s, color .3s;
+
+    span {
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      font-weight: 700;
+    }
+
+    .line-arrow_down {
+      transition: transform .3s;
+      width: 12px !important;
+    }
+
+    &:hover {
+      background-color: $yellow;
+      color: $black;
+      &::before {
+        background: none
+      }
+    }
+    &.appear {
+      @extend %gradient-border-solid;
+     }
+  }
+
+  .menu {
+    margin-top: 10px;
+    @extend %gradient-border-solid;
+    position: absolute !important;
+    backdrop-filter: blur(10px);
+    visibility: hidden;
+    opacity: 0;
+    background-color: $transparent-light;
+    z-index: 30;
+    transition: opacity 0.4s, visibility 0.4s;
+    border-radius: 4px;
+    .menu-items {
+      padding: 0 5px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      max-height: 200px;
+
+      .menu-item {
         border-radius: 4px;
-        display: flex;
-        justify-content: space-between;
-        background-color: $grey;
+        padding: 6px;
         cursor: pointer;
-        padding: 8px 12px;
-        align-items: center;
-        font-weight: 500;
+        height: 50px;
+        min-height: 50px;
+        width: 100%;
+        transition: background-color .3s;
 
-        transition: background-color .3s, color .3s;
-        span {
-            white-space: nowrap;
-            user-select: none;
-            pointer-events: none;
-        }
-        .line-arrow_down {
-            // margin-bottom: auto;
-            transition: transform .3s;
-            width: 12px !important;
-        }
         &:hover {
-            background-color: $yellow;
-            color: $black;
-            @extend %gradient-border-solid;
+          background-color: $grey;
         }
-        &:hover span {
-            font-weight: 700;
+
+        &.checked {
+          border: 1px solid $yellow;
+          border-radius: 4px;
         }
+
+        display: grid;
+        grid-template:
+        "before name name name name name" 1fr
+        "before genre genre genre genre genre" 1fr;
+        grid-template-columns: 36px 1fr;
+        gap: 0 10px;
+        align-items: center;
+        p {
+          width: auto;
+          max-width: 100%;
+          grid-area: name;
+          line-height: 16px;
+          height: 16px;
+        }
+
+        span {
+          color: $light-grey;
+          grid-area: genre;
+          line-height: 16px;
+          height: 16px;
+        }
+
+        &::before {
+          grid-area: before;
+
+          width: 36px;
+          height: 36px;
+          border-radius: 4px;
+          overflow: hidden;
+          content: '';
+          display: block;
+          background-size: contain;
+          background-image: var(--game-image);
+        }
+
+
+      }
+
     }
-    .menu {
-        margin-top: 10px;
-        // width: 100%;
-        @extend %gradient-border-solid;
-        position: absolute !important;
-        backdrop-filter: blur(24px);
-        visibility: hidden;
-        opacity: 0;
-        background-color: $transparent-light;
-        z-index: 30;
-        transition: opacity 0.4s, visibility 0.4s;
 
-        .menu-items {
-            padding: 0 5px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            max-height: 200px;
-            .menu-item {
+    .view-all {
+      display: flex;
+      justify-content: center;
+      padding-top: 10px;
 
-                position: relative;
-                border-radius: 4px;
-                padding: 6px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                cursor: pointer;
-                height: 50px;
-                min-height: 50px;
-                width: 100%;
-                transition: background-color .3s;
-
-                &:hover {
-
-                    background-color: $grey;
-                }
-                img {
-                    width: 36px;
-                    height: 36px;
-                }
-                &.checked {
-                  border: 1px solid $yellow;
-                  border-radius: 4px;
-                }
-                input {
-                  &.borderStyle {
-                    display: none;
-                  }
-                }
-
-                .content {
-                    display: flex;
-                    align-items: center;
-                    flex-grow: 1;
-
-                    .square {
-                        width: 36px;
-                        height: 36px;
-                        border-radius: 4px;
-                        overflow: hidden;
-                        // background: linear-gradient(90deg, #FA709A 0%, #FEE140 100%);
-                    }
-                    span {
-                        color: $light-grey;
-                    }
-                }
-            }
-        }
-
-        .view-all {
-            display: flex;
-            justify-content: center;
-            padding-top: 10px;
-            .content {
-                display: flex;
-                flex-direction: column;
-                padding-bottom: 1px;
-                cursor: pointer;
-            }
-        }
+      .content {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1px;
+        cursor: pointer;
+      }
     }
+  }
+}
+:host {
+  ::ng-deep {
+    search-field {
+      padding: 6px 6px 13px 6px;
+      display: block;
+      .wrapper {
+        padding: 7px 0 !important;
+      }
+    }
+  }
 }
 
-.search {
-    padding: 6px 6px 10px 6px;
-    width: 100%;
-}
+
