@@ -8,7 +8,7 @@
       <!-- Search -->
       <search-field (filter)="filterGames($event)" [reset]="resetSearch"></search-field>
       <!-- Items -->
-      <div class="menu-items">
+      <div #menuItems class="menu-items">
           <div
           class="menu-item"
           *ngFor="let game of games"

@@ -182,6 +182,7 @@
         min-height: 50px;
         width: 100%;
         transition: background-color .3s;
+        border: 1px solid transparent;
 
         &:hover {
           background-color: $grey;
