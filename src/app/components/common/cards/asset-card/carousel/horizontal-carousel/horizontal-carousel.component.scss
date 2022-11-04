@@ -1,5 +1,4 @@
-@import 'styles/scss/variables';
-
+@import "styles/scss/variables";
 
 :host {
   width: 100%;
@@ -14,7 +13,7 @@
   margin-left: 42px;
   margin-right: 24px;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 18px;
     height: 18px;
@@ -31,10 +30,10 @@
 }
 
 .swiper-wrapper {
-  @media (min-width: 999px) {
-    display: flex;
-    justify-content: space-between;
-  }
+  // @media (min-width: 999px) {
+  display: flex;
+  justify-content: space-between;
+  // }
 
   .swiper-slide {
     position: relative;
@@ -42,6 +41,10 @@
     box-sizing: border-box;
     @media (min-width: 999px) {
       max-width: 24%;
+      margin-right: 16px;
+    }
+    @media (min-width: 600px) and ( max-width:998px) {
+      max-width: 48%;
       margin-right: 16px;
     }
 
@@ -54,15 +57,16 @@
   }
 }
 
-  .swiper-pagination {
-    bottom: -40px;
-  }
+.swiper-pagination {
+  bottom: -40px;
+}
 
-  .slider-button-next::after, .slider-button-prev::after {
-    display: none !important;
-  }
+.slider-button-next::after,
+.slider-button-prev::after {
+  display: none !important;
+}
 
-  .slider-button-next, .slider-button-prev {
-    position:static !important;
-  }
-
+.slider-button-next,
+.slider-button-prev {
+  position: static !important;
+}
