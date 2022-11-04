@@ -10,6 +10,7 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { MatIconModule } from "@angular/material/icon";
 import { MatRippleModule } from "@angular/material/core";
 import { TotemButtonModule } from "@app/components/utils/totem-button/totem-button.module";
+import { TotemSpinnerModule } from "@app/shared/totem-spinner/totem-spinner.module";
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { TotemButtonModule } from "@app/components/utils/totem-button/totem-butt
         MatButtonModule,
         MatRippleModule,
         ImageCropperModule,
+        TotemSpinnerModule,
         MatIconModule,
         MatRippleModule,
         TotemButtonModule

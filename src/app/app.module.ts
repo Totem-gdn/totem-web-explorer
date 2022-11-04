@@ -12,7 +12,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { GtagModule } from 'angular-gtag';
 import { environment } from '@env/environment';
-import { WelcomeDialogModule } from './layout/components/popups/dialogs/welcome-dialog/welcome-dialog.module';
+import { WelcomeDialogModule } from './core/dialogs/welcome-dialog/welcome-dialog.module';
 
 
 const routerConfig: ExtraOptions = {
