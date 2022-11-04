@@ -35,6 +35,7 @@
                             class="!mb-0 amount-input" type="text"
                             [allowNegativeNumbers]="false"
                             mask="{{maskForAmount}}"
+                            thousandSeparator=","
                             (input)="onInputChange($event)" placeholder="0 Token"
                             (blur)="estimateGas(selectedToken.title, selectedToken.value)">
                         <div *ngIf="selectedToken?.title" class="suffix">
