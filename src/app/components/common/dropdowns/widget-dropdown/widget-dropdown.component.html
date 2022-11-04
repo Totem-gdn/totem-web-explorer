@@ -1,5 +1,5 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
-    <div #menu class="menu-filter bg-grey" (click)="onClickMenu($event)"
+    <div #menu class="menu-filter bg-grey" (click)="onClickMenu()"
         [ngClass]="menuActive ? 'gradient-border-solid': ''">
 
         <span class="whitespace-nowrap pointer-events-none">{{title}}</span>
@@ -15,22 +15,22 @@
         </div>
 
         <div #menuItems class="menu-items">
-            <div class="menu-item" *ngFor="let item of items; let i = index" [id]="'item' + i"
+            <div class="menu-item" *ngFor="let game of games; let i = index" [id]="'item' + i"
                 [ngClass]="alwaysOpen ? 'demo-border': ''">
                 <input
                 aria-label="item.general.name"
-                (change)="onChangeInput(item)"
-                [value]="item.general.name"
+                (change)="onChangeInput(game)"
+                [value]="game.general?.name"
                 [(ngModel)]="title"
                 type="radio"
                 [name]="'widget-item'"
                 class="w-6 h-6 bg-transparent checked radio-game-selector">
 
                 <div class="content">
-                    <div class="square"><img [src]="item.images.smallThumbnail" alt="" width="36px" height="36px"></div>
+                    <div class="square"><img [src]="game.images?.smallThumbnail" alt="" width="36px" height="36px"></div>
                     <div class="info flex flex-col my-auto px-2.5">
-                        <span>{{item.general.name}}</span>
-                        <span class="text-light-grey">{{item.general.genre[0]}}</span>
+                        <span>{{game.general?.name}}</span>
+                        <span class="text-light-grey">{{game.general?.genre?.[0]}}</span>
                     </div>
                 </div>
 

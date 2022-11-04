@@ -1,4 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
 
@@ -49,8 +50,8 @@ export class FilterComponentsComponent implements OnDestroy {
         this.items = undefined;
     }
 
-    selectGame(event: any) {
-      this.gamesService.selectedGame(event);
+    selectGame(game: GameDetail) {
+      this.gamesService.selectedGame = game;
     }
 
     onLoadMore() {

@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { SearchDropdownModule } from "@app/components/common/dropdowns/search-dropdown/search-dropdown.module";
 import { TotemButtonModule } from "@app/components/utils/totem-button/totem-button.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { ItemDescComponent } from "./item-desc.component";
@@ -15,9 +14,7 @@ import { GameDropdownModule } from "@app/components/common/dropdowns/game-dropdo
     ],
     imports: [
         SharedModule,
-        
         TotemButtonModule,
-        SearchDropdownModule,
         ClipboardModule,
         FlexLayoutModule,
         GameDropdownModule

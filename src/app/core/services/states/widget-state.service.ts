@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Game } from "@app/layout/components/totem-navigation/totem-search-filter/models/items-interface.model";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { Observable, Subject } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 
 export class WidgetService {
-  private selectedGame$: Subject<Game> = new Subject<Game>();
-  selectedGame: Observable<Game> = this.selectedGame$.asObservable();
+  private selectedGame$: Subject<GameDetail> = new Subject<GameDetail>();
+  selectedGame: Observable<GameDetail> = this.selectedGame$.asObservable();
 
   constructor() {}
 
-  updateSelectedGame(game: Game) {
+  updateSelectedGame(game: GameDetail) {
     this.selectedGame$.next(game);
   }
 

@@ -1,39 +1,35 @@
-import { DOCUMENT } from "@angular/common";
-import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
-import { Game } from "@app/layout/components/totem-navigation/totem-search-filter/models/items-interface.model";
 import { Subscription, timer } from "rxjs";
 
 
 @Component({
-    selector: 'search-dropdown',
-    templateUrl: './search-dropdown.component.html',
-    styleUrls: ['./search-dropdown.component.scss']
+    selector: 'widget-dropdown',
+    templateUrl: './widget-dropdown.component.html',
+    styleUrls: ['./widget-dropdown.component.scss']
 })
 
-export class SearchDropdownComponent implements OnInit, OnDestroy {
+export class WidgetDropdownComponent implements OnInit, OnDestroy {
 
     scriptSubscribe: Subscription = new Subscription();
     previusSelected: number = 0;
 
     constructor(private router: Router,
-        @Inject(DOCUMENT) private document: Document,
         private gamesService: GamesService,
         private widgetService: WidgetService) { }
 
     allRadioButtons!: any;
-    @Input() title: string = '';
-    @Input() itemType: string = '';
+    title: string = '';
     @Input() alwaysOpen: boolean = false;
-    @Output() onChange: EventEmitter<Game> = new EventEmitter();
-    @Output() onFakeChange: EventEmitter<Game> = new EventEmitter();
-    @ViewChild('menu') menu!: ElementRef;
+    @Output() onChange: EventEmitter<GameDetail> = new EventEmitter();
+    @Output() onFakeChange: EventEmitter<GameDetail> = new EventEmitter();
     @ViewChild('dropdown') dropdown!: ElementRef;
-    @ViewChild('menuItems') menuItems!: ElementRef<any>;
+    @ViewChild('menuItems') menuItems!: ElementRef;
 
-    items: Game[] = [];
+    games: GameDetail[] = [];
     menuActive: boolean = false;
 
     subs: Subscription = new Subscription();
@@ -44,7 +40,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
           this.subs.add(
             this.widgetService.selectedGame.subscribe((game) => {
               if (game) {
-                this.title = game.general.name;
+                this.title = game?.general?.name || '';
               }
             })
           )
@@ -53,8 +49,8 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     loadGames(filter: string) {
-      this.gamesService.filterDropdownGames(filter, false).subscribe(games => {
-        this.items = games;
+      this.gamesService.loadGames(filter, false).subscribe(games => {
+        this.games = games;
       })
     }
 
@@ -63,19 +59,18 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
       this.scriptSubscribe.unsubscribe();
     }
 
-    onChangeInput(game: Game) {
-        this.title = game.general.name;
-        this.onChange.emit(game);
-
+    onChangeInput(game: GameDetail) {
+        this.title = game?.general?.name || '';
+        this.gamesService.gameInSession = game;
         if (this.alwaysOpen === true) {
           this.removeScriptSelected();
-          this.restartScript(20000, 5000);
+          this.restartScript(60000, 5000);
           return;
         }
         this.menuActive = false;
     }
 
-    onClickMenu(event: any) {
+    onClickMenu() {
         if(this.alwaysOpen) return;
         this.menuActive = !this.menuActive;
     }
@@ -100,7 +95,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     removeScriptSelected() {
-      this.items.forEach((item: any, i: number) => {
+      this.games.forEach((item: any, i: number) => {
         document?.getElementById('item' + i.toString())?.classList.remove('script-selected');
       });
     }
@@ -132,7 +127,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
     }
 
     selectGame(selectItem: number) {
-      const itemToSelect = this.items[selectItem];
+      const itemToSelect = this.games[selectItem];
       for (var i = 0; i <= selectItem; i++) {
         if (i == selectItem) {
           this.selectThisGame(i, itemToSelect)
@@ -142,7 +137,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
       };
     }
 
-    selectThisGame(i: number, itemToSelect?: Game) {
+    selectThisGame(i: number, itemToSelect?: GameDetail) {
       setTimeout(() => {
         if (!itemToSelect) {
           document?.getElementById('item' + (i-1).toString())?.classList.remove('script-hovered');
@@ -150,7 +145,7 @@ export class SearchDropdownComponent implements OnInit, OnDestroy {
         } else {
           document?.getElementById('item' + (i-1).toString())?.classList.remove('script-hovered');
           document?.getElementById('item' + i.toString())?.classList.add('script-selected');
-          this.title = itemToSelect.general.name;
+          this.title = itemToSelect?.general?.name || '';
           this.onFakeChange.emit(itemToSelect);
           this.scriptSubscribe.unsubscribe();
           this.startScriptTimer(5000, 5000);

@@ -1,8 +1,7 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
-import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
-import { Game } from "@app/layout/components/totem-navigation/totem-search-filter/models/items-interface.model";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -15,29 +14,26 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
 
   constructor(private router: Router,
     private gamesService: GamesService,
-    private baseStorageService: BaseStorageService,
     private changeDetector: ChangeDetectorRef) { }
 
   @Input() type: string = 'game';
-  @Input() title: string | undefined = 'Menu';
-  games!: Game[];
+  @Input() title: string = 'Menu';
+  games!: GameDetail[];
   @Input() menuActive = false;
   @Input() alwaysOpen = false;
-  @Input() borderStyle = false;
+  @Input() borderStyle = true;
 
   resetSearch: boolean = false;
-  selectedItem!: Game;
+  selectedItem!: GameDetail;
   subs = new Subject<void>();
-  uniqKey = 'gamesDropdown';
   @ViewChild('dropdown') dropdown!: ElementRef;
-  @ViewChild('menuItems') menuItems!: ElementRef;
 
 
-  set selectedGame(game: Game) {
+  set selectedGame(game: GameDetail) {
     if (!game) return;
     this._selectedGame = game;
   };
-  _selectedGame!: Game;
+  _selectedGame!: GameDetail;
 
   ngAfterViewInit() {
     this.filterGames('');
@@ -59,14 +55,14 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
       .subscribe(games => {
         if (games) {
           this.games = games;
+          const sessionGame = this.gamesService.gameInSession;
           this.selectedGame = this.gamesService.selectedGame;
-          let sessionValue = this.baseStorageService.getItem(this.uniqKey, 'sesion');
-          this.title = sessionValue || this.games[0].general.name;
+          this.title = sessionGame?.general?.name || this.games[0]?.general?.name || '';
           if (!this.selectedGame) {
-            const game = games.find((el: Game) => el.general.name === this.title);
+            const game = games.find((el: GameDetail) => el?.general?.name === this.title);
             if (game) {
               this.gamesService.selectedGame = this._selectedGame;
-              this.title = game.general.name;
+              this.title = game?.general?.name || '';
             }
 
           }
@@ -80,16 +76,15 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
       .subscribe(game => {
         if (game) {
           this.selectedGame = game;
-          this.title = game.general.name;
+          this.title = game?.general?.name || '';
         }
       })
   }
 
-  onChangeInput(game: Game) {
+  onChangeInput(game: GameDetail) {
     this.selectedGame = game;
-    this.gamesService.selectedGame = this._selectedGame;
-    this.title = game.general.name;
-    this.baseStorageService.setItem(this.uniqKey, this.title, 'sesion');
+    this.title = game?.general?.name || '';
+    this.gamesService.gameInSession = game;
     if (!this.alwaysOpen) {
       this.menuActive = false;
     }

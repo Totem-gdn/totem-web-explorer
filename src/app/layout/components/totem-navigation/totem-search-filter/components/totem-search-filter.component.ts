@@ -1,13 +1,13 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface.model';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
-import { SubmitGameService } from '@app/modules/specific/add-your-game/services/submit-game.service';
 import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
 import { BehaviorSubject, switchMap, debounceTime, of, Subscription, take, combineLatest, map} from 'rxjs';
-import { Game, Items } from '../models/items-interface.model';
+import { Items } from '../models/items-interface.model';
 import { GradientService } from '../services/items-gradient.service';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 
 /* const items: Items[] = [
   {
@@ -59,7 +59,7 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
 
   itemsArray = new BehaviorSubject<Items[] | null>(null);
   avatarsArray = new BehaviorSubject<Items[] | null>(null);
-  gamesArray = new BehaviorSubject<Game[] | null>(null);
+  gamesArray = new BehaviorSubject<GameDetail[] | null>(null);
 
   activeTab: string = 'items';
 
@@ -229,7 +229,7 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
     this.loading$.next(false);
     this.avatarsArray.next(items);
   }
-  processGames(items: Game[] | null) {
+  processGames(items: GameDetail[] | null) {
     this.loading$.next(false);
     this.gamesArray.next(items);
   }

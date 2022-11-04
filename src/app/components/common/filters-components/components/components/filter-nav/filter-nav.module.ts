@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
-import { SearchDropdownModule } from "@app/components/common/dropdowns/search-dropdown/search-dropdown.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { ClearAllModule } from "./clear-all/clear-all.module";
 import { FilterSliderModule } from "./filter-slider/filter-slider.module";
@@ -19,8 +18,7 @@ import { SortByModule } from "./sort-by/sort-by.module";
         ClearAllModule,
         FilterSliderModule,
         FilterUpdateModule,
-        FilterTagsModule,
-        SearchDropdownModule
+        FilterTagsModule
     ],
     exports: [
         MatIconModule,
@@ -28,8 +26,7 @@ import { SortByModule } from "./sort-by/sort-by.module";
         ClearAllModule,
         FilterSliderModule,
         FilterUpdateModule,
-        FilterTagsModule,
-        SearchDropdownModule
+        FilterTagsModule
     ]
 })
 

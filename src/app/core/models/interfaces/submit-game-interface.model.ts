@@ -90,3 +90,22 @@ export interface ImageEvents {
   cardEvent?: any | null;
   searchEvent?: any | null;
 }
+
+
+export interface GameDetail {
+  [index: string]: any;
+  general?: GeneralInfo;
+  details?: DetailsInfo;
+  images?: ImagesUrls; // <---
+  connections?: ConnectionsInfo;
+  contacts?: ContactsInfo;
+  assets?: {items: number; avatars: number};
+  createdAt?: string;
+  id?: string;
+  isLiked?: boolean;
+  likes?: number;
+  owner?: string;
+  players?: number;
+  updatedAt?: string;
+  views?: number;
+}

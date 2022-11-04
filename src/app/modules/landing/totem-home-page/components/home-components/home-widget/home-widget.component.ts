@@ -3,8 +3,9 @@ import { Component, OnInit } from "@angular/core";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
-import { Game } from "@app/layout/components/totem-navigation/totem-search-filter/models/items-interface.model";
+
 import { Observable } from "rxjs";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 
 
 @Component({
@@ -54,7 +55,7 @@ import { Observable } from "rxjs";
 export class HomeWidgetComponent implements OnInit {
 
     cardsToShow: any[] = [];
-    selectedGame!: Game;
+    selectedGame!: GameDetail;
     constructor(private gamesService: GamesService, private widgetService: WidgetService, private totemItemsService: TotemItemsService) {
       this.totemItemsService.avatars.subscribe((data: any[] | null) => {
         if (data && data.length) {
@@ -72,7 +73,7 @@ export class HomeWidgetComponent implements OnInit {
 
     }
 
-    onChangeGame(game: Game) {
+    onChangeGame(game: GameDetail) {
       this.selectedGame = game;
     }
 
