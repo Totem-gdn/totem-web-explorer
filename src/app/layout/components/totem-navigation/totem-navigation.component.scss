@@ -1,6 +1,6 @@
-@import 'styles/scss/variables';
-@import 'assets/fonts/icon-fonts/mail-font.scss';
-@import 'assets/fonts/icon-fonts/line/line.scss';
+@import "styles/scss/variables";
+@import "assets/fonts/icon-fonts/mail-font.scss";
+@import "assets/fonts/icon-fonts/line/line.scss";
 
 .lds-ellipsis {
   width: 48px !important;
@@ -54,7 +54,6 @@
     }
   }
 
-
   .navigation-block {
     display: flex;
     margin-left: auto;
@@ -65,7 +64,7 @@
       margin-left: 70px;
       max-width: 420px;
       min-width: 380px;
-      font-family: 'Roboto';
+      font-family: "Roboto";
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
@@ -103,7 +102,8 @@
       display: none;
     }
 
-    .nav-loader, img {
+    .nav-loader,
+    img {
       width: 46px;
       height: 46px;
     }
@@ -152,7 +152,10 @@
 
     .menu-button {
       cursor: pointer;
+      img {
+        width: 48px;
+        height: 48px;
+      }
     }
   }
-
 }
