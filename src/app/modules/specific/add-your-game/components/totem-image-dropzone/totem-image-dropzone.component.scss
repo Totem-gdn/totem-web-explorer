@@ -72,8 +72,9 @@
   }
 }
 
-.solid-no-image {
+.solid-no-image, .solid-doc-image {
   color: $grey;
+  transition: color 0.33s ease-out;
 }
 
 @media screen and (max-width: 768px) {

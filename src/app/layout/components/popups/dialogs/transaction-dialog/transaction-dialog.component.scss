@@ -1,4 +1,5 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
 
 .img-upload-dialog {
   height: 100%;
@@ -337,9 +338,10 @@
             color: #CBCBCB;
             cursor: pointer;
 
-            mat-icon {
-              width: 20px;
-              height: 20px;
+            .line-open_new {
+              height: 16px;
+              width: 16px;
+              font-size: 16px;
             }
 
           }

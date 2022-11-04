@@ -109,3 +109,9 @@ export interface GameDetail {
   updatedAt?: string;
   views?: number;
 }
+
+export interface JsonDNAFilters {
+  gameDNA?: File | undefined;
+  itemDNA?: File | undefined;
+  avatarDNA?: File | undefined;
+}

@@ -1,6 +1,6 @@
 import { HttpClient, HttpEventType, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ImagesToUpload, ImagesUrls, SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
+import { ImagesToUpload, ImagesUrls, JsonDNAFilters, SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
 import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { environment } from "@env/environment";
 import { BehaviorSubject, concat, Observable } from "rxjs";
@@ -40,7 +40,7 @@ export class SubmitGameService {
     })
   }
 
-  componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilter?: string }, jsonFile?: File | null): Observable<any>[] {
+  componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilter?: string }, jsonFiles?: JsonDNAFilters | null): Observable<any>[] {
     let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
     imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
     imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
@@ -48,9 +48,15 @@ export class SubmitGameService {
     links.imagesGallery?.forEach((link: string, i: number) => {
       imagesWithUrls.push({url: link, file: images.gallery![i]});
     })
-    if (jsonFile) {
-      imagesWithUrls.push({url: connections?.dnaFilter, file: jsonFile ? jsonFile : undefined})
+    if (jsonFiles?.gameDNA) {
+      imagesWithUrls.push({url: connections?.dnaFilter, file: jsonFiles.gameDNA ? jsonFiles.gameDNA : undefined})
     }
+    if (jsonFiles?.itemDNA) {
+      imagesWithUrls.push({url: connections?.dnaFilter, file: jsonFiles.itemDNA ? jsonFiles.itemDNA : undefined})
+    }
+    if (jsonFiles?.avatarDNA) {
+      imagesWithUrls.push({url: connections?.dnaFilter, file: jsonFiles.avatarDNA ? jsonFiles.avatarDNA : undefined})
+    } // NEED TO IMPROVE WITH BE
     console.log(imagesWithUrls);
     return this.connectImagesWithUrls(imagesWithUrls);
   }
