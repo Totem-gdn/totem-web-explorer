@@ -46,7 +46,6 @@ export class AssetsService {
             if (type == 'avatars') this._avatars.next(assets);
             if (type == 'gems') this._gems.next(assets);
             if (type == 'items') this._items.next(assets);
-            console.log('assets', assets)
         }));
     }
 
@@ -56,7 +55,6 @@ export class AssetsService {
         if (type == 'gem') type = 'gems';
 
         return this.http.get<any>(`${this.baseUrl}/assets/${type}/${id}`).pipe(tap(asset => {
-            // console.log('asset', asset)
             if(type == 'items') this._item.next(asset);
             if(type == 'avatars') this._avatar.next(asset);
             if(type == 'gems') this._gem.next(asset);

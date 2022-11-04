@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { TOKEN } from "@app/core/enums/token.enum";
+import { TOKEN } from "@app/core/models/enums/token.enum";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { BehaviorSubject, map, take } from "rxjs";
@@ -79,7 +79,6 @@ export class PaymentService {
 
     async sendUSDC(address: string, amount: number) {
         if (!this.web3.provider) {
-            console.log("provider not initialized yet");
             return;
         }
         const tx = await this.sendTransaction(address, amount);
@@ -96,7 +95,6 @@ export class PaymentService {
 
         const convertedAmount = web3.utils.toWei(amount.toString());
         const amountToSend = +convertedAmount - (+gasPrice * gasLimit);
-        console.log(web3.utils.fromWei(amountToSend.toString()))
 
         const receipt = await web3.eth.sendTransaction({
           from: myWallet,

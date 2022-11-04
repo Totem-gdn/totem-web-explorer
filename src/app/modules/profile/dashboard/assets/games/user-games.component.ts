@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
-import { ItemParam } from '@app/core/models/item-param.model';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
@@ -34,7 +33,7 @@ export class UserGamesComponent {
   }
 
   updateGames(filters: 'latest' | 'popular' = 'latest') {
-    this.gamesService.updateGames(filters)
+    this.gamesService.updateGames(1, filters)
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
         this.games = games;
