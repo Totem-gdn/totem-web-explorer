@@ -11,7 +11,8 @@
       <div #menuItems class="menu-items">
           <div
           class="menu-item"
-          *ngFor="let game of games"
+          *ngFor="let game of games; let i = index"
+          [id]="'item' + i"
           (click)="onChangeInput(game)"
           [ngClass]="(game.general?.name === title) ? 'checked': ''"
           [ngStyle]="{'--game-image': 'url('+ game.images?.smallThumbnail + ')'}">

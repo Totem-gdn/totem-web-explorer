@@ -184,6 +184,13 @@
         transition: background-color .3s;
         border: 1px solid transparent;
 
+        &.script-selected {
+          border: 1px solid $yellow;
+          border-radius: 4px;
+        }
+        &.script-hovered {
+          background-color: $grey;
+        }
         &:hover {
           background-color: $grey;
         }
