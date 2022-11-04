@@ -21,13 +21,13 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
   games!: GameDetail[];
   @Input() menuActive = false;
   @Input() alwaysOpen = false;
-  @Input() borderStyle = true;
 
   resetSearch: boolean = false;
   selectedItem!: GameDetail;
   subs = new Subject<void>();
   @ViewChild('dropdown') dropdown!: ElementRef;
 
+  searchGames = false;
 
   set selectedGame(game: GameDetail) {
     if (!game) return;
@@ -46,6 +46,7 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
   }
 
   filterGames(filter: string) {
+    this.searchGames = true;
     this.games = [];
     this.gamesService.filterDropdownGames(filter).subscribe();
   }
@@ -67,6 +68,8 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
 
           }
         }
+        this.searchGames = false;
+
       })
   }
 
