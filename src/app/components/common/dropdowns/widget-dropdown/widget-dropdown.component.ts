@@ -22,7 +22,7 @@ export class WidgetDropdownComponent implements OnInit, OnDestroy {
         private widgetService: WidgetService) { }
 
     allRadioButtons!: any;
-    title: string = '';
+    title: string = 'Totem';
     @Input() alwaysOpen: boolean = false;
     @Output() onChange: EventEmitter<GameDetail> = new EventEmitter();
     @Output() onFakeChange: EventEmitter<GameDetail> = new EventEmitter();
