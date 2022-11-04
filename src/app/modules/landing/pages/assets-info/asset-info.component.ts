@@ -4,7 +4,7 @@ import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { BehaviorSubject, Subject, Subscription, takeUntil } from "rxjs";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
-import { DNAParserService } from "@app/core/services/dna-parser.service";
+import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
 // import * as DNA from 'dna-parser'
 

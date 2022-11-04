@@ -10,9 +10,9 @@
 
         <!-- Stars -->
         <div #stars class="stars">
-            <div #star *ngFor="let rate of rating" [ngClass]="rate == true ? '!text-yellow': 'text-light-grey'"
-                (click)="onSaveStars(star)" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)"
-                class="star" [ngClass]="rate ? 'solid-star': 'line-star'"></div>
+            <div #star *ngFor="let rate of rating; let i = index"
+                (click)="starsAction('save', i)" (mouseenter)="starsAction('hover', i)" (mouseleave)="starsAction('leave', i)"
+                class="star" [ngClass]="rate.isHovered || rate.selected == true ? 'solid-star': 'line-star'"></div>
             <p class="ml-[8px] my-auto">(--)</p>
         </div>
     </div>
@@ -20,9 +20,9 @@
     <div class="icon-wrapper">
         <div class="icon-set">
             <div class="icon !pl-0">
-                <div *ngIf="game?.isLiked === false" class="like line-like !w-[18px]"
+                <div *ngIf="game?.isLiked === false" class="line-like !w-[18px]"
                     (click)="$event.stopPropagation(); onClickLike()"></div>
-                <div *ngIf="game?.isLiked === true" class="text-yellow line-like cursor-pointer !w-[18px]"
+                <div *ngIf="game?.isLiked === true" class="text-yellow solid-like cursor-pointer !w-[18px]"
                     (click)="$event.stopPropagation(); onClickLike()"></div>
                 <p>{{game?.likes ? game?. likes : '0'}}</p>
             </div>

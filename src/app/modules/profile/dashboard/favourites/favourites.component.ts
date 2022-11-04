@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StorageKey } from '@app/core/enums/storage-keys.enum';
-import { BaseStorageService } from '@app/core/services/base-storage.service';
+import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
+import { BaseStorageService } from '@app/core/services/utils/base-storage.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { BehaviorSubject, Subscription } from 'rxjs';

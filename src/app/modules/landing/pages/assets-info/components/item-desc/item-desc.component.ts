@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { SnackNotifierService } from '@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service';
+import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { Subject, takeUntil } from 'rxjs';
 

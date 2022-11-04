@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { PaginationEvent } from '@app/core/models/page-event-interface.model';
+import { PaginationEvent } from '@app/core/models/interfaces/page-event-interface.model';
 import { BehaviorSubject } from 'rxjs';
 
 const messages: any[] = [

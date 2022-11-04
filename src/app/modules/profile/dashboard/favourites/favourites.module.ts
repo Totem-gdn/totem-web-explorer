@@ -4,11 +4,11 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
-import { ProfileBackButtonModule } from "../../components/profile-back-button/profile-back-button.module";
+import { ProfileBackButtonModule } from "../../components/common/profile-back-button/profile-back-button.module";
 import { FavouritesRoutes } from "./favourites.routing";
 import { FavouritesComponent } from "./favourites.component";
-import { ProfileStatsModule } from "../../components/profile-stats/profile-stats.module";
-import { FilterComponentsModule } from "@app/modules/landing/components/filters-components/filter-components.module";
+import { ProfileStatsModule } from "../../components/common/profile-stats/profile-stats.module";
+import { FilterComponentsModule } from "@app/components/common/filters-components/filter-components.module";
 import { MatRippleModule } from "@angular/material/core";
 
 
