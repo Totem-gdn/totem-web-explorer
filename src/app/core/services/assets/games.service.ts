@@ -90,7 +90,6 @@ export class GamesService {
   set gameInSession(game: GameDetail) {
     this.baseStorageService.setItem(this.uniqSessionKey, JSON.stringify(game), 'sesion');
     this.selectedGame = game;
-
   }
 
   get gameInSession(): GameDetail {

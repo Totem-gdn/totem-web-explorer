@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
-import { CarouselModule } from "@app/components/common/cards/asset-card/carousel/carousel.module";
+import { CarouselModule } from "@app/components/common/carousel/carousel.module";
 import { NotFoundModule } from "@app/modules/specific/page-not-found/not-found/not-found.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { BackgroundCircleModule } from "../../../../components/utils/bg-circle/bg-circle.module";

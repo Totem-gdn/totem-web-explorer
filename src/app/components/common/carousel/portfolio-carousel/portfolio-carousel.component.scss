@@ -65,12 +65,12 @@
   border: none !important;
   height: 5px !important;
   background-color: transparent;
-  background-image: url('./../../../../../../../assets/icons/swiper/thumb-gtxs.webp');
+  background-image: url('../../../../../assets/icons/swiper/thumb-gtxs.webp');
   background-repeat: no-repeat;
   background-size: 100% 41px;
   box-shadow: unset !important;
   @media (max-width: 734px) {
-    background-image: url('./../../../../../../../assets/icons/swiper/thumb-xs.webp');
+    background-image: url('../../../../../assets/icons/swiper/thumb-xs.webp');
   }
 }
 .wrapper ::-webkit-scrollbar {
@@ -78,7 +78,7 @@
     background: transparent;
 }
 .wrapper ::-webkit-scrollbar-track {
-    background-image: url('./../../../../../../../assets/icons/swiper/scrollbar.webp');
+    background-image: url('../../../../../assets/icons/swiper/scrollbar.webp');
     background-color: transparent;
     -webkit-border-radius: 50%;
     border-radius: 50%;

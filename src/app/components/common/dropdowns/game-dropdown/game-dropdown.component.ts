@@ -13,8 +13,8 @@ import { Subject, takeUntil } from "rxjs";
 export class GameDropdownComponent implements AfterViewChecked, OnDestroy, AfterViewInit {
 
   constructor(private router: Router,
-    private gamesService: GamesService,
-    private changeDetector: ChangeDetectorRef) { }
+              private gamesService: GamesService,
+              private changeDetector: ChangeDetectorRef) { }
 
   @Input() type: string = 'game';
   @Input() title: string = 'Menu';

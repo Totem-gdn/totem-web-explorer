@@ -30,6 +30,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.line-edit {
+  &:before {
+    content: $line-edit;     
+    color: #8a939b;
+  }
+}
 .line-info {
   &:before {
     content: $line-info; 

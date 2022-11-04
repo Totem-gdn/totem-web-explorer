@@ -1,6 +1,8 @@
 import { DOCUMENT } from "@angular/common";
-import { Component, ElementRef, Inject, Input, ViewChild } from "@angular/core";
-import { Subscription } from "rxjs";
+import { AfterViewInit, Component, ElementRef, Inject, Input, OnInit, ViewChild } from "@angular/core";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { GamesService } from "@app/core/services/assets/games.service";
+import { Subject, Subscription, takeUntil } from "rxjs";
 import { FiltersService } from "../../services/filters.service";
 
 @Component({
@@ -12,23 +14,38 @@ import { FiltersService } from "../../services/filters.service";
     }
 })
 
-export class AssetsFilterComponent {
+export class AssetsFilterComponent implements AfterViewInit {
     constructor(private filtersService: FiltersService,
-        @Inject(DOCUMENT) private document: Document) { }
+                @Inject(DOCUMENT) private document: Document,
+                private gamesService: GamesService) { }
 
     @ViewChild('dropupMenu') dropupMenu!: ElementRef;
     @Input() type = '';
 
-
     isDropupOpen!: boolean;
-    sub!: Subscription;
+    selectedGame!: GameDetail;
+    subs = new Subject<void>();
 
     ngAfterViewInit() {
-        this.sub = this.filtersService.dropupOpen$.subscribe(isOpen => {
+        this.filtersService.dropupOpen$
+        .pipe(takeUntil(this.subs))
+        .subscribe(isOpen => {
             this.isDropupOpen = isOpen;
-
             this.updateMenu();
         })
+
+        this.gamesService.selectedGame;
+        this.selectedGame$();
+    }
+
+    selectedGame$() {
+        this.gamesService.selectedGame$
+            .pipe(takeUntil(this.subs))
+            .subscribe(selectedGame => {
+                if(!selectedGame) return;
+                this.selectedGame = selectedGame;
+                console.log('Selected Game', this.selectedGame)
+            })
     }
 
     toggleMenu() {
@@ -61,7 +78,8 @@ export class AssetsFilterComponent {
     }
 
     ngOnDestroy(): void {
-        this.sub.unsubscribe();
+        this.subs.next();
+        this.subs.complete();
     }
     sexes = [{ name: 'Male'},{ name: 'Female'}]
     skinColors = [{ name: '#f9d4ab'},{ name: '#efd2c4'},{ name: '#e2c6c2'},{ name: '#e0d0bb'},{ name: '#ebb77d'},{ name: '#dca788'},{ name: '#cda093'},{ name: '#ccab80'},{ name: '#c58351'},{ name: '#b37652'},{ name: '#81574b'},{ name: '#8a6743'},{ name: '#7a3e10'},{ name: '#5c2a19'},{ name: '#472422'},{ name: '#362714'},];

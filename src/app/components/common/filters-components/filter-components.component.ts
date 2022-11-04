@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
@@ -8,9 +8,12 @@ import { TagsService } from './services/tags.service';
 @Component({
     selector: 'filter-components',
     templateUrl: './filter-components.component.html',
+    host: {
+        // class: 'min-h-[100vh]'
+    }
 })
 
-export class FilterComponentsComponent implements OnDestroy {
+export class FilterComponentsComponent implements OnDestroy, OnInit {
 
     constructor(private tagsService: TagsService, private gamesService: GamesService, private cacheService: CacheService) {}
 
@@ -43,7 +46,13 @@ export class FilterComponentsComponent implements OnDestroy {
     showButton = true;
     page = 1;
 
+    ngOnInit() {
+        this.selectedGame$();
+    }
 
+    selectedGame$() {
+        // this.gamesService
+    }
 
     onSort(sortMethod: any) {
         this.sort.emit(sortMethod);
