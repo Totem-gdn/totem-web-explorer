@@ -8,8 +8,8 @@ import { Subscription, timer } from "rxjs";
 
 @Component({
     selector: 'widget-dropdown',
-    templateUrl: './widget-dropdown.component.html',
-    styleUrls: ['./widget-dropdown.component.scss']
+    templateUrl: '../game-dropdown/game-dropdown.component.html',
+    styleUrls: ['../game-dropdown/game-dropdown.component.scss']
 })
 
 export class WidgetDropdownComponent implements OnInit, OnDestroy {
@@ -33,6 +33,8 @@ export class WidgetDropdownComponent implements OnInit, OnDestroy {
     menuActive: boolean = false;
 
     subs: Subscription = new Subscription();
+    searchGames = false;
+    resetSearch: boolean = false;
 
     ngOnInit() {
         if(this.alwaysOpen === true) {
@@ -45,12 +47,15 @@ export class WidgetDropdownComponent implements OnInit, OnDestroy {
             })
           )
         }
-      this.loadGames('');
+      this.filterGames('');
     }
 
-    loadGames(filter: string) {
+    filterGames(filter: string) {
+      this.searchGames = true;
       this.gamesService.loadGames(filter, false).subscribe(games => {
         this.games = games;
+        this.searchGames = false;
+
       })
     }
 
@@ -68,6 +73,7 @@ export class WidgetDropdownComponent implements OnInit, OnDestroy {
           return;
         }
         this.menuActive = false;
+        this.resetSearch = !this.resetSearch;
     }
 
     onClickMenu() {
@@ -79,6 +85,7 @@ export class WidgetDropdownComponent implements OnInit, OnDestroy {
         if(this.alwaysOpen) return;
         if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
             this.menuActive = false;
+            this.resetSearch = !this.resetSearch;
         }
     }
 
@@ -156,4 +163,5 @@ export class WidgetDropdownComponent implements OnInit, OnDestroy {
       }, 600 * i);
     }
 
+    toggleList() {}
 }

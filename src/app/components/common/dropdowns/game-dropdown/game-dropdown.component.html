@@ -1,4 +1,4 @@
-<div class="dropdown" (clickOutside)="onClick($event)">
+<div class="game-dropdown" (clickOutside)="onClick($event)">
   <div class="dropdown-toggle" (click)="toggleList()" [ngClass]="menuActive ? 'appear': ''">
     <span>{{title || 'Game Name'}}</span>
     <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
@@ -19,7 +19,7 @@
                 <span class="truncate w-full">{{game && game?.general?.genre?.[0]}}</span>
           </div>
 
-          <span class="flex m-auto items-center h-[50px]" *ngIf="games?.length === 0 && !searchGames">No Games Found</span>
+          <span class="h-[50px] no-found" *ngIf="games?.length === 0 && !searchGames">No Games Found</span>
 
           <div *ngIf="searchGames" class="flex m-auto items-center h-[50px]">
               <totem-spinner></totem-spinner>
