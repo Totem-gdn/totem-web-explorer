@@ -59,11 +59,6 @@ export class UserStateService implements OnDestroy {
   async getUserInfoViaWeb3() {
     const wallet: string = await this.web3AuthService.getAccounts();
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
-    //if (!localStorage.getItem('claim-used')) {
-    //  console.log(JSON.parse(localStorage.getItem('claim-used')!));
-    //  localStorage.setItem('claim-used', JSON.stringify({status: 'warned'}));
-    //  this.welcomeDialogService.openWelcomeDialog().subscribe();
-    //}
     let token = userInfo?.idToken;
     let publicKey;
     if(userInfo?.idToken) {
