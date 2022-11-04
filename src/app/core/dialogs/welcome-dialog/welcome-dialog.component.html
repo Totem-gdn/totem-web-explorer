@@ -1,144 +1,42 @@
-<!-- <div class="img-upload-dialog">
-  <div class="img-upload-dialog-wrapper" fxLayout="column" fxLayoutAlign="space-between start">
-    <div class="content-block h-full w-full">
-      <div class="content-block-body h-full w-full" fxLayout="column" fxLayoutAlign="start center">
-        <div class="content-block-body-title">
-          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 1">Transaction initiated</span>
-          <span @stopLoader class="font-totem title-text-2" *ngIf="stepIndex == 2">waiting for confirmation</span>
-          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 3">Request complete</span>
-        </div>
-        <div class="h-full w-full" fxLayout="column" fxLayoutAlign="center center">
-          <div class="content-block-body-subtitle mt-[16px] mb-[14px] w-full" fxLayout="row" fxLayoutAlign="center center">
-            <div class="w-full content-block-body-subtitle-wrapp"
-              >
-              <span class="subtext" *ngIf="isEqual(stepIndex, 1) && !errorState">
-                <div>Sending 150 USDC and 0.03 MATIC to your account, please wait a moment</div>
-              </span>
-              <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 2) && !errorState">
-                <div>Transactions have been initiated. Waiting for confirmation</div>
-              </span>
-              <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 3) && !errorState">
-                <div>You have successfully claimed the tokens. You can now generate your brand new Totem Asset!</div>
-              </span>
-              <span @stopLoader *ngIf="errorState" class="subtext">
-                <div [ngStyle]="{'color': '#FF5252'}">{{errorMessage}}</div>
-              </span>
-            </div>
-          </div>
-
-          <div
-            @hashAnimation
-            *ngIf="usdcHash && maticHash"
-            fxHide.xs
-            [ngStyle]="{'border': errorState ? '1px dashed #FF5252' : '', 'margin-bottom': usdcHash && maticHash ? '40px' : ''}"
-            class="content-block-body-tx-info truncate"
-            fxLayout="row"
-            fxLayoutAlign="start center"
-            >
-            <div class="mr-[28px]" fxLayout="column" fxLayoutAlign="center start">
-              <div class="title">Request type</div>
-              <div class="caption mtop-20px">150 USDC</div>
-              <div class="caption mtop-8px">0.03 MATIC</div>
-            </div>
-            <div class="tx-info truncate" fxLayout="column" fxLayoutAlign="center start">
-              <div class="title">Transaction hash</div>
-              <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light truncate mtop-20px" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{usdcHash}}</a>
-              <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light truncate mtop-8px" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{maticHash}}</a>
-            </div>
-          </div>
-          <div
-            @hashAnimationMobile
-            *ngIf="usdcHash && maticHash"
-            fxHide.gt-xs
-            [ngStyle]="{'border': errorState ? '1px dashed #FF5252' : '', 'margin-bottom': usdcHash && maticHash ? '16px' : ''}"
-            class="content-block-body-tx-info-mobile"
-            fxLayout="column"
-            fxLayoutAlign="start center"
-            >
-            <div class="w-full" fxLayout="row" fxLayoutAlign="space-between center">
-              <div class="title">Request type</div>
-              <div class="title">TX</div>
-            </div>
-            <div class="w-full mt-[22px]" fxLayout="row" fxLayoutAlign="space-between center">
-              <div class="caption">150 USDC</div>
-              <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></a>
-            </div>
-            <div class="w-full mt-[20px]" fxLayout="row" fxLayoutAlign="space-between center">
-              <div class="caption">0.03 MATIC</div>
-              <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light"><mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon></a>
-            </div>
-          </div>
-          <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center center">
-            <div class="content-block-body-progress-bar" fxLayout="row" fxLayoutAlign="space-between center">
-
-              <div class="circles-wrapper">
-                <totem-spinner *ngIf="!steps[1].step && steps[1].loading && !errorState" [size]="'14'"></totem-spinner>
-                <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle"
-                  [ngStyle]="{'background-color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}"></div>
-                <mat-icon @stopLoader *ngIf="errorState && stepIndex == 1" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
-              </div>
-
-              <mat-progress-bar [ngStyle]="{'color': stepIndex >= 1 && errorState ? '#FF5252' : ''}"
-                class="progress-bar mx-[5px]" mode="determinate" value="{{steps[1].step ? '100' : '0'}}">
-              </mat-progress-bar>
-
-              <div class="circles-wrapper">
-                <totem-spinner @stopLoader *ngIf="!steps[2].step && steps[2].loading && !errorState" [size]="'14'"></totem-spinner>
-                <div @stopLoader *ngIf="!steps[2].loading" class="disabled-circle"
-                [ngStyle]="{'background-color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}"></div>
-                <mat-icon @stopLoader *ngIf="errorState && stepIndex == 2" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
-              </div>
-
-              <mat-progress-bar [ngStyle]="{'color': stepIndex >= 2 && errorState ? '#FF5252' : ''}"
-                class="progress-bar mx-[5px]" mode="determinate" value="{{steps[2].step ? '100' : '0'}}">
-              </mat-progress-bar>
-
-              <div class="circles-wrapper">
-                <totem-spinner @stopLoader *ngIf="!steps[3].step && steps[3].loading && !errorState" [size]="'14'"></totem-spinner>
-                <div @stopLoader *ngIf="!steps[3].loading" class="disabled-circle"
-                [ngStyle]="{'background-color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}"></div>
-                <mat-icon @stopLoader *ngIf="errorState && stepIndex == 3" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
-              </div>
-
-            </div>
-            <div class="caption-block mtop-10px" fxLayout="row" fxLayoutAlign="space-between center">
-
-              <div class="caption-section" fxFlex.xs="100%" fxHide.xs="{{stepIndex != 1}}" [ngStyle]="{'color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}">Transaction initiated</div>
-              <div class="caption-section" fxFlex.xs="100%" fxHide.xs="{{stepIndex != 2}}" [ngStyle]="{'color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}">Waiting for confirmation</div>
-              <div class="caption-section" fxFlex.xs="100%" fxHide.xs="{{stepIndex != 3}}" [ngStyle]="{'color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}">Token transferred</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="button-block w-full" fxLayout="row" fxLayoutAlign="center center">
-      <div @fade-in-out matRipple class="cancel-button" *ngIf="stepIndex != 3 && !errorState">
-        Close
-      </div>
-      <totem-button class="cancel-active-button" @fade-in-out *ngIf="stepIndex == 3 || errorState" [caption]="'Close'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]="tokensClaimed"></totem-button>
-    </div>
-  </div>
-</div>
--->
-
 <div class="welcome-dialog w-full h-full">
-  <div class="welcome-dialog-wrapper w-full h-full">
-    <div class="img-side" fxFlex="30%">
-      <img loading="lazy" src="assets/images/welcome-banner.webp" alt="totem-banner">
+  <div class="welcome-dialog-wrapper w-full h-full" fxLayout="column" fxLayoutAlign="stretch stretch">
+    <div (click)="closeWithReject()" class="x-close-button flex-column cursor-pointer" fxLayoutAlign="center center">
+      <div class="line-close"></div>
     </div>
-    <div class="content-side" fxFlex="70%" fxLayout="column" fxLayoutAlign="space-between center">
-      <div>
+    <div class="img-side">
+      <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/filter-slide.webp" alt="filter-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/game-slide.webp" alt="game-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purchase-slide.webp" alt="purchase-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/gj-slide.webp" alt="gj-slide">
+    </div>
+    <div class="content-side" fxLayout="column" fxLayoutAlign="space-between start">
+      <div class="content-side-block w-full">
+        <div class="fake-slider" fxLayout="row" fxLayoutAlign="start center">
+          <div class="fake-bullet" [ngClass]="{'active-bullet' : slideStep == 'first'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'second'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'third'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'fourth'}"></div>
+        </div>
+        <div class="giveaway-pretitle">First time there?</div>
         <div class="giveaway-title font-totem">Welcome to TOTEM</div>
-        <div class="giveaway-caption mt-[12px]">We give you a small amount of tokens that will allow you to buy Totem assets.</div>
+        <div class="giveaway-caption">We are giving away a small amount of tokens which will allow you to buy several Totem assets.</div>
       </div>
-      <div>
-        <totem-button (click)="closeWithSave()" [width]="'260px'" [height]="'40px'" [caption]="'Claim'"></totem-button>
+
+      <div class="mascot-wrapper">
+        <img loading="lazy" src="assets/images/popup/dino-image.webp" alt="dino-image">
+      </div>
+      <div class="image-shadow"></div>
+
+      <div class="w-full" fxLayout="row" fxLayoutAlign="start center">
         <button
         matRipple
-        class="close-button mt-[20px]"
-        (click)="closeWithSave()"
-        >Close</button>
+        class="close-button"
+        (click)="closeWithReject()"
+        >No thanks
+        </button>
+        <div class="accept-button">
+          <totem-button (click)="closeWithAccept()" [width]="'100%'" [height]="'40px'" [caption]="'Get it'"></totem-button>
+        </div>
       </div>
     </div>
   </div>

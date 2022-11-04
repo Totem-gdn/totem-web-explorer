@@ -3,6 +3,8 @@
 
 :host {
   min-height: 60vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .wrapper {
