@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { LayoutComponentsModule } from './components/layout-components.module';
-import { LogoutModule } from './components/logout/logout.module';
-import { TokenTransactionModule } from './components/token-transaction/token-transaction.module';
+import { LogoutModule } from './components/popups/logout/logout.module';
+import { TokenTransactionModule } from './components/popups/token-transaction/token-transaction.module';
 import { LayoutComponent } from './layout.component';
 
 

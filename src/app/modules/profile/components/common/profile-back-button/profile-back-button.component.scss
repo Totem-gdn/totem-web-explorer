@@ -1,0 +1,40 @@
+@import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+
+
+* {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: $light-grey;
+  transition: color 0.33s ease-out;
+}
+
+.profile-back-button {
+  cursor: pointer;
+  .line-arrow_left {
+    font-size: 20px;
+    line-height: 24px;
+    height: 20px;
+    width: 14px;
+    margin-bottom: 4px;
+    margin-top: 0;
+  }
+  .profile-route {
+    margin-left: 10px;
+  }
+  &:hover {
+    .line-arrow_left {
+      color: #fff;
+    }
+    .profile-route {
+      color: #fff;
+    }
+  }
+  .current-route {
+    margin-left: 4px;
+    color: #fff;
+  }
+}

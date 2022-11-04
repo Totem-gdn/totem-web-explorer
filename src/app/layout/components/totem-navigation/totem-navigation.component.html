@@ -6,8 +6,10 @@
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
       <div class="logo-block">
-        <a aria-label="Totem logo" href="/"><img loading="lazy" class="hidden sm:block w-[130px]" src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
-        <a aria-label="Totem logo small" href="/"><img loading="lazy" class="block sm:hidden w-[40px] h-[40px]" src="assets/icons/nav/logo-small.svg" alt="TOTEM"></a>
+        <a aria-label="Totem logo" href="/"><img loading="lazy" class="hidden sm:block w-[130px]"
+            src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
+        <a aria-label="Totem logo small" href="/"><img loading="lazy" class="block sm:hidden w-[40px] h-[40px]"
+            src="assets/icons/nav/logo-small.svg" alt="TOTEM"></a>
       </div>
       <div class="search-block">
         <totem-search-filter></totem-search-filter>
@@ -33,8 +35,8 @@
         <div class="nav-loader" *ngIf="(loading$ | async)" fxLayout="column" fxLayoutAlign="center center">
           <loading-spinner></loading-spinner>
         </div>
-        <img loading="lazy" *ngIf="(currUser | async)?.profileImage && !(loading$ | async)" [src]="(currUser | async)?.profileImage"
-          alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
+        <img loading="lazy" *ngIf="(currUser | async)?.profileImage && !(loading$ | async)"
+          [src]="(currUser | async)?.profileImage" alt="profile-icon" class="w-[40px] h-[40px] rounded-full">
       </div>
     </div>
 
@@ -45,8 +47,8 @@
         <div class="line-search serch-icon text-light-grey"></div>
       </div>
       <!-- Button -->
-      <totem-button class="pl-[20px] pr-[16px] sm:px-[30px]" [width]="'100px'" [height]="'46px'"
-        [caption]="'Generate'" (click)="navigateToBuy()"></totem-button>
+      <totem-button class="pl-[20px] pr-[16px] sm:px-[30px]" [width]="'100px'" [height]="'46px'" [caption]="'Generate'"
+        (click)="navigateToBuy()"></totem-button>
       <!-- Burger -->
       <div class="menu-button">
         <img loading="lazy" (click)="openSidenav()" src="assets/icons/Menu.svg" alt="menu">

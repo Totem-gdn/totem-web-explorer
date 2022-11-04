@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
-import { NotFoundModule } from "@app/modules/page-not-found/not-found/not-found.module";
+import { CarouselModule } from "@app/components/common/cards/asset-card/carousel/carousel.module";
+import { NotFoundModule } from "@app/modules/specific/page-not-found/not-found/not-found.module";
 import { SharedModule } from "@app/shared/shared.module";
-import { BackgroundCircleModule } from "../../components/common-components/bg-circle/bg-circle.module";
-import { TotemButtonModule } from "../../components/common-components/totem-button/totem-button.module";
-import { TotemSpinnerModule } from "../../components/common-components/totem-spinner/totem-spinner.module";
-import { CarouselModule } from "../../components/home-components/carousel/carousel.module";
+import { BackgroundCircleModule } from "../../../../components/utils/bg-circle/bg-circle.module";
+import { TotemButtonModule } from "../../../../components/utils/totem-button/totem-button.module";
+import { TotemSpinnerModule } from "../../../../shared/totem-spinner/totem-spinner.module";
 import { GameDescriptionComponent } from "./description/game-description.component";
 import { GameInfoComponent } from "./game-info.component";
 import { GameInfoRoutes } from "./game-info.routing";
