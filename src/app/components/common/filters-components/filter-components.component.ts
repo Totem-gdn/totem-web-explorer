@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewIni
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
+import { Subject, takeUntil } from 'rxjs';
 
 import { TagsService } from './services/tags.service';
 
@@ -13,7 +14,7 @@ import { TagsService } from './services/tags.service';
     }
 })
 
-export class FilterComponentsComponent implements OnDestroy, OnInit {
+export class FilterComponentsComponent implements OnDestroy {
 
     constructor(private tagsService: TagsService, private gamesService: GamesService, private cacheService: CacheService) {}
 
@@ -43,16 +44,11 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
     }
 
     items: any[] | undefined | null = undefined;
+    selectedGame!: GameDetail;
     showButton = true;
+    subs = new Subject<void>();
     page = 1;
 
-    ngOnInit() {
-        this.selectedGame$();
-    }
-
-    selectedGame$() {
-        // this.gamesService
-    }
 
     onSort(sortMethod: any) {
         this.sort.emit(sortMethod);
@@ -81,6 +77,8 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
         }
     }
     ngOnDestroy(): void {
+        this.subs.next();
+        this.subs.complete();
         this.tagsService.clear();
     }
 }

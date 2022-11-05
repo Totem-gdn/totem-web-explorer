@@ -42,8 +42,10 @@ export class AssetsFilterComponent implements AfterViewInit {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
+                console.log('check game', selectedGame)
                 if(!selectedGame) return;
                 this.selectedGame = selectedGame;
+                
                 console.log('Selected Game', this.selectedGame)
             })
     }
@@ -92,4 +94,6 @@ export class AssetsFilterComponent implements AfterViewInit {
     colors = [{ name: 'Red' }, { name: 'Blue' }, { name: 'Yellow' }, { name: 'Green' }, { name: 'Orange' }]
     itemTypes = [{ name: 'Armour', subName: 'Slot' }, { name: 'Arms', subName: 'Slot' }, { name: 'Body', subName: 'Head' }, { name: 'Armour', subName: 'Slot' }]
     materials = [{ name: 'Wood' }, { name: 'Bone' }, { name: 'Iron' }, { name: 'Obsidian' }]
+    weaponType = [{ name: 'Axe'},{ name: 'Dagger'}]
+    weaponMaterial = [{name: 'Bone'},{name: 'Flint'},{name: 'Obsidian'},{name: 'Wood'}]
 }
