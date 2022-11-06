@@ -67,6 +67,7 @@ export class WidgetDropdownComponent implements OnInit, OnDestroy {
     onChangeInput(game: GameDetail) {
         this.title = game?.general?.name || '';
         this.gamesService.gameInSession = game;
+        this.widgetService.updateSelectedGame(game);
         if (this.alwaysOpen === true) {
           this.removeScriptSelected();
           this.restartScript(60000, 5000);
