@@ -63,6 +63,12 @@
         object-fit: cover;
         transition: opacity 0.4s ease-in-out;
       }
+
+    }
+    @media (max-width: 600px) {
+      .img-side {
+        min-width: 280px;
+      }
     }
     .content-side {
       z-index: 3;

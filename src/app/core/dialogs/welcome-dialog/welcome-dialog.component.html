@@ -3,11 +3,17 @@
     <div (click)="closeWithReject()" class="x-close-button flex-column cursor-pointer" fxLayoutAlign="center center">
       <div class="line-close"></div>
     </div>
-    <div class="img-side">
+    <div fxHide.lt-sm class="img-side">
       <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/filter-slide.webp" alt="filter-slide">
       <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/game-slide.webp" alt="game-slide">
       <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purchase-slide.webp" alt="purchase-slide">
       <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/gj-slide.webp" alt="gj-slide">
+    </div>
+    <div fxHide.gt-xs class="img-side">
+      <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/filter-slide-xs-v.webp" alt="filter-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/game-slide-xs-v.webp" alt="game-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purchase-slide-xs-v.webp" alt="purchase-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/gj-slide-xs-v.webp" alt="gj-slide">
     </div>
     <div class="content-side" fxLayout="column" fxLayoutAlign="space-between start">
       <div class="content-side-block w-full">
