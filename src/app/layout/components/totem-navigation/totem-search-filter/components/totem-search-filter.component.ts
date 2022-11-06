@@ -295,14 +295,17 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
   goToItem(id: string) {
     this.closeDropdown();
     this.router.navigateByUrl(`/item/${id}`);
+    this.routingEvent.next('closed');
   }
   goToAvatar(id: string) {
     this.closeDropdown();
     this.router.navigateByUrl(`/avatar/${id}`);
+    this.routingEvent.next('closed');
   }
   goToGame(id: string) {
     this.closeDropdown();
     this.router.navigateByUrl(`/game/${id}`);
+    this.routingEvent.next('closed');
   }
 
 }
