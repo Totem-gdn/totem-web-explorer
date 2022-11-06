@@ -30,7 +30,11 @@ export class GamesService {
 
   set setGames(value: GameDetail[]) { this._games.next(value); }
   set setGame(value: any) { this._game.next(value); }
-  set selectedGame(value: GameDetail) { this._selectedGame.next(value); }
+  set selectedGame(value: GameDetail) {
+    if (value) {
+      this._selectedGame.next(value);
+    }
+   }
 
   get games$() { return this._games.asObservable(); }
   get game$() { return this._game.asObservable(); }

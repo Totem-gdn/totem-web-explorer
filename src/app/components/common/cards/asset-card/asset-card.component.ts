@@ -29,7 +29,7 @@ export class AssetCardComponent {
     asset.rarity = parser.getItemRarity(asset?.tokenId)
   };
   @Input() type: string = 'item';
-  @Input() set selectedGame(game: GameDetail) {
+  @Input() set selectedGame(game: GameDetail | null) {
     if(!game) return;
     if (game?.connections?.assetRenderer) {
       this.assetRendererUrl = game?.connections.assetRenderer;

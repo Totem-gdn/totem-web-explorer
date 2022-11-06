@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewIni
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { TagsService } from './services/tags.service';
 
@@ -80,5 +80,9 @@ export class FilterComponentsComponent implements OnDestroy {
         this.subs.next();
         this.subs.complete();
         this.tagsService.clear();
+    }
+
+    getSelectedGame(){
+      return this.gamesService.selectedGame$;
     }
 }

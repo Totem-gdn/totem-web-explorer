@@ -7,6 +7,7 @@ import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { environment } from "@env/environment";
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
 // import * as DNA from 'dna-parser'
 
@@ -40,6 +41,16 @@ export class AssetInfoComponent {
 
         this.processItem(item?.tokenId)
     }
+
+    @Input() set selectedGame(game: GameDetail | null) {
+      if(!game) return;
+      if (game?.connections?.assetRenderer) {
+        this.assetRendererUrl = game?.connections.assetRenderer;
+      } else {
+        this.assetRendererUrl = environment.ASSET_RENDERER_URL;
+      }
+    }
+    assetRendererUrl = environment.ASSET_RENDERER_URL;
 
     _item!: any;
     assets!: any[];
@@ -127,11 +138,16 @@ export class AssetInfoComponent {
     }
 
     handleProperties(title: string, value: string) {
-        
+
     }
 
     ngOnDestroy() {
         this.subs.next();
         this.subs.complete();
+    }
+
+    // change assetUrl to Default if url for game getted error
+    updateUrl() {
+      this.assetRendererUrl = environment.ASSET_RENDERER_URL;
     }
 }
