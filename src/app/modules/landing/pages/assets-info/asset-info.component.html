@@ -11,11 +11,13 @@
             <div class="flex flex-col lg:flex-row lg:flex-nowrap justify-center">
                 <!-- Main Image -->
                 <div class="img-wrapper gradient-border-solid m-auto lg:m-0">
-                    <img loading="lazy" *ngIf="_item?.tokenId"
+                    <div class="flex relative">
+                        <img loading="lazy" *ngIf="_item?.tokenId"
                         [src]="assetRendererUrl + '/' + type + '/' + _item?.tokenId + '?width=470&height=470'"
                         alt=""
                         (error)="updateUrl()">
-                    <div class="w-full mt-[100%]"></div>
+                        <div class="w-[100%] mt-[100%]"></div>
+                    </div>
                 </div>
 
                 <item-desc [type]="type" [item]="_item" class="px-[0] lg:px-[30px] mt-[60px] lg:mt-0 min-w[unset] lg:min-w-[400px]"></item-desc>

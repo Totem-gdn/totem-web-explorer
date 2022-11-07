@@ -1,5 +1,6 @@
 @import 'assets/fonts/icon-fonts/line/line.scss';
 @import 'assets/fonts/icon-fonts/solid/solid.scss';
+@import 'styles/scss/variables';
 
 :host {
   ::ng-deep {
@@ -11,6 +12,17 @@
       }
     }
   }
+}
+
+.menu-item {
+  border: 1px solid transparent;
+  transition: border 1s;
+}
+.checked {
+  border-radius: 4px;
+
+  color: $white;
+  background-color: $grey !important;
 }
 
 

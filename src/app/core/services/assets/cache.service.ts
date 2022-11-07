@@ -1,5 +1,9 @@
 import { Injectable } from "@angular/core";
+import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
+import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { BehaviorSubject } from "rxjs";
+import Web3 from "web3";
+
 
 interface CachedTotalItems {
     totalItems?: number;
@@ -18,6 +22,12 @@ interface CachedTotalItems {
     fav_totalGames?: number;
 }
 
+interface TotalAssets {
+    avatar?: string;
+    item?: string;
+    gem?: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -25,9 +35,15 @@ interface CachedTotalItems {
 export class CacheService {
 
     private _cache = new BehaviorSubject<CachedTotalItems>({});
+    private _totalAssetsCache = new BehaviorSubject<TotalAssets>({});
+    constructor(private web3: Web3AuthService) {}
 
     totalCache$() {
         return this._cache.asObservable();
+    }
+
+    totalAssets$() {
+        return this._totalAssetsCache.asObservable();
     }
 
     totalByAssetType(type: string, assets: any[]) {
@@ -41,6 +57,30 @@ export class CacheService {
         }
         this.setItemCache(`rare_${type}`, rare);
         this.setItemCache(`unique_${type}`, unique);
+    }
+
+    async cacheTotalByAssetType(type: string) {
+        if(!this.web3.provider) {
+            console.log('unathorized');
+            return;
+        }
+        const web3 = new Web3(this.web3.provider as any);
+        let contractAddress = '';
+        const cache = this._totalAssetsCache.getValue();
+        const contractAddresses = {
+            Avatar: "0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35",
+            Item: "0xfC5654489b23379ebE98BaF37ae7017130B45086",
+            Gem: "0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5"
+        }
+        if(type == 'item') contractAddress = contractAddresses.Item;
+        if(type == 'avatar') contractAddress = contractAddresses.Avatar;
+        if(type == 'gem') contractAddress = contractAddresses.Gem;
+        const contract = new web3.eth.Contract(AssetsABI, contractAddress);
+        const total = await contract.methods.totalSupply().call();
+        if(type == 'item') cache.item = total;
+        if(type == 'avatar') cache.avatar = total;
+        if(type == 'gem') cache.gem = total;
+        this._totalAssetsCache.next(cache);
     }
 
     setItemCache(itemType: string, value: number) {

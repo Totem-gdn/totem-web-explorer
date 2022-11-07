@@ -54,7 +54,7 @@ export class Web3AuthService {
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
     };
 
-    walletIdToken = async() => {
+    walletJWTToken = async() => {
         if(!this.web3auth) return;
         const web3 = this.web3auth;
         const key = await web3.authenticateUser();

@@ -1,8 +1,9 @@
 import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
 import { TagsService } from './services/tags.service';
 
@@ -16,7 +17,10 @@ import { TagsService } from './services/tags.service';
 
 export class FilterComponentsComponent implements OnDestroy {
 
-    constructor(private tagsService: TagsService, private gamesService: GamesService, private cacheService: CacheService) {}
+    constructor(private tagsService: TagsService, 
+                private gamesService: GamesService, 
+                private cacheService: CacheService,
+                private assetsService: AssetsService) {}
 
     @Output() loadMore = new EventEmitter<number>();
     @Output() sort = new EventEmitter<string>();
@@ -48,7 +52,6 @@ export class FilterComponentsComponent implements OnDestroy {
     showButton = true;
     subs = new Subject<void>();
     page = 1;
-
 
     onSort(sortMethod: any) {
         this.sort.emit(sortMethod);

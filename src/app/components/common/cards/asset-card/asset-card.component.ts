@@ -25,6 +25,7 @@ export class AssetCardComponent {
   @Input() set asset(asset: any) {
     this._asset = asset;
     if(!asset) return;
+    // console.log('asset: ', asset);
     const parser = new DNAParser()
     asset.rarity = parser.getItemRarity(asset?.tokenId)
   };
