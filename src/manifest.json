@@ -1,0 +1,34 @@
+{
+  "short_name": "Totem Web Explorer",
+  "name": "Totem Web Explorer",
+  "icons": [
+    {
+      "src": "/assets/favicons/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "background_color": "#ffd013",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#ffd013",
+  "shortcuts": [
+    {
+      "name": "Purchase new item",
+      "short_name": "Purchase",
+      "description": "Purchase item via Totem Explorer",
+      "url": "/buy?source=pwa",
+      "icons": [{ "src": "/assets/favicons/android-icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "View profile",
+      "short_name": "Profile",
+      "description": "View profile information",
+      "url": "/profile?source=pwa",
+      "icons": [{ "src": "/assets/favicons/android-icon-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "description": "Manage your assets with Totem Explorer"
+}
