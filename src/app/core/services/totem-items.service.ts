@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { BehaviorSubject, map, Observable, take } from "rxjs";
-import { DropdownGame } from "../models/dropdown-game.model";
-import { ItemParam } from "../models/item-param.model";
+import { DropdownGame } from "../models/interfaces/dropdown-game.model";
+import { ItemParam } from "../models/interfaces/item-param.model";
 import { CacheService } from "./assets/cache.service";
 
 const NEWEST_ITEMS: any[] = [

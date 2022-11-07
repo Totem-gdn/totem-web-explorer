@@ -1,0 +1,16 @@
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
+:host {
+  ::ng-deep {
+    search-field {
+      padding: 6px 6px 13px 6px;
+      display: block;
+      .wrapper {
+        padding: 7px 0 !important;
+      }
+    }
+  }
+}
+
+

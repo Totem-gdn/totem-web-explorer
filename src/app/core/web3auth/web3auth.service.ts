@@ -76,14 +76,12 @@ export class Web3AuthService {
     isReceiptedMatic(hash: string) {
       this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
       const interval1 = setInterval( async () => {
-        console.log("Attempting to get MATIC transaction receipt...");
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
           if (err) {
             this.maticClaimed.next('error');
             clearInterval(interval1);
           }
           if (res) {
-            console.log('found MATIC receipt', res);
             this.maticClaimed.next(res);
             clearInterval(interval1);
           }
@@ -100,7 +98,6 @@ export class Web3AuthService {
             clearInterval(interval2);
           }
           if (res) {
-            console.log('found USDC receipt', res);
             this.usdcClaimed.next(res);
             clearInterval(interval2);
           }

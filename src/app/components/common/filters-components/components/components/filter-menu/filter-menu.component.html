@@ -1,0 +1,39 @@
+
+<div class="flex relative content">
+  
+    <div class="wrapper" #wrapper>
+
+        <!-- Menu button -->
+        <mat-icon *ngIf="checkedItems && checkedItems.length != 0" class="point-icon" [svgIcon]="'solid:point'"></mat-icon>
+        <div class="menu-filter mb-3" (click)="onClickMenu()"
+            [ngClass]="menuActive ? 'gradient-border-solid bg-grey': ''">
+            <p>{{title}}</p>
+            <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
+        </div>
+    
+        <search-field  *ngIf="searchType === 'search'"></search-field>
+    
+        <range-slider [title]="title"
+         *ngIf="searchType === 'range'" class="rounded mt-8 items-center flex flex-col">
+        </range-slider>
+
+        <graph-slider [title]="title"
+         *ngIf="searchType === 'graph'" class="rounded mt-8 items-center flex flex-col">
+        </graph-slider>
+    
+        <div #menuHeight *ngIf="items && searchType != 'graph' && searchType != 'range'" class="h-200px overflow-y-auto">
+            <div class="menu-item flex" *ngFor="let item of items">
+                <div class="p-2 w-9 h-9 img rounded">
+                </div>
+    
+                <div class="flex flex-col my-auto px-2.5">
+                    <span>{{item.name}}</span>
+                    <span class="text-light-grey">{{item.genre}}</span>
+                </div>
+    
+                <label><input (change)="onChangeInput($event)" name="input" value="{{item.name}}" class="w-6 h-6 bg-transparent" [type]="inputType"></label>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,10 +7,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from "@angular/material/button";
 import { ImageCropperModule } from "ngx-image-cropper";
-import { TotemSpinnerModule } from "@app/modules/landing/components/common-components/totem-spinner/totem-spinner.module";
 import { MatIconModule } from "@angular/material/icon";
 import { MatRippleModule } from "@angular/material/core";
-import { TotemButtonModule } from "@app/modules/landing/components/common-components/totem-button/totem-button.module";
+import { TotemButtonModule } from "@app/components/utils/totem-button/totem-button.module";
+import { TotemSpinnerModule } from "@app/shared/totem-spinner/totem-spinner.module";
 
 @NgModule({
     declarations: [

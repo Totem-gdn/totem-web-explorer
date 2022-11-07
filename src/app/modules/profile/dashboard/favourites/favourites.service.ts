@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BaseStorageService } from "@app/core/services/base-storage.service";
+import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { environment } from "@env/environment";
 import { take } from "rxjs";
 

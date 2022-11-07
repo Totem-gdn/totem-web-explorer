@@ -1,0 +1,22 @@
+<div class="profile-stats-wrapper">
+  <div class="profile-stats px-[15px] xs:px-[30px]" fxLayout="row">
+    <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
+      <div>All :</div>
+      <div class="data-caption">{{(_total | async) || (_total | async) == 0 ? (_total | async) : '0'}}</div>
+
+    </div>
+    <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
+      <div>Rare :</div>
+      <div class="data-caption">{{(_rare | async) || (_rare | async) == 0 ? (_rare | async) : '0'}}</div>
+    </div>
+    <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
+      <div>Unique :</div>
+      <div class="data-caption">{{(_unique | async) || (_unique | async) == 0 ? (_unique | async) : '0'}}</div>
+    </div>
+    <!-- <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
+      <div>Popular Items:</div>
+      <div class="data-caption">1241</div>
+    </div> -->
+  </div>
+</div>
+

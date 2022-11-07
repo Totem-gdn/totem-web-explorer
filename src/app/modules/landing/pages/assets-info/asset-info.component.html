@@ -12,8 +12,9 @@
                 <!-- Main Image -->
                 <div class="img-wrapper gradient-border-solid m-auto lg:m-0">
                     <img loading="lazy" *ngIf="_item?.tokenId"
-                        [src]="'https://asset-renderer.totem-explorer.com/' + type + '/' + _item?.tokenId + '?width=470&height=470'"
-                        alt="">
+                        [src]="assetRendererUrl + '/' + type + '/' + _item?.tokenId + '?width=470&height=470'"
+                        alt=""
+                        (error)="updateUrl()">
                     <div class="w-full mt-[100%]"></div>
                 </div>
 

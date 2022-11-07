@@ -17,7 +17,7 @@
         <game-review [game]="game"></game-review>
     </div>
 
-    <iframe loading="lazy" *ngIf="game?.connections?.promoVideo" class="promo-video mt-[60px] sm:mt-[80px]" [src]="game?.connections?.promoVideo" frameborder="0"></iframe>
+    <iframe *ngIf="game?.connections?.promoVideo" class="promo-video mt-[60px] sm:mt-[80px]" [src]="game?.connections?.promoVideo | unsafeUrl" frameborder="0"></iframe>
 
     <horizontal-carousel class=" mt-[60px] sm:mt-[80px]"
         [title]="'Similar Games'"

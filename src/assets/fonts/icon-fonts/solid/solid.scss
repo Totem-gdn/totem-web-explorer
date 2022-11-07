@@ -62,18 +62,26 @@
   }
 }
 .solid-doc-image {
+  font-size: 85px;
+  margin-top: 0;
+  margin-bottom: 0;
   &:before {
     content: $icon-doc-image; 
   }
 }
 .solid-like {
   font-size: 16px;
+  
   // margin: auto;
   &:before {
     content: $icon-like; 
   }
 }
 .solid-no-image {
+  
+  font-size: 85px;
+  margin-top: 0;
+  margin-bottom: 0;
   &:before {
     content: $icon-no-image; 
   }
