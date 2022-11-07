@@ -278,7 +278,7 @@ export class TotemItemsService {
   }
 
   getGameByName(word: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/games?search=${word}`);
+    return this.http.get<any>(`${this.baseUrl}/games/search?name=${word}`);
   }
   getItemsByName(word: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/assets/items?search=${word}`);

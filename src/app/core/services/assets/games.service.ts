@@ -63,7 +63,7 @@ export class GamesService {
   }
 
   loadGames(filter: string, updateStateGames: boolean) {
-    return this.http.get<GameDetail[]>(`${this.baseUrl}/games?search=${filter}`).pipe(tap(games => {
+    return this.http.get<GameDetail[]>(`${this.baseUrl}/games/search?name=${filter}`).pipe(tap(games => {
       if ('totem'.includes(filter.toLowerCase())) {
         games.unshift({
           id: 'totem',
