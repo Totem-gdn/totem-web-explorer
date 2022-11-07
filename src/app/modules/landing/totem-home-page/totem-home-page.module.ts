@@ -18,7 +18,7 @@ import { BackgroundCircleModule } from '../../../components/utils/bg-circle/bg-c
 import { NgParticlesModule } from 'ng-particles';
 import { RouterModule } from '@angular/router';
 import { CardsModule } from '../../../components/common/cards/cards.module';
-import { CarouselModule } from '@app/components/common/cards/asset-card/carousel/carousel.module';
+import { CarouselModule } from '@app/components/common/carousel/carousel.module';
 
 @NgModule({
   declarations: [

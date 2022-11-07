@@ -5,6 +5,7 @@ import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/s
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
 import { environment } from "@env/environment";
 import { Gtag } from "angular-gtag";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 const { DNAParser } = require('totem-dna-parser');
 
 @Component({
@@ -28,15 +29,17 @@ export class AssetCardComponent {
     asset.rarity = parser.getItemRarity(asset?.tokenId)
   };
   @Input() type: string = 'item';
-  @Input() set selectedGame(game: any) {
+  @Input() set selectedGame(game: GameDetail | null) {
     if(!game) return;
-    if (game?.assetRenderer) {
-      this.assetRendererUrl = game?.assetRenderer;
+    if (game?.connections?.assetRenderer) {
+      this.assetRendererUrl = game?.connections.assetRenderer;
+    } else {
+      this.assetRendererUrl = environment.ASSET_RENDERER_URL;
     }
   }
   _asset: any;
   assetRendererUrl = environment.ASSET_RENDERER_URL;
-  
+
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
       this.messageService.open('Unauthorized');
@@ -62,5 +65,10 @@ export class AssetCardComponent {
   onNavigate() {
     const id = this._asset?.tokenId;
     this.router.navigate([`/${this.type}`, id]);
+  }
+
+  // change assetUrl to Default if url for game getted error
+  updateUrl() {
+    this.assetRendererUrl = environment.ASSET_RENDERER_URL;
   }
 }

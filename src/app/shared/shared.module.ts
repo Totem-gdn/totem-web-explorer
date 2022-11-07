@@ -20,7 +20,6 @@ import { TotemSpinnerModule } from "./totem-spinner/totem-spinner.module";
         PipesModule,
         DirectivesModule,
         TotemSpinnerModule,
-
     ],
     exports: [
         CommonModule,

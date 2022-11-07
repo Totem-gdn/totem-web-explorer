@@ -83,7 +83,7 @@ export class HomeWidgetComponent implements OnInit {
 
 
 
-    selectGame(event: any) {
+    selectGame(event: GameDetail) {
       this.widgetService.updateSelectedGame(event);
     }
 }

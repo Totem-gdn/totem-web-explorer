@@ -1,0 +1,49 @@
+<div class="welcome-dialog w-full h-full">
+  <div class="welcome-dialog-wrapper w-full h-full" fxLayout="column" fxLayoutAlign="stretch stretch">
+    <div (click)="closeWithReject()" class="x-close-button flex-column cursor-pointer" fxLayoutAlign="center center">
+      <div class="line-close"></div>
+    </div>
+    <div fxHide.lt-sm class="img-side">
+      <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/filter-slide.webp" alt="filter-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/game-slide.webp" alt="game-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purchase-slide.webp" alt="purchase-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/gj-slide.webp" alt="gj-slide">
+    </div>
+    <div fxHide.gt-xs class="img-side">
+      <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/filter-slide-xs-v.webp" alt="filter-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/game-slide-xs-v.webp" alt="game-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purchase-slide-xs-v.webp" alt="purchase-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/gj-slide-xs-v.webp" alt="gj-slide">
+    </div>
+    <div class="content-side" fxLayout="column" fxLayoutAlign="space-between start">
+      <div class="content-side-block w-full">
+        <div class="fake-slider" fxLayout="row" fxLayoutAlign="start center">
+          <div class="fake-bullet" [ngClass]="{'active-bullet' : slideStep == 'first'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'second'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'third'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'fourth'}"></div>
+        </div>
+        <div class="giveaway-pretitle">First time there?</div>
+        <div class="giveaway-title font-totem">Welcome to TOTEM</div>
+        <div class="giveaway-caption">We are giving away a small amount of tokens which will allow you to buy several Totem assets.</div>
+      </div>
+
+      <div class="mascot-wrapper">
+        <img loading="lazy" src="assets/images/popup/dino-image.webp" alt="dino-image">
+      </div>
+      <div class="image-shadow"></div>
+
+      <div class="w-full" fxLayout="row" fxLayoutAlign="start center">
+        <button
+        matRipple
+        class="close-button"
+        (click)="closeWithReject()"
+        >No thanks
+        </button>
+        <div class="accept-button">
+          <totem-button (click)="closeWithAccept()" [width]="'100%'" [height]="'40px'" [caption]="'Get it'"></totem-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
