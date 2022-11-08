@@ -33,7 +33,7 @@ export class AssetCardComponent {
   @Input() customBackground: string | null = null;
   @Input() set selectedGame(game: GameDetail | null) {
     if(!game) return;
-    if (game?.connections?.assetRenderer) {
+    if (game?.connections?.assetRenderer && this.type == 'avatar') {
       this.assetRendererUrl = game?.connections.assetRenderer;
     } else {
       this.assetRendererUrl = environment.ASSET_RENDERER_URL;
