@@ -1,11 +1,11 @@
-<div class="card-item gradient-border" (click)="onNavigate()">
+<div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="card-item gradient-border" (click)="onNavigate()">
 
 
-    <div class="img-wrapper" *ngIf="_asset?.tokenId">
+    <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="_asset?.tokenId">
         <img loading="lazy" *ngIf="type != 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId)}}" alt="" (error)="updateUrl()">
         <img loading="lazy" *ngIf="type == 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
     </div>
-    <div class="img-wrapper" *ngIf="asset?.id?.tokenId">
+    <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="asset?.id?.tokenId">
         <img loading="lazy" src="{{assetRendererUrl+ '/' + (+_asset?.id?.tokenId)}}" alt="" (error)="updateUrl()">
     </div>
 

@@ -72,10 +72,20 @@ bg-circle {
           transform: scale(0.65);
           width: 100%;
 
+          .card-item {
+            background: $dark !important;
+            .img-wrapper {
+              background: $dark !important;
+            }
+          }
+
           @media screen and (max-width: 370px) {
             transform: scale(0.4);
             margin-top: 50px;
           }
+
+
+
         }
     }
 
