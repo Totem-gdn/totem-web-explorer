@@ -69,7 +69,7 @@ export class UserStateService implements OnDestroy {
       this.getUsersTokenGiveawayState();
     } else {
       // External Wallets
-      token = await this.web3AuthService.walletIdToken();
+      token = await this.web3AuthService.walletJWTToken();
       publicKey = this.parseJwt(token).wallets[0].address;
       const userInfo = {
         idToken: token
@@ -128,6 +128,12 @@ export class UserStateService implements OnDestroy {
     localStorage.removeItem('user-info');
     this.userInfo$.next(null);
     this.router.navigate(['/']);
+  }
+  async logoutWithoutRedirect() {
+    await this.web3AuthService.logout();
+    this.snackNotifierService.open('Signed out');
+    localStorage.removeItem('user-info');
+    this.userInfo$.next(null);
   }
 
   isLoggedIn(): boolean {

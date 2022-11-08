@@ -1,8 +1,9 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
-import { Subject, takeUntil } from "rxjs";
+import { WidgetService } from "@app/core/services/states/widget-state.service";
+import { Subject, Subscription, takeUntil } from "rxjs";
 
 @Component({
   selector: 'game-dropdown',
@@ -13,17 +14,24 @@ import { Subject, takeUntil } from "rxjs";
 export class GameDropdownComponent implements AfterViewChecked, OnDestroy, AfterViewInit {
 
   constructor(private router: Router,
-              private gamesService: GamesService,
-              private changeDetector: ChangeDetectorRef) { }
+    public gamesService: GamesService,
+    private changeDetector: ChangeDetectorRef,
+    private widgetService: WidgetService) { }
+
+  selectedScriptItem!: GameDetail | undefined;
+  scriptSub!: Subscription;
+  scriptIndex: number | undefined = 0;
 
   @Input() type: string = 'game';
-  @Input() title: string = 'Menu';
+  @Input() title: string | undefined = 'Menu';
   games!: GameDetail[];
   @Input() menuActive = false;
   @Input() alwaysOpen = false;
+  @Output() onChange: EventEmitter<GameDetail> = new EventEmitter();
 
   resetSearch: boolean = false;
   selectedItem!: GameDetail;
+
   subs = new Subject<void>();
   @ViewChild('dropdown') dropdown!: ElementRef;
 
@@ -50,6 +58,7 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
     this.games = [];
     this.gamesService.filterDropdownGames(filter).subscribe();
   }
+
   games$() {
     this.gamesService.dropdownGames$
       .pipe(takeUntil(this.subs))
@@ -86,8 +95,10 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
 
   onChangeInput(game: GameDetail) {
     this.selectedGame = game;
+    this.scriptIndex = undefined;
     this.title = game?.general?.name || '';
     this.gamesService.gameInSession = game;
+    this.onChange.emit(game);
     if (!this.alwaysOpen) {
       this.menuActive = false;
     }
@@ -116,10 +127,11 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
   ngOnDestroy(): void {
     this.subs.next();
     this.subs.unsubscribe();
+    this.scriptSub?.unsubscribe();
   }
 
   toggleList() {
-    if(this.alwaysOpen) return;
+    if (this.alwaysOpen) return;
     this.menuActive = !this.menuActive;
   }
 }

@@ -13,10 +13,10 @@
           class="menu-item"
           *ngFor="let game of games; let i = index"
           [id]="'item' + i"
-          (click)="onChangeInput(game)"
-          [ngClass]="(game.general?.name === title) ? 'checked': ''"
-          [ngStyle]="{'--game-image': 'url('+ game.images?.smallThumbnail + ')'}">
-                <p class="truncate w-full">{{game.general?.name}}</p>
+          (click)="onChangeInput(game); this.scriptIndex = undefined; this.selectedScriptItem = undefined;"
+          [ngClass]="[(game?.general?.name === title) ? 'checked': '',(selectedScriptItem?.general?.name == game?.general?.name) ? 'checked-script': '']"
+          [ngStyle]="{'--game-image': 'url('+ game?.images?.smallThumbnail + ')'}">
+                <p class="truncate w-full">{{game?.general?.name}}</p>
                 <span class="truncate w-full">{{game && game?.general?.genre?.[0]}}</span>
           </div>
 

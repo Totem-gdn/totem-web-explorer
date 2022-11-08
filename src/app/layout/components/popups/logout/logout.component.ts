@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Animations } from "@app/core/animations/animations";
+import { UserStateService } from "@app/core/services/auth.service";
 import { PopupService } from "../../popup.service";
 
 @Component({
@@ -15,7 +16,8 @@ import { PopupService } from "../../popup.service";
 export class LogoutComponent implements OnInit {
 
     constructor(private popupService: PopupService,
-                private router: Router) {}
+                private router: Router,
+                private authService: UserStateService) {}
 
     showPopup = false;
 
@@ -26,7 +28,12 @@ export class LogoutComponent implements OnInit {
     }
 
     closePopup() {
-        this.showPopup = false;
-        this.router.navigate(['/']);
+        this.popupService.showLogoutPopup = false;
+        // this.router.navigate(['/']);
+    }
+
+    async login() {
+        await this.authService.login();
+        this.popupService.showLogoutPopup = false;
     }
 }

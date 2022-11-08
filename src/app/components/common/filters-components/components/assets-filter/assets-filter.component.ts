@@ -42,11 +42,8 @@ export class AssetsFilterComponent implements AfterViewInit {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
-                console.log('check game', selectedGame)
                 if(!selectedGame) return;
                 this.selectedGame = selectedGame;
-                
-                console.log('Selected Game', this.selectedGame)
             })
     }
 

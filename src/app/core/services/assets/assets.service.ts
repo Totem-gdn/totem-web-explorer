@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { CARD_TYPE } from "@app/core/models/enums/card-types.enum";
 import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
@@ -29,6 +30,11 @@ export class AssetsService {
     get avatar$() { return this._avatar.asObservable()}
     get item$() { return this._item.asObservable() }
     get gem$() { return this._gem.asObservable() }
+    assset$(type: string) {
+        if(type == 'avatar') return this.avatar$;
+        if(type == 'item') return this.item$;
+        return this.gem$;
+    }
 
     set avatars(value: any) { this._avatars.next(value) }
     set items(value: any) { this._items.next(value) }
@@ -68,6 +74,10 @@ export class AssetsService {
         this._avatar.next(null);
         this._gem.next(null);
         this._item.next(null);
+    }
+
+    async totalSuply() {
+
     }
 
     async cacheTotal() {
