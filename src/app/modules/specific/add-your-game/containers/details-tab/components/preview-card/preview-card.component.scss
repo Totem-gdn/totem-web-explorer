@@ -1,4 +1,6 @@
 @import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 :host {
   height: 100%;
@@ -38,4 +40,10 @@
 
 .info {
   height: 174px;
+
+  .line-like {
+    height: 22px;
+    width: 23px;
+    font-size: 22px;
+  }
 }

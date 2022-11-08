@@ -1,5 +1,6 @@
 @import 'styles/scss/variables';
 @import 'styles/scss/placeholders';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 .desc-form {
   width: 100%;
@@ -77,17 +78,24 @@
       border-radius: 4px;
       overflow: hidden;
 
-      mat-icon {
+      .solid-doc-image {
         color: $light-grey;
-        width: auto;
-        height: 23.75px;
-        transition: color 0.33s ease-out;
+        font-size: 23px;
+        width: 24px;
+        height: 25px;
       }
 
       .remove-button {
         cursor: pointer;
+        .solid-delete-icon, .solid-doc-image {
+          color: $light-grey;
+          font-size: 23px;
+          width: 24px;
+          height: 25px;
+          transition: color 0.33s ease-out;
+        }
         &:hover {
-          mat-icon {
+          .solid-delete-icon {
             color: #fff;
           }
         }
