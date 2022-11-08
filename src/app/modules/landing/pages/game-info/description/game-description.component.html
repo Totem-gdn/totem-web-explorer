@@ -1,12 +1,12 @@
 <div class="description">
-    <div class="images-block pb-[60px]">
+    <div class="images-block pb-[40px] sm:pb-[60px]">
         <!-- <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt=""> -->
         <!-- <div class=""></div> -->
         <img loading="lazy" #image class="sm:h-[430px] hl-image" *ngIf="!_game?.images?.galley" [src]="hlImage" [alt]="_game?.general?.name">
         <portfolio-carousel (changeImg)="onChangeImg($event)" [images]="_game?.images?.gallery"></portfolio-carousel>
     </div>
 
-    <div class="flex gap-[60px] justify-between flex-wrap xl:flex-nowrap">
+    <div class="flex gap-[40px] sm:gap-[60px] justify-between flex-wrap xl:flex-nowrap">
         <div *ngIf="_game?.general?.fullDescription == undefined && !_game" class="flex flex-col">
             <h4 class="mb-[30px]">Description</h4>
             <p class="font-medium ">
