@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { BehaviorSubject, Subscription, timer } from 'rxjs';
 import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
 import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Router } from '@angular/router';
+import { Router, Scroll } from '@angular/router';
 
 
 @Component({
@@ -40,6 +40,13 @@ import { Router } from '@angular/router';
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotemHomePageComponent implements OnInit {
+  showAfterScroll: boolean = false;
+
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll() {
+    if (!this.showAfterScroll) this.showAfterScroll = true;
+  }
+
   swiper!: Swiper;
   subs: Subscription = new Subscription();
   imgChange: 'first' | 'second' = 'first';
@@ -57,7 +64,7 @@ export class TotemHomePageComponent implements OnInit {
   }]
   x: number = 0;
   y: number = 0;
-  items = [{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-2.png'},{image: 'assets/images/item-img-3.png'},{image: 'assets/images/item-img-4.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'},{image: 'assets/images/item-img-1.png'}];
+  items = [{ image: 'assets/images/item-img-1.png' }, { image: 'assets/images/item-img-2.png' }, { image: 'assets/images/item-img-3.png' }, { image: 'assets/images/item-img-4.png' }, { image: 'assets/images/item-img-1.png' }, { image: 'assets/images/item-img-1.png' }, { image: 'assets/images/item-img-1.png' }];
 
   eventDate: Date = new Date('10/14/2022 18:00:00 GMT+8');
 
@@ -117,7 +124,7 @@ export class TotemHomePageComponent implements OnInit {
         type: "circle"
       },
       size: {
-        value: {min: 1, max: 2 },
+        value: { min: 1, max: 2 },
       }
     },
     detectRetina: true

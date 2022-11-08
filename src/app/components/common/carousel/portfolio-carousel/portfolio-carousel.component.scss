@@ -1,0 +1,88 @@
+@import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+
+.slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.slide {
+    user-select: none;
+    flex: 0 0 calc(33.33% - 10.5px);
+    max-width: calc(33.33% - 10.5px);
+    cursor: pointer;
+    transition: transform .2s;
+    img {
+        // padding-right: 15px;
+        border-radius: 4px;
+        border: 1px solid $light-grey;
+        object-fit: cover;
+    }
+    @media screen and (max-width: 768px) {
+        flex: 0 0 calc(50% - 7.5px);
+        max-width: calc(50% - 7.5px);
+    }
+}
+
+.arrows-wrapper {
+    position: relative;
+    bottom: 18.5px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    mat-icon {
+        width: 8px !important;
+        height: 24px !important;
+        cursor: pointer;
+        color: $light-grey;
+        position: absolute;
+        &.left-arrow {
+            bottom: 0;
+            left: 8px;
+        }
+        &.right-arrow {
+            bottom: 0;
+            right: 8px;
+        }
+        overflow: visible;
+    }
+}
+
+
+.wrapper {
+  cursor: pointer;
+}
+
+.wrapper ::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: none !important;
+  height: 5px !important;
+  background-color: transparent;
+  background-image: url('../../../../../assets/icons/swiper/thumb-gtxs.webp');
+  background-repeat: no-repeat;
+  background-size: 100% 41px;
+  box-shadow: unset !important;
+  @media (max-width: 734px) {
+    background-image: url('../../../../../assets/icons/swiper/thumb-xs.webp');
+  }
+}
+.wrapper ::-webkit-scrollbar {
+    height: 41px;
+    background: transparent;
+}
+.wrapper ::-webkit-scrollbar-track {
+    background-image: url('../../../../../assets/icons/swiper/scrollbar.webp');
+    background-color: transparent;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    height: 5px !important;
+    margin-left: 40px;
+    margin-right: 40px;
+}

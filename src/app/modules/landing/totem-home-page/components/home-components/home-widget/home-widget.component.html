@@ -1,0 +1,75 @@
+
+<div class="wrapper flex-wrap lg:flex-nowrap justify-around lg:justify-between p-[25px] lg:p-[25px]">
+    <bg-circle class="left-[-140px] top-[-140px]" [width]="'280px'" [background]="'#FFD011'"></bg-circle>
+    <bg-circle class="left-[200px] top-[-75px]" [width]="'150px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="left-[0px] top-[100px]" [width]="'200px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="left-[600px] bottom-[-140px] z-11 blur-bold" [width]="'230px'" [background]="'#FFD011'"></bg-circle>
+
+    <bg-circle class="right-[260px] top-[0px]" [width]="'260px'" [background]="'#3A23C9'"></bg-circle>
+    <bg-circle class="right-[-130px] top-[-130px]" [width]="'260px'" [background]="'#2397C9'"></bg-circle>
+    <bg-circle class="right-[0] bottom-[-70px]" [width]="'200px'" [background]="'#FFD011'"></bg-circle>
+    <bg-circle class="left-[500px] bottom-[-30px]" [width]="'150px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="right-[0px] bottom-[-200px]" [width]="'400px'" [background]="'#8023C9'"></bg-circle>
+
+    <div class="flex flex-col max-w-[420px] w-full justify-center xl:m-0 z-12 pt-[20px] lg:p-0">
+        <div class="font-totem uppercase text-[20px] sm:text-[32px] pl-0 lg:pl-[25px]">
+            Try on your Item for any game!
+        </div>
+        <p class="mt-[30px] pl-0 lg:pl-[25px]">Choose the game name in the widget & see how item appearance will change!</p>
+    </div>
+
+    <div class="flex grow justify-center h-[200px] max-w-[420px] pt-[20px] lg:pt-0">
+        <div class="mb-auto mt-[10px] lg:my-0 mr-auto lg:mr-[20px] z-12 min-w-[240px] sm:min-w-[280px] lg:min-w-[auto]">
+            <widget-dropdown [alwaysOpen]="true" (onChange)="selectGame($event)"></widget-dropdown>
+        </div>
+    </div>
+
+    <div class="img-wrapper xl:m-0">
+      <div [@hideThirdState]="'selected'" class="img-card">
+        <div class="card-1">
+          <asset-card [type]="'avatar'" [customBackground]="'#202225'" [asset]="cardsToShow[0]" [selectedGame]="getSelectedGames() | async"></asset-card>
+        </div>
+        <div class="card-2 z-12">
+          <asset-card [type]="'item'" [asset]="cardsToShow[1]" [selectedGame]="getSelectedGames() | async"></asset-card>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<ng-template #cardTemplate let-data="cardInfo">
+  <div class="card-body h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="img-preview h-full w-full" fxLayout="column" fxLayoutAlign="center center">
+      <!-- <mat-icon *ngIf="!data.image" [svgIcon]="'solid:no-image'"></mat-icon> -->
+      <div class="solid-no-image"  *ngIf="!data.image"></div>
+      <img loading="lazy" *ngIf="data.image" [src]="data.image" alt="preview">
+    </div>
+    <div class="info w-full px-[18px] py-[18px]" fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3 class="text-light-grey">Preview</h3>
+        <div>
+          <!-- <mat-icon class="like" [svgIcon]="'line:like'"></mat-icon> -->
+          <div class="line-like"></div>
+        </div>
+      </div>
+      <div class="flex prev-desc">
+        <p class="text-light-grey pt-1 pb-3">Preview of game card is right here, so You can see how it looks</p>
+      </div>
+
+      <div class="flex justify-between max-w-[320px]">
+          <div class="flex flex-col">
+              <h4 class="text-light-grey">0</h4>
+              <p class="text-light-grey">Players</p>
+          </div>
+          <div>
+              <h4 class="text-light-grey">0</h4>
+              <p class="text-light-grey">Items</p>
+          </div>
+          <div class="mr-[34px]">
+              <h4 class="text-light-grey">0</h4>
+              <p class="text-light-grey">Avatars</p>
+          </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

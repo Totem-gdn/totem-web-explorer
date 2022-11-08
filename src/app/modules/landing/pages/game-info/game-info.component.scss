@@ -47,11 +47,11 @@
     margin-left: auto;
     margin-right: auto;
     height: 598px;
-    max-width: 1164px;
+    // max-width: 1164px;
     width: 100%;
     border-radius: 4px;
     @media (max-width: 999px) {
-      height: 490px;
+      height: 600px;
     }
     @media (max-width: 767px) {
       height: 350px;

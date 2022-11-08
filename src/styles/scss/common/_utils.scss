@@ -27,15 +27,16 @@
 .bottom-rectangle {
     position: relative;
     padding-bottom: 6px;
+    color: $light-grey;
     &::after {
-        position: absolute;
-        content: '';
-        bottom: 0;
-        left: -10%;
-        width: 120%;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-        border-bottom: 2px solid $yellow;
+      position: absolute;
+      content: "";
+      bottom: 0px;
+      left: -20%;
+      width: 140%;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      border-bottom: 2px solid #ffd013;
     }
 }
 
@@ -111,3 +112,152 @@
 }
 
 
+
+.game-dropdown {
+  max-width: 200px;
+  width: 100%;
+
+  .dropdown-toggle {
+    color: $white;
+    width: 200px;
+    height: 50px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $grey;
+    cursor: pointer;
+    padding: 8px 12px;
+    align-items: center;
+    font-weight: 500;
+
+    transition: background-color .3s, color .3s;
+
+    span {
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      font-weight: 700;
+    }
+
+    .line-arrow_down {
+      transition: transform .3s;
+      width: 12px !important;
+    }
+
+    &:hover {
+      background-color: $yellow;
+      color: $black;
+      &::before {
+        background: none
+      }
+    }
+    &.appear {
+      @extend %gradient-border-solid;
+     }
+  }
+
+  .menu {
+    margin-top: 10px;
+    @extend %gradient-border-solid;
+    position: absolute !important;
+    backdrop-filter: blur(10px);
+    visibility: hidden;
+    opacity: 0;
+    background-color: $transparent-light;
+    z-index: 30;
+    transition: opacity 0.4s, visibility 0.4s;
+    border-radius: 4px;
+    .menu-items {
+      padding: 0 5px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      max-height: 200px;
+
+      .menu-item {
+        border-radius: 4px;
+        padding: 6px;
+        cursor: pointer;
+        height: 50px;
+        min-height: 50px;
+        width: 100%;
+        transition: background-color .3s;
+        border: 1px solid transparent;
+
+        &.script-selected {
+          border: 1px solid $yellow;
+          border-radius: 4px;
+        }
+        &.script-hovered {
+          background-color: $grey;
+        }
+        &:hover {
+          background-color: $grey;
+        }
+
+        display: grid;
+        grid-template:
+        "before name" 1fr
+        "before genre" 1fr;
+        grid-template-columns: 36px 1fr;
+        gap: 0 10px;
+        align-items: center;
+        p {
+          width: auto;
+          max-width: 100%;
+          grid-area: name;
+          line-height: 16px;
+          height: 16px;
+        }
+
+        span {
+          color: $light-grey;
+          grid-area: genre;
+          line-height: 16px;
+          height: 16px;
+        }
+
+        &::before {
+          grid-area: before;
+
+          width: 36px;
+          height: 36px;
+          border-radius: 4px;
+          overflow: hidden;
+          content: '';
+          display: block;
+          background-size: contain;
+          background-image: var(--game-image);
+        }
+
+
+      }
+
+    }
+
+    .view-all {
+      display: flex;
+      justify-content: center;
+      padding-top: 10px;
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1px;
+        cursor: pointer;
+      }
+    }
+    .no-found {
+      font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: #8A939B;
+        text-align: center;
+        margin-bottom: 12px;
+        padding: 17px 8px;
+        border-radius: 4px;
+        background-color: $transparent-light;
+      width: 100%;
+    }
+  }
+}

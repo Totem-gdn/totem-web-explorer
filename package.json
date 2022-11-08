@@ -4,12 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build:development": "cross-env NODE_ENV=development npm run generate-sitemap && ng build",
-    "build:production": "cross-env NODE_ENV=production npm run generate-sitemap && ng build --configuration=production",
-    "dev-build-compress": "ng build && gzipper compress --verbose --include js,css,html ./dist  && gulp purifyCSS",
+    "build:development": "cross-env NODE_ENV=development npm run generate-sitemap && ng build && gulp purifyCSS",
+    "build:production": "cross-env NODE_ENV=production npm run generate-sitemap && ng build --configuration=production && gulp purifyCSS",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prod-build-compress": "ng build --configuration production && gzipper compress --verbose ./dist && gulp purifyCSS",
     "generate-sitemap": "ts-node -O {\\\"module\\\":\\\"commonjs\\\"} sitemap.ts"
   },
   "private": true,

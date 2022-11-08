@@ -30,92 +30,98 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.line-edit {
+  &:before {
+    content: $line-edit;
+    //color: #8a939b;
+  }
+}
 .line-info {
   &:before {
-    content: $line-info; 
+    content: $line-info;
   }
 }
 .line-item_placeholder {
   font-size: 40px;
   &:before {
-    content: $line-item_placeholder; 
+    content: $line-item_placeholder;
   }
 }
 .line-trash {
   font-size: 22px;
   &:before {
-    content: $line-trash; 
+    content: $line-trash;
   }
 }
 .line-copy_small {
   font-size: 16px;
   &:before {
-    content: $line-copy_small;     
+    content: $line-copy_small;
     // color: #8a939b;
   }
 }
 .line-eye {
   font-size: 20px;
   &:before {
-    content: $line-eye;     
+    content: $line-eye;
     color: #8a939b;
   }
 }
 .line-arrow_down {
   font-size: 8px;
   &:before {
-    content: $line-arrow_down; 
+    content: $line-arrow_down;
   }
 }
 .line-arrow_left {
   &:before {
-    content: $line-arrow_left; 
+    content: $line-arrow_left;
   }
 }
 .line-arrow_right {
   &:before {
-    content: $line-arrow_right; 
+    content: $line-arrow_right;
   }
 }
 .line-arrow_up {
   font-size: 8px;
   &:before {
-    content: $line-arrow_up; 
+    content: $line-arrow_up;
   }
 }
 .line-close {
   font-size: 8px;
   &:before {
-    content: $line-close; 
+    content: $line-close;
   }
 }
 .line-discord {
   &:before {
-    content: $line-discord;     
+    content: $line-discord;
     color: #fff;
   }
 }
 .line-facebook {
   &:before {
-    content: $line-facebook;     
+    content: $line-facebook;
     color: #fff;
   }
 }
 .line-instagram {
   &:before {
-    content: $line-instagram;     
+    content: $line-instagram;
     color: #fff;
   }
 }
 .line-like {
   font-size: 16px;
   &:before {
-    content: $line-like; 
+    content: $line-like;
   }
 }
 .line-open_new {
   &:before {
-    content: $line-open_new; 
+    content: $line-open_new;
   }
 }
 .line-refresh {
@@ -123,7 +129,7 @@
   margin-bottom: auto;
   width: 16px;
   &:before {
-    content: $line-refresh; 
+    content: $line-refresh;
   }
 }
 .line-search {
@@ -131,7 +137,7 @@
   // height: 18px;
   font-size: 18px;
   &:before {
-    content: $line-search; 
+    content: $line-search;
   }
 }
 .line-share {
@@ -140,36 +146,36 @@
   font-size: 18px;
   // margin-top: 0 !important;
   &:before {
-    content: $line-share; 
+    content: $line-share;
   }
 }
 .line-star {
   font-size: 18px;
   &:before {
-    content: $line-star; 
+    content: $line-star;
   }
 }
 .line-tune {
   font-size: 18px;
   &:before {
-    content: $line-tune; 
+    content: $line-tune;
   }
 }
 .line-twitter {
   &:before {
-    content: $line-twitter;     
+    content: $line-twitter;
     color: #fff;
   }
 }
 .line-update {
   font-size: 21px;
   &:before {
-    content: $line-update; 
+    content: $line-update;
   }
 }
 .line-user {
   &:before {
-    content: $line-user; 
+    content: $line-user;
   }
 }
 

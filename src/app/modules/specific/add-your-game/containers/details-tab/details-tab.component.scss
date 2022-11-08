@@ -1,0 +1,189 @@
+@import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
+.sub-caption {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: $light-grey;
+}
+
+.image-block-title {
+  margin-right: 20px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.preview-block {
+  border: 1px dashed $light-grey;
+  border-radius: 4px;
+}
+
+.error-message {
+  user-select: none;
+  height: 16px;
+  //margin: 0 !important;
+  color: #FF5252 !important;
+}
+
+.file-container {
+  background-color: $dark-grey;
+  position: relative;
+  max-width: 1098px;
+  width: 100%;
+  min-height: 289px;
+  border-radius: 4px;
+}
+
+.edit-button, .del-button {
+  z-index: 3;
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  place-content: center center;
+  background-color: $dark;
+  border-radius: 50%;
+  cursor: pointer;
+  /* mat-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    line-height: 22px;
+    color: $light-grey;
+  } */
+  .line-edit {
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+    color: $light-grey;
+    transition: color 0.33s ease-out;
+  }
+  .solid-delete-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 24px;
+    color: $light-grey;
+    transition: color 0.33s ease-out;
+  }
+  &:hover {
+    .line-edit, .solid-delete-icon {
+      color: #fff;
+    }
+  }
+}
+
+.edit-button {
+  right: 78px;
+}
+
+.details-tab {
+  &-wrapper {
+
+    .title {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 28px;
+      color: #FFFFFF;
+    }
+
+    .content-container {
+      border: 1px solid $dark-grey;
+      border-radius: 4px;
+
+      .image-upload-block {
+        background-color: $grey;
+        border-radius: 4px;
+
+        .image-block {
+          display: flex;
+        }
+
+        .cover-image-block {
+          border-bottom: 1px solid $dark-grey;
+
+          .cover-image-wrapper {
+            max-width: 1098px;
+            width: 100%;
+            position: relative;
+
+            //.file-container
+
+          }
+        }
+
+        .gallery-image-block {
+          .gallery-image-wrapper {
+            max-width: 1098px;
+            width: 100%;
+          }
+        }
+
+        .card-image-block, .search-image-block {
+          .card-image-wrapper, .search-image-wrapper {
+            max-width: 1098px;
+            width: 100%;
+            .card-content, .search-content {
+              gap: 20px;
+              background-color: $dark-grey;
+              max-width: 1098px;
+              width: 100%;
+              border-radius: 4px;
+
+              //.file-container
+
+              .card-preview, .search-preview {
+                margin: auto;
+                max-width: 374px;
+                min-height: 474px;
+                position: relative;
+              }
+              .search-preview {
+                min-height: 402px;
+                .edit-button {
+                  top: 10px;
+                  right: 60px;
+                }
+                .del-button {
+                  top: 10px;
+                  right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .image-block {
+    flex-wrap: wrap;
+  };
+}
+@media screen and (max-width: 768px) {
+  .card-content, .search-content {
+    flex-wrap: wrap;
+  };
+  .card-image-wrapper, .search-image-wrapper {
+    & totem-image-dropzone {
+      margin: auto;
+      max-width: 374px;
+    }
+  }
+}

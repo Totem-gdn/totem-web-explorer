@@ -1,0 +1,87 @@
+@import 'styles/scss/variables';
+
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
+.file-container {
+  position: relative;
+  width: 100%;
+  max-width: 1098px;
+  border: 1px dashed $light-grey;
+  border-radius: 4px;
+  transition: border 0.33s ease-out;
+
+  .file {
+    min-height: var(--minh);
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .file-upload-info {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: $light-grey;
+    mat-icon {
+      height: auto;
+      width: 90px;
+      color: $grey;
+      transition: color 0.33s ease-out;
+    }
+    .doc-image {
+      // width: 66px;
+      height: auto;
+      color: $grey;
+      transition: color 0.33s ease-out;
+    }
+    .browse-caption {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+    }
+    .browse-button {
+      color: $yellow;
+      cursor: pointer;
+    }
+  }
+}
+
+.img-container {
+  position: relative;
+  width: 100%;
+  max-width: 1098px;
+  border-radius: 4px;
+  height: calc(var(--minh) + 2px);
+  .uploaded-image {
+    width:inherit;
+    height:inherit;
+    object-fit: cover;
+    text-align: center;
+    border-radius: 4px;
+  }
+}
+
+.solid-no-image, .solid-doc-image {
+  color: $grey;
+  transition: color 0.33s ease-out;
+}
+
+@media screen and (max-width: 768px) {
+  // h-[340px] md:h-[247px]
+  .file-container {
+    height: 330px;
+  }
+}
+
+

@@ -1,0 +1,221 @@
+@import 'styles/scss/variables';
+@import 'styles/scss/placeholders';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
+.desc-form {
+  width: 100%;
+  height: 100%;
+  }
+  .form-section {
+    padding-top: 70px;
+    // padding-bottom: 60px;
+    & h3 {
+      margin-left: 15px;
+      padding-bottom: 20px;
+    }
+    span {
+      color: $light-grey;
+    }
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid $dark-grey;
+      width: 100%;
+      border-radius: 4px;
+      &-wrapper {
+        margin: 15px;
+        padding: 30px 20px;
+        border-radius: 4px;
+        background-color: $grey;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+   }
+
+  .block-section {
+    display: flex;
+    border-bottom: 1px solid $dark-grey;
+    & h4 {
+      margin-bottom: 15px;
+      width: 100%;
+      max-width: 230px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    & span {
+      margin-bottom: 15px;
+    }
+
+
+  }
+
+  .no-border {
+    border-bottom: unset;
+  }
+
+  .input-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .dta-input-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .dropzone-wrapper {
+      min-height: 225px;
+      padding: 20px;
+      background-color: $dark-grey;
+      border-radius: 4px;
+    }
+
+    .file-bar {
+      height: 50px;
+      border: 1px solid rgba(95, 99, 105, 0.5);
+      border-radius: 4px;
+      overflow: hidden;
+
+      .solid-doc-image {
+        color: $light-grey;
+        font-size: 23px;
+        width: 24px;
+        height: 25px;
+      }
+
+      .remove-button {
+        cursor: pointer;
+        .solid-delete-icon, .solid-doc-image {
+          color: $light-grey;
+          font-size: 23px;
+          width: 24px;
+          height: 25px;
+          transition: color 0.33s ease-out;
+        }
+        &:hover {
+          .solid-delete-icon {
+            color: #fff;
+          }
+        }
+      }
+
+      .file-name {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: $light-grey;
+      }
+    }
+  }
+
+  .tags-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    form-dropdown {
+      margin-bottom: 15px;
+    }
+
+    & .tags {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 10px;
+      transition: min-height 2s ease-in-out, max-height 2s;
+      max-height: 500px;
+      & .tag {
+        margin-bottom: 15px;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 15px;
+        height: 40px;
+        background-color: $black;
+        display: flex;
+        gap: 15px;
+        color: $light-grey;
+        align-items: center;
+        span {
+          margin: 0;
+        }
+        .mat-icon {
+          width: 8px !important;
+          height: 8px !important;
+        }
+      }
+    }
+  }
+  & input {
+    height: 40px;
+  }
+  & input, textarea {
+    margin-bottom: 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    min-height: 40px;
+
+    width: 100%;
+    background-color: $dark-grey;
+    transition: border .3s, background-color .3s;
+    outline: none;
+    border: 1px solid transparent;
+
+    &:hover {
+      border: 1px solid $light-grey;
+    }
+    &:focus {
+      // background-color: $black;
+      border: 1px solid $light-grey;
+    }
+  }
+  & input {
+    padding: 10px;
+  }
+  & textarea {
+    overflow-y: auto;
+    resize: none;
+    padding: 15px 10px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .block-section {
+    flex-wrap: wrap;
+  }
+}
+
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #FF5252;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 1px solid #FF5252;
+}
+
+.error-message {
+  user-select: none;
+  height: 36px;
+  margin: 0 !important;
+  color: #FF5252 !important;
+}
+
+.outline-light-grey {
+  border-radius: 4px;
+  outline: 1px solid transparent;
+  transition: outline .3s;
+  &:hover {
+    outline: 1px solid $light-grey;
+  }
+}
+.outline-error {
+  border-radius: 4px;
+  outline: 1px solid #FF5252;
+}
+
+.text-error {
+  color: #FF5252 !important;
+}
+

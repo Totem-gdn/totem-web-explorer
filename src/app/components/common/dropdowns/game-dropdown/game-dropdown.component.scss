@@ -1,0 +1,28 @@
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+@import 'styles/scss/variables';
+
+:host {
+  ::ng-deep {
+    search-field {
+      padding: 6px 6px 13px 6px;
+      display: block;
+      .wrapper {
+        padding: 7px 0 !important;
+      }
+    }
+  }
+}
+
+.menu-item {
+  border: 1px solid transparent;
+  transition: border 1s;
+}
+.checked {
+  border-radius: 4px;
+
+  color: $white;
+  background-color: $grey !important;
+}
+
+

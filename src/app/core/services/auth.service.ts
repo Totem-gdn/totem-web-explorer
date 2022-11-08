@@ -1,12 +1,16 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
-import { SnackNotifierService } from "@app/modules/landing/modules/snack-bar-notifier/snack-bar-notifier.service";
+import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
+import { TransactionDialogService } from "@app/layout/components/popups/dialogs/transaction-dialog/services/transaction-dialog.service";
 import { Gtag } from "angular-gtag";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { WelcomeDialogService } from "../dialogs/welcome-dialog/services/welcome-dialog.service";
-import { StorageKey } from "../enums/storage-keys.enum";
-import { OpenLoginUserInfo, UserEntity } from "../models/user-interface.model";
+import { StorageKey } from "../models/enums/storage-keys.enum";
+import { GIVEAWAY_STATUS } from "../models/enums/token.enum";
+import { OpenLoginUserInfo, UserEntity } from "../models/interfaces/user-interface.model";
+import { WelcomeUser } from "../models/interfaces/welcome-tokens.model";
 import { Web3AuthService } from "../web3auth/web3auth.service";
+import { TokenGiveawayService } from "./giveaway/token-giveaway.service";
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +29,9 @@ export class UserStateService implements OnDestroy {
     private snackNotifierService: SnackNotifierService,
     private router: Router,
     private gtag: Gtag,
+    private tokenGiveawayService: TokenGiveawayService,
     private welcomeDialogService: WelcomeDialogService,
+    private transactionDialogService: TransactionDialogService,
   ) { }
 
   async initAccount() {
@@ -53,11 +59,6 @@ export class UserStateService implements OnDestroy {
   async getUserInfoViaWeb3() {
     const wallet: string = await this.web3AuthService.getAccounts();
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
-    //if (!localStorage.getItem('claim-used')) {
-    //  console.log(JSON.parse(localStorage.getItem('claim-used')!));
-    //  localStorage.setItem('claim-used', JSON.stringify({status: 'warned'}));
-    //  this.welcomeDialogService.openWelcomeDialog().subscribe();
-    //}
     let token = userInfo?.idToken;
     let publicKey;
     if(userInfo?.idToken) {
@@ -65,15 +66,16 @@ export class UserStateService implements OnDestroy {
       token = userInfo?.idToken;
       publicKey = this.parseJwt(token).wallets[0].public_key;
       localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({userInfo, key: publicKey}));
+      this.getUsersTokenGiveawayState();
     } else {
       // External Wallets
-      token = await this.web3AuthService.walletIdToken();
+      token = await this.web3AuthService.walletJWTToken();
       publicKey = this.parseJwt(token).wallets[0].address;
-      console.log(this.parseJwt(token))
       const userInfo = {
         idToken: token
       }
       localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({userInfo, key: publicKey}));
+      this.getUsersTokenGiveawayState();
     }
 
     const userToUse: UserEntity = {
@@ -86,12 +88,52 @@ export class UserStateService implements OnDestroy {
     return userInfo;
   }
 
+  private getUsersTokenGiveawayState() {
+    this.subs.add(
+      this.tokenGiveawayService.getActivity().subscribe((data: WelcomeUser) => {
+        if (data && data.welcomeTokens == 0) {
+          this.openWelcomeDialog();
+        }
+      })
+    );
+  }
+
+  private openWelcomeDialog() {
+    this.subs.add(
+      this.welcomeDialogService.openWelcomeDialog().subscribe((data: {status: string}) => {
+        if (data && data.status == GIVEAWAY_STATUS.ACCEPTED) {
+          // open tx dialog
+          console.log('ACCEPT');
+          this.openTxDialog();
+        }
+        if (data && data.status == GIVEAWAY_STATUS.REJECTED) {
+          // do nothing (to delete)
+          console.log('REJECT');
+        }
+      })
+    );
+  }
+
+  private openTxDialog() {
+    this.subs.add(
+      this.transactionDialogService.openTxDialogModal().subscribe((data: { matic: boolean, usdc: boolean }) => {
+        console.log('welcome flow succeed', data);
+      })
+    )
+  }
+
   async logout() {
     await this.web3AuthService.logout();
     this.snackNotifierService.open('Signed out');
     localStorage.removeItem('user-info');
     this.userInfo$.next(null);
     this.router.navigate(['/']);
+  }
+  async logoutWithoutRedirect() {
+    await this.web3AuthService.logout();
+    this.snackNotifierService.open('Signed out');
+    localStorage.removeItem('user-info');
+    this.userInfo$.next(null);
   }
 
   isLoggedIn(): boolean {

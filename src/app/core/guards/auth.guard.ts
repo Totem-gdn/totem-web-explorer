@@ -5,8 +5,8 @@ import {
     Router,
     RouterStateSnapshot
 } from "@angular/router";
-import { StorageKey } from "../enums/storage-keys.enum";
-import { BaseStorageService } from "../services/base-storage.service";
+import { StorageKey } from "../models/enums/storage-keys.enum";
+import { BaseStorageService } from "../services/utils/base-storage.service";
 import { UserStateService } from "../services/auth.service";
 import { PopupService } from "@app/layout/components/popup.service";
 
@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean | Promise<boolean> {
         const isAuthenticated = this.userStateService.isLoggedIn();
-        console.log('this.isAuthenticated.isAuthenticated', isAuthenticated);
 
         const openLogin = JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!);
 
@@ -40,8 +39,7 @@ export class AuthGuard implements CanActivate {
         const expDate = new Date(+(jwtInfo.exp + '000'));
         if (expDate < new Date()) {
           this.popupService.showLogoutPopup = true;
-          this.userStateService.logout();
-        //   this.router.navigate(['/']);
+          this.userStateService.logoutWithoutRedirect();
         }
         return isAuthenticatedCache || isAuthenticated;
     }

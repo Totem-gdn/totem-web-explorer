@@ -1,8 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { StorageKey } from '@app/core/enums/storage-keys.enum';
-import { UserEntity } from '@app/core/models/user-interface.model';
-import { BaseStorageService } from '@app/core/services/base-storage.service';
+import { NavigationEnd, Router } from '@angular/router';
 import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, map, Subscription, take, takeUntil } from 'rxjs';

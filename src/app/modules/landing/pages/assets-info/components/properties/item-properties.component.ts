@@ -18,10 +18,16 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   showViewAll: boolean | null = false;
   toggle = false;
 
-  @Input() properties!: any[];
+  @Input() set properties(properties: any[]) {
+    this._properties = properties;
+    setTimeout(() => {
+      this.checkTagsOverflow();
+    }, 100)
+  };
   @ViewChild('grid') grid!: ElementRef;
 
   tagsWidth = [];
+  _properties!: any[];
   placeholders = [];
 
   ngAfterViewInit(): void {
@@ -97,8 +103,8 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   checkTagsOverflow() {
     const tags = this.grid.nativeElement.getElementsByClassName('item-tag')
-    // const wrapperWidth = tags[0].firstChild.clientWidth;
-    // console.log(wrapperWidth, tags[0].firstChild.scrollWidth);
+    console.log('check overflow')
+
     for (let tag of tags) {
         if(+tag.firstChild.offsetWidth < +tag.firstChild.scrollWidth) {
         if(!tag.children[1] || !tag.children[3]) return;

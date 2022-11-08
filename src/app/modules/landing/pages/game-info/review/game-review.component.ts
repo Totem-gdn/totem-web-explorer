@@ -1,10 +1,10 @@
 import { Component, Input } from "@angular/core";
-import { CARD_TYPE } from "@app/core/enums/card-types.enum";
-import { SubmitGame } from "@app/core/models/submit-game-interface.model";
+import { CARD_TYPE } from "@app/core/models/enums/card-types.enum";
+import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
-import { SnackNotifierService } from "../../../modules/snack-bar-notifier/snack-bar-notifier.service";
+import { SnackNotifierService } from "../../../../../components/utils/snack-bar-notifier/snack-bar-notifier.service";
 
 interface Rate {
     isHovered: boolean;
