@@ -136,7 +136,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
         if(this.selectedToken.title =='USDC') {
             this.paymentService.sendUSDC(address, amount).then(res => {
-                this.snackService.open('Success');
+                this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
                 this.gtag.event('send', {
                     'event_label': 'USDC transaction has been sent',
                 });
@@ -148,7 +148,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         if (this.selectedToken.title == 'MATIC') {
             const amountToSend = Number(amount) + Number(this.gasFee);
             this.paymentService.transferMatic(address, amountToSend).then(res => {
-                this.snackService.open('Succeess');
+                this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
                 this.gtag.event('send', {
                     'event_label': 'MATIC transaction has been sent',
                 });
