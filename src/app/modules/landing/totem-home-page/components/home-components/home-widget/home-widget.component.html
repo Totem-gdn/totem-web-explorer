@@ -27,7 +27,7 @@
     <div class="img-wrapper xl:m-0">
       <div [@hideThirdState]="'selected'" class="img-card">
         <div class="card-1">
-          <asset-card [type]="'avatar'" [asset]="cardsToShow[0]" [selectedGame]="getSelectedGames() | async"></asset-card>
+          <asset-card [type]="'avatar'" [customBackground]="'#202225'" [asset]="cardsToShow[0]" [selectedGame]="getSelectedGames() | async"></asset-card>
         </div>
         <div class="card-2 z-12">
           <asset-card [type]="'item'" [asset]="cardsToShow[1]" [selectedGame]="getSelectedGames() | async"></asset-card>
