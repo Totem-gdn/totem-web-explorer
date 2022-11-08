@@ -146,7 +146,7 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             })
         }
         if (this.selectedToken.title == 'MATIC') {
-            const amountToSend = amount + this.gasFee;
+            const amountToSend = Number(amount) + Number(this.gasFee);
             this.paymentService.transferMatic(address, amountToSend).then(res => {
                 this.snackService.open('Succeess');
                 this.gtag.event('send', {
