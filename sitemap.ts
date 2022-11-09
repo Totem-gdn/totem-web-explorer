@@ -59,13 +59,8 @@ const routes = [
 
 const robots = `User-agent: *
 Disallow: /profile/
-Disallow: /game/
-Disallow: /item/
-Disallow: /gem/
-Disallow: /avatar/
 Disallow: /approve-game/
 Disallow: /submit-game/
-Disallow: /approve-game/
 Allow: /
 
 Sitemap: ${HOSTNAME}/sitemap.xml`;
