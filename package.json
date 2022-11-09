@@ -23,7 +23,6 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
-    "@angular/service-worker": "^14.2.9",
     "@material/slider": "^14.0.0",
     "@types/keccak": "^3.0.1",
     "@types/readable-stream": "^2.3.14",

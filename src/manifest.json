@@ -3,71 +3,38 @@
   "name": "Totem Web Explorer",
   "icons": [
     {
-      "src": "/assets/favicons/totem-512-png.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/favicons/logo-512.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "/assets/favicons/logo-192.png",
+      "src": "/assets/favicons/android-icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
-    },
-    {
-      "src": "/assets/favicons/logo-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/favicons/logo-512.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/assets/favicons/logo-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/assets/favicons/logo-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
     }
   ],
   "id": "/?source=pwa",
   "start_url": "/?source=pwa",
-  "background_color": "#202225",
+  "background_color": "#ffd013",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#202225",
+  "theme_color": "#ffd013",
   "shortcuts": [
     {
       "name": "Profile",
       "short_name": "Profile",
       "description": "View profile",
       "url": "/profile?source=pwa",
-      "icons": [{ "src": "/assets/favicons/logo-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/assets/favicons/android-icon-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "Messages",
       "short_name": "Messages",
       "description": "View messages",
       "url": "/profile/messages?source=pwa",
-      "icons": [{ "src": "/assets/favicons/logo-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/assets/favicons/android-icon-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "Purchase",
       "short_name": "Purchase",
       "description": "Purchase Totem asset",
       "url": "/buy?source=pwa",
-      "icons": [{ "src": "/assets/favicons/logo-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/assets/favicons/android-icon-192x192.png", "sizes": "192x192" }]
     }
   ],
   "description": "Manage Totem assets"

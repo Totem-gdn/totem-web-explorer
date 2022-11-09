@@ -37,9 +37,7 @@
               "src/styles/mat-override.scss",
               "./node_modules/@material/slider/styles.scss"
             ],
-            "scripts": [],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "scripts": []
           },
           "configurations": {
             "production": {
