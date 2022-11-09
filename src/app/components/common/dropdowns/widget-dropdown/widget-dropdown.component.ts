@@ -29,7 +29,7 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements On
     }
 
     startScript() {
-      this.scriptSub = timer(1000, 4000).subscribe(() => {
+      this.scriptSub = timer(1000, 6000).subscribe(() => {
         if(this.scriptIndex == undefined) {
           this.scriptSub?.unsubscribe();
           return;
@@ -42,7 +42,7 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements On
         if(this.scriptIndex > 3) {
           const scrollContainer = this.menuItems.nativeElement as HTMLElement;
           scrollContainer.scroll({top: itemBottomPos, behavior: 'smooth'})
-        } 
+        }
         if(this.scriptIndex == 0) {
           const scrollContainer = this.menuItems.nativeElement as HTMLElement;
           scrollContainer.scroll({top: 0, behavior: 'smooth'})
