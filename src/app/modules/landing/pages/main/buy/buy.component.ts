@@ -92,7 +92,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    this.snackService.open('Your payment has been sent');
+
     this.paymentService.sendUSDC(address, amount).then(res => {
       this.snackService.open('Your Totem Asset has been created successfully');
     })

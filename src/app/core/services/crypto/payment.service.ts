@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { TOKEN } from "@app/core/models/enums/token.enum";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
@@ -15,8 +16,11 @@ interface TokenBalance {
 
 export class PaymentService {
 
-    constructor(private http: HttpClient,
-                private web3: Web3AuthService) {}
+    constructor(
+        private http: HttpClient,
+        private web3: Web3AuthService,
+        private snackService: SnackNotifierService,
+    ) {}
 
     private _tokenBalance = new BehaviorSubject<TokenBalance>({matic: '0', usdc: '0'});
 
@@ -179,6 +183,8 @@ export class PaymentService {
           from: wallet,
         //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
         //   maxFeePerGas: "200000000000"
+        }).on('transactionHash', (hash: string) => {
+            this.snackService.open('Your payment has been sent');
         })
 
         return tx;
