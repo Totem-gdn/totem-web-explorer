@@ -85,7 +85,7 @@ p {
         padding-top: 10px;
         cursor: pointer;
 
-        mat-icon {
+        .line-arrow_down {
             transition: transform .5s ease-in-out;
             transform: rotateX(0deg);
         }
@@ -93,7 +93,7 @@ p {
     .dropdown-table-wrapper {  
         overflow: hidden;
         transition: max-height .5s ease-in-out;
-
+        max-height: 1px;
         .dropdown-table {
             // border-radius: 4px;
             transition: border-radius .5s ease-in-out;

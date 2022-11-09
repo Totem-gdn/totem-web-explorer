@@ -5,7 +5,9 @@
 
 @import 'scss/_main';
 
-html, body { height: 100%; }
+html, body { 
+  height: 100%; 
+}
 body { margin: 0; font-family: Roboto; }
 
 @font-face {

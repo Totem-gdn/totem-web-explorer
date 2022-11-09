@@ -64,7 +64,7 @@
                 [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></div>
         </div>
 
-        <div class="dropdown-table-wrapper" [ngClass]="toggleDropdown ? 'max-h-[520px]': 'max-h-[1px]'">
+        <div #dropdown class="dropdown-table-wrapper">
             <div class="dropdown-table" [ngClass]="toggleDropdown ? 'rounded': 'rounded-none'">
                 <div *ngIf="game?.updatedAt" class="row">
                     <div>
