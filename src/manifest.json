@@ -43,10 +43,10 @@
   ],
   "id": "/?source=pwa",
   "start_url": "/?source=pwa",
-  "background_color": "#ffd013",
+  "background_color": "#202225",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#ffd013",
+  "theme_color": "#202225",
   "shortcuts": [
     {
       "name": "Profile",
