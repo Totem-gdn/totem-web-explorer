@@ -10,13 +10,13 @@
           "/favicon.ico",
           "/index.html",
           "/manifest.json"
+        ],
+        "urls": [
+          "https://fonts.gstatic.com",
+          "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
         ]
-      },
-      "urls": [
-        "https://fonts.gstatic.com",
-        "https://fonts.googleapis.com/icon?family=Material+Icons",
-        "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
-      ]
+      }
     },
     {
       "name": "assets",
