@@ -6,6 +6,7 @@ import { BehaviorSubject, map, Subscription, take, takeUntil } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Gtag } from 'angular-gtag';
+import { SellAssetService } from '@app/core/services/crypto/sell-asset.service';
 
 @Component({
   selector: 'profile',
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private metaTag: Meta,
     private web3: Web3AuthService,
     private assetsService: AssetsService,
+    private sellAssetService: SellAssetService,
     private gtag: Gtag) {
 
     this.routeValue$.next(this.router.url);

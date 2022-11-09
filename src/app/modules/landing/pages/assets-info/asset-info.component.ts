@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, Input } from "@angular/core";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
@@ -21,11 +21,12 @@ const { DNAParser, ContractHandler } = require('totem-dna-parser');
     }
 })
 
-export class AssetInfoComponent {
+export class AssetInfoComponent implements AfterViewInit {
 
     constructor(private route: ActivatedRoute,
         private itemsService: TotemItemsService,
         private web3: Web3AuthService,
+        private changeDetector: ChangeDetectorRef,
         private dnaService: DNAParserService,
         private gamesService: GamesService) { }
 
@@ -72,11 +73,14 @@ export class AssetInfoComponent {
         this.getProperties(sessionGame?.general?.name);
     }
 
+    ngAfterViewInit(): void {
+        this.changeDetector.detectChanges();
+    }
+
     selectedGame$() {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
-                // if(!selectedGame?.general?.name) return;
                 this.getProperties(selectedGame?.general?.name);
                 this.processItem(this._item?.tokenId);
         })

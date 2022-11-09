@@ -86,15 +86,12 @@ export class PaymentService {
     };
 
     async transferMatic(address: string, amount: number) {
-        console.log('amountToSend',amount)
         const web3 = new Web3(this.web3.provider as any);
         const myWallet = await this.web3.getAccounts();
-
         const gasPrice = await web3.eth.getGasPrice();
         const gasLimit = await web3.eth.estimateGas({from: myWallet, to: address, gasPrice:  gasPrice});
-
         const convertedAmount = web3.utils.toWei(amount.toString());
-        const amountToSend = +convertedAmount - (+gasPrice * gasLimit);
+        const amountToSend = +convertedAmount - (+gasPrice * +gasLimit);
 
         const receipt = await web3.eth.sendTransaction({
           from: myWallet,
