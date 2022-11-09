@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormControlStatus, FormGroup, Validators } from "@angular/forms";
+import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
 import { TOKEN } from "@app/core/models/enums/token.enum";
 import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
-import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
+import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 import { Gtag } from "angular-gtag";
-import { BehaviorSubject, max, Subscription, takeWhile } from "rxjs";
+import { BehaviorSubject, debounceTime, takeWhile } from "rxjs";
 import { PopupService } from "../../popup.service";
 
 
@@ -24,7 +25,7 @@ interface TokenBalance {
     ]
 })
 
-export class TokenTransactionComponent implements OnInit, OnDestroy {
+export class TokenTransactionComponent extends OnDestroyMixin implements OnInit, OnDestroy {
     get amount() { return this.transferForm.get('amount')?.value };
     get addressTouched() {
         const address = this.transferForm.get('address')
@@ -40,11 +41,12 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         private snackService: SnackNotifierService,
         private paymentService: PaymentService,
         private showPopupService: PopupService,
-        private gtag: Gtag) { }
+        private gtag: Gtag
+    ) {
+        super()
+    }
 
     showPopup = true;
-    sub!: Subscription;
-
     menuItems: TokenBalance[] = [{ title: 'USDC', value: '0' }, { title: 'MATIC', value: '0' }];
 
     selectedToken: any;
@@ -57,25 +59,37 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.updateBalance();
-        this.showPopupService.showTokenPopup$().subscribe(show => {
+        this.showPopupService.showTokenPopup$().pipe(
+            untilComponentDestroyed(this),
+        ).subscribe(show => {
             this.showPopup = show;
-        })
+        }) 
     }
 
     onSelectToken(e: { title: TOKEN, value: string }): void {
         this.selectedToken = e;
         this.gasFee = undefined;
         this.transferForm.get('amount')?.patchValue(null);
-        this.transferForm.get('amount')?.setValidators(Validators.max(Number(e.value)))
-        this.transferForm.get('amount')?.statusChanges.subscribe((status: FormControlStatus) => {
+        this.transferForm.get('amount')?.setValidators(Validators.max(Number(e.value)));
+        this.transferForm.get('amount')?.statusChanges.pipe(
+            untilComponentDestroyed(this),
+        ).subscribe((status: FormControlStatus) => {
             this.ammountError.next(status === "INVALID" ? true : false)
         })
+
+        this.transferForm.get('amount')?.valueChanges.pipe(
+            untilComponentDestroyed(this),
+            debounceTime(500),
+        ).subscribe(() => {
+            this.estimateGas(this.selectedToken.title, this.selectedToken.value);
+        })
+
         this.setMaskForAmount(e.title);
     }
 
     private async setMaskForAmount(token: TOKEN) {
         const decimals = await this.paymentService.getDecimals(token)
-        this.maskForAmount = `separator.${decimals}`; 
+        this.maskForAmount = `separator.${decimals}`;
     }
 
     onInputChange(e: any) {
@@ -134,9 +148,9 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
         this.snackService.open('Your transaction has been sent');
 
-        if(this.selectedToken.title =='USDC') {
+        if (this.selectedToken.title == 'USDC') {
             this.paymentService.sendUSDC(address, amount).then(res => {
-                this.snackService.open('Success');
+                this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
                 this.gtag.event('send', {
                     'event_label': 'USDC transaction has been sent',
                 });
@@ -146,9 +160,9 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
             })
         }
         if (this.selectedToken.title == 'MATIC') {
-            const amountToSend = amount + this.gasFee;
+            const amountToSend = Number(amount) + Number(this.gasFee);
             this.paymentService.transferMatic(address, amountToSend).then(res => {
-                this.snackService.open('Succeess');
+                this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
                 this.gtag.event('send', {
                     'event_label': 'MATIC transaction has been sent',
                 });
@@ -160,7 +174,10 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
 
     updateBalance() {
         this.paymentService.updateBalance();
-        this.sub = this.authService.currentUser.pipe(takeWhile(val => !val, true)).subscribe(user => {
+        this.authService.currentUser.pipe(
+            untilComponentDestroyed(this),
+            takeWhile(val => !val, true),
+        ).subscribe(user => {
             if (user) {
                 this.web3Service.getBalance().then(balance => {
                     this.menuItems[1].value = balance;
@@ -172,12 +189,8 @@ export class TokenTransactionComponent implements OnInit, OnDestroy {
         })
     }
 
-    private resetForm():void{
+    private resetForm(): void {
         this.transferForm.reset();
         this.gasFee = undefined;
-    }
-
-    ngOnDestroy() {
-        this.sub?.unsubscribe();
     }
 }
