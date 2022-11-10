@@ -67,10 +67,12 @@
               "optimization": {
                 "scripts": true,
                 "styles": {
-                   "minify": true,
-                   "inlineCritical": false
-                 }
+                    "minify": true,
+                    "inlineCritical": false
+                }
               },
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json",
               "sourceMap": false,
               "namedChunks": false,
               "aot": true,
@@ -79,6 +81,8 @@
               "buildOptimizer": true
             },
             "development": {
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,

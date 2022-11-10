@@ -13,6 +13,7 @@ import { AuthInterceptor } from './core/auth.interceptor';
 import { GtagModule } from 'angular-gtag';
 import { environment } from '@env/environment';
 import { WelcomeDialogModule } from './core/dialogs/welcome-dialog/welcome-dialog.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 const routerConfig: ExtraOptions = {
@@ -31,6 +32,10 @@ const routerConfig: ExtraOptions = {
     LayoutModule,
     GtagModule.forRoot({ trackingId: environment.TRACKING_G_ID, trackPageviews: true }),
     WelcomeDialogModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: true,
+      registrationStrategy: 'registerImmediately',
+  }),
   ],
   providers: [
     UserStateService,

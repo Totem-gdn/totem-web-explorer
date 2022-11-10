@@ -1,6 +1,6 @@
 <div class="desc-form">
 
-  <general-description [selectedJsonFile]="jsonFile" (formValid)="checkFormValidity($event)" (onJsonFileSelected)="onJsonFileSelected($event)"></general-description>
+  <general-description [selectedJsonFiles]="jsonFiles" (formValid)="checkFormValidity($event)" (onJsonFileSelected)="onJsonFileSelected($event)"></general-description>
   <game-details (formValid)="checkFormValidity($event)"></game-details>
   <contact-form (formValid)="checkFormValidity($event)"></contact-form>
   <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" [disabled]="!buttonDisabled" (click)="onNextTab()"></totem-button>

@@ -5,6 +5,7 @@ import { UserStateService } from '@app/core/services/auth.service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
 import { SubmitGameService } from '../../services/submit-game.service';
+import { JsonDNAFilters } from '@app/core/models/interfaces/submit-game-interface.model';
 
 @Component({
   selector: 'totem-basic-info',
@@ -18,8 +19,8 @@ export class BasicInfoComponent implements OnDestroy {
 
   subs: Subscription = new Subscription();
   @Output() tabSelected = new EventEmitter<string>();
-  @Output() jsonSelected = new EventEmitter<File>();
-  @Input() jsonFile: File | null = null;
+  @Output() jsonSelected = new EventEmitter<JsonDNAFilters>();
+  @Input() jsonFiles: JsonDNAFilters = {assetFilter: null, avatarFilter: null, gemFilter: null};
 
   get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
 
@@ -45,7 +46,7 @@ export class BasicInfoComponent implements OnDestroy {
     this.tabSelected.emit('details');
   }
 
-  onJsonFileSelected(event: File) {
+  onJsonFileSelected(event: JsonDNAFilters) {
     this.jsonSelected.emit(event);
   }
 

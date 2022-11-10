@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap, Params } from "@angular/router";
+import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
+import { UserEntity } from "@app/core/models/interfaces/user-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
+import { UserStateService } from "@app/core/services/auth.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
@@ -17,9 +20,8 @@ import { Subject, takeUntil } from "rxjs";
 export class GameInfoComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute,
-        private itemsService: TotemItemsService,
         private gameService: GamesService,
-        private assetsService: AssetsService,
+        private userStateService: UserStateService,
         private gtag: Gtag) {
         gtag.event('page_view');
     }
@@ -29,6 +31,8 @@ export class GameInfoComponent implements OnInit, OnDestroy {
     subs = new Subject<void>();
     game!: SubmitGame | any;
     games!: any[];
+    editInfo: { edit: boolean; gameId: string } = { edit: false, gameId: '' };
+    currentUser: UserEntity | null = null;
 
     ngOnInit() {
         this.game$();
@@ -43,6 +47,14 @@ export class GameInfoComponent implements OnInit, OnDestroy {
 
         this.gameService.updateGames(1).subscribe(games => {
             this.games = games;
+        });
+        this.userStateService.currentUser.pipe(takeUntil(this.subs)).subscribe((user: UserEntity | null) => {
+          if (user) {
+            this.currentUser = user;
+            if (user.wallet == this.game?.owner) {
+              this.editInfo = {edit: true, gameId: this.game.id};
+            }
+          }
         })
     }
 
@@ -51,6 +63,9 @@ export class GameInfoComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.subs))
         .subscribe(game => {
             this.game = game;
+            if (this.currentUser && this.currentUser?.wallet == this.game.owner) {
+              this.editInfo = {edit: true, gameId: this.game.id};
+            }
         })
     }
 
