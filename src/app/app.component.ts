@@ -50,11 +50,11 @@ export class AppComponent {
 
       gtag.event('page_view');
 
-      this.userStateService.currentUser.subscribe(user => {
-        if(user) {
-          this.sellAsset.transferNft()
-        }
-      })
+      // this.userStateService.currentUser.subscribe(user => {
+      //   if(user) {
+      //     this.sellAsset.transferNft()
+      //   }
+      // })
   }
 
 }

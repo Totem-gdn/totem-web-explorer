@@ -23,6 +23,7 @@ export class UserStateService implements OnDestroy {
 
   private userInfo$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
   currentUser: Observable<UserEntity | null> = this.userInfo$.asObservable();
+  private _isAdmin = new BehaviorSubject<boolean>(true);
 
   constructor(
     private web3AuthService: Web3AuthService,
@@ -33,6 +34,8 @@ export class UserStateService implements OnDestroy {
     private welcomeDialogService: WelcomeDialogService,
     private transactionDialogService: TransactionDialogService,
   ) { }
+
+  get isAdmin() { return this._isAdmin.getValue() }
 
   async initAccount() {
     this.loading$.next(true);
