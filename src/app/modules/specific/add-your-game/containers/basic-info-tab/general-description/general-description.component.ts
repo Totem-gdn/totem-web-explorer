@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { SubmitGameService } from "@app/modules/specific/add-your-game/services/submit-game.service";
 import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
+import { JsonDNAFilters } from "@app/core/models/interfaces/submit-game-interface.model";
 
 @Component({
     selector: 'general-description',
@@ -64,7 +65,7 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
 
     sub!: Subscription;
 
-    @Input() selectedJsonFile: File | null = null;
+    @Input() selectedJsonFiles: JsonDNAFilters = {assetFilter: null, avatarFilter: null, gemFilter: null};
 
     @Output() formValid = new EventEmitter<any>();
     @Output() onJsonFileSelected = new EventEmitter<any>();
@@ -78,17 +79,33 @@ export class GeneralDescription implements OnDestroy, AfterViewInit {
     })
     genresForm = this.generalDescription.get('genre') as FormArray;
 
-    addJsonFile(event: any) {
+    addJsonFile(event: any, type: string) {
       console.log(event);
       const jsonFile: File = event?.target?.files[0];
-      this.selectedJsonFile = jsonFile;
-      this.onJsonFileSelected.emit(jsonFile);
+      if (type == 'avatar') {
+        this.selectedJsonFiles.avatarFilter = jsonFile;
+      }
+      if (type == 'item') {
+        this.selectedJsonFiles.assetFilter = jsonFile;
+      }
+      if (type == 'gem') {
+        this.selectedJsonFiles.gemFilter = jsonFile;
+      }
+      this.onJsonFileSelected.emit(this.selectedJsonFiles);
       this.isFormValid();
     }
 
-    removeFile() {
-      this.selectedJsonFile = null;
-      this.onJsonFileSelected.emit(null);
+    removeFile(type: string) {
+      if (type == 'avatar') {
+        this.selectedJsonFiles.avatarFilter = null;
+      }
+      if (type == 'item') {
+        this.selectedJsonFiles.assetFilter = null;
+      }
+      if (type == 'gem') {
+        this.selectedJsonFiles.gemFilter = null;
+      }
+      this.onJsonFileSelected.emit(this.selectedJsonFiles);
       this.isFormValid();
     }
 

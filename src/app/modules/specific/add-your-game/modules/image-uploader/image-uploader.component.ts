@@ -1,7 +1,7 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ImagesToUpload, SubmitGameResponse } from '@app/core/models/interfaces/submit-game-interface.model';
+import { ImagesToUpload, JsonDNAFilters, SubmitGameResponse } from '@app/core/models/interfaces/submit-game-interface.model';
 import { BehaviorSubject, concat, Observable } from 'rxjs';
 import { SubmitGameService } from '../../services/submit-game.service';
 
@@ -14,7 +14,7 @@ import { SubmitGameService } from '../../services/submit-game.service';
   }
 })
 export class ImageUploaderComponent implements OnInit, OnDestroy {
-  filesToUpload!: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null };
+  filesToUpload!: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFiles?: JsonDNAFilters };
   uploadProgress: number = 0;
   filesToUploadNumber: number = 0;
   filesUploaded: number = 0;
@@ -23,7 +23,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialogRef: MatDialogRef<ImageUploaderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null },
+    @Inject(MAT_DIALOG_DATA) public data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFiles?: JsonDNAFilters },
     private submitGameService: SubmitGameService,
 
   ) {
@@ -31,18 +31,22 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.filesToUploadNumber = this.filesToUpload.gameSubmitResponse.uploadImageURLs.imagesGallery!.length + 3 + (this.data.jsonFile ? 1 : 0);
+    this.filesToUploadNumber = this.filesToUpload.gameSubmitResponse.uploadImageURLs.imagesGallery!.length + 3 +
+    (this.data.jsonFiles?.avatarFilter ? 1 : 0) +
+    (this.data.jsonFiles?.assetFilter ? 1 : 0) +
+    (this.data.jsonFiles?.gemFilter ? 1 : 0);
+
     this.linkImagesToGame(this.filesToUpload);
     //this.submitGameService.approveGame(this.filesToUpload.gameSubmitResponse.id);
   }
 
-  linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile?: File | null }) {
+  linkImagesToGame(data: { images: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFiles?: JsonDNAFilters }) {
     this.submitGameService.currentIdToUpload = data.gameSubmitResponse.id;
     const linkedImagesToUrlsObservable: Observable<any>[] = this.submitGameService.componeFilesToUpload(
       data.images,
       data.gameSubmitResponse.uploadImageURLs,
       data.gameSubmitResponse?.connections,
-      data.jsonFile
+      data.jsonFiles
     );
 
     let progressUpdateNumber: number = 100 / this.filesToUploadNumber;

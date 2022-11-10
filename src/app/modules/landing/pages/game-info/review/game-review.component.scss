@@ -36,7 +36,7 @@
         gap: 20px;
         .icon {
             gap: 10px;
-            display: flex;         
+            display: flex;
         }
     }
 }
@@ -60,7 +60,7 @@
     font-size: 20px !important;
     cursor: pointer;
 }
-.line-like, .solid-like {
+.line-like, .solid-like, .line-edit {
     cursor: pointer;
     font-size: 18px;
 }
@@ -90,7 +90,7 @@ p {
             transform: rotateX(0deg);
         }
     }
-    .dropdown-table-wrapper {  
+    .dropdown-table-wrapper {
         overflow: hidden;
         transition: max-height .5s ease-in-out;
         max-height: 1px;
@@ -105,7 +105,7 @@ p {
             }
             span {
                 -webkit-line-clamp: 2;
-                line-clamp: 2; 
+                line-clamp: 2;
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 text-overflow: ellipsis;
@@ -115,7 +115,7 @@ p {
             .row {
                 display: flex;
                 border-bottom: 1px solid $light-grey;
-    
+
                 div {
                     display: flex;
                     align-items: center;

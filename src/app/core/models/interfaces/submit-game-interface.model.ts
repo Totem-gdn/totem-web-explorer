@@ -48,7 +48,7 @@ export interface ConnectionsInfo {
   webpage?: string;
   assetRenderer?: string;
   promoVideo?: string;
-  dnaFilter?: ImageFileInfo;
+  dnaFilters?: JsonDNAFiltersToUpload;
   socialLinks?: SocialLinksInfo[];
 }
 
@@ -80,7 +80,7 @@ export interface ImagesUrls {
 export interface SubmitGameResponse {
   id: string;
   connections: {
-    dnaFilter?: string;
+    dnaFilters?: JsonDnaFilesUrls;
   };
   uploadImageURLs: ImagesUrls;
 }
@@ -108,4 +108,22 @@ export interface GameDetail {
   players?: number;
   updatedAt?: string;
   views?: number;
+}
+
+export interface JsonDNAFilters {
+  avatarFilter?: File | null;
+  assetFilter?: File | null;
+  gemFilter?: File | null;
+}
+
+export interface JsonDNAFiltersToUpload {
+  avatarFilter?: ImageFileInfo;
+  assetFilter?: ImageFileInfo;
+  gemFilter?: ImageFileInfo;
+}
+
+export interface JsonDnaFilesUrls {
+  avatarFilter?: string;
+  assetFilter?: string;
+  gemFilter?: string;
 }

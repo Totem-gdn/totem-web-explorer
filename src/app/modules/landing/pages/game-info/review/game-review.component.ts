@@ -1,10 +1,11 @@
 import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { CARD_TYPE } from "@app/core/models/enums/card-types.enum";
+import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
-import { windowCount } from "rxjs";
 import { SnackNotifierService } from "../../../../../components/utils/snack-bar-notifier/snack-bar-notifier.service";
 
 interface Rate {
@@ -25,10 +26,12 @@ export class GameReviewComponent {
     constructor(private favouritesService: FavouritesService,
         private messageService: SnackNotifierService,
         private web3Service: Web3AuthService,
-        private gamesService: GamesService) { }
+        private gamesService: GamesService,
+        private router: Router,) { }
 
     @ViewChild('dropdown') dropdown!: ElementRef;
     @Input() game!: SubmitGame | any;
+    @Input() editInfo: { edit: boolean; gameId: string } = { edit: false, gameId: '' };
     toggleDropdown = false;
 
     rating: Rate[] = [{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false}]
@@ -48,6 +51,13 @@ export class GameReviewComponent {
                 this.gamesService.updateGame(this.game.id).subscribe();
             });
         }
+    }
+
+    editGame() {
+      console.log(this.game);
+
+      localStorage.setItem(StorageKey.SELECTED_GAME, JSON.stringify(this.game));
+      this.router.navigate(['/submit-game'], {queryParams: {edit: this.editInfo.gameId}})
     }
 
     starsAction(action: string, index: number) {
@@ -83,7 +93,7 @@ export class GameReviewComponent {
             dropdown.blur();
             dropdown.style.maxHeight = '520px';
         } else {
-            
+
             dropdown.style.maxHeight = '1px';
         }
         document.body.style.position = 'static';

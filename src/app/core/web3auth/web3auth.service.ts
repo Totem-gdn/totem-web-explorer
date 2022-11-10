@@ -247,7 +247,7 @@ export class Web3AuthService {
         this.provider = null;
     };
 
-    isLoggedIn() {
+    isLoggedIn(): boolean {
         if (this.provider) {
             return true;
         } else {

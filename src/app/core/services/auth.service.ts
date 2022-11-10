@@ -128,7 +128,7 @@ export class UserStateService implements OnDestroy {
   async logout() {
     await this.web3AuthService.logout();
     this.snackNotifierService.open('Signed out');
-    localStorage.removeItem('user-info');
+    localStorage.removeItem(StorageKey.USER_INFO);
     this.userInfo$.next(null);
     this.router.navigate(['/']);
   }

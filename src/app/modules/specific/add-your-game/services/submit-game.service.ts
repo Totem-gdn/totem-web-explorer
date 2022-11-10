@@ -1,6 +1,6 @@
 import { HttpClient, HttpEventType, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ImagesToUpload, ImagesUrls, SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
+import { ImagesToUpload, ImagesUrls, JsonDnaFilesUrls, JsonDNAFilters, SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
 import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { environment } from "@env/environment";
 import { BehaviorSubject, concat, Observable } from "rxjs";
@@ -19,6 +19,10 @@ export class SubmitGameService {
 
   postGame(body: SubmitGame | null): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/games`, body);
+  }
+
+  updateGame(body: SubmitGame | null, id: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/games/${id}`, body);
   }
 
   getGame(id: string) {
@@ -40,7 +44,7 @@ export class SubmitGameService {
     })
   }
 
-  componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilter?: string }, jsonFile?: File | null): Observable<any>[] {
+  componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilters?: JsonDnaFilesUrls }, jsonFiles?: JsonDNAFilters): Observable<any>[] {
     let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
     imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
     imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
@@ -48,8 +52,14 @@ export class SubmitGameService {
     links.imagesGallery?.forEach((link: string, i: number) => {
       imagesWithUrls.push({url: link, file: images.gallery![i]});
     })
-    if (jsonFile) {
-      imagesWithUrls.push({url: connections?.dnaFilter, file: jsonFile ? jsonFile : undefined})
+    if (jsonFiles?.avatarFilter) {
+      imagesWithUrls.push({url: connections?.dnaFilters?.avatarFilter, file: jsonFiles?.avatarFilter ? jsonFiles?.avatarFilter : undefined})
+    }
+    if (jsonFiles?.assetFilter) {
+      imagesWithUrls.push({url: connections?.dnaFilters?.assetFilter, file: jsonFiles?.assetFilter ? jsonFiles?.assetFilter : undefined})
+    }
+    if (jsonFiles?.gemFilter) {
+      imagesWithUrls.push({url: connections?.dnaFilters?.gemFilter, file: jsonFiles?.gemFilter ? jsonFiles?.gemFilter : undefined})
     }
     console.log(imagesWithUrls);
     return this.connectImagesWithUrls(imagesWithUrls);
