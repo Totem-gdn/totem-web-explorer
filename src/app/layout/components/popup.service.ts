@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { TRANSACTION_TYPE } from "@app/core/models/enums/transaction-type.enum";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { BehaviorSubject } from "rxjs";
 import Web3 from "web3";
@@ -8,14 +9,14 @@ import Web3 from "web3";
 export class PopupService {
     constructor(private web3: Web3AuthService) {}
 
-    private _showTokenPopup = new BehaviorSubject<boolean>(false);
+    private _showTransactionPopup = new BehaviorSubject<string | null>(null);
     private _showLogoutPopup = new BehaviorSubject<boolean>(false);
 
-    showTokenPopup() {
-        this._showTokenPopup.next(true);
+    showTransactionPopup(type: string | null) {
+        this._showTransactionPopup.next(type);
     }
-    showTokenPopup$() {
-        return this._showTokenPopup.asObservable();
+    showTransactionPopup$() {
+        return this._showTransactionPopup.asObservable();
     }
     get showLogoutPopup$() {
         return this._showLogoutPopup.asObservable();

@@ -1,0 +1,47 @@
+@import 'styles/scss/variables';
+
+.wrapper {
+    background-color: $black;
+
+    p {
+        // margin-bottom: 10px;
+        line-height: 1;
+    }
+    span {
+        white-space: nowrap;
+    }
+    img {
+        width: 100px;
+        height: 100px;
+        padding: 8px;
+    }
+
+    .asset-preview {
+        background-color: $grey;
+        border-radius: 4px;
+        display: flex;
+        margin-bottom: 10px;
+
+        .attributes {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            & p {
+                // margin-bottom: 10px;
+            }
+            .attribute {
+                width: 100%;
+                max-width: 150px;
+                justify-content: space-between;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+    .balance {
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid $light-grey;
+    }
+}

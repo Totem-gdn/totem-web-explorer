@@ -30,35 +30,41 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.solid-more {
+  &:before {
+    content: $solid-more;     
+  }
+}
+
 .solid-bottom_rectangle {
   &:before {
-    content: $icon-bottom_rectangle;     
+    content: $solid-bottom_rectangle;     
     color: #ffd011;
   }
 }
 .solid-buy-avatar {
   font-size: 215px;
   &:before {
-    content: $icon-buy-avatar; 
+    content: $solid-buy-avatar; 
   }
 }
 .solid-buy-gem {
   font-size: 215px;
 
   &:before {
-    content: $icon-buy-gem; 
+    content: $solid-buy-gem; 
   }
 }
 .solid-buy-item {
   font-size: 215px;
 
   &:before {
-    content: $icon-buy-item; 
+    content: $solid-buy-item; 
   }
 }
 .solid-delete-icon {
   &:before {
-    content: $icon-delete-icon; 
+    content: $solid-delete-icon; 
   }
 }
 .solid-doc-image {
@@ -66,7 +72,7 @@
   margin-top: 0;
   margin-bottom: 0;
   &:before {
-    content: $icon-doc-image; 
+    content: $solid-doc-image; 
   }
 }
 .solid-like {
@@ -74,7 +80,7 @@
   
   // margin: auto;
   &:before {
-    content: $icon-like; 
+    content: $solid-like; 
   }
 }
 .solid-no-image {
@@ -83,19 +89,19 @@
   margin-top: 0;
   margin-bottom: 0;
   &:before {
-    content: $icon-no-image; 
+    content: $solid-no-image; 
   }
 }
 .solid-star {
   font-size: 18px;
   &:before {
-    content: $icon-star;     
+    content: $solid-star;     
     color: #ffd011;
   }
 }
 .solid-warning-icon {
   &:before {
-    content: $icon-warning-icon; 
+    content: $solid-warning-icon; 
   }
 }
 

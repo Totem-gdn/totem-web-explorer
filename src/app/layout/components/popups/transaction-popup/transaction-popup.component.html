@@ -1,0 +1,7 @@
+<div *ngIf="txType" @fade-in-out class="overlay">
+
+    <div class="wrapper">
+        <send-tokens *ngIf="txType == 'token-transaction'"></send-tokens>
+        <send-asset [asset]="asset" *ngIf="txType == 'send-asset'"></send-asset>
+    </div>
+</div>

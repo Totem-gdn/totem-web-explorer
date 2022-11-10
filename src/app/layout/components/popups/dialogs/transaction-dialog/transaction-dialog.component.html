@@ -95,7 +95,7 @@
                 <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle"
                   [ngStyle]="{'background-color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}"></div>
                 <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 1" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
-                <div class="solid-warning-icon" @stopLoader *ngIf="errorState && stepIndex == 1"></div>
+                <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 1"></div>
               </div>
 
               <mat-progress-bar [ngStyle]="{'color': stepIndex >= 1 && errorState ? '#FF5252' : ''}"
@@ -108,7 +108,7 @@
                 <div @stopLoader *ngIf="!steps[2].loading" class="disabled-circle"
                 [ngStyle]="{'background-color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}"></div>
                 <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 2" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
-                <div class="solid-warning-icon" @stopLoader *ngIf="errorState && stepIndex == 2"></div>
+                <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 2"></div>
 
               </div>
 
@@ -122,7 +122,7 @@
                 <div @stopLoader *ngIf="!steps[3].loading" class="disabled-circle"
                 [ngStyle]="{'background-color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}"></div>
                 <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 3" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
-                <div class="solid-warning-icon" @stopLoader *ngIf="errorState && stepIndex == 3"></div>
+                <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 3"></div>
               </div>
 
             </div>

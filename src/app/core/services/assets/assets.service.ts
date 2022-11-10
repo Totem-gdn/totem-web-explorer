@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CARD_TYPE } from "@app/core/models/enums/card-types.enum";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
@@ -17,12 +18,12 @@ export class AssetsService {
         private web3: Web3AuthService,
         private cacheService: CacheService) { }
 
-    private _avatars = new BehaviorSubject<any[] | null>(null);
-    private _gems = new BehaviorSubject<any[] | null>(null);
-    private _items = new BehaviorSubject<any[] | null>(null);
-    private _avatar = new BehaviorSubject<any[] | null>(null);
-    private _gem = new BehaviorSubject<any[] | null>(null);
-    private _item = new BehaviorSubject<any[] | null>(null);
+    private _avatars = new BehaviorSubject<AssetInfo[] | null>(null);
+    private _gems = new BehaviorSubject<AssetInfo[] | null>(null);
+    private _items = new BehaviorSubject<AssetInfo[] | null>(null);
+    private _avatar = new BehaviorSubject<AssetInfo[] | null>(null);
+    private _gem = new BehaviorSubject<AssetInfo[] | null>(null);
+    private _item = new BehaviorSubject<AssetInfo[] | null>(null);
 
     get avatars$() { return this._avatars.asObservable() }
     get items$() { return this._items.asObservable() }
@@ -30,6 +31,7 @@ export class AssetsService {
     get avatar$() { return this._avatar.asObservable()}
     get item$() { return this._item.asObservable() }
     get gem$() { return this._gem.asObservable() }
+
     assset$(type: string) {
         if(type == 'avatar') return this.avatar$;
         if(type == 'item') return this.item$;
@@ -60,7 +62,7 @@ export class AssetsService {
         if (type == 'avatar') type = 'avatars';
         if (type == 'gem') type = 'gems';
 
-        return this.http.get<any>(`${this.baseUrl}/assets/${type}/${id}`).pipe(tap(asset => {
+        return this.http.get<AssetInfo[]>(`${this.baseUrl}/assets/${type}/${id}`).pipe(tap(asset => {
             if(type == 'items') this._item.next(asset);
             if(type == 'avatars') this._avatar.next(asset);
             if(type == 'gems') this._gem.next(asset);

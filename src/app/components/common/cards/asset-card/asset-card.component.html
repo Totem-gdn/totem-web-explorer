@@ -1,8 +1,9 @@
 <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="card-item gradient-border" (click)="onNavigate()">
+    <div class="menu"><div class="solid-more"></div></div>
 
     <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="_asset?.tokenId">
-        <img loading="lazy" *ngIf="type != 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId)+'?width=400&height=300'}}" alt="" (error)="updateUrl()">
-        <img loading="lazy" *ngIf="type == 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
+        <img loading="lazy" *ngIf="type != 'gem'" [src]="_asset?.rendererUrl" alt="" (error)="updateUrl()">
+        <img loading="lazy" *ngIf="type == 'gem'" src="{{'https://asset-renderer.totem-explorer.com' + '/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
     </div>
 
     <div class="attributes">

@@ -6,6 +6,7 @@ import { FavouritesService } from "@app/modules/profile/dashboard/favourites/fav
 import { environment } from "@env/environment";
 import { Gtag } from "angular-gtag";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 const { DNAParser } = require('totem-dna-parser');
 
 @Component({
@@ -22,25 +23,25 @@ export class AssetCardComponent {
     private favService: FavouritesService,
     private gtag: Gtag) { }
 
-  @Input() set asset(asset: any) {
+  @Input() type: string = 'item';
+  @Input() set asset(asset: AssetInfo) {
     this._asset = asset;
     if(!asset) return;
-    // console.log('asset: ', asset);
     const parser = new DNAParser()
-    asset.rarity = parser.getItemRarity(asset?.tokenId)
+    asset.rarity = parser.getItemRarity(asset?.tokenId);
+    asset.assetType = this.type;
   };
-  @Input() type: string = 'item';
+
   @Input() customBackground: string | null = null;
   @Input() set selectedGame(game: GameDetail | null) {
     if(!game) return;
     if (game?.connections?.assetRenderer && this.type == 'avatar') {
-      this.assetRendererUrl = game?.connections.assetRenderer;
+      this.setRendererUrl(game?.connections.assetRenderer);
     } else {
-      this.assetRendererUrl = environment.ASSET_RENDERER_URL;
+      this.setRendererUrl(environment.ASSET_RENDERER_URL);
     }
   }
   _asset: any;
-  assetRendererUrl = environment.ASSET_RENDERER_URL;
 
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
@@ -64,6 +65,10 @@ export class AssetCardComponent {
     }
   }
 
+  setRendererUrl(rendererUrl: string) {
+    this._asset.rendererUrl = `${rendererUrl}/${this.type}/${this._asset?.tokenId}?width=400&height=300`;
+  }
+
   onNavigate() {
     const id = this._asset?.tokenId;
     this.router.navigate([`/${this.type}`, id]);
@@ -71,6 +76,6 @@ export class AssetCardComponent {
 
   // change assetUrl to Default if url for game getted error
   updateUrl() {
-    this.assetRendererUrl = environment.ASSET_RENDERER_URL;
+    this.setRendererUrl(environment.ASSET_RENDERER_URL);
   }
 }
