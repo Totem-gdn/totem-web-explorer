@@ -1,7 +1,11 @@
+<div *ngIf="currentUser" class="tab-wrapper px-[20px] mt-[30px]" fxLayout="row" fxLayoutAlign="start center">
+  <button (click)="changeTab('unlisted')" [ngClass]="{'active-tab' : selectedTab == 'unlisted'}" matRipple class="mr-[14px]">Unlisted games</button>
+  <button (click)="changeTab('listed')" [ngClass]="{'active-tab' : selectedTab == 'listed'}" matRipple>Verified games</button>
+</div>
 <div *ngIf="games && games.length && !(loading$ | async)" class="wrapper py-[30px] relative" fxLayout="column" fxLayoutAlign="start start">
   <div class="w-full h-[24px] mb-[30px]" fxLayout="row" fxLayoutAlign="space-between center">
-    <div class="title">Games to approve:</div>
-    <div (click)="getGames()" class="cursor-pointer" fxLayout="row" fxLayoutAlign="flex-end center">
+    <div class="title">{{selectedTab == 'unlisted' ? 'Games to approve:' : 'My approved games:'}}</div>
+    <div (click)="selectedTab == 'unlisted' ? getGames() : getApprovedGames(currentUser?.wallet!)" class="cursor-pointer" fxLayout="row" fxLayoutAlign="flex-end center">
       <p>Refresh</p>
       <mat-icon class="ml-[10px]">refresh</mat-icon>
     </div>
@@ -16,7 +20,8 @@
       <p class="ml-[16px]">{{game.general.name}}</p>
     </div>
     <div fxLayout="row" fxLayoutAlign="flex-end center">
-      <button matRipple class="cta-button" (click)="gameDetails(game.id)">View</button>
+      <button matRipple class="cta-button" (click)="editGame(game)">Edit</button>
+      <button matRipple class="cta-button ml-[16px]" (click)="gameDetails(game.id)">View</button>
       <button
         matRipple
         [disabled]="approveLoading$ | async"
@@ -26,7 +31,9 @@
       >
       {{game.deleted ? 'Deleted' : 'Delete'}}
       </button>
+
       <button
+        *ngIf="selectedTab == 'unlisted'"
         matRipple
         [disabled]="approveLoading$ | async"
         class="cta-button ml-[16px]"
@@ -35,6 +42,18 @@
       >
       {{game.approved ? 'Approved' : 'Approve'}}
       </button>
+
+      <button
+        *ngIf="selectedTab == 'listed'"
+        matRipple
+        [disabled]="approveLoading$ | async"
+        class="cta-button ml-[16px]"
+        (click)="rejectGame(game.id)"
+        [ngStyle]="{'pointer-events': game.rejected ? 'none' : '', 'background-color': game.rejected ? '#ff6b66' : ''}"
+      >
+      {{game.rejected ? 'Hidden' : 'Hide'}}
+      </button>
+
     </div>
   </div>
 </div>

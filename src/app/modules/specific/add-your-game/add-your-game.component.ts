@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
 import { SUBMISSION_TABS } from '@app/core/models/enums/submission-tabs.enum';
-import { SubmitGame, ImagesToUpload, ImagesInfo, ImageEvents, SubmitGameResponse } from '@app/core/models/interfaces/submit-game-interface.model';
+import { SubmitGame, ImagesToUpload, ImagesInfo, ImageEvents, SubmitGameResponse, GameDetail, JsonDNAFilters } from '@app/core/models/interfaces/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { CompressImageService } from '@app/core/services/utils/compress-image.service';
 import { Gtag } from 'angular-gtag';
@@ -30,12 +31,16 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   progress: number = 33.3;
-  activeTab: 'basic-information' | 'details' | 'links' = 'links';
+  activeTab: 'basic-information' | 'details' | 'links' = 'basic-information';
   formsData: SubmitGame | null = null;
   imagesToUpload!: ImagesToUpload;
   imagesToSubmit!: ImagesInfo;
-  jsonFileToUpload: File | null = null;
+  jsonFilesToUpload: JsonDNAFilters = {assetFilter: null, avatarFilter: null, gemFilter: null};
   imageEvents!: ImageEvents | null;
+
+
+  gameToEdit: { game: GameDetail | null; id: string } = { game: null, id: ''};
+  editMode: boolean = false;
 
   constructor(
     readonly matDialog: MatDialog,
@@ -45,11 +50,29 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     private compressImageService: CompressImageService,
     private gtag: Gtag,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     gtag.event('page_view');
   }
 
   ngOnInit() {
+    this.subs.add(
+      this.route.queryParams
+        .subscribe((params: Params) => {
+            const editGameId = params['edit'];
+            console.log(editGameId);
+
+            if (!editGameId) return;
+            this.gameToEdit.id = editGameId;
+            const selectedGame = JSON.parse(localStorage.getItem(StorageKey.SELECTED_GAME)!);
+            console.log(selectedGame);
+            if (!selectedGame) return;
+            console.log('submit EDIT: ', selectedGame);
+
+            this.prefillSelectedGameInfo(selectedGame);
+        })
+    );
+
     this.subs.add(
       this.userStateService.isLoading.subscribe((value: boolean) => {
         this.loading$.next(value);
@@ -64,16 +87,29 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
+  // EDIT BLOCK START
+
+  prefillSelectedGameInfo(game: GameDetail) {
+    this.formsService.saveForm('general', game.general);
+    this.formsService.saveForm('details', game.details);
+    this.formsService.saveForm('contacts', game.contacts);
+    this.formsService.saveForm('connections', game.connections);
+    this.editMode = true;
+  }
+
+  // EDIT BLOCK END
+
   updateImages(images: ImagesInfo) {
     console.log('TO SUBMIT: ', images);
 
     this.imagesToSubmit = images;
   }
 
-  updateJsonFile(file: File) {
-    console.log('TO UPLOAD JSON: ', file);
 
-    this.jsonFileToUpload = file;
+  // JSON FILES
+  updateJsonFile(files: JsonDNAFilters) {
+    console.log('TO UPLOAD JSON: ', files);
+    this.jsonFilesToUpload = files;
   }
 
   saveEvents(event: ImageEvents) {
@@ -97,33 +133,63 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       contacts: this.formsService.getForm('contacts'),
       connections:
       {
-        dnaFilter: this.jsonFileToUpload ? {
-          filename: this.jsonFileToUpload!.name,
-          mimeType: this.jsonFileToUpload!.type,
-          contentLength: this.jsonFileToUpload!.size,
-        } : undefined,
+        dnaFilters: {
+          avatarFilter: this.jsonFilesToUpload.avatarFilter ? {
+            filename: this.jsonFilesToUpload.avatarFilter?.name,
+            mimeType: this.jsonFilesToUpload.avatarFilter?.type,
+            contentLength: this.jsonFilesToUpload.avatarFilter?.size
+          } : undefined,
+          assetFilter: this.jsonFilesToUpload.assetFilter ? {
+            filename: this.jsonFilesToUpload.assetFilter?.name,
+            mimeType: this.jsonFilesToUpload.assetFilter?.type,
+            contentLength: this.jsonFilesToUpload.assetFilter?.size
+          } : undefined,
+          gemFilter: this.jsonFilesToUpload.gemFilter ? {
+            filename: this.jsonFilesToUpload.gemFilter?.name,
+            mimeType: this.jsonFilesToUpload.gemFilter?.type,
+            contentLength: this.jsonFilesToUpload.gemFilter?.size
+          } : undefined,
+        },
+        //this.jsonFileToUpload ? {
+        //  filename: this.jsonFileToUpload!.name,
+        //  mimeType: this.jsonFileToUpload!.type,
+        //  contentLength: this.jsonFileToUpload!.size,
+        //} : {},
         ...this.formsService.getForm('connections')
       },
       images: this.imagesToSubmit,
     }
     console.log(this.formsData);
 
-    this.postGame(this.formsData);
+    if (!this.editMode) {
+      this.postGame(this.formsData);
+    } else {
+      this.updateGame(this.formsData);
+    }
+
   }
 
   postGame(formData: SubmitGame) {
     this.subs.add(
       this.submitGameService.postGame(formData).subscribe((data: SubmitGameResponse) => {
         //this.processResponse(data);
-        this.openImgUploaderDialog(this.imagesToUpload, data, this.jsonFileToUpload);
+        this.openImgUploaderDialog(this.imagesToUpload, data, this.jsonFilesToUpload);
+      })
+    )
+  }
+  updateGame(formData: SubmitGame) {
+    this.subs.add(
+      this.submitGameService.updateGame(formData, this.gameToEdit.id).subscribe((data: SubmitGameResponse) => {
+        //this.processResponse(data);
+        this.openImgUploaderDialog(this.imagesToUpload, data, this.jsonFilesToUpload);
       })
     )
   }
 
-  processResponse(data: SubmitGameResponse) {
-    this.submitGameService.currentIdToUpload = data.id;
-    this.submitGameService.componeFilesToUpload(this.imagesToUpload, data!.uploadImageURLs, data!.connections, this.jsonFileToUpload)
-  }
+  //processResponse(data: SubmitGameResponse) {
+  //  this.submitGameService.currentIdToUpload = data.id;
+  //  this.submitGameService.componeFilesToUpload(this.imagesToUpload, data!.uploadImageURLs, data!.connections, this.jsonFilesToUpload)
+  //}
 
   async updateImagesToUpload(data: ImagesToUpload) {
     this.imagesToUpload = data;
@@ -190,7 +256,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  openUploadModal(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null): Observable<{redirect: boolean} | null> {
+  openUploadModal(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFiles: JsonDNAFilters): Observable<{redirect: boolean} | null> {
     /* const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1; */
     const options: MatDialogConfig = {
@@ -200,22 +266,23 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       data: {
         images: imagesToUpload,
         gameSubmitResponse: gameSubmitResponse,
-        jsonFile: jsonFile
+        jsonFiles: jsonFiles
       },
       autoFocus: false
     };
     return this.matDialog.open(ImageUploaderComponent, options).afterClosed();
   }
 
-  openImgUploaderDialog(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFile: File | null) {
+  openImgUploaderDialog(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFiles: JsonDNAFilters) {
     this.subs.add(
-      this.openUploadModal(imagesToUpload, gameSubmitResponse, jsonFile).subscribe((data: {redirect: boolean} | null) => {
+      this.openUploadModal(imagesToUpload, gameSubmitResponse, jsonFiles).subscribe((data: {redirect: boolean} | null) => {
         console.log(data);
         if (data?.redirect == true) {
           this.router.navigate(['/games']);
         } else {
           this.goToTab(SUBMISSION_TABS.BASIC_INFO);
         }
+        localStorage.removeItem(StorageKey.SELECTED_GAME);
       })
     )
   }

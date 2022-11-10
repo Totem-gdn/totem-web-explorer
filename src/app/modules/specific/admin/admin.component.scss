@@ -5,6 +5,22 @@
   min-height: 60vh;
 }
 
+.tab-wrapper {
+  button {
+    padding: 6px 10px;
+    background-color: $dark-grey;
+    color: $yellow;
+    border-radius: 4px;
+    transition: background-color 0.33s ease-out, color 0.33s ease-out;
+    font-weight: 500;
+  }
+
+  .active-tab {
+    background-color: $yellow;
+    color: $dark;
+  }
+}
+
 .wrapper {
     width: 100%;
     height: 100%;

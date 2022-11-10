@@ -72,24 +72,72 @@
                 </div>
             </div>
 
-            <div class="block-section no-border">
-                <h4>DNA Filter<span class="ml-[10px]">(Optional)</span></h4>
+            <div class="block-section">
+                <h4>Avatar DNA Filter<span class="ml-[10px]">(Optional)</span></h4>
                 <div class="dta-input-section">
                     <div class="dropzone-wrapper w-full mb-[15px]">
-                        <totem-image-dropzone [uniqueId]="'json'" [jsonFileType]="true" [dzMinHeight]="'184px'"
-                            (finalizedFile)="addJsonFile($event)"></totem-image-dropzone>
+                        <totem-image-dropzone [uniqueId]="'avatar'" [jsonFileType]="true" [dzMinHeight]="'184px'"
+                            (finalizedFile)="addJsonFile($event, 'avatar')"></totem-image-dropzone>
                     </div>
 
                     <span>Upload JSON file with filters for your game</span>
 
-                    <div @fileAnimation class="file-bar w-full p-[10px]" *ngIf="selectedJsonFile" fxLayout="row"
+                    <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.avatarFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
-                            <div class="file-name ml-[14px]">{{selectedJsonFile.name}}</div>
+                            <div class="file-name ml-[14px]">{{selectedJsonFiles.avatarFilter.name}}</div>
                         </div>
-                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile()">
+                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('avatar')">
+                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
+                            <div class="solid-delete-icon delete-icon"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-section">
+                <h4>Item DNA Filter<span class="ml-[10px]">(Optional)</span></h4>
+                <div class="dta-input-section">
+                    <div class="dropzone-wrapper w-full mb-[15px]">
+                        <totem-image-dropzone [uniqueId]="'item'" [jsonFileType]="true" [dzMinHeight]="'184px'"
+                            (finalizedFile)="addJsonFile($event, 'item')"></totem-image-dropzone>
+                    </div>
+
+                    <span>Upload JSON file with filters for your game</span>
+
+                    <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.assetFilter" fxLayout="row"
+                        fxLayoutAlign="space-between center">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
+                            <div class="solid-doc-image doc-icon  ml-[4px]"></div>
+                            <div class="file-name ml-[14px]">{{selectedJsonFiles.assetFilter.name}}</div>
+                        </div>
+                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('item')">
+                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
+                            <div class="solid-delete-icon delete-icon"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-section no-border">
+                <h4>Gem DNA Filter<span class="ml-[10px]">(Optional)</span></h4>
+                <div class="dta-input-section">
+                    <div class="dropzone-wrapper w-full mb-[15px]">
+                        <totem-image-dropzone [uniqueId]="'gem'" [jsonFileType]="true" [dzMinHeight]="'184px'"
+                            (finalizedFile)="addJsonFile($event, 'gem')"></totem-image-dropzone>
+                    </div>
+
+                    <span>Upload JSON file with filters for your game</span>
+
+                    <div @fileAnimation class="file-bar w-full p-[10px]" *ngIf="selectedJsonFiles.gemFilter" fxLayout="row"
+                        fxLayoutAlign="space-between center">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
+                            <div class="solid-doc-image doc-icon  ml-[4px]"></div>
+                            <div class="file-name ml-[14px]">{{selectedJsonFiles.gemFilter.name}}</div>
+                        </div>
+                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('gem')">
                             <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>

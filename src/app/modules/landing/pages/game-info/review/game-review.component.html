@@ -40,6 +40,10 @@
                 <div class="!w-[16px] line-refresh"></div>
                 <p>Refresh</p>
             </div>
+            <div *ngIf="editInfo.edit" class="icon cursor-pointer" (click)="editGame()">
+                <div class="!w-[16px] !h-[19px] line-edit"></div>
+                <p>Edit</p>
+            </div>
         </div>
     </div>
 

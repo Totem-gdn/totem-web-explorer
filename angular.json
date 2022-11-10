@@ -37,9 +37,7 @@
               "src/styles/mat-override.scss",
               "./node_modules/@material/slider/styles.scss"
             ],
-            "scripts": [],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -69,10 +67,12 @@
               "optimization": {
                 "scripts": true,
                 "styles": {
-                   "minify": true,
-                   "inlineCritical": false
-                 }
+                    "minify": true,
+                    "inlineCritical": false
+                }
               },
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json",
               "sourceMap": false,
               "namedChunks": false,
               "aot": true,
@@ -81,6 +81,8 @@
               "buildOptimizer": true
             },
             "development": {
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
