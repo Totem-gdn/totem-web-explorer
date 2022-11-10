@@ -1,5 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
+import { UserEntity } from "@app/core/models/interfaces/user-interface.model";
+import { UserStateService } from "@app/core/services/auth.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { BehaviorSubject, Subscription, take } from "rxjs";
 import { AdminService } from "./services/admin.service";
@@ -17,6 +20,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         private itemsService: TotemItemsService,
         private adminService: AdminService,
         private router: Router,
+        private userStateService: UserStateService,
         ) {
     }
 
@@ -25,9 +29,21 @@ export class AdminComponent implements OnInit, OnDestroy {
     pageNotFound = false;
     subs: Subscription = new Subscription();
     games: any[] = [];
+    selectedTab: 'listed' | 'unlisted' = 'unlisted';
+    currentUser: UserEntity | null = null;
 
     ngOnInit() {
-      this.getGames()
+      this.getGames();
+      this.subs.add(
+        this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
+          if (user) {
+            this.currentUser = user;
+            if (this.selectedTab == 'listed') {
+              this.getApprovedGames(this.currentUser.wallet!);
+            }
+          }
+        })
+      )
     }
 
     getGames() {
@@ -37,6 +53,21 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         this.games = games.map((game: any) => {
           game.approved = false
+          game.deleted = false
+          return game;
+        });
+        console.log(this.games);
+        this.loading$.next(false);
+      })
+    }
+
+    getApprovedGames(owner: string) {
+      this.loading$.next(true);
+      this.adminService.getApprovedGames(owner).pipe(take(1)).subscribe((games: any[]) => {
+        console.log(games);
+
+        this.games = games.map((game: any) => {
+          game.rejected = false
           game.deleted = false
           return game;
         });
@@ -61,6 +92,22 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         });
     }
+    rejectGame(id: string) {
+      this.approveLoading$.next(true);
+      this.adminService.rejectGame(id)
+      .pipe(
+        take(1)
+        )
+        .subscribe((data: any) => {
+
+          console.log(data);
+          const index: number = this.games.findIndex((game: any) => game.id == id);
+          console.log(index);
+          this.games[index].rejected = true;
+          this.approveLoading$.next(false);
+
+        });
+    }
 
     deleteGame(id: string) {
       this.adminService.deleteGame(id)
@@ -81,6 +128,20 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     gameDetails(id: string) {
       this.router.navigate(['/game', id]);
+    }
+
+    editGame(game: any) {
+      localStorage.setItem(StorageKey.SELECTED_GAME, JSON.stringify(game));
+      this.router.navigate(['/submit-game'], {queryParams: {edit: game.id}});
+    }
+
+    changeTab(tab: 'listed' | 'unlisted') {
+      this.selectedTab = tab;
+      if (this.selectedTab == 'listed' && this.currentUser) {
+        this.getApprovedGames(this.currentUser.wallet!);
+      } else {
+        this.getGames();
+      }
     }
 
     ngOnDestroy(): void {

@@ -14,7 +14,7 @@
     <div class="z-1 flex gap-[20px] sm:gap-[60px] justify-center lg:justify-between flex-wrap-reverse lg:flex-nowrap">
         <game-description [game]="game"></game-description>
 
-        <game-review [game]="game"></game-review>
+        <game-review [editInfo]="editInfo" [game]="game"></game-review>
     </div>
 
     <iframe *ngIf="game?.connections?.promoVideo" class="promo-video mt-[60px] sm:mt-[80px] max-w-[810px] lg:max-w-[100%]" [src]="game?.connections?.promoVideo | unsafeUrl" frameborder="0"></iframe>

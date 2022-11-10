@@ -5,5 +5,6 @@ export enum StorageKey {
   OPEN_LOGIN = 'openlogin_store',
   TOTEM_REDIRECT = 'totem_redirect',
   ADAPTER = 'Web3Auth-cachedAdapter',
-  USER_INFO = 'user-info'
+  USER_INFO = 'user-info',
+  SELECTED_GAME = 'selected-game'
 }

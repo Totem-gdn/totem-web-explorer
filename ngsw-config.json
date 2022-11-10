@@ -9,7 +9,9 @@
         "files": [
           "/favicon.ico",
           "/index.html",
-          "/manifest.json"
+          "/manifest.json",
+          "/*.css",
+          "/*.js"
         ],
         "urls": [
           "https://fonts.gstatic.com",
@@ -28,45 +30,6 @@
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
-    },
-    {
-      "name": "app",
-      "installMode": "prefetch",
-      "resources": {
-        "files": [
-          "/favicon.ico",
-          "/index.html",
-          "/manifest.json",
-          "/*.css",
-          "/*.js"
-        ]
-      }
     }
-  ],
-  "dataGroups": [ {
-    "name": "api-freshness",
-    "urls": [
-      "/games",
-      "/me",
-      "/assets"
-    ],
-    "cacheConfig": {
-      "maxSize": 100,
-      "maxAge": "1h",
-      "timeout": "10s",
-      "strategy": "freshness"
-    }
-    },
-    {
-      "name": "api-performance",
-      "urls": [
-        "/"
-      ],
-      "cacheConfig": {
-        "maxSize": 100,
-        "maxAge": "4h",
-        "strategy": "performance"
-      }
-      }
   ]
 }
