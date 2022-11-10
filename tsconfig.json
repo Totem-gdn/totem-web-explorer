@@ -8,6 +8,12 @@
       "@app/*": [
         "app/*"
       ],
+      "@landing/*": [
+        "app/modules/landing"
+      ],
+      "@admin/*": [
+        "app/modules/admin"
+      ],
       "shared/*": [
         "app/shared/*"
       ],

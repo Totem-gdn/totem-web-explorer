@@ -26,7 +26,7 @@
         </div>
 
       </div>
-      <div class="games-preview-block">
+      <div #gamePreview class="games-preview-block">
         <ng-particles [id]="id" [options]="particlesOptions" [particlesInit]="particlesInit"
         (particlesLoaded)="particlesLoaded($event)"></ng-particles>
         <img [@hideFirstState]="imgChange" class="img-1" src="../../../../../../assets/images/knight-image.webp" alt="knight-image">
