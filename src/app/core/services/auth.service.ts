@@ -34,10 +34,13 @@ export class UserStateService implements OnDestroy {
     private transactionDialogService: TransactionDialogService,
   ) { }
 
+
   async initAccount() {
     this.loading$.next(true);
     await this.web3AuthService.init();
     const isLoggedIn = this.web3AuthService.isLoggedIn();
+    this.loading$.next(false);
+    await this.web3AuthService.login();
     if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
     }
@@ -70,6 +73,7 @@ export class UserStateService implements OnDestroy {
     } else {
       // External Wallets
       token = await this.web3AuthService.walletJWTToken();
+      console.log('token', token)
       publicKey = this.parseJwt(token).wallets[0].address;
       const userInfo = {
         idToken: token

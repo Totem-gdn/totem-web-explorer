@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { TOKEN } from "@app/core/models/enums/token.enum";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
@@ -15,8 +16,11 @@ interface TokenBalance {
 
 export class PaymentService {
 
-    constructor(private http: HttpClient,
-                private web3: Web3AuthService) {}
+    constructor(
+        private http: HttpClient,
+        private web3: Web3AuthService,
+        private snackService: SnackNotifierService,
+    ) {}
 
     private _tokenBalance = new BehaviorSubject<TokenBalance>({matic: '0', usdc: '0'});
 
@@ -86,15 +90,12 @@ export class PaymentService {
     };
 
     async transferMatic(address: string, amount: number) {
-        console.log('amountToSend',amount)
         const web3 = new Web3(this.web3.provider as any);
         const myWallet = await this.web3.getAccounts();
-
         const gasPrice = await web3.eth.getGasPrice();
         const gasLimit = await web3.eth.estimateGas({from: myWallet, to: address, gasPrice:  gasPrice});
-
         const convertedAmount = web3.utils.toWei(amount.toString());
-        const amountToSend = +convertedAmount - (+gasPrice * gasLimit);
+        const amountToSend = +convertedAmount - (+gasPrice * +gasLimit);
 
         const receipt = await web3.eth.sendTransaction({
           from: myWallet,
@@ -179,6 +180,8 @@ export class PaymentService {
           from: wallet,
         //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
         //   maxFeePerGas: "200000000000"
+        }).on('transactionHash', (hash: string) => {
+            this.snackService.open('Your payment has been sent');
         })
 
         return tx;

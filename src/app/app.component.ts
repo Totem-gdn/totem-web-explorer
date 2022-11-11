@@ -4,6 +4,7 @@ import { Router, Scroll } from '@angular/router';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/auth.service';
+import { SellAssetService } from './core/services/crypto/sell-asset.service';
 import { Web3AuthService } from './core/web3auth/web3auth.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class AppComponent {
 
   constructor(
     private userStateService: UserStateService,
+    private sellAsset: SellAssetService,
     @Inject(PLATFORM_ID) private platformId: any,
     private web3: Web3AuthService,
     private router: Router,
@@ -47,6 +49,12 @@ export class AppComponent {
       });
 
       gtag.event('page_view');
+
+      // this.userStateService.currentUser.subscribe(user => {
+      //   if(user) {
+      //     this.sellAsset.transferNft()
+      //   }
+      // })
   }
 
 }

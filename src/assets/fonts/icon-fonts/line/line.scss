@@ -29,6 +29,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.line-burger {
+  
+  &:before {
+    content: $line-burger;
+    //color: #8a939b;
+  }
+}
 
 .line-edit {
   &:before {

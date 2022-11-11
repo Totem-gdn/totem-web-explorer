@@ -4,9 +4,6 @@
         <img loading="lazy" *ngIf="type != 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId)+'?width=400&height=300'}}" alt="" (error)="updateUrl()">
         <img loading="lazy" *ngIf="type == 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
     </div>
-    <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="asset?.id?.tokenId">
-        <img loading="lazy" src="{{assetRendererUrl+ '/' + (+_asset?.id?.tokenId)}}" alt="" (error)="updateUrl()">
-    </div>
 
     <div class="attributes">
 

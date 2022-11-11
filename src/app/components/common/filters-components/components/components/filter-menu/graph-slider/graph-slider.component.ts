@@ -121,6 +121,11 @@ const Items: Items[] = [
   isInRange: false,
   }
 ]
+interface RangeItem {
+    amountOfItems: number;
+    price: number;
+    isInRange: boolean;
+}
 
 @Component({
     selector: 'graph-slider',
@@ -128,7 +133,7 @@ const Items: Items[] = [
     styleUrls: ['./graph-slider.component.scss']
 })
 
-export class GraphSliderComponent implements AfterViewChecked, OnDestroy, AfterViewInit {
+export class GraphSliderComponent implements OnDestroy, AfterViewInit {
 
     constructor(private filtersService: FiltersService,
                 private tagsService: TagsService,private changeDetector : ChangeDetectorRef) {}
@@ -139,7 +144,7 @@ export class GraphSliderComponent implements AfterViewChecked, OnDestroy, AfterV
     marginLeft!: string;
     marginRight!: string;
 
-    items: Items[] = Items;
+    items: RangeItem[] = [];
     sub!: Subscription;
 
     @Input() title = '';
@@ -153,12 +158,23 @@ export class GraphSliderComponent implements AfterViewChecked, OnDestroy, AfterV
         this.checkThumbPosition();
         this.changeMaxValue();
         this.changeMinValue();
+        this.calculateRarity();
         this.setMargins();
         this.checkRange();
+
+        this.changeDetector.detectChanges();
     }
 
-    ngAfterViewChecked() {
-      this.changeDetector.detectChanges();
+    calculateRarity() {
+        const min = this.sliderThumbMin.nativeElement.min;
+        const max = this.sliderThumbMax.nativeElement.max;
+        const step = Math.floor((max - min) / 19);
+
+        for(let i = +min; i <= +max; i += +step) {
+            const randomNumberOfItems = (Math.random() * 100);
+            const item: RangeItem = {price: i, isInRange: false, amountOfItems: randomNumberOfItems}
+            this.items.push(item);
+        }
     }
 
     update() {
