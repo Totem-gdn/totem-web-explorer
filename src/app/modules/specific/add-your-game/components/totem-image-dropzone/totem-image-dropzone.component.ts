@@ -38,6 +38,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   @Input() dzMinHeight: string = '247px';
   @Input() finalizedImage!: File | undefined;
   @Input() uniqueId: string = 'file';
+  @Input() existingImageUrl?: string = '';
 
   @Output() finalizedFile: EventEmitter<any> = new EventEmitter<any>();
   @Output() errorEvent: EventEmitter<DropzoneError> = new EventEmitter<DropzoneError>();

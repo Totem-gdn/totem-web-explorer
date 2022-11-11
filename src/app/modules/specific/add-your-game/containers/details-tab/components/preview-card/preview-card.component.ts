@@ -12,6 +12,7 @@ export class PreviewCardComponent implements OnInit {
 
   imageUrl: any;
   @Input() finalizedImage: any;
+  @Input() existingImageUrl?: string = '';
   imageReader: FileReader = new FileReader();
 
   ngOnChanges(changes: SimpleChanges): void {

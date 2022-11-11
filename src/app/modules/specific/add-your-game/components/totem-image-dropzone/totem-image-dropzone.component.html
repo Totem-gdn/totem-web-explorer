@@ -1,6 +1,6 @@
 <div
   class="file-container"
-  *ngIf="!imageUrl || !selfFill"
+  *ngIf="!imageUrl && !existingImageUrl || !selfFill"
   style="--minh: {{dzMinHeight}}"
   [ngStyle]="{'border' : dzHovered ? '1px dashed #fff;' : errorState ? '1px dashed #FF5252' : ''}"
   (dragenter)="setHover()"
@@ -32,4 +32,7 @@
 </div>
 <div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="imageUrl && selfFill">
   <img loading="lazy" class="uploaded-image" [src]="imageUrl || ''" alt="">
+</div>
+<div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="!imageUrl && existingImageUrl && selfFill">
+  <img loading="lazy" class="uploaded-image" [src]="existingImageUrl || ''" alt="">
 </div>
