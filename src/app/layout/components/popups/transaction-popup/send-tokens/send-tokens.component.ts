@@ -108,7 +108,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
 
     onClose() {
         this.resetForm();
-        this.showPopupService.showTransactionPopup(null);
+        this.showPopupService.closeTokenTransaction();
     }
 
     async estimateGas(tokenTitle: string, value: string) {

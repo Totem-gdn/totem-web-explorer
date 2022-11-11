@@ -2,15 +2,13 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { TOKEN } from "@app/core/models/enums/token.enum";
+import { TokenBalance } from "@app/core/models/interfaces/token-balance.modle";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { BehaviorSubject, map, take } from "rxjs";
 import Web3 from "web3";
 
-interface TokenBalance {
-    matic: string | undefined;
-    usdc: string | undefined;
-}
+
 @Injectable({ providedIn: 'root' })
 
 

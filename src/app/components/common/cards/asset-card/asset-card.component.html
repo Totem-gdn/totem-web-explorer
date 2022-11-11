@@ -1,5 +1,5 @@
 <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="card-item gradient-border" (click)="onNavigate()">
-    <div class="menu"><div class="solid-more"></div></div>
+    <!-- <asset-menu></asset-menu> -->
 
     <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="_asset?.tokenId">
         <img loading="lazy" *ngIf="type != 'gem'" [src]="_asset?.rendererUrl" alt="" (error)="updateUrl()">

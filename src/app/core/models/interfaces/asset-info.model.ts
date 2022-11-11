@@ -14,5 +14,5 @@ export interface AssetInfo {
     rarity?: string;
     assetType?: string;
     rendererUrl?: string;
-
+    price?: string;
 }

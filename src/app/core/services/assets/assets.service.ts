@@ -8,6 +8,8 @@ import { environment } from "@env/environment";
 import { BehaviorSubject, map, Subject, tap } from "rxjs";
 import Web3 from "web3";
 import { CacheService } from "./cache.service";
+import { GamesService } from "./games.service";
+const { DNAParser } = require('totem-dna-parser');
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,14 +18,15 @@ export class AssetsService {
 
     constructor(private http: HttpClient,
         private web3: Web3AuthService,
-        private cacheService: CacheService) { }
+        private cacheService: CacheService,
+        private gamesService: GamesService) { }
 
     private _avatars = new BehaviorSubject<AssetInfo[] | null>(null);
     private _gems = new BehaviorSubject<AssetInfo[] | null>(null);
     private _items = new BehaviorSubject<AssetInfo[] | null>(null);
-    private _avatar = new BehaviorSubject<AssetInfo[] | null>(null);
-    private _gem = new BehaviorSubject<AssetInfo[] | null>(null);
-    private _item = new BehaviorSubject<AssetInfo[] | null>(null);
+    private _avatar = new BehaviorSubject<AssetInfo | null>(null);
+    private _gem = new BehaviorSubject<AssetInfo | null>(null);
+    private _item = new BehaviorSubject<AssetInfo | null>(null);
 
     get avatars$() { return this._avatars.asObservable() }
     get items$() { return this._items.asObservable() }
@@ -46,28 +49,50 @@ export class AssetsService {
     set gem(value: any) { this._gem.next(value) }
 
     updateAssets(type: string, page: number, list: string) {
-        if (type == 'avatar') type = 'avatars';
-        if (type == 'item') type = 'items';
-        if (type == 'gem') type = 'gems';
 
-        return this.http.get<any[]>(`${this.baseUrl}/assets/${type}?list=${list}&page=${page}`).pipe(map(assets => {
-            if (type == 'avatars') this._avatars.next(assets);
-            if (type == 'gems') this._gems.next(assets);
-            if (type == 'items') this._items.next(assets);
+        return this.http.get<any[]>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(map(assets => {
+            const formatedAssets = this.formatAssets(assets, type);
+
+            if (type == 'avatar') this._avatars.next(formatedAssets);
+            if (type == 'gem') this._gems.next(formatedAssets);
+            if (type == 'item') this._items.next(formatedAssets);
         }));
     }
 
     updateAsset(id: string, type: string) {
-        if (type == 'item') type = 'items';
-        if (type == 'avatar') type = 'avatars';
-        if (type == 'gem') type = 'gems';
 
-        return this.http.get<AssetInfo[]>(`${this.baseUrl}/assets/${type}/${id}`).pipe(tap(asset => {
-            if(type == 'items') this._item.next(asset);
-            if(type == 'avatars') this._avatar.next(asset);
-            if(type == 'gems') this._gem.next(asset);
+        return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(tap(asset => {
+            const formattedAsset = this.formatAsset(asset, type);
+
+            if(type == 'item') this._item.next(formattedAsset);
+            if(type == 'avatar') this._avatar.next(formattedAsset);
+            if(type == 'gem') this._gem.next(formattedAsset);
         }));
     }
+
+    formatAssets(assets: AssetInfo[], assetType: string) {
+        const formattedAssets: AssetInfo[] = [];
+
+        for(let asset of assets) {
+            const formattedAsset = this.formatAsset(asset, assetType);
+            formattedAssets.push(formattedAsset);
+        }
+        return formattedAssets;
+    }
+
+    formatAsset(asset: AssetInfo, assetType: string) {
+        const parser = new DNAParser()
+        asset.rarity = parser.getItemRarity(asset?.tokenId);
+        asset.assetType = assetType;
+        asset.rendererUrl = this.formatRendererUrl(assetType, asset.tokenId);
+        return asset;
+    }
+
+    formatRendererUrl(assetType: string, id: string) {
+        const rendererUrl = this.gamesService.selectedGame?.connections?.assetRenderer || environment.ASSET_RENDERER_URL;
+        return `${rendererUrl}/${assetType}/${id}?width=400&height=400`;
+    }
+
 
     reset() {
         this._avatars.next(null);

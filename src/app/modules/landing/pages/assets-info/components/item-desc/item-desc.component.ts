@@ -7,6 +7,7 @@ import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { Subject, takeUntil } from 'rxjs';
+import { PopupService } from '@app/layout/components/popup.service';
 
 @Component({
   selector: 'item-desc',
@@ -23,7 +24,8 @@ export class ItemDescComponent implements OnInit {
     private web3Service: Web3AuthService,
     private favouritesService: FavouritesService,
     private messageService: SnackNotifierService,
-    private userService: UserStateService) { }
+    private userService: UserStateService,
+    private popupService: PopupService) { }
 
   @ViewChild('playContainer') playContainer!: ElementRef;
 
@@ -32,7 +34,6 @@ export class ItemDescComponent implements OnInit {
 
   @Input() item!: any;
   @Input() type!: string;
-  @Input() nft!: any;
 
   async ngOnInit() {
     this.userService.currentUser
@@ -73,6 +74,8 @@ export class ItemDescComponent implements OnInit {
       this.messageService.open('Unauthorized');
       return;
     }
+
+    this.popupService.showAssetTransaction(this.item);
   }
 
 

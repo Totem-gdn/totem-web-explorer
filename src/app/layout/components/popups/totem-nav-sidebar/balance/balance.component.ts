@@ -241,7 +241,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   onSend() {
-    this.sendTokensPopup.showTransactionPopup('token-transaction');
+    this.sendTokensPopup.showTokenTransaction();
   }
 
   async onClaim() {

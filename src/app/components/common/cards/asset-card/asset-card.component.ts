@@ -7,7 +7,6 @@ import { environment } from "@env/environment";
 import { Gtag } from "angular-gtag";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
-const { DNAParser } = require('totem-dna-parser');
 
 @Component({
   selector: 'asset-card[type]',
@@ -27,9 +26,7 @@ export class AssetCardComponent {
   @Input() set asset(asset: AssetInfo) {
     this._asset = asset;
     if(!asset) return;
-    const parser = new DNAParser()
-    asset.rarity = parser.getItemRarity(asset?.tokenId);
-    asset.assetType = this.type;
+
   };
 
   @Input() customBackground: string | null = null;
@@ -66,7 +63,7 @@ export class AssetCardComponent {
   }
 
   setRendererUrl(rendererUrl: string) {
-    this._asset.rendererUrl = `${rendererUrl}/${this.type}/${this._asset?.tokenId}?width=400&height=300`;
+    this._asset.rendererUrl = `${rendererUrl}/${this.type}/${this._asset?.tokenId}?width=400&height=400`;
   }
 
   onNavigate() {

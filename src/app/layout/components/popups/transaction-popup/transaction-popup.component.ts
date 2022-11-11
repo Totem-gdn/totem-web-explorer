@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
-import { TRANSACTION_TYPE } from "@app/core/models/enums/transaction-type.enum";
-import { Subscription } from "rxjs";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { Subject, takeUntil } from "rxjs";
 import { PopupService } from "../../popup.service";
 
 
@@ -18,23 +18,32 @@ export class TransactionPopupComponent implements OnInit, OnDestroy {
 
     constructor(private popupService: PopupService) {}
 
-    sub!: Subscription;
-
-    ngOnInit() {
-        this.showPopup$();
-    }
+    subs = new Subject<void>();
+    tokenTransaction: boolean = false;
+    assetTransaction: AssetInfo | null = null;
     
-    @Input() asset!: any;
-    txType!: string | null;
+    ngOnInit() {
+        this.tokenTransactionPopup$();
+        this.assetTransactionPopup$();
+    }
 
-
-    showPopup$() {
-        this.sub = this.popupService.showTransactionPopup$().subscribe(type => {
-            this.txType = type;
-        })
+    tokenTransactionPopup$() {
+        this.popupService.tokenTransaction$
+            .pipe(takeUntil(this.subs))
+            .subscribe(show => {
+                this.tokenTransaction = show;
+            })
+    }
+    assetTransactionPopup$() {
+        this.popupService.assetTransaction$
+            .pipe(takeUntil(this.subs))
+            .subscribe(item => {
+                this.assetTransaction = item;
+            })
     }
 
     ngOnDestroy(): void {
-        this.sub?.unsubscribe();
+        this.subs.next();
+        this.subs.complete();
     }
 }

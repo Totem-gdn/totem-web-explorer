@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
         const jwtInfo = this.userStateService.parseJwt(openLogin.idToken);
         const expDate = new Date(+(jwtInfo.exp + '000'));
         if (expDate < new Date()) {
-          this.popupService.showLogoutPopup = true;
+          this.popupService.showLogout();
           this.userStateService.logoutWithoutRedirect();
         }
         return isAuthenticatedCache || isAuthenticated;

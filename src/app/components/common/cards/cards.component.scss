@@ -51,24 +51,6 @@
   align-items: center;
 }
 
-.menu {
-    margin: 10px;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    top:0;
-    right: 0;
-    background-color: $transparent-light;
-
-    @extend %gradient-border-solid;
-
-    .solid-more {
-        height: 28px;
-        width: 28px;
-        font-size: 28px;
-        color: $light-grey;
-    }
-}
 
 .card-item {
     display: flex;

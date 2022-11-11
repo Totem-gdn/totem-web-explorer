@@ -21,12 +21,6 @@
         padding: 15px;
         max-width: 420px;
         width: 100%;
-    
-        .main-block-wrapper {
-            border: 1px dashed $light-grey;
-            border-radius: 4px;
-            padding: 15px;
-        }
 
         @media (max-width: 475px) {
             padding: 10px;
@@ -40,6 +34,17 @@
         }
     }
 }
+
+.main-block-wrapper {
+    border: 1px dashed $light-grey;
+    border-radius: 4px;
+    padding: 15px;
+
+    @media screen and (max-width: 480px) {
+        padding: 10px;
+    }
+}
+
 .buttons {
     gap: 20px;
     display: flex;
