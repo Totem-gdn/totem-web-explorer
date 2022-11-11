@@ -21,9 +21,17 @@
 
     <!-- CONTENT -->
     <div class="content-block">
+
       <ng-container *ngIf="activeTab == 'basic-information'">
-        <totem-basic-info (formDataEvent)="updateFormData($event)" (tabSelected)="goToTab($event)" (jsonSelected)="updateJsonFile($event)" [jsonFiles]="jsonFilesToUpload"></totem-basic-info>
+        <totem-basic-info
+        (formDataEvent)="updateFormData($event)"
+        (tabSelected)="goToTab($event)"
+        (jsonSelected)="updateJsonFile($event)"
+        [jsonFiles]="jsonFilesToUpload"
+        [editMode]="editMode"
+        ></totem-basic-info>
       </ng-container>
+
       <ng-container *ngIf="activeTab == 'details'">
         <totem-details-tab
         [savedImages]="imagesToUpload"
@@ -34,11 +42,17 @@
         [finalizedImageEvent]="imageEvents?.coverEvent"
         [finalizedCardImageEvent]="imageEvents?.cardEvent"
         [finalizedSearchImageEvent]="imageEvents?.searchEvent"
+        [editMode]="editMode"
         ></totem-details-tab>
       </ng-container>
+
       <ng-container *ngIf="activeTab == 'links'">
-        <totem-links-tab (submitEvent)="uploadGame($event)"></totem-links-tab>
+        <totem-links-tab
+        (submitEvent)="uploadGame($event)"
+        [editMode]="editMode"
+        ></totem-links-tab>
       </ng-container>
+
     </div>
 
   </div>

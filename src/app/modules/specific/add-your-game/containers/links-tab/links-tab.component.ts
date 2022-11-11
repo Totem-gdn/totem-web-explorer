@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
 import { SocialLinksInfo } from '@app/core/models/interfaces/submit-game-interface.model';
@@ -41,6 +41,7 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
 
+  @Input() editMode: boolean = false;
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
   dropdownLinks: any[] = [
@@ -73,6 +74,18 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (this.editMode) {
+      this.connectionsForm = new FormGroup({
+        webpage: new FormControl(null),
+        assetRenderer: new FormControl(null, Validators.pattern(this.urlRegEx)),
+        promoVideo: new FormControl(null, Validators.pattern(this.urlRegEx)),
+        socialLinks: new FormArray([
+          new FormGroup({ type: new FormControl(null), url: new FormControl('https://') })
+        ])
+      })
+      this.socialLinksForm = this.connectionsForm.get('socialLinks') as any;
+      this.isFormValid();
+    }
     this.sub = this.formsService.tabsValidity$().subscribe(tabs => {
       if (tabs.basicInfoValid && tabs.connectionsValid && tabs.detailsValid) {
         this.submitDisabled = false;

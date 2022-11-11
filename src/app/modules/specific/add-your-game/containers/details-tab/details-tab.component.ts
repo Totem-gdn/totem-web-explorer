@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { DROP_BLOCK_TYPE } from '@app/core/models/enums/submission-tabs.enum';
-import { ImageEvents, ImagesInfo, ImagesToUpload } from '@app/core/models/interfaces/submit-game-interface.model';
+import { existingImagesUrls, ImageEvents, ImagesInfo, ImagesToUpload, ImagesUrls } from '@app/core/models/interfaces/submit-game-interface.model';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { DropzoneError } from '../../components/totem-image-dropzone/totem-image-dropzone.component';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
@@ -17,7 +17,7 @@ import { FormsService } from '../../services/forms.service';
   },
   animations: Animations.animations
 })
-export class DetailsTabComponent implements OnInit, OnDestroy {
+export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subs: Subscription = new Subscription();
   imageReader: FileReader = new FileReader();
@@ -29,6 +29,9 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   @Input() finalizedSearchImageEvent!: any | null;
   finalizedGalleryImages: File[] = [];
   allowButton: boolean = false;
+
+  //edit mode
+  existingImages: existingImagesUrls = {};
 
   errorsArr: DropzoneError[] = [
     {message: '', status: false},
@@ -53,6 +56,8 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
   };
 
+  @Input() editMode: boolean = false;
+
   @Output() fileEvents: EventEmitter<ImageEvents> = new EventEmitter();
   @Output() formDataEvent: EventEmitter<ImagesInfo> = new EventEmitter();
   @Output() imageFilesEvent: EventEmitter<ImagesToUpload> = new EventEmitter();
@@ -62,6 +67,9 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.editMode) {
+      this.isFormValid();
+    }
     this.subs.add(
       this.formsService.tabsValidity$().subscribe(tabs => {
         if(tabs.basicInfoValid && tabs.detailsValid) {
@@ -71,6 +79,12 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  ngAfterViewInit() {
+    if (this.editMode) {
+      this.existingImages = this.formsService.getForm('imageUrls');
+    }
   }
 
   /* updateFormData() {
@@ -147,6 +161,9 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   removeImage(type: string) {
     if (type == 'cover') {
       this.finalizedImage = undefined;
+      if (this.editMode) {
+        this.existingImages.coverImage = '';
+      }
     }
     if (type == 'card') {
       this.finalizedCardImage = undefined;
@@ -193,6 +210,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   }
 
   checkValidity(): boolean {
+    if (this.editMode) return true;
     return !!this.finalizedImage && !!this.finalizedCardImage && !!this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
   }
 

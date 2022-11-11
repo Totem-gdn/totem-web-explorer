@@ -12,6 +12,7 @@ export class GalleryCardComponent implements OnInit {
 
   imageUrl: any;
   @Input() finalizedImage: any;
+  @Input() existingImageUrl?: string = '';
   @Output() deleteImage: EventEmitter<any> = new EventEmitter();
   imageReader: FileReader = new FileReader();
   imageFile: any;

@@ -41,11 +41,11 @@
       "purpose": "maskable"
     }
   ],
-  "id": "/?source=pwa",
-  "start_url": "/?source=pwa",
+  "id": "totem-service-worker",
+  "start_url": "./",
   "background_color": "#202225",
   "display": "standalone",
-  "scope": "/",
+  "scope": "./",
   "theme_color": "#202225",
   "shortcuts": [
     {
