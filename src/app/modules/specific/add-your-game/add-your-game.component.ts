@@ -94,6 +94,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     this.formsService.saveForm('details', game.details);
     this.formsService.saveForm('contacts', game.contacts);
     this.formsService.saveForm('connections', game.connections);
+    this.formsService.saveForm('imageUrls', game?.images);
     this.editMode = true;
   }
 
@@ -199,22 +200,23 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     console.log('IT BECAME: ', this.imagesToUpload);
 
     const formDataToSend: ImagesInfo = {
-      coverImage: {
+      coverImage: this.imagesToUpload?.coverImage ? {
         mimeType: this.imagesToUpload?.coverImage?.type,
         filename: this.imagesToUpload?.coverImage?.name,
         contentLength: this.imagesToUpload?.coverImage?.size
-      },
-      cardThumbnail: {
+      } : undefined,
+      cardThumbnail: this.imagesToUpload?.cardImage ? {
         mimeType: this.imagesToUpload?.cardImage?.type,
         filename: this.imagesToUpload?.cardImage?.name,
         contentLength: this.imagesToUpload?.cardImage?.size
-      },
-      smallThumbnail: {
+      } : undefined,
+      smallThumbnail: this.imagesToUpload?.searchImage ? {
         mimeType: this.imagesToUpload?.searchImage?.type,
         filename: this.imagesToUpload?.searchImage?.name,
         contentLength: this.imagesToUpload?.searchImage?.size
-      },
+      } : undefined,
       gallery:
+      this.imagesToUpload?.gallery && this.imagesToUpload?.gallery?.length ?
         this.imagesToUpload?.gallery?.map((image: File) => {
           return {
             mimeType: image?.type,
@@ -222,6 +224,8 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
             contentLength: image?.size
           }
         })
+        :
+        undefined
     }
     this.imagesToSubmit = formDataToSend;
   }

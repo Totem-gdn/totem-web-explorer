@@ -46,9 +46,15 @@ export class SubmitGameService {
 
   componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilters?: JsonDnaFilesUrls }, jsonFiles?: JsonDNAFilters): Observable<any>[] {
     let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
-    imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
-    imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
-    imagesWithUrls.push({url: links?.smallThumbnail, file: images?.searchImage});
+    if (images?.coverImage) {
+      imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
+    }
+    if (images?.cardImage) {
+      imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
+    }
+    if (images?.searchImage) {
+      imagesWithUrls.push({url: links?.smallThumbnail, file: images?.searchImage});
+    }
     links.imagesGallery?.forEach((link: string, i: number) => {
       imagesWithUrls.push({url: link, file: images.gallery![i]});
     })

@@ -21,6 +21,7 @@ export class BasicInfoComponent implements OnDestroy {
   @Output() tabSelected = new EventEmitter<string>();
   @Output() jsonSelected = new EventEmitter<JsonDNAFilters>();
   @Input() jsonFiles: JsonDNAFilters = {assetFilter: null, avatarFilter: null, gemFilter: null};
+  @Input() editMode: boolean = false;
 
   get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
 

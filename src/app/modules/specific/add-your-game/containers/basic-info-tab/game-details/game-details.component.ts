@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, EventEmitter, Output } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
@@ -15,18 +15,12 @@ import { FormsService } from "@app/modules/specific/add-your-game/services/forms
     ]
 })
 
-export class GameDetailsComponent implements AfterViewInit {
+export class GameDetailsComponent implements OnInit, AfterViewInit {
 
     get statusErrors() {
         const status = this.gameDetails.get('status')
         return status?.errors && (status?.touched || status?.dirty);
     };
-
-    constructor(private formsService: FormsService) {}
-
-    ngAfterViewInit(): void {
-        this.retrieveValues();
-    }
 
     dropdownPlatforms = [{value: 'Windows'},{value: 'macOS'},{value: 'iOS'},{value: 'Android'}];
     // dropdownPlatforms = [{}];
@@ -36,6 +30,7 @@ export class GameDetailsComponent implements AfterViewInit {
     platformTags: Tag[] = [];
 
     @Output() formValid = new EventEmitter<any>();
+    @Input() editMode: boolean = false;
 
     gameDetails = new FormGroup({
         status: new FormControl(null, Validators.required),
@@ -47,6 +42,26 @@ export class GameDetailsComponent implements AfterViewInit {
     })
     platformsForm = this.gameDetails.get('platforms') as FormArray;
 
+    constructor(private formsService: FormsService) {}
+
+    ngOnInit() {
+      if (this.editMode) {
+        this.gameDetails = new FormGroup({
+          status: new FormControl(null),
+          platforms: new FormArray([]),
+          madeWith: new FormControl(null),
+          session: new FormControl(null),
+          languages: new FormControl(null),
+          inputs: new FormControl(null),
+        })
+        this.platformsForm = this.gameDetails.get('platforms') as FormArray;
+        this.isFormValid();
+      }
+    }
+
+    ngAfterViewInit(): void {
+        this.retrieveValues();
+    }
 
     onSelectTag(tag: Tag) {
         this.platformTags.push(tag);

@@ -77,6 +77,13 @@ export interface ImagesUrls {
   imagesGallery?: string[];
 }
 
+export interface existingImagesUrls {
+  coverImage?: string;
+  cardThumbnail?: string;
+  smallThumbnail?: string;
+  gallery?: string[];
+}
+
 export interface SubmitGameResponse {
   id: string;
   connections: {
