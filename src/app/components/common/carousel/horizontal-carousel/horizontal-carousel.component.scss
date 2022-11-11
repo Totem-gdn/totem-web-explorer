@@ -37,12 +37,18 @@
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
-    @media (min-width: 999px) {
-      max-width: 24%;
+
+    @media (min-width: 768px) and (max-width: 999px) {
+      max-width: 48%;
       margin-right: 16px;
     }
-    @media (min-width: 600px) and (max-width: 998px) {
-      max-width: 48%;
+    @media (min-width: 1000px) and (max-width: 1279px) {
+      max-width: 33%;
+      margin-right: 16px;
+    }
+
+    @media (min-width: 1280px) {
+      max-width: 24%;
       margin-right: 16px;
     }
 
