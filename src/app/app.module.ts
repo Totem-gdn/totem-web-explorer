@@ -33,7 +33,7 @@ const routerConfig: ExtraOptions = {
     GtagModule.forRoot({ trackingId: environment.TRACKING_G_ID, trackPageviews: true }),
     WelcomeDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: false,
+      enabled: environment.production,
       registrationStrategy: 'registerImmediately',
   }),
   ],
