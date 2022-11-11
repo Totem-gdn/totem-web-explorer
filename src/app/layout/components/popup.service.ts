@@ -9,7 +9,7 @@ import Web3 from "web3";
 export class PopupService {
     constructor(private web3: Web3AuthService) {}
 
-    private _showTransactionPopup = new BehaviorSubject<string | null>(null);
+    private _showTransactionPopup = new BehaviorSubject<string | null>('asset-transaction');
     private _showLogoutPopup = new BehaviorSubject<boolean>(false);
 
     showTransactionPopup(type: string | null) {
