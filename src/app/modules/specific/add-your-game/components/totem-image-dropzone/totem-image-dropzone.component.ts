@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export interface DropzoneError {
@@ -43,6 +43,8 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   @Output() finalizedFile: EventEmitter<any> = new EventEmitter<any>();
   @Output() errorEvent: EventEmitter<DropzoneError> = new EventEmitter<DropzoneError>();
 
+  @ViewChild('upload') fileInput!: ElementRef;
+
   constructor() {
   }
 
@@ -64,8 +66,14 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
         this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
       } else if (this.selfFill) {
         this.imageUrl = '';
+        console.log('Changed: ', this.existingImageUrl);
+
       }
     }
+  }
+
+  openFileBrowser() {
+    this.fileInput.nativeElement.click();
   }
 
   ngOnDestroy(): void {

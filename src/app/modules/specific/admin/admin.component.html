@@ -1,6 +1,6 @@
 <div *ngIf="currentUser" class="tab-wrapper px-[20px] mt-[30px]" fxLayout="row" fxLayoutAlign="start center">
   <button (click)="changeTab('unlisted')" [ngClass]="{'active-tab' : selectedTab == 'unlisted'}" matRipple class="mr-[14px]">Unlisted games</button>
-  <button (click)="changeTab('listed')" [ngClass]="{'active-tab' : selectedTab == 'listed'}" matRipple>Verified games</button>
+  <button (click)="changeTab('listed')" [ngClass]="{'active-tab' : selectedTab == 'listed'}" matRipple>Published games</button>
 </div>
 <div *ngIf="games && games.length && !(loading$ | async)" class="wrapper py-[30px] relative" fxLayout="column" fxLayoutAlign="start start">
   <div class="w-full h-[24px] mb-[30px]" fxLayout="row" fxLayoutAlign="space-between center">
@@ -58,7 +58,7 @@
   </div>
 </div>
 
-<p class="w-full h-[60vh] flex justify-center items-center" *ngIf="games && !games.length && !(loading$ | async)">No unlisted games found</p>
+<p class="w-full h-[60vh] flex justify-center items-center" *ngIf="games && !games.length && !(loading$ | async)">No {{ selectedTab == 'unlisted' ? 'unlisted' : 'published'}} games found</p>
 
 <div *ngIf="(loading$ | async)" class="w-full h-[60vh] flex justify-center items-center">
     <loading-spinner></loading-spinner>
