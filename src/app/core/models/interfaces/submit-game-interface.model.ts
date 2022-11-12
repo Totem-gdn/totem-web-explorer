@@ -11,6 +11,7 @@ export interface SubmitGame {
   images?: ImagesInfo;
   connections?: ConnectionsInfo;
   contacts?: ContactsInfo;
+  galleryImagesForDelete?: string[];
 }
 
 export interface SocialLinksInfo {

@@ -34,5 +34,15 @@
   <img loading="lazy" class="uploaded-image" [src]="imageUrl || ''" alt="">
 </div>
 <div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="!imageUrl && existingImageUrl && selfFill">
+  <input
+    class="file-change"
+    (change)="getFile($event)"
+    type="file"
+    #upload
+    accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
+  >
   <img loading="lazy" class="uploaded-image" [src]="existingImageUrl || ''" alt="">
+  <div class="edit-button" (click)="openFileBrowser()">
+    <div class="line-edit"></div>
+  </div>
 </div>

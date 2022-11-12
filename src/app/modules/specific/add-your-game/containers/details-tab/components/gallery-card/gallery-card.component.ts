@@ -14,6 +14,7 @@ export class GalleryCardComponent implements OnInit {
   @Input() finalizedImage: any;
   @Input() existingImageUrl?: string = '';
   @Output() deleteImage: EventEmitter<any> = new EventEmitter();
+  @Output() deleteUrl: EventEmitter<string> = new EventEmitter();
   imageReader: FileReader = new FileReader();
   imageFile: any;
 
@@ -40,6 +41,10 @@ export class GalleryCardComponent implements OnInit {
 
   removeItem(item: any) {
     this.deleteImage.emit(item);
+  }
+
+  removeUrl(url?: string) {
+    this.deleteUrl.emit(url);
   }
 
 }

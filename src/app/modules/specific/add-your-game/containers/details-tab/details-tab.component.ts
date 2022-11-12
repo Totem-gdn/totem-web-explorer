@@ -32,6 +32,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
 
   //edit mode
   existingImages: existingImagesUrls = {};
+  galleryImagesToDelete: string[] = [];
 
   errorsArr: DropzoneError[] = [
     {message: '', status: false},
@@ -62,14 +63,12 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output() formDataEvent: EventEmitter<ImagesInfo> = new EventEmitter();
   @Output() imageFilesEvent: EventEmitter<ImagesToUpload> = new EventEmitter();
   @Output() tabSelected = new EventEmitter<string>();
+  @Output() galleryImgDelete = new EventEmitter<string[]>();
 
   constructor(readonly matDialog: MatDialog, private formsService: FormsService) {
   }
 
   ngOnInit() {
-    if (this.editMode) {
-      this.isFormValid();
-    }
     this.subs.add(
       this.formsService.tabsValidity$().subscribe(tabs => {
         if(tabs.basicInfoValid && tabs.detailsValid) {
@@ -84,6 +83,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     if (this.editMode) {
       this.existingImages = this.formsService.getForm('imageUrls');
+      this.isFormValid();
     }
   }
 
@@ -158,12 +158,23 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isFormValid();
   }
 
+  removeGalleryUrl(item: string) {
+    this.existingImages.gallery = this.existingImages?.gallery?.filter((image: string) => {
+      return image != item;
+    });
+    this.galleryImagesToDelete.push(item);
+    console.log(this.existingImages);
+
+    this.updateFilesToUpload();
+    this.isFormValid();
+  }
+
   removeImage(type: string) {
     if (type == 'cover') {
       this.finalizedImage = undefined;
-      if (this.editMode) {
-        this.existingImages.coverImage = '';
-      }
+      //if (this.editMode) {
+      //  this.existingImages.coverImage = '';
+      //}
     }
     if (type == 'card') {
       this.finalizedCardImage = undefined;
@@ -210,7 +221,9 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   checkValidity(): boolean {
-    if (this.editMode) return true;
+    console.log(this.existingImages);
+
+    if (this.editMode) return !!(this.existingImages.gallery && this.existingImages.gallery?.length) || Boolean(this.finalizedGalleryImages.length);
     return !!this.finalizedImage && !!this.finalizedCardImage && !!this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
   }
 
@@ -219,6 +232,9 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   updateFilesToUpload() {
+    if (this.editMode) {
+      this.galleryImgDelete.emit(this.galleryImagesToDelete);
+    }
     this.imageFilesEvent.emit({
       coverImage: this.finalizedImage,
       cardImage: this.finalizedCardImage,

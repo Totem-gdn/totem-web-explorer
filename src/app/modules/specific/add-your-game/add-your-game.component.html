@@ -39,6 +39,7 @@
         (imageFilesEvent)="updateImagesToUpload($event)"
         (tabSelected)="goToTab($event)"
         (fileEvents)="saveEvents($event)"
+        (galleryImgDelete)="updateGalleryImagesToDelete($event)"
         [finalizedImageEvent]="imageEvents?.coverEvent"
         [finalizedCardImageEvent]="imageEvents?.cardEvent"
         [finalizedSearchImageEvent]="imageEvents?.searchEvent"

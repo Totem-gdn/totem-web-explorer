@@ -41,6 +41,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   gameToEdit: { game: GameDetail | null; id: string } = { game: null, id: ''};
   editMode: boolean = false;
+  galleryImagesForDelete: string[] = [];
 
   constructor(
     readonly matDialog: MatDialog,
@@ -80,7 +81,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     )
     this.formsService.checkFormsValidity();
     //this.submitGameService.approveGame('635809e9d11c69a425e5ee6d');
-    //this.submitGameService.deleteGame('6357bd4abdf86cafd8392b58');
+    //this.submitGameService.deleteGame('636d8fdc92ee9a95061ceec9');
   }
 
   ngOnDestroy(): void {
@@ -134,7 +135,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       contacts: this.formsService.getForm('contacts'),
       connections:
       {
-        dnaFilters: {
+        dnaFilters: this.filtersIsNotEmpty(this.jsonFilesToUpload) ? {
           avatarFilter: this.jsonFilesToUpload.avatarFilter ? {
             filename: this.jsonFilesToUpload.avatarFilter?.name,
             mimeType: this.jsonFilesToUpload.avatarFilter?.type,
@@ -150,7 +151,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
             mimeType: this.jsonFilesToUpload.gemFilter?.type,
             contentLength: this.jsonFilesToUpload.gemFilter?.size
           } : undefined,
-        },
+        } : undefined,
         //this.jsonFileToUpload ? {
         //  filename: this.jsonFileToUpload!.name,
         //  mimeType: this.jsonFileToUpload!.type,
@@ -158,7 +159,8 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         //} : {},
         ...this.formsService.getForm('connections')
       },
-      images: this.imagesToSubmit,
+      images: this.imagesIsNotEmpty(this.imagesToSubmit!) ? this.imagesToSubmit : undefined,
+      galleryImagesForDelete: this.galleryImagesForDelete && this.galleryImagesForDelete.length ? this.galleryImagesForDelete : undefined
     }
     console.log(this.formsData);
 
@@ -167,6 +169,19 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     } else {
       this.updateGame(this.formsData);
     }
+
+  }
+
+  imagesIsNotEmpty(images: ImagesInfo): boolean {
+    return images.hasOwnProperty('coverImage') || images.hasOwnProperty('cardThumbnail') || images.hasOwnProperty('smallThumbnail') || images.hasOwnProperty('gallery');
+  }
+  filtersIsNotEmpty(filters: JsonDNAFilters): boolean {
+    return filters.avatarFilter !== null || filters.assetFilter !== null || filters.gemFilter !== null;
+  }
+
+  updateGalleryImagesToDelete(gallery: string[]) {
+    this.galleryImagesForDelete = gallery;
+    console.log(this.galleryImagesForDelete);
 
   }
 
@@ -283,6 +298,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
         console.log(data);
         if (data?.redirect == true) {
           this.router.navigate(['/games']);
+          localStorage.removeItem('imageUrls');
         } else {
           this.goToTab(SUBMISSION_TABS.BASIC_INFO);
         }
