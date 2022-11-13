@@ -23,7 +23,6 @@ export class AppComponent {
 
   constructor(
     private userStateService: UserStateService,
-    private sellAsset: SellAssetService,
     @Inject(PLATFORM_ID) private platformId: any,
     private web3: Web3AuthService,
     private router: Router,

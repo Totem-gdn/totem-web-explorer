@@ -31,9 +31,9 @@
     </div>
 
     <div *ngIf="history?.length == 0" class="flex h-[120px] justify-center items-center">
-        <h1 class="font-totem text-4xl sm:text-5xl">Empty</h1>
+        <h1 class="text-2xl sm:text-1xl">History empty</h1>
     </div>
-    <div *ngIf="!history || !history?.length" class="flex h-[120px] justify-center items-center">
+    <div *ngIf="!history?.length && !history" class="flex h-[120px] justify-center items-center">
         <totem-spinner></totem-spinner>
     </div>
 </div>

@@ -86,9 +86,14 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
       return;
     }
     const placeholders = length % this._properties.length - this._properties.length % length;
-    this.placeholders = [].constructor(placeholders);
+    if(this._properties.length % length == 0) {
+      this.placeholders = [];
+    } else {
+      this.placeholders = [].constructor(placeholders);
+    }
 
-    if(this._properties.length / length > 3) {
+
+    if(this._properties.length / length > 4) {
       this.showViewAll = true;
       this.calculateMaxHeight(4);
     } else {
@@ -108,7 +113,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     const tagHeight = (+grid.getElementsByClassName('item-tag')[0].offsetHeight) * maxRows;
     const gap = 12 * (maxRows - 1);
     const padding = 15;
-    grid.style.maxHeight = `${gap + tagHeight + padding}px`
+    grid.style.maxHeight = `${gap + tagHeight + padding}px`;
   }
 
   checkTagsOverflow() {
@@ -134,7 +139,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
       this.calculateMaxHeight(null);
       this.toggle = true;
     } else if (this.toggle === true) {
-      this.calculateMaxHeight(3);
+      this.calculateMaxHeight(4);
       this.toggle = false;
     }
   }
