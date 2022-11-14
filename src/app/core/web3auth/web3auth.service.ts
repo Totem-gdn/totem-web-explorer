@@ -7,7 +7,6 @@ const clientId = environment.WEB3AUTH_ID;
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@env/environment";
-import { argv, argv0 } from "process";
 
 @Injectable({ providedIn: 'root' })
 
@@ -30,18 +29,14 @@ export class Web3AuthService {
             
         });
         const web3auth = this.web3auth;
-        // console.log('init')
         await web3auth.initModal();
-        // console.log('after init')
 
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
 
         if (web3auth.provider) {
             this.provider = web3auth.provider;
         }
-        // this.web3auth.addListener('CONNECTED', () => {
-        //     console.log('CONNECTED')
-        // })
+        
         this.isModalLoaded = true;
     }
 
