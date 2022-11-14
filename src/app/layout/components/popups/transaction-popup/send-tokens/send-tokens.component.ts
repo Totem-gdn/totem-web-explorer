@@ -90,10 +90,6 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
         this.maskForAmount = `separator.${decimals}`;
     }
 
-    onInputChange(e: any) {
-        const textLength = e.target.value.length;
-    }
-
     async onClickMax() {
         let value = this.selectedToken.value;
         this.transferForm.get('amount')?.patchValue(value);
