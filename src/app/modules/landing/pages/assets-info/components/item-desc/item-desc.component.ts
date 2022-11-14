@@ -38,20 +38,6 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
   @Input() type!: string;
 
   ngOnInit() {
-    // uncomite after make logic for pay item
-    // this.userService.currentUser
-    // .pipe(untilComponentDestroyed(this))
-    // .subscribe(user => {
-    //   if(user) {
-    //     this.web3Service.getAccounts().then(wallet => {
-    //       this.myWallet = wallet;
-    //     }); 
-    //   }
-    // })
-
-    // delete after make logic for pay item
-    this.myWallet = 'disable'
-    this.item.owner = 'disable'
 
   }
 
@@ -85,12 +71,12 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
   }
 
   onClickBuy() {
-    if (!this.web3Service.isLoggedIn()) {
-      this.messageService.open('Unauthorized');
-      return;
-    }
+    // if (!this.web3Service.isLoggedIn()) {
+    //   this.messageService.open('Unauthorized');
+    //   return;
+    // }
 
-    this.popupService.showAssetTransaction(this.item);
+    // this.popupService.showAssetTransaction(this.item);
   }
 
 
