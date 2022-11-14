@@ -40,7 +40,6 @@ export class UserStateService implements OnDestroy {
     await this.web3AuthService.init();
     const isLoggedIn = this.web3AuthService.isLoggedIn();
     this.loading$.next(false);
-    await this.web3AuthService.login();
     if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
     }
@@ -48,7 +47,6 @@ export class UserStateService implements OnDestroy {
   }
 
   async login() {
-    console.log('login')
     await this.web3AuthService.login();
     this.loading$.next(true);
     const currentUser = await this.getUserInfoViaWeb3();

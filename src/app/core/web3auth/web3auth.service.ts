@@ -7,6 +7,7 @@ const clientId = environment.WEB3AUTH_ID;
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@env/environment";
+import { argv, argv0 } from "process";
 
 @Injectable({ providedIn: 'root' })
 
@@ -45,7 +46,6 @@ export class Web3AuthService {
     }
 
     login = async () => {
-        console.log('login')
         if (!this.web3auth) {
             console.log("web3auth not initialized yet");
             return;
