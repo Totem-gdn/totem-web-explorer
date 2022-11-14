@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
@@ -14,31 +14,36 @@ import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
   styleUrls: ['../cards.component.scss']
 })
 
-export class AssetCardComponent {
+export class AssetCardComponent implements AfterViewInit {
 
   constructor(private router: Router,
     private web3Service: Web3AuthService,
     private messageService: SnackNotifierService,
     private favService: FavouritesService,
-    private gtag: Gtag) { }
+    private gtag: Gtag,
+    private changeDetector: ChangeDetectorRef) { }
 
   @Input() type: string = 'item';
   @Input() set asset(asset: AssetInfo) {
-    this._asset = asset;
     if(!asset) return;
-
+    this._asset = asset;
+    if(!asset.rendererUrl) this.updateUrl();
   };
 
   @Input() customBackground: string | null = null;
   @Input() set selectedGame(game: GameDetail | null) {
     if(!game) return;
-    if (game?.connections?.assetRenderer && this.type == 'avatar') {
+    if (game?.connections?.assetRenderer && this.type == 'avatar' && this._asset) {
       this.setRendererUrl(game?.connections.assetRenderer);
-    } else {
+    } else if(this._asset) {
       this.setRendererUrl(environment.ASSET_RENDERER_URL);
     }
   }
   _asset: any;
+
+  ngAfterViewInit() {
+    this.changeDetector.detectChanges();
+  }
 
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
@@ -63,6 +68,7 @@ export class AssetCardComponent {
   }
 
   setRendererUrl(rendererUrl: string) {
+    if(!rendererUrl && !this._asset) return;
     this._asset.rendererUrl = `${rendererUrl}/${this.type}/${this._asset?.tokenId}?width=400&height=400`;
   }
 
@@ -71,7 +77,6 @@ export class AssetCardComponent {
     this.router.navigate([`/${this.type}`, id]);
   }
 
-  // change assetUrl to Default if url for game getted error
   updateUrl() {
     this.setRendererUrl(environment.ASSET_RENDERER_URL);
   }

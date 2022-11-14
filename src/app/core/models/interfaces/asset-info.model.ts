@@ -1,18 +1,18 @@
 
 export interface AssetInfo {
     createdAt: string;
-    games: string;
+    games: number;
     id: string;
-    isLiked: string;
-    lastUsed: string;
-    likes: string;
+    isLiked: boolean;
+    lastUsed?: string;
+    likes: number;
     owner: string;
     owners: string[];
-    tokenId: string;
+    tokenId: number;
     updatedAt: string;
     views: string;
-    rarity?: string;
+    rarity?: number | string;
     assetType?: string;
-    rendererUrl?: string;
+    rendererUrl?: string | undefined;
     price?: string;
 }

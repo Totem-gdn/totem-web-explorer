@@ -50,7 +50,7 @@ export class AssetsService {
 
     updateAssets(type: string, page: number, list: string) {
 
-        return this.http.get<any[]>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(map(assets => {
+        return this.http.get<any[]>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(tap(assets => {
             const formatedAssets = this.formatAssets(assets, type);
 
             if (type == 'avatar') this._avatars.next(formatedAssets);
@@ -84,13 +84,7 @@ export class AssetsService {
         const parser = new DNAParser()
         asset.rarity = parser.getItemRarity(asset?.tokenId);
         asset.assetType = assetType;
-        asset.rendererUrl = this.formatRendererUrl(assetType, asset.tokenId);
         return asset;
-    }
-
-    formatRendererUrl(assetType: string, id: string) {
-        const rendererUrl = this.gamesService.selectedGame?.connections?.assetRenderer || environment.ASSET_RENDERER_URL;
-        return `${rendererUrl}/${assetType}/${id}?width=400&height=400`;
     }
 
 
