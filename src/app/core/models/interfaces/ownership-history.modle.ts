@@ -6,4 +6,5 @@ export interface OwnershipHistory {
     to: string;
     tokenId?: string;
     tokenType?: string;
+    avatar_url?: string;
 }

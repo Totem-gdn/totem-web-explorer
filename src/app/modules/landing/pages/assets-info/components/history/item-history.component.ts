@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SnackNotifierModule } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.module';
+import { Component, Input } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { OwnershipHistory } from '@app/core/models/interfaces/ownership-history.modle';
 import { AssetHistoryService } from '@app/core/services/crypto/asset-history.service';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'item-history',
@@ -12,24 +12,28 @@ import { AssetHistoryService } from '@app/core/services/crypto/asset-history.ser
     // class: 'relative'
   }
 })
-export class ItemHistoryComponent {
+export class ItemHistoryComponent extends OnDestroyMixin {
 
-  constructor(private historyService: AssetHistoryService,
-              private notifierService: SnackNotifierService) {}
+  constructor(
+    private historyService: AssetHistoryService,
+    private notifierService: SnackNotifierService
+  ) {
+    super();
+  }
   @Input() set asset(asset: any) {
-    console.log(asset)
-    if(!asset) return;
+    if (!asset) return;
     this.getHistory(asset.tokenId);
   }
-  @Input() type = '';
-  
+  @Input() type: string = '';
+
   history!: OwnershipHistory[];
   owner!: string;
 
   getHistory(id: string) {
-    this.historyService.getHistory(this.type, id).subscribe(history => {
+    this.historyService.getHistory(this.type, id).pipe(
+      untilComponentDestroyed(this),
+    ).subscribe(history => {
       this.history = history;
-      console.log('history', this.history)
     })
   }
 
