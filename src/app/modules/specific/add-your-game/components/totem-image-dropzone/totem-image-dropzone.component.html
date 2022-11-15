@@ -6,6 +6,7 @@
   (dragenter)="setHover()"
 >
   <input
+    *ngIf="!multipleFiles"
     (dragleave)="removeHover()"
     [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
     class="file"
@@ -13,6 +14,17 @@
     (change)="getFile($event)"
     type="file"
     accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
+  >
+  <input
+    *ngIf="multipleFiles"
+    (dragleave)="removeHover()"
+    [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
+    class="file"
+    [id]="uniqueId"
+    (change)="processMultipleFiles($event)"
+    type="file"
+    accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
+    multiple
   >
   <div class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
     <!-- <mat-icon class="doc-image" *ngIf="jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:doc-image'"></mat-icon> -->

@@ -41,12 +41,13 @@
         </div>
       </div>
       <div class="crop-cta-buttons" fxLayout="row">
-        <div>
-          <button mat-raised-button color="accent" [mat-dialog-close]>Cancel</button>
+        <div class="close-wrapper">
+          <button matRipple [mat-dialog-close]>Cancel</button>
         </div>
 
         <div class="ml-[30px]">
-          <button mat-raised-button color="primary" [mat-dialog-close]="croppedImage">Save</button>
+          <!-- <button mat-raised-button color="primary">Save</button> -->
+          <totem-button class="flex justify-center" [width]="'102px'" [height]="'40px'" [caption]="'Save'" [mat-dialog-close]="croppedImage"></totem-button>
         </div>
       </div>
     </div>

@@ -94,7 +94,11 @@
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
-                    <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="!selectedJsonFiles.avatarFilter && dnaFilterUrls?.avatarFilter" fxLayout="row"
+                    <div
+                        @fileAnimation
+                        class="file-bar w-full p-[10px] mb-[16px]"
+                        *ngIf="!selectedJsonFiles.avatarFilter && dnaFilterUrls?.avatarFilter && deletedJsonFiles.avatarFilter == false"
+                        fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
@@ -130,14 +134,18 @@
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
-                    <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="!selectedJsonFiles.assetFilter && dnaFilterUrls?.assetFilter" fxLayout="row"
+                    <div
+                        @fileAnimation
+                        class="file-bar w-full p-[10px] mb-[16px]"
+                        *ngIf="!selectedJsonFiles.assetFilter && dnaFilterUrls?.assetFilter && deletedJsonFiles.assetFilter == false"
+                        fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px] max-w-[160px] truncate">{{dnaFilterUrls.assetFilter}}</div>
                         </div>
-                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('avatar')">
+                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('item')">
                             <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
@@ -166,14 +174,18 @@
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
-                    <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="!selectedJsonFiles.gemFilter && dnaFilterUrls?.gemFilter" fxLayout="row"
+                    <div
+                        @fileAnimation
+                        class="file-bar w-full p-[10px] mb-[16px]"
+                        *ngIf="!selectedJsonFiles.gemFilter && dnaFilterUrls?.gemFilter && deletedJsonFiles.gemFilter == false"
+                        fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px] max-w-[160px] truncate">{{dnaFilterUrls.gemFilter}}</div>
                         </div>
-                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('avatar')">
+                        <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('gem')">
                             <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>

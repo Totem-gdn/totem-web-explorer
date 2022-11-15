@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
 import { SUBMISSION_TABS } from '@app/core/models/enums/submission-tabs.enum';
-import { SubmitGame, ImagesToUpload, ImagesInfo, ImageEvents, SubmitGameResponse, GameDetail, JsonDNAFilters } from '@app/core/models/interfaces/submit-game-interface.model';
+import { SubmitGame, ImagesToUpload, ImagesInfo, ImageEvents, SubmitGameResponse, GameDetail, JsonDNAFilters, JsonDNAFiltersToDelete } from '@app/core/models/interfaces/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { CompressImageService } from '@app/core/services/utils/compress-image.service';
 import { Gtag } from 'angular-gtag';
@@ -36,6 +36,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   imagesToUpload!: ImagesToUpload;
   imagesToSubmit!: ImagesInfo;
   jsonFilesToUpload: JsonDNAFilters = {assetFilter: null, avatarFilter: null, gemFilter: null};
+  deletedJsonFiles: JsonDNAFiltersToDelete = {assetFilter: false, avatarFilter: false, gemFilter: false};
   imageEvents!: ImageEvents | null;
 
 
@@ -85,6 +86,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.clearData();
     this.subs.unsubscribe();
   }
 
@@ -135,29 +137,24 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       contacts: this.formsService.getForm('contacts'),
       connections:
       {
+        ...this.formsService.getForm('connections'),
         dnaFilters: this.filtersIsNotEmpty(this.jsonFilesToUpload) ? {
           avatarFilter: this.jsonFilesToUpload.avatarFilter ? {
             filename: this.jsonFilesToUpload.avatarFilter?.name,
             mimeType: this.jsonFilesToUpload.avatarFilter?.type,
             contentLength: this.jsonFilesToUpload.avatarFilter?.size
-          } : undefined,
+          } : this.deletedJsonFiles.avatarFilter == true ? null : undefined,
           assetFilter: this.jsonFilesToUpload.assetFilter ? {
             filename: this.jsonFilesToUpload.assetFilter?.name,
             mimeType: this.jsonFilesToUpload.assetFilter?.type,
             contentLength: this.jsonFilesToUpload.assetFilter?.size
-          } : undefined,
+          } : this.deletedJsonFiles.assetFilter == true ? null : undefined,
           gemFilter: this.jsonFilesToUpload.gemFilter ? {
             filename: this.jsonFilesToUpload.gemFilter?.name,
             mimeType: this.jsonFilesToUpload.gemFilter?.type,
             contentLength: this.jsonFilesToUpload.gemFilter?.size
-          } : undefined,
-        } : undefined,
-        //this.jsonFileToUpload ? {
-        //  filename: this.jsonFileToUpload!.name,
-        //  mimeType: this.jsonFileToUpload!.type,
-        //  contentLength: this.jsonFileToUpload!.size,
-        //} : {},
-        ...this.formsService.getForm('connections')
+          } : this.deletedJsonFiles.gemFilter == true ? null : undefined,
+        } : undefined
       },
       images: this.imagesIsNotEmpty(this.imagesToSubmit!) ? this.imagesToSubmit : undefined,
       galleryImagesForDelete: this.galleryImagesForDelete && this.galleryImagesForDelete.length ? this.galleryImagesForDelete : undefined
@@ -173,16 +170,22 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   }
 
   imagesIsNotEmpty(images: ImagesInfo): boolean {
-    return images.hasOwnProperty('coverImage') || images.hasOwnProperty('cardThumbnail') || images.hasOwnProperty('smallThumbnail') || images.hasOwnProperty('gallery');
+    return images?.hasOwnProperty('coverImage') || images?.hasOwnProperty('cardThumbnail') || images?.hasOwnProperty('smallThumbnail') || images?.hasOwnProperty('gallery');
   }
   filtersIsNotEmpty(filters: JsonDNAFilters): boolean {
-    return filters.avatarFilter !== null || filters.assetFilter !== null || filters.gemFilter !== null;
+    return filters.avatarFilter !== null || filters.assetFilter !== null || filters.gemFilter !== null ||
+    this.deletedJsonFiles.avatarFilter == true || this.deletedJsonFiles.assetFilter == true || this.deletedJsonFiles.gemFilter == true;
   }
 
   updateGalleryImagesToDelete(gallery: string[]) {
     this.galleryImagesForDelete = gallery;
     console.log(this.galleryImagesForDelete);
 
+  }
+
+  jsonFileDelete(files: JsonDNAFiltersToDelete) {
+    this.deletedJsonFiles = files;
+    console.log(this.deletedJsonFiles);
   }
 
   postGame(formData: SubmitGame) {
@@ -297,14 +300,25 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       this.openUploadModal(imagesToUpload, gameSubmitResponse, jsonFiles).subscribe((data: {redirect: boolean} | null) => {
         console.log(data);
         if (data?.redirect == true) {
+          this.clearData();
           this.router.navigate(['/games']);
-          localStorage.removeItem('imageUrls');
         } else {
+          this.clearData();
           this.goToTab(SUBMISSION_TABS.BASIC_INFO);
         }
-        localStorage.removeItem(StorageKey.SELECTED_GAME);
       })
     )
+  }
+
+  clearData() {
+    this.formsService.clearFormData();
+    this.jsonFilesToUpload = {assetFilter: null, avatarFilter: null, gemFilter: null};
+    this.imagesToUpload = {};
+    if (this.editMode) {
+      localStorage.removeItem('imageUrls');
+      localStorage.removeItem(StorageKey.SELECTED_GAME);
+      this.editMode = false;
+    }
   }
 
   async compreseImages(images: ImagesToUpload): Promise<ImagesToUpload> {

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
-import { SocialLinksInfo } from '@app/core/models/interfaces/submit-game-interface.model';
+import { ConnectionsInfo, SocialLinksInfo } from '@app/core/models/interfaces/submit-game-interface.model';
 import { Tag } from '@app/core/models/interfaces/tag-interface.model';
 import { BehaviorSubject, map, merge, Subject, Subscription, takeUntil } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
@@ -164,7 +164,14 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     form.assetRenderer = form.assetRenderer ? form.assetRenderer : null;
     form.promoVideo = form.promoVideo ? form.promoVideo : null;
 
-    this.formsService.saveForm('connections', form);
+    const connectionsData: any = this.formsService.getForm('connections');
+
+    let formToUpd: any = {
+      ...form,
+      dnaFilters: connectionsData.dnaFilters
+    }
+
+    this.formsService.saveForm('connections', formToUpd);
     this.isFormValid();
   }
 

@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 import { SubmitGameService } from "@app/modules/specific/add-your-game/services/submit-game.service";
 import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
-import { JsonDnaFilesUrls, JsonDNAFilters } from "@app/core/models/interfaces/submit-game-interface.model";
+import { JsonDnaFilesUrls, JsonDNAFilters, JsonDNAFiltersToDelete } from "@app/core/models/interfaces/submit-game-interface.model";
 
 @Component({
     selector: 'general-description',
@@ -59,11 +59,13 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
 
     sub!: Subscription;
 
+    @Input() deletedJsonFiles: JsonDNAFiltersToDelete = {assetFilter: false, avatarFilter: false, gemFilter: false};
     @Input() selectedJsonFiles: JsonDNAFilters = {assetFilter: null, avatarFilter: null, gemFilter: null};
     @Input() editMode: boolean = false;
 
     @Output() formValid = new EventEmitter<any>();
     @Output() onJsonFileSelected = new EventEmitter<any>();
+    @Output() onJsonFileDelete = new EventEmitter<JsonDNAFiltersToDelete>();
 
     generalDescription = new FormGroup({
         name: new FormControl(null, [Validators.required]),
@@ -114,13 +116,23 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
     removeFile(type: string) {
       if (type == 'avatar') {
         this.selectedJsonFiles.avatarFilter = null;
+        if (this.editMode) {
+          this.deletedJsonFiles.avatarFilter = true;
+        }
       }
       if (type == 'item') {
         this.selectedJsonFiles.assetFilter = null;
+        if (this.editMode) {
+          this.deletedJsonFiles.assetFilter = true;
+        }
       }
       if (type == 'gem') {
         this.selectedJsonFiles.gemFilter = null;
+        if (this.editMode) {
+          this.deletedJsonFiles.gemFilter = true;
+        }
       }
+      this.onJsonFileDelete.emit(this.deletedJsonFiles);
       this.onJsonFileSelected.emit(this.selectedJsonFiles);
       this.isFormValid();
     }
@@ -162,6 +174,7 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
         if (this.editMode) {
           const filters = this.formsService.getForm('connections');
           this.dnaFilterUrls = filters.dnaFilters;
+          console.log(filters);
         }
         const values =  this.formsService.getForm('general');
         if(!values) return;

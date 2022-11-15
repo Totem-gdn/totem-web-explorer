@@ -9,7 +9,7 @@ import { Observable, take } from "rxjs";
 
 export class AdminService {
 
-  baseUrl: string = environment.TOTEM_BASE_API_URL;
+  baseUrl: string = environment.TOTEM_BASE_API_URL; // http://534e-45-128-191-180.ngrok.io
 
   constructor(private http: HttpClient) {
   }

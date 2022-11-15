@@ -10,7 +10,7 @@ import { BehaviorSubject, concat, Observable } from "rxjs";
 
 export class SubmitGameService {
 
-  baseUrl: string = environment.TOTEM_BASE_API_URL;
+  baseUrl: string = environment.TOTEM_BASE_API_URL; // http://534e-45-128-191-180.ngrok.io
   currentIdToUpload: string = '';
 
   constructor(private http: HttpClient,
@@ -55,7 +55,7 @@ export class SubmitGameService {
     if (images?.searchImage) {
       imagesWithUrls.push({url: links?.smallThumbnail, file: images?.searchImage});
     }
-    links.imagesGallery?.forEach((link: string, i: number) => {
+    links?.imagesGallery?.forEach((link: string, i: number) => {
       imagesWithUrls.push({url: link, file: images.gallery![i]});
     })
     if (jsonFiles?.avatarFilter) {

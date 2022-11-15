@@ -123,6 +123,11 @@ export interface JsonDNAFilters {
   assetFilter?: File | null;
   gemFilter?: File | null;
 }
+export interface JsonDNAFiltersToDelete {
+  avatarFilter?: boolean;
+  assetFilter?: boolean;
+  gemFilter?: boolean;
+}
 
 export interface JsonDNAFiltersToUpload {
   avatarFilter?: ImageFileInfo;

@@ -2,8 +2,10 @@
   <div class="img-upload-dialog-wrapper" fxLayout="column" fxLayoutAlign="space-between start">
     <div class="content-block p-[18px] h-full w-full">
       <div class="content-block-body py-[60px] px-[74px] h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
-        <div class="content-block-body-title font-totem" *ngIf="!allImagesUploaded">Please wait for images to upload</div>
-        <div class="content-block-body-title font-totem" *ngIf="allImagesUploaded">Congratulations!</div>
+        <div class="content-block-body-title font-totem" *ngIf="!allImagesUploaded && !zeroFilesUpdated">Please wait for images to upload</div>
+        <div class="content-block-body-title font-totem" *ngIf="!allImagesUploaded && zeroFilesUpdated">Your game successfully updated</div>
+        <div class="content-block-body-title font-totem" *ngIf="allImagesUploaded || zeroFilesUpdated">Congratulations!</div>
+
         <div class="content-block-body-subtitle" *ngIf="!allImagesUploaded && !zeroFilesUpdated">
           <div class="w-full">
             You successfully filled out the form!
@@ -13,7 +15,7 @@
         </div>
         <div class="content-block-body-subtitle" *ngIf="!allImagesUploaded && zeroFilesUpdated">
           <div class="w-full">
-            Congratulations! You successfully filled the application form and updated your game.
+            You successfully filled the application form and updated your game.
           </div>
           <div class="w-full">Now You can explore Totem website</div>
         </div>
@@ -24,7 +26,7 @@
           </div>
           <div class="w-full">We will notify you via email about the status of your submission.</div>
         </div>
-        <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center start">
+        <div *ngIf="!zeroFilesUpdated" class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center start">
           <div class="w-full" fxLayout="row" fxLayoutAlign="space-between center">
             <div>Files uploaded</div>
             <div>{{filesUploaded}} from {{filesToUploadNumber}}</div>
