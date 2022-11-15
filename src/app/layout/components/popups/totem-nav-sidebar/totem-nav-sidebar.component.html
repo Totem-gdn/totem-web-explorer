@@ -45,12 +45,12 @@
 
         <!-- Nav Links -->
         <div class="sidenav" fxLayout="column" fxLayoutAlign="start start">
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">{{'header.profile' | translate}}</a>
-          <a (click)="close()" routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">{{'header.home' | translate}}</a>
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/items">{{'header.items' | translate}}</a>
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">{{'header.avatars' | translate}}</a>
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/games">{{'header.games' | translate}}</a>
-          <a (click)="close()" routerLinkActive="active-route" routerLink="/help">{{'header.help' | translate}}</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/profile">{{'nav.profile' | translate}}</a>
+          <a (click)="close()" routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">{{'nav.home' | translate}}</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/items">{{'nav.items' | translate}}</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">{{'nav.avatars' | translate}}</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/games">{{'nav.games' | translate}}</a>
+          <a (click)="close()" routerLinkActive="active-route" routerLink="/help">{{'nav.help' | translate}}</a>
           <a (click)="onLogout(); close()" routerLink="/">Sign out</a>
         </div>
       </ng-container>
@@ -59,12 +59,12 @@
       <ng-template #unauthblock>
         <div class="unauth-nav-content" fxLayout="column" fxLayoutAlign="space-between">
           <div class="sidenav mtop-60px" fxLayout="column" fxLayoutAlign="start start">
-            <span aria-label="profile-log-in-button" (click)="logIn()">{{'header.profile' | translate}}</span>
-            <a (click)="close()" routerLinkActive="active-route" routerLink="/">{{'header.home' | translate}}</a>
-            <a (click)="close()" routerLinkActive="active-route" routerLink="/items">{{'header.items' | translate}}</a>
-            <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">{{'header.avatars' | translate}}</a>
-            <a (click)="close()" routerLinkActive="active-route" routerLink="/games">{{'header.games' | translate}}</a>
-            <a (click)="close()" routerLinkActive="active-route" routerLink="/help">{{'header.help' | translate}}</a>
+            <span aria-label="profile-log-in-button" (click)="logIn()">{{'nav.profile' | translate}}</span>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/">{{'nav.home' | translate}}</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/items">{{'nav.items' | translate}}</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/avatars">{{'nav.avatars' | translate}}</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/games">{{'nav.games' | translate}}</a>
+            <a (click)="close()" routerLinkActive="active-route" routerLink="/help">{{'nav.help' | translate}}</a>
           </div>
           <div>
             <totem-button (click)="logIn()" [caption]="'Login'"

@@ -4,7 +4,7 @@
   <totem-profile-dropdown *ngIf="(allowNavigation | async) && isLoggedIn" (logOutEvent)="logOut()">
   </totem-profile-dropdown>
   <div class="totem-navigation-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
-    <div class="header-left" fxLayout="row" fxLayoutAlign="start center">
+    <div class="nav-left" fxLayout="row" fxLayoutAlign="start center">
       <div class="logo-block">
         <a aria-label="Totem logo" href="/" routerLink="/"><img loading="lazy" class="hidden sm:block w-[130px]"
             src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
@@ -19,11 +19,11 @@
     <div class="navigation-block">
       <!-- Links -->
       <div class="navigation-links" fxLayout="row" fxLayoutAlign="space-between center">
-        <a routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">{{'header.home' | translate}}</a>
-        <a routerLinkActive="active-route" routerLink="/items">{{'header.items' | translate}}</a>
-        <a routerLinkActive="active-route" routerLink="/avatars">{{'header.avatars' | translate}}</a>
-        <a routerLinkActive="active-route" routerLink="/games">{{'header.games' | translate}}</a>
-        <a routerLinkActive="active-route" routerLink="/help">{{'header.help' | translate}}</a>
+        <a routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">{{'nav.home' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/items">{{'nav.items' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/avatars">{{'nav.avatars' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/games">{{'nav.games' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/help">{{'nav.help' | translate}}</a>
       </div>
       <!-- Button -->
       <totem-button class="pl-[50px] pr-[40px]" [width]="'100px'" [height]="'46px'"

@@ -1,5 +1,5 @@
 {
-    "header": {
+    "nav": {
         "home": "Home",
         "items": "Items",
         "avatars": "Avatars",
@@ -41,5 +41,11 @@
         "privacy_policy": "Privacy Policy",
         "terms_of_service": "Terms of service",
         "favorites": "Favorites"
+    },
+    "home":{
+        "web_Explorer": "Web Explorer",
+        "home_widget_title": "Try on your Item for any game!",
+        "home_widget_description": "Choose the game name in the widget & see how item appearance will change!",
+        "main_description": "Browse, create and use your unique items, avatars or gems that will be with you across your journey through your favorite game worlds!"
     }
 }
