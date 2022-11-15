@@ -1,39 +1,33 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormControlStatus, FormGroup, Validators } from "@angular/forms";
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
+import { FormGroup, FormControl, Validators, FormControlStatus } from "@angular/forms";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
 import { TOKEN } from "@app/core/models/enums/token.enum";
+import { TRANSACTION_TYPE } from "@app/core/models/enums/transaction-type.enum";
 import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { PopupService } from "@app/layout/components/popup.service";
 import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 import { Gtag } from "angular-gtag";
-import { BehaviorSubject, debounceTime, takeWhile } from "rxjs";
-import { PopupService } from "../../popup.service";
-
+import { BehaviorSubject } from "rxjs";
+import { debounceTime, takeWhile } from "rxjs";
 
 interface TokenBalance {
     title: string | undefined;
     value: string | undefined;
 }
+
 @Component({
-    selector: 'token-transaction',
-    templateUrl: './token-transaction.component.html',
-    styleUrls: ['./token-transaction.component.scss'],
+    selector: 'send-tokens',
+    templateUrl: './send-tokens.component.html',
+    styleUrls: ['./send-tokens.component.scss', '../transaction-popup.component.scss'],
     animations: [
         Animations.animations
     ]
 })
 
-export class TokenTransactionComponent extends OnDestroyMixin implements OnInit, OnDestroy {
-    get amount() { return this.transferForm.get('amount')?.value };
-    get addressTouched() {
-        const address = this.transferForm.get('address')
-        return (!address?.touched || !address?.dirty);
-    }
-    addressValid = true;
-    maskForAmount: string = '';
-    ammountError: BehaviorSubject<boolean> = new BehaviorSubject(false);
+export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDestroy {
 
     constructor(
         private web3Service: Web3AuthService,
@@ -46,7 +40,16 @@ export class TokenTransactionComponent extends OnDestroyMixin implements OnInit,
         super()
     }
 
-    showPopup = true;
+    get amount() { return this.transferForm.get('amount')?.value };
+    get addressTouched() {
+        const address = this.transferForm.get('address')
+        return (!address?.touched || !address?.dirty);
+    }
+
+    addressValid = true;
+    maskForAmount: string = '';
+    ammountError: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    
     menuItems: TokenBalance[] = [{ title: 'USDC', value: '0' }, { title: 'MATIC', value: '0' }];
 
     selectedToken: any;
@@ -59,11 +62,6 @@ export class TokenTransactionComponent extends OnDestroyMixin implements OnInit,
 
     ngOnInit() {
         this.updateBalance();
-        this.showPopupService.showTokenPopup$().pipe(
-            untilComponentDestroyed(this),
-        ).subscribe(show => {
-            this.showPopup = show;
-        }) 
     }
 
     onSelectToken(e: { title: TOKEN, value: string }): void {
@@ -92,10 +90,6 @@ export class TokenTransactionComponent extends OnDestroyMixin implements OnInit,
         this.maskForAmount = `separator.${decimals}`;
     }
 
-    onInputChange(e: any) {
-        const textLength = e.target.value.length;
-    }
-
     async onClickMax() {
         let value = this.selectedToken.value;
         this.transferForm.get('amount')?.patchValue(value);
@@ -109,8 +103,8 @@ export class TokenTransactionComponent extends OnDestroyMixin implements OnInit,
     }
 
     onClose() {
-        this.showPopup = false;
         this.resetForm();
+        this.showPopupService.closeTokenTransaction();
     }
 
     async estimateGas(tokenTitle: string, value: string) {

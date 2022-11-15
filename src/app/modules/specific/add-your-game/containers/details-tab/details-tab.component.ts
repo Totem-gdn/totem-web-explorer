@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { DROP_BLOCK_TYPE } from '@app/core/models/enums/submission-tabs.enum';
-import { ImageEvents, ImagesInfo, ImagesToUpload } from '@app/core/models/interfaces/submit-game-interface.model';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { existingImagesUrls, ImageEvents, ImagesInfo, ImagesToUpload, ImagesUrls } from '@app/core/models/interfaces/submit-game-interface.model';
+import { BehaviorSubject, combineLatest, Observable, Subscription, switchMap, take } from 'rxjs';
 import { DropzoneError } from '../../components/totem-image-dropzone/totem-image-dropzone.component';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
 import { FormsService } from '../../services/forms.service';
@@ -17,7 +17,7 @@ import { FormsService } from '../../services/forms.service';
   },
   animations: Animations.animations
 })
-export class DetailsTabComponent implements OnInit, OnDestroy {
+export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subs: Subscription = new Subscription();
   imageReader: FileReader = new FileReader();
@@ -29,6 +29,10 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   @Input() finalizedSearchImageEvent!: any | null;
   finalizedGalleryImages: File[] = [];
   allowButton: boolean = false;
+
+  //edit mode
+  existingImages: existingImagesUrls = {};
+  @Input() galleryImagesToDelete: string[] = [];
 
   errorsArr: DropzoneError[] = [
     {message: '', status: false},
@@ -53,10 +57,13 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     }
   };
 
+  @Input() editMode: boolean = false;
+
   @Output() fileEvents: EventEmitter<ImageEvents> = new EventEmitter();
   @Output() formDataEvent: EventEmitter<ImagesInfo> = new EventEmitter();
   @Output() imageFilesEvent: EventEmitter<ImagesToUpload> = new EventEmitter();
   @Output() tabSelected = new EventEmitter<string>();
+  @Output() galleryImgDelete = new EventEmitter<string[]>();
 
   constructor(readonly matDialog: MatDialog, private formsService: FormsService) {
   }
@@ -71,6 +78,20 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  ngAfterViewInit() {
+    if (this.editMode) {
+      this.existingImages = this.formsService.getForm('imageUrls');
+      console.log(this.galleryImagesToDelete);
+
+      if (this.galleryImagesToDelete && this.galleryImagesToDelete.length) {
+        this.galleryImagesToDelete?.forEach((image: string) => {
+          this.existingImages.gallery = this.existingImages.gallery?.filter((img: string) => img !== image);
+        });
+      }
+      this.isFormValid();
+    }
   }
 
   /* updateFormData() {
@@ -144,9 +165,23 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
     this.isFormValid();
   }
 
+  removeGalleryUrl(item: string) {
+    this.existingImages.gallery = this.existingImages?.gallery?.filter((image: string) => {
+      return image != item;
+    });
+    this.galleryImagesToDelete.push(item);
+    console.log(this.existingImages);
+
+    this.updateFilesToUpload();
+    this.isFormValid();
+  }
+
   removeImage(type: string) {
     if (type == 'cover') {
       this.finalizedImage = undefined;
+      //if (this.editMode) {
+      //  this.existingImages.coverImage = '';
+      //}
     }
     if (type == 'card') {
       this.finalizedCardImage = undefined;
@@ -193,6 +228,9 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   }
 
   checkValidity(): boolean {
+    console.log(this.existingImages);
+
+    if (this.editMode) return !!(this.existingImages.gallery && this.existingImages.gallery?.length) || Boolean(this.finalizedGalleryImages.length);
     return !!this.finalizedImage && !!this.finalizedCardImage && !!this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
   }
 
@@ -201,12 +239,45 @@ export class DetailsTabComponent implements OnInit, OnDestroy {
   }
 
   updateFilesToUpload() {
+    if (this.editMode) {
+      this.galleryImgDelete.emit(this.galleryImagesToDelete);
+    }
     this.imageFilesEvent.emit({
       coverImage: this.finalizedImage,
       cardImage: this.finalizedCardImage,
       searchImage: this.finalizedSearchImage,
       gallery: this.finalizedGalleryImages
     });
+  }
+
+  processMultipleFiles(event: any) {
+    console.log(event);
+    const files: File[] = Array.from(event.target.files);
+    const galleryFilesToUpload: any[] = files.map((file: File) => {
+      return {
+        target: {
+          files: [file]
+        }
+      }
+    });
+    console.log(galleryFilesToUpload);
+    this.cropMultipleGallery(galleryFilesToUpload, 'gallery');
+  }
+
+  cropMultipleGallery(galleryFilesToUpload: any[], type: 'gallery') {
+    if (!galleryFilesToUpload?.length) {
+      return;
+    }
+    this.openCropper(galleryFilesToUpload.slice(0, 1)[0], type).pipe(take(1)).subscribe((data: any) => {
+      if (data) {
+        this.finalizedGalleryImages.push(data);
+        this.updateFilesToUpload();
+        this.isFormValid(); //IMG VALIDATION
+        this.cropMultipleGallery(galleryFilesToUpload.slice(1), type);
+      } else {
+        this.cropMultipleGallery(galleryFilesToUpload.slice(1), type);
+      }
+    })
   }
 
   cropSelectedImage(event: any, type: string, edit?: boolean) {

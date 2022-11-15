@@ -1,8 +1,7 @@
 <div class="wrapper w-full lg:max-w-[456px]">
 
     <div class="pb-[40px]">
-        <h2 *ngIf="!nft?.metadata?.name">ID: {{item?.tokenId}}</h2>
-        <h2 *ngIf="nft?.metadata?.name">{{nft.metadata.name}}</h2>
+        <h2>ID: {{item?.tokenId}}</h2>
     </div>
 
     <div class="flex pb-[18px] items-center">
@@ -71,7 +70,7 @@
         </div>
 
         <totem-button (click)="onClickBuy()"
-        [disabled]="item?.owner == myWallet" class="pt-[20px]" [caption]="item?.owner == myWallet ? 'You are the owner': 'Buy Item'" [width]="'100%'"></totem-button>
+        [disabled]="true" class="pt-[20px]" [caption]="item?.owner == myWallet ? 'You are the owner': 'Buy Item'" [width]="'100%'"></totem-button>
 
     </div>
 

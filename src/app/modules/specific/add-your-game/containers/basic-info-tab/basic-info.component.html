@@ -1,8 +1,14 @@
 <div class="desc-form">
 
-  <general-description [selectedJsonFiles]="jsonFiles" (formValid)="checkFormValidity($event)" (onJsonFileSelected)="onJsonFileSelected($event)"></general-description>
-  <game-details (formValid)="checkFormValidity($event)"></game-details>
-  <contact-form (formValid)="checkFormValidity($event)"></contact-form>
+  <general-description [editMode]="editMode"
+  [selectedJsonFiles]="jsonFiles"
+  [deletedJsonFiles]="deletedJsonFiles"
+  (formValid)="checkFormValidity($event)"
+  (onJsonFileSelected)="onJsonFileSelected($event)"
+  (onJsonFileDelete)="onJsonFileDelete($event)"
+  ></general-description>
+  <game-details [editMode]="editMode" (formValid)="checkFormValidity($event)"></game-details>
+  <contact-form [editMode]="editMode" (formValid)="checkFormValidity($event)"></contact-form>
   <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" [disabled]="!buttonDisabled" (click)="onNextTab()"></totem-button>
 
 </div>

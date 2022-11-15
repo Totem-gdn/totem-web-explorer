@@ -10,6 +10,7 @@ import { Animations } from "@app/core/animations/animations";
 import { Gtag } from "angular-gtag";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { PopupService } from "@app/layout/components/popup.service";
+import { TRANSACTION_TYPE } from "@app/core/models/enums/transaction-type.enum";
 
 
 @Component({
@@ -240,7 +241,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   onSend() {
-    this.sendTokensPopup.showTokenPopup();
+    this.sendTokensPopup.showTokenTransaction();
   }
 
   async onClaim() {

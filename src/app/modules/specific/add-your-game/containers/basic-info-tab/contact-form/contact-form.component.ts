@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, EventEmitter, Output } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
@@ -14,9 +14,27 @@ import { SubmitGameService } from "@app/modules/specific/add-your-game/services/
     ]
 })
 
-export class ContactFormComponent implements AfterViewInit {
+export class ContactFormComponent implements OnInit, AfterViewInit {
+
+    @Output() formValid = new EventEmitter<any>();
+    @Input() editMode: boolean = false;
+
+    contactForm = new FormGroup({
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        discord: new FormControl(null)
+    })
 
     constructor (private formsService: FormsService) {}
+
+    ngOnInit(): void {
+      if (this.editMode) {
+        this.contactForm = new FormGroup({
+          email: new FormControl(null, [Validators.email]),
+          discord: new FormControl(null)
+        })
+        this.isFormValid();
+      }
+    }
 
     ngAfterViewInit(): void {
         this.retrieveValues();
@@ -32,13 +50,6 @@ export class ContactFormComponent implements AfterViewInit {
         }
         return email?.errors && (email?.touched || email?.dirty);
     };
-
-    @Output() formValid = new EventEmitter<any>();
-
-    contactForm = new FormGroup({
-        email: new FormControl(null, [Validators.required, Validators.email]),
-        discord: new FormControl(null)
-    })
 
     isFormValid() {
         this.formValid.emit({formName: 'contacts', value: this.contactForm.valid})

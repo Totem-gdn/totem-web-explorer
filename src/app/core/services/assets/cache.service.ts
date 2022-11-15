@@ -64,6 +64,7 @@ export class CacheService {
             console.log('unathorized');
             return;
         }
+        if(type == 'game') return;
         const web3 = new Web3(this.web3.provider as any);
         let contractAddress = '';
         const cache = this._totalAssetsCache.getValue();

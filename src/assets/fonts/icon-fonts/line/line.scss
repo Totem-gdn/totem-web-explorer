@@ -30,6 +30,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.copy-lg {
+  font-size: 22px !important;
+  margin-left: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.line-burger {
+  
+  &:before {
+    content: $line-burger;
+    //color: #8a939b;
+  }
+}
+
 .line-edit {
   &:before {
     content: $line-edit;

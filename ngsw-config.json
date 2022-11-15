@@ -4,7 +4,7 @@
   "assetGroups": [
     {
       "name": "app",
-      "installMode": "prefetch",
+      "installMode": "lazy",
       "resources": {
         "files": [
           "/favicon.ico",
@@ -12,11 +12,6 @@
           "/manifest.json",
           "/*.css",
           "/*.js"
-        ],
-        "urls": [
-          "https://fonts.gstatic.com",
-          "https://fonts.googleapis.com/icon?family=Material+Icons",
-          "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
         ]
       }
     },

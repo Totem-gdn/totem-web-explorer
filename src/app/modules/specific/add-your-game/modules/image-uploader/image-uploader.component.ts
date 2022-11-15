@@ -20,6 +20,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
   filesUploaded: number = 0;
   allImagesUploaded: boolean = false;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  zeroFilesUpdated: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<ImageUploaderComponent>,
@@ -31,10 +32,21 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.filesToUploadNumber = this.filesToUpload.gameSubmitResponse.uploadImageURLs.imagesGallery!.length + 3 +
+    this.filesToUploadNumber = (this.filesToUpload.gameSubmitResponse.uploadImageURLs?.imagesGallery &&
+    this.filesToUpload.gameSubmitResponse.uploadImageURLs?.imagesGallery.length ?
+    this.filesToUpload.gameSubmitResponse.uploadImageURLs?.imagesGallery.length : 0) +
+    (this.filesToUpload.gameSubmitResponse.uploadImageURLs?.coverImage ? 1 : 0) +
+    (this.filesToUpload.gameSubmitResponse.uploadImageURLs?.cardThumbnail ? 1 : 0) +
+    (this.filesToUpload.gameSubmitResponse.uploadImageURLs?.smallThumbnail ? 1 : 0) +
     (this.data.jsonFiles?.avatarFilter ? 1 : 0) +
     (this.data.jsonFiles?.assetFilter ? 1 : 0) +
     (this.data.jsonFiles?.gemFilter ? 1 : 0);
+
+    if (this.filesToUploadNumber == 0) {
+      this.zeroFilesUpdated = true;
+      this.uploadProgress = 100;
+      return;
+    }
 
     this.linkImagesToGame(this.filesToUpload);
     //this.submitGameService.approveGame(this.filesToUpload.gameSubmitResponse.id);

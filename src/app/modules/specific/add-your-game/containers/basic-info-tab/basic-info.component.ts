@@ -5,7 +5,7 @@ import { UserStateService } from '@app/core/services/auth.service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
 import { SubmitGameService } from '../../services/submit-game.service';
-import { JsonDNAFilters } from '@app/core/models/interfaces/submit-game-interface.model';
+import { JsonDNAFilters, JsonDNAFiltersToDelete } from '@app/core/models/interfaces/submit-game-interface.model';
 
 @Component({
   selector: 'totem-basic-info',
@@ -20,7 +20,10 @@ export class BasicInfoComponent implements OnDestroy {
   subs: Subscription = new Subscription();
   @Output() tabSelected = new EventEmitter<string>();
   @Output() jsonSelected = new EventEmitter<JsonDNAFilters>();
+  @Output() jsonDeleted = new EventEmitter<JsonDNAFiltersToDelete>();
   @Input() jsonFiles: JsonDNAFilters = {assetFilter: null, avatarFilter: null, gemFilter: null};
+  @Input() deletedJsonFiles: JsonDNAFiltersToDelete = {assetFilter: false, avatarFilter: false, gemFilter: false};
+  @Input() editMode: boolean = false;
 
   get buttonDisabled() { return this.generalFormValid && this.detailsFormValid && this.contactsFormValid}
 
@@ -48,6 +51,9 @@ export class BasicInfoComponent implements OnDestroy {
 
   onJsonFileSelected(event: JsonDNAFilters) {
     this.jsonSelected.emit(event);
+  }
+  onJsonFileDelete(event: JsonDNAFiltersToDelete) {
+    this.jsonDeleted.emit(event);
   }
 
   ngOnDestroy(): void {

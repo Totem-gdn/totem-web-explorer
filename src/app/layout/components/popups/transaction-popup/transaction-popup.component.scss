@@ -1,0 +1,92 @@
+@import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/mail-font.scss';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+
+.overlay {
+    position: fixed;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(67, 67, 67, 0.25);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+
+    .wrapper {
+        margin: auto;
+        background-color: $grey;
+        border-radius: 4px;
+        border: 1px solid $light-grey;
+        padding: 15px;
+        max-width: 420px;
+        width: 100%;
+
+        @media (max-width: 475px) {
+            padding: 10px;
+            max-width: 86vw;
+            .main-block-wrapper {
+              padding: 10px;
+              .main-block {
+                padding: 20px 10px;
+              }
+            }
+        }
+    }
+}
+
+.main-block-wrapper {
+    border: 1px dashed $light-grey;
+    border-radius: 4px;
+    padding: 15px;
+
+    @media screen and (max-width: 480px) {
+        padding: 10px;
+    }
+}
+
+.buttons {
+    gap: 20px;
+    display: flex;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    justify-content: center;
+    button {
+        border-radius: 4px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 140px;
+        display: flex;
+        background-color: $dark-grey;
+        transition: background-color .3s, color .3s;
+        color: white;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        &:hover {
+            background-color: $yellow;
+            font-weight: 700;
+            color: $black;
+        }
+        &:disabled {
+            pointer-events: none;
+            background-color: $dark-grey;
+            color: $light-grey;
+        }
+    }
+    .button-2 {
+        background-color: $yellow;
+        color: $black;
+        font-weight: 700;
+        &:disabled {
+            font-weight: 500;
+        }
+    }
+
+    @media (max-width: 475px) {
+      padding: 0px 14px;
+      margin-top: 24px;
+      margin-bottom: 14px;
+    }
+}

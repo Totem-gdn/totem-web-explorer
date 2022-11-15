@@ -16,7 +16,16 @@
               <div class="solid-delete-icon"></div>
             </div>
             <div class="file-container p-[10px] sm:p-[20px]">
-              <totem-image-dropzone (errorEvent)="updateCoverError($event)" [uniqueId]="'cover'" [finalizedImage]="finalizedImage" (finalizedFile)="cropSelectedImage($event, 'cover')" [selfFill]="true" [recommendedResolution]="'1400x400'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+              <totem-image-dropzone
+              (errorEvent)="updateCoverError($event)"
+              [uniqueId]="'cover'"
+              [finalizedImage]="finalizedImage"
+              (finalizedFile)="cropSelectedImage($event, 'cover')"
+              [selfFill]="true"
+              [recommendedResolution]="'1400x400'"
+              [dzMinHeight]="'247px'"
+              [existingImageUrl]="existingImages.coverImage"
+              ></totem-image-dropzone>
             </div>
             <span @showError class="error-message mt-[14px]" *ngIf="errorsArr[0].status">{{errorsArr[0].message}}</span>
             <div class="sub-caption mt-[16px]">Upload cover photo for your game page</div>
@@ -39,7 +48,7 @@
                   <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                   <div class="solid-delete-icon"></div>
                 </div>
-                <totem-preview-card [finalizedImage]="finalizedCardImage"></totem-preview-card>
+                <totem-preview-card [finalizedImage]="finalizedCardImage" [existingImageUrl]="existingImages.cardThumbnail"></totem-preview-card>
               </div>
             </div>
             <span @showError class="error-message mt-[14px]" *ngIf="errorsArr[1].status">{{errorsArr[1].message}}</span>
@@ -63,7 +72,7 @@
                   <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                   <div class="solid-delete-icon"></div>
                 </div>
-                <totem-preview-search-card [finalizedImage]="finalizedSearchImage"></totem-preview-search-card>
+                <totem-preview-search-card [finalizedImage]="finalizedSearchImage" [existingImageUrl]="existingImages.smallThumbnail"></totem-preview-search-card>
               </div>
             </div>
             <span @showError class="error-message mt-[14px]" *ngIf="errorsArr[2].status">{{errorsArr[2].message}}</span>
@@ -75,17 +84,35 @@
           <div class="image-block-title">Images Gallery</div>
           <div class="gallery-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="file-container p-[10px] sm:p-[20px]">
-              <totem-image-dropzone (errorEvent)="updateGalleryError($event)" [uniqueId]="'gallery'" (finalizedFile)="cropSelectedImage($event, 'gallery')" [recommendedResolution]="'1920x1080'" [dzMinHeight]="'247px'"></totem-image-dropzone>
+              <totem-image-dropzone
+              [multipleFiles]="true"
+              (multipleFilesEvent)="processMultipleFiles($event)"
+              (errorEvent)="updateGalleryError($event)"
+              [uniqueId]="'gallery'"
+              (finalizedFile)="cropSelectedImage($event, 'gallery')"
+              [recommendedResolution]="'1920x1080'"
+              [dzMinHeight]="'247px'"
+              ></totem-image-dropzone>
             </div>
             <span @showError class="error-message mt-[14px]" *ngIf="errorsArr[3].status">{{errorsArr[3].message}}</span>
             <div class="sub-caption mt-[16px]">Upload photos for your game page</div>
 
             <div class="w-full mt-[30px] overflow-hidden">
               <div class="w-full overflow-x-auto" fxLayout="row" fxLayoutAlign="start center">
-                <div *ngFor="let image of finalizedGalleryImages; let i = index" [ngStyle]="{'margin-left' : i != 0 ? '22px' : ''}">
+                <div *ngFor="let image of finalizedGalleryImages; let i = index; let last = last" [ngStyle]="{'margin-left' : i != 0 ? '22px' : '', 'margin-right' : existingImages.gallery?.length && last ? '22px' : ''}">
                   <totem-gallery-card [finalizedImage]="image" (deleteImage)="removeGalleryImage($event)"></totem-gallery-card>
                 </div>
+                <ng-container *ngIf="existingImages">
+                  <div *ngFor="let image of existingImages.gallery; let i = index" [ngStyle]="{'margin-left' : i != 0 ? '22px' : ''}">
+                    <totem-gallery-card [existingImageUrl]="image" (deleteUrl)="removeGalleryUrl($event)"></totem-gallery-card>
+                  </div>
+                </ng-container>
               </div>
+              <!-- <div *ngIf="existingImages && finalizedGalleryImages && !finalizedGalleryImages.length" class="w-full overflow-x-auto" fxLayout="row" fxLayoutAlign="start center">
+                <div *ngFor="let image of existingImages.gallery; let i = index" [ngStyle]="{'margin-left' : i != 0 ? '22px' : ''}">
+                  <totem-gallery-card [existingImageUrl]="image" (deleteUrl)="removeGalleryUrl($event)" (deleteImage)="removeGalleryImage($event)"></totem-gallery-card>
+                </div>
+              </div> -->
             </div>
 
           </div>

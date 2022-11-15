@@ -1,19 +1,16 @@
 <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="card-item gradient-border" (click)="onNavigate()">
+    <!-- <asset-menu></asset-menu> -->
 
     <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="_asset?.tokenId">
-        <img loading="lazy" *ngIf="type != 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId)+'?width=400&height=300'}}" alt="" (error)="updateUrl()">
-        <img loading="lazy" *ngIf="type == 'gem'" src="{{assetRendererUrl+ '/' + type + '/' + (+_asset?.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
-    </div>
-    <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="asset?.id?.tokenId">
-        <img loading="lazy" src="{{assetRendererUrl+ '/' + (+_asset?.id?.tokenId)}}" alt="" (error)="updateUrl()">
+        <img loading="lazy" *ngIf="type != 'gem'" [src]="_asset?.rendererUrl" alt="" (error)="updateUrl()">
+        <img loading="lazy" *ngIf="type == 'gem' && _asset" src="{{'https://asset-renderer.totem-explorer.com' + '/' + type + '/' + (_asset.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
     </div>
 
     <div class="attributes">
 
         <div class="top">
-            <h3 *ngIf="!_asset?.tokenId && !_asset?.id?.tokenId">ID: 1111</h3>
+            <h3 *ngIf="!_asset?.tokenId">ID: 1111</h3>
             <h3 *ngIf="_asset?.tokenId">ID: {{_asset?.tokenId}}</h3>
-            <h3 *ngIf="_asset?.id?.tokenId">ID: {{_asset?.id?.tokenId}}</h3>
 
             <div *ngIf="_asset?.isLiked === false" class="like line-like"
                 (click)="$event.stopPropagation(); onLike()"></div>
@@ -23,9 +20,8 @@
 
         <div class="bottom">
             <div>
-                <h4 *ngIf="!_asset?.updatedAt && !_asset?.timeLastUpdated">24.24.24</h4>
+                <h4 *ngIf="!_asset?.updatedAt">24.24.24</h4>
                 <h4 *ngIf="_asset?.updatedAt">{{_asset?.updatedAt | date:'dd.MM.yy'}}</h4>
-                <h4 *ngIf="_asset?.timeLastUpdated">{{_asset?.timeLastUpdated | date:'dd.MM.yy'}}</h4>
 
                 <p class="text-light-grey">Last used</p>
             </div>

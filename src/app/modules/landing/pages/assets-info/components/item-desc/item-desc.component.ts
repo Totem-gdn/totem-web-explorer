@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { PopupService } from '@app/layout/components/popup.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
-import { Subject, takeUntil } from 'rxjs';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'item-desc',
@@ -16,34 +16,28 @@ import { Subject, takeUntil } from 'rxjs';
     class: 'flex grow'
   }
 })
-export class ItemDescComponent implements OnInit {
+export class ItemDescComponent extends OnDestroyMixin implements OnInit {
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private assetsService: AssetsService,
     private web3Service: Web3AuthService,
     private favouritesService: FavouritesService,
     private messageService: SnackNotifierService,
-    private userService: UserStateService) { }
+    private userService: UserStateService,
+    private popupService: PopupService
+  ) {
+    super();
+  }
 
   @ViewChild('playContainer') playContainer!: ElementRef;
 
-  subs = new Subject<void>();
   myWallet!: string;
 
   @Input() item!: any;
   @Input() type!: string;
-  @Input() nft!: any;
 
-  async ngOnInit() {
-    this.userService.currentUser
-    .pipe(takeUntil(this.subs))
-    .subscribe(user => {
-      if(user) {
-        this.web3Service.getAccounts().then(wallet => {
-          this.myWallet = wallet;
-        }); 
-      }
-    })
+  ngOnInit() {
 
   }
 
@@ -53,12 +47,20 @@ export class ItemDescComponent implements OnInit {
       return;
     }
     if (!this.item.isLiked) {
-      this.favouritesService.addLike(this.type, this.item.id).subscribe(() => {
-        this.assetsService.updateAsset(this.item.id, this.type).subscribe();
+      this.favouritesService.addLike(this.type, this.item.id).pipe(
+        untilComponentDestroyed(this),
+      ).subscribe(() => {
+        this.assetsService.updateAsset(this.item.id, this.type).pipe(
+          untilComponentDestroyed(this),
+        ).subscribe();
       });
     } else {
-      this.favouritesService.removeLike(this.type, this.item.id).subscribe(() => {
-        this.assetsService.updateAsset(this.item.id, this.type).subscribe();
+      this.favouritesService.removeLike(this.type, this.item.id).pipe(
+        untilComponentDestroyed(this),
+      ).subscribe(() => {
+        this.assetsService.updateAsset(this.item.id, this.type).pipe(
+          untilComponentDestroyed(this),
+        ).subscribe();
       });
     }
 
@@ -69,10 +71,12 @@ export class ItemDescComponent implements OnInit {
   }
 
   onClickBuy() {
-    if (!this.web3Service.isLoggedIn()) {
-      this.messageService.open('Unauthorized');
-      return;
-    }
+    // if (!this.web3Service.isLoggedIn()) {
+    //   this.messageService.open('Unauthorized');
+    //   return;
+    // }
+
+    // this.popupService.showAssetTransaction(this.item);
   }
 
 

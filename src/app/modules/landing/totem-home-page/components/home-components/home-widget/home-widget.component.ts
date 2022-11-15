@@ -1,11 +1,13 @@
 import { animate, state, style, transition, trigger } from "@angular/animations";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
 
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { AssetsService } from "@app/core/services/assets/assets.service";
 
 
 @Component({
@@ -52,38 +54,45 @@ import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.mo
     ]
 })
 
-export class HomeWidgetComponent implements OnInit {
+export class HomeWidgetComponent implements OnInit, OnDestroy {
 
-    cardsToShow: any[] = [];
-    selectedGame!: GameDetail;
-    constructor(private gamesService: GamesService, private widgetService: WidgetService, private totemItemsService: TotemItemsService) {
-      this.totemItemsService.avatars.subscribe((data: any[] | null) => {
-        if (data && data.length) {
-          this.cardsToShow[0] = data![0];
-        }
-      })
-      this.totemItemsService.newestItems.subscribe((data: any[] | null) => {
-        if (data && data.length) {
-          this.cardsToShow[1] = data![1];
-        }
-      })
+    // cardsToShow!: any[];
+    card1!: AssetInfo;
+    card2!: AssetInfo;
+    selectedGame!: GameDetail | null;
+    sub!: Subscription;
+
+    constructor(private assetsService: AssetsService, private widgetService: WidgetService, private totemItemsService: TotemItemsService) {
+
+      this.assetsService.updateAssets('avatar', 1, '').subscribe(avatars => {
+        if(!avatars) return;
+        this.card1 = avatars[0];
+      });
+      this.assetsService.updateAssets('item', 1, '').subscribe(items => {
+        if(!items) return;
+        this.card2 = items[0];
+      });
     }
 
     ngOnInit(): void {
-
+      this.selectedGame$();
     }
 
     onChangeGame(game: GameDetail) {
       this.selectedGame = game;
     }
 
-    getSelectedGames(): Observable<any> {
-      return this.widgetService.selectedGame;
+    selectedGame$() {
+      this.sub = this.widgetService.selectedGame$.subscribe(game => {
+        this.selectedGame = game;
+      })
     }
-
-
 
     selectGame(event: GameDetail) {
       this.widgetService.updateSelectedGame(event);
+    }
+
+    ngOnDestroy(): void {
+      this.sub?.unsubscribe();
     }
 }

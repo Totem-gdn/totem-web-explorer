@@ -12,6 +12,12 @@ export class FormsService {
 
   constructor(private storage: BaseStorageService) { }
 
+  clearFormData() {
+    localStorage.removeItem('general');
+    localStorage.removeItem('details');
+    localStorage.removeItem('contacts');
+    localStorage.removeItem('connections');
+  }
 
   saveForm(formName: string, value: any) {
     if (formName == 'general') this.storage.setItem('general', JSON.stringify(value));
@@ -19,6 +25,8 @@ export class FormsService {
     if (formName == 'contacts') this.storage.setItem('contacts', JSON.stringify(value));
     if (formName == 'connections') this.storage.setItem('connections', JSON.stringify(value));
 
+    // edit mode - artwork tab urls
+    if (formName == 'imageUrls') this.storage.setItem('imageUrls', JSON.stringify(value));
   }
 
   getForm(formName: string) {

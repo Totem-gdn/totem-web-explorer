@@ -1,13 +1,14 @@
 <div class="card-body p-[10px]" fxLayout="column" fxLayoutAlign="center start">
   <div class="img-wrapper w-full">
-    <img loading="lazy" [src]="imageUrl" alt="img">
+    <img *ngIf="imageUrl" loading="lazy" [src]="imageUrl" alt="img">
+    <img loading="lazy" *ngIf="!imageUrl && existingImageUrl" [src]="existingImageUrl" alt="preview">
   </div>
   <div class="file-desc w-full mt-[10px]" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxLayout="column" fxLayoutAlign="center start">
-      <div>{{imageFile.name}}</div>
-      <div class="file-size mt-[6px]">{{imageFile.size  | number: '1.2-2'}} MB</div>
+      <div class="max-w-[160px] truncate">{{imageFile?.name || existingImageUrl}}</div>
+      <div class="file-size mt-[6px]">{{imageFile?.size ? (imageFile?.size | number: '1.2-2') + ' MB' : 'Gallery image'}}</div>
     </div>
-    <div class="delete-button" (click)="removeItem(imageFile)">
+    <div class="delete-button" (click)="imageFile && !existingImageUrl ? removeItem(imageFile) : removeUrl(existingImageUrl)">
       <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
       <div class="delete-icon solid-delete-icon"></div>
     </div>

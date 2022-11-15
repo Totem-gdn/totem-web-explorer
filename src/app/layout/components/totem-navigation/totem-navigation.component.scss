@@ -149,13 +149,17 @@
     @media (max-width: 1200px) {
       display: flex;
     }
+    .nav-loader {
+      width: 48px;
+    }
 
     .menu-button {
       cursor: pointer;
-      img {
-        width: 48px;
-        height: 48px;
+      .line-burger {
+        color: $light-grey;
+        font-size: 48px;
       }
     }
   }
 }
+

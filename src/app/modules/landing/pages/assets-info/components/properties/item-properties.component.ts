@@ -1,7 +1,12 @@
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { fromEvent, Subject, takeUntil } from 'rxjs';
+import { fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
 
+enum queries {
+  sm = '(min-width: 480px)',
+  md = '(min-width: 768px)',
+  lg = '(min-width: 1000px)',
+}
 @Component({
   selector: 'item-properties',
   templateUrl: './item-properties.component.html',
@@ -17,66 +22,27 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   subs = new Subject<void>();
   showViewAll: boolean | null = false;
   toggle = false;
-
-  @Input() set properties(properties: any[]) {
-    this._properties = properties;
-    setTimeout(() => {
-      this.checkTagsOverflow();
-    }, 100)
-  };
-  @ViewChild('grid') grid!: ElementRef;
+  placeholdersSub!: Subscription;
 
   tagsWidth = [];
   _properties!: any[];
   placeholders = [];
 
+  @ViewChild('grid') grid!: ElementRef;
+
+  @Input() set properties(properties: any[]) {
+    this._properties = properties;
+    this.placeholdersSub?.unsubscribe();
+    this.placeholders$();
+    setTimeout(() => {
+      this.checkTagsOverflow();
+
+    }, 100)
+  };
+
   ngAfterViewInit(): void {
     this.checkTagsOverflow();
-    const queries = {sm: '(min-width: 480px)', md: '(min-width: 768px)', lg: '(min-width: 1000px)'}
-    this.media
-      .observe(['(min-width: 480px)', '(min-width: 768px)', '(min-width: 1000px)'])
-      .pipe(takeUntil(this.subs))
-      .subscribe((state: BreakpointState) => {
-        if(state.breakpoints[queries.lg] == true) {
-          if(this.properties.length < 8) {
-            this.placeholders = [].constructor(8 % this.properties.length)
-            return;
-          }
-          const placeholders = 8 % this.properties.length - this.properties.length % 8;
-          this.placeholders = [].constructor(placeholders);
-        } else if(state.breakpoints[queries.md] == true) {
-          if(this.properties.length < 6) {
-            this.placeholders = [].constructor(6 % this.properties.length)
-            return;
-          }
-          const placeholders = 6 % this.properties.length - this.properties.length % 6;
-          this.placeholders = [].constructor(placeholders);
-        } else if(state.breakpoints[queries.sm] == true) {
-          if(this.properties.length < 3) {
-            this.placeholders = [].constructor(3 % this.properties.length)
-            return;
-          }
-          const placeholders = 3 % this.properties.length - this.properties.length % 3;
-          this.placeholders = [].constructor(placeholders);
-        } else {
-          if(this.properties.length < 2) {
-            this.placeholders = [].constructor(2 % this.properties.length)
-            return;
-          }
-          const placeholders = 2 % this.properties.length - this.properties.length % 2;
-          this.placeholders = [].constructor(placeholders);
-        }
-        // for(let br of state.breakpoints) {
-        //   console.log(br)
-        //   // if(br == queries.sm) {
-        //   //   console.log('small')
-        //   // } else if(br == queries.md) {
-        //   //   console.log(',edium')
-        //   // } else if (br == queries.lg) {
-        //   //   console.log('large')
-        //   // }
-        // }
-      });
+    this.placeholders$();
   }
 
   onResize() {
@@ -87,31 +53,80 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     const pos = e.target.getBoundingClientRect().x;
     const width = e.target.offsetWidth;
 
-    if(window.innerWidth - 80 < pos + width) {
+    if (window.innerWidth - 80 < pos + width) {
       const tooltip = e.target.getElementsByClassName('tooltip');
-      if(!tooltip[0]) return;
+      if (!tooltip[0]) return;
       tooltip[0].style.left = '0px';
     } else {
       const tooltip = e.target.getElementsByClassName('tooltip');
-      if(!tooltip[0]) return;
+      if (!tooltip[0]) return;
       tooltip[0].style.left = '50%';
     }
   }
 
-  offset() {
+  placeholders$() {
+    this.placeholdersSub = this.media
+      .observe(['(min-width: 480px)', '(min-width: 768px)', '(min-width: 1000px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.breakpoints[queries.lg] == true) {
+          this.gridPlaceholders(8);
+        } else if (state.breakpoints[queries.md] == true) {
+          this.gridPlaceholders(6);
+        } else if (state.breakpoints[queries.sm] == true) {
+          this.gridPlaceholders(3);
+        } else {
+          this.gridPlaceholders(2);
+        }
+      });
+  }
+
+  gridPlaceholders(length: number) {
+    if (this._properties.length < length) {
+      this.placeholders = [].constructor(length % this._properties.length)
+      return;
+    }
+    const placeholders = length % this._properties.length - this._properties.length % length;
+    if(this._properties.length % length == 0) {
+      this.placeholders = [];
+    } else {
+      this.placeholders = [].constructor(placeholders);
+    }
+
+
+    if(this._properties.length / length > 4) {
+      this.showViewAll = true;
+      this.calculateMaxHeight(4);
+    } else {
+      this.showViewAll = false;
+    }
+  }
+
+  calculateMaxHeight(maxRows: number | null) {
+    if(!this.grid) return;
+    const grid = this.grid.nativeElement;
+
+    if(maxRows == null) {
+      grid.style.maxHeight = '1000px'
+      return;
+    }
+
+    const tagHeight = (+grid.getElementsByClassName('item-tag')[0].offsetHeight) * maxRows;
+    const gap = 12 * (maxRows - 1);
+    const padding = 15;
+    grid.style.maxHeight = `${gap + tagHeight + padding}px`;
   }
 
   checkTagsOverflow() {
     const tags = this.grid.nativeElement.getElementsByClassName('item-tag')
-    console.log('check overflow')
+    if(!tags) return;
 
     for (let tag of tags) {
-        if(+tag.firstChild.offsetWidth < +tag.firstChild.scrollWidth) {
-        if(!tag.children[1] || !tag.children[3]) return;
+      if (+tag.firstChild.offsetWidth < +tag.firstChild.scrollWidth) {
+        if (!tag.children[1] || !tag.children[3]) return;
         tag.children[1].style.display = 'block'
         tag.children[3].style.display = 'flex'
       } else {
-        if(!tag.children[1] || !tag.children[3]) return;
+        if (!tag.children[1] || !tag.children[3]) return;
         tag.children[1].style.display = 'none'
         tag.children[3].style.display = 'none'
       }
@@ -121,24 +136,16 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   onClickViewAll() {
     if (this.toggle === false) {
-      this.grid.nativeElement.style.maxHeight = '1500px';
+      this.calculateMaxHeight(null);
       this.toggle = true;
     } else if (this.toggle === true) {
-      this.grid.nativeElement.style.maxHeight = '687px';
+      this.calculateMaxHeight(4);
       this.toggle = false;
     }
   }
 
-  ngAfterViewChecked(): void {
-    if (this.grid.nativeElement.scrollHeight > 690 && this.showViewAll != null) {
-      this.showViewAll = true;
-    }
-    if (this.grid.nativeElement.scrollHeight <= 690 && this.showViewAll != null) {
-      this.showViewAll = false;
-    }
-  }
-
   ngOnDestroy(): void {
+    this.placeholdersSub?.unsubscribe();
     this.subs.next();
     this.subs.complete();
   }

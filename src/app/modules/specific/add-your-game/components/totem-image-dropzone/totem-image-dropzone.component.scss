@@ -70,6 +70,42 @@
     text-align: center;
     border-radius: 4px;
   }
+
+  .file-change {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .edit-button {
+    z-index: 3;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    place-content: center center;
+    background-color: $dark;
+    border-radius: 50%;
+    cursor: pointer;
+
+    .line-edit {
+      font-size: 26px;
+      width: 26px;
+      height: 26px;
+      color: $light-grey;
+      transition: color 0.33s ease-out;
+    }
+    &:hover {
+      .line-edit {
+        color: #fff;
+      }
+    }
+  }
 }
 
 .solid-no-image, .solid-doc-image {

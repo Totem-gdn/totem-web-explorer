@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { environment } from "@env/environment";
 // import { Web3AuthCore } from "@web3auth/core";
 import { Web3Auth } from '@web3auth/modal';
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider, WALLET_ADAPTERS } from "@web3auth/base";
@@ -7,6 +6,7 @@ import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
+import { environment } from "@env/environment";
 
 @Injectable({ providedIn: 'root' })
 
@@ -17,32 +17,30 @@ export class Web3AuthService {
     usdcClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     maticClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     web3!: Web3;
-
+    
     init = async () => {
         this.web3auth = new Web3Auth({
             clientId,
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
-                chainId: "0x13881",
-                rpcTarget: "https://rpc-mumbai.maticvigil.com",       
+                chainId: environment.BLOCKCHAIN_CONFIG.chainId,
+                rpcTarget: environment.BLOCKCHAIN_CONFIG.rpcTarget     
             },
             
         });
         const web3auth = this.web3auth;
         await web3auth.initModal();
+
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
 
         if (web3auth.provider) {
             this.provider = web3auth.provider;
         }
-        // this.web3auth.addListener('CONNECTED', () => {
-        //     console.log('CONNECTED')
-        // })
+        
         this.isModalLoaded = true;
     }
 
     login = async () => {
-        console.log('login')
         if (!this.web3auth) {
             console.log("web3auth not initialized yet");
             return;
@@ -244,7 +242,7 @@ export class Web3AuthService {
         this.provider = null;
     };
 
-    isLoggedIn() {
+    isLoggedIn(): boolean {
         if (this.provider) {
             return true;
         } else {

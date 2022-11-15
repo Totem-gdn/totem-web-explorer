@@ -1,11 +1,12 @@
 <div
   class="file-container"
-  *ngIf="!imageUrl || !selfFill"
+  *ngIf="!imageUrl && !existingImageUrl || !selfFill"
   style="--minh: {{dzMinHeight}}"
   [ngStyle]="{'border' : dzHovered ? '1px dashed #fff;' : errorState ? '1px dashed #FF5252' : ''}"
   (dragenter)="setHover()"
 >
   <input
+    *ngIf="!multipleFiles"
     (dragleave)="removeHover()"
     [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
     class="file"
@@ -13,6 +14,17 @@
     (change)="getFile($event)"
     type="file"
     accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
+  >
+  <input
+    *ngIf="multipleFiles"
+    (dragleave)="removeHover()"
+    [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
+    class="file"
+    [id]="uniqueId"
+    (change)="processMultipleFiles($event)"
+    type="file"
+    accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
+    multiple
   >
   <div class="file-upload-info" fxLayout="column" fxLayoutAlign="center center">
     <!-- <mat-icon class="doc-image" *ngIf="jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}" [svgIcon]="'solid:doc-image'"></mat-icon> -->
@@ -32,4 +44,17 @@
 </div>
 <div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="imageUrl && selfFill">
   <img loading="lazy" class="uploaded-image" [src]="imageUrl || ''" alt="">
+</div>
+<div style="--minh: {{dzMinHeight}}" class="img-container" *ngIf="!imageUrl && existingImageUrl && selfFill">
+  <input
+    class="file-change"
+    (change)="getFile($event)"
+    type="file"
+    #upload
+    accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
+  >
+  <img loading="lazy" class="uploaded-image" [src]="existingImageUrl || ''" alt="">
+  <div class="edit-button" (click)="openFileBrowser()">
+    <div class="line-edit"></div>
+  </div>
 </div>

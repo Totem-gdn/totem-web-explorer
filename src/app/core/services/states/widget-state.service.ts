@@ -5,13 +5,19 @@ import { BehaviorSubject, Observable, Subject } from "rxjs";
 @Injectable({providedIn: 'root'})
 
 export class WidgetService {
-  private selectedGame$: BehaviorSubject<GameDetail> = new BehaviorSubject<GameDetail>({});
-  selectedGame: Observable<GameDetail> = this.selectedGame$.asObservable();
+  private _selectedGame = new BehaviorSubject<GameDetail | null>(null);
 
   constructor() {}
 
+  get selectedGame() {
+    return this._selectedGame.getValue();
+  }
+  get selectedGame$() {
+    return this._selectedGame.asObservable();
+  }
+
   updateSelectedGame(game: GameDetail) {
-    this.selectedGame$.next(game);
+    this._selectedGame.next(game);
   }
 
 }

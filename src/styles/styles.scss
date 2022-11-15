@@ -16,6 +16,12 @@ body { margin: 0; font-family: Roboto; }
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"), url('../assets/fonts/Roboto/Roboto-Regular.ttf') format("truetype");
+  font-display: swap;
+}
+
 %font-totem {
   font-weight: 400;
   font-family: Totem, sans-serif;

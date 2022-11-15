@@ -1,5 +1,5 @@
 <div class="flex flex-col wrapper w-full">
-    <div class="flex flex-col overflow-x-auto mb-[5px]">
+    <div *ngIf="history?.length" class="history">
         <div class="py-[20px] px-[5px] history-grid border-b border-b-light-grey mb-[20px]">
             <p></p>
             <p>Owner address</p>
@@ -10,13 +10,30 @@
         </div>
         <div *ngFor="let story of history" class="transaction history-grid">
             <div class="mr-[10px]"><img loading="lazy" src="assets/images/transaction-avatar.png" alt=""></div>
-            <span class="truncate mr-[60px]">0x88644f6bbe25dc5f4c6992cfcb4bf0be1653568f</span>
-            <span class="truncate">Aug 30, 2022, 11:16AM</span>
-            <span>4.44$</span>
-            <span>13144</span>
+            <!-- <span class="truncate mr-[60px]">{{story.to == '0' ? 'NULL' : story.to}}</span> -->
+            <div
+              [cdkCopyToClipboard]="story.to"
+              [cdkCopyToClipboardAttempts]="2"
+              (cdkCopyToClipboardCopied)="onCopy()"
+              class="wallet"
+              >
+              <span fxHide.lt-lg>{{story.to == '0' ? 'NULL': story.to}}</span>
+              <span fxHide.gt-md>{{story.to == '0' ? 'NULL': (story.to.slice(0, 9) + '...' + story.to.slice(-9))}}</span>
+            </div>
+
+            <span class="truncate">{{story.createdAt | date: 'MMM d, y, h:mma'}} </span>
+            <span>{{story.price}}</span>
+            <span>{{'--'}}</span>
             <div class="ml-auto w-[40px] text-center flex justify-center">
-                <div class="line-open_new"></div>
+                <a class="line-open_new" href="{{'https://mumbai.polygonscan.com/tx/' + story.hash}}" target="_blank"></a>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="history?.length == 0" class="flex h-[120px] justify-center items-center">
+        <h1 class="text-2xl sm:text-1xl">History empty</h1>
+    </div>
+    <div *ngIf="!history?.length && !history" class="flex h-[120px] justify-center items-center">
+        <totem-spinner></totem-spinner>
     </div>
 </div>

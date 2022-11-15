@@ -57,6 +57,7 @@ export class FormDropdownComponent implements AfterViewInit {
         if (this.inputType === 'radio') {
             this.title = value;
         }
+        if(this.inputType == 'checkbox') return;
         this.menuActive = false;
     }
 

@@ -51,6 +51,7 @@
         font-size: 14px;
         font-weight: 700;
         white-space: nowrap;
+        user-select: none;
         &:hover {
             background-color: $black;
             color: white;

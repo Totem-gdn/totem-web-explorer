@@ -5,11 +5,6 @@
                 <img loading="lazy" class="sm:h-[175px]" [src]="image" alt="slide" (click)="onClickImg(image)">
             </div>
         </ng-container>
-        <ng-container *ngIf="!_images">
-            <div class="slide" *ngFor="let _ of [].constructor(10)">
-                <img loading="lazy" src="assets/images/game-info/game_slide_top.png" alt="">
-            </div>
-        </ng-container>
     </div>
 
     <div class="arrows-wrapper">

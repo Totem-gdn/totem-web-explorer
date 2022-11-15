@@ -1,0 +1,7 @@
+<div *ngIf="assetTransaction || tokenTransaction" @fade-in-out class="overlay">
+
+    <div class="wrapper">
+        <send-tokens *ngIf="tokenTransaction"></send-tokens>
+        <send-asset [asset]="assetTransaction" *ngIf="assetTransaction"></send-asset>
+    </div>
+</div>

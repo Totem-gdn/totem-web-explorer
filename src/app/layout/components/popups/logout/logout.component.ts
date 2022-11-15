@@ -22,18 +22,22 @@ export class LogoutComponent implements OnInit {
     showPopup = false;
 
     ngOnInit() {
-        this.popupService.showLogoutPopup$.subscribe(showPopup => {
+        this.logout$();
+    }
+
+    logout$() {
+        this.popupService.logout$.subscribe(showPopup => {
             this.showPopup = showPopup;
         })
     }
 
     closePopup() {
-        this.popupService.showLogoutPopup = false;
+        this.popupService.showLogout();
         // this.router.navigate(['/']);
     }
 
     async login() {
         await this.authService.login();
-        this.popupService.showLogoutPopup = false;
+        this.popupService.closeLogout();
     }
 }

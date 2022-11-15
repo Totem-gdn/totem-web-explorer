@@ -11,6 +11,7 @@ export interface SubmitGame {
   images?: ImagesInfo;
   connections?: ConnectionsInfo;
   contacts?: ContactsInfo;
+  galleryImagesForDelete?: string[];
 }
 
 export interface SocialLinksInfo {
@@ -77,6 +78,13 @@ export interface ImagesUrls {
   imagesGallery?: string[];
 }
 
+export interface existingImagesUrls {
+  coverImage?: string;
+  cardThumbnail?: string;
+  smallThumbnail?: string;
+  gallery?: string[];
+}
+
 export interface SubmitGameResponse {
   id: string;
   connections: {
@@ -114,6 +122,11 @@ export interface JsonDNAFilters {
   avatarFilter?: File | null;
   assetFilter?: File | null;
   gemFilter?: File | null;
+}
+export interface JsonDNAFiltersToDelete {
+  avatarFilter?: boolean;
+  assetFilter?: boolean;
+  gemFilter?: boolean;
 }
 
 export interface JsonDNAFiltersToUpload {
