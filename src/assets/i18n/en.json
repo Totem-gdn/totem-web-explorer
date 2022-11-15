@@ -4,9 +4,42 @@
         "items": "Items",
         "avatars": "Avatars",
         "games": "Games",
-        "help": "Help"
+        "profile": "Profile",
+        "send": "Send",
+        "messages": "Messages",
+        "sign_out": "Sign out",
+        "purchase": "Purchase",
+        "you_are_about_to_purchase": "You are about to purchase",
+        "help": "Help",
+        "rarity": "Rarity",
+        "played": "Played",
+        "your_balance": "Your balance",
+        "gas_fee": "Gas fee",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "token": "Token",
+        "soon": "Soon",
+        "select_the_token_you_want_to_send": "Select the token you want to send",
+        "enter_the_address_for_the_transfer": "Enter the address for the transfer",
+        "incorrect_address": "Incorrect address",
+        "enter_the_number_of_tokens": "Enter the number of tokens",
+        "you_dont_have_enough_tokens_of_this_type": "You don't have enough tokens of this type",
+        "amount_to_send": "Amount to send"
     },
-    "main":{
-
+    "footer":{
+        "get_the_latest_updates": "Get the latest updates",
+        "join": "Join",
+        "about_totem": "Totem is an indie game development collective that unites creators and players around a universe of interconnected game experiences. Totem Web Explorer is developed and maintained by IT-Dimension with support and supervising from Totem Foundation. Totem Web Explorer is a third-party software, it is recommended for usage by Totem but is not a part of Totem's core infrastructure.",
+        "settings": "Settings",
+        "blog": "Blog",
+        "explore": "Explore",
+        "account": "Account",
+        "resources": "Resources",
+        "about": "About",
+        "copyright": "© 2022 IT-Dimension LLC",
+        "all_rights_reserved": "All Rights Reserved",
+        "privacy_policy": "Privacy Policy",
+        "terms_of_service": "Terms of service",
+        "favorites": "Favorites"
     }
 }

@@ -63,12 +63,12 @@
       <!-- <img loading="lazy" src="assets/images/social.png" alt=""> -->
       <div class="flex flex-col justify-between">
         <p>Totem</p>
-        <span class="truncate text-light-grey">Soon...</span>
+        <span class="truncate text-light-grey">{{'header.soon' | translate}}...</span>
       </div>
     </div>
 
     <div class="button-wrapper w-full flex flex-row pb-[25px] pt-[10px]">
-      <button matRipple (click)="onSend()" class="w-full send-button" fxFlex="48%">Send</button>
+      <button matRipple (click)="onSend()" class="w-full send-button" fxFlex="48%">{{'header.send' | translate}}</button>
       <totem-button class="w-full" fxFlex="48%" [disabled]="disableButton" [caption]="'Claim'" [width]="'100%'" (click)="!disableButton ? onClaim() : undefined"></totem-button>
     </div>
 

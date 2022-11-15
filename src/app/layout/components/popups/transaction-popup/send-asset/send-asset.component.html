@@ -1,7 +1,7 @@
 <div class="main-block-wrapper">
     <div class="wrapper px-[10px] py-[25px] sm:p-[25px]">
-        <h3 class="mb-[10px]">Purchase</h3>
-        <p class="mb-[15px]">You are about to purchase:</p>
+        <h3 class="mb-[10px]">{{'header.purchase' | translate}}</h3>
+        <p class="mb-[15px]">{{'header.you_are_about_to_purchase' | translate}}:</p>
     
         <div class="asset-preview">
             <div class="flex w-full">
@@ -15,11 +15,11 @@
                     <div class="attribute flex">
                         <div class="flex flex-col">
                             <p>{{asset?.rarity}}</p>
-                            <span class="text-light-grey">Rarity</span>
+                            <span class="text-light-grey">{{'header.rarity' | translate}}</span>
                         </div>
                         <div class="flex flex-col pl-[10px]">
                             <p>{{asset?.games}}</p>
-                            <span class="text-light-grey">Games Played</span>
+                            <span class="text-light-grey">{{'header.games' | translate}} {{'header.played' | translate}}</span>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
         </div>
     
         <div class="balance">
-            <p class="text-light-grey mb-[10px]">Your balance: </p>
+            <p class="text-light-grey mb-[10px]">{{'header.your_balance' | translate}}: </p>
             <div class="flex flex-col">
     
                 <div class="token-wrapper pb-[15px]">
@@ -62,12 +62,12 @@
         </div>
         <div class="gas-fee">
             <div class="line-info icon"></div>
-            <span>Gas fee: <span class="text-light-grey">{{gasFee ? gasFee : '--'}}</span></span>
+            <span>{{'header.gas_fee' | translate}}: <span class="text-light-grey">{{gasFee ? gasFee : '--'}}</span></span>
         </div>
     </div>
 </div>
 
 <div class="buttons">
-    <button matRipple (click)="onClose()">Cancel</button>
-    <button matRipple class="button-2" [disabled]="true">Confirm</button>
+    <button matRipple (click)="onClose()">{{'header.cancel' | translate}}</button>
+    <button matRipple class="button-2" [disabled]="true">{{'header.confirm' | translate}}</button>
 </div>
