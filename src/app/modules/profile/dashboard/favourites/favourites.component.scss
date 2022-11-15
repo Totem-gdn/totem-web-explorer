@@ -10,7 +10,7 @@
 }
 
 .favourites-wrapper {
-
+  margin-top: 15px;
 
   .favourites-body {
     .back-button {
@@ -18,7 +18,7 @@
     }
     .banner-image {
       width: 100%;
-      margin-top: 50px;
+      margin-top: 20px;
       border-radius: 4px;
       overflow: hidden;
       img {
@@ -106,6 +106,7 @@
           padding-bottom: 3px;
         }
         @media (max-width: 600px) {
+          border-bottom: 1px solid transparent;
           place-content: center space-between;
         }
 
@@ -142,6 +143,9 @@
     .content-block {
       .fav-stats {
         margin-top: 30px;
+        @media screen and (max-width: 600px) {
+          margin-top: 0;
+        }
       }
     }
 
