@@ -1,0 +1,12 @@
+{
+    "header": {
+        "home": "Home",
+        "items": "Items",
+        "avatars": "Avatars",
+        "games": "Games",
+        "help": "Help"
+    },
+    "main":{
+
+    }
+}

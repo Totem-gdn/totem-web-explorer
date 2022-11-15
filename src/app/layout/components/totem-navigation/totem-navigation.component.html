@@ -19,11 +19,11 @@
     <div class="navigation-block">
       <!-- Links -->
       <div class="navigation-links" fxLayout="row" fxLayoutAlign="space-between center">
-        <a routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">Home</a>
-        <a routerLinkActive="active-route" routerLink="/items">Items</a>
-        <a routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
-        <a routerLinkActive="active-route" routerLink="/games">Games</a>
-        <a routerLinkActive="active-route" routerLink="/help">Help</a>
+        <a routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">{{'header.home' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/items">{{'header.items' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/avatars">{{'header.avatars' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/games">{{'header.games' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/help">{{'header.help' | translate}}</a>
       </div>
       <!-- Button -->
       <totem-button class="pl-[50px] pr-[40px]" [width]="'100px'" [height]="'46px'"
