@@ -168,7 +168,7 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
 
     let formToUpd: any = {
       ...form,
-      dnaFilters: connectionsData.dnaFilters
+      dnaFilters: connectionsData?.dnaFilters ? connectionsData?.dnaFilters : undefined
     }
 
     this.formsService.saveForm('connections', formToUpd);
