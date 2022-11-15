@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { Subscription } from 'rxjs';
 
 export interface DropzoneError {
@@ -39,13 +40,15 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   @Input() finalizedImage!: File | undefined;
   @Input() uniqueId: string = 'file';
   @Input() existingImageUrl?: string = '';
+  @Input() multipleFiles: boolean = false;
 
+  @Output() multipleFilesEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() finalizedFile: EventEmitter<any> = new EventEmitter<any>();
   @Output() errorEvent: EventEmitter<DropzoneError> = new EventEmitter<DropzoneError>();
 
   @ViewChild('upload') fileInput!: ElementRef;
 
-  constructor() {
+  constructor(private snackNotifierService: SnackNotifierService) {
   }
 
   ngOnInit() {
@@ -99,6 +102,39 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     return event?.type.includes('image/') ? true : false;
   }
 
+
+  // multiple
+
+  processMultipleFiles(event: any) {
+    if (this.errorState) {
+      this.errorState = false;
+      this.errorEvent.emit({message: '', status: false});
+    }
+    let filesToAdd: File[] = [];
+    console.log(event.target.files);
+
+    const filesToValidate: File[] = Array.from(event.target.files);
+    filesToValidate.forEach((file: File, i: number) => {
+      if (this.isImage(file)) {
+        if (file.size > 20971520) {
+          console.log('File size is big');
+          this.snackNotifierService.open('File at position ' + i + ' is very large');
+          return;
+        }
+        filesToAdd.push(file);
+      }
+    });
+    if (filesToValidate.length !== filesToAdd.length) {
+      this.snackNotifierService.open('Your input files are incorrect');
+      this.removeHover();
+      return;
+    }
+    this.multipleFilesEvent.emit(event);
+    this.removeHover();
+  }
+
+  // end of multiple
+
   getFile(event: any) {
 
     if (this.errorState) {
@@ -110,54 +146,13 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     console.log(fileToValidate);
 
     if (this.isImage(fileToValidate)) {
-
-
-      //this.imageReader.onload = (event: any) => {
-      //  /* event.target.result */
-      //  this.imageCompress.compressFile(event.target.result, -1, 50, 50).then(
-      //    result => {
-      //      this.selfFill = true;
-      //      this.imageUrl = result;
-      //      /* console.log(res);
-      //      const imageFile = new File([result], fileToValidate.name, { type: fileToValidate.type });
-      //      console.log(imageFile);
-      //      this.finalizedImage = imageFile;
-      //      this.selfFill = true;
-      //      this.imageReader.readAsDataURL(this.finalizedImage);
-      //      console.log(this.finalizedImage);
-      //      this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result }; */
-      //    }
-      //  );
-//
-      //};
-      //this.imageReader.readAsDataURL(fileToValidate);
-
       if (fileToValidate.size > 20971520) {
         console.log('File size is big');
+        this.snackNotifierService.open('File is very large');
         return;
       }
-
-      /* const reader = new FileReader();
-      reader.onload = (evt: any) => {
-        const img = new Image();
-        //console.log(img);
-        img.src = evt.target.result;
-        img.onload = (rs: any) => {
-          const img_height = rs.currentTarget['height'];
-          const img_width = rs.currentTarget['width'];
-          console.log('asf: ', img_height, img_width);
-          console.log('our: ', this.recHeight, this.recWidth);
-          if ((img_height > this.recHeight + 400) && (img_width > this.recWidth + 400) || (img_height < this.recHeight - 400) && (img_width < this.recWidth - 400)) {
-            console.log('The image is much larger/smaller than the recommended resolution.');
-            this.errorEvent.emit({message: `The image is much larger/smaller than the recommended resolution: ${this.recWidth}x${this.recHeight}px`, status: true})
-            this.errorState = true;
-            return;
-          } */
       this.finalizedFile.next(event);
       this.removeHover();
-      /*   };
-      };
-      reader.readAsDataURL(fileToValidate); */
       return;
     }
 
@@ -169,6 +164,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
         }
     } else {
       console.log('Your input is incorrect');
+      this.snackNotifierService.open('Your input file is incorrect');
     }
 
     this.removeHover();

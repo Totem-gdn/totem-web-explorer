@@ -10,6 +10,8 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { TotemSpinnerModule } from "@app/shared/totem-spinner/totem-spinner.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
+import { TotemButtonModule } from "@app/components/utils/totem-button/totem-button.module";
+import { MatRippleModule } from "@angular/material/core";
 
 @NgModule({
     declarations: [
@@ -22,8 +24,10 @@ import { MatIconModule } from "@angular/material/icon";
         MatProgressBarModule,
         MatDialogModule,
         MatButtonModule,
+        MatRippleModule,
         ImageCropperModule,
         TotemSpinnerModule,
+        TotemButtonModule,
         ReactiveFormsModule
     ],
     exports: [

@@ -27,8 +27,10 @@
         (formDataEvent)="updateFormData($event)"
         (tabSelected)="goToTab($event)"
         (jsonSelected)="updateJsonFile($event)"
+        (jsonDeleted)="jsonFileDelete($event)"
         [jsonFiles]="jsonFilesToUpload"
         [editMode]="editMode"
+        [deletedJsonFiles]="deletedJsonFiles"
         ></totem-basic-info>
       </ng-container>
 
@@ -44,6 +46,7 @@
         [finalizedCardImageEvent]="imageEvents?.cardEvent"
         [finalizedSearchImageEvent]="imageEvents?.searchEvent"
         [editMode]="editMode"
+        [galleryImagesToDelete]="galleryImagesForDelete"
         ></totem-details-tab>
       </ng-container>
 

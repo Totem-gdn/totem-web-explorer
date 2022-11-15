@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { DROP_BLOCK_TYPE } from '@app/core/models/enums/submission-tabs.enum';
 import { existingImagesUrls, ImageEvents, ImagesInfo, ImagesToUpload, ImagesUrls } from '@app/core/models/interfaces/submit-game-interface.model';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription, switchMap, take } from 'rxjs';
 import { DropzoneError } from '../../components/totem-image-dropzone/totem-image-dropzone.component';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
 import { FormsService } from '../../services/forms.service';
@@ -32,7 +32,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
 
   //edit mode
   existingImages: existingImagesUrls = {};
-  galleryImagesToDelete: string[] = [];
+  @Input() galleryImagesToDelete: string[] = [];
 
   errorsArr: DropzoneError[] = [
     {message: '', status: false},
@@ -83,6 +83,13 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     if (this.editMode) {
       this.existingImages = this.formsService.getForm('imageUrls');
+      console.log(this.galleryImagesToDelete);
+
+      if (this.galleryImagesToDelete && this.galleryImagesToDelete.length) {
+        this.galleryImagesToDelete?.forEach((image: string) => {
+          this.existingImages.gallery = this.existingImages.gallery?.filter((img: string) => img !== image);
+        });
+      }
       this.isFormValid();
     }
   }
@@ -241,6 +248,36 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
       searchImage: this.finalizedSearchImage,
       gallery: this.finalizedGalleryImages
     });
+  }
+
+  processMultipleFiles(event: any) {
+    console.log(event);
+    const files: File[] = Array.from(event.target.files);
+    const galleryFilesToUpload: any[] = files.map((file: File) => {
+      return {
+        target: {
+          files: [file]
+        }
+      }
+    });
+    console.log(galleryFilesToUpload);
+    this.cropMultipleGallery(galleryFilesToUpload, 'gallery');
+  }
+
+  cropMultipleGallery(galleryFilesToUpload: any[], type: 'gallery') {
+    if (!galleryFilesToUpload?.length) {
+      return;
+    }
+    this.openCropper(galleryFilesToUpload.slice(0, 1)[0], type).pipe(take(1)).subscribe((data: any) => {
+      if (data) {
+        this.finalizedGalleryImages.push(data);
+        this.updateFilesToUpload();
+        this.isFormValid(); //IMG VALIDATION
+        this.cropMultipleGallery(galleryFilesToUpload.slice(1), type);
+      } else {
+        this.cropMultipleGallery(galleryFilesToUpload.slice(1), type);
+      }
+    })
   }
 
   cropSelectedImage(event: any, type: string, edit?: boolean) {

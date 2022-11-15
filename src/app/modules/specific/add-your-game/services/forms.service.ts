@@ -12,6 +12,12 @@ export class FormsService {
 
   constructor(private storage: BaseStorageService) { }
 
+  clearFormData() {
+    localStorage.removeItem('general');
+    localStorage.removeItem('details');
+    localStorage.removeItem('contacts');
+    localStorage.removeItem('connections');
+  }
 
   saveForm(formName: string, value: any) {
     if (formName == 'general') this.storage.setItem('general', JSON.stringify(value));

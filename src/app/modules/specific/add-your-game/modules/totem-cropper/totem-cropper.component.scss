@@ -4,6 +4,23 @@ img {
   width: unset;
 }
 
+.close-wrapper {
+  button {
+    display: flex;
+    align-items: center;
+    place-content: center center;
+    height: 40px;
+    width: 102px;
+    background-color: $dark-grey;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.33s;
+  }
+}
+
 .totem-crop-dialog {
   height: 100%;
   width: 100%;
