@@ -44,8 +44,27 @@
     },
     "home":{
         "web_Explorer": "Web Explorer",
+        "players": "Players",
+        "preview": "Preview",
         "home_widget_title": "Try on your Item for any game!",
+        "the_most_popular_items": "The most popular items",
+        "the_most_used_avatars": "The most used avatars",
+        "popular_games": "Popular Games",
+        "newest_totem_items": "Newest Totem Items",
+        "join_the_event": "Join the event",
+        "play_now": "Play now",
+        "purchase_unique_item": "Purchase unique item",
+        "day": "DAY",
+        "hrs": "HR`S",
+        "mins": "MIN`S",
+        "sec": "SEC",
         "home_widget_description": "Choose the game name in the widget & see how item appearance will change!",
+        "preview_game": "Preview of game card is right here, so You can see how it looks",
+        "totem_is_joining_as": "Totem is joining as a category to GameJam+, the largest game development marathon and acceleration process in the world",
         "main_description": "Browse, create and use your unique items, avatars or gems that will be with you across your journey through your favorite game worlds!"
+    },
+    "asset_card":{
+        "last_used": "Last used",
+        "games_used": "Games used"
     }
 }
