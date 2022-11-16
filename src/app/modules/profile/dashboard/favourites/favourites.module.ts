@@ -10,6 +10,7 @@ import { FavouritesComponent } from "./favourites.component";
 import { ProfileStatsModule } from "../../components/common/profile-stats/profile-stats.module";
 import { FilterComponentsModule } from "@app/components/common/filters-components/filter-components.module";
 import { MatRippleModule } from "@angular/material/core";
+import { FileInputModule } from "@app/components/utils/file-input/file-input.module";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MatRippleModule } from "@angular/material/core";
 
         ProfileBackButtonModule,
         FilterComponentsModule,
-        ProfileStatsModule
+        ProfileStatsModule,
+        FileInputModule
     ],
     exports: [
       FavouritesComponent

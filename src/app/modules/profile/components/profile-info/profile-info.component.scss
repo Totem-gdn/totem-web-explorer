@@ -24,12 +24,34 @@ span {
       overflow: hidden;
       img {
         position: absolute;
+        object-fit: cover;
+        height: 100%;
         min-width: 540px;
         top: -9999px;
         bottom: -9999px;
         left: -9999px;
         right: -9999px;
         margin: auto;
+      }
+      .edit-button {
+        opacity: 0.6;
+        z-index: 3;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        transition: opacity 0.33s ease-out;
+        &:hover {
+          .line-edit {
+            color: #fff;
+          }
+        }
+      }
+      &:hover {
+        .edit-button {
+          opacity: 1;
+        }
       }
     }
 

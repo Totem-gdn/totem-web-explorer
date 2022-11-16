@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { ProfileStateService } from '@app/core/services/states/profile-state.service';
+import { BaseStorageService } from '@app/core/services/utils/base-storage.service';
 
 @Component({
   selector: 'profile-info',
@@ -16,16 +17,19 @@ export class ProfileInfoComponent implements OnInit {
 
   wallet!: string;
   user: any;
+  imageUrl: string | null = '';
 
   constructor(
     private web3Auth: Web3AuthService,
     private router: Router,
     private snackNotifierService: SnackNotifierService,
-    private profileStateService: ProfileStateService
+    private profileStateService: ProfileStateService,
+    private baseStorageService: BaseStorageService,
   ) {}
 
   ngOnInit(): void {
     this.handleAuth();
+    this.imageUrl = JSON.parse(this.baseStorageService.getItem('profile-image')!);
   }
 
 
@@ -58,6 +62,11 @@ export class ProfileInfoComponent implements OnInit {
 
   goToFavourites() {
     this.router.navigate(['profile/favorites']);
+  }
+
+  setImageUrl(event: string) {
+    this.baseStorageService.setItem('profile-image', JSON.stringify(event));
+    this.imageUrl = event;
   }
 
 }
