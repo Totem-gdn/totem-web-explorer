@@ -12,7 +12,7 @@ export class SortByComponent {
 
   @ViewChild('dropdown') dropdown!: ElementRef;
   @Output() sort = new EventEmitter<string>();
-  title = 'Sort by';
+  title = 'items.sort_by'; // for translate
 
   onClickMenu (){
     this.menuActive = !this.menuActive;
@@ -25,8 +25,8 @@ export class SortByComponent {
   }
 
   onSort(option: string) {
-    if(option == 'latest') this.title = 'Newest';
-    if(option == 'popular') this.title = 'Most Popular';
+    if(option == 'latest') this.title = 'items.newest'; // for translate
+    if(option == 'popular') this.title = 'items.most_popular'; // for translate
 
     this.sort.emit(option);
   }

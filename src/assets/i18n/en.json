@@ -66,5 +66,24 @@
     "asset_card":{
         "last_used": "Last used",
         "games_used": "Games used"
+    },
+    "items":{
+        "sort_by": "Sort by",
+        "newest": "Newest",
+        "damage": "Damage",
+        "magical_power": "Magical Power",
+        "element": "Element",
+        "range": "Range",
+        "sex": "Sex",
+        "skin_color": "Skin Color",
+        "hair_color": "Hair Color",
+        "eye_color": "Eye Color",
+        "hair_style": "Hair Style",
+        "weapon_type": "Weapon Type",
+        "weapon_material": "Weapon Material",
+        "clear_all": "Clear all",
+        "apply": "Apply",
+        "load_more": "Load More",
+        "most_popular": "Most Popular"
     }
 }

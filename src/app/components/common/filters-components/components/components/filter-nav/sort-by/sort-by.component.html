@@ -2,7 +2,7 @@
 <div class="dropdown" (clickOutside)="onClick($event)">
     <div class="menu-filter bg-grey" (click)="onClickMenu()" 
     [ngClass]="menuActive ? 'gradient-border-solid': ''">
-        <span class="whitespace-nowrap">{{title}}</span>
+        <span class="whitespace-nowrap">{{title | translate}}</span>
         <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
     </div>
 
@@ -10,10 +10,10 @@
     >
         <div class="menu-items">
             <div class="menu-item" (click)="onSort('latest')">
-                <span class="">Newest</span>
+                <span class="">{{'items.newest' | translate}}</span>
             </div>
             <div class="menu-item" (click)="onSort('popular')">
-                <span class="">Most popular</span>
+                <span class="">{{'items.most_popular' | translate}}</span>
             </div>
         </div>
     </div>
