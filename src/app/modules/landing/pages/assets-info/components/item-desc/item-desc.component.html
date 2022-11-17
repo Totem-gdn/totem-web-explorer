@@ -5,7 +5,7 @@
     </div>
 
     <div class="flex pb-[18px] items-center">
-        <p class="text-light-grey">Current owner: </p>
+        <p class="text-light-grey">{{'modules.current_owner' | translate}}: </p>
         <!-- <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet}}</a> -->
         <!-- <p class="text-white pl-[10px] text-xl truncate w-[200px]">{{item?.owner}}</p> -->
         <div
@@ -39,11 +39,11 @@
         <div class="icon-set">
             <div class="icon">
                 <div class="line-share"></div>
-                <p>Share</p>
+                <p>{{'modules.share' | translate}}</p>
             </div>
             <div class="icon">
                 <div class="line-refresh"></div>
-                <p>Refresh</p>
+                <p>{{'modules.refresh' | translate}}</p>
             </div>
         </div>
     </div>
@@ -57,20 +57,20 @@
                 <div class="item-tag">
                     <h4 *ngIf="item?.lastUsed || item?.lastUsed == 0">{{item?.lastUsed}}</h4>
                     <h4 *ngIf="!item?.lastUsed">--</h4>
-                    <p>Last used</p>
+                    <p>{{'asset_card.last_used' | translate}}</p>
                 </div>
                 <div class="item-tag">
                     <h4>{{item?.rarity ? item.rarity : '--'}}</h4>
-                    <p>Rarity</p>
+                    <p>{{'nav.rarity' | translate}}</p>
                 </div>
                 <div class="item-tag">
                     <h4>{{item?.games || item?.games == 0 ? item?.games : '--'}}</h4>
-                    <p>Games Used</p>
+                    <p>{{'asset_card.games_used' | translate}}</p>
                 </div>
         </div>
 
         <totem-button (click)="onClickBuy()"
-        [disabled]="true" class="pt-[20px]" [caption]="item?.owner == myWallet ? 'You are the owner': 'Buy Item'" [width]="'100%'"></totem-button>
+        [disabled]="true" class="pt-[20px]" [caption]="item?.owner == myWallet ? ('modules.you_owner' | translate) : ('modules.buy_item' | translate)" [width]="'100%'"></totem-button>
 
     </div>
 

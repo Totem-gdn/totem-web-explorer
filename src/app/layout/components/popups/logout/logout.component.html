@@ -12,15 +12,15 @@
                 <img src="assets/images/popup/logout-mamont.webp" alt="">
             </div>
 
-            <h3 class="font-medium text-white">Whoops, your session has expired</h3>
+            <h3 class="font-medium text-white">{{'popups.session_expired' | translate}}</h3>
 
-            <span class="text-light-grey leading-tight">if you want to continue the session, please login again.</span>
+            <span class="text-light-grey leading-tight">{{'popups.continue_session_login_again' | translate}}.</span>
         </div>
 
         <div class="buttons">
-            <button mat-ripple class="button-1" (click)="closePopup()">Cancel</button>
+            <button mat-ripple class="button-1" (click)="closePopup()">{{'nav.cancel' | translate}}</button>
 
-            <button mat-ripple class="button-2" (click)="login()">Login</button>
+            <button mat-ripple class="button-2" (click)="login()">{{'nav.login' | translate}}</button>
         </div>
     </div>
 

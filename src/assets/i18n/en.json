@@ -6,9 +6,14 @@
         "games": "Games",
         "profile": "Profile",
         "send": "Send",
+        "login": "Login",
+        "view_all": "View all",
         "messages": "Messages",
         "sign_out": "Sign out",
         "purchase": "Purchase",
+        "close": "Close",
+        "get_it": "Get it",
+        "no_thanks": "No thanks",
         "you_are_about_to_purchase": "You are about to purchase",
         "help": "Help",
         "rarity": "Rarity",
@@ -19,6 +24,7 @@
         "confirm": "Confirm",
         "token": "Token",
         "soon": "Soon",
+        "no_items_found": "No items found",
         "select_the_token_you_want_to_send": "Select the token you want to send",
         "enter_the_address_for_the_transfer": "Enter the address for the transfer",
         "incorrect_address": "Incorrect address",
@@ -45,6 +51,7 @@
     "home":{
         "web_Explorer": "Web Explorer",
         "players": "Players",
+        "no_games_found": "No Games Found",
         "preview": "Preview",
         "home_widget_title": "Try on your Item for any game!",
         "the_most_popular_items": "The most popular items",
@@ -67,6 +74,10 @@
         "last_used": "Last used",
         "games_used": "Games used"
     },
+    "help":{
+        "web_explorer_help_page": "Web Explorer Help Page",
+        "well_help_you_later": "We'll help you later"
+    },
     "items":{
         "sort_by": "Sort by",
         "newest": "Newest",
@@ -84,7 +95,54 @@
         "clear_all": "Clear all",
         "apply": "Apply",
         "filters": "Filters",
+        "filter": "Filter",
         "load_more": "Load More",
         "most_popular": "Most Popular"
+    },
+    "core":{
+        "first_time_there": "First time there",
+        "we_are_giving_away": "We are giving away a small amount of tokens which will allow you to buy several Totem assets",
+        "welcome_to": "Welcome to"
+    },
+    "popups":{
+        "transaction_initiated": "Transaction initiated",
+        "waiting_for_confirmation": "Waiting for confirmation",
+        "request_complete": "Request complete",
+        "sending": "Sending",
+        "and": "and",
+        "continue_session_login_again": "If you want to continue the session, please login again",
+        "session_expired": "Whoops, your session has expired",
+        "request_type": "Request type",
+        "transaction_hash": "Transaction hash",
+        "to_your_account": "to your account",
+        "please_wait_moment": "please wait a moment",
+        "transactions_have_been_initiated": "Transactions have been initiated",
+        "successfully_claimed_the_tokens": "You have successfully claimed the tokens. You can now generate your brand new Totem Asset!"
+    },
+    "modules":{
+        "owner_address": "Owner address",
+        "date_purchase": "Date of purchase",
+        "price": "Price",
+        "game_played": "Game Played",
+        "history_empty": "History empty",
+        "tx": "TX",
+        "current_owner": "Current owner",
+        "share": "Share",
+        "refresh": "Refresh",
+        "buy_item": "Buy Item",
+        "you_owner": "You are the owner",
+        "date": "Date",
+        "game_name": "Game Name",
+        "description": "Description",
+        "data": "Data",
+        "properties": "Properties",
+        "legacy": "Legacy",
+        "ownership_history": "Ownership History",
+        "genre": "Genre",
+        "meaningful_choices": "Meaningful choices"
+
+    },
+    "description":{
+        "default_descriptions_game": "Struggling punk band, Dead Pets, are still looking for their breakthrough after almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way. Dead Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner demon! We’ve been through hell and back to get here. Playing together for 10 years despite our differences, I know we have what it takes. Dead Pets is a slice of life, management-lite, narrative game about music and friendship. Playing as Gordy, you’ll go to band practice, manage Gordy’s finances and wellbeing, as well find time to earn enough money to cover rent. From the creators of Welcome to Elk, dive into the demon world of New Void City, and give your childhood dreams one last chance. It’s time to dream big, grow up and rock out! Content Warning: Dead Pets Unleashed will contain a major storyline relating to sexual harassment. We are working with a consultant with this to ensure the storyline is handled in a sensitive way, and there will be tools implemented for the player to ensure their comfort and safety while playing."
     }
 }
