@@ -5,6 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
+import { FileInputModule } from "@app/components/utils/file-input/file-input.module";
 import { SnackNotifierModule } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.module";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { SharedModule } from "@app/shared/shared.module";
@@ -23,7 +24,8 @@ import { ProfileInfoComponent } from "./profile-info.component";
         MatButtonModule,
         ClipboardModule,
         SnackNotifierModule,
-        MatRippleModule
+        MatRippleModule,
+        FileInputModule
     ],
     exports: [
         ProfileInfoComponent

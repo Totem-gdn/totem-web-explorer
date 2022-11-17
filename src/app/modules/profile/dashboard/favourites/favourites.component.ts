@@ -13,6 +13,7 @@ import { FavouritesService } from './favourites.service';
 })
 export class FavouritesComponent implements OnInit, OnDestroy {
   user: any;
+  imageUrl: string | null = '';
   messageList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   activeTab = 'items';
   items: any[] = [];
@@ -20,12 +21,17 @@ export class FavouritesComponent implements OnInit, OnDestroy {
   games: any[] = [];
   subs: Subscription = new Subscription();
 
-  constructor(private cacheService: CacheService, private totemItemsService: TotemItemsService, private favouritesService: FavouritesService) { }
+  constructor(private cacheService: CacheService,
+    private totemItemsService: TotemItemsService,
+    private favouritesService: FavouritesService,
+    private baseStorageService: BaseStorageService,
+    ) { }
 
   ngOnInit(): void {
     //this.items = this.favouritesService.getItems(StorageKey.ITEMS);
     //this.avatars = this.favouritesService.getItems(StorageKey.AVATARS);
     //this.games = this.favouritesService.getItems(StorageKey.GAMES);
+    this.imageUrl = JSON.parse(this.baseStorageService.getItem('profile-image')!);
     this.initItemsListener();
     this.getAllItems();
   }
@@ -77,6 +83,11 @@ export class FavouritesComponent implements OnInit, OnDestroy {
 
   onChangeTab(tab: string) {
     this.activeTab = tab;
+  }
+
+  setImageUrl(event: string) {
+    this.baseStorageService.setItem('profile-image', JSON.stringify(event));
+    this.imageUrl = event;
   }
 
 }

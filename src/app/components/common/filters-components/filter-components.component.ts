@@ -10,9 +10,7 @@ import { TagsService } from './services/tags.service';
 @Component({
     selector: 'filter-components',
     templateUrl: './filter-components.component.html',
-    host: {
-        // class: 'min-h-[100vh]'
-    }
+    styleUrls: ['./filter-components.component.scss']
 })
 
 export class FilterComponentsComponent implements OnDestroy {

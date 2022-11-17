@@ -2,7 +2,10 @@
   <div class="favourites-body w-full">
     <totem-profile-back-button class="back-button" [routeName]="'Favorites'"></totem-profile-back-button>
     <div class="banner-image">
-      <img loading="lazy" [src]="user?.image || 'assets/icons/profile/banner.svg'" alt="banner">
+      <img loading="lazy" [src]="imageUrl || user?.image || 'assets/icons/profile/banner.svg'" alt="banner">
+      <div class="edit-button">
+        <totem-file-input (fileSelected)="setImageUrl($event)"></totem-file-input>
+      </div>
     </div>
     <div class="fav-nav-wrapper">
       <div class="fav-nav">
@@ -18,7 +21,7 @@
           <a [ngClass]="activeTab === 'games' ? 'active-tab': ''"
           (click)="onChangeTab('games')">Favorite games</a>
         </div>
-        <div matRipple class="nav-button" [ngClass]="activeTab === 'items' ? 'active-tab': ''" (click)="onChangeTab('items')">Favorite items</div>
+        <div matRipple class="nav-button !w-full" [ngClass]="activeTab === 'items' ? 'active-tab': ''" (click)="onChangeTab('items')">Favorite items</div>
         <div matRipple class="nav-button" [ngClass]="activeTab === 'avatars' ? 'active-tab': ''" (click)="onChangeTab('avatars')">Favorite avatars</div>
         <div matRipple class="nav-button" [ngClass]="activeTab === 'games' ? 'active-tab': ''" (click)="onChangeTab('games')">Favorite games</div>
       </div>

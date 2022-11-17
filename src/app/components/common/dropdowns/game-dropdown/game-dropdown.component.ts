@@ -8,7 +8,10 @@ import { Subject, Subscription, takeUntil } from "rxjs";
 @Component({
   selector: 'game-dropdown',
   templateUrl: './game-dropdown.component.html',
-  styleUrls: ['./game-dropdown.component.scss']
+  styleUrls: ['./game-dropdown.component.scss'], 
+  host: {
+    class: 'w-full'
+  }
 })
 
 export class GameDropdownComponent implements AfterViewChecked, OnDestroy, AfterViewInit {
@@ -24,10 +27,11 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
 
   @Input() type: string = 'game';
   @Input() title: string | undefined = 'Menu';
-  games!: GameDetail[];
   @Input() menuActive = false;
   @Input() alwaysOpen = false;
+  @Input() width: string | null = null;
   @Output() onChange: EventEmitter<GameDetail> = new EventEmitter();
+  games!: GameDetail[];
 
   resetSearch: boolean = false;
   selectedItem!: GameDetail;
