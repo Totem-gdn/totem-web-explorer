@@ -9,22 +9,22 @@
 
           <div class="mark-dropdown" (click)="openSelection()">
             <div class="line-arrow_down"></div>
-            <span class="tooltiptext">Select</span>
+            <span class="tooltiptext">{{'profile.select' | translate}}</span>
           </div>
 
           <div #dropdown class="dropdown-menu backdrop-blur-xl" [ngClass]="selectionActive ? 'appear': ''">
               <div class="menu-items">
                   <div class="menu-item" (click)="checkWithParams('all')">
-                      <span class="">All</span>
+                      <span class="">{{'home.all' | translate}}</span>
                   </div>
                   <div class="menu-item" (click)="checkWithParams('none')">
-                      <span class="">None</span>
+                      <span class="">{{'nav.none' | translate}}</span>
                   </div>
                   <div class="menu-item" (click)="checkWithParams('read')">
-                      <span class="">Read</span>
+                      <span class="">{{'nav.read' | translate}}</span>
                   </div>
                   <div class="menu-item" (click)="checkWithParams('unread')">
-                      <span class="">Unread</span>
+                      <span class="">{{'nav.unread' | translate}}</span>
                   </div>
               </div>
           </div>
@@ -32,23 +32,23 @@
 
         <div [ngClass]="atLeastOneChecked() ? 'view-unread' : ''" class="unread-wrapp" fxLayoutAlign="center center" (click)="markAsReaded()">
           <span class="icon-font-unread"></span>
-          <span class="tooltiptext">Mark a message as read</span>
+          <span class="tooltiptext">{{'nav.mark_message_read' | translate}}</span>
         </div>
       </div>
 
       <div class="right-side-setting">
         <div class="refresh-button">
           <div class="line-refresh"></div>
-          <span class="tooltiptext">Refresh</span>
+          <span class="tooltiptext">{{'modules.refresh' | translate}}</span>
         </div>
         <totem-pagination fxHide.xs [totalValue]="total" (paginationEvent)="pageEvent($event)"></totem-pagination>
       </div>
 
     </div>
     <div class="toolbar-titles" fxHide.xs>
-      <div class="col-name type-caption">Type</div>
-      <div class="col-name subj-caption">Subject</div>
-      <div class="col-name date-caption">Date</div>
+      <div class="col-name type-caption">{{'profile.type' | translate}}</div>
+      <div class="col-name subj-caption">{{'profile.subject' | translate}}</div>
+      <div class="col-name date-caption">{{'modules.date' | translate}}Date</div>
     </div>
     <div class="message-table" fxLayout="column">
 
@@ -164,68 +164,3 @@
     </div>
   </div>
 </div>
-<!--
-
-<div class="type-col" fxLayout="row" fxLayoutAlign="start center">
-  <div class="checkbox-wrapper" fxHide.xs>
-    <input
-      type="checkbox"
-      class="custom-checkbox"
-      id="checkthis{{message.id}}"
-      [checked]="message.isChecked"
-    >
-    <label
-      for="checkthis{{message.id}}"
-      class="icon-font-checkbox"
-      (click)="checkMessage(message.id); $event.preventDefault(); $event.stopPropagation()"
-    >
-    </label>
-  </div>
-  <div class="type-icon" [ngStyle]="message.isReaded ? {'background-color' : '#202225'} : {}">
-    <ng-container [ngSwitch]="message.type">
-      <ng-container *ngSwitchCase="messageType.NOTIF">
-        <span class="icon-font-notification" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
-      </ng-container>
-      <ng-container *ngSwitchCase="messageType.ACCOUNT">
-        <span class="icon-font-locked" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
-      </ng-container>
-      <ng-container *ngSwitchCase="messageType.SETTINGS">
-        <span class="icon-font-settings" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
-      </ng-container>
-      <ng-container *ngSwitchCase="messageType.UPDATE">
-        <span class="icon-font-star" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
-      </ng-container>
-    </ng-container>
-  </div>
-</div>
-
-<div class="subj-col" fxLayout="column" fxLayoutAlign="start start">
-  <div class="message-title w-full" fxLayout="row" fxLayoutAlign="space-between center">
-    <div>{{message.title}}</div>
-    <div class="mark-dropdown" fxHide fxShow.xs>
-      <mat-icon [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}" [svgIcon]="'line:arrow_down'"></mat-icon>
-    </div>
-  </div>
-  <div class="message-subtitle w-full">
-    {{message.text}}
-  </div>
-  <div class="message-heading w-full">
-    {{message.text}}
-  </div>
-  <div class="message-subheading w-full">
-    {{message.text}}
-  </div>
-  <div class="message-text w-full">
-    {{message.message}}
-  </div>
-</div>
-
-<div class="date-col" fxLayout="row" fxLayoutAlign="space-between center" fxHide.xs>
-  <div>{{message.date}}</div>
-  <div fxHide.sm class="hide-button" [ngStyle]="message.isOpened ? {'opacity' : '1'} : {'opacity' : '0'}">Hide</div>
-  <div class="mark-dropdown">
-    <mat-icon [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}" [svgIcon]="'line:arrow_down'"></mat-icon>
-  </div>
-</div>
-
--->

@@ -1,10 +1,10 @@
 <div class="rewiew lg:max-w-[470px]">
-    <h2 *ngIf="!game?.general?.name" class="mb-[40px]">Dead Peats unleashed</h2>
+    <h2 *ngIf="!game?.general?.name" class="mb-[40px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
     <h2 *ngIf="game?.general?.name" class="mb-[40px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
     <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
         <h4 class="flex whitespace-nowrap lh-unset">
-            <p class="text-light-grey pr-[10px] lh-33">Author:</p>{{game?.general?.author
+            <p class="text-light-grey pr-[10px] lh-33">{{'modules.author' | translate}}:</p>{{game?.general?.author
             ? game?.general?.author : 'Triple Troping'}}
         </h4>
 
@@ -34,28 +34,23 @@
         <div class="icon-set">
             <div class="icon">
                 <div class="!w-[14px] !h-[19px] line-share"></div>
-                <p>Share</p>
+                <p>{{'nav.share' | translate}}</p>
             </div>
             <div class="icon">
                 <div class="!w-[16px] line-refresh"></div>
-                <p>Refresh</p>
+                <p>{{'nav.refresh' | translate}}</p>
             </div>
             <div *ngIf="editInfo.edit" class="icon cursor-pointer" (click)="editGame()">
                 <div class="!w-[16px] !h-[19px] line-edit"></div>
-                <p>Edit</p>
+                <p>{{'nav.edit' | translate}}</p>
             </div>
         </div>
     </div>
 
     <!-- Text -->
     <div class="flex max-w-[calc(100vw-40px)]">
-        <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">Struggling punk band, Dead Pets, are still
-            looking for their breakthrough after
-            almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way.
-            Dead
-            Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner
-            demon!
-            Support us on Kickstarter now!
+        <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">
+            {{'description.descriptions_game_2' | translate}}
         </p>
         <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">{{game?.general?.description}}</p>
     </div>
@@ -63,7 +58,7 @@
     <!-- Details -->
     <div class="dropdown-wrapper">
         <div class="dropdown-button" (click)="onToggle()">
-            <h4>Details</h4>
+            <h4>{{'nav.details' | translate}}</h4>
             <div class="text-light-grey !w-[14px] mr-[5px] line-arrow_down"
                 [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></div>
         </div>
@@ -72,49 +67,49 @@
             <div class="dropdown-table" [ngClass]="toggleDropdown ? 'rounded': 'rounded-none'">
                 <div *ngIf="game?.updatedAt" class="row">
                     <div>
-                        <p>Updated</p>
+                        <p>{{'nav.updated' | translate}}</p>
                     </div>
                     <div><span>{{game?.updatedAt | date: 'M.dd.yy h:mm'}}</span></div>
                 </div>
                 <div *ngIf="game?.updatedAt" class="row">
                     <div>
-                        <p>Published</p>
+                        <p>{{'nav.published' | translate}}</p>
                     </div>
                     <div><span>{{game?.createdAt | creationTime }}</span></div>
                 </div>
                 <div *ngIf="game?.details?.status" class="row">
                     <div>
-                        <p>Status</p>
+                        <p>{{'nav.status' | translate}}</p>
                     </div>
                     <div><span>{{game?.details?.status}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.platforms" class="row">
                     <div>
-                        <p>Platforms</p>
+                        <p>{{'nav.platforms' | translate}}</p>
                     </div>
                     <div><span>{{game?.details?.platforms.join(', ')}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.madeWith" class="row">
                     <div>
-                        <p>Made with</p>
+                        <p>{{'nav.made_with' | translate}}</p>
                     </div>
                     <div><span>{{game?.details?.madeWith}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.session" class="row">
                     <div>
-                        <p>Session</p>
+                        <p>{{'nav.session' | translate}}</p>
                     </div>
                     <div><span>{{game?.details?.session}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.languages" class="row">
                     <div>
-                        <p>Languages</p>
+                        <p>{{'nav.languages' | translate}}</p>
                     </div>
                     <div><span>{{game?.details?.languages}}</span></div>
                 </div>
                 <div *ngIf="game?.details?.inputs" class="row">
                     <div>
-                        <p>Inputs</p>
+                        <p>{{'nav.inputs' | translate}}</p>
                     </div>
                     <div><span>{{game?.details?.inputs}}</span></div>
                 </div>
@@ -127,15 +122,15 @@
         <div class="flex flex-wrap gap-[13px]">
             <div class="item-tag">
                 <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
-                <p>Players</p>
+                <p>{{'nav.players' | translate}}</p>
             </div>
             <div class="item-tag">
                 <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
-                <p>Items</p>
+                <p>{{'nav.items' | translate}}</p>
             </div>
             <div class="item-tag">
                 <h4>{{game?.assets?.avatars || game?.assets?.avatars == 0 ? game?.assets?.avatars : '24.05.22'}}</h4>
-                <p>Avatars</p>
+                <p>{{'nav.avatars' | translate}}</p>
             </div>
         </div>
 

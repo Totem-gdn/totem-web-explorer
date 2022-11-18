@@ -1,52 +1,49 @@
 <form class="form-section" [formGroup]="generalDescription">
-    <h3>General Description</h3>
+    <h3>{{'specific.general_description' | translate}}</h3>
 
     <div class="info-block">
         <div class="info-block-wrapper">
 
             <div class="block-section pt-[10px] sm:pt-[40px]">
-                <h4>Game Name</h4>
+                <h4>{{'specific.game_Name' | translate}}</h4>
                 <div class="input-section">
                     <input type="text" formControlName="name" (blur)="saveValue()">
-                    <span @showMessage class="error-message" *ngIf="checkErrors('name', 'required')">Required
-                        field</span>
+                    <span @showMessage class="error-message" *ngIf="checkErrors('name', 'required')">{{'profile.required_field' | translate}}</span>
                 </div>
             </div>
 
             <div class="block-section pt-[10px] sm:pt-[40px]">
-                <h4>Author Name</h4>
+                <h4>{{'specific.author_name' | translate}}</h4>
                 <div class="input-section">
                     <input type="text" formControlName="author" (blur)="saveValue()">
-                    <span @showMessage class="error-message" *ngIf="checkErrors('author', 'required')">Required
-                        field</span>
+                    <span @showMessage class="error-message" *ngIf="checkErrors('author', 'required')">{{'profile.required_field' | translate}}</span>
                 </div>
             </div>
 
             <div class="block-section">
-                <h4>Brief Description</h4>
+                <h4>{{'specific.brief_description' | translate}}</h4>
                 <div class="input-section">
                     <textarea class="gradient-border-solid" name="" id="" rows="5" formControlName="description"
                         (ngModelChange)="briefDescChange($event)" (blur)="saveValue()"></textarea>
-                    <span @showMessage class="error-message" *ngIf="checkErrors('description', 'required')">Required
-                        field</span>
+                    <span @showMessage class="error-message" *ngIf="checkErrors('description', 'required')">{{'profile.required_field' | translate}}</span>
 
                     <div class="flex flex-wrap justify-between">
-                        <span>The text should not contain more than 300 characters</span>
+                        <span>{{'specific.text_more_300_characters' | translate}}</span>
                         <span [ngClass]="briefDescLength >= 300 ? 'text-error':''">{{briefDescLength ? 300 -
-                            briefDescLength + ' of ' : ''}}300 characters left</span>
+                            briefDescLength + ' of ' : ''}}300 {{'specific.characters_left' | translate}}</span>
                     </div>
                 </div>
             </div>
 
             <div class="block-section">
-                <h4>Genre</h4>
+                <h4>{{'modules.genre' | translate}}</h4>
                 <div class="tags-section">
                     <form-dropdown (selectedTag)="onSelectTag($event)" (removeTag)="onRemoveTag($event)"
                         (touched)="onTouchDropdown()" [setItems]="setItems" class="outline-light-grey"
                         [ngClass]="dropdownTouched && genresForm.controls.length === 0 ? 'outline-error':''"
                         [items]="dropdownItems" [title]="'Add genre'"></form-dropdown>
                     <span @fade-in class="error-message"
-                        *ngIf="dropdownTouched && genresForm.controls.length === 0">Required field</span>
+                        *ngIf="dropdownTouched && genresForm.controls.length === 0">{{'profile.required_field' | translate}}</span>
                     <div class="tags">
                         <div @fade-in class="tag" *ngFor="let genre of genresForm.controls"
                             (click)="onRemoveGenre(genre)">
@@ -65,9 +62,9 @@
                     <textarea class="gradient-border-solid" name="" id="" rows="10" formControlName="fullDescription"
                         (ngModelChange)="fullDescChange($event)" (blur)="saveValue()"></textarea>
                     <div class="flex flex-wrap justify-between">
-                        <span>The text should not contain more than 300 characters</span>
+                        <span>{{'specific.text_more_3000_characters' | translate}}</span>
                         <span [ngClass]="fullDescLength >= 3000 ? 'text-error':''">{{fullDescLength ? 3000 -
-                            fullDescLength + ' of ' : ''}}3000 characters left</span>
+                            fullDescLength + ' of ' : ''}}3000 {{'specific.characters_left' | translate}}</span>
                     </div>
                 </div>
             </div>
