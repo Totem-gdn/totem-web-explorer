@@ -1,6 +1,7 @@
 <div [ngClass]="isDropupOpen ? 'blur-background lg:hidden': ''" (click)="onCloseMenu()"></div>
 
-<div class="dropup-menu lg:!static lg:!p-0 lg:!max-h-[fit-content] lg:!rounded" #dropupMenu>
+<div class="dropup-menu lg:!static lg:!p-0 lg:!max-h-[fit-content] lg:!rounded !pt-[0px]" #dropupMenu
+    [ngClass]="isDropupOpen ? '': '!pb-[0px]'">
 
     <div class="handler-wrapper lg:!hidden" (click)="toggleMenu()">
         <div class="rectangle"></div>

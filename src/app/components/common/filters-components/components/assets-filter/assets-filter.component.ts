@@ -15,6 +15,7 @@ import { FiltersService } from "../../services/filters.service";
 })
 
 export class AssetsFilterComponent implements AfterViewInit {
+    
     constructor(private filtersService: FiltersService,
                 @Inject(DOCUMENT) private document: Document,
                 private gamesService: GamesService) { }
@@ -63,7 +64,7 @@ export class AssetsFilterComponent implements AfterViewInit {
         }
         if (!this.isDropupOpen) {
             this.document.body.style.position = 'inherit';
-            this.dropupMenu.nativeElement.style.maxHeight = '25px';
+            this.dropupMenu.nativeElement.style.maxHeight = '0';
             this.dropupMenu.nativeElement.style.overflowY = 'hidden';
         }
     }
