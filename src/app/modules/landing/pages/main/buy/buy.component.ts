@@ -72,7 +72,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (!this.web3Service.isLoggedIn()) {
       this.snackService.open('PLEASE Login');
-      this.gtag.event('click', {
+      this.gtag.event(`${type}_purchase`, {
         'event_label': 'Generate item when user is not login',
       });
       return;
@@ -80,7 +80,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const matic = await this.web3Service.getBalance();
     const usdc = await this.web3Service.getTokenBalance();
-    this.gtag.event('generate', {
+    this.gtag.event(`${type}_purchase`, {
       'event_label': `Click on Generate ${type}`,
     });
     if (!matic || +matic <= 0) {

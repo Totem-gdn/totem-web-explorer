@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Gtag } from "angular-gtag";
 
 @Component({
     selector: 'totem-terms-and-policy',
@@ -8,8 +9,9 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 
 export class TermsAndPolicyComponent implements OnInit, OnDestroy {
 
-    constructor() {
-    }
+  constructor(private gtag: Gtag) {
+    gtag.event('page_view');
+  }
 
     ngOnInit() {
     }

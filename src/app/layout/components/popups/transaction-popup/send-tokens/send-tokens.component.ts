@@ -49,7 +49,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
     addressValid = true;
     maskForAmount: string = '';
     ammountError: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    
+
     menuItems: TokenBalance[] = [{ title: 'USDC', value: '0' }, { title: 'MATIC', value: '0' }];
 
     selectedToken: any;
@@ -145,7 +145,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
         if (this.selectedToken.title == 'USDC') {
             this.paymentService.sendUSDC(address, amount).then(res => {
                 this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
-                this.gtag.event('send', {
+                this.gtag.event('token_send', {
                     'event_label': 'USDC transaction has been sent',
                 });
                 this.updateBalance();
@@ -157,7 +157,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
             const amountToSend = Number(amount) + Number(this.gasFee);
             this.paymentService.transferMatic(address, amountToSend).then(res => {
                 this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
-                this.gtag.event('send', {
+                this.gtag.event('token_send', {
                     'event_label': 'MATIC transaction has been sent',
                 });
                 this.updateBalance();

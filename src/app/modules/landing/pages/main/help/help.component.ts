@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Gtag } from "angular-gtag";
 
 @Component({
     selector: 'app-help',
@@ -9,5 +10,7 @@ import { Component } from "@angular/core";
 })
 
 export class HelpComponent {
-
+  constructor(private gtag: Gtag) {
+      gtag.event('page_view');
+    }
 }
