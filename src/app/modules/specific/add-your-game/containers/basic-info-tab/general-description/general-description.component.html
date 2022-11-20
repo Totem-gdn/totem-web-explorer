@@ -52,12 +52,12 @@
                             <div class="line-close"></div>
                         </div>
                     </div>
-                    <span>Choose a couple of genres in the menu</span>
+                    <span>{{'specific.choose_genres_in_menu' | translate}}</span>
                 </div>
             </div>
 
             <div class="block-section">
-                <h4>Full Description<span class="ml-[10px]">(Optional)</span></h4>
+                <h4>{{'full_description.choose_genres_in_menu' | translate}}<span class="ml-[10px]">(Optional)</span></h4>
                 <div class="input-section">
                     <textarea class="gradient-border-solid" name="" id="" rows="10" formControlName="fullDescription"
                         (ngModelChange)="fullDescChange($event)" (blur)="saveValue()"></textarea>
@@ -77,7 +77,7 @@
                             (finalizedFile)="addJsonFile($event, 'avatar')"></totem-image-dropzone>
                     </div>
 
-                    <span>Upload JSON file with filters for your game</span>
+                    <span>{{'specific.upload_JSON_file' | translate}}</span>
 
                     <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.avatarFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
@@ -110,14 +110,14 @@
                 </div>
             </div>
             <div class="block-section">
-                <h4>Item DNA Filter<span class="ml-[10px]">(Optional)</span></h4>
+                <h4>{{'specific.item_DNA_Filter' | translate}}<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="dta-input-section">
                     <div class="dropzone-wrapper w-full mb-[15px]">
                         <totem-image-dropzone [uniqueId]="'item'" [jsonFileType]="true" [dzMinHeight]="'184px'"
                             (finalizedFile)="addJsonFile($event, 'item')"></totem-image-dropzone>
                     </div>
 
-                    <span>Upload JSON file with filters for your game</span>
+                    <span>{{'specific.upload_JSON_file' | translate}}</span>
 
                     <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.assetFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
@@ -150,14 +150,14 @@
                 </div>
             </div>
             <div class="block-section no-border">
-                <h4>Gem DNA Filter<span class="ml-[10px]">(Optional)</span></h4>
+                <h4>{{'specific.gem_DNA_Filter' | translate}}<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="dta-input-section">
                     <div class="dropzone-wrapper w-full mb-[15px]">
                         <totem-image-dropzone [uniqueId]="'gem'" [jsonFileType]="true" [dzMinHeight]="'184px'"
                             (finalizedFile)="addJsonFile($event, 'gem')"></totem-image-dropzone>
                     </div>
 
-                    <span>Upload JSON file with filters for your game</span>
+                    <span>{{'specific.upload_JSON_file' | translate}}</span>
 
                     <div @fileAnimation class="file-bar w-full p-[10px]" *ngIf="selectedJsonFiles.gemFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
