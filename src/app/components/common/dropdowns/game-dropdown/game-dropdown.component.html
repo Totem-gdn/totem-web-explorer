@@ -20,7 +20,7 @@
                 <span class="truncate w-full">{{game && game?.general?.genre?.[0]}}</span>
           </div>
 
-          <span class="h-[50px] no-found" *ngIf="games?.length === 0 && !searchGames">No Games Found</span>
+          <span class="h-[50px] no-found" *ngIf="games?.length === 0 && !searchGames">{{'home.no_games_found' | translate}}</span>
 
           <div *ngIf="searchGames" class="flex m-auto items-center h-[50px]">
               <totem-spinner></totem-spinner>
@@ -29,7 +29,7 @@
       <!-- View All -->
       <div class="view-all">
           <div class="content" (click)="onClickViewAll()">
-              <div class="text-center bottom-rectangle">View all</div>
+              <div class="text-center bottom-rectangle">{{'nav.view_all' | translate}}</div>
           </div>
       </div>
   </div>

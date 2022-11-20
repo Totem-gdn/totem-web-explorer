@@ -1,5 +1,5 @@
 <div class="search-filter">
-  <mat-icon *ngIf="searchInfo.value" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" class="close-icon" (click)="eraseInput()">close</mat-icon>
+  <mat-icon *ngIf="searchInfo.value" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" class="close-icon" (click)="eraseInput()">{{'nav.close' | translate}}</mat-icon>
 
   <input autocomplete="off" class="search-filter-input" #searchInput type="text" id="filterInput" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search..">
 
@@ -7,17 +7,17 @@
     <!-- Navigation -->
     <div class="tabs" fxLayout="row" fxLayoutAlign="start center">
       <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
-        <div [ngClass]="{'active-tab': activeTab === tabType.ITEMS_TAB}" class="items-tab" (click)="changeTab(tabType.ITEMS_TAB)">Items</div>
+        <div [ngClass]="{'active-tab': activeTab === tabType.ITEMS_TAB}" class="items-tab" (click)="changeTab(tabType.ITEMS_TAB)">{{'nav.items' | translate}}</div>
         <div class="active-border" *ngIf="activeTab === tabType.ITEMS_TAB"></div>
         <div *ngIf="activeTab !== tabType.ITEMS_TAB && (itemsArray | async)?.length" class="items-badge">{{(itemsArray | async)?.length}}</div>
       </div>
       <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
-        <div [ngClass]="{'active-tab': activeTab === tabType.AVATARS_TAB}"  class="avatars-tab" (click)="changeTab(tabType.AVATARS_TAB)">Avatars</div>
+        <div [ngClass]="{'active-tab': activeTab === tabType.AVATARS_TAB}"  class="avatars-tab" (click)="changeTab(tabType.AVATARS_TAB)">{{'nav.avatars' | translate}}</div>
         <div class="active-border" *ngIf="activeTab === tabType.AVATARS_TAB"></div>
         <div *ngIf="activeTab !== tabType.AVATARS_TAB && (avatarsArray | async)?.length" class="items-badge">{{(avatarsArray | async)?.length}}</div>
       </div>
       <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
-        <div [ngClass]="{'active-tab': activeTab === tabType.GAMES_TAB}"  class="games-tab" (click)="changeTab(tabType.GAMES_TAB)">Games</div>
+        <div [ngClass]="{'active-tab': activeTab === tabType.GAMES_TAB}"  class="games-tab" (click)="changeTab(tabType.GAMES_TAB)">{{'nav.games' | translate}}</div>
         <div class="active-border" *ngIf="activeTab === tabType.GAMES_TAB"></div>
         <div *ngIf="activeTab !== tabType.GAMES_TAB && (gamesArray | async)?.length" class="items-badge">{{(gamesArray | async)?.length}}</div>
       </div>
@@ -39,7 +39,7 @@
         </div>
         <ng-template #noItems>
           <div class="no-items" fxLayout="row" fxLayoutAlign="center center">
-            No items found
+            {{'nav.no_items_found' | translate}}
           </div>
         </ng-template>
       </div>
@@ -58,7 +58,7 @@
         </div>
         <ng-template #noItems>
           <div class="no-items" fxLayout="row" fxLayoutAlign="center center">
-            No items found
+            {{'nav.no_items_found' | translate}}
           </div>
         </ng-template>
       </div>
@@ -77,7 +77,7 @@
         </div>
         <ng-template #noItems>
           <div class="no-items" fxLayout="row" fxLayoutAlign="center center">
-            No items found
+            {{'nav.no_items_found' | translate}}
           </div>
         </ng-template>
       </div>
@@ -89,7 +89,7 @@
     </div>
     <!-- View All Button -->
     <div class="view-all" fxLayout="column" fxLayoutAlign="space-between center">
-      <div class="view-all-button" (click)="goToPage()">View all</div>
+      <div class="view-all-button" (click)="goToPage()">{{'nav.view_all' | translate}}</div>
       <div class="view-border"></div>
     </div>
   </div>

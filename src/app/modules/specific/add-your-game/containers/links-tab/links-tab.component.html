@@ -1,26 +1,26 @@
 <div class="desc-form">
   <form class="form-section" [formGroup]="connectionsForm">
 
-    <h3>Connections and links</h3>
+    <h3>{{'specific.сonnections_and_links' | translate}}</h3>
 
     <div class="info-block">
       <div class="info-block-wrapper">
         <div class="block-section flex-wrap !border-0">
-          <h4>Official Web-page</h4>
+          <h4>{{'specific.official_web_page' | translate}}</h4>
           <div class="input-section">
             <input type="text" formControlName="webpage" (change)="updateForm()">
-            <span>Enter the URL of the marketplace page on which your game is located, for example, https://Creators.itch.io/game</span>
-            <span @showMessage class="error-message" *ngIf="webPageErrors">Required field</span>
+            <span>{{'specific.enter_URL_marketplace' | translate}}, https://Creators.itch.io/game</span>
+            <span @showMessage class="error-message" *ngIf="webPageErrors">{{'profile.required_field' | translate}}</span>
           </div>
         </div>
       </div>
 
       <div class="info-block-wrapper">
         <div class="block-section flex-wrap !border-0">
-          <h4>Asset renderer URL<span class="pl-[10px]">(Optional)</span></h4>
+          <h4>{{'specific.asset_renderer_URL' | translate}}<span class="pl-[10px]">({{'profile.optional' | translate}})</span></h4>
           <div class="input-section">
             <input type="text" formControlName="assetRenderer" (change)="updateForm()">
-            <span>Enter the URL of your custom asset renderer Web-service</span>
+            <span>{{'specific.enter_URL_custom_asset' | translate}}</span>
             <span @showMessage class="error-message" *ngIf="assetRendererErrors">Input must be a url</span>
           </div>
         </div>
@@ -28,10 +28,10 @@
 
       <div class="info-block-wrapper">
         <div class="block-section flex-wrap !border-0">
-          <h4>Promo video link<span class="pl-[10px]">(Optional)</span></h4>
+          <h4>{{'specific.promo_video_link' | translate}}<span class="pl-[10px]">({{'profile.optional' | translate}})</span></h4>
           <div class="input-section">
             <input type="text" formControlName="promoVideo" (change)="updateForm()">
-            <span>Share promo video. Enter the full URL, for example, https://twitter.com</span>
+            <span>{{'specific.share_promo_video' | translate}}, https://twitter.com</span>
             <span @showMessage class="error-message" *ngIf="promoVideoErrors">Input must be a url</span>
           </div>
         </div>
@@ -39,7 +39,7 @@
 
       <div class="info-block-wrapper">
         <div class="block-section flex-wrap !border-b !border-b-dark-grey">
-          <h4>Social Links<span class="pl-[10px]">(Optional)</span></h4>
+          <h4>{{'specific.social_links' | translate}}<span class="pl-[10px]">({{'profile.optional' | translate}})</span></h4>
           <div class="input-section" formArrayName="socialLinks">
 
             <ng-container [formArrayName]="i" *ngFor="let socialLink of socialLinksForm.controls; index as i">
@@ -64,7 +64,7 @@
 
             <div class="flex">
               <div class="!max-w-[0px] lg:!max-w-[180px] w-full"></div>
-              <span class="pl-0 lg:pl-[20px]">Where does this link go? Enter the full URL, for example https://twitter.com</span>
+              <span class="pl-0 lg:pl-[20px]">{{'specific.where_does_this_link_go' | translate}} https://twitter.com</span>
             </div>
 
           </div>

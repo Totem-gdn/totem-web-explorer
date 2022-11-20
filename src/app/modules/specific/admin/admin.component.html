@@ -6,7 +6,7 @@
   <div class="w-full h-[24px] mb-[30px]" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="title">{{selectedTab == 'unlisted' ? 'Games to approve:' : 'My approved games:'}}</div>
     <div (click)="selectedTab == 'unlisted' ? getGames() : getApprovedGames(currentUser?.wallet!)" class="cursor-pointer" fxLayout="row" fxLayoutAlign="flex-end center">
-      <p>Refresh</p>
+      <p>{{'nav.refresh' | translate}}</p>
       <mat-icon class="ml-[10px]">refresh</mat-icon>
     </div>
 

@@ -51,26 +51,26 @@
       <div class="timer-block" fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="column" fxLayoutAlign="center center">
           <span class="grey-back font-totem totem-color">{{days | number: '2.0-0'}}</span>
-          <div class="timer-caption">DAY</div>
+          <div class="timer-caption">{{'home.day' | translate}}</div>
         </div>
         <span class="font-totem totem-color timer-dots">:</span>
         <div fxLayout="column" fxLayoutAlign="center center">
           <span class="grey-back font-totem totem-color">{{hours | number: '2.0-0'}}</span>
-          <div class="timer-caption">HR`S</div>
+          <div class="timer-caption">{{'home.hrs' | translate}}</div>
         </div>
         <span class="font-totem totem-color timer-dots">:</span>
         <div fxLayout="column" fxLayoutAlign="center center">
           <span class="grey-back font-totem totem-color">{{minutes | number: '2.0-0'}}</span>
-          <div class="timer-caption">MIN`S</div>
+          <div class="timer-caption">{{'home.mins' | translate}}</div>
         </div>
         <span class="font-totem totem-color timer-dots">:</span>
         <div fxLayout="column" fxLayoutAlign="center center">
           <span class="grey-back font-totem totem-color">{{seconds | number: '2.0-0'}}</span>
-          <div class="timer-caption">SEC</div>
+          <div class="timer-caption">{{'home.sec' | translate}}</div>
         </div>
       </div>
-      <div class="description">Totem is joining as a category to GameJam+, the largest game development marathon and acceleration process in the world</div>
-      <div class="join-cta-block"><totem-button [customId]="'eventButton'" [caption]="'Join the event'"></totem-button></div>
+      <div class="description">{{'home.totem_is_joining_as' | translate}}</div>
+      <div class="join-cta-block"><totem-button [customId]="'eventButton'" [caption]="'home.join_the_event' | translate"></totem-button></div>
     </div>
   </div>
 </div>

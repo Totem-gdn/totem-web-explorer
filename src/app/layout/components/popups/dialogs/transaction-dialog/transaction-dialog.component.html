@@ -3,23 +3,23 @@
     <div class="content-block h-full w-full">
       <div class="content-block-body h-full w-full" fxLayout="column" fxLayoutAlign="start center">
         <div class="content-block-body-title">
-          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 1">Transaction initiated</span>
-          <span @stopLoader class="font-totem title-text-2" *ngIf="stepIndex == 2">waiting for confirmation</span>
-          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 3">Request complete</span>
+          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 1">{{'popups.transaction_initiated' | translate}}</span>
+          <span @stopLoader class="font-totem title-text-2" *ngIf="stepIndex == 2">{{'popups.waiting_for_confirmation' | translate}}</span>
+          <span @stopLoader class="font-totem title-text" *ngIf="stepIndex == 3">{{'popups.request_complete' | translate}}</span>
         </div>
         <div class="h-full w-full" fxLayout="column" fxLayoutAlign="center center">
           <div class="content-block-body-subtitle mt-[16px] mb-[14px] w-full" fxLayout="row" fxLayoutAlign="center center">
             <div class="w-full content-block-body-subtitle-wrapp"
               >
               <span class="subtext" *ngIf="isEqual(stepIndex, 1) && !errorState">
-                <div>Sending 150 USDC and 0.03 MATIC to your account, please wait a moment</div>
+                <div>{{'popups.sending' | translate}} 150 USDC {{'popups.and' | translate}} 0.03 MATIC {{'popups.to_your_account' | translate}}, {{'popups.please_wait_moment' | translate}}</div>
                 <!-- <div>account, please wait a moment</div> -->
               </span>
               <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 2) && !errorState">
-                <div>Transactions have been initiated. Waiting for confirmation</div>
+                <div>{{'popups.transactions_have_been_initiated' | translate}}. {{'popups.waiting_for_confirmation' | translate}}</div>
               </span>
               <span @stopLoader class="subtext" *ngIf="isEqual(stepIndex, 3) && !errorState">
-                <div>You have successfully claimed the tokens. You can now generate your brand new Totem Asset!</div>
+                <div>{{'popups.successfully_claimed_the_tokens' | translate}}</div>
                 <!-- <div></div> -->
               </span>
               <span @stopLoader *ngIf="errorState" class="subtext">
@@ -38,12 +38,12 @@
             fxLayoutAlign="start center"
             >
             <div class="mr-[28px]" fxLayout="column" fxLayoutAlign="center start">
-              <div class="title">Request type</div>
+              <div class="title">{{'popups.request_type' | translate}}</div>
               <div class="caption mtop-20px">150 USDC</div>
               <div class="caption mtop-8px">0.03 MATIC</div>
             </div>
             <div class="tx-info truncate" fxLayout="column" fxLayoutAlign="center start">
-              <div class="title">Transaction hash</div>
+              <div class="title">{{'popups.transaction_hash' | translate}}</div>
               <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light truncate mtop-20px" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{usdcHash}}</a>
               <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light truncate mtop-8px" [ngStyle]="{'color': errorState ? '#FF5252' : ''}">{{maticHash}}</a>
             </div>
@@ -58,7 +58,7 @@
             fxLayoutAlign="start center"
             >
             <div class="w-full" fxLayout="row" fxLayoutAlign="space-between center">
-              <div class="title">Request type</div>
+              <div class="title">{{'popups.request_type' | translate}}</div>
               <div class="title">TX</div>
             </div>
             <div class="w-full mt-[22px]" fxLayout="row" fxLayoutAlign="space-between center">
@@ -139,7 +139,7 @@
     </div>
     <div class="button-block w-full" fxLayout="row" fxLayoutAlign="center center">
       <div @fade-in-out matRipple class="cancel-button" *ngIf="stepIndex != 3 && !errorState">
-        Close
+        {{'nav.close' | translate}}
       </div>
       <totem-button class="cancel-active-button" @fade-in-out *ngIf="stepIndex == 3 || errorState" [caption]="'Close'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]="tokensClaimed"></totem-button>
     </div>

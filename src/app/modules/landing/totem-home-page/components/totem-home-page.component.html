@@ -16,13 +16,13 @@
         <span class="ellipse-2"></span>
         <div class="cta-head-text">
           <p class="font-totem totem-caption">TOTEM</p>
-          <p class="font-totem totem-subcaption mt-[12px]">Web Explorer</p>
+          <p class="font-totem totem-subcaption mt-[12px]">{{'home.web_Explorer' | translate}}</p>
         </div>
         <div class="cta-caption-text">
-          <p>Browse, create and use your unique items, avatars or gems that will be with you across your journey through your favorite game worlds!</p>
+          <p>{{'home.main_description' | translate}}</p>
         </div>
         <div class="button-cta">
-          <totem-button [caption]="'Purchase unique item'" [customId]="'genitembutton'" (clicked)="generateItem($event)"></totem-button>
+          <totem-button [caption]="'home.purchase_unique_item' | translate" [customId]="'genitembutton'" (clicked)="generateItem($event)"></totem-button>
         </div>
 
       </div>
@@ -40,7 +40,7 @@
 
     <div class="content-distance" *ngIf="showAfterScroll">
       <horizontal-carousel
-        [title]="'The most popular items'"
+        [title]="'home.the_most_popular_items' | translate"
         [menuTitle]="'Game name'"
         [itemType]="'item'"
         [items]="mostUsedItems$ | async">
@@ -53,7 +53,7 @@
 
     <div class="content-distance">
       <horizontal-carousel
-        [title]="'The most used avatars'"
+        [title]="'home.the_most_used_avatars' | translate"
         [itemType]="'avatar'"
         [menuTitle]="'Game name'"
         [items]="avatars$ | async">
@@ -66,7 +66,7 @@
 
     <div class="content-distance">
       <horizontal-carousel
-        [title]="'Popular Games'"
+        [title]="'home.popular_games' | translate"
         [menuTitle]="null"
         [itemType]="'game'"
         [items]="games$ | async">
@@ -75,7 +75,7 @@
 
     <div class="content-distance">
       <horizontal-carousel
-        [title]="'Newest Totem Items'"
+        [title]="'home.newest_totem_items' | translate"
         [menuTitle]="'Game name'"
         [itemType]="'item'"
         [items]="newestItems$ | async">

@@ -9,7 +9,7 @@
 
     <div class="content">
         <div class="title lg:!hidden pt-[10px]">
-            <h3>Filters</h3>
+            <h3>{{'items.filters' | translate}}</h3>
         </div>
 
         <div class="py-[45px] lg:py-0">
@@ -21,8 +21,8 @@
         </div>
 
         <div class="dropup-buttons lg:!hidden">
-            <button class="button-style-1" (click)="onClickClear()">Clear all</button>
-            <button class="button-style-1" (click)="onClickApply()">Apply</button>
+            <button class="button-style-1" (click)="onClickClear()">{{'items.clear_all' | translate}}</button>
+            <button class="button-style-1" (click)="onClickApply()">{{'items.apply' | translate}}</button>
         </div>
     </div>
 </div>

@@ -1,20 +1,20 @@
 <form class="form-section" [formGroup]="gameDetails">
-    <h3>Game details preview</h3>
+    <h3>{{'profile.game_details_preview' | translate}}</h3>
 
     <div class="info-block">
       <div class="info-block-wrapper">
 
         <div class="block-section pt-[10px] sm:pt-[40px]">
-          <h4>Status</h4>
+          <h4>{{'nav.status' | translate}}</h4>
           <div class="input-section">
             <input type="text" formControlName="status" (blur)="saveValue()">
-            <span @showMessage class="error-message" *ngIf="statusErrors">Required field</span>
-            <span>Write a current status of game development</span>
+            <span @showMessage class="error-message" *ngIf="statusErrors">{{'profile.required_field' | translate}}</span>
+            <span>{{'profile.write_current_status' | translate}}</span>
           </div>
         </div>
 
         <div class="block-section">
-          <h4>Platforms</h4>
+          <h4>{{'nav.platforms' | translate}}</h4>
           <div class="tags-section">
             <form-dropdown
             (selectedTag)="onSelectTag($event)"
@@ -25,7 +25,7 @@
             [items]="dropdownPlatforms"
             class="outline-light-grey"
             [ngClass]="dropdownTouched && platformTags.length === 0 ? 'outline-error':''"></form-dropdown>
-            <span @fade-in class="error-message" *ngIf="dropdownTouched && platformTags.length === 0">Required field</span>
+            <span @fade-in class="error-message" *ngIf="dropdownTouched && platformTags.length === 0">{{'profile.required_field' | translate}}</span>
             <div class="tags">
               <div @fade-in class="tag" *ngFor="let platform of platformsForm.controls" (click)="onRemovePlatform(platform)">
                 <span>{{platform.value}}</span>
@@ -33,39 +33,39 @@
                 <div class="line-close"></div>
               </div>
             </div>
-            <span>Choose the platforms the game supports</span>
+            <span>{{'profile.choose_platforms_game_supports' | translate}}</span>
           </div>
         </div>
 
         <div class="block-section pt-[10px] sm:pt-[40px]">
-          <h4>Made with<span class="pl-[10px]">(Optional)</span></h4>
+          <h4>{{'nav.made_with' | translate}}<span class="pl-[10px]">({{'profile.optional' | translate}})</span></h4>
           <div class="input-section">
             <input type="text" formControlName="madeWith" (blur)="saveValue()">
-            <span>List programs and tools that were used to create a game</span>
+            <span>{{'profile.list_programs' | translate}}</span>
           </div>
         </div>
 
         <div class="block-section pt-[10px] sm:pt-[40px]">
-          <h4>Session<span class="pl-[10px]">(Optional)</span></h4>
+          <h4>{{'nav.session' | translate}}<span class="pl-[10px]">({{'profile.optional' | translate}})</span></h4>
           <div class="input-section">
             <input type="text" formControlName="session" (blur)="saveValue()">
-            <span>Write time of average session</span>
+            <span>{{'profile.write_time' | translate}}</span>
           </div>
         </div>
 
         <div class="block-section pt-[40px]">
-          <h4>Languages<span class="pl-[10px]">(Optional)</span></h4>
+          <h4>{{'nav.languages' | translate}}<span class="pl-[10px]">({{'profile.optional' | translate}})</span></h4>
           <div class="input-section">
             <input type="text" formControlName="languages" (blur)="saveValue()">
-            <span>Write the languages ​​the game supports</span>
+            <span>{{'profile.write_languages' | translate}}</span>
           </div>
         </div>
 
         <div class="block-section pt-[10px] sm:pt-[40px]">
-          <h4>Inputs<span class="pl-[10px]">(Optional)</span></h4>
+          <h4>{{'nav.inputs' | translate}}<span class="pl-[10px]">({{'profile.optional' | translate}})</span></h4>
           <div class="input-section">
             <input type="text" formControlName="inputs" (blur)="saveValue()">
-            <span>List the types of inputs that the game supports</span>
+            <span>{{'profile.list_types' | translate}}</span>
           </div>
         </div>
 
