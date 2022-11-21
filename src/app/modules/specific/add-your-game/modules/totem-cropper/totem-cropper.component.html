@@ -29,7 +29,7 @@
       <div class="crop-tools" fxLayout="row" fxLayoutAlign="space-between center">
         <div class="crop-tools-zoom mr-[20px]" fxLayout="column" fxLayoutAlign="start start">
           <div class="crop-tools-zoom-state" fxLayout="row" fxLayoutAlign="space-between center">
-            <div>Size</div>
+            <div>{{'specific.size' | translate}}</div>
             <div>{{scaleValue}}</div>
           </div>
           <div class="crop-tools-zoom-slider w-full" [formGroup]="sliderGroup">
@@ -37,12 +37,12 @@
           </div>
         </div>
         <div class="crop-tools-rotate" (click)="rotateImage()">
-          <mat-icon>refresh</mat-icon>
+          <mat-icon>{{'nav.refresh' | translate}}</mat-icon>
         </div>
       </div>
       <div class="crop-cta-buttons" fxLayout="row">
         <div class="close-wrapper">
-          <button matRipple [mat-dialog-close]>Cancel</button>
+          <button matRipple [mat-dialog-close]>{{'nav.cancel' | translate}}</button>
         </div>
 
         <div class="ml-[30px]">

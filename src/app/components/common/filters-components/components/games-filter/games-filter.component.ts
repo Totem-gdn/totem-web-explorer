@@ -46,7 +46,7 @@ export class GamesFilterComponent implements AfterViewInit {
     }
     if (!this.isDropupOpen) {
       this.document.body.style.position = 'inherit';
-      this.dropupMenu.nativeElement.style.maxHeight = '25px';
+      this.dropupMenu.nativeElement.style.maxHeight = '0px';
       this.dropupMenu.nativeElement.style.overflowY = 'hidden';
     }
   }

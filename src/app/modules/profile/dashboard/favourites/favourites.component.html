@@ -2,42 +2,45 @@
   <div class="favourites-body w-full">
     <totem-profile-back-button class="back-button" [routeName]="'Favorites'"></totem-profile-back-button>
     <div class="banner-image">
-      <img loading="lazy" [src]="user?.image || 'assets/icons/profile/banner.svg'" alt="banner">
+      <img loading="lazy" [src]="imageUrl || user?.image || 'assets/icons/profile/banner.svg'" alt="banner">
+      <div class="edit-button">
+        <totem-file-input (fileSelected)="setImageUrl($event)"></totem-file-input>
+      </div>
     </div>
     <div class="fav-nav-wrapper">
       <div class="fav-nav">
         <div class="nav-block">
           <a [ngClass]="activeTab === 'items' ? 'active-tab': ''"
-          (click)="onChangeTab('items')">Favorite items</a>
+          (click)="onChangeTab('items')">{{'profile.favorite' | translate}} {{'nav.items' | translate}}</a>
         </div>
         <div class="nav-block">
           <a [ngClass]="activeTab === 'avatars' ? 'active-tab': ''"
-          (click)="onChangeTab('avatars')">Favorite avatars</a>
+          (click)="onChangeTab('avatars')">{{'profile.favorite' | translate}} {{'nav.avatars' | translate}}</a>
         </div>
         <div class="nav-block">
           <a [ngClass]="activeTab === 'games' ? 'active-tab': ''"
-          (click)="onChangeTab('games')">Favorite games</a>
+          (click)="onChangeTab('games')">{{'profile.favorite' | translate}} {{'nav.games' | translate}}</a>
         </div>
-        <div matRipple class="nav-button" [ngClass]="activeTab === 'items' ? 'active-tab': ''" (click)="onChangeTab('items')">Favorite items</div>
-        <div matRipple class="nav-button" [ngClass]="activeTab === 'avatars' ? 'active-tab': ''" (click)="onChangeTab('avatars')">Favorite avatars</div>
-        <div matRipple class="nav-button" [ngClass]="activeTab === 'games' ? 'active-tab': ''" (click)="onChangeTab('games')">Favorite games</div>
+        <div matRipple class="nav-button !w-full" [ngClass]="activeTab === 'items' ? 'active-tab': ''" (click)="onChangeTab('items')">{{'profile.favorite' | translate}} {{'nav.items' | translate}}</div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'avatars' ? 'active-tab': ''" (click)="onChangeTab('avatars')">{{'profile.favorite' | translate}} {{'nav.avatars' | translate}}</div>
+        <div matRipple class="nav-button" [ngClass]="activeTab === 'games' ? 'active-tab': ''" (click)="onChangeTab('games')">{{'profile.favorite' | translate}} {{'nav.games' | translate}}</div>
       </div>
     </div>
     <div class="content-block">
       <ng-container *ngIf="activeTab === 'items'">
         <totem-profile-stats [type]="'fav_item'" class="fav-stats"></totem-profile-stats>
-        <filter-components [itemType]="'item'" [setItems]="items"></filter-components>
+        <filter-components (loadMore)="loadMore('items', $event)" [pushItems]="items" [itemType]="'item'"></filter-components>
       </ng-container>
       <ng-container *ngIf="activeTab === 'avatars'">
         <totem-profile-stats [type]="'fav_avatar'" class="fav-stats"></totem-profile-stats>
-        <filter-components [itemType]="'avatar'" [setItems]="avatars"></filter-components>
+        <filter-components (loadMore)="loadMore('avatars', $event)" [pushItems]="avatars" [itemType]="'avatar'"></filter-components>
       </ng-container>
       <!-- <ng-container *ngIf="activeTab === 'gems'">
         <totem-profile-stats [total]="totalItems" class="fav-stats"></totem-profile-stats>
         <filter-components [itemType]="'gem'" [items]="gems"></filter-components>
       </ng-container> -->
       <ng-container *ngIf="activeTab === 'games'">
-        <filter-components [itemType]="'game'" [setItems]="games"></filter-components>
+        <filter-components (loadMore)="loadMore('games', $event)" [pushItems]="games" [itemType]="'game'"></filter-components>
       </ng-container>
     </div>
   </div>

@@ -10,15 +10,13 @@ import { TagsService } from './services/tags.service';
 @Component({
     selector: 'filter-components',
     templateUrl: './filter-components.component.html',
-    host: {
-        // class: 'min-h-[100vh]'
-    }
+    styleUrls: ['./filter-components.component.scss']
 })
 
 export class FilterComponentsComponent implements OnDestroy {
 
-    constructor(private tagsService: TagsService, 
-                private gamesService: GamesService, 
+    constructor(private tagsService: TagsService,
+                private gamesService: GamesService,
                 private cacheService: CacheService,
                 private assetsService: AssetsService) {}
 
@@ -42,8 +40,11 @@ export class FilterComponentsComponent implements OnDestroy {
         if(!this.items?.length) this.items = [];
         this.items = this.items.concat(items);
         this.cacheService.totalByAssetType(this.itemType, this.items);
-
-        if(items.length < 10) this.showButton = false;
+        if(items.length < 10) {
+          this.showButton = false;
+        } else {
+          this.showButton = true;
+        }
         this.page++;
     }
 
@@ -80,6 +81,7 @@ export class FilterComponentsComponent implements OnDestroy {
         }
     }
     ngOnDestroy(): void {
+        this.page = 1;
         this.subs.next();
         this.subs.complete();
         this.tagsService.clear();

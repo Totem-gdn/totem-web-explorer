@@ -1,23 +1,27 @@
-<div class="pb-[60px] pt-[40px] flex flex-col relative">
+<div class="pb-[60px] pt-[30px] flex flex-col relative">
 
     <!-- Nav -->
     <div class="flex flex-col">
-        <div class="flex">
-            <div class="flex flex-wrap sm:flex-nowrap w-full max-w-[350px] justify-between">
+        <div class="gap-[0px] lg:gap-[15px] nav-wrapper flex-wrap sm:flex-nowrap" [ngClass]="showSort ? '': 'flex-nowrap'">
+            <div class="flex lg:w-full max-w-[320px]">
                 <filter-slider class="nav-item lg:w-[320px] lg:!hidden"></filter-slider>
                 <clear-all class="nav-item lg:w-[320px] lg:!block !hidden"></clear-all>
-
-                <game-dropdown *ngIf="itemType != 'game'" class="nav-item" [title]="'Game name'"></game-dropdown>
             </div>
 
-            <sort-by *ngIf="showSort" (sort)="onSort($event)" class="nav-item !ml-auto !mr-0"></sort-by>
+            <div class="flex justify-between w-full">
+                <game-dropdown *ngIf="itemType != 'game'" class="nav-item" [title]="'Game name'"></game-dropdown>
+
+                <sort-by *ngIf="showSort" (sort)="onSort($event)" class="nav-item !ml-auto lg:!mr-0"></sort-by>
+            </div>
         </div>
     </div>
 
     <div class="flex flex-col justify-center w-full h-full">
 
         <div class="flex flex-wrap">
-            <filter-update [type]="itemType" [showUpdate]="showUpdate"></filter-update>
+            <filter-update [ngClass]="showUpdate ? '': '!mr-0 lg:!mr-[15px]'" [type]="itemType"
+                [showUpdate]="showUpdate">
+            </filter-update>
             <filter-tags></filter-tags>
         </div>
 
@@ -29,32 +33,45 @@
             <div *ngIf="items" class="flex flex-col w-full">
                 <div #wrapper class="grow grid-item-list relative">
                     <ng-container *ngIf="itemType === 'item'">
-                        <asset-card *ngFor="let item of items" [asset]="item" [type]="'item'" [selectedGame]="getSelectedGame() | async"></asset-card>
-                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no items</h3></ng-container>
+                        <asset-card *ngFor="let item of items" [type]="'item'" [asset]="item"
+                            [selectedGame]="getSelectedGame() | async"></asset-card>
+                        <ng-container *ngIf="items?.length === 0">
+                            <h3 class="absolute-center">There is no items</h3>
+                        </ng-container>
                     </ng-container>
 
                     <ng-container *ngIf="itemType === 'avatar'">
-                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no avatars</h3></ng-container>
-                        <asset-card *ngFor="let item of items" [asset]="item" [type]="'avatar'" [selectedGame]="getSelectedGame() | async"></asset-card>
+                        <ng-container *ngIf="items?.length === 0">
+                            <h3 class="absolute-center">There is no avatars</h3>
+                        </ng-container>
+                        <asset-card *ngFor="let item of items" [type]="'avatar'" [asset]="item"
+                            [selectedGame]="getSelectedGame() | async"></asset-card>
                     </ng-container>
 
                     <ng-container *ngIf="itemType === 'game'">
-                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no games</h3></ng-container>
+                        <ng-container *ngIf="items?.length === 0">
+                            <h3 class="absolute-center">There is no games</h3>
+                        </ng-container>
                         <game-card *ngFor="let item of items" [game]="item"></game-card>
                     </ng-container>
 
                     <ng-container *ngIf="itemType === 'gem'">
-                        <ng-container *ngIf="items?.length === 0"><h3 class="absolute-center">There is no gems</h3></ng-container>
-                        <asset-card *ngFor="let item of items" [asset]="item" [type]="'gem'" [selectedGame]="getSelectedGame() | async"></asset-card>
+                        <ng-container *ngIf="items?.length === 0">
+                            <h3 class="absolute-center">There is no gems</h3>
+                        </ng-container>
+                        <asset-card *ngFor="let item of items" [type]="'gem'" [asset]="item"
+                            [selectedGame]="getSelectedGame() | async"></asset-card>
                     </ng-container>
                 </div>
 
                 <div *ngIf="showButton" class="w-full mt-[60px] flex">
-                    <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'Load More'"></totem-button>
+                    <totem-button class="m-auto" (click)="onLoadMore()" [caption]="'items.load_more' | translate"></totem-button>
                 </div>
             </div>
 
-            <div class="min-h-[300px] max-h-[300px] w-full h-full flex h-auto" *ngIf="!items"><totem-spinner class="m-auto"></totem-spinner></div>
+            <div class="min-h-[300px] max-h-[300px] w-full h-full flex h-auto" *ngIf="!items">
+                <totem-spinner class="m-auto"></totem-spinner>
+            </div>
         </div>
 
     </div>

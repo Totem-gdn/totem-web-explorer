@@ -1,8 +1,11 @@
 
-<div class="profile-wrapper mt-[40px] lg:mt-[80px]">
+<div class="profile-wrapper mt-[30px] lg:mt-[64px]">
   <div class="profile-info">
     <div class="banner-image">
-      <img loading="lazy"  [src]="user?.image || 'assets/icons/profile/banner.svg'" alt="banner">
+      <img loading="lazy" [src]="imageUrl || user?.image || 'assets/icons/profile/banner.svg'" alt="banner">
+      <div class="edit-button">
+        <totem-file-input (fileSelected)="setImageUrl($event)"></totem-file-input>
+      </div>
     </div>
     <div class="user-info">
       <div class="user-info-icon">
@@ -49,11 +52,11 @@
         <div class="button-wrapper">
           <button matRipple class="fav-button" (click)="goToFavourites()">
             <div class="icon-font-favourite"></div>
-            Favorites
+            {{'footer.favorites' | translate}}
           </button>
           <button matRipple class="msg-button" (click)="goToMessages()">
             <mat-icon>mail_outline</mat-icon>
-            Messages
+            {{'nav.messages' | translate}}
           </button>
         </div>
         <div class="plate-button-wrapper">

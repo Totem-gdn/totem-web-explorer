@@ -247,12 +247,12 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   async onClaim() {
     if (!this.web3Service.isLoggedIn()) {
       this.snackService.open('Please Login');
-      this.gtag.event('click', {
+      this.gtag.event('token_claim', {
         'event_label': 'Claim when user is not login',
       });
       return;
     }
-    this.gtag.event('buy token', {
+    this.gtag.event('token_claim', {
       'event_label': 'Claim token',
     });
     this.openTxDialog({});

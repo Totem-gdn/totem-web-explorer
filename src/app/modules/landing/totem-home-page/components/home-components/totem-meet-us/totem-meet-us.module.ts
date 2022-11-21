@@ -4,6 +4,7 @@ import { TotemMeetUsComponent } from './totem-meet-us.component';
 // packages
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     FlexLayoutModule,
-    MatButtonModule
+    MatButtonModule,
+    SharedModule,
   ],
   exports: [
     TotemMeetUsComponent

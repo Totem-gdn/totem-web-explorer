@@ -3,33 +3,33 @@
     <div class="content-block p-[18px] h-full w-full">
       <div class="content-block-body py-[60px] px-[74px] h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
         <div class="content-block-body-title font-totem" *ngIf="!allImagesUploaded && !zeroFilesUpdated">Please wait for images to upload</div>
-        <div class="content-block-body-title font-totem" *ngIf="!allImagesUploaded && zeroFilesUpdated">Your game successfully updated</div>
+        <div class="content-block-body-title font-totem" *ngIf="!allImagesUploaded && zeroFilesUpdated">Your game was successfully updated</div>
         <div class="content-block-body-title font-totem" *ngIf="allImagesUploaded || zeroFilesUpdated">Congratulations!</div>
 
         <div class="content-block-body-subtitle" *ngIf="!allImagesUploaded && !zeroFilesUpdated">
           <div class="w-full">
-            You successfully filled out the form!
-            Now wait for platform approval for 2-5 days, we will send the link to your e-mail.
+            {{'specific.you_successfully_filled_form' | translate}}
+            {{'specific.now_wait_for_platform_approval' | translate}}
           </div>
-          <div class="w-full">Now You can explore Totem website</div>
+          <div class="w-full">{{'specific.you_can_explore_website' | translate}}</div>
         </div>
         <div class="content-block-body-subtitle" *ngIf="!allImagesUploaded && zeroFilesUpdated">
           <div class="w-full">
-            You successfully filled the application form and updated your game.
+            {{'specific.you_successfully_filled_application' | translate}}
           </div>
-          <div class="w-full">Now You can explore Totem website</div>
+          <div class="w-full">{{'specific.you_can_explore_website' | translate}}</div>
         </div>
         <div class="content-block-body-subtitle" *ngIf="allImagesUploaded">
           <div class="w-full">
-            Congratulations! You successfully filled the application form and now the artwork for your game is being uploaded.
-            After upload finishes, we need up to 3 work days (usually less) to process your submission.
+            {{'specific.congratulations' | translate}}
+            {{'specific.after_upload_finishes' | translate}}
           </div>
-          <div class="w-full">We will notify you via email about the status of your submission.</div>
+          <div class="w-full">{{'specific.we_will_notify' | translate}}</div>
         </div>
         <div *ngIf="!zeroFilesUpdated" class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center start">
           <div class="w-full" fxLayout="row" fxLayoutAlign="space-between center">
-            <div>Files uploaded</div>
-            <div>{{filesUploaded}} from {{filesToUploadNumber}}</div>
+            <div>{{'specific.files_uploaded' | translate}}</div>
+            <div>{{filesUploaded}} {{'specific.from' | translate}} {{filesToUploadNumber}}</div>
           </div>
           <div class="w-full">
             <mat-progress-bar class="progress-bar mt-[15px]" mode="determinate" value="{{uploadProgress}}"></mat-progress-bar>
@@ -39,13 +39,13 @@
     </div>
     <div class="button-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="center center" *ngIf="!allImagesUploaded">
       <div matRipple class="cancel-button" [mat-dialog-close]>
-        Cancel
+        {{'nav.cancel' | translate}}
       </div>
       <totem-button class="!ml-[30px]" [caption]="'Finish'" [height]="'40px'" [width]="'102px'" [mat-dialog-close]="{redirect: true}"></totem-button>
     </div>
     <div class="button-block w-full mt-[30px]" fxLayout="row" fxLayoutAlign="center center" *ngIf="allImagesUploaded">
       <div matRipple class="cancel-button" [mat-dialog-close]="{redirect: false}">
-        Close
+        {{'nav.close' | translate}}
       </div>
       <totem-button class="!ml-[30px]" [caption]="'Explore games'" [height]="'40px'" [width]="'140px'" [mat-dialog-close]="{redirect: true}"></totem-button>
     </div>

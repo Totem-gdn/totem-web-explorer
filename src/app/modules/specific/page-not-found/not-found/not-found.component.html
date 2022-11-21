@@ -1,10 +1,10 @@
 <div class="pnf-wrapper w-full h-full" fxLayout="row wrap-reverse" fxLayoutAlign="row center">
 
     <div class="content-wrapper" fxFlex="100%">
-      <p fxHide.xs class="title-caption font-totem">Oops! PAGE NOT FOUND</p>
-      <p fxHide.gt-xs class="title-caption-mob font-totem">Oops!</p>
-      <p fxHide.gt-xs class="title-caption-mob-light font-totem mt-[14px]">PAGE NOT FOUND</p>
-      <p class="subcaption">The page you are looking for might have been removed had its name changed or is temporatily unavalaible</p>
+      <p fxHide.xs class="title-caption font-totem">{{'specific.page_not_found' | translate}} {{'specific.oops' | translate}}</p>
+      <p fxHide.gt-xs class="title-caption-mob font-totem">{{'specific.oops' | translate}}</p>
+      <p fxHide.gt-xs class="title-caption-mob-light font-totem mt-[14px]">{{'specific.page_not_found' | translate}}</p>
+      <p class="subcaption">{{'specific.page_looking_for_might' | translate}}</p>
       <div class="button-wrapper">
         <totem-button routerLink="/" [width]="'220px'" [height]="'50px'" [caption]="'GO TO HOMEPAGE'"></totem-button>
       </div>

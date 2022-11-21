@@ -10,15 +10,16 @@
 }
 
 .favourites-wrapper {
-
+  margin-top: 15px;
 
   .favourites-body {
     .back-button {
       margin-top: 10px;
     }
     .banner-image {
+      position: relative;
       width: 100%;
-      margin-top: 50px;
+      margin-top: 20px;
       border-radius: 4px;
       overflow: hidden;
       img {
@@ -28,6 +29,26 @@
         max-width: 1500px;
         width: 100%;
         object-fit: cover;
+      }
+      .edit-button {
+        opacity: 0.6;
+        z-index: 3;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        transition: opacity 0.33s ease-out;
+        &:hover {
+          .line-edit {
+            color: #fff;
+          }
+        }
+      }
+      &:hover {
+        .edit-button {
+          opacity: 1;
+        }
       }
     }
 
@@ -106,6 +127,7 @@
           padding-bottom: 3px;
         }
         @media (max-width: 600px) {
+          border-bottom: 1px solid transparent;
           place-content: center space-between;
         }
 
@@ -142,6 +164,9 @@
     .content-block {
       .fav-stats {
         margin-top: 30px;
+        @media screen and (max-width: 600px) {
+          margin-top: 0;
+        }
       }
     }
 

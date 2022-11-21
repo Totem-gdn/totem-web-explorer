@@ -1,10 +1,10 @@
 <div class="flex flex-col wrapper w-full">
     <div class="flex flex-col overflow-x-auto mb-[5px]">
         <div class="p-[20px] history-grid border-b border-b-light-grey mb-[20px]">
-            <p>Date</p>
-            <p>Game Name</p>
-            <p>Description</p>
-            <p>Data</p>
+            <p>{{'modules.date' | translate}}</p>
+            <p>{{'modules.game_name' | translate}}</p>
+            <p>{{'modules.description' | translate}}</p>
+            <p>{{'modules.data' | translate}}</p>
         </div>
         <div *ngFor="let _ of [].constructor(5)" class="text-light-grey transaction history-grid">
             <span>30.08.22 18:16 </span>

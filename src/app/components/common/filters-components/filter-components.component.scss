@@ -1,0 +1,18 @@
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    @media screen and (max-width: 340px) {
+        flex-wrap: wrap !important;
+    }
+}
+
+
+.nav-item {
+    display: flex;
+    margin: 15px 15px 15px 0;
+}

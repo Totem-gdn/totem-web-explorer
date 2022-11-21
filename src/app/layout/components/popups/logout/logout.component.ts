@@ -32,8 +32,8 @@ export class LogoutComponent implements OnInit {
     }
 
     closePopup() {
-        this.popupService.showLogout();
-        // this.router.navigate(['/']);
+        this.popupService.closeLogout();
+        this.router.navigate(['/']);
     }
 
     async login() {
