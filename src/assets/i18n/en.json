@@ -250,6 +250,7 @@
         "after_upload_finishes": "After upload finishes, we need up to 3 work days (usually less) to process your submission.",
         "we_will_notify": "We will notify you via email about the status of your submission.",
         "files_uploaded": "Files uploaded",
+        "brief_description": "Brief Description",
         "from": "from",
         "form": "form",
         "size": "Size",
