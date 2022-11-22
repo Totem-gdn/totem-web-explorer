@@ -23,8 +23,8 @@ export class Web3AuthService {
             clientId,
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
-                chainId: environment.BLOCKCHAIN_CONFIG.chainId,
-                rpcTarget: environment.BLOCKCHAIN_CONFIG.rpcTarget     
+                chainId: "0x13881",
+                rpcTarget: "https://rpc-mumbai.maticvigil.com"     
             },
             
         });
