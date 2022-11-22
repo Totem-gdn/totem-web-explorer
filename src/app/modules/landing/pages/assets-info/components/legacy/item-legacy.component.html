@@ -1,19 +1,32 @@
 <div class="flex flex-col wrapper w-full">
-    <div class="flex flex-col overflow-x-auto mb-[5px]">
-        <div class="p-[20px] history-grid border-b border-b-light-grey mb-[20px]">
-            <p>{{'modules.date' | translate}}</p>
-            <p>{{'modules.game_name' | translate}}</p>
-            <p>{{'modules.description' | translate}}</p>
-            <p>{{'modules.data' | translate}}</p>
-        </div>
-        <div *ngFor="let _ of [].constructor(5)" class="text-light-grey transaction history-grid">
-            <span>30.08.22 18:16 </span>
-            <span>MineMine</span>
-            <span>Dropped when killing a mob</span>
-            <div class="flex items-center">
-                <span>13as..sad</span>
-                <div class="!ml-[5px] !mb-[6px] icon line-copy_small"></div>
+    <ng-container *ngIf="achievements?.length">
+        <div class="flex flex-col overflow-x-auto mb-[5px]">
+            <div class="p-[20px] history-grid border-b border-b-light-grey mb-[20px]">
+                <p>{{'modules.date' | translate}}</p>
+                <p>{{'modules.game_name' | translate}}</p>
+                <p>{{'modules.description' | translate}}</p>
+                <p>{{'modules.data' | translate}}</p>
+            </div>
+            <div *ngFor="let achievement of achievements" class="text-light-grey transaction history-grid">
+                <span>{{achievement.timestamp  | date: 'MM.dd.yy h:mm' }}</span>
+                <span>{{achievement.gameId}}</span>
+                <span>--</span>
+                <div class="flex items-center cursor-pointer w-[100px] justify-between"
+                    [cdkCopyToClipboard]="achievement.data"
+                    [cdkCopyToClipboardAttempts]="2"
+                    (cdkCopyToClipboardCopied)="onCopy()">
+
+                    <span>{{(achievement.data.slice(0, 4) + '...' + achievement.data.slice(-5))}}</span>
+                    <div class="!ml-[5px] !mb-[6px] icon line-copy_small"></div>
+                </div>
             </div>
         </div>
+    </ng-container>
+    
+    <div *ngIf="achievements?.length == 0" class="flex h-[120px] justify-center items-center">
+        <h1 class="text-2xl sm:text-1xl">Legacy empty</h1>
+    </div>
+    <div *ngIf="!achievements?.length && !achievements" class="flex h-[120px] justify-center items-center">
+        <totem-spinner></totem-spinner>
     </div>
 </div>

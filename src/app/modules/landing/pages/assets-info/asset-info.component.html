@@ -46,7 +46,7 @@
 
         <div>
             <item-properties [properties]="properties" *ngIf="activeTab === 'properties'"></item-properties>
-            <item-legacy *ngIf="activeTab === 'legacy'"></item-legacy>
+            <item-legacy [asset]="_item" *ngIf="activeTab === 'legacy'"></item-legacy>
             <item-history [type]="type" [asset]="_item" *ngIf="activeTab === 'history'"></item-history>
         </div>
     </div>

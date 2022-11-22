@@ -29,6 +29,8 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   placeholders = [];
 
   @ViewChild('grid') grid!: ElementRef;
+  @ViewChild('tooltip') tooltip!: ElementRef;
+  tooltipData!: any;
 
   @Input() set properties(properties: any[]) {
     this._properties = properties;
@@ -49,19 +51,34 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     this.checkTagsOverflow();
   }
 
-  onOver(e: any) {
-    const pos = e.target.getBoundingClientRect().x;
-    const width = e.target.offsetWidth;
+  onOver(e: any, propertie: any) {
+    if(!this.tooltip) return;
+    if(!(+e.firstChild.offsetWidth < +e.firstChild.scrollWidth)) return;
+    const tooltip = this.tooltip.nativeElement;
 
-    if (window.innerWidth - 80 < pos + width) {
-      const tooltip = e.target.getElementsByClassName('tooltip');
-      if (!tooltip[0]) return;
-      tooltip[0].style.left = '0px';
+    const tagRect = e.getBoundingClientRect();
+    const width = e.offsetWidth;
+    const height = e.offsetHeight;
+    const x = tagRect.x + width / 2;
+    const y = tagRect.y + height / 2;
+
+    tooltip.style.visibility = 'visible';
+    tooltip.style.opacity = '1';
+
+    this.tooltipData = {title: propertie.title, value: propertie.value}
+    if (window.innerWidth - 80 < tagRect.x + width) {
+      tooltip.style.left = `${x - width / 2}px`;
+      tooltip.style.top = `${y}px`;
     } else {
-      const tooltip = e.target.getElementsByClassName('tooltip');
-      if (!tooltip[0]) return;
-      tooltip[0].style.left = '50%';
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
     }
+  }
+  onLeave() {
+    if(!this.tooltip) return;
+    const tooltip = this.tooltip.nativeElement;
+    tooltip.style.visibility = 'hidden';
+    tooltip.style.opacity = '0';
   }
 
   placeholders$() {
@@ -122,13 +139,11 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
     for (let tag of tags) {
       if (+tag.firstChild.offsetWidth < +tag.firstChild.scrollWidth) {
-        if (!tag.children[1] || !tag.children[3]) return;
+        if (!tag.children[1]) return;
         tag.children[1].style.display = 'block'
-        tag.children[3].style.display = 'flex'
       } else {
-        if (!tag.children[1] || !tag.children[3]) return;
+        if (!tag.children[1]) return;
         tag.children[1].style.display = 'none'
-        tag.children[3].style.display = 'none'
       }
     }
   }
