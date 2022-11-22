@@ -27,7 +27,7 @@ export class ItemLegacyComponent implements OnInit {
   }
 
   onCopy() {
-    this.messageService.open('Copied to the clipboard')
+    this.messageService.open('Copied to the clipboard');
   }
 
 }
