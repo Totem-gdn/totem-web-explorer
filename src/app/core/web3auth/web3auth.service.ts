@@ -29,6 +29,7 @@ export class Web3AuthService {
             
         });
         const web3auth = this.web3auth;
+        console.log('INIT')
         await web3auth.initModal();
 
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
@@ -41,6 +42,7 @@ export class Web3AuthService {
     }
 
     login = async () => {
+        console.log("LOGIN")
         if (!this.web3auth) {
             console.log("web3auth not initialized yet");
             return;
