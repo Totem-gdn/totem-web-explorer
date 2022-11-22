@@ -28,7 +28,7 @@
         <div class="flex justify-between max-w-[320px] pt-2">
             <div class="flex flex-col">
                 <h4>{{game?.players && game?.players != 0 ? game.players : game?.players == 0 ? '0' : '--'}}</h4>
-                <p class="text-light-grey">{{'nome.players' | translate}}</p>
+                <p class="text-light-grey">{{'nav.players' | translate}}</p>
             </div>
             <div>
                 <h4 *ngIf="!game?.assets?.items && game?.assets?.items != 0">--</h4>
