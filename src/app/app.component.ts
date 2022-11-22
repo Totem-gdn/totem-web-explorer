@@ -30,7 +30,7 @@ export class AppComponent {
     private gtag: Gtag) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(platformId));
-    this.userStateService.initAccount();
+    // this.userStateService.initAccount();
 
     router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))

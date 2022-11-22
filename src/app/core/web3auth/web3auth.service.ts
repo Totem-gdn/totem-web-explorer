@@ -42,6 +42,7 @@ export class Web3AuthService {
     }
 
     login = async () => {
+        await this.init();
         console.log("LOGIN")
         if (!this.web3auth) {
             console.log("web3auth not initialized yet");
