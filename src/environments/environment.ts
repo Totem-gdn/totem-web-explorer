@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  WEB3AUTH_ID: 'BK6N-BMUaCGWAqX7ulSauE1dvkhhiGy1OUcVPaDNexeWCj8K9Hs4EFtOMGjhFGMnwxLOypcA4g6UlzAa8UF35POXQFtI',
+  WEB3AUTH_ID: 'BMUaCGWAqX7ulSauE1dvkhhiGy1OUcVPaDNexeWCj8K9Hs4EFtOMGjhFGMnwxLOypcA4g6UlzAa8UF35POXQFtI',
   TOTEM_BASE_API_URL: 'https://dev-api.totem-explorer.com',
   TOTEM_FAUCET_API_URL: 'https://faucet.totem-explorer.com',
   ASSET_RENDERER_URL: 'https://asset-renderer.totem-explorer.com',
