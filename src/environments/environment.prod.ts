@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  WEB3AUTH_ID: 'BO7uI7UEn89rseRK5Sq7vHylWe-e1NCfUeCvkuqVjU-pQhgoCUXckIT5P4wQmQxe22XxsvlQ5m3nG1TvHeKRBhY',
+  WEB3AUTH_ID: 'BK6N-BMUaCGWAqX7ulSauE1dvkhhiGy1OUcVPaDNexeWCj8K9Hs4EFtOMGjhFGMnwxLOypcA4g6UlzAa8UF35POXQFtI',
   TOTEM_BASE_API_URL: 'https://api.totem-explorer.com',
   TOTEM_FAUCET_API_URL: 'https://faucet.totem-explorer.com',
   ASSET_RENDERER_URL: 'https://asset-renderer.totem-explorer.com',
