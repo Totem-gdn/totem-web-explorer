@@ -30,10 +30,11 @@ export class Web3AuthService {
             },
             
         });
+        
         const web3auth = this.web3auth;
         const openloginAdapter = new OpenloginAdapter({
             adapterSettings: {
-                network: 'testnet'
+                network: 'mainnet'
             },
         })
         web3auth.configureAdapter(openloginAdapter);
