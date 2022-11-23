@@ -33,13 +33,8 @@ export class Web3AuthService {
         const web3auth = this.web3auth;
         const openloginAdapter = new OpenloginAdapter({
             adapterSettings: {
-                network: 'mainnet'
+                network: 'testnet'
             },
-            // chainConfig: {
-            //     chainNamespace: CHAIN_NAMESPACES.EIP155,
-            //     chainId: "0x13881",
-            //     rpcTarget: "https://rpc-mumbai.maticvigil.com"  
-            // }
         })
         web3auth.configureAdapter(openloginAdapter);
         console.log('INIT')
