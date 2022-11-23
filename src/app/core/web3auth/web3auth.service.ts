@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 // import { Web3AuthCore } from "@web3auth/core";
-import { Web3Auth } from '@web3auth/web3auth';
+import { Web3Auth } from '@web3auth/modal';
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider, WALLET_ADAPTERS } from "@web3auth/base";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
 import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@env/environment";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 
 @Injectable({ providedIn: 'root' })
 
@@ -21,6 +22,7 @@ export class Web3AuthService {
     init = async () => {
         this.web3auth = new Web3Auth({
             clientId,
+            
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
@@ -29,6 +31,17 @@ export class Web3AuthService {
             
         });
         const web3auth = this.web3auth;
+        const openloginAdapter = new OpenloginAdapter({
+            adapterSettings: {
+                network: 'testnet'
+            },
+            // chainConfig: {
+            //     chainNamespace: CHAIN_NAMESPACES.EIP155,
+            //     chainId: "0x13881",
+            //     rpcTarget: "https://rpc-mumbai.maticvigil.com"  
+            // }
+        })
+        web3auth.configureAdapter(openloginAdapter);
         console.log('INIT')
         await web3auth.initModal();
 
