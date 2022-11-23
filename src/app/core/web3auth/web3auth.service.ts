@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 // import { Web3AuthCore } from "@web3auth/core";
-import { Web3Auth } from '@web3auth/modal';
+import { Web3Auth } from '@web3auth/web3auth';
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider, WALLET_ADAPTERS } from "@web3auth/base";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
