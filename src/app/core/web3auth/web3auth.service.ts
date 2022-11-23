@@ -33,7 +33,7 @@ export class Web3AuthService {
         const web3auth = this.web3auth;
         const openloginAdapter = new OpenloginAdapter({
             adapterSettings: {
-                network: 'testnet'
+                network: 'mainnet'
             },
             // chainConfig: {
             //     chainNamespace: CHAIN_NAMESPACES.EIP155,
