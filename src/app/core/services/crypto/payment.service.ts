@@ -168,6 +168,10 @@ export class PaymentService {
     }
 
     async sendTransaction(to: string, amount: number) {
+        this.gtag.event('token_send_completed', {
+            'event_label': 'token has been sent completed',
+        });
+
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
         const contractAddress = '0xB408CC68A12d7d379434E794880403393B64E44b';
@@ -180,9 +184,6 @@ export class PaymentService {
             //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
             //   maxFeePerGas: "200000000000"
         }).on('transactionHash', (hash: string) => {
-            this.gtag.event('token_send_completed', {
-                'event_label': 'token has been sent completed',
-            });
             this.snackService.open('Your payment has been sent');
         })
 
