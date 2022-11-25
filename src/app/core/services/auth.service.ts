@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { TransactionDialogService } from "@app/layout/components/popups/dialogs/transaction-dialog/services/transaction-dialog.service";
+import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 import { Gtag } from "angular-gtag";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { WelcomeDialogService } from "../dialogs/welcome-dialog/services/welcome-dialog.service";
@@ -15,9 +16,7 @@ import { TokenGiveawayService } from "./giveaway/token-giveaway.service";
 
 @Injectable({ providedIn: 'root' })
 
-export class UserStateService implements OnDestroy {
-  subs: Subscription = new Subscription();
-
+export class UserStateService extends OnDestroyMixin implements OnDestroy {
   private loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: Observable<boolean> = this.loading$.asObservable();
 
@@ -32,7 +31,9 @@ export class UserStateService implements OnDestroy {
     private tokenGiveawayService: TokenGiveawayService,
     private welcomeDialogService: WelcomeDialogService,
     private transactionDialogService: TransactionDialogService,
-  ) { }
+  ) {
+    super();
+  }
 
 
   async initAccount() {
@@ -62,21 +63,20 @@ export class UserStateService implements OnDestroy {
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
     let token = userInfo?.idToken;
     let publicKey;
-    if(userInfo?.idToken) {
+    if (userInfo?.idToken) {
       // Social Wallets
       token = userInfo?.idToken;
       publicKey = this.parseJwt(token).wallets[0].public_key;
-      localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({userInfo, key: publicKey}));
+      localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey }));
       this.getUsersTokenGiveawayState();
     } else {
       // External Wallets
       token = await this.web3AuthService.walletJWTToken();
-      console.log('token', token)
       publicKey = this.parseJwt(token).wallets[0].address;
       const userInfo = {
         idToken: token
       }
-      localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({userInfo, key: publicKey}));
+      localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey }));
       this.getUsersTokenGiveawayState();
     }
 
@@ -91,37 +91,42 @@ export class UserStateService implements OnDestroy {
   }
 
   private getUsersTokenGiveawayState() {
-    this.subs.add(
-      this.tokenGiveawayService.getActivity().subscribe((data: WelcomeUser) => {
-        if (data && data.welcomeTokens == 0) {
-          this.openWelcomeDialog();
-        }
-      })
-    );
+    this.tokenGiveawayService.getActivity().pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((data: WelcomeUser) => {
+      if (data && data.welcomeTokens == 0) {
+        this.openWelcomeDialog();
+      }
+    })
+
   }
 
   private openWelcomeDialog() {
-    this.subs.add(
-      this.welcomeDialogService.openWelcomeDialog().subscribe((data: {status: string}) => {
-        if (data && data.status == GIVEAWAY_STATUS.ACCEPTED) {
-          // open tx dialog
-          console.log('ACCEPT');
-          this.openTxDialog();
-        }
-        if (data && data.status == GIVEAWAY_STATUS.REJECTED) {
-          // do nothing (to delete)
-          console.log('REJECT');
-        }
-      })
-    );
+    this.welcomeDialogService.openWelcomeDialog().pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((data: { status: string }) => {
+      if (data && data.status == GIVEAWAY_STATUS.ACCEPTED) {
+        // open tx dialog
+        this.gtag.event('welcome_dialog_accept', {
+          event_label: 'Welcome dialog accept',
+        });
+        this.openTxDialog();
+      }
+      if (data && data.status == GIVEAWAY_STATUS.REJECTED) {
+        // do nothing (to delete)
+        this.gtag.event('welcome_dialog_reject', {
+          event_label: 'Welcome dialog reject',
+        });
+      }
+    })
+
   }
 
   private openTxDialog() {
-    this.subs.add(
-      this.transactionDialogService.openTxDialogModal().subscribe((data: { matic: boolean, usdc: boolean }) => {
-        console.log('welcome flow succeed', data);
-      })
-    )
+    this.transactionDialogService.openTxDialogModal().pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((data: { matic: boolean, usdc: boolean }) => { })
+
   }
 
   async logout() {
@@ -143,7 +148,7 @@ export class UserStateService implements OnDestroy {
   }
 
   parseJwt(token: string | undefined) {
-    if(!token) return null;
+    if (!token) return null;
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
@@ -152,9 +157,4 @@ export class UserStateService implements OnDestroy {
 
     return JSON.parse(jsonPayload);
   };
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
-
 }

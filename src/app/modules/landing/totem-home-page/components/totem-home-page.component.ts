@@ -1,11 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { TotemItemsService } from '@app/core/services/totem-items.service';
-import { BehaviorSubject, Subscription, timer } from 'rxjs';
-import Swiper, { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper';
-import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from "tsparticles-engine";
-import { loadFull } from "tsparticles";
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Router, Scroll } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { BehaviorSubject, timer } from 'rxjs';
+import Swiper, { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper';
+import { loadFull } from "tsparticles";
+import { Container, Engine, MoveDirection, OutMode } from "tsparticles-engine";
 
 
 @Component({
@@ -39,7 +40,7 @@ import { Router, Scroll } from '@angular/router';
   ]
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TotemHomePageComponent implements OnInit {
+export class TotemHomePageComponent extends OnDestroyMixin implements OnInit {
   showAfterScroll: boolean = false;
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
@@ -48,7 +49,6 @@ export class TotemHomePageComponent implements OnInit {
   }
 
   swiper!: Swiper;
-  subs: Subscription = new Subscription();
   imgChange: 'first' | 'second' = 'first';
 
   games$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
@@ -68,7 +68,12 @@ export class TotemHomePageComponent implements OnInit {
 
   eventDate: Date = new Date('10/14/2022 18:00:00 GMT+8');
 
-  constructor(private totemItemsService: TotemItemsService, private router: Router,) { }
+  constructor(
+    private totemItemsService: TotemItemsService,
+    private router: Router,
+  ) {
+    super();
+  }
 
   id = "tsparticles";
 
@@ -178,11 +183,13 @@ export class TotemHomePageComponent implements OnInit {
   }
 
   initImgChanger() {
-    this.subs.add(
-      timer(6000, 6000).subscribe((val) => {
-        this.imgChange = this.imgChange == 'first' ? 'second' : 'first';
-      })
-    )
+
+    timer(6000, 6000).pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((val) => {
+      this.imgChange = this.imgChange == 'first' ? 'second' : 'first';
+    })
+
   }
 
   getAllItems() {
@@ -193,37 +200,41 @@ export class TotemHomePageComponent implements OnInit {
   }
 
   initItemsListener() {
-    this.subs.add(
-      this.totemItemsService.games.subscribe((games: any[] | null) => {
-        if (games) {
-          this.games$.next(games);
-        }
-      })
-    );
-    this.subs.add(
-      this.totemItemsService.mostUsedItems.subscribe((items: any[] | null) => {
-        if (items) {
-          this.mostUsedItems$.next(items);
-        }
-      })
-    );
-    this.subs.add(
-      this.totemItemsService.newestItems.subscribe((items: any[] | null) => {
-        if (items) {
-          this.newestItems$.next(items);
-        }
-      })
-    );
-    this.subs.add(
-      this.totemItemsService.avatars.subscribe((avatars: any[] | null) => {
-        if (avatars) {
-          this.avatars$.next(avatars);
-        }
-      })
-    );
-  }
 
-  ngAfterViewInit() {
+    this.totemItemsService.games.pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((games: any[] | null) => {
+      if (games) {
+        this.games$.next(games);
+      }
+    })
+
+
+    this.totemItemsService.mostUsedItems.pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((items: any[] | null) => {
+      if (items) {
+        this.mostUsedItems$.next(items);
+      }
+    })
+
+
+    this.totemItemsService.newestItems.pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((items: any[] | null) => {
+      if (items) {
+        this.newestItems$.next(items);
+      }
+    })
+
+
+    this.totemItemsService.avatars.pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((avatars: any[] | null) => {
+      if (avatars) {
+        this.avatars$.next(avatars);
+      }
+    })
 
   }
 
