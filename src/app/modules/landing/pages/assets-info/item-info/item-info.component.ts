@@ -15,9 +15,8 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
     constructor(private assetsService: AssetsService,
         private route: ActivatedRoute,
         private gamesService: GamesService,
-        private gtag: Gtag) {
-        gtag.event('page_view');
-    }
+        private gtag: Gtag
+    ) { }
 
     item: any;
     subs = new Subject<void>();
@@ -28,7 +27,7 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
             .subscribe((params: ParamMap) => {
                 const id = params.get('id');
                 if (!id) return;
-
+                this.emitGtagEvent(id);
                 this.item = undefined;
                 this.assetsService.updateAsset(id, 'item').subscribe({
                     next: item => {
@@ -41,12 +40,19 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
             });
     }
 
+    emitGtagEvent(id: string): void {
+        this.gtag.event(`item_view_page`, {
+            event_label: 'View item page',
+            first_field_id: id,
+        });
+    }
+
     ngOnDestroy(): void {
         this.subs.next();
         this.subs.complete();
     }
 
-    getSelectedGame(){
-      return this.gamesService.selectedGame$;
+    getSelectedGame() {
+        return this.gamesService.selectedGame$;
     }
 }
