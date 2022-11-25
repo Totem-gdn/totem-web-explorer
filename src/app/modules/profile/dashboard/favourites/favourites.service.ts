@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { CARD_TYPE } from "@app/core/models/enums/card-types.enum";
 import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { environment } from "@env/environment";
 import { take } from "rxjs";

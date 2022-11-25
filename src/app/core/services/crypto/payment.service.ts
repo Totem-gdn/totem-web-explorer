@@ -5,6 +5,7 @@ import { TOKEN } from "@app/core/models/enums/token.enum";
 import { TokenBalance } from "@app/core/models/interfaces/token-balance.modle";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { Gtag } from "angular-gtag";
 import { BehaviorSubject, map, take } from "rxjs";
 import Web3 from "web3";
 
@@ -18,9 +19,10 @@ export class PaymentService {
         private http: HttpClient,
         private web3: Web3AuthService,
         private snackService: SnackNotifierService,
-    ) {}
+        private gtag: Gtag
+    ) { }
 
-    private _tokenBalance = new BehaviorSubject<TokenBalance>({matic: '0', usdc: '0'});
+    private _tokenBalance = new BehaviorSubject<TokenBalance>({ matic: '0', usdc: '0' });
 
     get tokenBalance$() {
         return this._tokenBalance.asObservable();
@@ -58,12 +60,12 @@ export class PaymentService {
         return await this.web3.getBalance();
     }
 
-    async getUSDCBalance():Promise<string | undefined> {
+    async getUSDCBalance(): Promise<string | undefined> {
         if (!this.web3.provider) return;
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
 
-        const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+        const contractAddress = '0xB408CC68A12d7d379434E794880403393B64E44b';
         const wallet = accounts[0]
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
@@ -74,7 +76,7 @@ export class PaymentService {
     }
 
     async checkAddressValidity(address: string | undefined | null) {
-        if(!this.web3.provider || !address) return;
+        if (!this.web3.provider || !address) return;
         const web3 = new Web3(this.web3.provider as any);
         return web3.utils.isAddress(address);
     }
@@ -91,20 +93,20 @@ export class PaymentService {
         const web3 = new Web3(this.web3.provider as any);
         const myWallet = await this.web3.getAccounts();
         const gasPrice = await web3.eth.getGasPrice();
-        const gasLimit = await web3.eth.estimateGas({from: myWallet, to: address, gasPrice:  gasPrice});
+        const gasLimit = await web3.eth.estimateGas({ from: myWallet, to: address, gasPrice: gasPrice });
         const convertedAmount = web3.utils.toWei(amount.toString());
         const amountToSend = +convertedAmount - (+gasPrice * +gasLimit);
 
         const receipt = await web3.eth.sendTransaction({
-          from: myWallet,
-          to: address,
-          value: amountToSend,
-          gasPrice: gasPrice,
+            from: myWallet,
+            to: address,
+            value: amountToSend,
+            gasPrice: gasPrice,
         });
         return receipt;
     }
     async estimateMaticGasFee(to: string, amount: number) {
-        if(!amount) return;
+        if (!amount) return;
         const web3 = new Web3(this.web3.provider as any);
         const myWallet = await this.web3.getAccounts();
         const gasPrice = await web3.eth.getGasPrice();
@@ -124,17 +126,16 @@ export class PaymentService {
         if (!this.web3.provider) return;
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
-        
-        const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+
+        const contractAddress = '0xB408CC68A12d7d379434E794880403393B64E44b';
         const wallet = accounts[0];
-        console.log('account', wallet);
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
-        
+
         const tx = await contract.methods.claim().send({
-          from: wallet,
-        //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
-        //   maxFeePerGas: "200000000000"
+            from: wallet,
+            //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+            //   maxFeePerGas: "200000000000"
         });
         return tx;
     }
@@ -154,36 +155,40 @@ export class PaymentService {
     async estimateUSDCGasFee(to: string, amount: string) {
         const web3 = new Web3(this.web3.provider as any);
         const wallet = await this.web3.getAccounts();
-        if(!amount) return;
-        const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+        if (!amount) return;
+        const contractAddress = '0xB408CC68A12d7d379434E794880403393B64E44b';
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
         const gasPrice = await web3.eth.getGasPrice();
 
-        const gasLimit = await contract.methods.transfer(to, amount).estimateGas({from: wallet});
+        const gasLimit = await contract.methods.transfer(to, amount).estimateGas({ from: wallet });
         const fee = gasLimit * +gasPrice;
         const gasFee = web3.utils.fromWei(fee.toString());
         return gasFee;
     }
 
     async sendTransaction(to: string, amount: number) {
+        this.gtag.event('token_send_completed', {
+            'event_label': 'token has been sent completed',
+        });
+
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
-        const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
+        const contractAddress = '0xB408CC68A12d7d379434E794880403393B64E44b';
         const wallet = accounts[0];
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
 
         const tx = await contract.methods.transfer(to, amount).send({
-          from: wallet,
-        //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
-        //   maxFeePerGas: "200000000000"
+            from: wallet,
+            //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+            //   maxFeePerGas: "200000000000"
         }).on('transactionHash', (hash: string) => {
             this.snackService.open('Your payment has been sent');
         })
 
         return tx;
-      }
+    }
 
 
 }

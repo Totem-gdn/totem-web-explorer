@@ -1,7 +1,7 @@
 <div class="flex flex-col wrapper" (onResize)="onResize()">
     <div class="grid-wrapper">
         <div #grid class="grid-container">
-            <div *ngFor="let propertie of _properties" class="item-tag" (mouseover)="onOver($event)">
+            <div #tag *ngFor="let propertie of _properties" class="item-tag" (mouseover)="onOver(tag, propertie)" (mouseleave)="onLeave()">
                 <p class="lh-1 text-lg title truncate !text-white">{{propertie.title}}</p>
                 <div class="circle-wrapper">
                     <div class="circle"></div>
@@ -12,14 +12,15 @@
                         [style.background-color]="propertie.value"></div>
                     <p class="truncate !text-light-grey">{{propertie.value}}</p>
                 </div>
-                <div class="tooltip">
-                    <span class="whitespace-nowrap">{{propertie.title}}</span>
-                    <span class="whitespace-nowrap">{{propertie.value}}</span>
-                </div>
             </div>
             <div class="" *ngFor="let placeholder of placeholders" class="item-tag placeholder">
                 <div class="line-item_placeholder"></div>
             </div>
+        </div>
+        <!-- Tolltip -->
+        <div #tooltip class="tooltip">
+            <span class="whitespace-nowrap">{{tooltipData?.title}}</span>
+            <span class="whitespace-nowrap">{{tooltipData?.value}}</span>
         </div>
         <!-- View All -->
         <div *ngIf="showViewAll" class="view-all" (click)="onClickViewAll()">

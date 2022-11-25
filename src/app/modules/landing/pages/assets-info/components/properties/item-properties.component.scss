@@ -2,7 +2,7 @@
 @import 'assets/fonts/icon-fonts/line/line.scss';
 
 .wrapper {
-    position: relative;
+    // position: relative;
 }
 
 .placeholder {
@@ -80,27 +80,22 @@
             // color: $yellow;
         }
     }
-
-    .tooltip {
-        display: flex;
-        flex-direction: column;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity .3s 0.2s, visibility .3s;
-        z-index: 1;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        padding: 15px;
-        background: rgba(8, 9, 10, 0.5);
-        backdrop-filter: blur(10px);
-        border-radius: 4px;
-        color: $light-grey;
-    }
-    &:hover .tooltip {
-        opacity: 1;
-        visibility: visible;
-    }
 }
-
+.tooltip {
+    // top: 0;
+    // left: 0;
+    pointer-events:none;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility .3s;
+    z-index: 1;
+    position: fixed;
+    padding: 15px;
+    background: rgba(8, 9, 10, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    color: $light-grey;
+}
 

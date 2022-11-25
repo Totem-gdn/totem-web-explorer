@@ -15,7 +15,8 @@ export class GemInfoComponent implements OnInit, OnDestroy {
     constructor(private assetsService: AssetsService,
         private route: ActivatedRoute,
         private gamesService: GamesService,
-        private gtag: Gtag) {
+        private gtag: Gtag
+    ) {
         gtag.event('page_view');
     }
 
@@ -47,7 +48,7 @@ export class GemInfoComponent implements OnInit, OnDestroy {
         this.subs.complete();
     }
 
-    getSelectedGame(){
-      return this.gamesService.selectedGame$;
+    getSelectedGame() {
+        return this.gamesService.selectedGame$;
     }
 }

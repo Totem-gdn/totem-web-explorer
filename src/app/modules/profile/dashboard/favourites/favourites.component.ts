@@ -78,7 +78,6 @@ export class FavouritesComponent implements OnInit, OnDestroy {
       this.totemItemsService.mostUsedItems.subscribe((items: any[] | null) => {
         if (items) {
           this.items = items.filter((item: any) => item.isLiked);
-          this.cacheService.setItemCache('fav_item', this.items.length);
         }
       })
     );
@@ -86,7 +85,6 @@ export class FavouritesComponent implements OnInit, OnDestroy {
       this.totemItemsService.avatars.subscribe((avatars: any[] | null) => {
         if (avatars) {
           this.avatars = avatars.filter((item: any) => item.isLiked);
-          this.cacheService.setItemCache('fav_avatar', this.avatars.length);
         }
       })
     );

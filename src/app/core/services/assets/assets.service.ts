@@ -102,6 +102,8 @@ export class AssetsService {
     }
 
     async cacheTotal() {
+        this.cacheFav();
+
         const web3 = new Web3(this.web3.provider as any);
         const wallet = await this.web3.getAccounts();
         const contractAddress = {
@@ -126,5 +128,15 @@ export class AssetsService {
         })
 
         return true;
+    }
+
+    cacheFav() {
+        const assets = ['item', 'avatar', 'game'];
+        for(let asset of assets) {
+            this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}s`).subscribe(total => {
+                this.cacheService.setItemCache(asset, total);
+            });
+        }
+
     }
 }

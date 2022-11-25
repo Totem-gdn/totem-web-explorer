@@ -61,6 +61,6 @@
     "strictTemplates": true
   },
   "include": [
-    "src", "typings.d.ts"
+    "src"
   ]
 }

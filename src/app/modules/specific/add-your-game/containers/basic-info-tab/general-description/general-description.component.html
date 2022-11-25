@@ -57,7 +57,7 @@
             </div>
 
             <div class="block-section">
-                <h4>{{'full_description.choose_genres_in_menu' | translate}}<span class="ml-[10px]">(Optional)</span></h4>
+                <h4>{{'specific.full_description' | translate}}<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="input-section">
                     <textarea class="gradient-border-solid" name="" id="" rows="10" formControlName="fullDescription"
                         (ngModelChange)="fullDescChange($event)" (blur)="saveValue()"></textarea>
@@ -70,7 +70,7 @@
             </div>
 
             <div class="block-section">
-                <h4>Avatar DNA Filter<span class="ml-[10px]">(Optional)</span></h4>
+                <h4>Avatar DNA Filter<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="dta-input-section">
                     <div class="dropzone-wrapper w-full mb-[15px]">
                         <totem-image-dropzone [uniqueId]="'avatar'" [jsonFileType]="true" [dzMinHeight]="'184px'"

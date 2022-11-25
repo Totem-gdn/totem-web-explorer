@@ -28,6 +28,24 @@ interface TotalAssets {
     gem?: string;
 }
 
+interface TotalFav {
+    avatars?: {
+        total?: number;
+        rare?: number;
+        unique?: number;
+    }
+    items?: {
+        total?: number;
+        rare?: number;
+        unique?: number;
+    }
+    gems?: {
+        total?: number;
+        rare?: number;
+        unique?: number;
+    }
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -36,6 +54,7 @@ export class CacheService {
 
     private _cache = new BehaviorSubject<CachedTotalItems>({});
     private _totalAssetsCache = new BehaviorSubject<TotalAssets>({});
+    private _totalFav = new BehaviorSubject<TotalFav>({});
     constructor(private web3: Web3AuthService) {}
 
     totalCache$() {
@@ -97,6 +116,12 @@ export class CacheService {
         if (itemType == 'unique_gem') cache.totalUniqueGems = value;
 
         if (itemType == 'game') cache.totalGames = value;
+        if (itemType == 'fav_avatar') cache.fav_totalAvatars = value;
+        if (itemType == 'fav_item') cache.fav_totalItems = value;
+        if (itemType == 'fav_gem') cache.fav_totalGems = value;
+        if (itemType == 'fav_avatar') cache.fav_totalAvatars = value;
+        if (itemType == 'fav_item') cache.fav_totalItems = value;
+        if (itemType == 'fav_gem') cache.fav_totalGems = value;
         if (itemType == 'fav_avatar') cache.fav_totalAvatars = value;
         if (itemType == 'fav_item') cache.fav_totalItems = value;
         if (itemType == 'fav_gem') cache.fav_totalGems = value;
