@@ -25,7 +25,6 @@ export class GalleryCardComponent implements OnInit {
           name: this.finalizedImage.name,
           size: this.finalizedImage.size / (1024 ** 2)
         }
-        console.log(this.imageFile);
 
         this.imageReader.readAsDataURL(this.finalizedImage);
         this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };

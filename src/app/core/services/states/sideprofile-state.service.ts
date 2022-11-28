@@ -12,7 +12,6 @@ export class SideProfileStateService {
     constructor() {}
 
     updateState(data: boolean) {
-        console.log(data);
         this.isOpened.next(data);
     }
 }

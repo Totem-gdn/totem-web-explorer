@@ -10,7 +10,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
     class: 'flex'
   }
 })
-export class ProfileStatsComponent implements OnDestroy {
+export class ProfileStatsComponent{
 
   constructor(
     private cacheService: CacheService) { }
@@ -45,10 +45,6 @@ export class ProfileStatsComponent implements OnDestroy {
       if (this.type == 'fav_gem') this._total.next(total.fav_totalGems);
       if (this.type == 'fav_game') this._total.next(total.fav_totalGames);
     })
-  }
-
-  ngOnDestroy(): void {
-    console.log('destroyed')
   }
 
 }

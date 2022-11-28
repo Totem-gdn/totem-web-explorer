@@ -57,10 +57,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
     private paymentService: PaymentService
-    ) {
-      console.log(this.data);
-
-    }
+    ) { }
 
   ngOnInit() {
     this.subs.add(
@@ -141,8 +138,6 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
       this.steps[this.stepIndex].loading = false;
       this.paymentService.updateBalance();
     }
-    console.log(this.stepIndex, 'CALLED');
-
   }
 
   getMatics() {
@@ -150,11 +145,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
         next: (response: any) => {
-          console.log(response);
           if (response.status == 'Accepted') {
-
-            //this.snackService.open('Tokens has been sent, wait a few seconds');
-
             this.nextStep();
             this.maticHash = response.MATIC;
             this.usdcHash = response.USDC;
@@ -167,7 +158,6 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
           }
         },
         error: (error: any) => {
-          console.log(error);
           if (error.error.statusCode == 403) {
             this.snackService.open('Please Login');
           }

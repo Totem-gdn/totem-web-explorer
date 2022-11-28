@@ -49,7 +49,6 @@ export class ProfileInfoComponent implements OnInit {
       wallet: wallet.slice(0, 6) + '...' + wallet.slice(-4)
     }
     this.user = user;
-    console.log('user',user);
   }
 
   notify() {

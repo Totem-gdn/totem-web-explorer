@@ -64,17 +64,14 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     let progressUpdateNumber: number = 100 / this.filesToUploadNumber;
     concat(...linkedImagesToUrlsObservable).subscribe((event) => {
       if (event.type == HttpEventType.UploadProgress) {
-        console.log(Math.round(100 * (event.loaded / event.total)));
       }
       if (event.type == HttpEventType.Response) {
         this.filesUploaded += 1;
         this.uploadProgress += progressUpdateNumber;
         if (this.filesUploaded == this.filesToUploadNumber) {
-          console.log('ALL FILES UPLOADED');
           this.uploadProgress = 100;
           this.allImagesUploaded = true;
         }
-        console.log(event);
       }
     });
   }

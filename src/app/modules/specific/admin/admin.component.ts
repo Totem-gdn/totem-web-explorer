@@ -49,14 +49,12 @@ export class AdminComponent implements OnInit, OnDestroy {
     getGames() {
       this.loading$.next(true);
       this.adminService.getGames().pipe(take(1)).subscribe((games: any[]) => {
-        console.log(games);
 
         this.games = games.map((game: any) => {
           game.approved = false
           game.deleted = false
           return game;
         });
-        console.log(this.games);
         this.loading$.next(false);
       })
     }
@@ -64,14 +62,12 @@ export class AdminComponent implements OnInit, OnDestroy {
     getApprovedGames(owner: string) {
       this.loading$.next(true);
       this.adminService.getApprovedGames(owner).pipe(take(1)).subscribe((games: any[]) => {
-        console.log(games);
 
         this.games = games.map((game: any) => {
           game.rejected = false
           game.deleted = false
           return game;
         });
-        console.log(this.games);
         this.loading$.next(false);
       })
     }
@@ -83,10 +79,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         take(1)
         )
         .subscribe((data: any) => {
-
-          console.log(data);
           const index: number = this.games.findIndex((game: any) => game.id == id);
-          console.log(index);
           this.games[index].approved = true;
           this.approveLoading$.next(false);
 
@@ -100,9 +93,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         )
         .subscribe((data: any) => {
 
-          console.log(data);
           const index: number = this.games.findIndex((game: any) => game.id == id);
-          console.log(index);
           this.games[index].rejected = true;
           this.approveLoading$.next(false);
 
@@ -115,14 +106,9 @@ export class AdminComponent implements OnInit, OnDestroy {
         take(1)
         )
         .subscribe((data: any) => {
-
-          console.log(data);
           const index: number = this.games.findIndex((game: any) => game.id == id);
-          console.log(index);
-
           this.games[index].deleted = true;
           this.approveLoading$.next(false);
-
         });
     }
 
@@ -145,7 +131,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        console.log('destroy')
         this.subs.unsubscribe();
     }
 }

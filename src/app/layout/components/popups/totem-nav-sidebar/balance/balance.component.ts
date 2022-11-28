@@ -128,7 +128,6 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   openTxDialog(data: any) {
     this.sub.add(
       this.openTxDialogModal(data).subscribe((data: { matic: boolean, usdc: boolean }) => {
-        console.log(data);
         if (data.matic || data.usdc) {
           this.updateBalance();
           this.snackService.open('USDC balance updated');
@@ -159,46 +158,10 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     this.paymentService.updateBalance();
   }
 
-  /* async updateBalanceAndGetMatic() {
-    await this.web3Service.getBalance().then(balance => {
-      if (parseFloat(balance!) > parseFloat(this.maticBalance!)) {
-        this.maticBalance = balance;
-        this.onClaim();
-      } else {
-        if (this.try != 10) {
-          this.try += 1;
-          this.updateBalanceAndGetMatic();
-        }
-      }
-    })
-  } */
-
-  /* startTimeout() {
-    this.maticClaimTimeout = setTimeout( async () => {
-      const matic = await this.web3Service.getBalance();
-      if(!matic || +matic <= 0) {
-          this.snackService.open('Something went wrong... Try again');
-          this.web3Service.transactionsLogs().unsubscribe();
-          this.disableButton = false;
-          return;
-      }
-      this.updateBalance();
-      // this.getUsdc();
-      this.web3Service.transactionsLogs().unsubscribe();
-      this.disableButton = false;
-    }, 120000);
-  }
-
-  closeTimeout() {
-      clearTimeout(this.maticClaimTimeout);
-  } */
-
   getMatics() {
-
     this.sub.add(
       this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
         next: (response: any) => {
-          this.getUsdc(response.usdc);
           if (response.status == 'Accepted') {
             this.snackService.open('Tokens has been sent, wait a few seconds');
             this.web3Service.isReceiptedMatic(response.matic);
@@ -208,7 +171,6 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
           }
         },
         error: (error: any) => {
-          console.log(error);
           this.disableButton = false;
           if (error.error.statusCode == 403) {
             this.snackService.open('Please Login');
@@ -223,21 +185,6 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
       }
       )
     )
-  }
-
-
-  getUsdc(hash: string) {
-    console.log(hash)
-    this.web3Service.listenToHash(hash);
-    // this.snackService.open('Claiming USDC');
-    // this.paymentService.getTokens().then(() => {
-    //   this.updateBalance();
-    //   this.snackService.open('USDC balance updated');
-    //   this.disableButton = false;
-    // }).catch(() => {
-    //   this.snackService.open('Limit exceeded, try later');
-    //   this.disableButton = false;
-    // })
   }
 
   onSend() {

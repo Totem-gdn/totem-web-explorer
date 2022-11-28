@@ -31,7 +31,6 @@ export class TotemPaginationComponent implements OnInit {
     } else {
         this.totalPages = 0;
     }
-    console.log(this.totalPages);
     this.calcPaginationValues();
   }
 

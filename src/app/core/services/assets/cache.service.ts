@@ -80,7 +80,6 @@ export class CacheService {
 
     async cacheTotalByAssetType(type: string) {
         if(!this.web3.provider) {
-            console.log('unathorized');
             return;
         }
         if(type == 'game') return;

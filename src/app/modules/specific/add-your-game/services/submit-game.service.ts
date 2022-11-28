@@ -26,22 +26,13 @@ export class SubmitGameService {
   }
 
   getGame(id: string) {
-    this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => {
-      console.log(data, '6338aafe7edc08f592ea74e1');
-
-    })
+    this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => { })
   }
   approveGame(id: string) {
-    this.http.patch<any>(`${this.baseUrl}/games/${id}/approve`, {}).subscribe((data: any) => {
-      console.log(data);
-
-    })
+    this.http.patch<any>(`${this.baseUrl}/games/${id}/approve`, {}).subscribe((data: any) => { })
   }
   deleteGame(id: string) {
-    this.http.delete<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => {
-      console.log(data);
-
-    })
+    this.http.delete<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => { })
   }
 
   componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilters?: JsonDnaFilesUrls }, jsonFiles?: JsonDNAFilters): Observable<any>[] {
@@ -67,7 +58,6 @@ export class SubmitGameService {
     if (jsonFiles?.gemFilter) {
       imagesWithUrls.push({url: connections?.dnaFilters?.gemFilter, file: jsonFiles?.gemFilter ? jsonFiles?.gemFilter : undefined})
     }
-    console.log(imagesWithUrls);
     return this.connectImagesWithUrls(imagesWithUrls);
   }
 

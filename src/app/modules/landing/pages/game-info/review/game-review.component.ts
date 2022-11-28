@@ -43,7 +43,6 @@ export class GameReviewComponent {
         }
         if (!this.game.isLiked) {
             this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
-                console.log('Add Like')
                 this.gamesService.updateGame(this.game.id).subscribe();
             });
         } else {
@@ -54,8 +53,6 @@ export class GameReviewComponent {
     }
 
     editGame() {
-      console.log(this.game);
-
       localStorage.setItem(StorageKey.SELECTED_GAME, JSON.stringify(this.game));
       this.router.navigate(['/submit-game'], {queryParams: {edit: this.editInfo.gameId}})
     }

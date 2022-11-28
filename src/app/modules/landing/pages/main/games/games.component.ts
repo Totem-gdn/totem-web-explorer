@@ -28,7 +28,6 @@ export class GamesComponent implements OnDestroy {
     this.gamesService.updateGames(1, filters)
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
-        console.log('games', games)
         this.games = games;
       })
   }

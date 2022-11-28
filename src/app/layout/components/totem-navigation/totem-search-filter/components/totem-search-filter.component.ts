@@ -115,7 +115,6 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((text: string | null) => {
-        console.log(text);
         if (text?.length) {
           this.dropdownOpened = true;
           this.getItems(text);
@@ -144,54 +143,6 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
           this.checkTabAfterSearch(data.items?.length || 0, data.avatars?.length | 0, data.games?.length | 0);
           this.loading$.next(false);
         });
-      /* this.itemsSub.add(
-        this.totemItemsService.getGameByName(params).pipe(take(1)).subscribe((games: any[]) => {
-          if (!games?.length) {
-            this.gamesArray.next(null);
-            this.loading$.next(false);
-            return;
-          }
-          this.gamesArray.next(games);
-          this.loading$.next(false);
-          console.log('SUBBED');
-        })
-      );
-
-      this.itemsSub.add(
-        this.totemItemsService.getItemsByName(params).pipe(take(1)).subscribe((items: Items[]) => {
-          if (!items?.length) {
-            this.itemsArray.next(null);
-            this.loading$.next(false);
-            return;
-          }
-          items.map((item: Items) => item.gradient = this.getGradient());
-          this.itemsArray.next(items);
-          this.loading$.next(false);
-          console.log('SUBBED');
-        })
-      );
-
-      this.itemsSub.add(
-        this.totemItemsService.getAvatarsByName(params).pipe(take(1)).subscribe((avatars: Items[]) => {
-          if (!avatars?.length) {
-            this.avatarsArray.next(null);
-            this.loading$.next(false);
-            return;
-          }
-          avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
-          this.avatarsArray.next(avatars);
-          this.loading$.next(false);
-          console.log('SUBBED');
-        })
-      ); */
-
-
-
-    /* setTimeout(() => {
-      let itemsArray = items.filter((item: Items) => item.name.toLowerCase().includes(params));
-      this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
-      this.processAvatars(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
-    }, 1200); */
   }
 
   checkTabAfterSearch(itemsLength: number, avatarsLength: number, gamesLength: number) {

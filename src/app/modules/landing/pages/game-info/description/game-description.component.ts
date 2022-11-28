@@ -12,7 +12,6 @@ export class GameDescriptionComponent {
     @Input() set game(game: any) {
         this._game = game;
         this.hlImage = game?.images?.gallery[0];
-        console.log(game)
     };
     @ViewChild('image') image!: ElementRef;
 

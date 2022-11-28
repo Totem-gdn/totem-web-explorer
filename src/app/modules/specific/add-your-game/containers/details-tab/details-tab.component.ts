@@ -83,7 +83,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     if (this.editMode) {
       this.existingImages = this.formsService.getForm('imageUrls');
-      console.log(this.galleryImagesToDelete);
 
       if (this.galleryImagesToDelete && this.galleryImagesToDelete.length) {
         this.galleryImagesToDelete?.forEach((image: string) => {
@@ -170,7 +169,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
       return image != item;
     });
     this.galleryImagesToDelete.push(item);
-    console.log(this.existingImages);
 
     this.updateFilesToUpload();
     this.isFormValid();
@@ -228,8 +226,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   checkValidity(): boolean {
-    console.log(this.existingImages);
-
     if (this.editMode) return !!(this.existingImages.gallery && this.existingImages.gallery?.length) || Boolean(this.finalizedGalleryImages.length);
     return !!this.finalizedImage && !!this.finalizedCardImage && !!this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
   }
@@ -251,7 +247,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   processMultipleFiles(event: any) {
-    console.log(event);
     const files: File[] = Array.from(event.target.files);
     const galleryFilesToUpload: any[] = files.map((file: File) => {
       return {
@@ -260,7 +255,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
-    console.log(galleryFilesToUpload);
     this.cropMultipleGallery(galleryFilesToUpload, 'gallery');
   }
 
@@ -321,7 +315,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subs.add(
       this.openCropper(image, type).subscribe((data: any) => {
         if (data) {
-          console.log(data);
           if (type == 'cover') this.finalizedImage = data;
           if (type == 'card') this.finalizedCardImage = data;
           if (type == 'search') this.finalizedSearchImage = data;

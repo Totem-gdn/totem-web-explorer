@@ -28,12 +28,10 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
             .observe(['(min-width: 745px)'])
             .pipe(takeUntil(this.subs))
             .subscribe((state: BreakpointState) => {
-                console.log(state.matches)
                 if (state.matches) {
                     this.slidesOnScreen = 3;
                 } else {
                     this.slidesOnScreen = 2;
-                    console.log(this.slidesOnScreen);
                 }
             });
     }

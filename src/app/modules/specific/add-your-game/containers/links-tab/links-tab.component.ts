@@ -121,7 +121,6 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   submitGameInfo() {
-    console.log('evenet');
     this.submitEvent.emit();
   }
 

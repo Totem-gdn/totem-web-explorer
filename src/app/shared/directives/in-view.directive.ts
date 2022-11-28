@@ -17,8 +17,6 @@ export class InViewDirective implements AfterViewInit {
     this.setMinWidthHeight(elToObserve);
 
     const observer = new IntersectionObserver(entries => {
-      console.log('entries', entries);
-
       entries.forEach(entry => {
         this.renderContents(entry.isIntersecting)
       });

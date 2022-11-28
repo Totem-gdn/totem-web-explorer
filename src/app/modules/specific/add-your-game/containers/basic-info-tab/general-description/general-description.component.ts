@@ -98,7 +98,6 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
     }
 
     addJsonFile(event: any, type: string) {
-      console.log(event);
       const jsonFile: File = event?.target?.files[0];
       if (type == 'avatar') {
         this.selectedJsonFiles.avatarFilter = jsonFile;
@@ -151,7 +150,6 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
     }
 
     onRemoveGenre(genreControl: any) {
-        console.log(genreControl.value);
         const tagToRemove = this.genreTags.filter(tag => { return tag.value == genreControl.value });
         tagToRemove[0].reference.checked = false;
 
@@ -174,7 +172,6 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
         if (this.editMode) {
           const filters = this.formsService.getForm('connections');
           this.dnaFilterUrls = filters.dnaFilters;
-          console.log(filters);
         }
         const values =  this.formsService.getForm('general');
         if(!values) return;
