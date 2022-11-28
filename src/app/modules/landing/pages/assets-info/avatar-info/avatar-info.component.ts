@@ -18,7 +18,7 @@ export class AvatarInfoComponent implements OnInit, OnDestroy {
     private gamesService: GamesService,
     private gtag: Gtag
   ) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   avatar: any;
@@ -52,7 +52,7 @@ export class AvatarInfoComponent implements OnInit, OnDestroy {
     this.subs.complete();
   }
 
-  getSelectedGame(){
+  getSelectedGame() {
     return this.gamesService.selectedGame$;
   }
 }

@@ -1,10 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { SideProfileStateService } from '@app/core/services/states/sideprofile-state.service';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
@@ -25,8 +23,6 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
 
   constructor(
     private sideProfileStateService: SideProfileStateService,
-    private web3Auth: Web3AuthService,
-    private router: Router,
     private snackNotifierService: SnackNotifierService,
     private userStateService: UserStateService
     ) { }

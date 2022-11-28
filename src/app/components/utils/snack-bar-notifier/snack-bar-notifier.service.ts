@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackNotifierComponent } from './snack-bar-notifier.component';
 

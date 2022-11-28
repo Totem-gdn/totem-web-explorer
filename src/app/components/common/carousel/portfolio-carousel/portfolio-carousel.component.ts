@@ -1,6 +1,6 @@
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
-import { fromEvent, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: 'portfolio-carousel',

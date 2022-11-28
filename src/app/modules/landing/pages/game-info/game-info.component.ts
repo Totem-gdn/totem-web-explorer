@@ -16,11 +16,13 @@ import { Subject, takeUntil } from "rxjs";
 
 export class GameInfoComponent implements OnInit, OnDestroy {
 
-    constructor(private route: ActivatedRoute,
+    constructor(
+        private route: ActivatedRoute,
         private gameService: GamesService,
         private userStateService: UserStateService,
-        private gtag: Gtag) {
-        gtag.event('page_view');
+        private gtag: Gtag
+    ) {
+        this.gtag.event('page_view');
     }
 
     toggleDropdown = false;
@@ -46,24 +48,24 @@ export class GameInfoComponent implements OnInit, OnDestroy {
             this.games = games;
         });
         this.userStateService.currentUser.pipe(takeUntil(this.subs)).subscribe((user: UserEntity | null) => {
-          if (user) {
-            this.currentUser = user;
-            if (user.wallet == this.game?.owner) {
-              this.editInfo = {edit: true, gameId: this.game.id};
+            if (user) {
+                this.currentUser = user;
+                if (user.wallet == this.game?.owner) {
+                    this.editInfo = { edit: true, gameId: this.game.id };
+                }
             }
-          }
         })
     }
 
     game$() {
         this.gameService.game$
-        .pipe(takeUntil(this.subs))
-        .subscribe(game => {
-            this.game = game;
-            if (this.currentUser && this.currentUser?.wallet == this.game.owner) {
-              this.editInfo = {edit: true, gameId: this.game.id};
-            }
-        })
+            .pipe(takeUntil(this.subs))
+            .subscribe(game => {
+                this.game = game;
+                if (this.currentUser && this.currentUser?.wallet == this.game.owner) {
+                    this.editInfo = { edit: true, gameId: this.game.id };
+                }
+            })
     }
 
     ngOnDestroy(): void {

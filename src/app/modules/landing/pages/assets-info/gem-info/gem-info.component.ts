@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
@@ -17,7 +17,7 @@ export class GemInfoComponent implements OnInit, OnDestroy {
         private gamesService: GamesService,
         private gtag: Gtag
     ) {
-        gtag.event('page_view');
+        this.gtag.event('page_view');
     }
 
     gem: any;

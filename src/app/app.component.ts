@@ -1,6 +1,7 @@
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, Scroll } from '@angular/router';
+import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/auth.service';
 
@@ -23,6 +24,7 @@ export class AppComponent {
     @Inject(PLATFORM_ID) private platformId: any,
     private router: Router,
     private viewportScroller: ViewportScroller,
+    private gtag: Gtag,
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
@@ -43,7 +45,7 @@ export class AppComponent {
         }
       });
 
-    gtag.event('page_view');
+    this.gtag.event('page_view');
 
     // this.userStateService.currentUser.subscribe(user => {
     //   if(user) {

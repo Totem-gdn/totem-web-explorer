@@ -1,16 +1,15 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { TransactionsService } from "@app/core/services/crypto/transactions.service";
-import { UserStateService } from "@app/core/services/auth.service";
-import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
-import { TransactionDialogComponent } from "@app/layout/components/popups/dialogs/transaction-dialog/transaction-dialog.component";
-import { Observable, Subscription, take } from "rxjs";
 import { Animations } from "@app/core/animations/animations";
-import { Gtag } from "angular-gtag";
+import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
+import { TransactionsService } from "@app/core/services/crypto/transactions.service";
+import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { PopupService } from "@app/layout/components/popup.service";
-import { TRANSACTION_TYPE } from "@app/core/models/enums/transaction-type.enum";
+import { TransactionDialogComponent } from "@app/layout/components/popups/dialogs/transaction-dialog/transaction-dialog.component";
+import { Gtag } from "angular-gtag";
+import { Observable, Subscription, take } from "rxjs";
 
 
 @Component({

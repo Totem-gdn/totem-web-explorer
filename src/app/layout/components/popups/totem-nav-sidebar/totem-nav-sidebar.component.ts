@@ -4,7 +4,6 @@ import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
@@ -28,7 +27,6 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   @Output() logOutEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private sidenavStateService: SidenavStateService,
-    private web3Auth: Web3AuthService,
     private snackNotifierService: SnackNotifierService,
     private userStateService: UserStateService) { }
 

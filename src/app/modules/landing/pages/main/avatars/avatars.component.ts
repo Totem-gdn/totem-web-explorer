@@ -4,17 +4,17 @@ import { Gtag } from 'angular-gtag';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'app-avatars',
-    templateUrl: './avatars.component.html',
-    styleUrls: ['./avatars.component.scss'],
-    host: {
-        class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
-    }
+  selector: 'app-avatars',
+  templateUrl: './avatars.component.html',
+  styleUrls: ['./avatars.component.scss'],
+  host: {
+    class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
+  }
 })
 export class AvatarsComponent implements OnInit, OnDestroy {
 
   constructor(private assetsService: AssetsService, private gtag: Gtag) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   subs = new Subject<void>();

@@ -28,23 +28,23 @@ interface TotalAssets {
     gem?: string;
 }
 
-interface TotalFav {
-    avatars?: {
-        total?: number;
-        rare?: number;
-        unique?: number;
-    }
-    items?: {
-        total?: number;
-        rare?: number;
-        unique?: number;
-    }
-    gems?: {
-        total?: number;
-        rare?: number;
-        unique?: number;
-    }
-}
+// interface TotalFav {
+//     avatars?: {
+//         total?: number;
+//         rare?: number;
+//         unique?: number;
+//     }
+//     items?: {
+//         total?: number;
+//         rare?: number;
+//         unique?: number;
+//     }
+//     gems?: {
+//         total?: number;
+//         rare?: number;
+//         unique?: number;
+//     }
+// }
 
 @Injectable({
     providedIn: 'root'

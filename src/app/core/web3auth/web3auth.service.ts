@@ -65,7 +65,6 @@ export class Web3AuthService {
         if(!this.web3auth) return;
         const web3 = this.web3auth;
         const key = await web3.authenticateUser();
-        const userInfo = await this.web3auth.getUserInfo();
 
         return key.idToken;
     }
@@ -150,8 +149,6 @@ export class Web3AuthService {
         if (!this.provider) {
             return;
         }
-        const rpc = new RPC(this.provider);
-        const chainId = await rpc.getChainId();
     };
     getAccounts = async () => {
         if (!this.provider) {
@@ -184,16 +181,12 @@ export class Web3AuthService {
         if (!this.provider) {
             return;
         }
-        const rpc = new RPC(this.provider);
-        const receipt = await rpc.sendTransaction();
     };
 
     signMessage = async () => {
         if (!this.provider) {
             return;
         }
-        const rpc = new RPC(this.provider);
-        const signedMessage = await rpc.signMessage();
     };
 
     getPrivateKey = async () => {

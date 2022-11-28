@@ -15,7 +15,7 @@ import { Subject, takeUntil } from "rxjs";
 export class ItemsComponent implements OnDestroy {
 
   constructor(private assetsService: AssetsService, private gtag: Gtag) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   subs = new Subject<void>();
