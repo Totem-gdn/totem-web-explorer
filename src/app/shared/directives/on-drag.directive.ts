@@ -1,6 +1,6 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Inject, OnDestroy, OnInit, Output } from "@angular/core";
-import { fromEvent, concat, map, Observable, Subject, takeUntil, exhaustMap } from "rxjs";
+import { AfterViewInit, Directive, ElementRef, EventEmitter, Inject, Output } from "@angular/core";
+import { exhaustMap, fromEvent, takeUntil } from "rxjs";
 
 @Directive({
     selector: "[onDrag]"

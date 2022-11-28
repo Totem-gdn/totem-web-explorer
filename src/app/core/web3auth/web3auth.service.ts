@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 // import { Web3AuthCore } from "@web3auth/core";
+import { environment } from "@env/environment";
+import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import { Web3Auth } from '@web3auth/modal';
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider, WALLET_ADAPTERS } from "@web3auth/base";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { BehaviorSubject, Observable } from "rxjs";
+import Web3 from "web3";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
-import Web3 from "web3";
-import { BehaviorSubject, Observable } from "rxjs";
-import { environment } from "@env/environment";
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 
 @Injectable({ providedIn: 'root' })
 

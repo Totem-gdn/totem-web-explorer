@@ -3,7 +3,6 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from "@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
-import { SubmitGameService } from "@app/modules/specific/add-your-game/services/submit-game.service";
 
 @Component({
     selector: 'contact-form',

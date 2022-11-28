@@ -1,12 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, ParamMap, Params } from "@angular/router";
-import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
+import { ActivatedRoute, ParamMap } from "@angular/router";
 import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
 import { UserEntity } from "@app/core/models/interfaces/user-interface.model";
-import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { UserStateService } from "@app/core/services/auth.service";
-import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
 

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
 import { SUBMISSION_TABS } from '@app/core/models/enums/submission-tabs.enum';
-import { SubmitGame, ImagesToUpload, ImagesInfo, ImageEvents, SubmitGameResponse, GameDetail, JsonDNAFilters, JsonDNAFiltersToDelete } from '@app/core/models/interfaces/submit-game-interface.model';
+import { GameDetail, ImageEvents, ImagesInfo, ImagesToUpload, JsonDNAFilters, JsonDNAFiltersToDelete, SubmitGame, SubmitGameResponse } from '@app/core/models/interfaces/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { CompressImageService } from '@app/core/services/utils/compress-image.service';
 import { Gtag } from 'angular-gtag';
@@ -11,10 +11,6 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
 import { FormsService } from './services/forms.service';
 import { SubmitGameService } from './services/submit-game.service';
-
-const BODY: SubmitGame = {
-
-}
 
 @Component({
   selector: 'totem-add-your-game',
@@ -54,7 +50,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   ngOnInit() {

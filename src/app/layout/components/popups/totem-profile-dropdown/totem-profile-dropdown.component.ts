@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserStateService } from '@app/core/services/auth.service';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
-import { SideProfileStateService } from '@app/core/services/states/sideprofile-state.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
+import { UserStateService } from '@app/core/services/auth.service';
+import { SideProfileStateService } from '@app/core/services/states/sideprofile-state.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-profile-dropdown',

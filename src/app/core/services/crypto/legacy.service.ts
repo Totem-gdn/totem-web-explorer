@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Legacy } from "@app/core/models/interfaces/legacy.model";
-import { map, take } from "rxjs";
 
 
 @Injectable({providedIn: 'root'})

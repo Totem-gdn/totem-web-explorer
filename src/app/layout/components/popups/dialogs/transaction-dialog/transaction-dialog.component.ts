@@ -1,12 +1,10 @@
-import { HttpEventType } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { TransactionsService } from '@app/core/services/crypto/transactions.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
-import { BehaviorSubject, concat, Observable, Subscription, take } from 'rxjs';
+import { BehaviorSubject, Subscription, take } from 'rxjs';
 import { SnackNotifierService } from '../../../../../components/utils/snack-bar-notifier/snack-bar-notifier.service';
 
 @Component({

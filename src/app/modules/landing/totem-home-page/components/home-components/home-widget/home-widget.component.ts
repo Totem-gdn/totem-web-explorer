@@ -1,13 +1,12 @@
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { GamesService } from "@app/core/services/assets/games.service";
-import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
+import { TotemItemsService } from "@app/core/services/totem-items.service";
 
-import { Observable, Subscription } from "rxjs";
-import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
+import { Subscription } from "rxjs";
 
 
 @Component({

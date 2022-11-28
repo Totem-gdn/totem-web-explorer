@@ -1,12 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { UserStateService } from '@app/core/services/auth.service';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
-import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface.model';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
+import { UserStateService } from '@app/core/services/auth.service';
+import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-nav-sidebar',

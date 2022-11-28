@@ -54,7 +54,6 @@ export class CacheService {
 
     private _cache = new BehaviorSubject<CachedTotalItems>({});
     private _totalAssetsCache = new BehaviorSubject<TotalAssets>({});
-    private _totalFav = new BehaviorSubject<TotalFav>({});
     constructor(private web3: Web3AuthService) {}
 
     totalCache$() {

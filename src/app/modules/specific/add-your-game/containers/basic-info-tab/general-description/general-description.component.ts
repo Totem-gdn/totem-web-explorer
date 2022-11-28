@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ErrorHandler, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
-import { Subscription } from "rxjs";
-import { SubmitGameService } from "@app/modules/specific/add-your-game/services/submit-game.service";
-import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
-import { Tag } from "@app/core/models/interfaces/tag-interface.model";
 import { JsonDnaFilesUrls, JsonDNAFilters, JsonDNAFiltersToDelete } from "@app/core/models/interfaces/submit-game-interface.model";
+import { Tag } from "@app/core/models/interfaces/tag-interface.model";
+import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'general-description',

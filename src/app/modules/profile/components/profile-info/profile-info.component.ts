@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
-import { ProfileStateService } from '@app/core/services/states/profile-state.service';
 import { BaseStorageService } from '@app/core/services/utils/base-storage.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 
 @Component({
   selector: 'profile-info',
@@ -23,7 +22,6 @@ export class ProfileInfoComponent implements OnInit {
     private web3Auth: Web3AuthService,
     private router: Router,
     private snackNotifierService: SnackNotifierService,
-    private profileStateService: ProfileStateService,
     private baseStorageService: BaseStorageService,
   ) {}
 

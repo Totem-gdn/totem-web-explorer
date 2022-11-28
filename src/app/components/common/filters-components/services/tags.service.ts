@@ -1,8 +1,8 @@
-import { ElementRef, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { ItemParam } from "@app/core/models/interfaces/item-param.model";
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
 import { TotemItemsService } from "@app/core/services/totem-items.service";
-import { BehaviorSubject, map, Observable, of, ReplaySubject, Subject, take, tap } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 
 @Injectable({ providedIn: 'root' })

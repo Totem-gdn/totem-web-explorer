@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 import { UserEntity } from "@app/core/models/interfaces/user-interface.model";
 import { UserStateService } from "@app/core/services/auth.service";
-import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { BehaviorSubject, Subscription, take } from "rxjs";
 import { AdminService } from "./services/admin.service";
 
@@ -17,7 +16,6 @@ import { AdminService } from "./services/admin.service";
 export class AdminComponent implements OnInit, OnDestroy {
 
     constructor(
-        private itemsService: TotemItemsService,
         private adminService: AdminService,
         private router: Router,
         private userStateService: UserStateService,

@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 import { environment } from "@env/environment";
-import { Observable, take } from "rxjs";
+import { Observable } from "rxjs";
 
 
 @Injectable({ providedIn: 'root' })

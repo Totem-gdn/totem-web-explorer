@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-const convert = require('color-convert');
 
 @Injectable({ providedIn: 'root' })
 

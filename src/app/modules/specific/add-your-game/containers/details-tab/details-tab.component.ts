@@ -2,8 +2,8 @@ import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Outpu
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { DROP_BLOCK_TYPE } from '@app/core/models/enums/submission-tabs.enum';
-import { existingImagesUrls, ImageEvents, ImagesInfo, ImagesToUpload, ImagesUrls } from '@app/core/models/interfaces/submit-game-interface.model';
-import { BehaviorSubject, combineLatest, Observable, Subscription, switchMap, take } from 'rxjs';
+import { existingImagesUrls, ImageEvents, ImagesInfo, ImagesToUpload } from '@app/core/models/interfaces/submit-game-interface.model';
+import { Observable, Subscription, take } from 'rxjs';
 import { DropzoneError } from '../../components/totem-image-dropzone/totem-image-dropzone.component';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
 import { FormsService } from '../../services/forms.service';

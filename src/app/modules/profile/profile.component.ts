@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { UserStateService } from '@app/core/services/auth.service';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { BehaviorSubject, map, Subscription, take, takeUntil } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
 import { AssetsService } from '@app/core/services/assets/assets.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { Gtag } from 'angular-gtag';
-import { SellAssetService } from '@app/core/services/crypto/sell-asset.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'profile',
@@ -25,9 +23,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
     private userStateService: UserStateService,
     private metaTag: Meta,
-    private web3: Web3AuthService,
     private assetsService: AssetsService,
-    private sellAssetService: SellAssetService,
     private gtag: Gtag) {
 
     this.routeValue$.next(this.router.url);
@@ -40,7 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       { name: 'description', content: 'This is an article about Angular Meta service' },
       { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' }
     ]);
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   async ngOnInit() {

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { WelcomeDialogComponent } from "../welcome-dialog.component";
 
 @Injectable({providedIn: 'root'})

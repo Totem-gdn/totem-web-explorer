@@ -4,7 +4,7 @@ import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewCh
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Gtag } from 'angular-gtag';
-import { forkJoin, from, fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
+import { fromEvent, Subject, takeUntil } from 'rxjs';
 import { SnackNotifierService } from '../../../../../components/utils/snack-bar-notifier/snack-bar-notifier.service';
 
 @Component({
@@ -48,14 +48,12 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       .observe(['(min-width: 745px)'])
       .pipe(takeUntil(this.subs))
       .subscribe((state: BreakpointState) => {
-        const items = this.itemsRef.nativeElement;
         if (state.matches) {
           this.disableLoop = { disable: false, immutable: false};
         } else {
           this.disableLoop = { disable: true, immutable: true};
           fromEvent(window, 'scroll').pipe(takeUntil(this.subs)).subscribe(() => {
             let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
-            const offset =  items[0].getBoundingClientRect();
             for(let i = 0; i < items.length; i++) {
               const offset = items[i].getBoundingClientRect().y;
               if(offset > 0) {
