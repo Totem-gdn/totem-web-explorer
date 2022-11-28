@@ -15,7 +15,6 @@ export default class EthereumRpc {
 
     const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b';
     const wallet = accounts[0]
-    console.log('account', wallet);
     const tokenContract = GetTokensABI;
     const contract = new web3.eth.Contract(tokenContract, contractAddress);
 

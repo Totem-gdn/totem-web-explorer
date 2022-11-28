@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'page-not-found',
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class PageNotFoundComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   async ngOnInit() {}
 

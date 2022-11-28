@@ -2,7 +2,7 @@
   <div class="profile-stats px-[15px] xs:px-[30px]" fxLayout="row">
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>{{'home.all' | translate}} :</div>
-      <div class="data-caption">{{(_total | async) || (_total | async) == 0 ? (_total | async) : '0'}}</div>
+      <div class="data-caption">{{!!(_total | async) || (_total | async) == 0 ? (_total | async) : '0'}}</div>
 
     </div>
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">

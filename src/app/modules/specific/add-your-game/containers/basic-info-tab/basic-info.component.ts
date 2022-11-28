@@ -1,11 +1,8 @@
 
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BaseStorageService } from '@app/core/services/utils/base-storage.service';
-import { UserStateService } from '@app/core/services/auth.service';
-import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { FormsService } from '../../services/forms.service';
-import { SubmitGameService } from '../../services/submit-game.service';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { JsonDNAFilters, JsonDNAFiltersToDelete } from '@app/core/models/interfaces/submit-game-interface.model';
+import { Subscription } from 'rxjs';
+import { FormsService } from '../../services/forms.service';
 
 @Component({
   selector: 'totem-basic-info',

@@ -1,16 +1,11 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Animations } from '@app/core/animations/animations';
-import { ConnectionsInfo, SocialLinksInfo } from '@app/core/models/interfaces/submit-game-interface.model';
+import { SocialLinksInfo } from '@app/core/models/interfaces/submit-game-interface.model';
 import { Tag } from '@app/core/models/interfaces/tag-interface.model';
-import { BehaviorSubject, map, merge, Subject, Subscription, takeUntil } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
-import { SubmitGameService } from '../../services/submit-game.service';
 
-interface SocialLink {
-  tag: Tag;
-  url: string;
-}
 @Component({
   selector: 'totem-links-tab',
   templateUrl: './links-tab.component.html',
@@ -121,7 +116,6 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   submitGameInfo() {
-    console.log('evenet');
     this.submitEvent.emit();
   }
 

@@ -28,23 +28,23 @@ interface TotalAssets {
     gem?: string;
 }
 
-interface TotalFav {
-    avatars?: {
-        total?: number;
-        rare?: number;
-        unique?: number;
-    }
-    items?: {
-        total?: number;
-        rare?: number;
-        unique?: number;
-    }
-    gems?: {
-        total?: number;
-        rare?: number;
-        unique?: number;
-    }
-}
+// interface TotalFav {
+//     avatars?: {
+//         total?: number;
+//         rare?: number;
+//         unique?: number;
+//     }
+//     items?: {
+//         total?: number;
+//         rare?: number;
+//         unique?: number;
+//     }
+//     gems?: {
+//         total?: number;
+//         rare?: number;
+//         unique?: number;
+//     }
+// }
 
 @Injectable({
     providedIn: 'root'
@@ -54,7 +54,6 @@ export class CacheService {
 
     private _cache = new BehaviorSubject<CachedTotalItems>({});
     private _totalAssetsCache = new BehaviorSubject<TotalAssets>({});
-    private _totalFav = new BehaviorSubject<TotalFav>({});
     constructor(private web3: Web3AuthService) {}
 
     totalCache$() {
@@ -80,7 +79,6 @@ export class CacheService {
 
     async cacheTotalByAssetType(type: string) {
         if(!this.web3.provider) {
-            console.log('unathorized');
             return;
         }
         if(type == 'game') return;

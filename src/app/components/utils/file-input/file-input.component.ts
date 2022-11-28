@@ -22,10 +22,8 @@ export class FileInputComponent implements OnInit {
 
     getFile(event: any) {
       const fileToValidate: File = event.target.files[0];
-      console.log(fileToValidate);
       if (this.isImage(fileToValidate)) {
         if (fileToValidate.size > 20971520) {
-          console.log('File size is big');
           return;
         }
         this.openCropper(event);;
@@ -34,7 +32,6 @@ export class FileInputComponent implements OnInit {
 
     openCropper(event: any) {
       this.changeBannerService.changeImage(event, 'banner').pipe(take(1)).subscribe((file: File) => {
-        console.log('ITS EDITED FILE: ', file);
         this.imageReader.readAsDataURL(file);
         this.imageReader.onload = (event: any) => {
           this.imageUrl = event.target.result;

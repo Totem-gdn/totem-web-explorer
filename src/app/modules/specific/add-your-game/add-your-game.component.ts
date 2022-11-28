@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
 import { SUBMISSION_TABS } from '@app/core/models/enums/submission-tabs.enum';
-import { SubmitGame, ImagesToUpload, ImagesInfo, ImageEvents, SubmitGameResponse, GameDetail, JsonDNAFilters, JsonDNAFiltersToDelete } from '@app/core/models/interfaces/submit-game-interface.model';
+import { GameDetail, ImageEvents, ImagesInfo, ImagesToUpload, JsonDNAFilters, JsonDNAFiltersToDelete, SubmitGame, SubmitGameResponse } from '@app/core/models/interfaces/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { CompressImageService } from '@app/core/services/utils/compress-image.service';
 import { Gtag } from 'angular-gtag';
@@ -11,10 +11,6 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
 import { FormsService } from './services/forms.service';
 import { SubmitGameService } from './services/submit-game.service';
-
-const BODY: SubmitGame = {
-
-}
 
 @Component({
   selector: 'totem-add-your-game',
@@ -54,7 +50,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   ngOnInit() {
@@ -62,14 +58,11 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       this.route.queryParams
         .subscribe((params: Params) => {
             const editGameId = params['edit'];
-            console.log(editGameId);
 
             if (!editGameId) return;
             this.gameToEdit.id = editGameId;
             const selectedGame = JSON.parse(localStorage.getItem(StorageKey.SELECTED_GAME)!);
-            console.log(selectedGame);
             if (!selectedGame) return;
-            console.log('submit EDIT: ', selectedGame);
 
             this.prefillSelectedGameInfo(selectedGame);
         })
@@ -104,15 +97,12 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   // EDIT BLOCK END
 
   updateImages(images: ImagesInfo) {
-    console.log('TO SUBMIT: ', images);
-
     this.imagesToSubmit = images;
   }
 
 
   // JSON FILES
   updateJsonFile(files: JsonDNAFilters) {
-    console.log('TO UPLOAD JSON: ', files);
     this.jsonFilesToUpload = files;
   }
 
@@ -121,13 +111,11 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   }
 
   updateFormData(event: SubmitGame) {
-    console.log(event);
     let keyToUpdate: string = Object?.keys(event)[0];
     this.formsData = {
       ...this.formsData,
       [keyToUpdate]: event[keyToUpdate],
     };
-    console.log(this.formsData);
   }
 
   uploadGame(event: any) {
@@ -159,7 +147,6 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       images: this.imagesIsNotEmpty(this.imagesToSubmit!) ? this.imagesToSubmit : undefined,
       galleryImagesForDelete: this.galleryImagesForDelete && this.galleryImagesForDelete.length ? this.galleryImagesForDelete : undefined
     }
-    console.log(this.formsData);
 
     if (!this.editMode) {
       this.postGame(this.formsData);
@@ -179,13 +166,10 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   updateGalleryImagesToDelete(gallery: string[]) {
     this.galleryImagesForDelete = gallery;
-    console.log(this.galleryImagesForDelete);
-
   }
 
   jsonFileDelete(files: JsonDNAFiltersToDelete) {
     this.deletedJsonFiles = files;
-    console.log(this.deletedJsonFiles);
   }
 
   postGame(formData: SubmitGame) {
@@ -212,11 +196,6 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   async updateImagesToUpload(data: ImagesToUpload) {
     this.imagesToUpload = data;
-    //console.log('IT WAS: ', data);
-    //this.imagesToUpload = await this.compreseImages(data);
-
-    console.log('IT BECAME: ', this.imagesToUpload);
-
     const formDataToSend: ImagesInfo = {
       coverImage: this.imagesToUpload?.coverImage ? {
         mimeType: this.imagesToUpload?.coverImage?.type,
@@ -298,7 +277,6 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
   openImgUploaderDialog(imagesToUpload: ImagesToUpload, gameSubmitResponse: SubmitGameResponse, jsonFiles: JsonDNAFilters) {
     this.subs.add(
       this.openUploadModal(imagesToUpload, gameSubmitResponse, jsonFiles).subscribe((data: {redirect: boolean} | null) => {
-        console.log(data);
         if (data?.redirect == true) {
           this.clearData();
           this.router.navigate(['/games']);

@@ -1,14 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CARD_TYPE } from "@app/core/models/enums/card-types.enum";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
-import { BehaviorSubject, map, Subject, tap } from "rxjs";
+import { BehaviorSubject, tap } from "rxjs";
 import Web3 from "web3";
 import { CacheService } from "./cache.service";
-import { GamesService } from "./games.service";
 const { DNAParser } = require('totem-dna-parser');
 
 @Injectable({ providedIn: 'root' })
@@ -18,8 +16,8 @@ export class AssetsService {
 
     constructor(private http: HttpClient,
         private web3: Web3AuthService,
-        private cacheService: CacheService,
-        private gamesService: GamesService) { }
+        private cacheService: CacheService
+    ) { }
 
     private _avatars = new BehaviorSubject<AssetInfo[] | null>(null);
     private _gems = new BehaviorSubject<AssetInfo[] | null>(null);
@@ -31,13 +29,13 @@ export class AssetsService {
     get avatars$() { return this._avatars.asObservable() }
     get items$() { return this._items.asObservable() }
     get gems$() { return this._gems.asObservable() }
-    get avatar$() { return this._avatar.asObservable()}
+    get avatar$() { return this._avatar.asObservable() }
     get item$() { return this._item.asObservable() }
     get gem$() { return this._gem.asObservable() }
 
     assset$(type: string) {
-        if(type == 'avatar') return this.avatar$;
-        if(type == 'item') return this.item$;
+        if (type == 'avatar') return this.avatar$;
+        if (type == 'item') return this.item$;
         return this.gem$;
     }
 
@@ -64,16 +62,16 @@ export class AssetsService {
         return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(tap(asset => {
             const formattedAsset = this.formatAsset(asset, type);
 
-            if(type == 'item') this._item.next(formattedAsset);
-            if(type == 'avatar') this._avatar.next(formattedAsset);
-            if(type == 'gem') this._gem.next(formattedAsset);
+            if (type == 'item') this._item.next(formattedAsset);
+            if (type == 'avatar') this._avatar.next(formattedAsset);
+            if (type == 'gem') this._gem.next(formattedAsset);
         }));
     }
 
     formatAssets(assets: AssetInfo[], assetType: string) {
         const formattedAssets: AssetInfo[] = [];
 
-        for(let asset of assets) {
+        for (let asset of assets) {
             const formattedAsset = this.formatAsset(asset, assetType);
             formattedAssets.push(formattedAsset);
         }
@@ -133,9 +131,15 @@ export class AssetsService {
     cacheFav() {
         const assets = ['item', 'avatar', 'game'];
         for(let asset of assets) {
-            this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}s`).subscribe(total => {
+          if (asset == 'game') {
+            this.http.get<any>(`${this.baseUrl}/games/favorites`).subscribe(total => {
                 this.cacheService.setItemCache(asset, total);
             });
+          } else {
+            this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}s`).subscribe(total => {
+              this.cacheService.setItemCache(asset, total);
+          });
+          }
         }
 
     }

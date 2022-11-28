@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ImageCroppedEvent, LoadedImage, base64ToFile, ImageTransform } from 'ngx-image-cropper';
+import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -32,13 +32,11 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit() {
-    //console.log(this.data);
     this.loading$.next(true);
     this.widthToResize = this.data.widthToResize;
     this.aspectRatio = this.data.aspectRatio;
     this.imageChangedEvent = this.data.file;
     this.sliderGroup.get('tick')!.valueChanges.subscribe((x: number | null) => {
-      //console.log(x);
       this.scaleValue = x!;
       this.scaleImage();
     })
@@ -62,11 +60,6 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
     }
   }
 
-  /* imageCropped(event: ImageCroppedEvent) {
-      this.imageUrl = event.base64!;
-      console.log(this.croppedImage);
-
-  } */
   imageLoaded() {
       // show cropper
   }

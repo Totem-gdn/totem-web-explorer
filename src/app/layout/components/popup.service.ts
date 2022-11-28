@@ -1,14 +1,11 @@
 import { Injectable } from "@angular/core";
-import { TRANSACTION_TYPE } from "@app/core/models/enums/transaction-type.enum";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
-import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { BehaviorSubject } from "rxjs";
-import Web3 from "web3";
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class PopupService {
-    constructor(private web3: Web3AuthService) {}
+    constructor() { }
 
     private _showTokenTransaction = new BehaviorSubject<boolean>(false);
     private _showAssetTransaction = new BehaviorSubject<AssetInfo | null>(null);
@@ -17,7 +14,7 @@ export class PopupService {
 
     get assetTransaction$() { return this._showAssetTransaction.asObservable(); }
     showAssetTransaction(asset: AssetInfo) { this._showAssetTransaction.next(asset); }
-    closeAssetTransaction() { this._showAssetTransaction.next(null)}
+    closeAssetTransaction() { this._showAssetTransaction.next(null) }
 
     get tokenTransaction$() { return this._showTokenTransaction.asObservable(); }
     showTokenTransaction() { this._showTokenTransaction.next(true); }

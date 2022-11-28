@@ -1,17 +1,15 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
-import { FormGroup, FormControl, Validators, FormControlStatus } from "@angular/forms";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormControlStatus, FormGroup, Validators } from "@angular/forms";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
 import { TOKEN } from "@app/core/models/enums/token.enum";
-import { TRANSACTION_TYPE } from "@app/core/models/enums/transaction-type.enum";
 import { UserStateService } from "@app/core/services/auth.service";
 import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { PopupService } from "@app/layout/components/popup.service";
 import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 import { Gtag } from "angular-gtag";
-import { BehaviorSubject } from "rxjs";
-import { debounceTime, takeWhile } from "rxjs";
+import { BehaviorSubject, debounceTime, takeWhile } from "rxjs";
 
 interface TokenBalance {
     title: string | undefined;

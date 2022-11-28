@@ -2,8 +2,6 @@
 import { Route } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
-import { PageNotFoundComponent } from './modules/specific/page-not-found/page-not-found.component';
-import { AdminStateService } from './core/services/states/admin-state.service';
 
 export const AppRoutes: Route[] = [
 

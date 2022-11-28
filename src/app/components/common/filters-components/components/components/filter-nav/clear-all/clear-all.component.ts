@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { FiltersService } from "@app/components/common/filters-components/services/filters.service";
-import { TagsService } from "@app/components/common/filters-components/services/tags.service";
 
 
 @Component({
@@ -11,8 +10,9 @@ import { TagsService } from "@app/components/common/filters-components/services/
 
 export class ClearAllComponent {
 
-    constructor(private tagsService: TagsService,
-                private filtersService: FiltersService){}
+    constructor(
+        private filtersService: FiltersService
+    ) { }
 
     onClearAll() {
         this.filtersService.resetFilters();

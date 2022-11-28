@@ -1,9 +1,8 @@
-import { HttpClient, HttpEventType, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ImagesToUpload, ImagesUrls, JsonDnaFilesUrls, JsonDNAFilters, SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
-import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { environment } from "@env/environment";
-import { BehaviorSubject, concat, Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 
 @Injectable({ providedIn: 'root' })
@@ -13,8 +12,7 @@ export class SubmitGameService {
   baseUrl: string = environment.TOTEM_BASE_API_URL; // http://534e-45-128-191-180.ngrok.io
   currentIdToUpload: string = '';
 
-  constructor(private http: HttpClient,
-              private storage: BaseStorageService) {
+  constructor(private http: HttpClient) {
   }
 
   postGame(body: SubmitGame | null): Observable<any> {
@@ -26,52 +24,42 @@ export class SubmitGameService {
   }
 
   getGame(id: string) {
-    this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => {
-      console.log(data, '6338aafe7edc08f592ea74e1');
-
-    })
+    this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => { })
   }
   approveGame(id: string) {
-    this.http.patch<any>(`${this.baseUrl}/games/${id}/approve`, {}).subscribe((data: any) => {
-      console.log(data);
-
-    })
+    this.http.patch<any>(`${this.baseUrl}/games/${id}/approve`, {}).subscribe((data: any) => { })
   }
   deleteGame(id: string) {
-    this.http.delete<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => {
-      console.log(data);
-
-    })
+    this.http.delete<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => { })
   }
 
   componeFilesToUpload(images: ImagesToUpload, links: ImagesUrls, connections?: { dnaFilters?: JsonDnaFilesUrls }, jsonFiles?: JsonDNAFilters): Observable<any>[] {
-    let imagesWithUrls: {url: string | undefined, file: File | undefined}[] = [];
+    let imagesWithUrls: { url: string | undefined, file: File | undefined }[] = [];
     if (images?.coverImage) {
-      imagesWithUrls.push({url: links?.coverImage, file: images?.coverImage});
+      imagesWithUrls.push({ url: links?.coverImage, file: images?.coverImage });
     }
     if (images?.cardImage) {
-      imagesWithUrls.push({url: links?.cardThumbnail, file: images?.cardImage});
+      imagesWithUrls.push({ url: links?.cardThumbnail, file: images?.cardImage });
     }
     if (images?.searchImage) {
-      imagesWithUrls.push({url: links?.smallThumbnail, file: images?.searchImage});
+      imagesWithUrls.push({ url: links?.smallThumbnail, file: images?.searchImage });
     }
     links?.imagesGallery?.forEach((link: string, i: number) => {
-      imagesWithUrls.push({url: link, file: images.gallery![i]});
+      imagesWithUrls.push({ url: link, file: images.gallery![i] });
     })
     if (jsonFiles?.avatarFilter) {
-      imagesWithUrls.push({url: connections?.dnaFilters?.avatarFilter, file: jsonFiles?.avatarFilter ? jsonFiles?.avatarFilter : undefined})
+      imagesWithUrls.push({ url: connections?.dnaFilters?.avatarFilter, file: jsonFiles?.avatarFilter ? jsonFiles?.avatarFilter : undefined })
     }
     if (jsonFiles?.assetFilter) {
-      imagesWithUrls.push({url: connections?.dnaFilters?.assetFilter, file: jsonFiles?.assetFilter ? jsonFiles?.assetFilter : undefined})
+      imagesWithUrls.push({ url: connections?.dnaFilters?.assetFilter, file: jsonFiles?.assetFilter ? jsonFiles?.assetFilter : undefined })
     }
     if (jsonFiles?.gemFilter) {
-      imagesWithUrls.push({url: connections?.dnaFilters?.gemFilter, file: jsonFiles?.gemFilter ? jsonFiles?.gemFilter : undefined})
+      imagesWithUrls.push({ url: connections?.dnaFilters?.gemFilter, file: jsonFiles?.gemFilter ? jsonFiles?.gemFilter : undefined })
     }
-    console.log(imagesWithUrls);
     return this.connectImagesWithUrls(imagesWithUrls);
   }
 
-  connectImagesWithUrls(imgUrlPair: {url: string | undefined, file: File | undefined}[]): Observable<any>[] {
+  connectImagesWithUrls(imgUrlPair: { url: string | undefined, file: File | undefined }[]): Observable<any>[] {
     const imgUrlRequests: Observable<any>[] = imgUrlPair.map(pair => this.uploadImage(pair.url, pair.file));
     return imgUrlRequests;
   }

@@ -2,8 +2,8 @@ import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Outpu
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { DROP_BLOCK_TYPE } from '@app/core/models/enums/submission-tabs.enum';
-import { existingImagesUrls, ImageEvents, ImagesInfo, ImagesToUpload, ImagesUrls } from '@app/core/models/interfaces/submit-game-interface.model';
-import { BehaviorSubject, combineLatest, Observable, Subscription, switchMap, take } from 'rxjs';
+import { existingImagesUrls, ImageEvents, ImagesInfo, ImagesToUpload } from '@app/core/models/interfaces/submit-game-interface.model';
+import { Observable, Subscription, take } from 'rxjs';
 import { DropzoneError } from '../../components/totem-image-dropzone/totem-image-dropzone.component';
 import { TotemCropperComponent } from '../../modules/totem-cropper/totem-cropper.component';
 import { FormsService } from '../../services/forms.service';
@@ -83,7 +83,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     if (this.editMode) {
       this.existingImages = this.formsService.getForm('imageUrls');
-      console.log(this.galleryImagesToDelete);
 
       if (this.galleryImagesToDelete && this.galleryImagesToDelete.length) {
         this.galleryImagesToDelete?.forEach((image: string) => {
@@ -170,7 +169,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
       return image != item;
     });
     this.galleryImagesToDelete.push(item);
-    console.log(this.existingImages);
 
     this.updateFilesToUpload();
     this.isFormValid();
@@ -228,8 +226,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   checkValidity(): boolean {
-    console.log(this.existingImages);
-
     if (this.editMode) return !!(this.existingImages.gallery && this.existingImages.gallery?.length) || Boolean(this.finalizedGalleryImages.length);
     return !!this.finalizedImage && !!this.finalizedCardImage && !!this.finalizedSearchImage && Boolean(this.finalizedGalleryImages.length);
   }
@@ -251,7 +247,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   processMultipleFiles(event: any) {
-    console.log(event);
     const files: File[] = Array.from(event.target.files);
     const galleryFilesToUpload: any[] = files.map((file: File) => {
       return {
@@ -260,7 +255,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
-    console.log(galleryFilesToUpload);
     this.cropMultipleGallery(galleryFilesToUpload, 'gallery');
   }
 
@@ -321,7 +315,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subs.add(
       this.openCropper(image, type).subscribe((data: any) => {
         if (data) {
-          console.log(data);
           if (type == 'cover') this.finalizedImage = data;
           if (type == 'card') this.finalizedCardImage = data;
           if (type == 'search') this.finalizedSearchImage = data;

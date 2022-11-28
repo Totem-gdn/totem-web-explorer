@@ -69,7 +69,6 @@ export class TotemNavigationComponent implements OnInit, OnDestroy {
   }
 
   logOut() {
-    console.log('Logout');
     this.userStateService.logout();
   }
 

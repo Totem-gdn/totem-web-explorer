@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 import { environment } from "@env/environment";
-import { Observable, take } from "rxjs";
+import { Observable } from "rxjs";
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,10 +14,7 @@ export class AdminService {
   }
 
   getGame(id: string) {
-    this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => {
-      console.log(data);
-
-    })
+    this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => { })
   }
   getGames() {
     return this.http.get<any>(`${this.baseUrl}/games?approved=false`);

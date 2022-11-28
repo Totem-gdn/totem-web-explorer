@@ -2,55 +2,67 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { BehaviorSubject, map, Observable, take } from "rxjs";
-import { DropdownGame } from "../models/interfaces/dropdown-game.model";
 import { ItemParam } from "../models/interfaces/item-param.model";
-import { CacheService } from "./assets/cache.service";
 
 const NEWEST_ITEMS: any[] = [
   {
     _id: '23547779',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '08907867',
-    image: 'assets/images/item-img-2.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-2.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '493579',
-    image: 'assets/images/item-img-3.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-3.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '25695939',
-    image: 'assets/images/item-img-4.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-4.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '3569593569',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '356956929',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '35693592',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'}
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  }
 ]
 const MOST_USED_ITEMS: any[] = [
   {
     _id: '124325565',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '563477777',
-    image: 'assets/images/item-img-2.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-2.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '5555555555',
-    image: 'assets/images/item-img-3.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-3.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '333333333',
-    image: 'assets/images/item-img-4.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-4.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '11111111',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '44444444444',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'},
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  },
   {
     _id: '555555666',
-    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'}
+    image: 'assets/images/item-img-1.png', updatedAt: '2022-10-01T16:31:42.160Z'
+  }
 ]
 const AVATARS: any[] = [
   {
@@ -121,7 +133,7 @@ const POPULAR_GAMES: any[] = [
   },
 ]
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class TotemItemsService {
 
@@ -143,8 +155,9 @@ export class TotemItemsService {
 
   testItem = new BehaviorSubject<any>({});
 
-  constructor(private http: HttpClient,
-              private cacheService: CacheService) {
+  constructor(
+    private http: HttpClient,
+  ) {
   }
 
   set filters(filters: ItemParam[]) {
@@ -159,7 +172,7 @@ export class TotemItemsService {
 
   handleParams(filters: ItemParam[] | undefined) {
     let params = new HttpParams();
-    if(!filters) return params;
+    if (!filters) return params;
     params = params.append('filters', JSON.stringify(filters));
 
     return params;
@@ -169,13 +182,13 @@ export class TotemItemsService {
     const queryFilters = this._filters.getValue();
     let params = this.handleParams(queryFilters);
 
-    return this.http.get<any>(`${this.baseUrl}/assets/avatars`, {params: params}).pipe(
+    return this.http.get<any>(`${this.baseUrl}/assets/avatars`, { params: params }).pipe(
       map(avatars => {
-        if(avatars && avatars?.length) {
+        if (avatars && avatars?.length) {
           // this.cacheService.setItemCache('avatar', avatars.length);
           return avatars;
         } else {
-          return [0,0,0,0,0];
+          return [0, 0, 0, 0, 0];
         }
       }))
 
@@ -185,13 +198,13 @@ export class TotemItemsService {
     const queryFilters = this._filters.getValue();
     let params = this.handleParams(queryFilters);
 
-    return this.http.get<any>(`${this.baseUrl}/assets/gems`, {params: params}).pipe(
+    return this.http.get<any>(`${this.baseUrl}/assets/gems`, { params: params }).pipe(
       map(gems => {
-        if(gems && gems?.length) {
+        if (gems && gems?.length) {
           // this.cacheService.setItemCache('gem', gems.length);
           return gems;
         } else {
-          return [0,0,0,0,0];
+          return [0, 0, 0, 0, 0];
         }
       }))
   }
@@ -200,13 +213,13 @@ export class TotemItemsService {
     const queryFilters = this._filters.getValue();
     let params = this.handleParams(queryFilters);
 
-    return this.http.get<any>(`${this.baseUrl}/assets/items`, {params: params}).pipe(
+    return this.http.get<any>(`${this.baseUrl}/assets/items`, { params: params }).pipe(
       map(items => {
-        if(items && items?.length) {
+        if (items && items?.length) {
           // this.cacheService.setItemCache('item', items.length);
           return items;
         } else {
-          return [0,0,0,0,0];
+          return [0, 0, 0, 0, 0];
         }
       }))
   }
@@ -214,13 +227,13 @@ export class TotemItemsService {
   getGames$(filters?: ItemParam[]) {
     const queryFilters = this._filters.getValue();
     let params = this.handleParams(queryFilters);
-    return this.http.get<any>(`${this.baseUrl}/games`,  {params: params}).pipe(
+    return this.http.get<any>(`${this.baseUrl}/games`, { params: params }).pipe(
       map(games => {
-        if(games && games?.length) {
+        if (games && games?.length) {
           // this.cacheService.setItemCache('game', games.length);
           return games;
         } else {
-          return [0,0,0,0,0];
+          return [0, 0, 0, 0, 0];
         }
       }))
   }
@@ -230,16 +243,16 @@ export class TotemItemsService {
   }
 
   getAssetById(id: string, type: string) {
-    if(type == 'item') type = 'items';
-    if(type == 'avatar') type = 'avatars';
-    if(type == 'gem') type = 'gems';
+    if (type == 'item') type = 'items';
+    if (type == 'avatar') type = 'avatars';
+    if (type == 'gem') type = 'gems';
 
     return this.http.get(`${this.baseUrl}/assets/${type}/${id}`).pipe(take(1))
   }
 
   getNewestItems() {
     this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
-      if(data && data?.length) {
+      if (data && data?.length) {
         this.newestItems$.next(data);
       } else {
         this.newestItems$.next(NEWEST_ITEMS);
@@ -249,7 +262,7 @@ export class TotemItemsService {
 
   getMostUsedItems() {
     this.http.get<any>(`${this.baseUrl}/assets/items`).subscribe((data: any) => {
-      if(data && data?.length) {
+      if (data && data?.length) {
         this.mostUsedItems$.next(data);
       } else {
         this.mostUsedItems$.next(MOST_USED_ITEMS);
@@ -259,7 +272,7 @@ export class TotemItemsService {
 
   getAvatars() {
     this.http.get<any>(`${this.baseUrl}/assets/avatars`).subscribe((data: any) => {
-      if(data && data?.length) {
+      if (data && data?.length) {
         this.avatars$.next(data);
       } else {
         this.avatars$.next(AVATARS);
@@ -269,7 +282,7 @@ export class TotemItemsService {
 
   getGames() {
     this.http.get<any>(`${this.baseUrl}/games`).subscribe((data: any) => {
-      if(data && data?.length) {
+      if (data && data?.length) {
         this.games$.next(data);
       } else {
         this.games$.next(POPULAR_GAMES);

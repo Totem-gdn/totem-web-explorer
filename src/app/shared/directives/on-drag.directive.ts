@@ -1,6 +1,6 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Inject, OnDestroy, OnInit, Output } from "@angular/core";
-import { fromEvent, concat, map, Observable, Subject, takeUntil, exhaustMap } from "rxjs";
+import { AfterViewInit, Directive, ElementRef, EventEmitter, Inject, Output } from "@angular/core";
+import { exhaustMap, fromEvent, takeUntil } from "rxjs";
 
 @Directive({
     selector: "[onDrag]"
@@ -16,7 +16,6 @@ export class OnDragDirective implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        console.log('inited')
         const touchStart$ = fromEvent(this.document, 'touchstart');
         const touchEnd$ = fromEvent(this.document, 'touchend');
         const touchMove$ = fromEvent(this.document, 'touchmove');
@@ -24,24 +23,11 @@ export class OnDragDirective implements AfterViewInit {
         const touchDrag$ = touchStart$.pipe(
             exhaustMap(() => touchMove$.pipe(
                 takeUntil(touchEnd$),
-                // map(() => {
-                //     console.log('moving')
-                //     this.onDrag.emit('move with drag')
-                // })
             ))
         )
-        touchEnd$.subscribe(() => {
-            console.log('event')
-        })
-        touchMove$.subscribe(() => {
-            console.log('event')
-        })
-        touchStart$.subscribe(() => {
-            console.log('event')
-        })
-
-        touchDrag$.subscribe(() => {
-            console.log('event')
-        })
+        touchEnd$.subscribe(() => { })
+        touchMove$.subscribe(() => { })
+        touchStart$.subscribe(() => { })
+        touchDrag$.subscribe(() => { })
     }
 }
