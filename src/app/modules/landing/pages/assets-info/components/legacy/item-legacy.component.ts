@@ -22,8 +22,8 @@ export class ItemLegacyComponent implements OnInit {
   ngOnInit(): void {
 
     this.legacyService.fetchLegacies(this.asset.tokenId).subscribe(leg => {
-      const sortedAchi = this.legacyService.sortAchievements(leg.achievements);
-      this.achievements = sortedAchi;
+      if(!leg.achievements) return;
+      this.achievements = leg.achievements;
     })
   }
 

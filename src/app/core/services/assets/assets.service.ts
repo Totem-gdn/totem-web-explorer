@@ -132,8 +132,9 @@ export class AssetsService {
         const assets = ['item', 'avatar', 'game'];
         for(let asset of assets) {
           if (asset == 'game') {
-            this.http.get<any>(`${this.baseUrl}/games/favorites`).subscribe(total => {
-                this.cacheService.setItemCache(asset, total);
+            this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}s`).subscribe(total => {
+                if(!total) return;
+                this.cacheService.setItemCache(asset, total.length);
             });
           } else {
             this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}s`).subscribe(total => {

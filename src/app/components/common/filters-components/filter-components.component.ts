@@ -83,6 +83,7 @@ export class FilterComponentsComponent implements OnDestroy {
         this.page = 1;
         this.subs.next();
         this.subs.complete();
+        this.items = null;
         this.tagsService.clear();
     }
 
