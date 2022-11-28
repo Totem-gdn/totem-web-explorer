@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { PaginationEvent } from '@app/core/models/interfaces/page-event-interface.model';
 
 @Component({
@@ -31,7 +30,6 @@ export class TotemPaginationComponent implements OnInit {
     } else {
         this.totalPages = 0;
     }
-    console.log(this.totalPages);
     this.calcPaginationValues();
   }
 

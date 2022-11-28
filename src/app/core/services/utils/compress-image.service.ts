@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgxImageCompressService, DataUrl } from "ngx-image-compress";
+import { NgxImageCompressService } from "ngx-image-compress";
 
 @Injectable({
   providedIn: 'root'

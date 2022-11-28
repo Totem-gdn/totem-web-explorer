@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { Subject, Subscription, take, takeUntil } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-avatars',
@@ -14,9 +13,10 @@ import { CacheService } from '@app/core/services/assets/cache.service';
 })
 export class UserAvatarsComponent implements OnInit, OnDestroy {
 
-  constructor(private web3Service: Web3AuthService,
+  constructor(
     private assetsService: AssetsService,
-    private cacheService: CacheService) { }
+    private cacheService: CacheService
+  ) { }
 
   subs = new Subject<void>();
   avatars!: any[] | null;
@@ -31,7 +31,7 @@ export class UserAvatarsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.subs))
       .subscribe(avatars => {
         this.avatars = avatars;
-        if(!this.avatars) return;
+        if (!this.avatars) return;
         this.cacheService.totalByAssetType('avatar', this.avatars);
       })
   }

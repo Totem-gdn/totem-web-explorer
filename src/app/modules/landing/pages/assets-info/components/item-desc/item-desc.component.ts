@@ -1,10 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { AssetsService } from '@app/core/services/assets/assets.service';
-import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { PopupService } from '@app/layout/components/popup.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
@@ -19,13 +16,10 @@ import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdest
 export class ItemDescComponent extends OnDestroyMixin implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
     private assetsService: AssetsService,
     private web3Service: Web3AuthService,
     private favouritesService: FavouritesService,
     private messageService: SnackNotifierService,
-    private userService: UserStateService,
-    private popupService: PopupService
   ) {
     super();
   }

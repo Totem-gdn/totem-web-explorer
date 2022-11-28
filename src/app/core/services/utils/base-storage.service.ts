@@ -1,19 +1,19 @@
-import {Injectable} from '@angular/core';
-import {AppComponent} from '../../../app.component';
+import { Injectable } from '@angular/core';
+import { AppComponent } from '../../../app.component';
 
 
 class LocalStorage implements Storage {
   [name: string]: any;
   readonly length!: number;
-  clear(): void {}
+  clear(): void { }
   getItem(key: string): string | null {
     return null;
   }
   key(index: number): string | null {
     return null;
   }
-  removeItem(key: string): void {}
-  setItem(key: string, value: string): void {}
+  removeItem(key: string): void { }
+  setItem(key: string, value: string): void { }
 }
 
 
@@ -21,9 +21,8 @@ class LocalStorage implements Storage {
   providedIn: 'root'
 })
 export class BaseStorageService implements Storage {
-
-  private local: Storage;
-  private sesion: Storage;
+  local: Storage;
+  sesion: Storage;
   constructor() {
     this.local = new LocalStorage();
 

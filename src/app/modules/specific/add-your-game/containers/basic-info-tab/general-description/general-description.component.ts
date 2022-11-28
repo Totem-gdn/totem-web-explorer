@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ErrorHandler, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
-import { Subscription } from "rxjs";
-import { SubmitGameService } from "@app/modules/specific/add-your-game/services/submit-game.service";
-import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
-import { Tag } from "@app/core/models/interfaces/tag-interface.model";
 import { JsonDnaFilesUrls, JsonDNAFilters, JsonDNAFiltersToDelete } from "@app/core/models/interfaces/submit-game-interface.model";
+import { Tag } from "@app/core/models/interfaces/tag-interface.model";
+import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'general-description',
@@ -98,7 +97,6 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
     }
 
     addJsonFile(event: any, type: string) {
-      console.log(event);
       const jsonFile: File = event?.target?.files[0];
       if (type == 'avatar') {
         this.selectedJsonFiles.avatarFilter = jsonFile;
@@ -151,7 +149,6 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
     }
 
     onRemoveGenre(genreControl: any) {
-        console.log(genreControl.value);
         const tagToRemove = this.genreTags.filter(tag => { return tag.value == genreControl.value });
         tagToRemove[0].reference.checked = false;
 
@@ -174,7 +171,6 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
         if (this.editMode) {
           const filters = this.formsService.getForm('connections');
           this.dnaFilterUrls = filters.dnaFilters;
-          console.log(filters);
         }
         const values =  this.formsService.getForm('general');
         if(!values) return;

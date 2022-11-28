@@ -1,9 +1,8 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
-import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
-import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { TagsService } from './services/tags.service';
 
@@ -16,9 +15,9 @@ import { TagsService } from './services/tags.service';
 export class FilterComponentsComponent implements OnDestroy {
 
     constructor(private tagsService: TagsService,
-                private gamesService: GamesService,
-                private cacheService: CacheService,
-                private assetsService: AssetsService) {}
+        private gamesService: GamesService,
+        private cacheService: CacheService,
+    ) { }
 
     @Output() loadMore = new EventEmitter<number>();
     @Output() sort = new EventEmitter<string>();
@@ -36,14 +35,14 @@ export class FilterComponentsComponent implements OnDestroy {
     }
 
     @Input() set pushItems(items: any[] | undefined | null) {
-        if(items == null) return;
-        if(!this.items?.length) this.items = [];
+        if (items == null) return;
+        if (!this.items?.length) this.items = [];
         this.items = this.items.concat(items);
         this.cacheService.totalByAssetType(this.itemType, this.items);
-        if(items.length < 10) {
-          this.showButton = false;
+        if (items.length < 10) {
+            this.showButton = false;
         } else {
-          this.showButton = true;
+            this.showButton = true;
         }
         this.page++;
     }
@@ -60,7 +59,7 @@ export class FilterComponentsComponent implements OnDestroy {
     }
 
     selectGame(game: GameDetail) {
-      this.gamesService.selectedGame = game;
+        this.gamesService.selectedGame = game;
     }
 
     onLoadMore() {
@@ -68,15 +67,15 @@ export class FilterComponentsComponent implements OnDestroy {
     }
 
     ngAfterViewChecked(): void {
-        if(!this.wrapper) return;
+        if (!this.wrapper) return;
         const width = this.wrapper.nativeElement.offsetWidth;
-        if(width > 880) {
+        if (width > 880) {
             this.wrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr 1fr';
         }
-        if(width <= 880) {
+        if (width <= 880) {
             this.wrapper.nativeElement.style.gridTemplateColumns = '1fr 1fr';
         }
-        if(width <= 560) {
+        if (width <= 560) {
             this.wrapper.nativeElement.style.gridTemplateColumns = '1fr';
         }
     }
@@ -87,7 +86,7 @@ export class FilterComponentsComponent implements OnDestroy {
         this.tagsService.clear();
     }
 
-    getSelectedGame(){
-      return this.gamesService.selectedGame$;
+    getSelectedGame() {
+        return this.gamesService.selectedGame$;
     }
 }

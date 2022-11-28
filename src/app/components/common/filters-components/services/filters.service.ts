@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { TagsService } from "./tags.service";
 
 

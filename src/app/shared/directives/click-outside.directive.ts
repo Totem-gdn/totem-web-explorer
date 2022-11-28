@@ -1,6 +1,6 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Inject, OnDestroy, Output } from "@angular/core";
-import { filter, fromEvent, Subscription } from "rxjs";
+import { AfterViewInit, Directive, ElementRef, EventEmitter, Inject, OnDestroy, Output } from "@angular/core";
+import { fromEvent, Subscription } from "rxjs";
 
 @Directive({ selector: '[clickOutside]'})
 

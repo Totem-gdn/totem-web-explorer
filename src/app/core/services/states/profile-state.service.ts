@@ -12,7 +12,6 @@ export class ProfileStateService {
     constructor() {}
 
     updateLoadingStatus(data: boolean) {
-        console.log(data);
         this.isOpened.next(data);
     }
 }

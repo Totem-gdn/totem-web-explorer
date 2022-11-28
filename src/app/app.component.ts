@@ -4,15 +4,13 @@ import { Router, Scroll } from '@angular/router';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/auth.service';
-import { SellAssetService } from './core/services/crypto/sell-asset.service';
-import { Web3AuthService } from './core/web3auth/web3auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {
-  class: 'flex flex-auto w-full'
+    class: 'flex flex-auto w-full'
   }
 })
 export class AppComponent {
@@ -24,36 +22,36 @@ export class AppComponent {
   constructor(
     private userStateService: UserStateService,
     @Inject(PLATFORM_ID) private platformId: any,
-    private web3: Web3AuthService,
     private router: Router,
     private viewportScroller: ViewportScroller,
-    private gtag: Gtag) {
+    private gtag: Gtag,
+  ) {
 
-    AppComponent.isBrowser.next(isPlatformBrowser(platformId));
+    AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
     this.userStateService.initAccount();
 
-    router.events
+    this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))
       .pipe(delay(1))
       .subscribe((e) => {
         if (e.position) {
-          viewportScroller.scrollToPosition(e.position);
+          this.viewportScroller.scrollToPosition(e.position);
         } else if (e.anchor) {
-          viewportScroller.scrollToAnchor(e.anchor);
+          this.viewportScroller.scrollToAnchor(e.anchor);
         } else {
           const url = e.routerEvent.url;
-          if(url === '/profile/user-items' || url === '/profile/user-games' || url === '/profile/user-avatars' || url === '/profile/user-gems') return;
-          viewportScroller.scrollToPosition([0, 0]);
+          if (url === '/profile/user-items' || url === '/profile/user-games' || url === '/profile/user-avatars' || url === '/profile/user-gems') return;
+          this.viewportScroller.scrollToPosition([0, 0]);
         }
       });
 
-      gtag.event('page_view');
+    this.gtag.event('page_view');
 
-      // this.userStateService.currentUser.subscribe(user => {
-      //   if(user) {
-      //     this.sellAsset.transferNft()
-      //   }
-      // })
+    // this.userStateService.currentUser.subscribe(user => {
+    //   if(user) {
+    //     this.sellAsset.transferNft()
+    //   }
+    // })
   }
 
 }

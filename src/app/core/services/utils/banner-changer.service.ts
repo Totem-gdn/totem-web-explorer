@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { TotemCropperComponent } from "@app/modules/specific/add-your-game/modules/totem-cropper/totem-cropper.component";
-import { Observable, take } from "rxjs";
+import { Observable } from "rxjs";
 
 
 @Injectable({

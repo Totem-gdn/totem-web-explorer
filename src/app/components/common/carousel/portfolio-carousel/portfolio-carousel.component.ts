@@ -1,6 +1,6 @@
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
-import { fromEvent, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: 'portfolio-carousel',
@@ -28,12 +28,10 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
             .observe(['(min-width: 745px)'])
             .pipe(takeUntil(this.subs))
             .subscribe((state: BreakpointState) => {
-                console.log(state.matches)
                 if (state.matches) {
                     this.slidesOnScreen = 3;
                 } else {
                     this.slidesOnScreen = 2;
-                    console.log(this.slidesOnScreen);
                 }
             });
     }

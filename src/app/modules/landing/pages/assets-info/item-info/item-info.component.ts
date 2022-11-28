@@ -17,7 +17,7 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
         private gamesService: GamesService,
         private gtag: Gtag
     ) {
-        gtag.event('page_view');
+        this.gtag.event('page_view');
     }
 
     item: any;
@@ -34,7 +34,7 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
                     next: item => {
                         this.item = item;
                     },
-                    error: error => {
+                    error: () => {
                         this.item = null;
                     }
                 });

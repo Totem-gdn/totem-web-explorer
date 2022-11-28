@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 
 
 @Component({
@@ -12,7 +12,6 @@ export class GameDescriptionComponent {
     @Input() set game(game: any) {
         this._game = game;
         this.hlImage = game?.images?.gallery[0];
-        console.log(game)
     };
     @ViewChild('image') image!: ElementRef;
 

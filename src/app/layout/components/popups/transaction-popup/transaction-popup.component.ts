@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { Subject, takeUntil } from "rxjs";

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnDestroy, } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Gtag } from 'angular-gtag';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-games',
@@ -16,7 +16,7 @@ export class GamesComponent implements OnDestroy {
   subs = new Subject<void>();
 
   constructor(private gamesService: GamesService, private gtag: Gtag) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   ngOnInit(): void {
@@ -28,7 +28,6 @@ export class GamesComponent implements OnDestroy {
     this.gamesService.updateGames(1, filters)
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
-        console.log('games', games)
         this.games = games;
       })
   }
