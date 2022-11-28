@@ -130,10 +130,16 @@ export class AssetsService {
 
     cacheFav() {
         const assets = ['item', 'avatar', 'game'];
-        for (let asset of assets) {
-            this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}s`).subscribe(total => {
+        for(let asset of assets) {
+          if (asset == 'game') {
+            this.http.get<any>(`${this.baseUrl}/games/favorites`).subscribe(total => {
                 this.cacheService.setItemCache(asset, total);
             });
+          } else {
+            this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}s`).subscribe(total => {
+              this.cacheService.setItemCache(asset, total);
+          });
+          }
         }
 
     }
