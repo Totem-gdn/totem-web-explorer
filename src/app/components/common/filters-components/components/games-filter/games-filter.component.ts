@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FiltersService } from '@app/components/common/filters-components/services/filters.service';
 import { Subscription } from 'rxjs';
 

@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { FormValidity } from '@app/core/models/interfaces/submit-game-interface.model';
 import { Subscription } from 'rxjs';
 import { FormsService } from '../../services/forms.service';
-import { SubmitGameService } from '../../services/submit-game.service';
 
 @Component({
   selector: 'totem-game-submission-nav',

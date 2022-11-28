@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 // import { Web3AuthCore } from "@web3auth/core";
+import { environment } from "@env/environment";
+import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import { Web3Auth } from '@web3auth/modal';
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider, WALLET_ADAPTERS } from "@web3auth/base";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { BehaviorSubject, Observable } from "rxjs";
+import Web3 from "web3";
 import RPC from "./web3RPC";
 const clientId = environment.WEB3AUTH_ID;
-import Web3 from "web3";
-import { BehaviorSubject, Observable } from "rxjs";
-import { environment } from "@env/environment";
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 
 @Injectable({ providedIn: 'root' })
 
@@ -38,7 +38,6 @@ export class Web3AuthService {
             },
         })
         web3auth.configureAdapter(openloginAdapter);
-        console.log('INIT')
         await web3auth.initModal();
 
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
@@ -52,9 +51,7 @@ export class Web3AuthService {
 
     login = async () => {
         // await this.init();
-        console.log("LOGIN")
         if (!this.web3auth) {
-            console.log("web3auth not initialized yet");
             return;
         }
         const web3auth = this.web3auth;
@@ -68,10 +65,7 @@ export class Web3AuthService {
         if(!this.web3auth) return;
         const web3 = this.web3auth;
         const key = await web3.authenticateUser();
-        const userInfo = await this.web3auth.getUserInfo();
 
-        console.log('user info', userInfo)
-        console.log('token', key)
         return key.idToken;
     }
 
@@ -101,7 +95,6 @@ export class Web3AuthService {
     isReceiptedUsdc(hash: string) {
       this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
       const interval2 = setInterval( async () => {
-        console.log("Attempting to get USDC transaction receipt...");
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
           if (err) {
             this.usdcClaimed.next('error');
@@ -136,7 +129,6 @@ export class Web3AuthService {
 
     getTokens = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
         const rpc = new RPC(this.provider);
@@ -146,7 +138,6 @@ export class Web3AuthService {
 
     getUserInfo = async () => {
         if (!this.web3auth) {
-            console.log("web3auth not initialized yet");
             return;
         }
         this.web3auth.eventNames()
@@ -156,16 +147,11 @@ export class Web3AuthService {
 
     getChainId = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
-        const rpc = new RPC(this.provider);
-        const chainId = await rpc.getChainId();
-        console.log(chainId);
     };
     getAccounts = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
         const rpc = new RPC(this.provider);
@@ -175,7 +161,6 @@ export class Web3AuthService {
 
     getBalance = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
         const rpc = new RPC(this.provider);
@@ -185,10 +170,8 @@ export class Web3AuthService {
 
     getTokenBalance = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
-        console.log('CheckBalance');
         const rpc = new RPC(this.provider);
         const checkBalance = await rpc.getTokenBalance();
         return checkBalance;
@@ -196,58 +179,27 @@ export class Web3AuthService {
 
     sendTransaction = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
-        const rpc = new RPC(this.provider);
-        const receipt = await rpc.sendTransaction();
-        console.log(receipt);
     };
 
     signMessage = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
-        const rpc = new RPC(this.provider);
-        const signedMessage = await rpc.signMessage();
-        console.log(signedMessage);
     };
 
     getPrivateKey = async () => {
         if (!this.provider) {
-            console.log("provider not initialized yet");
             return;
         }
         const rpc = new RPC(this.provider);
         const privateKey = await rpc.getPrivateKey();
-        console.log(privateKey);
         return privateKey;
     };
 
-    // getListOfNfts = async () => {
-    //     if (!this.provider) {
-    //         console.log("provider not initialized yet");
-    //         return;
-    //     }
-    //     const rpc = new RPC(this.provider);
-    //     const tx = await rpc.getListOfNfts();
-    //     return tx;
-    // }
-    listenToHash(hash: string) {
-        const web3 = new Web3(this.provider as any);
-        console.log('hash', hash)
-        setInterval(() => {
-            web3.eth.getTransactionReceipt(hash, (err,res) => {
-                console.log(res)
-                console.log(err);
-            });
-        }, 1000)
-    }
-
     logout = async () => {
         if (!this.web3auth) {
-            console.log("web3auth not initialized yet");
             return;
         }
         await this.web3auth.logout();

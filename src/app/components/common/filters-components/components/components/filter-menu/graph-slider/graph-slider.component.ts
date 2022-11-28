@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, Input, OnDestroy, AfterViewInit, AfterViewChecked, ChangeDetectorRef } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
 import { FiltersService } from "@app/components/common/filters-components/services/filters.service";
 import { TagsService } from "@app/components/common/filters-components/services/tags.service";
 import { Subscription } from "rxjs";

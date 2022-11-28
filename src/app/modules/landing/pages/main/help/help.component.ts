@@ -11,6 +11,6 @@ import { Gtag } from "angular-gtag";
 
 export class HelpComponent {
   constructor(private gtag: Gtag) {
-      gtag.event('page_view');
+      this.gtag.event('page_view');
     }
 }

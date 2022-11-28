@@ -2,13 +2,12 @@ import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementR
 import { Router } from "@angular/router";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
-import { WidgetService } from "@app/core/services/states/widget-state.service";
 import { Subject, Subscription, takeUntil } from "rxjs";
 
 @Component({
   selector: 'game-dropdown',
   templateUrl: './game-dropdown.component.html',
-  styleUrls: ['./game-dropdown.component.scss'], 
+  styleUrls: ['./game-dropdown.component.scss'],
   host: {
     class: 'w-full'
   }
@@ -19,7 +18,7 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
   constructor(private router: Router,
     public gamesService: GamesService,
     private changeDetector: ChangeDetectorRef,
-    private widgetService: WidgetService) { }
+  ) { }
 
   selectedScriptItem!: GameDetail | undefined;
   scriptSub!: Subscription;

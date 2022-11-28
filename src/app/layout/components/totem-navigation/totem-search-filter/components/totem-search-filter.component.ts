@@ -1,51 +1,13 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface.model';
-import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
-import { BehaviorSubject, switchMap, debounceTime, of, Subscription, take, combineLatest, map} from 'rxjs';
+import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { BehaviorSubject, combineLatest, debounceTime, map, of, Subscription, switchMap, take } from 'rxjs';
 import { Items } from '../models/items-interface.model';
 import { GradientService } from '../services/items-gradient.service';
-import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
-
-/* const items: Items[] = [
-  {
-    name: 'Mr.Krabs kills',
-    type: 'Horror',
-    img: 'assets/images/promo-game.png'
-  },
-  {
-    name: 'GTA 6',
-    type: 'Arcade',
-    img: 'assets/images/promo-game.png'
-  },
-  {
-    name: 'Conta City',
-    type: 'Shooter',
-    img: 'assets/images/promo-game.png'
-  },
-  {
-    name: 'Mineground',
-    type: 'Sandbox',
-    img: 'assets/images/promo-game.png'
-  },
-  {
-    name: 'Crysis 5',
-    type: 'Shooter',
-    img: 'assets/images/promo-game.png'
-  },
-  {
-    name: 'Stalker: killzone',
-    type: 'Action',
-    img: 'assets/images/promo-game.png'
-  },
-  {
-    name: 'Survival Zone Craft',
-    type: 'Survival',
-    img: 'assets/images/promo-game.png'
-  },
-] */
 
 @Component({
   selector: 'totem-search-filter',
@@ -85,7 +47,6 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
     private router: Router,
     private sidenavStateService: SidenavStateService,
     private totemItemsService: TotemItemsService,
-    private route: ActivatedRoute,
     private gradientService: GradientService) { }
 
   ngOnInit(): void {
@@ -114,13 +75,12 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
           return of(id);
         })
       )
-      .subscribe((text: string | null) => {
-        console.log(text);
-        if (text?.length) {
-          this.dropdownOpened = true;
-          this.getItems(text);
-        }
-      })
+        .subscribe((text: string | null) => {
+          if (text?.length) {
+            this.dropdownOpened = true;
+            this.getItems(text);
+          }
+        })
     );
   }
 
@@ -128,70 +88,22 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
     this.loading$.next(true);
     //this.submitGameService.getGame(params);
     combineLatest([
-        this.totemItemsService.getGameByName(params),
-        this.totemItemsService.getItemsByName(params),
-        this.totemItemsService.getAvatarsByName(params)
-      ]).pipe(
-          take(1),
-          map(([games, items, avatars]) => { return { games, items, avatars } })
-        )
-        .subscribe((data) => {
-          this.gamesArray.next(data.games && data.games?.length ? data.games : null);
-          data.items.map((item: Items) => item.gradient = this.getGradient());
-          this.itemsArray.next(data.items && data.items?.length ? data.items : null);
-          data.avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
-          this.avatarsArray.next(data.avatars && data.avatars?.length ? data.avatars : null);
-          this.checkTabAfterSearch(data.items?.length || 0, data.avatars?.length | 0, data.games?.length | 0);
-          this.loading$.next(false);
-        });
-      /* this.itemsSub.add(
-        this.totemItemsService.getGameByName(params).pipe(take(1)).subscribe((games: any[]) => {
-          if (!games?.length) {
-            this.gamesArray.next(null);
-            this.loading$.next(false);
-            return;
-          }
-          this.gamesArray.next(games);
-          this.loading$.next(false);
-          console.log('SUBBED');
-        })
-      );
-
-      this.itemsSub.add(
-        this.totemItemsService.getItemsByName(params).pipe(take(1)).subscribe((items: Items[]) => {
-          if (!items?.length) {
-            this.itemsArray.next(null);
-            this.loading$.next(false);
-            return;
-          }
-          items.map((item: Items) => item.gradient = this.getGradient());
-          this.itemsArray.next(items);
-          this.loading$.next(false);
-          console.log('SUBBED');
-        })
-      );
-
-      this.itemsSub.add(
-        this.totemItemsService.getAvatarsByName(params).pipe(take(1)).subscribe((avatars: Items[]) => {
-          if (!avatars?.length) {
-            this.avatarsArray.next(null);
-            this.loading$.next(false);
-            return;
-          }
-          avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
-          this.avatarsArray.next(avatars);
-          this.loading$.next(false);
-          console.log('SUBBED');
-        })
-      ); */
-
-
-
-    /* setTimeout(() => {
-      let itemsArray = items.filter((item: Items) => item.name.toLowerCase().includes(params));
-      this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
-      this.processAvatars(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
-    }, 1200); */
+      this.totemItemsService.getGameByName(params),
+      this.totemItemsService.getItemsByName(params),
+      this.totemItemsService.getAvatarsByName(params)
+    ]).pipe(
+      take(1),
+      map(([games, items, avatars]) => { return { games, items, avatars } })
+    )
+      .subscribe((data) => {
+        this.gamesArray.next(data.games && data.games?.length ? data.games : null);
+        data.items.map((item: Items) => item.gradient = this.getGradient());
+        this.itemsArray.next(data.items && data.items?.length ? data.items : null);
+        data.avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
+        this.avatarsArray.next(data.avatars && data.avatars?.length ? data.avatars : null);
+        this.checkTabAfterSearch(data.items?.length || 0, data.avatars?.length | 0, data.games?.length | 0);
+        this.loading$.next(false);
+      });
   }
 
   checkTabAfterSearch(itemsLength: number, avatarsLength: number, gamesLength: number) {
@@ -243,13 +155,13 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
   goToPage() {
     if (this.activeTab === this.tabType.ITEMS_TAB) {
       /* router */
-      this.router.navigate(['../items'], { queryParams: { searchParams: this.searchInfo.value }});
+      this.router.navigate(['../items'], { queryParams: { searchParams: this.searchInfo.value } });
     } else if (this.activeTab === this.tabType.AVATARS_TAB) {
       /* router */
-      this.router.navigate(['../avatars'], { queryParams: { searchParams: this.searchInfo.value }});
+      this.router.navigate(['../avatars'], { queryParams: { searchParams: this.searchInfo.value } });
     } else if (this.activeTab === this.tabType.GAMES_TAB) {
       /* router */
-      this.router.navigate(['../games'], { queryParams: { searchParams: this.searchInfo.value }});
+      this.router.navigate(['../games'], { queryParams: { searchParams: this.searchInfo.value } });
     }
     if (this.focusState === 'true') {
       this.routingEvent.next('closed');
@@ -280,7 +192,7 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
 
   onFocus() {
     //if (this.searchInfo.value) {
-      this.dropdownOpened = true;
+    this.dropdownOpened = true;
     //}
   }
 

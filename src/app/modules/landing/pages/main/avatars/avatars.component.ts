@@ -1,20 +1,20 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Gtag } from 'angular-gtag';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'app-avatars',
-    templateUrl: './avatars.component.html',
-    styleUrls: ['./avatars.component.scss'],
-    host: {
-        class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
-    }
+  selector: 'app-avatars',
+  templateUrl: './avatars.component.html',
+  styleUrls: ['./avatars.component.scss'],
+  host: {
+    class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
+  }
 })
 export class AvatarsComponent implements OnInit, OnDestroy {
 
   constructor(private assetsService: AssetsService, private gtag: Gtag) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
   subs = new Subject<void>();
@@ -30,7 +30,6 @@ export class AvatarsComponent implements OnInit, OnDestroy {
     this.assetsService.avatars$
       .pipe(takeUntil(this.subs))
       .subscribe(avatars => {
-        console.log('avatars', avatars)
         this.avatars = avatars;
       })
   }

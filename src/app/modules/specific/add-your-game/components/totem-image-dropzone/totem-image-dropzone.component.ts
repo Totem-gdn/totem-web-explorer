@@ -54,10 +54,8 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.recommendedResolution) {
       let arr: string[] = this.recommendedResolution.split('x');
-      //console.log(arr);
       this.recWidth = Number(arr[0]);
       this.recHeight = Number(arr[1]);
-      console.log(this.recWidth, this.recHeight);
 
     }
   }
@@ -69,8 +67,6 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
         this.imageReader.onload = (event: any) => { this.imageUrl = event.target.result };
       } else if (this.selfFill) {
         this.imageUrl = '';
-        console.log('Changed: ', this.existingImageUrl);
-
       }
     }
   }
@@ -111,13 +107,11 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       this.errorEvent.emit({message: '', status: false});
     }
     let filesToAdd: File[] = [];
-    console.log(event.target.files);
 
     const filesToValidate: File[] = Array.from(event.target.files);
     filesToValidate.forEach((file: File, i: number) => {
       if (this.isImage(file)) {
         if (file.size > 20971520) {
-          console.log('File size is big');
           this.snackNotifierService.open('File at position ' + i + ' is very large');
           return;
         }
@@ -143,11 +137,9 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     }
 
     const fileToValidate: File = event.target.files[0];
-    console.log(fileToValidate);
 
     if (this.isImage(fileToValidate)) {
       if (fileToValidate.size > 20971520) {
-        console.log('File size is big');
         this.snackNotifierService.open('File is very large');
         return;
       }
@@ -158,12 +150,10 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
 
     if (this.validateFile(fileToValidate)) {
         this.file = fileToValidate;
-        console.log(this.file);
         if (this.file) {
           this.finalizedFile.next(event);
         }
     } else {
-      console.log('Your input is incorrect');
       this.snackNotifierService.open('Your input file is incorrect');
     }
 

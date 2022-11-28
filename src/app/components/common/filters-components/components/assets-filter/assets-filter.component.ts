@@ -1,8 +1,8 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, Inject, Input, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, Input, ViewChild } from "@angular/core";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
-import { Subject, Subscription, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { FiltersService } from "../../services/filters.service";
 
 @Component({

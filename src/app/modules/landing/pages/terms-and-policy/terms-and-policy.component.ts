@@ -10,7 +10,7 @@ import { Gtag } from "angular-gtag";
 export class TermsAndPolicyComponent implements OnInit, OnDestroy {
 
   constructor(private gtag: Gtag) {
-    gtag.event('page_view');
+    this.gtag.event('page_view');
   }
 
     ngOnInit() {

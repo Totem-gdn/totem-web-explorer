@@ -4,7 +4,7 @@ import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/s
 import { TransactionDialogService } from "@app/layout/components/popups/dialogs/transaction-dialog/services/transaction-dialog.service";
 import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 import { Gtag } from "angular-gtag";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { WelcomeDialogService } from "../dialogs/welcome-dialog/services/welcome-dialog.service";
 import { StorageKey } from "../models/enums/storage-keys.enum";
 import { GIVEAWAY_STATUS } from "../models/enums/token.enum";

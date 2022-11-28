@@ -60,7 +60,6 @@ export class MessagesComponent implements OnInit {
   }
   set master(v) {
     this.messageList.getValue().map(c => c.isChecked = v);
-    //this.messageList.getValue().map(c => console.log(c.isChecked));
   }
 
   @ViewChild('dropdown') dropdown!: ElementRef;
@@ -84,7 +83,6 @@ export class MessagesComponent implements OnInit {
   }
 
   pageEvent(pagination: PaginationEvent) {
-    console.log(pagination);
     let arrayToList = messages.slice(pagination.currentPage * pagination.size, (pagination.currentPage * pagination.size) + pagination.size);
     this.messageList.next(arrayToList);
   }
@@ -93,7 +91,6 @@ export class MessagesComponent implements OnInit {
     this.blockDefault = true;
     let index = this.messageList.getValue().findIndex((message) => message.id === id);
     this.messageList.getValue()[index].isChecked = !this.messageList.getValue()[index].isChecked;
-    console.log(this.messageList.getValue()[index].isChecked);
   }
 
   checkToUncheck(event: any) {
@@ -110,11 +107,6 @@ export class MessagesComponent implements OnInit {
     }
   }
 
-  clicked() {
-    console.log('CLICKED');
-
-  }
-
   checkToOpen(message: any, event: any) {
     if (message.isChecked) {
       message.isChecked = !message.isChecked;
@@ -125,12 +117,9 @@ export class MessagesComponent implements OnInit {
   openMessage(id: any) {
     let index = this.messageList.getValue().findIndex((message) => message.id === id);
     this.messageList.getValue()[index].isOpened = !this.messageList.getValue()[index].isOpened;
-    console.log(this.messageList.getValue()[index].isOpened);
   }
 
   getIsOpened(id: any): boolean {
-    console.log(id);
-
     let index = this.messageList.getValue().findIndex((message) => message.id === id);
     this.messageList.getValue()[index].isReaded = true;
 

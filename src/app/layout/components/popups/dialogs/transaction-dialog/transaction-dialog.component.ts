@@ -1,12 +1,10 @@
-import { HttpEventType } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { TransactionsService } from '@app/core/services/crypto/transactions.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
-import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
-import { BehaviorSubject, concat, Observable, Subscription, take } from 'rxjs';
+import { BehaviorSubject, Subscription, take } from 'rxjs';
 import { SnackNotifierService } from '../../../../../components/utils/snack-bar-notifier/snack-bar-notifier.service';
 
 @Component({
@@ -57,10 +55,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
     private paymentService: PaymentService
-    ) {
-      console.log(this.data);
-
-    }
+    ) { }
 
   ngOnInit() {
     this.subs.add(
@@ -141,8 +136,6 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
       this.steps[this.stepIndex].loading = false;
       this.paymentService.updateBalance();
     }
-    console.log(this.stepIndex, 'CALLED');
-
   }
 
   getMatics() {
@@ -150,11 +143,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.transactionsService.getMaticViaFaucet().pipe(take(1)).subscribe({
         next: (response: any) => {
-          console.log(response);
           if (response.status == 'Accepted') {
-
-            //this.snackService.open('Tokens has been sent, wait a few seconds');
-
             this.nextStep();
             this.maticHash = response.MATIC;
             this.usdcHash = response.USDC;
@@ -167,7 +156,6 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
           }
         },
         error: (error: any) => {
-          console.log(error);
           if (error.error.statusCode == 403) {
             this.snackService.open('Please Login');
           }

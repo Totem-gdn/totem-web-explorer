@@ -1,10 +1,9 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PaymentService } from '@app/core/services/crypto/payment.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Gtag } from 'angular-gtag';
-import { forkJoin, from, fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
+import { fromEvent, Subject, takeUntil } from 'rxjs';
 import { SnackNotifierService } from '../../../../../components/utils/snack-bar-notifier/snack-bar-notifier.service';
 
 @Component({
@@ -14,21 +13,23 @@ import { SnackNotifierService } from '../../../../../components/utils/snack-bar-
 })
 export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor(private paymentService: PaymentService,
+  constructor(
+    private paymentService: PaymentService,
     private web3Service: Web3AuthService,
     private snackService: SnackNotifierService,
     private breakpointObserver: BreakpointObserver,
-    @Inject(DOCUMENT) private document: Document,
-    private gtag: Gtag) {
-      gtag.event('page_view');
-    }
+    // @Inject(DOCUMENT) private document: Document,
+    private gtag: Gtag
+  ) {
+    this.gtag.event('page_view');
+  }
 
   maticBalance: any = 0;
   tokenBalance: any = 0;
-  assets: any[] = [{type: 'item'},{type: 'avatar'},{type: 'gem'},];
+  assets: any[] = [{ type: 'item' }, { type: 'avatar' }, { type: 'gem' },];
 
   disableButton: boolean | null = null;
-  disableLoop = {disable: false, immutable: false};
+  disableLoop = { disable: false, immutable: false };
   loop: any;
 
   @ViewChild('itemsRef') itemsRef!: ElementRef;
@@ -48,17 +49,15 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       .observe(['(min-width: 745px)'])
       .pipe(takeUntil(this.subs))
       .subscribe((state: BreakpointState) => {
-        const items = this.itemsRef.nativeElement;
         if (state.matches) {
-          this.disableLoop = { disable: false, immutable: false};
+          this.disableLoop = { disable: false, immutable: false };
         } else {
-          this.disableLoop = { disable: true, immutable: true};
+          this.disableLoop = { disable: true, immutable: true };
           fromEvent(window, 'scroll').pipe(takeUntil(this.subs)).subscribe(() => {
             let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
-            const offset =  items[0].getBoundingClientRect();
-            for(let i = 0; i < items.length; i++) {
+            for (let i = 0; i < items.length; i++) {
               const offset = items[i].getBoundingClientRect().y;
-              if(offset > 0) {
+              if (offset > 0) {
                 this.animateItem(items[i], false);
                 return;
               }
@@ -107,10 +106,10 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
   paymentInfo(assets: any[]) {
     assets.forEach(asset => {
       this.paymentService.getPaymentInfo(asset).subscribe(info => {
-        if(asset == 'item') this.assets[0].paymentInfo = info;
-        if(asset == 'avatar') this.assets[1].paymentInfo = info;
-        if(asset == 'gem') this.assets[2].paymentInfo = info;
-        if(this.assets.length == 3) {
+        if (asset == 'item') this.assets[0].paymentInfo = info;
+        if (asset == 'avatar') this.assets[1].paymentInfo = info;
+        if (asset == 'gem') this.assets[2].paymentInfo = info;
+        if (this.assets.length == 3) {
           this.playAnimation();
         }
       })

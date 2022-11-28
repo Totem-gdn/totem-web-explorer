@@ -28,9 +28,7 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<WelcomeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private tokenGiveawayService: TokenGiveawayService,
-  ) {
-    console.log(this.data);
-  }
+  ) { }
 
   ngOnInit() {
     this.slideInterval = setInterval(()=>{

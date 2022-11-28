@@ -1,13 +1,10 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { PaymentService } from "@app/core/services/crypto/payment.service";
-import { TotemItemsService } from "@app/core/services/totem-items.service";
-import { BehaviorSubject, Subject, Subscription, takeUntil } from "rxjs";
-import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
-import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
-import { GamesService } from "@app/core/services/assets/games.service";
+import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { GamesService } from "@app/core/services/assets/games.service";
+import { TotemItemsService } from "@app/core/services/totem-items.service";
+import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { environment } from "@env/environment";
+import { Subject, takeUntil } from "rxjs";
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
 // import * as DNA from 'dna-parser'
 
@@ -23,12 +20,12 @@ const { DNAParser, ContractHandler } = require('totem-dna-parser');
 
 export class AssetInfoComponent implements AfterViewInit {
 
-    constructor(private route: ActivatedRoute,
+    constructor(
         private itemsService: TotemItemsService,
-        private web3: Web3AuthService,
         private changeDetector: ChangeDetectorRef,
         private dnaService: DNAParserService,
-        private gamesService: GamesService) { }
+        private gamesService: GamesService
+    ) { }
 
     activeTab = 'properties';
     subs = new Subject<void>();
@@ -44,12 +41,12 @@ export class AssetInfoComponent implements AfterViewInit {
     }
 
     @Input() set selectedGame(game: GameDetail | null) {
-      if(!game) return;
-      if (game?.connections?.assetRenderer) {
-        this.assetRendererUrl = game?.connections.assetRenderer;
-      } else {
-        this.assetRendererUrl = environment.ASSET_RENDERER_URL;
-      }
+        if (!game) return;
+        if (game?.connections?.assetRenderer) {
+            this.assetRendererUrl = game?.connections.assetRenderer;
+        } else {
+            this.assetRendererUrl = environment.ASSET_RENDERER_URL;
+        }
     }
     assetRendererUrl = environment.ASSET_RENDERER_URL;
 
@@ -69,7 +66,7 @@ export class AssetInfoComponent implements AfterViewInit {
         this.selectedGame$();
 
         const sessionGame = this.gamesService.gameInSession;
-        if(!sessionGame?.general?.name) return;
+        if (!sessionGame?.general?.name) return;
         this.getProperties(sessionGame?.general?.name);
     }
 
@@ -83,7 +80,7 @@ export class AssetInfoComponent implements AfterViewInit {
             .subscribe(selectedGame => {
                 this.getProperties(selectedGame?.general?.name);
                 this.processItem(this._item?.tokenId);
-        })
+            })
     }
 
     getProperties(gameName: string | undefined) {
@@ -152,6 +149,6 @@ export class AssetInfoComponent implements AfterViewInit {
 
     // change assetUrl to Default if url for game getted error
     updateUrl() {
-      this.assetRendererUrl = environment.ASSET_RENDERER_URL;
+        this.assetRendererUrl = environment.ASSET_RENDERER_URL;
     }
 }

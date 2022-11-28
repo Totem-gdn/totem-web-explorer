@@ -11,8 +11,6 @@ export class AssetHistoryService {
     baseUrl: string = environment.TOTEM_BASE_API_URL;
     
     getHistory(type: string, id: string) {
-        console.log(type, id)
-        // return this.http.get<any>(`https://dev-api.totem-explorer.com/assets/${type}/${id}/ownershipHistory`);
         return this.http.get<OwnershipHistory[]>(`https://dev-api.totem-explorer.com/assets/${type}/${id}/ownership-history`)
     }
 }
