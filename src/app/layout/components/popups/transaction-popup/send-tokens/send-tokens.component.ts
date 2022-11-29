@@ -4,7 +4,8 @@ import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/s
 import { Animations } from "@app/core/animations/animations";
 import { TOKEN } from "@app/core/models/enums/token.enum";
 import { UserStateService } from "@app/core/services/auth.service";
-import { PaymentService } from "@app/core/services/crypto/payment.service";
+import { CryptoUtilsService } from "@app/core/services/crypto/crypto-utils.service";
+import { TransferService } from "@app/core/services/crypto/transfer.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { PopupService } from "@app/layout/components/popup.service";
 import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
@@ -28,10 +29,11 @@ interface TokenBalance {
 export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDestroy {
 
     constructor(
+        private transferService: TransferService,
+        private cryptoUtils: CryptoUtilsService,
         private web3Service: Web3AuthService,
         private authService: UserStateService,
         private snackService: SnackNotifierService,
-        private paymentService: PaymentService,
         private showPopupService: PopupService,
         private gtag: Gtag
     ) {
@@ -84,7 +86,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
     }
 
     private async setMaskForAmount(token: TOKEN) {
-        const decimals = await this.paymentService.getDecimals(token)
+        const decimals = await this.cryptoUtils.getDecimals(token)
         this.maskForAmount = `separator.${decimals}`;
     }
 
@@ -108,14 +110,14 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
     async estimateGas(tokenTitle: string, value: string) {
         const address = this.transferForm.get('address')?.value;
         if (!address) return;
-        if (tokenTitle == 'USDC') this.gasFee = await this.paymentService.estimateUSDCGasFee(address, value);
-        if (tokenTitle == 'MATIC') this.gasFee = await this.paymentService.estimateMaticGasFee(address, +value);
+        if (tokenTitle == 'USDC') this.gasFee = await this.cryptoUtils.estimateUSDCGasFee(address, value);
+        if (tokenTitle == 'MATIC') this.gasFee = await this.cryptoUtils.estimateMaticGasFee(address, +value);
         return this.gasFee;
     }
 
     async isAddressValid() {
         const address = this.transferForm.get('address')?.value;
-        const isValid = await this.paymentService.checkAddressValidity(address);
+        const isValid = await this.cryptoUtils.checkAddressValidity(address);
         this.addressValid = !!isValid;
     }
 
@@ -124,7 +126,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
         const amount = this.transferForm.get('amount')?.value;
 
         // Check address validity
-        const isAddressValid = await this.paymentService.checkAddressValidity(address);
+        const isAddressValid = await this.cryptoUtils.checkAddressValidity(address);
         if (!isAddressValid && isAddressValid) {
             this.addressValid = true;
             return;
@@ -141,7 +143,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
         this.snackService.open('Your transaction has been sent');
 
         if (this.selectedToken.title == 'USDC') {
-            this.paymentService.sendUSDC(address, amount).then(res => {
+            this.transferService.transferUSDC(address, amount).then(res => {
                 this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
                 this.gtag.event('token_send', {
                     'event_label': 'USDC transaction has been sent',
@@ -153,7 +155,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
         }
         if (this.selectedToken.title == 'MATIC') {
             const amountToSend = Number(amount) + Number(this.gasFee);
-            this.paymentService.transferMatic(address, amountToSend).then(res => {
+            this.transferService.transferMatic(address, amountToSend).then(res => {
                 this.snackService.open(`Your ${amount} ${this.selectedToken.title} token(s) have been transferred successfully.`);
                 this.gtag.event('token_send', {
                     'event_label': 'MATIC transaction has been sent',
@@ -165,7 +167,7 @@ export class SendTokensComponent extends OnDestroyMixin implements OnInit, OnDes
     }
 
     updateBalance() {
-        this.paymentService.updateBalance();
+        this.cryptoUtils.updateBalance();
         this.authService.currentUser.pipe(
             untilComponentDestroyed(this),
             takeWhile(val => !val, true),
