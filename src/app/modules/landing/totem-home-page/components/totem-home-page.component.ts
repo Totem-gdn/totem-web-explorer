@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AssetsService } from '@app/core/services/assets/assets.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, timer } from 'rxjs';
@@ -40,7 +41,7 @@ import { Container, Engine, MoveDirection, OutMode } from "tsparticles-engine";
   ]
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TotemHomePageComponent extends OnDestroyMixin implements OnInit {
+export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, OnDestroy {
   showAfterScroll: boolean = false;
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
@@ -71,6 +72,7 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit {
   constructor(
     private totemItemsService: TotemItemsService,
     private router: Router,
+    private assetService: AssetsService
   ) {
     super();
   }
@@ -180,6 +182,15 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit {
 
     this.initImgChanger();
 
+  }
+
+  override ngOnDestroy(): void {
+    console.log('DESTROYES');
+    this.games$.next([]);
+    this.avatars$.next([]);
+    this.newestItems$.next([]);
+    this.mostUsedItems$.next([]);
+    this.assetService.reset();
   }
 
   initImgChanger() {

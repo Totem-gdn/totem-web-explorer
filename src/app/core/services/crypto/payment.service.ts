@@ -60,8 +60,8 @@ export class PaymentService {
         return await this.web3.getBalance();
     }
 
-    async getUSDCBalance(): Promise<string | undefined> {
-        if (!this.web3.provider) return;
+    async getUSDCBalance():Promise<string> {
+        // if (!this.web3.provider) return;
         const web3 = new Web3(this.web3.provider as any);
         const accounts = await web3.eth.getAccounts();
 
@@ -80,14 +80,6 @@ export class PaymentService {
         const web3 = new Web3(this.web3.provider as any);
         return web3.utils.isAddress(address);
     }
-
-    async sendUSDC(address: string, amount: number) {
-        if (!this.web3.provider) {
-            return;
-        }
-        const tx = await this.sendTransaction(address, amount);
-        return tx;
-    };
 
     async transferMatic(address: string, amount: number) {
         const web3 = new Web3(this.web3.provider as any);
@@ -155,8 +147,8 @@ export class PaymentService {
     async estimateUSDCGasFee(to: string, amount: string) {
         const web3 = new Web3(this.web3.provider as any);
         const wallet = await this.web3.getAccounts();
-        if (!amount) return;
-        const contractAddress = '0xB408CC68A12d7d379434E794880403393B64E44b';
+
+        const contractAddress ='0xB408CC68A12d7d379434E794880403393B64E44b'
         const tokenContract = GetTokensABI;
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
         const gasPrice = await web3.eth.getGasPrice();
@@ -165,6 +157,35 @@ export class PaymentService {
         const fee = gasLimit * +gasPrice;
         const gasFee = web3.utils.fromWei(fee.toString());
         return gasFee;
+    }
+
+    async sendUSDC(to: string, amount: string) 
+    {
+        const web3 = new Web3(this.web3.provider as any);
+        const wallet = await this.web3.getAccounts();
+
+        const maticBalance = (await web3.eth.getAccounts())[0];
+        const fee = await this.estimateUSDCGasFee(to, amount);
+        // const gasPrice = await web3.eth.getGasPrice();
+
+        // const gasFee = (+fee / +gasPrice);
+        
+        console.log(fee);
+        // if(true) return;
+        if(+maticBalance < +fee) this.snackService.open('Unsifficient MATIC balance');
+
+        const contractAddress = '0xB408CC68A12d7d379434E794880403393B64E44b';
+        const ABI = GetTokensABI;
+        const contract = new web3.eth.Contract(ABI, contractAddress);
+        console.log('wallet', wallet);
+        const tx = await contract.methods.transfer(to, amount).send({
+            from: wallet,
+            // gasLimit:,
+            maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
+            maxFeePerGas: "200000000000"
+        })
+        console.log('tx',tx);
+        return true;
     }
 
     async sendTransaction(to: string, amount: number) {
@@ -180,12 +201,12 @@ export class PaymentService {
         const contract = new web3.eth.Contract(tokenContract, contractAddress);
 
         const tx = await contract.methods.transfer(to, amount).send({
-            from: wallet,
-            //   maxPriorityFeePerGas: "150000000000", // Max priority fee per gas
-            //   maxFeePerGas: "200000000000"
-        }).on('transactionHash', (hash: string) => {
-            this.snackService.open('Your payment has been sent');
+
+          from: wallet,
         })
+        // .on('transactionHash', (hash: string) => {
+        //     this.snackService.open('Your payment has been sent');
+        // })
 
         return tx;
     }

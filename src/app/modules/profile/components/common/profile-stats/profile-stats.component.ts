@@ -24,6 +24,7 @@ export class ProfileStatsComponent{
 
   ngOnInit() {
     this.cacheService.totalCache$().subscribe(total => {
+      if(!total) return;
       if (this.type == 'avatar') {
         this._total.next(total.totalAvatars);
         this._rare.next(total.totalRareAvatars);

@@ -78,7 +78,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const matic = await this.web3Service.getBalance();
-    const usdc = await this.web3Service.getTokenBalance();
+    const usdcBalance = await this.paymentService.getUSDCBalance();
     this.gtag.event(`${type}_purchase`, {
       'event_label': `Click on Generate ${type}`,
     });
@@ -86,15 +86,21 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       this.snackService.open('Insufficient MATIC balance');
       return;
     }
-    if (!usdc || +usdc <= 0) {
+
+    if (usdcBalance == '0' || +usdcBalance <= amount) {
       this.snackService.open('Insufficient USDC balance');
       return;
     }
 
+    this.snackService.open('Processing transaction')
 
     this.paymentService.sendUSDC(address, amount).then(res => {
       this.snackService.open('Your Totem Asset has been created successfully');
     })
+    // .catch(err => {
+    //   console.error(err.stack);
+    //   this.snackService.open('Error while processing transaction');
+    // })
   }
 
   updateAssets() {

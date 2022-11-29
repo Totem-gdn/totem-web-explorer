@@ -17,7 +17,7 @@ export class UserGamesComponent {
   constructor(private gamesService: GamesService) {}
 
   ngOnInit(): void {
-    this.updateGames();
+    this.updateGames('my');
     // this.filters$();
     this.games$();
   }
@@ -30,7 +30,7 @@ export class UserGamesComponent {
       })
   }
 
-  updateGames(filters: 'latest' | 'popular' = 'latest') {
+  updateGames(filters: 'latest' | 'popular' | 'my' = 'latest') {
     this.gamesService.updateGames(1, filters)
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
