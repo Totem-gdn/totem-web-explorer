@@ -40,7 +40,7 @@ export class ItemsComponent implements OnDestroy {
     this.assetsService.items$
       .pipe(takeUntil(this.subs))
       .subscribe(items => {
-        
+
         this.items = items;
       })
   }
