@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Animations } from "@app/core/animations/animations";
 import { UserStateService } from "@app/core/services/auth.service";
-import { PopupService } from "../../popup.service";
+import { PopupService } from "../../../../core/services/states/popup-state.service";
 
 @Component({
     selector: 'logout',

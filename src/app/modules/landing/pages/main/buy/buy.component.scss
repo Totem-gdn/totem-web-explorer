@@ -88,6 +88,8 @@
         
     }
     .moving-circle-wrapper {
+        filter: blur(100px);
+        will-change: transform;
         position: absolute;
         top: 0;
         bottom: 0;
@@ -100,6 +102,8 @@
     }
 
     .circle-wrapper {
+        filter: blur(70px);
+        will-change: transform;
         position: absolute;
         top: 0;
         bottom: 0;

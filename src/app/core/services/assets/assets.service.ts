@@ -39,6 +39,7 @@ export class AssetsService {
         return this.gem$;
     }
 
+
     set avatars(value: any) { this._avatars.next(value) }
     set items(value: any) { this._items.next(value) }
     set gems(value: any) { this._gems.next(value) }
@@ -100,6 +101,9 @@ export class AssetsService {
     }
 
     async cacheTotal() {
+        this.http.get(`${this.baseUrl}/assets/favorites/items`).subscribe(items => {
+            console.log('items: ', items);
+        })
         this.cacheFav();
 
         const web3 = new Web3(this.web3.provider as any);

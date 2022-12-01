@@ -7,7 +7,7 @@ import { UserStateService } from "@app/core/services/auth.service";
 import { CryptoUtilsService } from "@app/core/services/crypto/crypto-utils.service";
 import { TransferService } from "@app/core/services/crypto/transfer.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
-import { PopupService } from "@app/layout/components/popup.service";
+import { PopupService } from "@app/core/services/states/popup-state.service";
 import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 import { Gtag } from "angular-gtag";
 import { BehaviorSubject, debounceTime, takeWhile } from "rxjs";

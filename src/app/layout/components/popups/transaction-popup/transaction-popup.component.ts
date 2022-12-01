@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { Subject, takeUntil } from "rxjs";
-import { PopupService } from "../../popup.service";
+import { PopupService } from "../../../../core/services/states/popup-state.service";
 
 
 @Component({

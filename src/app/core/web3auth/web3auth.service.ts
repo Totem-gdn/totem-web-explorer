@@ -32,12 +32,14 @@ export class Web3AuthService {
         });
         
         const web3auth = this.web3auth;
+        
         const openloginAdapter = new OpenloginAdapter({
             adapterSettings: {
                 network: 'mainnet'
             },
         })
         web3auth.configureAdapter(openloginAdapter);
+
         await web3auth.initModal();
 
         document.getElementById('w3a-container')!.style.visibility = 'hidden';

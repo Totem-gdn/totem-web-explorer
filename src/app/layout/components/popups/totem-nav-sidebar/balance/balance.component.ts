@@ -5,7 +5,7 @@ import { Animations } from "@app/core/animations/animations";
 import { UserStateService } from "@app/core/services/auth.service";
 import { TransactionsService } from "@app/core/services/crypto/transactions.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
-import { PopupService } from "@app/layout/components/popup.service";
+import { PopupService } from "@app/core/services/states/popup-state.service";
 import { TransactionDialogComponent } from "@app/layout/components/popups/dialogs/transaction-dialog/transaction-dialog.component";
 import { Gtag } from "angular-gtag";
 import { Observable, Subscription, take } from "rxjs";

@@ -43,12 +43,13 @@
       }
 
       &-bg {
+        filter: blur(70px);
+        will-change: transform;
         pointer-events: none;
         z-index: 1;
         position: absolute;
         top: -120px;
         left: -10px;
-        //filter: blur(50px);
         .first-circle {
           z-index: 4;
           position: absolute;
@@ -57,9 +58,6 @@
           left: 314px;
           top: 91px;
           background: #00BC58;
-          filter: blur(80px);
-          //animation-delay: var(--i);
-          //animation: MoveUpDown 10s linear infinite;
         }
         .second-circle {
           z-index: 5;
@@ -69,9 +67,6 @@
           left: 298px;
           top: -79px;
           background: #FFD011;
-          filter: blur(110px);
-          //animation: MoveUpDown 10s linear infinite;
-          //animation-delay: var(--i);
         }
         .third-circle {
           z-index: 3;
@@ -81,9 +76,6 @@
           left: 262px;
           top: 5px;
           background: #FFD011;
-          filter: blur(50px);/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-          //animation: MoveUpDown 10s linear infinite;
-          //animation-delay: var(--i);
         }
         .fourth-circle {
           z-index: 2;
@@ -93,9 +85,6 @@
           left: 155px;
           top: 74px;
           background: #5823C9;
-          filter: blur(70px);
-          //animation: MoveUpDown 10s linear infinite;
-          //animation-delay: var(--i);
         }
         .fifth-circle {
           z-index: 1;
@@ -105,10 +94,6 @@
           left: 260px;
           top: -69px;
           background: #FF8540;
-          filter: blur(70px);
-          //animation: MoveUpDown 10s linear infinite;
-          //animation-delay: var(--i);
-          //background: #00BC58;
         }
       }
 

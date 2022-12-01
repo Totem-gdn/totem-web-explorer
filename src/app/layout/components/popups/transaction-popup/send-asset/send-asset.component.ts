@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { TokenBalance } from "@app/core/models/interfaces/token-balance.modle";
 import { CryptoUtilsService } from "@app/core/services/crypto/crypto-utils.service";
-import { PopupService } from "@app/layout/components/popup.service";
+import { PopupService } from "@app/core/services/states/popup-state.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({

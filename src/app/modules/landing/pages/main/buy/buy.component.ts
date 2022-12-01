@@ -56,16 +56,19 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
           this.disableLoop = { disable: false, immutable: false };
         } else {
           this.disableLoop = { disable: true, immutable: true };
-          fromEvent(window, 'scroll').pipe(takeUntil(this.subs)).subscribe(() => {
-            let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
-            for (let i = 0; i < items.length; i++) {
-              const offset = items[i].getBoundingClientRect().y;
-              if (offset > 0) {
-                this.animateItem(items[i], false);
-                return;
+
+          fromEvent(window, 'scroll')
+            .pipe(takeUntil(this.subs))
+            .subscribe(() => {
+              let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
+              for (let i = 0; i < items.length; i++) {
+                const offset = items[i].getBoundingClientRect().y;
+                if (offset > 0) {
+                  this.animateItem(items[i], false);
+                  return;
+                }
               }
-            }
-          })
+            })
         }
       });
   }
@@ -83,9 +86,9 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
     const [maticBalance, usdcBalance] = await Promise.all([
       this.web3Service.getBalance(),
       this.cryptoUtilsService.getUSDCBalance()
-    ]) 
+    ])
 
-    if(+usdcBalance < +amount) {
+    if (+usdcBalance < +amount) {
       this.snackService.open('Insufficient USDC balance');
       return;
     }
