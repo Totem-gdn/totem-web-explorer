@@ -36,6 +36,7 @@ export class TotemNavSidebarComponent implements OnInit, OnDestroy {
   }
 
   listenAccountInfo() {
+    //
     this.subs.add(
       this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
         this.user$.next(user);
