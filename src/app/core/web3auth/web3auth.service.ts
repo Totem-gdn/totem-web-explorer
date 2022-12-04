@@ -18,19 +18,19 @@ export class Web3AuthService {
     usdcClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     maticClaimed: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     web3!: Web3;
-    
+
     init = async () => {
         this.web3auth = new Web3Auth({
             clientId,
-            
+
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
-                rpcTarget: "https://rpc-mumbai.maticvigil.com"     
+                rpcTarget: "https://rpc-mumbai.maticvigil.com"
             },
-            
+
         });
-        
+
         const web3auth = this.web3auth;
         const openloginAdapter = new OpenloginAdapter({
             adapterSettings: {
@@ -45,7 +45,7 @@ export class Web3AuthService {
         if (web3auth.provider) {
             this.provider = web3auth.provider;
         }
-        
+
         this.isModalLoaded = true;
     }
 
@@ -78,7 +78,7 @@ export class Web3AuthService {
     }
 
     isReceiptedMatic(hash: string) {
-      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx'));
       const interval1 = setInterval( async () => {
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
           if (err) {
@@ -93,7 +93,7 @@ export class Web3AuthService {
       }, 1000);
     }
     isReceiptedUsdc(hash: string) {
-      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ws-polygon-mumbai.chainstacklabs.com'));
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx'));
       const interval2 = setInterval( async () => {
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
           if (err) {

@@ -14,7 +14,7 @@ export const environment = {
   BLOCKCHAIN_CONFIG: {
     name: 'mumbai',
     chainId: "0x13881",
-    rpcTarget: "https://rpc-mumbai.maticvigil.com",  
+    rpcTarget: "https://rpc-mumbai.maticvigil.com",
   }
 };
 
