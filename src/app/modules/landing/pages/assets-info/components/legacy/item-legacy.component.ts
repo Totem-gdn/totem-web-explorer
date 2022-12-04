@@ -11,6 +11,14 @@ import { LegacyService } from '@app/core/services/crypto/legacy.service';
 })
 export class ItemLegacyComponent implements OnInit {
 
+  achievementData(data: string) {
+    if(data.length > 4) {
+      return data.slice(0,4) + '...' + data.slice(-(data.length - 4));
+    }
+    return data;
+
+  }
+
   constructor(
     private legacyService: LegacyService,
     private messageService: SnackNotifierService,
@@ -23,6 +31,7 @@ export class ItemLegacyComponent implements OnInit {
 
     this.legacyService.fetchLegacies(this.asset.tokenId).subscribe(leg => {
       if(!leg.achievements) return;
+      console.log(leg)
       this.achievements = leg.achievements;
     })
   }
