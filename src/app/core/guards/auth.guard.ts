@@ -8,7 +8,7 @@ import {
 import { StorageKey } from "../models/enums/storage-keys.enum";
 import { BaseStorageService } from "../services/utils/base-storage.service";
 import { UserStateService } from "../services/auth.service";
-import { PopupService } from "@app/layout/components/popup.service";
+import { PopupService } from "@app/core/services/states/popup-state.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

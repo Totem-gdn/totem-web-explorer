@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
-import { PaymentService } from '@app/core/services/crypto/payment.service';
+import { CryptoUtilsService } from '@app/core/services/crypto/crypto-utils.service';
 import { TransactionsService } from '@app/core/services/crypto/transactions.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { BehaviorSubject, Subscription, take } from 'rxjs';
@@ -54,7 +54,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     private web3Service: Web3AuthService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
-    private paymentService: PaymentService
+    private cryptoUtilsService: CryptoUtilsService
     ) { }
 
   ngOnInit() {
@@ -134,7 +134,7 @@ export class TransactionDialogComponent implements OnInit, OnDestroy {
     if (this.stepIndex == 3) {
       this.steps[this.stepIndex].step = true;
       this.steps[this.stepIndex].loading = false;
-      this.paymentService.updateBalance();
+      this.cryptoUtilsService.updateBalance();
     }
   }
 

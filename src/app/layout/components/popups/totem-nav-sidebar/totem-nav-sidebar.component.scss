@@ -52,6 +52,8 @@
         pointer-events: none;
         z-index: 1;
         position: absolute;
+        filter: blur(70px);
+        will-change: transform;
         bottom: 140px;
         left: 0px;
         .first-circle {
@@ -62,7 +64,7 @@
           left: 233px;
           top: -91px;
           background: #00BC58;
-          filter: blur(80px);
+          // filter: blur(80px);
         }
         .second-circle {
           z-index: 5;
@@ -72,7 +74,7 @@
           left: 104px;
           top: 79px;
           background: #FFD011;
-          filter: blur(110px);
+          // filter: blur(110px);
         }
         .third-circle {
           z-index: 3;
@@ -82,7 +84,7 @@
           left: 115px;
           top: -5px;
           background: #FFD011;
-          filter: blur(50px);
+          // filter: blur(50px);
         }
         .fourth-circle {
           z-index: 2;
@@ -92,7 +94,7 @@
           left: 32px;
           top: -74px;
           background: #5823C9;
-          filter: blur(70px);
+          // filter: blur(70px);
         }
         .fifth-circle {
           z-index: 1;
@@ -102,7 +104,7 @@
           left: 65px;
           top: 69px;
           background: #FF8540;
-          filter: blur(70px);
+          // filter: blur(70px);
         }
       }
 
@@ -110,6 +112,8 @@
         pointer-events: none;
         z-index: 1;
         position: absolute;
+        filter: blur(70px);
+        will-change: transform;
         top: 0px;
         left: 80px;
         .first-circle {
@@ -120,7 +124,7 @@
           left: 233px;
           top: 91px;
           background: #00BC58;
-          filter: blur(80px);
+          // filter: blur(80px);
         }
         .second-circle {
           z-index: 5;
@@ -130,7 +134,7 @@
           left: 104px;
           top: -79px;
           background: #FFD011;
-          filter: blur(110px);
+          // filter: blur(110px);
         }
         .third-circle {
           z-index: 3;
@@ -140,7 +144,7 @@
           left: 115px;
           top: 5px;
           background: #FFD011;
-          filter: blur(50px);
+          // filter: blur(50px);
         }
         .fourth-circle {
           z-index: 2;
@@ -150,7 +154,7 @@
           left: 32px;
           top: 74px;
           background: #5823C9;
-          filter: blur(70px);
+          // filter: blur(70px);
         }
         .fifth-circle {
           z-index: 1;
@@ -160,7 +164,7 @@
           left: 65px;
           top: -69px;
           background: #FF8540;
-          filter: blur(70px);
+          // filter: blur(70px);
         }
       }
 

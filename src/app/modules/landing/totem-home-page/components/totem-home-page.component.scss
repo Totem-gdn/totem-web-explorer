@@ -29,6 +29,8 @@
         padding-bottom: 0px;
       }
       .landing-ellipses-bg {
+        will-change: transform;
+        // filter: blur(100px);
         pointer-events: none;
         z-index: 1;
         position: absolute;
@@ -120,7 +122,8 @@
         width: 100%;
         top: 0px;
         left: 0px;
-        //filter: blur(200px);
+        filter: blur(70px);
+        will-change: transform;
 
         .blured-circle-1, .blured-circle-2, .blured-circle-3 {
           transition: opacity 0.5s ease-out;
@@ -134,7 +137,7 @@
           left: 171px;
           top: 205.66px;
           background: #202225;
-          filter: blur(100px);
+          // filter: blur(100px);
           transform: rotate(-7.01deg);
           @media (min-width: 1001px) and (max-width: 1100px) {
             opacity: 1;
@@ -149,7 +152,7 @@
           top: 137.17px;
 
           background: linear-gradient(107.45deg, #202225 76.7%, rgba(32, 34, 37, 0) 91.65%);
-          filter: blur(40px);
+          // filter: blur(40px);
           transform: rotate(-13.45deg);
           @media (min-width: 480px) and (max-width: 1000px) {
             opacity: 1;
@@ -164,7 +167,7 @@
           top: 88.4px;
 
           background: linear-gradient(107.45deg, #202225 76.7%, rgba(32, 34, 37, 0) 91.65%);
-          filter: blur(40px);
+          // filter: blur(40px);
           transform: rotate(-14.42deg);
           @media (max-width: 479px) {
             opacity: 1;
@@ -197,6 +200,7 @@
         }
         @media (max-width: 1000px) {
           .ellipse-1 {
+            will-change: transform;
             width: 121.94px;
             height: 121.94px;
             left: -80.5px;
@@ -206,6 +210,7 @@
             transform: rotate(175.64deg);
           }
           .ellipse-2 {
+            will-change: transform;
             width: 135.79px;
             height: 135.79px;
             left: 40px;

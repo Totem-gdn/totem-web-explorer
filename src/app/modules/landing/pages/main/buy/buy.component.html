@@ -6,13 +6,13 @@
 
     <div #itemsRef class="items xl:!gap-[80px]">
 
-        <div class="moving-circle-wrapper blur-sm">
+        <div class="moving-circle-wrapper">
             <div #movingCircle class="moving-circle"><bg-circle [background]="'green'" [width]="'300px'"></bg-circle></div>
         </div>
 
         <div #itemRef class="item-wrapper" *ngFor="let asset of assets">
 
-            <div #circlesRef class="circle-wrapper blur-70">
+            <div #circlesRef class="circle-wrapper">
             <bg-circle class="top-[100px] left-[-100px]" [background]="asset.type === 'avatar' ? '#3A23C9' : asset.type === 'item' ? '#8023C9' : asset.type === 'gem' ? '#FFD011': ''" [width]="'350px'"></bg-circle>
             <bg-circle class="top-[30px] left-[0px]" [background]="asset.type === 'avatar' ? '#3A23C9' : asset.type === 'item' ? '#8023C9' : asset.type === 'gem' ? '#00BC6D': ''" [width]="'350px'"></bg-circle>
             <bg-circle class="right-[0px] bottom-[0px]" [background]="asset.type === 'avatar' ? '#8811FF' : asset.type === 'item' ? '#FB5A35' : asset.type === 'gem' ? '#FED01C': ''" [width]="'350px'"></bg-circle>

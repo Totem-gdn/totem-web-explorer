@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { TokenBalance } from "@app/core/models/interfaces/token-balance.modle";
-import { PaymentService } from "@app/core/services/crypto/payment.service";
-import { PopupService } from "@app/layout/components/popup.service";
+import { CryptoUtilsService } from "@app/core/services/crypto/crypto-utils.service";
+import { PopupService } from "@app/core/services/states/popup-state.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -14,7 +14,7 @@ import { Subject, takeUntil } from "rxjs";
 export class SendAssetComponent implements OnInit, OnDestroy {
 
     constructor(
-        private paymentService: PaymentService,
+        private cryptoUtilsService: CryptoUtilsService,
         private popupService: PopupService
     ) { }
 
@@ -29,8 +29,8 @@ export class SendAssetComponent implements OnInit, OnDestroy {
     }
 
     balance$() {
-        this.paymentService.updateBalance();
-        this.paymentService.tokenBalance$
+        this.cryptoUtilsService.updateBalance();
+        this.cryptoUtilsService.tokenBalance$
             .pipe(takeUntil(this.subs))
             .subscribe(balance => {
                 this.balance = balance;

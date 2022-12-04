@@ -3,13 +3,13 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
 import { UserStateService } from "@app/core/services/auth.service";
-import { PaymentService } from "@app/core/services/crypto/payment.service";
 import { TransactionsService } from "@app/core/services/crypto/transactions.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
-import { PopupService } from "@app/layout/components/popup.service";
+import { PopupService } from "@app/core/services/states/popup-state.service";
 import { TransactionDialogComponent } from "@app/layout/components/popups/dialogs/transaction-dialog/transaction-dialog.component";
 import { Gtag } from "angular-gtag";
 import { Observable, Subscription, take } from "rxjs";
+import { CryptoUtilsService } from "@app/core/services/crypto/crypto-utils.service";
 
 
 @Component({
@@ -42,7 +42,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
     private sendTokensPopup: PopupService,
-    private paymentService: PaymentService,
+    private cryptoUtilsService: CryptoUtilsService,
     readonly matDialog: MatDialog,
     private gtag: Gtag
     ) { }
@@ -105,7 +105,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
   }
 
   balance$() {
-    this.paymentService.tokenBalance$.subscribe(balance => {
+    this.cryptoUtilsService.tokenBalance$.subscribe(balance => {
       this.maticBalance = balance.matic;
       this.tokenBalance = balance.usdc;
     })
@@ -154,7 +154,7 @@ export class BalanceComponent implements OnDestroy, AfterViewInit {
 
 
   updateBalance() {
-    this.paymentService.updateBalance();
+    this.cryptoUtilsService.updateBalance();
   }
 
   getMatics() {

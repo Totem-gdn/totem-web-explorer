@@ -16,7 +16,7 @@
                     [cdkCopyToClipboardAttempts]="2"
                     (cdkCopyToClipboardCopied)="onCopy()">
 
-                    <span>{{(achievement.data.slice(0, 4) + '...' + achievement.data.slice(-5))}}</span>
+                    <span>{{achievementData(achievement.data)}}</span>
                     <div class="!ml-[5px] !mb-[6px] icon line-copy_small"></div>
                 </div>
             </div>

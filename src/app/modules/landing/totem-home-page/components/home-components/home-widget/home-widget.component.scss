@@ -11,9 +11,14 @@
     background: #202225;
 }
 
-bg-circle {
-    filter: blur(120px);
-    // z-index: 1;
+.bg-circle-wrapper {
+  will-change: transform;
+  filter: blur(120px);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .font-totem {

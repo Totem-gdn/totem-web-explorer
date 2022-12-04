@@ -1,6 +1,8 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { PaymentService } from '@app/core/services/crypto/payment.service';
+import { BuyAssetService } from '@app/core/services/assets/buy-asset.service';
+import { CryptoUtilsService } from '@app/core/services/crypto/crypto-utils.service';
+import { TransferService } from '@app/core/services/crypto/transfer.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Gtag } from 'angular-gtag';
 import { fromEvent, Subject, takeUntil } from 'rxjs';
@@ -14,11 +16,12 @@ import { SnackNotifierService } from '../../../../../components/utils/snack-bar-
 export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
-    private paymentService: PaymentService,
+    private transferService: TransferService,
+    private cryptoUtilsService: CryptoUtilsService,
+    private buyAssetService: BuyAssetService,
     private web3Service: Web3AuthService,
     private snackService: SnackNotifierService,
     private breakpointObserver: BreakpointObserver,
-    // @Inject(DOCUMENT) private document: Document,
     private gtag: Gtag
   ) {
     this.gtag.event('page_view');
@@ -53,16 +56,19 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
           this.disableLoop = { disable: false, immutable: false };
         } else {
           this.disableLoop = { disable: true, immutable: true };
-          fromEvent(window, 'scroll').pipe(takeUntil(this.subs)).subscribe(() => {
-            let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
-            for (let i = 0; i < items.length; i++) {
-              const offset = items[i].getBoundingClientRect().y;
-              if (offset > 0) {
-                this.animateItem(items[i], false);
-                return;
+
+          fromEvent(window, 'scroll')
+            .pipe(takeUntil(this.subs))
+            .subscribe(() => {
+              let items = this.itemsRef.nativeElement.getElementsByClassName('item-wrapper');
+              for (let i = 0; i < items.length; i++) {
+                const offset = items[i].getBoundingClientRect().y;
+                if (offset > 0) {
+                  this.animateItem(items[i], false);
+                  return;
+                }
               }
-            }
-          })
+            })
         }
       });
   }
@@ -77,25 +83,36 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    const matic = await this.web3Service.getBalance();
-    const usdcBalance = await this.paymentService.getUSDCBalance();
-    this.gtag.event(`${type}_purchase`, {
-      'event_label': `Click on Generate ${type}`,
-    });
-    if (!matic || +matic <= 0) {
-      this.snackService.open('Insufficient MATIC balance');
-      return;
-    }
+    const [maticBalance, usdcBalance] = await Promise.all([
+      this.web3Service.getBalance(),
+      this.cryptoUtilsService.getUSDCBalance()
+    ])
 
-    if (usdcBalance == '0' || +usdcBalance <= amount) {
+    if (+usdcBalance < +amount) {
       this.snackService.open('Insufficient USDC balance');
       return;
     }
 
+    const usdcGasFee = await this.cryptoUtilsService.estimateUSDCGasFee(address, amount);
+
+    if (!maticBalance || +maticBalance <= 0 || +maticBalance < +usdcGasFee) {
+      this.snackService.open('Insufficient MATIC balance');
+      return;
+    }
+    if (usdcBalance == '0' || +usdcBalance <= +amount) {
+      this.snackService.open('Insufficient USDC balance');
+      return;
+    }
+
+    this.gtag.event(`${type}_purchase`, {
+      'event_label': `Click on Generate ${type}`,
+    });
+
     this.snackService.open('Processing transaction')
 
-    this.paymentService.sendUSDC(address, amount).then(res => {
+    this.transferService.transferUSDC(address, amount).then(res => {
       this.snackService.open('Your Totem Asset has been created successfully');
+      this.cryptoUtilsService.updateBalance();
     })
     // .catch(err => {
     //   console.error(err.stack);
@@ -104,14 +121,14 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateAssets() {
-    this.paymentService.getAssets().subscribe(assets => {
+    this.buyAssetService.getAssets().subscribe(assets => {
       this.paymentInfo(assets);
     })
   }
 
   paymentInfo(assets: any[]) {
     assets.forEach(asset => {
-      this.paymentService.getPaymentInfo(asset).subscribe(info => {
+      this.buyAssetService.getPaymentInfo(asset).subscribe(info => {
         if (asset == 'item') this.assets[0].paymentInfo = info;
         if (asset == 'avatar') this.assets[1].paymentInfo = info;
         if (asset == 'gem') this.assets[2].paymentInfo = info;
