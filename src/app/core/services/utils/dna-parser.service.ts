@@ -14,12 +14,12 @@ export class DNAParserService {
             if(value == '1') return 'Female';
         }
         if(id == 'body_strength') {
-            if(value == '0') return 'Muscular';
-            if(value == '1') return 'Wimp';
+            if(value == '0') return 'Wimp';
+            if(value == '1') return 'Muscular';
         }
         if(id == 'body_type') {
-            if(value == '0') return 'Fat';
-            if(value == '1') return 'Thin';
+            if(value == '0') return 'Thin';
+            if(value == '1') return 'Fat';
         }
 
         return value;
