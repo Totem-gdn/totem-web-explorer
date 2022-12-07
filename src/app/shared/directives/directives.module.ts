@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { ChangeSrcDirective } from "./change-img-src.directive";
 import { ClickOutsideDirective } from "./click-outside.directive";
 import { DigitOnlyDirective } from "./digit-only.directive";
 import { InViewDirective } from "./in-view.directive";
@@ -13,7 +14,8 @@ import { OnResizeDirective } from "./on-resize.directive";
         InViewDirective,
         LongPressDirective,
         OnDragDirective,
-        OnResizeDirective
+        OnResizeDirective,
+        ChangeSrcDirective
     ],
     exports: [
         ClickOutsideDirective,
@@ -21,7 +23,8 @@ import { OnResizeDirective } from "./on-resize.directive";
         InViewDirective,
         LongPressDirective,
         OnDragDirective,
-        OnResizeDirective
+        OnResizeDirective,
+        ChangeSrcDirective
     ]
 })
 

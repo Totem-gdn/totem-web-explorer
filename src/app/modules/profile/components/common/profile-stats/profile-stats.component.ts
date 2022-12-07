@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AssetsCache, TotalAssets } from '@app/core/models/interfaces/assets.modle';
 import { CacheService } from '@app/core/services/assets/cache.service';
-import { BehaviorSubject } from 'rxjs';
+import { ProfileService } from '@app/core/services/profile.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'totem-profile-stats',
@@ -10,42 +12,32 @@ import { BehaviorSubject } from 'rxjs';
     class: 'flex'
   }
 })
-export class ProfileStatsComponent{
+export class ProfileStatsComponent implements OnInit, OnDestroy{
 
   constructor(
-    private cacheService: CacheService) { }
+    private profileService: ProfileService) { }
 
-  _total = new BehaviorSubject<number | string | undefined>('--');
-  _rare = new BehaviorSubject<number | string | undefined>('--');
-  _unique = new BehaviorSubject<number | string | undefined>('--');
+  _total = new BehaviorSubject<TotalAssets | undefined>(undefined);
+  sub!: Subscription;
 
   @Input() type = '';
   @Input() total: number | undefined;
 
   ngOnInit() {
-    this.cacheService.totalCache$().subscribe(total => {
-      if(!total) return;
-      if (this.type == 'avatar') {
-        this._total.next(total.totalAvatars);
-        this._rare.next(total.totalRareAvatars);
-        this._unique.next(total.totalUniqueAvatars);
-      }
-      if (this.type == 'item') {
-        this._total.next(total.totalItems);
-        this._rare.next(total.totalRareItems);
-        this._unique.next(total.totalUniqueItems);
-      }
-      if (this.type == 'gem') {
-        this._total.next(total.totalGems);
-        this._rare.next(total.totalRareGems);
-        this._unique.next(total.totalUniqueGems);
-      }
-      if (this.type == 'game') this._total.next(total.totalGames);
-      if (this.type == 'fav_avatar') this._total.next(total.fav_totalAvatars);
-      if (this.type == 'fav_item') this._total.next(total.fav_totalItems);
-      if (this.type == 'fav_gem') this._total.next(total.fav_totalGems);
-      if (this.type == 'fav_game') this._total.next(total.fav_totalGames);
+    this.sub = this.profileService.totalAssets$
+    .subscribe(total => {
+      let _total = this._total.getValue();
+      if(this.type == 'item') _total = total.totalItems;
+      if(this.type == 'avatar') _total = total.totalAvatars;
+      if(this.type == 'gem') _total = total.totalGems;
+      if(this.type == 'fav_item') _total = total.totalFavItems;
+      if(this.type == 'fav_avatar') _total = total.totalFavAvatars;
+      if(this.type == 'fav_gem') _total = total.totalFavGems;
+      this._total.next(_total);
     })
   }
 
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
 }

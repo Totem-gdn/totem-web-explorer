@@ -29,8 +29,6 @@ export class UserItemsComponent implements OnInit {
       .pipe(takeUntil(this.subs))
       .subscribe(items => {
         this.items = items;
-        if(!this.items) return;
-        this.cacheService.totalByAssetType('item', this.items);
       })
   }
   onLoadMore(page: number) {

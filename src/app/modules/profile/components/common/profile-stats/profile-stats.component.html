@@ -2,16 +2,16 @@
   <div class="profile-stats px-[15px] xs:px-[30px]" fxLayout="row">
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>{{'home.all' | translate}} :</div>
-      <div class="data-caption">{{!!(_total | async) || (_total | async) == 0 ? (_total | async) : '0'}}</div>
+      <div class="data-caption">{{!!(_total | async) ? (_total | async)?.all : '0'}}</div>
 
     </div>
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>{{'home.rare' | translate}} :</div>
-      <div class="data-caption">{{(_rare | async) || (_rare | async) == 0 ? (_rare | async) : '0'}}</div>
+      <div class="data-caption">{{!!(_total | async) ? (_total | async)?.rare : '0'}}</div>
     </div>
     <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>{{'home.unique' | translate}} :</div>
-      <div class="data-caption">{{(_unique | async) || (_unique | async) == 0 ? (_unique | async) : '0'}}</div>
+      <div class="data-caption">{{!!(_total | async) ? (_total | async)?.unique : '0'}}</div>
     </div>
     <!-- <div class="stats-block" fxLayout="column" fxLayoutAlign="space-between start">
       <div>Popular Items:</div>

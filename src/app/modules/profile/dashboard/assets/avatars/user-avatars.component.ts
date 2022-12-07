@@ -31,8 +31,6 @@ export class UserAvatarsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.subs))
       .subscribe(avatars => {
         this.avatars = avatars;
-        if (!this.avatars) return;
-        this.cacheService.totalByAssetType('avatar', this.avatars);
       })
   }
 

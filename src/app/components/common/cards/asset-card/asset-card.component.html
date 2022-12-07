@@ -2,7 +2,7 @@
     <!-- <asset-menu></asset-menu> -->
 
     <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="_asset?.tokenId">
-        <img loading="lazy" *ngIf="type != 'gem'" [src]="_asset?.rendererUrl" alt="" (error)="updateUrl()">
+        <img loading="lazy" *ngIf="type != 'gem'" [src]="_asset?.rendererUrl" alt="" (error)="updateUrl()" changeSrc >
         <img loading="lazy" *ngIf="type == 'gem' && _asset" src="{{'https://asset-renderer.totem-explorer.com' + '/' + type + '/' + (_asset.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
     </div>
 

@@ -20,7 +20,11 @@
         <!-- Tolltip -->
         <div #tooltip class="tooltip">
             <span class="whitespace-nowrap">{{tooltipData?.title}}</span>
-            <span class="whitespace-nowrap">{{tooltipData?.value}}</span>
+            <div class="flex justify-center items-center mt-[2px]">
+                <div class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
+                    [style.background-color]="tooltipData?.value"></div>
+                    <span class="whitespace-nowrap">{{tooltipData?.value}}</span>
+            </div>
         </div>
         <!-- View All -->
         <div *ngIf="showViewAll" class="view-all" (click)="onClickViewAll()">

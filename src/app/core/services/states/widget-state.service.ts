@@ -6,7 +6,7 @@ import { BehaviorSubject } from "rxjs";
 
 export class WidgetService {
   private _selectedGame = new BehaviorSubject<GameDetail | null>(null);
-
+  private _scriptIndex = new BehaviorSubject<number | undefined>(0);
   constructor() {}
 
   get selectedGame() {
@@ -15,9 +15,14 @@ export class WidgetService {
   get selectedGame$() {
     return this._selectedGame.asObservable();
   }
-
-  updateSelectedGame(game: GameDetail) {
+  updateSelectedGame(game: GameDetail | null) {
     this._selectedGame.next(game);
   }
+
+  get scriptIndex() { return this._scriptIndex.getValue() }
+  get scriptIndex$() { return this._scriptIndex.asObservable(); }
+  set scriptIndex(index: number | undefined) { this._scriptIndex.next(index); console.log(this.scriptIndex)  }
+
+
 
 }

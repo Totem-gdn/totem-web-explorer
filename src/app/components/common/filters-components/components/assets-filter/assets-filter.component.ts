@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, Inject, Input, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from "@angular/core";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Subject, takeUntil } from "rxjs";
@@ -18,7 +18,8 @@ export class AssetsFilterComponent implements AfterViewInit {
     
     constructor(private filtersService: FiltersService,
                 @Inject(DOCUMENT) private document: Document,
-                private gamesService: GamesService) { }
+                private gamesService: GamesService,
+                private changeDetector: ChangeDetectorRef) { }
 
     @ViewChild('dropupMenu') dropupMenu!: ElementRef;
     @Input() type = '';
@@ -28,6 +29,7 @@ export class AssetsFilterComponent implements AfterViewInit {
     subs = new Subject<void>();
 
     ngAfterViewInit() {
+        this.changeDetector.detectChanges();
         this.filtersService.dropupOpen$
         .pipe(takeUntil(this.subs))
         .subscribe(isOpen => {

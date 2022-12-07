@@ -99,7 +99,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       this.snackService.open('Insufficient MATIC balance');
       return;
     }
-    if (usdcBalance == '0' || +usdcBalance <= +amount) {
+    if (usdcBalance == '0' || +usdcBalance < +amount) {
       this.snackService.open('Insufficient USDC balance');
       return;
     }

@@ -55,13 +55,13 @@ export class AssetCardComponent implements AfterViewInit {
     if (this._asset.isLiked) {
       this.favService.addLike(this.type, this._asset.id).subscribe(() => {
         this.gtag.event('add_like', {
-          'event_label': `add like for ${this.type} with id ${this._asset.tokenId}`,
+          'event_label': `add like for ${this.type} with id ${this._asset.id}`,
         });
       });
     } else {
-      this.favService.removeLike(this.type, this._asset.tokenId).subscribe(() => {
+      this.favService.removeLike(this.type, this._asset.id).subscribe(() => {
         this.gtag.event('remove_like', {
-          'event_label': `remove like for ${this.type} with id ${this._asset.tokenId}`,
+          'event_label': `remove like for ${this.type} with id ${this._asset.id}`,
         });
       });
     }
