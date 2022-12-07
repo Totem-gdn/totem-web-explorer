@@ -40,21 +40,27 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
       this.messageService.open('Unauthorized');
       return;
     }
+    console.log('addd like')
     if (!this.item.isLiked) {
       this.favouritesService.addLike(this.type, this.item.id).pipe(
         untilComponentDestroyed(this),
       ).subscribe(() => {
-        this.assetsService.updateAsset(this.item.id, this.type).pipe(
-          untilComponentDestroyed(this),
-        ).subscribe();
+        console.log('update asset')
+        this.assetsService.updateAsset(this.item.id, this.type)
+        .pipe(untilComponentDestroyed(this))
+        .subscribe(asset => {
+          this.item = asset;
+        });
       });
     } else {
       this.favouritesService.removeLike(this.type, this.item.id).pipe(
         untilComponentDestroyed(this),
       ).subscribe(() => {
-        this.assetsService.updateAsset(this.item.id, this.type).pipe(
-          untilComponentDestroyed(this),
-        ).subscribe();
+        this.assetsService.updateAsset(this.item.id, this.type)
+        .pipe(untilComponentDestroyed(this))
+        .subscribe(asset => {
+          this.item = asset;
+        });
       });
     }
 
