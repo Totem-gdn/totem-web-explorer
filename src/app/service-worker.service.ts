@@ -9,6 +9,7 @@ export class ServiceWorkerService {
 
   //Here you can check the versions
   listenNewVersion() {
+    console.log('ver. list. initiated');
     this.swUpdate.versionUpdates.subscribe((event: VersionEvent) => {
         switch (event.type) {
           case 'VERSION_DETECTED':
