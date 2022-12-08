@@ -4,6 +4,7 @@ import { Router, Scroll } from '@angular/router';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/auth.service';
+import { ServiceWorkerService } from './service-worker.service';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +26,12 @@ export class AppComponent {
     private router: Router,
     private viewportScroller: ViewportScroller,
     private gtag: Gtag,
+    private sWService: ServiceWorkerService,
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
     this.userStateService.initAccount();
-
+    this.sWService.listenNewVersion();
     this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))
       .pipe(delay(1))
