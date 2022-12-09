@@ -81,7 +81,7 @@
               "buildOptimizer": true
             },
             "development": {
-              "serviceWorker": false,
+              "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json",
               "buildOptimizer": false,
               "optimization": false,
