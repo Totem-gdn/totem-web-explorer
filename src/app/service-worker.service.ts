@@ -12,15 +12,9 @@ export class ServiceWorkerService {
     console.log('ver. list. initiated');
     this.swUpdate.versionUpdates.subscribe((event) => {
         console.log('SW EVENT FOUND', event);
-
         switch (event.type) {
           case 'VERSION_DETECTED':
             console.log(`Downloading new app version: ${event.version.hash}`);
-            if (confirm('Software update avaialble.')) {
-              this.swUpdate.activateUpdate().then(() => {
-                document.location.reload();
-              });
-            }
             break;
           case 'VERSION_READY':
             console.log(`Current app version: ${event.currentVersion.hash}`);

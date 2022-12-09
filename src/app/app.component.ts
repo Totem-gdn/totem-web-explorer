@@ -27,8 +27,7 @@ export class AppComponent {
     private router: Router,
     private viewportScroller: ViewportScroller,
     private gtag: Gtag,
-    private sWService: ServiceWorkerService,
-    private swUpdate: SwUpdate,
+    private sWService: ServiceWorkerService
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
@@ -51,20 +50,6 @@ export class AppComponent {
 
     this.gtag.event('page_view');
 
-
-    if (!this.swUpdate.isEnabled) {
-      console.log('Not Enabled');
-      return;
-
-    }
-    this.swUpdate.versionUpdates.subscribe((event) => {
-      console.log(event);
-      if (confirm('Software update avaialble.')) {
-        this.swUpdate.activateUpdate().then(() => {
-          document.location.reload();
-        });
-      }
-    })
     // this.userStateService.currentUser.subscribe(user => {
     //   if(user) {
     //     this.sellAsset.transferNft()
