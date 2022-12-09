@@ -14,6 +14,7 @@ import { GtagModule } from 'angular-gtag';
 import { environment } from '@env/environment';
 import { WelcomeDialogModule } from './core/dialogs/welcome-dialog/welcome-dialog.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerService } from './service-worker.service';
 
 
 const routerConfig: ExtraOptions = {
@@ -41,6 +42,7 @@ const routerConfig: ExtraOptions = {
   providers: [
     UserStateService,
     AuthGuard,
+    ServiceWorkerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

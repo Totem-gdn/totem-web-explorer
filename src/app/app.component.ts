@@ -1,6 +1,7 @@
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, Scroll } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/auth.service';
@@ -27,6 +28,7 @@ export class AppComponent {
     private viewportScroller: ViewportScroller,
     private gtag: Gtag,
     private sWService: ServiceWorkerService,
+    private swUpdate: SwUpdate,
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
@@ -49,6 +51,20 @@ export class AppComponent {
 
     this.gtag.event('page_view');
 
+
+    if (!this.swUpdate.isEnabled) {
+      console.log('Not Enabled');
+      return;
+
+    }
+    this.swUpdate.versionUpdates.subscribe((event) => {
+      console.log(event);
+      if (confirm('Software update avaialble.')) {
+        this.swUpdate.activateUpdate().then(() => {
+          document.location.reload();
+        });
+      }
+    })
     // this.userStateService.currentUser.subscribe(user => {
     //   if(user) {
     //     this.sellAsset.transferNft()
