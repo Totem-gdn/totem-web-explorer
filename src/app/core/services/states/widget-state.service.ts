@@ -21,7 +21,7 @@ export class WidgetService {
 
   get scriptIndex() { return this._scriptIndex.getValue() }
   get scriptIndex$() { return this._scriptIndex.asObservable(); }
-  set scriptIndex(index: number | undefined) { this._scriptIndex.next(index); console.log(this.scriptIndex)  }
+  set scriptIndex(index: number | undefined) { this._scriptIndex.next(index) }
 
 
 
