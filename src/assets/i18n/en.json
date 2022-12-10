@@ -241,7 +241,7 @@
         "text_more_300_characters": "The text should not contain more than 300 characters",
         "text_more_3000_characters": "The text should not contain more than 3000 characters",
         "choose_genres_in_menu": "Choose a couple of genres in the menu",
-        "you_successfully_filled_form!": "You successfully filled out the form!",
+        "you_successfully_filled_form": "You successfully filled out the form!",
         "now_wait_for_platform_approval": "Now wait for platform approval for 2-5 days, we will send the link to your e-mail.",
         "you_can_explore_website": "Now You can explore Totem website",
         "you_successfully_filled_application": "You successfully filled the application form and updated your game.",
