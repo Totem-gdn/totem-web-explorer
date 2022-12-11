@@ -37,7 +37,7 @@
       </div>
 
       <div class="right-side-setting">
-        <div class="refresh-button">
+        <div class="refresh-button" (click)="getMessages()">
           <div class="line-refresh"></div>
           <span class="tooltiptext">{{'modules.refresh' | translate}}</span>
         </div>
@@ -45,12 +45,17 @@
       </div>
 
     </div>
-    <div class="toolbar-titles" fxHide.xs>
+
+    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px]" *ngIf="loading$ | async">
+      <totem-spinner class="flex items-center h-full"></totem-spinner>
+    </div>
+
+    <div class="toolbar-titles" fxHide.xs *ngIf="!(loading$ | async)">
       <div class="col-name type-caption">{{'profile.type' | translate}}</div>
       <div class="col-name subj-caption">{{'profile.subject' | translate}}</div>
-      <div class="col-name date-caption">{{'modules.date' | translate}}Date</div>
+      <div class="col-name date-caption">{{'modules.date' | translate}}</div>
     </div>
-    <div class="message-table" fxLayout="column">
+    <div class="message-table" fxLayout="column" *ngIf="!(loading$ | async)">
 
       <div
         *ngFor="let message of messageList | async"
@@ -61,7 +66,7 @@
         (longpress)="checkMessage(message.id)"
         (touchend)="checkToUncheck($event)"
         [ngClass]="{'selected-item' : message.isOpened}"
-        (click)="message.isOpened = !message.isOpened; message.isReaded = true;"
+        (click)="message.isOpened = !message.isOpened; markAsReadSingle(message)"
       >
 
         <div class="visible-info w-full" fxLayout="row" fxLayoutAlign="start center">
@@ -81,39 +86,39 @@
               </label>
             </div>
 
-            <div class="type-icon" [ngStyle]="message.isReaded ? {'background-color' : '#202225'} : {}" fxHide.xs>
+            <div class="type-icon" [ngStyle]="message.isRead ? {'background-color' : '#202225'} : {}" fxHide.xs>
               <ng-container [ngSwitch]="message.type">
                 <ng-container *ngSwitchCase="messageType.NOTIF">
-                  <span class="icon-font-notification" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-notification" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
                 <ng-container *ngSwitchCase="messageType.ACCOUNT">
-                  <span class="icon-font-locked" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-locked" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
                 <ng-container *ngSwitchCase="messageType.SETTINGS">
-                  <span class="icon-font-settings" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-settings" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
                 <ng-container *ngSwitchCase="messageType.UPDATE">
-                  <span class="icon-font-star" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-star" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
               </ng-container>
             </div>
-            <div class="type-icon" [ngStyle]="message.isChecked ? {'background-color' : '#fff'} : message.isReaded ? {'background-color' : '#202225'} : {}" fxHide fxShow.xs>
+            <div class="type-icon" [ngStyle]="message.isChecked ? {'background-color' : '#fff'} : message.isRead ? {'background-color' : '#202225'} : {}" fxHide fxShow.xs>
               <ng-container *ngIf="!message.isChecked; else checkedMobile" [ngSwitch]="message.type">
                 <ng-container *ngSwitchCase="messageType.NOTIF">
-                  <span class="icon-font-notification" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-notification" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
                 <ng-container *ngSwitchCase="messageType.ACCOUNT">
-                  <span class="icon-font-locked" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-locked" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
                 <ng-container *ngSwitchCase="messageType.SETTINGS">
-                  <span class="icon-font-settings" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-settings" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
                 <ng-container *ngSwitchCase="messageType.UPDATE">
-                  <span class="icon-font-star" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                  <span class="icon-font-star" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
                 </ng-container>
               </ng-container>
               <ng-template #checkedMobile>
-                <span class="icon-font-check" [ngStyle]="message.isReaded ? {'color':'#8A939B'} : {}"></span>
+                <span class="icon-font-check" [ngStyle]="message.isRead ? {'color':'#8A939B'} : {}"></span>
               </ng-template>
             </div>
           </div>
@@ -121,11 +126,11 @@
           <div class="msg-col" fxLayout="row" fxLayoutAlign="space-between center">
             <div class="row-border-bottom" [ngStyle]="message.isOpened ? {'opacity' : '1'} : {'opacity' : '0'}"></div>
             <div class="message-title" fxLayout="column" fxLayoutAlign="center start">
-              <div>{{message.title}}</div>
-              <div fxHide fxShow.xs class="date-caption">{{message.date}}</div>
+              <div>{{message.subject}}</div>
+              <div fxHide fxShow.xs class="date-caption">{{getDate(message.date) | date:'MMM d, YYYY, h:m a'}}</div>
             </div>
             <div class="date-col" fxLayout="column" fxLayoutAlign="center start" fxHide.xs>
-              <div>{{message.date}}</div>
+              <div>{{getDate(message.date) | date:'MMM d, YYYY, h:m a'}}</div>
             </div>
             <div class="mark-dropdown" fxHide fxShow.xs>
               <!-- <mat-icon [ngStyle]="message.isOpened ? {'transform':'scaleY(-1)', 'color':'#fff'} : {}" [svgIcon]="'line:arrow_down'"></mat-icon> -->
@@ -145,15 +150,15 @@
 
         <div class="message-text-wrapper">
           <div class="message-text-content" fxLayout="column" fxLayoutAlign="start start">
-              <div class="message-subtitle w-full">
+              <!-- <div class="message-subtitle w-full">
                 {{message.text}}
-              </div>
+              </div> -->
               <div class="message-heading w-full">
-                {{message.text}}
+                {{message.subject}}
               </div>
-              <div class="message-subheading w-full">
+              <!-- <div class="message-subheading w-full">
                 {{message.text}}
-              </div>
+              </div> -->
               <div class="message-text w-full">
                 {{message.message}}
               </div>
