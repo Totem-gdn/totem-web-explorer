@@ -76,7 +76,8 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
   async onBuyItem(address: string, amount: any, type: string) {
 
     if (!this.web3Service.isLoggedIn()) {
-      this.snackService.open('PLEASE Login');
+      // this.snackService.open('PLEASE Login');
+      this.web3Service.login();
       this.gtag.event(`${type}_purchase`, {
         'event_label': 'Generate item when user is not login',
       });

@@ -2,7 +2,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { FiltersService } from '@app/components/common/filters-components/services/filters.service';
 import { TagsService } from '@app/components/common/filters-components/services/tags.service';
-import { Subscription } from 'rxjs';
+import { GamesService } from '@app/core/services/assets/games.service';
+import { concatMap, Subscription } from 'rxjs';
 
 @Component({
   selector: 'filter-menu',
@@ -14,11 +15,14 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   constructor(
     private tagsService: TagsService,
     private filtersService: FiltersService,
+    private gamesService: GamesService,
   ) { }
 
   menuActive = false;
   checkedItems: any = [];
+  loadingItems: boolean | null = false;
   sub!: Subscription;
+  page = 1;
 
   @ViewChild('wrapper') wrapper!: ElementRef;
   @ViewChild('inputContainer') inputContainer!: ElementRef;
@@ -26,13 +30,16 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
 
   @Input() inputType = 'checkbox';
   @Input() title = 'Title'
+  @Input() type = '';
   @Input() menuHeight = '200px';
   @Input() searchType: string | null = 'search';
-  @Input() items: any[] = [{ name: 'Game', genre: 'casual', selected: false }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true }, { name: 'Game', genre: 'casual', selected: true },];
+  @Input() items!: any[];
 
 
   ngOnInit() {
     this.resetFilters$();
+    this.processMenuContent();
+    this.loadMoreGames();
   }
 
   ngAfterViewInit() {
@@ -95,8 +102,36 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  processMenuContent() {
+    if (this.type == 'games') {
+        this.loadMoreGames();
+    }
+  }
+
   onInput(e: any) {
     e.target.checked = false;
+  }
+
+  loadMoreGames() {
+    if(this.loadingItems == true) return;
+    this.loadingItems = true;
+    this.gamesService.fetchGames(this.page)
+        .subscribe(games => {
+          console.log('games', games);
+          if (!this.items) this.items = [];
+
+          for (let game of games) this.items.push(game);
+
+          if(games?.length < 10) {
+            this.loadingItems = null;
+            return;
+          }
+          this.loadingItems = false;
+          this.page++;
+        });
+  }
+  scrolledToBottom() {
+    this.loadMoreGames();
   }
 
   ngOnDestroy(): void {

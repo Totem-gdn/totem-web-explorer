@@ -14,7 +14,7 @@
 
         <!-- Items Menus -->
         <div *ngIf="type == 'item'" class="py-[45px] lg:py-0">
-            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [items]="games"></filter-menu>
+            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [type]="'games'"></filter-menu>
             <filter-menu [title]="'items.damage' | translate"  [searchType]="'range'"></filter-menu>
             <filter-menu [title]="'items.magical_power' | translate" [searchType]="'range'"></filter-menu>
             <filter-menu [title]="'items.element' | translate" [inputType]="'checkbox'" [searchType]="null" [items]="elements"></filter-menu>
@@ -22,7 +22,7 @@
         </div>
         <!-- Avatars Menus -->
         <div *ngIf="type == 'avatar'" class="py-[45px] lg:py-0">
-            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [items]="games"></filter-menu>
+            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [type]="'games'"></filter-menu>
             <filter-menu [title]="'items.sex' | translate" [items]="sexes" [menuHeight]="'100px'" [inputType]="'radio'" [searchType]="null"></filter-menu>
             <filter-menu [title]="'items.skin_color' | translate" [items]="skinColors" [inputType]="'checkbox'"></filter-menu>
             <filter-menu [title]="'items.hair_color' | translate" [items]="hairColors" [inputType]="'checkbox'"></filter-menu>
@@ -33,7 +33,7 @@
         </div>
         <!-- Gem Menus -->
         <div *ngIf="type == 'gem'" class="py-[45px] lg:py-0">
-            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [items]="games"></filter-menu>
+            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [type]="'games'"></filter-menu>
         </div>
 
         <div class="dropup-buttons lg:!hidden">

@@ -89,7 +89,7 @@ export class AssetsFilterComponent implements AfterViewInit {
     eyeColors = [{ name: '#b5d6e0'},{ name: '#90b4ca'},{ name: '#a7ad7f'},{ name: '#7c8b4f'},{ name: '#c4a05f'},{ name: '#a97e33'},{ name: '#7a3411'},{ name: '#3d0d04'},]
     hairStyles = [{name: 'afro'},{name: 'asymmetrical'},{name: 'braids'},{name: 'buzz cut'},{name: 'dreadlocks'},{name: 'long'},{name: 'ponytail'},{name: 'short'},];
 
-    games = [{ name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' },]
+    // games = [{ name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' },]
     elements = [{ name: 'Fire' }, { name: 'Earth' }, { name: 'Air' }, { name: 'Water' }]
     colors = [{ name: 'Red' }, { name: 'Blue' }, { name: 'Yellow' }, { name: 'Green' }, { name: 'Orange' }]
     itemTypes = [{ name: 'Armour', subName: 'Slot' }, { name: 'Arms', subName: 'Slot' }, { name: 'Body', subName: 'Head' }, { name: 'Armour', subName: 'Slot' }]

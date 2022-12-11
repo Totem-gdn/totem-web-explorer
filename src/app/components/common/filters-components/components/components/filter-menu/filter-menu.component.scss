@@ -25,18 +25,23 @@
     }
 }
 
-.menu-item {
-    max-height: 50px;
-    padding: 8px;
-    align-items: center;
-    transition: background-color .2s ease-in-out;
-    cursor: pointer;
-    position: relative;
-
-    &:hover {
-        background-color: $grey;
+.menu-items {
+    height: 200px;
+    overflow-y: auto;
+    .menu-item {
+        max-height: 50px;
+        padding: 8px;
+        align-items: center;
+        transition: background-color .2s ease-in-out;
+        cursor: pointer;
+        position: relative;
+    
+        &:hover {
+            background-color: $grey;
+        }
     }
 }
+
 
 .point-icon {
     color: $yellow;

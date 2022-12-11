@@ -2,13 +2,13 @@
     <div class="grid-wrapper">
         <div #grid class="grid-container">
             <div #tag *ngFor="let propertie of _properties" class="item-tag" (mouseover)="onOver(tag, propertie)" (mouseleave)="onLeave()">
-                <p class="lh-1 text-lg title truncate !text-white">{{propertie.title}}</p>
+                <p class="lh-1 text-lg title truncate !text-white">{{propertie.description}}</p>
                 <div class="circle-wrapper">
                     <div class="circle"></div>
                 </div>
     
                 <div class="flex justify-center items-center mt-[2px]">
-                    <div *ngIf="propertie?.showColor" class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
+                    <div *ngIf="isValueColor(propertie?.value)" class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
                         [style.background-color]="propertie.value"></div>
                     <p class="truncate !text-light-grey">{{propertie.value}}</p>
                 </div>
@@ -21,7 +21,7 @@
         <div #tooltip class="tooltip">
             <span class="whitespace-nowrap">{{tooltipData?.title}}</span>
             <div class="flex justify-center items-center mt-[2px]">
-                <div class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
+                <div *ngIf="isValueColor(tooltipData?.value)" class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
                     [style.background-color]="tooltipData?.value"></div>
                     <span class="whitespace-nowrap">{{tooltipData?.value}}</span>
             </div>

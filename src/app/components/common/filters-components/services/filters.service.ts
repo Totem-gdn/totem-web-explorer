@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from "@angular/core";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { BehaviorSubject } from "rxjs";
 import { TagsService } from "./tags.service";
 
@@ -11,20 +12,14 @@ export class FiltersService {
 
     private isDropupOpen = new BehaviorSubject<boolean>(false);
     private _resetFilters = new EventEmitter<any>();
-
     private _sortBy = new BehaviorSubject<string>('newest');
 
-    set dropupOpen(isOpen: boolean) {
-        this.isDropupOpen.next(isOpen);
-    }
 
-    get dropupOpen() {
-        return this.isDropupOpen.getValue();
-    }
+    set dropupOpen(isOpen: boolean) { this.isDropupOpen.next(isOpen); }
+    get dropupOpen() { return this.isDropupOpen.getValue(); }
+    get dropupOpen$() { return this.isDropupOpen.asObservable(); }
 
-    get dropupOpen$() {
-        return this.isDropupOpen.asObservable();
-    }
+
 
     resetFilters() {
         this.tagsService.clear();

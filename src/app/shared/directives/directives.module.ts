@@ -6,6 +6,7 @@ import { InViewDirective } from "./in-view.directive";
 import { LongPressDirective } from "./long-press.directive";
 import { OnDragDirective } from "./on-drag.directive";
 import { OnResizeDirective } from "./on-resize.directive";
+import { ScrollToBottomDirective } from "./scroll-to-bottom.directive";
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { OnResizeDirective } from "./on-resize.directive";
         LongPressDirective,
         OnDragDirective,
         OnResizeDirective,
-        ChangeSrcDirective
+        ChangeSrcDirective,
+        ScrollToBottomDirective
     ],
     exports: [
         ClickOutsideDirective,
@@ -24,7 +26,8 @@ import { OnResizeDirective } from "./on-resize.directive";
         LongPressDirective,
         OnDragDirective,
         OnResizeDirective,
-        ChangeSrcDirective
+        ChangeSrcDirective,
+        ScrollToBottomDirective
     ]
 })
 
