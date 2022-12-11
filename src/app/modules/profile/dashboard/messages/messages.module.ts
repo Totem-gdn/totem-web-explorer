@@ -4,6 +4,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
+import { TotemSpinnerModule } from "@app/shared/totem-spinner/totem-spinner.module";
 import { ProfileBackButtonModule } from "../../components/common/profile-back-button/profile-back-button.module";
 import { TotemPaginationModule } from "../../components/common/totem-pagination/totem-pagination.module";
 import { MessagesComponent } from "./messages.component";
@@ -22,7 +23,8 @@ import { MessagesRoutes } from "./messages.routing";
         MatIconModule,
 
         ProfileBackButtonModule,
-        TotemPaginationModule
+        TotemPaginationModule,
+        TotemSpinnerModule
     ],
     exports: [
       MessagesComponent

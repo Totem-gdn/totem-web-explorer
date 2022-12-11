@@ -10,7 +10,7 @@ import { AssetsCache, TotalAssets } from "../models/interfaces/assets.modle";
     providedIn: 'root'
 })
 
-export class ProfileService 
+export class ProfileService
 {
     constructor(private http: HttpClient) {}
 
@@ -27,7 +27,7 @@ export class ProfileService
         this.http.get<any>(`${this.baseUrl}/auth/me`).subscribe(total => {
 
             let _total = this.totalAssets;
-        
+
             _total.totalAvatars = total.avatars;
             _total.totalItems = total.items;
             _total.totalGems = total.gems;
@@ -50,5 +50,13 @@ export class ProfileService
                 this.totalAssets = _total;
             })
         }
+    }
+
+    getMessages(): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}/messages`);
+    }
+
+    setMessageAsRead(id: string): Observable<any> {
+        return this.http.patch<any>(`${this.baseUrl}/messages/${id}/read`, {});
     }
 }
