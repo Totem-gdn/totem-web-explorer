@@ -5,6 +5,7 @@ import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { environment } from '@env/environment';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, combineLatest, debounceTime, map, of, switchMap, take } from 'rxjs';
 import { Items } from '../models/items-interface.model';
@@ -41,6 +42,7 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
 
   @ViewChild('searchInput') searchInput!: ElementRef;
   loading$ = new BehaviorSubject(false);
+  assetRendererUrl = environment.ASSET_RENDERER_URL;
 
   constructor(
     private router: Router,
