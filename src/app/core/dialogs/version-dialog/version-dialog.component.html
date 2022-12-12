@@ -1,0 +1,18 @@
+<div class="popup gradient-border-solid">
+    <div #circlesRef class="circle-wrapper blur-70">
+        <bg-circle class="top-[-100px] left-[0]" [background]="'#00BC58'" [width]="'150px'"></bg-circle>
+        <bg-circle class="top-[0] left-[-120px]" [background]="'#FFD011'" [width]="'150px'"></bg-circle>
+        <bg-circle class="top-[100px] left-[-75px]" [background]="'#5823C9'" [width]="'100px'"></bg-circle>
+    </div>
+    <div class="content">
+        <div class="img-wrapper">
+            <img src="assets/images/popup/version-mamoth.webp" alt="">
+        </div>
+        <h3 class="font-medium text-white">{{'version.improved_explorer' | translate}}</h3>
+        <span class="text-light-grey leading-tight">{{'version.version_caption' | translate}}</span>
+    </div>
+    <div class="buttons">
+        <button mat-ripple class="button-1" [mat-dialog-close]="false">{{'nav.cancel' | translate}}</button>
+        <button mat-ripple class="button-2" [mat-dialog-close]="true">{{'modules.refresh' | translate}}</button>
+    </div>
+</div>
