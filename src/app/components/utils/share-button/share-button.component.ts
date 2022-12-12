@@ -6,21 +6,21 @@ export interface Share {
   url?: string;
 }
 
-interface ExtendNavigator extends Navigator {
-  share: (share: Share) => Promise<void>;
-}
+// interface ExtendNavigator extends Navigator {
+//   share: (share: Share) => Promise<void>;
+// }
 
-interface ExtendWindow extends Window {
-  navigator: ExtendNavigator;
-}
+// interface ExtendWindow extends Window {
+//   navigator: ExtendNavigator;
+// }
 
-declare var window: ExtendWindow;
+// declare var window: ExtendWindow;
 
 @Component({
   selector: 'share-button',
   templateUrl: './share-button.component.html',
 //   styleUrls: ['./share-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+//   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShareButtonComponent {
 //   @Input() set share(share: Share) {
@@ -28,13 +28,27 @@ export class ShareButtonComponent {
 //   }
 
     share(description: string, url: string) {
-        console.log('clicked')
-        const info: Share = {
-            url: 'https://test',
-            title: 'Totem Explorer',
-            text: description
-        }
-        window.navigator.share(info);
+        // const navigator = window.navigator as any;
+
+        // console.log('clicked')
+        // const info: Share = {
+        //     url: 'https://google.com',
+        //     title: 'Totem Explorer',
+        //     text: description
+        // }
+        // window.navigator['share'](info);
+        // const test = window.navigator;
+        // navigator.
+        // navigator.canShare();
+        const res = navigator.canShare();
+        console.log('can share ', res)
+        navigator.share({
+            title: 'title',
+            text: 'description',
+            url: 'https://soch.in//',
+          })
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
     }
 
 }
