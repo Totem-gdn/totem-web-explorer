@@ -1,9 +1,11 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'item-desc',
@@ -20,6 +22,7 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
     private web3Service: Web3AuthService,
     private favouritesService: FavouritesService,
     private messageService: SnackNotifierService,
+    public router: Router
   ) {
     super();
   }
@@ -40,52 +43,36 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
       this.web3Service.login();
       return;
     }
-    console.log('addd like')
     if (!this.item.isLiked) {
       this.favouritesService.addLike(this.type, this.item.id).pipe(
         untilComponentDestroyed(this),
       ).subscribe(() => {
-        console.log('update asset')
-        this.assetsService.updateAsset(this.item.id, this.type)
-        .pipe(untilComponentDestroyed(this))
-        .subscribe(asset => {
-          this.item = asset;
-        });
+        this.updateAsset();
       });
     } else {
       this.favouritesService.removeLike(this.type, this.item.id).pipe(
         untilComponentDestroyed(this),
       ).subscribe(() => {
-        this.assetsService.updateAsset(this.item.id, this.type)
-        .pipe(untilComponentDestroyed(this))
-        .subscribe(asset => {
-          this.item = asset;
-        });
+        this.updateAsset();
       });
     }
 
-  }
-
-  onClickIcon(icon: string) {
-    if(icon == 'share') {
-
-    } else {
-
-    }
   }
 
   walletCopied() {
     this.messageService.open('Copied to the clipboard');
   }
 
-  onClickBuy() {
-    // if (!this.web3Service.isLoggedIn()) {
-    //   this.messageService.open('Unauthorized');
-    //   return;
-    // }
-
-    // this.popupService.showAssetTransaction(this.item);
+  updateAsset() {
+    this.assetsService.updateAsset(this.item.id, this.type)
+    .pipe(take(1))
+    .subscribe(asset => {
+      this.item = asset;
+    });
   }
 
+  onClickBuy() {
+
+  }
 
 }
