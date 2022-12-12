@@ -5,7 +5,8 @@ import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
 import { TotemItemsService } from '@app/core/services/totem-items.service';
-import { BehaviorSubject, combineLatest, debounceTime, map, of, Subscription, switchMap, take } from 'rxjs';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { BehaviorSubject, combineLatest, debounceTime, map, of, switchMap, take } from 'rxjs';
 import { Items } from '../models/items-interface.model';
 import { GradientService } from '../services/items-gradient.service';
 
@@ -14,7 +15,7 @@ import { GradientService } from '../services/items-gradient.service';
   templateUrl: './totem-search-filter.component.html',
   styleUrls: ['./totem-search-filter.component.scss']
 })
-export class TotemSearchFilterComponent implements OnInit, OnDestroy {
+export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit, OnDestroy {
   searchInfo = new FormControl('');
   dropdownOpened: boolean = false;
   dropdownHovered: boolean = false;
@@ -31,8 +32,6 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
     GAMES_TAB: 'games',
   }
 
-  subs: Subscription = new Subscription();
-  itemsSub: Subscription = new Subscription();
   subbedToItemsListener: boolean = false;
 
   @Input()
@@ -47,11 +46,16 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
     private router: Router,
     private sidenavStateService: SidenavStateService,
     private totemItemsService: TotemItemsService,
-    private gradientService: GradientService) { }
+    private gradientService: GradientService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.initFormListener();
-    this.sidenavStateService.sidenavStatus.subscribe((data: SidebarState) => {
+    this.sidenavStateService.sidenavStatus.pipe(
+      untilComponentDestroyed(this),
+    ).subscribe((data: SidebarState) => {
       if (data.isOpen) {
         setTimeout(() => {
           if (this.focusState === 'true') {
@@ -62,26 +66,19 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-    this.itemsSub.unsubscribe();
-  }
-
   initFormListener() {
-    this.subs.add(
-      this.searchInfo.valueChanges.pipe(
-        debounceTime(600),
-        switchMap((id: string | null) => {
-          return of(id);
-        })
-      )
-        .subscribe((text: string | null) => {
-          if (text?.length) {
-            this.dropdownOpened = true;
-            this.getItems(text);
-          }
-        })
-    );
+    this.searchInfo.valueChanges.pipe(
+      untilComponentDestroyed(this),
+      debounceTime(600),
+      switchMap((id: string | null) => {
+        return of(id);
+      })
+    ).subscribe((text: string | null) => {
+      if (text?.length) {
+        this.dropdownOpened = true;
+        this.getItems(text);
+      }
+    })
   }
 
   getItems(params: string) {
@@ -92,18 +89,18 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
       this.totemItemsService.getItemsByName(params),
       this.totemItemsService.getAvatarsByName(params)
     ]).pipe(
+      untilComponentDestroyed(this),
       take(1),
       map(([games, items, avatars]) => { return { games, items, avatars } })
-    )
-      .subscribe((data) => {
-        this.gamesArray.next(data.games && data.games?.length ? data.games : null);
-        data.items.map((item: Items) => item.gradient = this.getGradient());
-        this.itemsArray.next(data.items && data.items?.length ? data.items : null);
-        data.avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
-        this.avatarsArray.next(data.avatars && data.avatars?.length ? data.avatars : null);
-        this.checkTabAfterSearch(data.items?.length || 0, data.avatars?.length | 0, data.games?.length | 0);
-        this.loading$.next(false);
-      });
+    ).subscribe((data) => {
+      this.gamesArray.next(data.games && data.games?.length ? data.games : null);
+      data.items.map((item: Items) => item.gradient = this.getGradient());
+      this.itemsArray.next(data.items && data.items?.length ? data.items : null);
+      data.avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
+      this.avatarsArray.next(data.avatars && data.avatars?.length ? data.avatars : null);
+      this.checkTabAfterSearch(data.items?.length || 0, data.avatars?.length | 0, data.games?.length | 0);
+      this.loading$.next(false);
+    });
   }
 
   checkTabAfterSearch(itemsLength: number, avatarsLength: number, gamesLength: number) {
@@ -206,6 +203,7 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
 
   goToItem(id: string) {
     this.closeDropdown();
+    this.clearSearchResult();
     this.router.navigateByUrl(`/item/${id}`);
     this.routingEvent.next('closed');
   }
@@ -218,6 +216,12 @@ export class TotemSearchFilterComponent implements OnInit, OnDestroy {
     this.closeDropdown();
     this.router.navigateByUrl(`/game/${id}`);
     this.routingEvent.next('closed');
+  }
+
+  clearSearchResult(): void{
+    this.itemsArray.next(null);
+    this.avatarsArray.next(null);
+    this.gamesArray.next(null);
   }
 
 }

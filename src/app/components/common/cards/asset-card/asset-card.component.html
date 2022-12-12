@@ -31,7 +31,7 @@
             </div>
             <div>
                 <h4 *ngIf="!_asset?.games && _asset?.games != 0">--</h4>
-                <h4 *ngIf="_asset?.games || _asset?.games == 0">{{_asset.games}}</h4>
+                <h4 *ngIf="_asset?.games || _asset?.games == 0">{{_asset?.games}}</h4>
 
                 <p class="text-light-grey">{{'asset_card.games_used' | translate}}</p>
             </div>
