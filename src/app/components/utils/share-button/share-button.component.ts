@@ -1,54 +1,53 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-
+import {Clipboard} from '@angular/cdk/clipboard';
+import { SnackNotifierService } from '../snack-bar-notifier/snack-bar-notifier.service';
 export interface Share {
-  title?: string;
-  text?: string;
-  url?: string;
+    title?: string;
+    text?: string;
+    url?: string;
 }
 
-// interface ExtendNavigator extends Navigator {
-//   share: (share: Share) => Promise<void>;
-// }
+interface ExtendNavigator extends Navigator {
+    share: (share: Share) => Promise<void>;
+}
 
-// interface ExtendWindow extends Window {
-//   navigator: ExtendNavigator;
-// }
+interface ExtendWindow extends Window {
+    navigator: ExtendNavigator;
+}
 
-// declare var window: ExtendWindow;
+declare var window: ExtendWindow;
 
 @Component({
-  selector: 'share-button',
-  templateUrl: './share-button.component.html',
-//   styleUrls: ['./share-button.component.scss'],
-//   changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'share-button',
+    templateUrl: './share-button.component.html',
+    //   styleUrls: ['./share-button.component.scss'],
+    //   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShareButtonComponent {
-//   @Input() set share(share: Share) {
-//     window.navigator.share(share);
-//   }
 
-    share(description: string, url: string) {
-        // const navigator = window.navigator as any;
+    constructor(private clipboard: Clipboard,
+                private messageService: SnackNotifierService) {}
 
-        // console.log('clicked')
-        // const info: Share = {
-        //     url: 'https://google.com',
-        //     title: 'Totem Explorer',
-        //     text: description
-        // }
-        // window.navigator['share'](info);
-        // const test = window.navigator;
-        // navigator.
-        // navigator.canShare();
-        const res = navigator.canShare();
-        console.log('can share ', res)
-        navigator.share({
-            title: 'title',
-            text: 'description',
-            url: 'https://soch.in//',
-          })
-            .then(() => console.log('Successful share'))
-            .catch((error) => console.log('Error sharing', error));
-    }
+    share(description: string) {
+        const url = window.location.href;
+
+        const info: Share = {
+            url: url,
+            title: 'Totem Explorer',
+            text: description
+        }
+
+        if (window.navigator.share) {
+            window.navigator
+                .share(
+                    info
+                );
+        } else {
+            this.clipboard.copy(url);
+            this.messageService.open('Copied to clipboard');
+        }
+    };
+
+
 
 }
