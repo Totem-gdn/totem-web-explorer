@@ -27,6 +27,7 @@ export class AssetCardComponent implements AfterViewInit {
   @Input() set asset(asset: AssetInfo) {
     if(!asset) return;
     this._asset = asset;
+    this._asset.rarity = asset.tokenId % 100;
     if(!asset.rendererUrl) this.updateUrl();
   };
 
@@ -39,7 +40,7 @@ export class AssetCardComponent implements AfterViewInit {
       this.setRendererUrl(environment.ASSET_RENDERER_URL);
     }
   }
-  _asset: any;
+  _asset!: AssetInfo;
 
   ngAfterViewInit() {
     this.changeDetector.detectChanges();
@@ -47,7 +48,7 @@ export class AssetCardComponent implements AfterViewInit {
 
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
-      this.messageService.open('Unauthorized');
+      this.web3Service.login();
       return;
     }
     if (!this.type) return;

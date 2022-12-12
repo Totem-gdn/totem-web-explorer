@@ -2,7 +2,7 @@
     <!-- <asset-menu></asset-menu> -->
 
     <div [ngStyle]="{'background': customBackground ? customBackground : ''}" class="img-wrapper" *ngIf="_asset?.tokenId">
-        <img loading="lazy" *ngIf="type != 'gem'" [src]="_asset?.rendererUrl" alt="" (error)="updateUrl()" changeSrc >
+        <img loading="lazy" *ngIf="type != 'gem'" [src]="_asset.rendererUrl" alt="" (error)="updateUrl()" changeSrc >
         <img loading="lazy" *ngIf="type == 'gem' && _asset" src="{{'https://asset-renderer.totem-explorer.com' + '/' + type + '/' + (_asset.tokenId % 11 + 1)}}" alt="" (error)="updateUrl()">
     </div>
 
@@ -10,7 +10,7 @@
 
         <div class="top">
             <h3 *ngIf="!_asset?.tokenId">ID: 1111</h3>
-            <h3 *ngIf="_asset?.tokenId">ID: {{_asset?.tokenId}}</h3>
+            <h3 *ngIf="_asset?.tokenId">ID: {{_asset.tokenId}}</h3>
 
             <div *ngIf="_asset?.isLiked === false" class="like line-like"
                 (click)="$event.stopPropagation(); onLike()"></div>
@@ -21,7 +21,7 @@
         <div class="bottom">
             <div>
                 <h4 *ngIf="!_asset?.updatedAt">24.24.24</h4>
-                <h4 *ngIf="_asset?.updatedAt">{{_asset?.updatedAt | date:'dd.MM.yy'}}</h4>
+                <h4 *ngIf="_asset?.updatedAt">{{_asset.updatedAt | date:'dd.MM.yy'}}</h4>
 
                 <p class="text-light-grey">{{'asset_card.last_used' | translate}}</p>
             </div>
@@ -31,7 +31,7 @@
             </div>
             <div>
                 <h4 *ngIf="!_asset?.games && _asset?.games != 0">--</h4>
-                <h4 *ngIf="_asset?.games || _asset?.games == 0">{{_asset?.games}}</h4>
+                <h4 *ngIf="_asset?.games || _asset?.games == 0">{{_asset.games}}</h4>
 
                 <p class="text-light-grey">{{'asset_card.games_used' | translate}}</p>
             </div>

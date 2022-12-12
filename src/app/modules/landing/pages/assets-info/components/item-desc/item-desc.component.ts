@@ -37,7 +37,7 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
 
   onClickLike() {
     if (!this.web3Service.isLoggedIn()) {
-      this.messageService.open('Unauthorized');
+      this.web3Service.login();
       return;
     }
     console.log('addd like')
@@ -64,6 +64,14 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
       });
     }
 
+  }
+
+  onClickIcon(icon: string) {
+    if(icon == 'share') {
+
+    } else {
+
+    }
   }
 
   walletCopied() {

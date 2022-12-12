@@ -39,7 +39,6 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   ngOnInit() {
     this.resetFilters$();
     this.processMenuContent();
-    this.loadMoreGames();
   }
 
   ngAfterViewInit() {
@@ -78,8 +77,9 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   onChangeInput(event: any) {
     const value = event.target.value;
     const reference = event.target;
+    console.log('radio value', event.target.value);
     if (this.inputType === 'radio') {
-      this.tagsService.removeTag(this.checkedItems[0]);
+      if(this.checkedItems[0]) this.tagsService.removeTag(this.checkedItems[0]);
       this.checkedItems = [{ value: value, type: this.title, reference: reference }];
       this.tagsService.addTag = { value: value, type: this.title, inputType: this.inputType, reference: reference };
     }
@@ -113,11 +113,10 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   loadMoreGames() {
-    if(this.loadingItems == true) return;
+    if(this.loadingItems == true && this.type =='games') return;
     this.loadingItems = true;
     this.gamesService.fetchGames(this.page)
         .subscribe(games => {
-          console.log('games', games);
           if (!this.items) this.items = [];
 
           for (let game of games) this.items.push(game);

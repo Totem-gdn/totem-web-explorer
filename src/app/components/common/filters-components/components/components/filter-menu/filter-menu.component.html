@@ -41,7 +41,9 @@
                     <span *ngIf="type == 'games'" class="text-light-grey">{{item?.general?.genre?.[0]}}</span>
                 </div>
     
-                <label><input (change)="onChangeInput($event)" name="input" value="{{item.name}}" class="w-6 h-6 bg-transparent" [type]="inputType"></label>
+                <label *ngIf="type != 'games'"><input (change)="onChangeInput($event)" name="input" value="{{item.name}}" class="w-6 h-6 bg-transparent" [type]="inputType"></label>
+                <label *ngIf="type == 'games'"><input (change)="onChangeInput($event)" name="input" [value]="item?.general?.name" class="w-6 h-6 bg-transparent" [type]="inputType"></label>
+
 
             </div>
             <div *ngIf="this.loadingItems == true" class="m-auto menu-item flex">

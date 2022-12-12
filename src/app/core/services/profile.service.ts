@@ -25,7 +25,7 @@ export class ProfileService
     cacheTotalAssets(): void
     {
         this.http.get<any>(`${this.baseUrl}/auth/me`).subscribe(total => {
-
+            console.log(total)
             let _total = this.totalAssets;
 
             _total.totalAvatars = total.avatars;
