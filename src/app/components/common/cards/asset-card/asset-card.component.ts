@@ -1,12 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
 import { environment } from "@env/environment";
 import { Gtag } from "angular-gtag";
-import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
-import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 
 @Component({
   selector: 'asset-card[type]',
