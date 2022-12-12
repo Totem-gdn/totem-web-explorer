@@ -33,7 +33,7 @@
         "confirm": "Confirm",
         "token": "Token",
         "soon": "Soon",
-        "none": "None", 
+        "none": "None",
         "read": "Read",
         "unread": "Unread",
         "mark_message_read": "Mark a message as read",
@@ -202,7 +202,7 @@
 
     },
     "description":{
-        "default_descriptions_game": "Struggling punk band, Dead Pets, are still looking for their breakthrough after almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way. Dead Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner demon! We’ve been through hell and back to get here. Playing together for 10 years despite our differences, I know we have what it takes. Dead Pets is a slice of life, management-lite, narrative game about music and friendship. Playing as Gordy, you’ll go to band practice, manage Gordy’s finances and wellbeing, as well find time to earn enough money to cover rent. From the creators of Welcome to Elk, dive into the demon world of New Void City, and give your childhood dreams one last chance. It’s time to dream big, grow up and rock out! Content Warning: Dead Pets Unleashed will contain a major storyline relating to sexual harassment. We are working with a consultant with this to ensure the storyline is handled in a sensitive way, and there will be tools implemented for the player to ensure their comfort and safety while playing.",  
+        "default_descriptions_game": "Struggling punk band, Dead Pets, are still looking for their breakthrough after almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way. Dead Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner demon! We’ve been through hell and back to get here. Playing together for 10 years despite our differences, I know we have what it takes. Dead Pets is a slice of life, management-lite, narrative game about music and friendship. Playing as Gordy, you’ll go to band practice, manage Gordy’s finances and wellbeing, as well find time to earn enough money to cover rent. From the creators of Welcome to Elk, dive into the demon world of New Void City, and give your childhood dreams one last chance. It’s time to dream big, grow up and rock out! Content Warning: Dead Pets Unleashed will contain a major storyline relating to sexual harassment. We are working with a consultant with this to ensure the storyline is handled in a sensitive way, and there will be tools implemented for the player to ensure their comfort and safety while playing.",
         "descriptions_game_2": "Struggling punk band, Dead Pets, are still looking for their breakthrough after almost 10 years. Gordy has big plans for the group, but when you turn 30, life starts to get in the way. Dead Pets Unleashed is a narrative, slice of life and management-lite game; get ready to unleash your inner demon! Support us on Kickstarter now!",
         "descriptions_game_3": "Minting of Totem Items may take time. After you transfer the USDC to the Totem's address, your transaction needs to get confirmed. It may take several seconds. After confirmation of your transaction Totem mints the Totem Asset on the smart contract. Confirmation of this transaction also may take several seconds. Overall process may take up to a minute. Please ensure that you have enough USDC on your account and have enough MATIC to transfer"
     },
@@ -258,5 +258,9 @@
         "page_not_found": "PAGE NOT FOUND",
         "oops": "Oops!",
         "page_looking_for_might": "The page you are looking for might have been removed had its name changed or is temporatily unavalaible"
+    },
+    "version": {
+        "improved_explorer": "Improved explorer",
+        "version_caption": "We've made changes to the explorer that will improve your experience."
     }
 }
