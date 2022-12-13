@@ -185,7 +185,6 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
   }
 
   override ngOnDestroy(): void {
-    console.log('DESTROYES');
     this.games$.next([]);
     this.avatars$.next([]);
     this.newestItems$.next([]);
