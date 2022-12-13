@@ -79,7 +79,6 @@ export class MessagesComponent implements OnInit {
   getMessages() {
     this.loading$.next(true);
     this.profileService.getMessages().subscribe((data: UserMessage[]) => {
-      console.log(data);
       const messages: UserMessage[] = data.map((message: UserMessage) => {
         return {
           isChecked: false,

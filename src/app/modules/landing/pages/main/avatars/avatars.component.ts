@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Gtag } from 'angular-gtag';
 import { Subject, takeUntil } from 'rxjs';
@@ -13,7 +14,11 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class AvatarsComponent implements OnInit, OnDestroy {
 
-  constructor(private assetsService: AssetsService, private gtag: Gtag) {
+  constructor(
+    private assetsService: AssetsService,
+    private gtag: Gtag,
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.gtag.event('page_view');
   }
 
@@ -26,7 +31,8 @@ export class AvatarsComponent implements OnInit, OnDestroy {
   }
 
   updateAssets() {
-    this.assetsService.updateAssets('avatar', 1, 'newest').subscribe();
+    const search = this.activatedRoute.snapshot.queryParams["searchParams"];
+    this.assetsService.updateAssets('avatar', 1, 'newest', { search }).subscribe();
     this.assetsService.avatars$
       .pipe(takeUntil(this.subs))
       .subscribe(avatars => {

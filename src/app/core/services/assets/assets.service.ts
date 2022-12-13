@@ -47,8 +47,6 @@ export class AssetsService {
     set gem(value: any) { this._gem.next(value) }
 
     updateAssets(type: string, page: number, list: string, params?: SearchParamsModel) {
-        console.log('type',type);
-        
         return this.http.get<any[]>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&search=${params?.search}`).pipe(tap(assets => {
             const formatedAssets = this.formatAssets(assets, type);
 

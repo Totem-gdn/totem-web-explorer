@@ -18,7 +18,7 @@ export class ItemsComponent implements OnDestroy {
   constructor(
     private assetsService: AssetsService,
     private gtag: Gtag,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
     this.gtag.event('page_view');
   }

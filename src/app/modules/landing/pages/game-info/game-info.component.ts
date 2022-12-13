@@ -62,7 +62,6 @@ export class GameInfoComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.subs))
             .subscribe(game => {
                 this.game = game;
-                console.log(game)
                 if (this.currentUser && this.currentUser?.wallet == this.game.owner) {
                     this.editInfo = { edit: true, gameId: this.game.id };
                 }
