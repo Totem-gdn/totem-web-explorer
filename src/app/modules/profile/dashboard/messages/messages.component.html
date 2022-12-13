@@ -50,16 +50,16 @@
       <totem-spinner class="flex items-center h-full"></totem-spinner>
     </div>
 
-    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px]" *ngIf="!(loading$ | async) && !(messageList | async)">
+    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px]" *ngIf="!(loading$ | async) && !(messageList | async)?.length">
       <span>No messages found</span>
     </div>
 
-    <div class="toolbar-titles" fxHide.xs *ngIf="!(loading$ | async) && (messageList | async)">
+    <div class="toolbar-titles" fxHide.xs *ngIf="!(loading$ | async) && (messageList | async)?.length">
       <div class="col-name type-caption">{{'profile.type' | translate}}</div>
       <div class="col-name subj-caption">{{'profile.subject' | translate}}</div>
       <div class="col-name date-caption">{{'modules.date' | translate}}</div>
     </div>
-    <div class="message-table" fxLayout="column" *ngIf="!(loading$ | async) && (messageList | async)">
+    <div class="message-table" fxLayout="column" *ngIf="!(loading$ | async) && (messageList | async)?.length">
 
       <div
         *ngFor="let message of messageList | async"
