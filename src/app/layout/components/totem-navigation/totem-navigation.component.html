@@ -54,6 +54,7 @@
         <div *ngIf="!(loading$ | async)" (click)="openSidenav()" class="line-burger"></div>
         <!-- <img loading="lazy" *ngIf="!(loading$ | async)" (click)="openSidenav()" src="assets/icons/Menu.svg" alt="menu"> -->
       </div>
+      <!-- Spinner -->
       <div class="nav-loader" *ngIf="(loading$ | async)" fxLayout="column" fxLayoutAlign="center center">
         <loading-spinner></loading-spinner>
       </div>
