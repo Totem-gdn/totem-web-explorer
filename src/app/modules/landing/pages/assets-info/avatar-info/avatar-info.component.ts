@@ -1,22 +1,24 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
+import { ChangeDetectorRef } from "@angular/core";
 
 @Component({
   selector: 'avatar-info',
   templateUrl: './avatar-info.component.html'
 })
 
-export class AvatarInfoComponent implements OnInit, OnDestroy {
+export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private assetsService: AssetsService,
     private route: ActivatedRoute,
     private gamesService: GamesService,
-    private gtag: Gtag
+    private gtag: Gtag,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.gtag.event('page_view');
   }
@@ -24,7 +26,7 @@ export class AvatarInfoComponent implements OnInit, OnDestroy {
   avatar: any;
   subs = new Subject<void>();
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.route.paramMap
       .pipe(takeUntil(this.subs))
       .subscribe((params: ParamMap) => {
@@ -45,6 +47,7 @@ export class AvatarInfoComponent implements OnInit, OnDestroy {
         //     this.avatar = avatar;
         // })
       });
+      this.changeDetector.detectChanges();
   }
 
   ngOnDestroy(): void {

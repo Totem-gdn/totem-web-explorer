@@ -9,6 +9,6 @@
   ></general-description>
   <game-details [editMode]="editMode" (formValid)="checkFormValidity($event)"></game-details>
   <contact-form [editMode]="editMode" (formValid)="checkFormValidity($event)"></contact-form>
-  <totem-button class="py-[80px] flex justify-center" [caption]="'Continue'" [disabled]="!buttonDisabled" (click)="onNextTab()"></totem-button>
+  <totem-button class="my-[80px] flex justify-center" [caption]="'Continue'" [disabled]="!buttonDisabled" (clicked)="onNextTab()"></totem-button>
 
 </div>

@@ -6,7 +6,6 @@ import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { environment } from "@env/environment";
 import { Subject, takeUntil } from "rxjs";
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
-// import * as DNA from 'dna-parser'
 
 
 @Component({
@@ -27,17 +26,23 @@ export class AssetInfoComponent implements AfterViewInit {
         private gamesService: GamesService
     ) { }
 
-    activeTab = 'properties';
-    subs = new Subject<void>();
+    assetRendererUrl = environment.ASSET_RENDERER_URL;
+
+    _item!: any;
+    assets!: any[];
+    properties!: any[];
+
     notFound: boolean = false;
+    subs = new Subject<void>();
+    activeTab = 'properties';
 
     @Input() type!: string;
-    @Input() set item(item: any) {
-        this._item = item;
-        if (item === null) this.notFound = true;
-        if (item === undefined) return;
+    @Input() set item(asset: any) {
+        this._item = asset;
+        if (asset === null) this.notFound = true;
+        if (asset === undefined) return;
 
-        this.processItem(item?.tokenId)
+        this.processItem(asset?.tokenId)
     }
 
     @Input() set selectedGame(game: GameDetail | null) {
@@ -48,29 +53,17 @@ export class AssetInfoComponent implements AfterViewInit {
             this.assetRendererUrl = environment.ASSET_RENDERER_URL;
         }
     }
-    assetRendererUrl = environment.ASSET_RENDERER_URL;
-
-    _item!: any;
-    assets!: any[];
-
-    properties!: any[];
-    transactionHistory!: string;
-
 
     onChangeTab(tab: string) {
         this.activeTab = tab;
     }
 
-    ngOnInit() {
+    ngAfterViewInit(): void {
         this.sliderItems();
         this.selectedGame$();
 
         const sessionGame = this.gamesService.gameInSession;
         if (!sessionGame?.general?.name) return;
-        this.getProperties(sessionGame?.general?.name);
-    }
-
-    ngAfterViewInit(): void {
         this.changeDetector.detectChanges();
     }
 
@@ -78,15 +71,9 @@ export class AssetInfoComponent implements AfterViewInit {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
-                this.getProperties(selectedGame?.general?.name);
-                this.processItem(this._item?.tokenId);
+                // this.properties = this.dnaService.getProperties(selectedGame?.general?.name, this.type);
+                this.processItem(this._item?.tokenId, selectedGame?.general?.name);
             })
-    }
-
-    getProperties(gameName: string | undefined) {
-        if (this.type == 'item' || 'gem') this.properties = [{ title: 'Type', id: 'classical_element', value: '--', tooltip: false }, { title: 'Damage', id: 'damage_nd', value: '--', tooltip: false }, { title: 'Range', id: 'range_nd', value: '--', tooltip: false }, { title: 'Power', id: 'power_nd', value: '--', tooltip: false }, { title: 'Magical Power', id: 'magical_exp', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
-        if (this.type == 'avatar' && gameName == 'Dreadstone Keep') this.properties = [{ title: 'Sex', id: 'sex_bio', value: '--', tooltip: false }, { title: 'Body Strength', id: 'body_strength', value: '--', tooltip: false }, { title: 'Body Type', id: 'body_type', value: '--', tooltip: false }, { title: 'Skin Color', id: 'human_skin_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Color', id: 'human_hair_color', value: '--', tooltip: false, showColor: true }, { title: 'Eye Color', id: 'human_eye_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Style', id: 'hair_styles', value: '--', tooltip: false }, { title: 'Weapon Type', id: 'weapon_type', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
-        if (this.type == 'avatar' && gameName != 'Dreadstone Keep') this.properties = [{ title: 'Sex', id: 'sex_bio', value: '--', tooltip: false }, { title: 'Body Strength', id: 'body_strength', value: '--', tooltip: false }, { title: 'Body Type', id: 'body_type', value: '--', tooltip: false }, { title: 'Skin Color', id: 'human_skin_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Color', id: 'human_hair_color', value: '--', tooltip: false, showColor: true }, { title: 'Eye Color', id: 'human_eye_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Style', id: 'hair_styles', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
     }
 
     sliderItems() {
@@ -110,19 +97,17 @@ export class AssetInfoComponent implements AfterViewInit {
         }
     }
 
-    async processItem(id: number) {
+    async processItem(id: number, gameName?: string | undefined) {
         const url = 'https://matic-mumbai.chainstacklabs.com'
         let contract = ''
-        let json = ''
+        const json = this.dnaService.getJSON(gameName, this.type);
+        this.properties = json;
         if (this.type === 'item') {
             contract = '0xfC5654489b23379ebE98BaF37ae7017130B45086'
-            json = DNAParser.defaultItemJson
         } else if (this.type === 'gem') {
             contract = '0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5'
-            json = DNAParser.defaultGemJson
         } else if (this.type === 'avatar') {
             contract = '0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35'
-            json = DNAParser.defaultAvatarJson
         }
         const contractHandler = new ContractHandler(url, contract)
 

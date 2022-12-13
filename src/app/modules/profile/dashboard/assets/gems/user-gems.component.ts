@@ -29,8 +29,6 @@ export class UserGemsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.subs))
       .subscribe(gems => {
         this.gems = gems;
-        if(!this.gems) return;
-        this.cacheService.totalByAssetType('gem', this.gems);
       })
   }
   onLoadMore(page: number) {

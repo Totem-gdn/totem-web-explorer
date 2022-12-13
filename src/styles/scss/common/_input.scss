@@ -28,11 +28,11 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked {
-    border: 1px solid $yellow;
+    // border: 1px solid $yellow;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('../../../assets/icons/Ellipse.svg')
-
+    border-color: $yellow;
+    background-image: url('../../../assets/icons/custom_radio_button.svg')
 }
 
 .range-slider {

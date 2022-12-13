@@ -29,19 +29,21 @@
                     (click)="$event.stopPropagation(); onClickLike()"></div>
                 <div *ngIf="item?.isLiked === true" class="text-yellow solid-like cursor-pointer !w-[18px]"
                     (click)="$event.stopPropagation(); onClickLike()"></div>
-                <p>{{item?.likes ? item?.likes : '0'}}</p>
+                <p class="select-none">{{item?.likes ? item?.likes : '0'}}</p>
             </div>
-            <div class="icon">
+            <div class="icon select-none">
                 <div class="line-eye"></div>
                 <p>{{item?.views ? item?.views : '0'}}</p>
             </div>
         </div>
         <div class="icon-set">
-            <div class="icon">
+            <div class="icon cursor-pointer" (click)="share.share('Share totem asset')">
+                <share-button #share></share-button>
                 <div class="line-share"></div>
                 <p>{{'modules.share' | translate}}</p>
             </div>
-            <div class="icon">
+
+            <div class="icon cursor-pointer" (click)="updateAsset()">
                 <div class="line-refresh"></div>
                 <p>{{'modules.refresh' | translate}}</p>
             </div>

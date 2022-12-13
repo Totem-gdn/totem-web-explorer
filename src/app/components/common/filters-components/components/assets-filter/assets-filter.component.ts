@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, Inject, Input, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from "@angular/core";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Subject, takeUntil } from "rxjs";
@@ -18,7 +18,8 @@ export class AssetsFilterComponent implements AfterViewInit {
     
     constructor(private filtersService: FiltersService,
                 @Inject(DOCUMENT) private document: Document,
-                private gamesService: GamesService) { }
+                private gamesService: GamesService,
+                private changeDetector: ChangeDetectorRef) { }
 
     @ViewChild('dropupMenu') dropupMenu!: ElementRef;
     @Input() type = '';
@@ -28,6 +29,7 @@ export class AssetsFilterComponent implements AfterViewInit {
     subs = new Subject<void>();
 
     ngAfterViewInit() {
+        this.changeDetector.detectChanges();
         this.filtersService.dropupOpen$
         .pipe(takeUntil(this.subs))
         .subscribe(isOpen => {
@@ -87,7 +89,7 @@ export class AssetsFilterComponent implements AfterViewInit {
     eyeColors = [{ name: '#b5d6e0'},{ name: '#90b4ca'},{ name: '#a7ad7f'},{ name: '#7c8b4f'},{ name: '#c4a05f'},{ name: '#a97e33'},{ name: '#7a3411'},{ name: '#3d0d04'},]
     hairStyles = [{name: 'afro'},{name: 'asymmetrical'},{name: 'braids'},{name: 'buzz cut'},{name: 'dreadlocks'},{name: 'long'},{name: 'ponytail'},{name: 'short'},];
 
-    games = [{ name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' },]
+    // games = [{ name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' }, { name: 'Mr.Krabs kills', subName: 'horror' }, { name: 'GTA 6', subName: 'arcade' },]
     elements = [{ name: 'Fire' }, { name: 'Earth' }, { name: 'Air' }, { name: 'Water' }]
     colors = [{ name: 'Red' }, { name: 'Blue' }, { name: 'Yellow' }, { name: 'Green' }, { name: 'Orange' }]
     itemTypes = [{ name: 'Armour', subName: 'Slot' }, { name: 'Arms', subName: 'Slot' }, { name: 'Body', subName: 'Head' }, { name: 'Armour', subName: 'Slot' }]

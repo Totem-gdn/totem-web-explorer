@@ -81,6 +81,22 @@
               "buildOptimizer": true
             },
             "development": {
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json",
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
               "serviceWorker": false,
               "ngswConfigPath": "ngsw-config.json",
               "buildOptimizer": false,
@@ -102,9 +118,13 @@
             "development": {
               "browserTarget": "totem-gdn-layout:build:development",
               "proxyConfig": "src/proxy.conf.json"
+            },
+            "local": {
+              "browserTarget": "totem-gdn-layout:build:local",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

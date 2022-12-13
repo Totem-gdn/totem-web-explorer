@@ -28,15 +28,16 @@
                 <div class="flex tabs-wrapper">
                     <div class="tab sm:!text-base sm:!p-[10px]"
                         [ngClass]="activeTab === 'properties' ? 'bg-black !text-white': ''"
-                        (click)="onChangeTab('properties')">{{'modules.properties' | translate}}</div>
+                        (click)="activeTab = 'properties'">{{'modules.properties' | translate}}</div>
 
                     <div class="tab sm:!text-base sm:!px-[10px]"
-                        [ngClass]="activeTab === 'legacy' ? 'bg-black !text-white': ''" (click)="onChangeTab('legacy')">
+                        [ngClass]="activeTab === 'legacy' ? 'bg-black !text-white': ''" 
+                        (click)="activeTab = 'legacy'">
                         {{'modules.legacy' | translate}}</div>
 
                     <div class="tab sm:!text-base sm:!px-[10px]"
                         [ngClass]="activeTab === 'history' ? 'bg-black !text-white': ''"
-                        (click)="onChangeTab('history')">
+                        (click)="activeTab = 'history'">
                         {{'modules.ownership_history' | translate}}</div>
                 </div>
             </div>

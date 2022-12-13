@@ -1,12 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
 import { environment } from "@env/environment";
 import { Gtag } from "angular-gtag";
-import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
-import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 
 @Component({
   selector: 'asset-card[type]',
@@ -27,6 +27,7 @@ export class AssetCardComponent implements AfterViewInit {
   @Input() set asset(asset: AssetInfo) {
     if(!asset) return;
     this._asset = asset;
+    this._asset.rarity = asset.tokenId % 100;
     if(!asset.rendererUrl) this.updateUrl();
   };
 
@@ -39,7 +40,7 @@ export class AssetCardComponent implements AfterViewInit {
       this.setRendererUrl(environment.ASSET_RENDERER_URL);
     }
   }
-  _asset: any;
+  _asset!: AssetInfo;
 
   ngAfterViewInit() {
     this.changeDetector.detectChanges();
@@ -47,7 +48,7 @@ export class AssetCardComponent implements AfterViewInit {
 
   onLike() {
     if (!this.web3Service.isLoggedIn()) {
-      this.messageService.open('Unauthorized');
+      this.web3Service.login();
       return;
     }
     if (!this.type) return;
@@ -55,13 +56,13 @@ export class AssetCardComponent implements AfterViewInit {
     if (this._asset.isLiked) {
       this.favService.addLike(this.type, this._asset.id).subscribe(() => {
         this.gtag.event('add_like', {
-          'event_label': `add like for ${this.type} with id ${this._asset.tokenId}`,
+          'event_label': `add like for ${this.type} with id ${this._asset.id}`,
         });
       });
     } else {
-      this.favService.removeLike(this.type, this._asset.tokenId).subscribe(() => {
+      this.favService.removeLike(this.type, this._asset.id).subscribe(() => {
         this.gtag.event('remove_like', {
-          'event_label': `remove like for ${this.type} with id ${this._asset.tokenId}`,
+          'event_label': `remove like for ${this.type} with id ${this._asset.id}`,
         });
       });
     }

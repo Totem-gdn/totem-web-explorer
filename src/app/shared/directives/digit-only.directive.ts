@@ -4,7 +4,7 @@ import {
   HostListener,
   Input,
   OnChanges,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 
 @Directive({
@@ -110,9 +110,14 @@ export class DigitOnlyDirective implements OnChanges {
   @HostListener('paste', ['$event'])
   onPaste(event: any): void {
     let pastedInput: string = '';
+
     if (event.clipboardData) {
       // Browser is IE
       pastedInput = event.clipboardData.getData('text');
+      if (!this.regex!.test(pastedInput)){
+        pastedInput = '';
+      }
+      
     } else if (event.clipboardData && event.clipboardData.getData) {
       // Other browsers
       pastedInput = event.clipboardData.getData('text/plain');

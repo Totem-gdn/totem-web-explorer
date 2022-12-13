@@ -49,16 +49,17 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   setItems!: any[];
   submitDisabled = true;
   urlRegEx: RegExp = /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
+  urlRegExp: RegExp = new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
 
   sub!: Subscription;
 
   connectionsForm = new FormGroup({
-    webpage: new FormControl(null, Validators.required),
+    webpage: new FormControl(null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
     assetRenderer: new FormControl(null, Validators.pattern(this.urlRegEx)),
     promoVideo: new FormControl(null, Validators.pattern(this.urlRegEx)),
     socialLinks: new FormArray([
       // new FormArray([type: new FormControl(null), url: new FormControl('https://')])
-      new FormGroup({ type: new FormControl(null), url: new FormControl('https://') })
+      new FormGroup({ type: new FormControl(null), url: new FormControl('https://', Validators.pattern('^$|^(https?://)$|(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')) })
     ])
   })
   socialLinksForm = this.connectionsForm.get('socialLinks') as any;
@@ -71,11 +72,11 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.editMode) {
       this.connectionsForm = new FormGroup({
-        webpage: new FormControl(null),
+        webpage: new FormControl(null, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')),
         assetRenderer: new FormControl(null, Validators.pattern(this.urlRegEx)),
         promoVideo: new FormControl(null, Validators.pattern(this.urlRegEx)),
         socialLinks: new FormArray([
-          new FormGroup({ type: new FormControl(null), url: new FormControl('https://') })
+          new FormGroup({ type: new FormControl(null), url: new FormControl('https://', Validators.pattern('^$|^(https?://)$|(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')) })
         ])
       })
       this.socialLinksForm = this.connectionsForm.get('socialLinks') as any;
@@ -115,12 +116,24 @@ export class LinksTabComponent implements AfterViewInit, OnInit, OnDestroy {
     this.updateForm();
   }
 
+  isTherePatternIssues(): boolean {
+    if (this.connectionsForm.get('webpage')?.value) {
+      let str: string | null = this.connectionsForm.get('webpage')!.value;
+      return !this.urlRegExp.test(str!);
+    } else {
+      return false;
+    }
+  }
+
   submitGameInfo() {
     this.submitEvent.emit();
   }
 
   onAddLink() {
-    this.socialLinksForm.push(new FormGroup({ type: new FormControl(null), url: new FormControl('https://') }));
+    this.socialLinksForm.push(new FormGroup({
+      type: new FormControl(null),
+      url: new FormControl('https://', Validators.pattern('^$|^(https?://)$|(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'))
+    }));
     this.updateForm();
   }
 

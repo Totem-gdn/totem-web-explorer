@@ -1,5 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { DNAField } from '@app/core/models/interfaces/dna-field.model';
 import { Subject, Subscription } from 'rxjs';
 
 enum queries {
@@ -25,7 +26,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   placeholdersSub!: Subscription;
 
   tagsWidth = [];
-  _properties!: any[];
+  _properties!: DNAField[];
   placeholders = [];
 
   @ViewChild('grid') grid!: ElementRef;
@@ -33,14 +34,21 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   tooltipData!: any;
 
   @Input() set properties(properties: any[]) {
+    if(!properties) return;
     this._properties = properties;
     this.placeholdersSub?.unsubscribe();
     this.placeholders$();
     setTimeout(() => {
       this.checkTagsOverflow();
-
     }, 100)
   };
+
+  isValueColor(value: string | undefined) {
+    if(!value) return false;
+    const s = new Option().style;
+    s.color = value;
+    return s.color !== '';
+  }
 
   ngAfterViewInit(): void {
     this.checkTagsOverflow();
@@ -65,7 +73,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     tooltip.style.visibility = 'visible';
     tooltip.style.opacity = '1';
 
-    this.tooltipData = {title: propertie.title, value: propertie.value}
+    this.tooltipData = {title: propertie.description, value: propertie.value}
     if (window.innerWidth - 80 < tagRect.x + width) {
       tooltip.style.left = `${x - width / 2}px`;
       tooltip.style.top = `${y}px`;
@@ -98,8 +106,11 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   }
 
   gridPlaceholders(length: number) {
+    if(!this._properties?.length) return;
+    // console.log(this._properties)
+    // console.log('length', length, 'properties length', this._properties?.length);
     if (this._properties.length < length) {
-      this.placeholders = [].constructor(length % this._properties.length)
+      this.placeholders = [].constructor(length - this._properties.length)
       return;
     }
     const placeholders = length % this._properties.length - this._properties.length % length;

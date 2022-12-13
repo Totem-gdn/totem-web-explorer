@@ -5,7 +5,8 @@ import { WidgetService } from "@app/core/services/states/widget-state.service";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
-import { Subscription } from "rxjs";
+import { Subject, Subscription, takeUntil } from "rxjs";
+import { GamesService } from "@app/core/services/assets/games.service";
 
 
 @Component({
@@ -58,9 +59,11 @@ export class HomeWidgetComponent implements OnInit, OnDestroy {
   card1!: AssetInfo;
   card2!: AssetInfo;
   selectedGame!: GameDetail | null;
-  sub!: Subscription;
+  subs = new Subject<void>();
 
-  constructor(private assetsService: AssetsService, private widgetService: WidgetService) {
+  constructor(private assetsService: AssetsService, 
+              private widgetService: WidgetService,
+              private gamesService: GamesService) {
 
     this.assetsService.updateAssets('avatar', 1, '').subscribe(avatars => {
       if (!avatars) return;
@@ -73,15 +76,17 @@ export class HomeWidgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.selectedGame$();
+    this.selectedWidgetGame$();
   }
 
   onChangeGame(game: GameDetail) {
     this.selectedGame = game;
   }
 
-  selectedGame$() {
-    this.sub = this.widgetService.selectedGame$.subscribe(game => {
+  selectedWidgetGame$() {
+    this.widgetService.selectedGame$
+    .pipe(takeUntil(this.subs))
+    .subscribe(game => {
       this.selectedGame = game;
     })
   }
@@ -91,6 +96,7 @@ export class HomeWidgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+    this.subs.next();
+    this.subs.complete();
   }
 }

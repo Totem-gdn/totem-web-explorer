@@ -31,11 +31,23 @@
                 <input
                     formControlName="amount"
                     class="!mb-0 amount-input" type="text"
+                    placeholder="0 Token"
+                    digitOnly
+                    [decimal]="true"
+                    [min]="0"
+                    [max]="selectedToken?.value"
+                    [pattern]="'[0-9]*\.?[0-9]+$'"
+                    (blur)="estimateGas(selectedToken.title, selectedToken.value)">
+                    <!-- <input
+                        need delete after 31.12.2022
+                    formControlName="amount"
+                    class="!mb-0 amount-input" type="text"
+                    digitOnly
                     [allowNegativeNumbers]="false"
                     mask="{{maskForAmount}}"
                     decimalMarker="."
                     placeholder="0 Token"
-                    (blur)="estimateGas(selectedToken.title, selectedToken.value)">
+                    (blur)="estimateGas(selectedToken.title, selectedToken.value)"> -->
                 <div *ngIf="selectedToken?.title" class="suffix">
                   <div class="token-wrapper mr-[5px]">
                     <span [ngClass]="selectedToken?.title == 'MATIC' ? 'icon-font-MATIC' : 'icon-font-USDC'"></span>

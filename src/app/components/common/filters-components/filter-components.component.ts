@@ -38,7 +38,6 @@ export class FilterComponentsComponent implements OnDestroy {
         if (items == null) return;
         if (!this.items?.length) this.items = [];
         this.items = this.items.concat(items);
-        this.cacheService.totalByAssetType(this.itemType, this.items);
         if (items.length < 10) {
             this.showButton = false;
         } else {

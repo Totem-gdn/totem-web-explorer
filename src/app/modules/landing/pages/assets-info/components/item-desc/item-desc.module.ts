@@ -5,6 +5,7 @@ import { ItemDescComponent } from "./item-desc.component";
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { GameDropdownModule } from "@app/components/common/dropdowns/game-dropdown/game-dropdown.module";
+import { SharedButtomModule } from "@app/components/utils/share-button/share-button.module";
 
 
 
@@ -17,7 +18,9 @@ import { GameDropdownModule } from "@app/components/common/dropdowns/game-dropdo
         TotemButtonModule,
         ClipboardModule,
         FlexLayoutModule,
-        GameDropdownModule
+        GameDropdownModule,
+
+        SharedButtomModule
     ],
     exports: [
         ItemDescComponent

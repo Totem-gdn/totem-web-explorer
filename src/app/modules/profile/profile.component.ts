@@ -3,6 +3,7 @@ import { Meta } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { UserStateService } from '@app/core/services/auth.service';
+import { ProfileService } from '@app/core/services/profile.service';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
     private userStateService: UserStateService,
     private metaTag: Meta,
-    private assetsService: AssetsService,
+    private profileService: ProfileService,
     private gtag: Gtag) {
 
     this.routeValue$.next(this.router.url);
@@ -48,7 +49,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.subs.add(
       this.userStateService.currentUser.subscribe(user => {
-        if (user) this.assetsService.cacheTotal();
+        if (user) {
+          this.profileService.cacheTotalAssets();
+          this.profileService.cacheTotalFavAssets();
+        }
       })
     )
   }

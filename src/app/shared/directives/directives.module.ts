@@ -1,10 +1,12 @@
 import { NgModule } from "@angular/core";
+import { ChangeSrcDirective } from "./change-img-src.directive";
 import { ClickOutsideDirective } from "./click-outside.directive";
 import { DigitOnlyDirective } from "./digit-only.directive";
 import { InViewDirective } from "./in-view.directive";
 import { LongPressDirective } from "./long-press.directive";
 import { OnDragDirective } from "./on-drag.directive";
 import { OnResizeDirective } from "./on-resize.directive";
+import { ScrollToBottomDirective } from "./scroll-to-bottom.directive";
 
 @NgModule({
     declarations: [
@@ -13,7 +15,9 @@ import { OnResizeDirective } from "./on-resize.directive";
         InViewDirective,
         LongPressDirective,
         OnDragDirective,
-        OnResizeDirective
+        OnResizeDirective,
+        ChangeSrcDirective,
+        ScrollToBottomDirective
     ],
     exports: [
         ClickOutsideDirective,
@@ -21,7 +25,9 @@ import { OnResizeDirective } from "./on-resize.directive";
         InViewDirective,
         LongPressDirective,
         OnDragDirective,
-        OnResizeDirective
+        OnResizeDirective,
+        ChangeSrcDirective,
+        ScrollToBottomDirective
     ]
 })
 

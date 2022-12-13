@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { timer } from "rxjs";
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { take, takeUntil, timer } from "rxjs";
 import { GameDropdownComponent } from "../game-dropdown/game-dropdown.component";
 
 
@@ -15,11 +15,14 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements On
     @ViewChild('menuItems') menuItems!: ElementRef;
 
     scriptStarted: boolean = false;
+    get scriptIndex() { return this.widgetService.scriptIndex };
+    set scriptIndex(index: number | undefined) { this.widgetService.scriptIndex = index}
 
     ngOnInit() {
       this.alwaysOpen = true;
       this.menuActive = true;
       this.dropdownGames$();
+      this.restartScript();
     }
 
     dropdownGames$() {
@@ -35,7 +38,7 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements On
           return;
         }
         if(this.scriptIndex >= this.games.length) this.scriptIndex = 0;
-        this.selectedScriptItem = this.games[this.scriptIndex];
+        this.widgetService.updateSelectedGame(this.games[this.scriptIndex]);
         this.title = this.selectedScriptItem?.general?.name;
         const menuItems = this.menuItems.nativeElement.getElementsByClassName('menu-item');
         const itemBottomPos = menuItems[this.scriptIndex].offsetTop - 14;
@@ -47,7 +50,7 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements On
           const scrollContainer = this.menuItems.nativeElement as HTMLElement;
           scrollContainer.scroll({top: 0, behavior: 'smooth'})
         }
-        this.onChange.emit(this.selectedScriptItem);
+        this.widgetService.updateSelectedGame(this.selectedScriptItem);
         this.scriptIndex++;
       })
     }

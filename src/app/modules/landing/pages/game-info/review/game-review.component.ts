@@ -38,7 +38,7 @@ export class GameReviewComponent {
 
     onClickLike() {
         if (!this.web3Service.isLoggedIn()) {
-            this.messageService.open('Unauthorized');
+            this.web3Service.login();
             return;
         }
         if (!this.game.isLiked) {

@@ -33,21 +33,21 @@ export class FilterUpdateComponent implements OnInit, OnDestroy {
 
     this.icon.nativeElement.style.animation = 'rotate 0.5s';
 
-    this.cacheService.cacheTotalByAssetType(this.type);
+    // this.cacheService.cacheTotalByAssetType(this.type);
   }
 
   ngOnInit(): void {
-    this.cacheService.cacheTotalByAssetType(this.type);
+    // this.cacheService.cacheTotalByAssetType(this.type);
     this.total$();
   }
 
 
   total$() {
-    this.sub = this.cacheService.totalAssets$().subscribe(total => {
-      if(this.type == 'avatar') this._total.next(total.avatar);
-      if(this.type == 'item') this._total.next(total.item);
-      if(this.type == 'gem') this._total.next(total.gem);
-  })
+  //   this.sub = this.cacheService.totalAssets$().subscribe(total => {
+  //     if(this.type == 'avatar') this._total.next(total.avatar);
+  //     if(this.type == 'item') this._total.next(total.item);
+  //     if(this.type == 'gem') this._total.next(total.gem);
+  // })
   }
 
   ngOnDestroy() {

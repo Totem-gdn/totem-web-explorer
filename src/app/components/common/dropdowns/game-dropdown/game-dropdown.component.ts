@@ -2,6 +2,7 @@ import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementR
 import { Router } from "@angular/router";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
+import { WidgetService } from "@app/core/services/states/widget-state.service";
 import { Subject, Subscription, takeUntil } from "rxjs";
 
 @Component({
@@ -17,12 +18,12 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
 
   constructor(private router: Router,
     public gamesService: GamesService,
+    public widgetService: WidgetService,
     private changeDetector: ChangeDetectorRef,
   ) { }
 
-  selectedScriptItem!: GameDetail | undefined;
+  selectedScriptItem!: GameDetail | null;
   scriptSub!: Subscription;
-  scriptIndex: number | undefined = 0;
 
   @Input() type: string = 'game';
   @Input() title: string | undefined = 'Menu';
@@ -50,6 +51,7 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
     this.filterGames('');
     this.games$();
     this.selectedGame$();
+    this.selectedScriptItem$();
   }
 
   ngAfterViewChecked() {
@@ -85,6 +87,14 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
       })
   }
 
+  selectedScriptItem$(){
+    this.widgetService.selectedGame$
+    .pipe(takeUntil(this.subs))
+    .subscribe(game => {
+      this.selectedScriptItem = game;
+    })
+  }
+
   selectedGame$() {
     this.gamesService.selectedGame$
       .pipe(takeUntil(this.subs))
@@ -98,10 +108,12 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
 
   onChangeInput(game: GameDetail) {
     this.selectedGame = game;
-    this.scriptIndex = undefined;
     this.title = game?.general?.name || '';
     this.gamesService.gameInSession = game;
     this.onChange.emit(game);
+    this.widgetService.scriptIndex = undefined;
+    this.widgetService.updateSelectedGame(game);
+    this.selectedScriptItem = game;
     if (!this.alwaysOpen) {
       this.menuActive = false;
     }

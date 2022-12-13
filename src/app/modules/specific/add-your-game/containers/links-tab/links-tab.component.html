@@ -1,7 +1,7 @@
 <div class="desc-form">
   <form class="form-section" [formGroup]="connectionsForm">
 
-    <h3>{{'specific.сonnections_and_links' | translate}}</h3>
+    <h3>{{'specific.connections_and_links' | translate}}</h3>
 
     <div class="info-block">
       <div class="info-block-wrapper">
@@ -9,8 +9,9 @@
           <h4>{{'specific.official_web_page' | translate}}</h4>
           <div class="input-section">
             <input type="text" formControlName="webpage" (change)="updateForm()">
-            <span>{{'specific.enter_URL_marketplace' | translate}}, https://Creators.itch.io/game</span>
+            <span>{{'specific.enter_URL_marketplace' | translate}}, https://creators.itch.io/game</span>
             <span @showMessage class="error-message" *ngIf="webPageErrors">{{'profile.required_field' | translate}}</span>
+            <span @showMessage class="error-message" *ngIf="isTherePatternIssues()">Input must be a url</span>
           </div>
         </div>
       </div>
@@ -76,7 +77,7 @@
 
     <div class="py-[80px] flex justify-center">
       <!-- <totem-button class="flex" [caption]="'Continue'"></totem-button> -->
-      <totem-button [disabled]="submitDisabled" class="flex ml-[20px]" [caption]="'Submit Game'" (click)="submitGameInfo()"></totem-button>
+      <totem-button [disabled]="submitDisabled" class="flex ml-[20px]" [caption]="'Submit Game'" (clicked)="submitGameInfo()"></totem-button>
     </div>
 
 

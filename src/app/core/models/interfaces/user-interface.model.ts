@@ -5,6 +5,17 @@ export interface UserEntity {
   wallet?: string;
 }
 
+export interface UserMessage {
+  date: string;
+  id: string;
+  isRead: boolean;
+  isOpened?: boolean;
+  isChecked?: boolean;
+  message: string;
+  subject: string;
+  type: string;
+}
+
 export interface OpenLoginUserInfo {
   email?: string | undefined;
   name?: string;
@@ -17,4 +28,4 @@ export interface OpenLoginUserInfo {
   idToken?: string;
   oAuthIdToken?: string;
   oAuthAccessToken?: string;
-};
+}
