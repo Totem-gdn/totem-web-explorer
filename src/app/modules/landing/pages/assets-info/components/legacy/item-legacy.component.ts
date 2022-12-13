@@ -31,7 +31,6 @@ export class ItemLegacyComponent implements OnInit {
 
     this.legacyService.fetchLegacies(this.asset.tokenId).subscribe(leg => {
       if(!leg.achievements) return;
-      console.log(leg)
       this.achievements = leg.achievements;
     })
   }

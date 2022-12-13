@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } fro
 import { FiltersService } from '@app/components/common/filters-components/services/filters.service';
 import { TagsService } from '@app/components/common/filters-components/services/tags.service';
 import { GamesService } from '@app/core/services/assets/games.service';
-import { concatMap, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'filter-menu',
@@ -77,7 +77,6 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   onChangeInput(event: any) {
     const value = event.target.value;
     const reference = event.target;
-    console.log('radio value', event.target.value);
     if (this.inputType === 'radio') {
       if(this.checkedItems[0]) this.tagsService.removeTag(this.checkedItems[0]);
       this.checkedItems = [{ value: value, type: this.title, reference: reference }];
