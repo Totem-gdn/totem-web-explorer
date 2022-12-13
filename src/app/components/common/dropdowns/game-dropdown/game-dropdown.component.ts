@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
-import { Subject, Subscription, takeUntil } from "rxjs";
+import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 
 @Component({
   selector: 'game-dropdown',
@@ -14,16 +14,17 @@ import { Subject, Subscription, takeUntil } from "rxjs";
   }
 })
 
-export class GameDropdownComponent implements AfterViewChecked, OnDestroy, AfterViewInit {
+export class GameDropdownComponent extends OnDestroyMixin implements AfterViewChecked, OnDestroy, AfterViewInit {
 
   constructor(private router: Router,
     public gamesService: GamesService,
     public widgetService: WidgetService,
     private changeDetector: ChangeDetectorRef,
-  ) { }
+  ) {
+    super();
+  }
 
   selectedScriptItem!: GameDetail | null;
-  scriptSub!: Subscription;
 
   @Input() type: string = 'game';
   @Input() title: string | undefined = 'Menu';
@@ -36,7 +37,6 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
   resetSearch: boolean = false;
   selectedItem!: GameDetail;
 
-  subs = new Subject<void>();
   @ViewChild('dropdown') dropdown!: ElementRef;
 
   searchGames = false;
@@ -61,13 +61,16 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
   filterGames(filter: string) {
     this.searchGames = true;
     this.games = [];
-    this.gamesService.filterDropdownGames(filter).subscribe();
+    this.gamesService.filterDropdownGames(filter).pipe(
+      untilComponentDestroyed(this),
+    ).subscribe();
   }
 
   games$() {
     this.gamesService.dropdownGames$
-      .pipe(takeUntil(this.subs))
-      .subscribe(games => {
+      .pipe(
+        untilComponentDestroyed(this),
+      ).subscribe(games => {
         if (games) {
           this.games = games;
           const sessionGame = this.gamesService.gameInSession;
@@ -87,18 +90,20 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
       })
   }
 
-  selectedScriptItem$(){
+  selectedScriptItem$() {
     this.widgetService.selectedGame$
-    .pipe(takeUntil(this.subs))
-    .subscribe(game => {
-      this.selectedScriptItem = game;
-    })
+      .pipe(
+        untilComponentDestroyed(this)
+      ).subscribe(game => {
+        this.selectedScriptItem = game;
+      })
   }
 
   selectedGame$() {
     this.gamesService.selectedGame$
-      .pipe(takeUntil(this.subs))
-      .subscribe(game => {
+      .pipe(
+        untilComponentDestroyed(this),
+      ).subscribe(game => {
         if (game) {
           this.selectedGame = game;
           this.title = game?.general?.name || '';
@@ -137,12 +142,6 @@ export class GameDropdownComponent implements AfterViewChecked, OnDestroy, After
     } else if (this.type === 'avatar') {
       this.router.navigate(['/avatars']);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.unsubscribe();
-    this.scriptSub?.unsubscribe();
   }
 
   toggleList() {
