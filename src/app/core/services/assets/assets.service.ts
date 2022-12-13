@@ -1,11 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
-import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
 import { BehaviorSubject, tap } from "rxjs";
-import Web3 from "web3";
+import { SearchParamsModel } from "../model/search-params.model";
 import { CacheService } from "./cache.service";
 const { DNAParser } = require('totem-dna-parser');
 
@@ -47,9 +46,8 @@ export class AssetsService {
     set item(value: any) { this._item.next(value) }
     set gem(value: any) { this._gem.next(value) }
 
-    updateAssets(type: string, page: number, list: string) {
-
-        return this.http.get<any[]>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(tap(assets => {
+    updateAssets(type: string, page: number, list: string, params?: SearchParamsModel) {
+        return this.http.get<any[]>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&search=${params?.search}`).pipe(tap(assets => {
             const formatedAssets = this.formatAssets(assets, type);
 
             if (type == 'avatar') this._avatars.next(formatedAssets);

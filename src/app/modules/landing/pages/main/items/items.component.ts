@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
@@ -14,7 +15,11 @@ import { Subject, takeUntil } from "rxjs";
 
 export class ItemsComponent implements OnDestroy {
 
-  constructor(private assetsService: AssetsService, private gtag: Gtag) {
+  constructor(
+    private assetsService: AssetsService,
+    private gtag: Gtag,
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.gtag.event('page_view');
   }
 
@@ -27,7 +32,8 @@ export class ItemsComponent implements OnDestroy {
   }
 
   updateAssets() {
-    this.assetsService.updateAssets('item', 1, 'newest').subscribe(() => {
+    const search = this.activatedRoute.snapshot.queryParams["searchParams"];
+    this.assetsService.updateAssets('item', 1, 'newest', { search }).subscribe(() => {
     });
     this.assetsService.items$
       .pipe(takeUntil(this.subs))

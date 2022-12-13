@@ -74,7 +74,6 @@ export class CryptoUtilsService
         const contractGas = await contract.methods.transfer(to, amount).estimateGas({ from: wallet });
         const gasPrice = await web3.eth.getGasPrice();
         const fee = +contractGas * +gasPrice;
-        console.log('fee', fee)
         const gasFee = web3.utils.fromWei(fee.toString());
         return gasFee;
     }

@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, forkJoin, Observable } from "rxjs";
-import { AssetsCache, TotalAssets } from "../models/interfaces/assets.modle";
+import { BehaviorSubject, Observable } from "rxjs";
+import { AssetsCache } from "../models/interfaces/assets.modle";
 
 
 
@@ -25,14 +25,11 @@ export class ProfileService
     cacheTotalAssets(): void
     {
         this.http.get<any>(`${this.baseUrl}/auth/me`).subscribe(total => {
-            console.log(total)
             let _total = this.totalAssets;
-
             _total.totalAvatars = total.avatars;
             _total.totalItems = total.items;
             _total.totalGems = total.gems;
             this.totalAssets = _total;
-
         })
     }
     cacheTotalFavAssets(): void
@@ -46,7 +43,6 @@ export class ProfileService
                 if(asset = 'items') _total.totalFavItems = total.length;
                 if(asset = 'avatars') _total.totalFavAvatars = total.length;
                 if(asset = 'gems') _total.totalFavGems = total.length;
-                console.log(_total)
                 this.totalAssets = _total;
             })
         }
