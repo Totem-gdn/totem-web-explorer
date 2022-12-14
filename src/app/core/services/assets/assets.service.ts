@@ -52,24 +52,40 @@ export class AssetsService {
 
 
     updateAssets(type: ASSET_TYPE, page: number, list: PARAM_LIST = PARAM_LIST.NEWEST) {
+        if(this.baseUrl == 'https://api.totem-explorer.com') {
+            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
+                // map(assets => assets.data),
+                tap(assets => {
+                    const formatedAssets = this.formatAssets(assets, type);
+    
+                    if (type == 'avatar') this._avatars.next(formatedAssets);
+                    if (type == 'gem') this._gems.next(formatedAssets);
+                    if (type == 'item') this._items.next(formatedAssets);
+                }));
+        } else {
+            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
+                map(assets => assets.data),
+                tap(assets => {
+                    const formatedAssets = this.formatAssets(assets, type);
+    
+                    if (type == 'avatar') this._avatars.next(formatedAssets);
+                    if (type == 'gem') this._gems.next(formatedAssets);
+                    if (type == 'item') this._items.next(formatedAssets);
+                }));
+        }
 
-        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
-            map(assets => assets.data),
-            tap(assets => {
-                const formatedAssets = this.formatAssets(assets, type);
-
-                if (type == 'avatar') this._avatars.next(formatedAssets);
-                if (type == 'gem') this._gems.next(formatedAssets);
-                if (type == 'item') this._items.next(formatedAssets);
-            }));
     }
 
     fetchAssets(type: ASSET_TYPE, page: number, list: PARAM_LIST = PARAM_LIST.NEWEST) {
-        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(map(assets => assets.data));
+        if (this.baseUrl == 'https://api.totem-explorer.com') {
+            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
+        } else {
+            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(map(assets => assets.data));
+        }
+       
     }
 
     updateAsset(id: string, type: string) {
-
         return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(tap(asset => {
             const formattedAsset = this.formatAsset(asset, type);
 
@@ -97,8 +113,13 @@ export class AssetsService {
     }
 
     getAssetsByName(type: ASSET_TYPE, word: string): Observable<any[]> {
-        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`)
-        .pipe(map(assets => assets.data));
+        if (this.baseUrl == 'https://api.totem-explorer.com') {
+            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`);
+        } else {
+            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`)
+            .pipe(map(assets => assets.data));
+        }
+
     }
 
 
