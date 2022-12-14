@@ -1,11 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { Legacy } from "@app/core/models/interfaces/legacy.model";
+import { environment } from "@env/environment";
+import { map, Observable } from "rxjs";
 
 
 @Injectable({providedIn: 'root'})
 
 export class LegacyService {
+    baseUrl: string = environment.TOTEM_BASE_API_URL;
 
     constructor(private http: HttpClient) {}
 
@@ -15,6 +19,25 @@ export class LegacyService {
 
         // return this.http.get<Legacy>(`https://legacy-api.totem.gdn/itemId-000000`);
     }
+
+    fetchAssetLegacies(type: ASSET_TYPE) {
+        return this.http.get(`${this.baseUrl}/asset-legacy/${type}`);
+    }
+    fetchAssetLegacyById(type: ASSET_TYPE, id: string | number) {
+        return this.http.get(`${this.baseUrl}/asset-legacy/${type}/${id}`).pipe(map(legacy => {
+            console.log(legacy)
+        }))
+    }
+
+    fetchGameLegacies() {
+        return this.http.get(`${this.baseUrl}/game-legacy`);
+    }
+    fetchGameLegacyById( id: string | number) {
+        return this.http.get(`${this.baseUrl}/game-legacy/${id}`).pipe(map(legacy => {
+            console.log(legacy)
+        }))
+    }
+
     
     
     sortAchievements(legacies: any) {
