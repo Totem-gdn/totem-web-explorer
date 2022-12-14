@@ -42,8 +42,7 @@ export class AssetCardComponent implements AfterViewInit {
   }
 
   _asset!: AssetInfo;
-  changeImgSrc: boolean = false;
-  timeout?: any;
+  showSpinner: boolean = false;
 
   ngAfterViewInit() {
     this.changeDetector.detectChanges();
@@ -68,18 +67,6 @@ export class AssetCardComponent implements AfterViewInit {
           'event_label': `remove like for ${this.type} with id ${this._asset.id}`,
         });
       });
-    }
-  }
-
-  changeSrc(value: boolean) {
-    console.log(value)
-    if(value == true) {
-      this.timeout = setTimeout(() => {
-        this.changeImgSrc = true;
-      }, 500);
-    } else {
-      clearTimeout(this.timeout);
-      this.changeImgSrc = false;
     }
   }
 
