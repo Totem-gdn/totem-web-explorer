@@ -211,11 +211,13 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
   }
   goToAvatar(id: string) {
     this.closeDropdown();
+    this.clearSearchResult();
     this.router.navigateByUrl(`/avatar/${id}`);
     this.routingEvent.next('closed');
   }
   goToGame(id: string) {
     this.closeDropdown();
+    this.clearSearchResult();
     this.router.navigateByUrl(`/game/${id}`);
     this.routingEvent.next('closed');
   }
