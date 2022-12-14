@@ -1,10 +1,11 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
-import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { environment } from "@env/environment";
-import { Subject, takeUntil } from "rxjs";
+import { pipe, Subject, take, takeUntil } from "rxjs";
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
 
 
@@ -20,10 +21,10 @@ const { DNAParser, ContractHandler } = require('totem-dna-parser');
 export class AssetInfoComponent implements AfterViewInit {
 
     constructor(
-        private itemsService: TotemItemsService,
         private changeDetector: ChangeDetectorRef,
         private dnaService: DNAParserService,
-        private gamesService: GamesService
+        private gamesService: GamesService,
+        private assetsService: AssetsService
     ) { }
 
     assetRendererUrl = environment.ASSET_RENDERER_URL;
@@ -36,7 +37,7 @@ export class AssetInfoComponent implements AfterViewInit {
     subs = new Subject<void>();
     activeTab = 'properties';
 
-    @Input() type!: string;
+    @Input() type!: ASSET_TYPE;
     @Input() set item(asset: any) {
         this._item = asset;
         if (asset === null) this.notFound = true;
@@ -77,24 +78,11 @@ export class AssetInfoComponent implements AfterViewInit {
     }
 
     sliderItems() {
-        if (this.type == 'avatar') {
-            this.itemsService.getAvatars$().pipe(takeUntil(this.subs))
-                .subscribe(assets => {
-                    this.assets = assets;
-                })
-        }
-        if (this.type == 'gem') {
-            this.itemsService.getGems$().pipe(takeUntil(this.subs))
-                .subscribe(assets => {
-                    this.assets = assets;
-                })
-        }
-        if (this.type == 'item') {
-            this.itemsService.getItems$().pipe(takeUntil(this.subs))
-                .subscribe(assets => {
-                    this.assets = assets;
-                })
-        }
+        this.assetsService.updateAssets(this.type, 1)
+        .pipe(take(1))
+        .subscribe(assets => {
+            this.assets = assets;
+        });
     }
 
     async processItem(id: number, gameName?: string | undefined) {
@@ -114,12 +102,14 @@ export class AssetInfoComponent implements AfterViewInit {
         const DNA = await contractHandler.getDNA(id)
 
         const parser = new DNAParser(json, DNA)
-
         this._item.rarity = parser.getItemRarity(id)
 
         this.properties.map((prop) => {
-            const value = parser.getField(prop.id);
-            prop.value = this.dnaService.handleDNAField(prop.id, value);
+            let value = parser.getField(prop.id);
+            if (prop.type == 'Color') {
+                value = this.dnaService.rgba2hex(value);
+            }
+            prop.value = value;
         })
     }
 

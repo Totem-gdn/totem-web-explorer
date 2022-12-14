@@ -27,9 +27,9 @@ export class FilterUpdateComponent implements OnInit, OnDestroy {
   sub!: Subscription;
 
   onClick() {
-    this.icon.nativeElement.style.animation = null;
-    this.icon.nativeElement.offsetHeight;
+    // this.icon.nativeElement.style.animation = null;
     this.icon.nativeElement.style.animation = 'none';
+    this.icon.nativeElement.offsetHeight;
 
     this.icon.nativeElement.style.animation = 'rotate 0.5s';
 

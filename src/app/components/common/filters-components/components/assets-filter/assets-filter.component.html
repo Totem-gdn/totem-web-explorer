@@ -12,17 +12,28 @@
             <h3>{{'items.filters' | translate}}</h3>
         </div>
 
+        <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [type]="'games'"></filter-menu>
+        <ng-container *ngFor="let prop of properties">
+            <!-- <ng-container *ngIf="prop.type == 'range'"></ng-container>
+            <ng-container *ngIf="prop.type == 'map'"></ng-container> -->
+            <!-- <filter-menu 
+            [title]="prop.description"
+            [inputType]="prop.type == 'int' ? 'range':
+                         prop.type == 'map' ? 'checkbox':
+                         prop.type == 'Color'"></filter-menu> -->
+            
+        </ng-container>
         <!-- Items Menus -->
+
         <div *ngIf="type == 'item'" class="py-[45px] lg:py-0">
-            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [type]="'games'"></filter-menu>
             <filter-menu [title]="'items.damage' | translate"  [searchType]="'range'"></filter-menu>
             <filter-menu [title]="'items.magical_power' | translate" [searchType]="'range'"></filter-menu>
             <filter-menu [title]="'items.element' | translate" [inputType]="'checkbox'" [searchType]="null" [items]="elements"></filter-menu>
             <filter-menu [title]="'items.range' | translate" [searchType]="'range'"></filter-menu>
         </div>
-        <!-- Avatars Menus -->
+
         <div *ngIf="type == 'avatar'" class="py-[45px] lg:py-0">
-            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [type]="'games'"></filter-menu>
+           
             <filter-menu [title]="'items.sex' | translate" [items]="sexes" [menuHeight]="'100px'" [inputType]="'radio'" [searchType]="null"></filter-menu>
             <filter-menu [title]="'items.skin_color' | translate" [items]="skinColors" [inputType]="'checkbox'"></filter-menu>
             <filter-menu [title]="'items.hair_color' | translate" [items]="hairColors" [inputType]="'checkbox'"></filter-menu>

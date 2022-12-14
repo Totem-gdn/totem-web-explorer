@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CarouselModule } from "@app/components/common/carousel/carousel.module";
+import { ShareButtonModule } from "@app/components/utils/share-button/share-button.module";
 import { NotFoundModule } from "@app/modules/specific/page-not-found/not-found/not-found.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { BackgroundCircleModule } from "../../../../components/utils/bg-circle/bg-circle.module";
@@ -26,7 +27,8 @@ import { GameReviewComponent } from "./review/game-review.component";
         CarouselModule,
         BackgroundCircleModule,
         NotFoundModule,
-        TotemSpinnerModule
+        TotemSpinnerModule,
+        ShareButtonModule
     ],
     exports: [
         GameInfoComponent

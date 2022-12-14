@@ -6,6 +6,7 @@ import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.mo
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
+import { take } from "rxjs";
 import { SnackNotifierService } from "../../../../../components/utils/snack-bar-notifier/snack-bar-notifier.service";
 
 interface Rate {
@@ -43,11 +44,15 @@ export class GameReviewComponent {
         }
         if (!this.game.isLiked) {
             this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
-                this.gamesService.updateGame(this.game.id).subscribe();
+                this.gamesService.updateGame(this.game.id)
+                .pipe(take(1))
+                .subscribe();
             });
         } else {
             this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
-                this.gamesService.updateGame(this.game.id).subscribe();
+                this.gamesService.updateGame(this.game.id)
+                .pipe(take(1))
+                .subscribe();
             });
         }
     }
@@ -79,6 +84,12 @@ export class GameReviewComponent {
         for(let i = 0; i < this.rating.length; i++) {
             this.rating[i].selected = false;
         }
+    }
+
+    updateGame() {
+        this.gamesService.updateGame(this.game.id)
+        .pipe(take(1))
+        .subscribe();
     }
 
     onToggle() {

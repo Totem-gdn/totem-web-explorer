@@ -1,6 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
-import { DNAField } from '@app/core/models/interfaces/dna-field.model';
+import { AssetDNAField, DNAField } from '@app/core/models/interfaces/dna-field.model';
 import { Subject, Subscription } from 'rxjs';
 
 enum queries {
@@ -26,7 +26,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   placeholdersSub!: Subscription;
 
   tagsWidth = [];
-  _properties!: DNAField[];
+  _properties!: AssetDNAField[];
   placeholders = [];
 
   @ViewChild('grid') grid!: ElementRef;
@@ -107,8 +107,6 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   gridPlaceholders(length: number) {
     if(!this._properties?.length) return;
-    // console.log(this._properties)
-    // console.log('length', length, 'properties length', this._properties?.length);
     if (this._properties.length < length) {
       this.placeholders = [].constructor(length - this._properties.length)
       return;

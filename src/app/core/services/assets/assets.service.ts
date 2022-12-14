@@ -3,10 +3,14 @@ import { Injectable } from "@angular/core";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
-import { BehaviorSubject, tap } from "rxjs";
 import { SearchParamsModel } from "../model/search-params.model";
+import { BehaviorSubject, map, Observable, take, tap } from "rxjs";
+import Web3 from "web3";
 import { CacheService } from "./cache.service";
+import { PARAM_LIST } from "@app/core/models/enums/params.enum";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 const { DNAParser } = require('totem-dna-parser');
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -46,14 +50,22 @@ export class AssetsService {
     set item(value: any) { this._item.next(value) }
     set gem(value: any) { this._gem.next(value) }
 
-    updateAssets(type: string, page: number, list: string, params?: SearchParamsModel) {
-        return this.http.get<any[]>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&search=${params?.search}`).pipe(tap(assets => {
-            const formatedAssets = this.formatAssets(assets, type);
 
-            if (type == 'avatar') this._avatars.next(formatedAssets);
-            if (type == 'gem') this._gems.next(formatedAssets);
-            if (type == 'item') this._items.next(formatedAssets);
-        }));
+    updateAssets(type: ASSET_TYPE, page: number, list: PARAM_LIST = PARAM_LIST.NEWEST) {
+
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
+            map(assets => assets.data),
+            tap(assets => {
+                const formatedAssets = this.formatAssets(assets, type);
+
+                if (type == 'avatar') this._avatars.next(formatedAssets);
+                if (type == 'gem') this._gems.next(formatedAssets);
+                if (type == 'item') this._items.next(formatedAssets);
+            }));
+    }
+
+    fetchAssets(type: ASSET_TYPE, page: number, list: PARAM_LIST = PARAM_LIST.NEWEST) {
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(map(assets => assets.data));
     }
 
     updateAsset(id: string, type: string) {
@@ -82,6 +94,11 @@ export class AssetsService {
         asset.rarity = parser.getItemRarity(asset?.tokenId);
         asset.assetType = assetType;
         return asset;
+    }
+
+    getAssetsByName(type: ASSET_TYPE, word: string): Observable<any[]> {
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`)
+        .pipe(map(assets => assets.data));
     }
 
 

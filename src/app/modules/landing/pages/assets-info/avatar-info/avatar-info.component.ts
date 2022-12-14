@@ -5,6 +5,7 @@ import { GamesService } from "@app/core/services/assets/games.service";
 import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
 import { ChangeDetectorRef } from "@angular/core";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 
 @Component({
   selector: 'avatar-info',
@@ -12,6 +13,7 @@ import { ChangeDetectorRef } from "@angular/core";
 })
 
 export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
+  assetType: typeof ASSET_TYPE = ASSET_TYPE;
 
   constructor(
     private assetsService: AssetsService,

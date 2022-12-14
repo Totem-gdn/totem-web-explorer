@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -24,7 +26,7 @@ export class UserItemsComponent implements OnInit {
   }
 
   getNfts() {
-    this.assetsService.updateAssets('item', 1, 'my').subscribe();
+    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1, PARAM_LIST.MY).subscribe();
     this.assetsService.items$
       .pipe(takeUntil(this.subs))
       .subscribe(items => {
@@ -32,7 +34,7 @@ export class UserItemsComponent implements OnInit {
       })
   }
   onLoadMore(page: number) {
-    this.assetsService.updateAssets('item', page, 'my').subscribe();
+    this.assetsService.updateAssets(ASSET_TYPE.ITEM, page, PARAM_LIST.MY).subscribe();
   }
 
   ngOnDestroy(): void {

@@ -14,6 +14,6 @@ import { ShareButtonComponent } from "./share-button.component";
     ]
 })
 
-export class SharedButtomModule {
-    
+export class ShareButtonModule {
+
 }

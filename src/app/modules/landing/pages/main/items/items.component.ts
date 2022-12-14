@@ -1,5 +1,7 @@
 import { Component, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
+import { PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
@@ -32,8 +34,7 @@ export class ItemsComponent implements OnDestroy {
   }
 
   updateAssets() {
-    const search = this.activatedRoute.snapshot.queryParams["searchParams"];
-    this.assetsService.updateAssets('item', 1, 'newest', { search }).subscribe(() => {
+    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1, PARAM_LIST.NEWEST).subscribe(() => {
     });
     this.assetsService.items$
       .pipe(takeUntil(this.subs))
@@ -52,11 +53,11 @@ export class ItemsComponent implements OnDestroy {
   }
 
   onSort(sortMethod: any) {
-    this.assetsService.updateAssets('item', 1, sortMethod).subscribe();
+    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1, sortMethod).subscribe();
   }
 
   onLoadMore(page: number) {
-    this.assetsService.updateAssets('item', page, 'newest').subscribe();
+    this.assetsService.updateAssets(ASSET_TYPE.ITEM, page, PARAM_LIST.NEWEST).subscribe();
   }
 
   ngOnDestroy(): void {

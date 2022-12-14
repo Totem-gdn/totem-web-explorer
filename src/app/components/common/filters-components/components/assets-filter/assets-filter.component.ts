@@ -1,7 +1,9 @@
 import { DOCUMENT } from "@angular/common";
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from "@angular/core";
+import { DNAField } from "@app/core/models/interfaces/dna-field.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
+import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { Subject, takeUntil } from "rxjs";
 import { FiltersService } from "../../services/filters.service";
 
@@ -19,7 +21,8 @@ export class AssetsFilterComponent implements AfterViewInit {
     constructor(private filtersService: FiltersService,
                 @Inject(DOCUMENT) private document: Document,
                 private gamesService: GamesService,
-                private changeDetector: ChangeDetectorRef) { }
+                private changeDetector: ChangeDetectorRef,
+                private dnaService: DNAParserService) { }
 
     @ViewChild('dropupMenu') dropupMenu!: ElementRef;
     @Input() type = '';
@@ -27,9 +30,9 @@ export class AssetsFilterComponent implements AfterViewInit {
     isDropupOpen!: boolean;
     selectedGame!: GameDetail;
     subs = new Subject<void>();
+    properties!: DNAField[];
 
     ngAfterViewInit() {
-        this.changeDetector.detectChanges();
         this.filtersService.dropupOpen$
         .pipe(takeUntil(this.subs))
         .subscribe(isOpen => {
@@ -37,18 +40,22 @@ export class AssetsFilterComponent implements AfterViewInit {
             this.updateMenu();
         })
 
-        this.gamesService.selectedGame;
         this.selectedGame$();
+        this.changeDetector.detectChanges();
     }
 
     selectedGame$() {
-        this.gamesService.selectedGame$
-            .pipe(takeUntil(this.subs))
-            .subscribe(selectedGame => {
-                if(!selectedGame) return;
-                this.selectedGame = selectedGame;
-            })
+        this.gamesService.selectedGame$.subscribe(game => {
+            this.processFiltersContent(game);
+        })
     }
+
+    processFiltersContent(game: GameDetail | null) {
+        const properties = this.dnaService.getJSON(game?.general?.name, this.type);
+        this.properties = properties;
+    }
+
+
 
     toggleMenu() {
         this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
