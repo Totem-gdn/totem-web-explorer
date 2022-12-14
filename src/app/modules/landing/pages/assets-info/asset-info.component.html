@@ -13,9 +13,13 @@
                 <div class="img-wrapper gradient-border-solid m-auto lg:m-0">
                     <div class="flex relative">
                         <img loading="lazy" *ngIf="_item?.tokenId"
-                        [src]="assetRendererUrl + '/' + type + '/' + _item?.tokenId + '?width=470&height=470'"
-                        alt=""
-                        (error)="updateUrl()">
+                            (changeSrc)="showSpinner = $event"
+                            [src]="assetRendererUrl + '/' + type + '/' + _item?.tokenId + '?width=470&height=470'"
+                            alt=""
+                            (error)="updateUrl()">
+
+                        <totem-spinner *ngIf="showSpinner" class="z-1 absolute_center m-auto"></totem-spinner>
+
                         <div class="w-[100%] mt-[100%]"></div>
                     </div>
                 </div>

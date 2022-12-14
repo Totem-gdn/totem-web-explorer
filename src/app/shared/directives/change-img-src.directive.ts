@@ -1,21 +1,23 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, OnDestroy, OnInit, Output } from "@angular/core";
 
 @Directive({
-    selector: 'img[changeSrc]'
+  selector: 'img[changeSrc]'
 })
 
-export class ChangeSrcDirective implements OnDestroy
-{
-    private changes: MutationObserver;
-    @Output() changeSrc = new EventEmitter<boolean>();
+export class ChangeSrcDirective implements OnDestroy {
+  private changes: MutationObserver;
+  @Output() changeSrc = new EventEmitter<boolean>();
+
+  timeout!: any;
 
   constructor(private elementRef: ElementRef) {
     this.changes = new MutationObserver((mutations: MutationRecord[]) => {
-      // this.opacity = 1;
-
       mutations.filter(m => m.attributeName === 'src').forEach(() => {
         this.opacity = 0.2
-        this.changeSrc.emit(true);
+        this.timeout = setTimeout(() => {
+          this.changeSrc.emit(true);
+        }, 700);
+
       })
     }
     );
@@ -27,16 +29,18 @@ export class ChangeSrcDirective implements OnDestroy
     });
   }
 
-  @HostBinding('style.opacity') opacity = 0;
+
 
   ngOnDestroy(): void {
     this.changes.disconnect();
   }
 
+  @HostBinding('style.opacity') opacity = 0;
   @HostListener('load')
+
   onLoad(): void {
-    // this.opacity = 0;
     this.opacity = 1;
+    clearTimeout(this.timeout);
     this.changeSrc.emit(false);
   }
 }

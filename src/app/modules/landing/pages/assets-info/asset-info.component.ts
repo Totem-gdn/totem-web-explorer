@@ -36,6 +36,7 @@ export class AssetInfoComponent implements AfterViewInit {
     notFound: boolean = false;
     subs = new Subject<void>();
     activeTab = 'properties';
+    showSpinner: boolean = false;
 
     @Input() type!: ASSET_TYPE;
     @Input() set item(asset: any) {
