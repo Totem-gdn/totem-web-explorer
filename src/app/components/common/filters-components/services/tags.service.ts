@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ItemParam } from "@app/core/models/interfaces/item-param.model";
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
-import { TotemItemsService } from "@app/core/services/totem-items.service";
 import { BehaviorSubject } from "rxjs";
 
 
@@ -9,7 +8,6 @@ import { BehaviorSubject } from "rxjs";
 
 export class TagsService {
 
-    constructor(private itemsService: TotemItemsService) { }
 
     private _tags = new BehaviorSubject<Tag[]>([]);
 
@@ -83,7 +81,7 @@ export class TagsService {
             }
             queryArray.push(query);
         }
-        this.itemsService.filters = queryArray;
+        // this.itemsService.filters = queryArray;
     }
 
     clear() {

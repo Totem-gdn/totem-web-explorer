@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Gtag } from "angular-gtag";
@@ -11,6 +12,7 @@ import { Subject, takeUntil } from "rxjs";
 })
 
 export class ItemInfoComponent implements AfterViewInit, OnDestroy {
+    assetType: typeof ASSET_TYPE = ASSET_TYPE;
 
     constructor(private assetsService: AssetsService,
         private route: ActivatedRoute,

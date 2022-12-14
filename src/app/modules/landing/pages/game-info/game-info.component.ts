@@ -41,7 +41,11 @@ export class GameInfoComponent extends OnDestroyMixin implements OnInit, OnDestr
                 const id = params.get('id');
                 if (!id) return;
                 this.game = undefined;
-                this.gameService.updateGame(id).subscribe();
+                this.gameService.updateGame(id).subscribe({
+                    error: () => {
+                        this.pageNotFound = true;
+                    }
+                });
             })
 
         this.gameService.updateGames(1).subscribe(games => {

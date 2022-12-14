@@ -8,7 +8,7 @@
                 </div>
     
                 <div class="flex justify-center items-center mt-[2px]">
-                    <div *ngIf="isValueColor(propertie?.value)" class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
+                    <div *ngIf="isValueColor(propertie?.value)" class="w-[14px] min-w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
                         [style.background-color]="propertie.value"></div>
                     <p class="truncate !text-light-grey">{{propertie.value}}</p>
                 </div>
@@ -21,7 +21,7 @@
         <div #tooltip class="tooltip">
             <span class="whitespace-nowrap">{{tooltipData?.title}}</span>
             <div class="flex justify-center items-center mt-[2px]">
-                <div *ngIf="isValueColor(tooltipData?.value)" class="w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
+                <div *ngIf="isValueColor(tooltipData?.value)" class="w-[14px] min-w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
                     [style.background-color]="tooltipData?.value"></div>
                     <span class="whitespace-nowrap">{{tooltipData?.value}}</span>
             </div>

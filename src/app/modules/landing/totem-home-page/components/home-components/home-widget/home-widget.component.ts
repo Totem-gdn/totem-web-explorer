@@ -7,6 +7,7 @@ import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.mo
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { Subject, Subscription, takeUntil } from "rxjs";
 import { GamesService } from "@app/core/services/assets/games.service";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 
 
 @Component({
@@ -65,11 +66,11 @@ export class HomeWidgetComponent implements OnInit, OnDestroy {
               private widgetService: WidgetService,
               private gamesService: GamesService) {
 
-    this.assetsService.updateAssets('avatar', 1, '').subscribe(avatars => {
+    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, 1).subscribe(avatars => {
       if (!avatars) return;
       this.card1 = avatars[0];
     });
-    this.assetsService.updateAssets('item', 1, '').subscribe(items => {
+    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1).subscribe(items => {
       if (!items) return;
       this.card2 = items[0];
     });

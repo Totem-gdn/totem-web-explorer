@@ -27,7 +27,6 @@ export class ServiceWorkerService {
             });
             break;
           case 'VERSION_INSTALLATION_FAILED':
-            // console.log(`Failed to install app version '${event.version.hash}': ${event.error}`);
             break;
         }
     });

@@ -37,15 +37,20 @@
             </div>
         </div>
         <div class="icon-set">
-            <div class="icon cursor-pointer" (click)="share.share('Share totem asset')">
-                <share-button #share></share-button>
+            <div class="icon cursor-pointer" (click)="share.share('Сheck out this asset')">
+                <share-button class="absolute" #share></share-button>
                 <div class="line-share"></div>
-                <p>{{'modules.share' | translate}}</p>
+                <p class="select-none">{{'modules.share' | translate}}</p>
             </div>
 
-            <div class="icon cursor-pointer" (click)="updateAsset()">
-                <div class="line-refresh"></div>
-                <p>{{'modules.refresh' | translate}}</p>
+            <div class="icon cursor-pointer" (click)="
+            updateAsset();
+            refresh.style.animation = 'none';
+            refresh.offsetHeight; 
+            refresh.style.animation = 'rotate 0.5s'">
+                <div #refresh class="line-refresh">
+            </div>
+                <p class="select-none">{{'modules.refresh' | translate}}</p>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { environment } from "@env/environment";
-import { BehaviorSubject, tap } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { BaseStorageService } from "../utils/base-storage.service";
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +25,7 @@ export class GamesService {
 
   private _lastDropdownFilter = new BehaviorSubject<string | null>(null);
 
-
+  get game() { return this.gameInSession }
   get game$() { return this._game.asObservable(); }
   set setGame(value: any) { this._game.next(value); }
 
@@ -61,6 +61,10 @@ export class GamesService {
 
   fetchGames(page: number, list = 'latest') {
     return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`);
+  }
+
+  getGameByName(word: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/games/search?name=${word}`);
   }
 
   filterDropdownGames(filter: string, updateStateGames = true) {

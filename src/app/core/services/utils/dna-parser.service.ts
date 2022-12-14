@@ -13,29 +13,30 @@ enum DNA_FILTER {
 
 export class DNAParserService {
 
-    handleDNAField(id: string, value: string) {
+    // handleDNAField(id: string, value: string) {
 
-        if (id == 'primary_color') {
-            return this.rgba2hex(value);
-        }
-        if (id == 'sex_bio') {
-            if (value == '0') return 'Male';
-            if (value == '1') return 'Female';
-        }
-        if (id == 'body_strength') {
-            if (value == '0') return 'Wimp';
-            if (value == '1') return 'Muscular';
-        }
-        if (id == 'body_type') {
-            if (value == '0') return 'Thin';
-            if (value == '1') return 'Fat';
-        }
+    //     // if (id == 'primary_color') {
+    //     //     return this.rgba2hex(value);
+    //     // }
+    //     // if (id == 'sex_bio') {
+    //     //     if (value == '0') return 'Male';
+    //     //     if (value == '1') return 'Female';
+    //     // }
+    //     // if (id == 'body_strength') {
+    //     //     if (value == '0') return 'Wimp';
+    //     //     if (value == '1') return 'Muscular';
+    //     // }
+    //     // if (id == 'body_type') {
+    //     //     if (value == '0') return 'Thin';
+    //     //     if (value == '1') return 'Fat';
+    //     // }
 
-        return value;
-    }
+    //     return value;
+    // }
 
-    rgba2hex(rgba: any) {
-        const rgb = rgba.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+    rgba2hex(str: any) {
+        if(str.match(/^#[a-f0-9]{6}$/i)) return;
+        const rgb = str.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
         return (rgb && rgb.length === 4) ? "#" +
             ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
             ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
@@ -52,39 +53,15 @@ export class DNAParserService {
         if(gameName == 'Dreadstone Keep' && type == 'avatar') return DNAFilter.totemAvatarDreadstoneKeepFilterJson;
         if(gameName == 'Dreadstone Keep' && type != 'avatar') return DNAFilter.totemItemDreadstoneKeepFilterJson;
 
+        if(gameName == 'Monk vs Robots' && type == 'avatar') return DNAFilter.monkVsRobotsAvatarFilterJson;
+        if(gameName == 'Monk vs Robots' && type != 'avatar') return DNAFilter.monkVsRobotsItemFilterJson;
+
+
 
         //Default filters
         if(!gameName || type != 'avatar') return DNAFilter.itemFilterJson;
         else return DNAFilter.avatarFilterJson;
     }
-
-//     assets_abi
-// : 
-// (26) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// avatarFilterJson
-// : 
-// (8) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// game_directory_abi
-// : 
-// (31) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// itemFilterJson
-// : 
-// (7) [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// legacy_abi
-// : 
-// (37) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// monkVsRobotsAvatarFilterJson
-// : 
-// (8) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// monkVsRobotsItemFilterJson
-// : 
-// (2) [{…}, {…}]
-// totemAvatarDreadstoneKeepFilterJson
-// : 
-// (7) [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// totemItemDreadstoneKeepFilterJson
-// : 
-// (3) [{…}, {…}, {…}]
 
     processProperties(gameName: string, properties: any[]) {
         // if (this.type == 'item' || 'gem') this.properties = [{ title: 'Type', id: 'classical_element', value: '--', tooltip: false }, { title: 'Damage', id: 'damage_nd', value: '--', tooltip: false }, { title: 'Range', id: 'range_nd', value: '--', tooltip: false }, { title: 'Power', id: 'power_nd', value: '--', tooltip: false }, { title: 'Magical Power', id: 'magical_exp', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]

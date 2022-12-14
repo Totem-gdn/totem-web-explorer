@@ -1,10 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { AssetsService } from '@app/core/services/assets/assets.service';
+import { GamesService } from '@app/core/services/assets/games.service';
 import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
-import { TotemItemsService } from '@app/core/services/totem-items.service';
 import { environment } from '@env/environment';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, combineLatest, debounceTime, map, of, switchMap, take } from 'rxjs';
@@ -47,7 +49,9 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
   constructor(
     private router: Router,
     private sidenavStateService: SidenavStateService,
-    private totemItemsService: TotemItemsService,
+    // private totemItemsService: TotemItemsService,
+    private assetsService: AssetsService,
+    private gamesService: GamesService,
     private gradientService: GradientService
   ) {
     super();
@@ -87,18 +91,19 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
     this.loading$.next(true);
     //this.submitGameService.getGame(params);
     combineLatest([
-      this.totemItemsService.getGameByName(params),
-      this.totemItemsService.getItemsByName(params),
-      this.totemItemsService.getAvatarsByName(params)
+      this.gamesService.getGameByName(params),
+      this.assetsService.getAssetsByName(ASSET_TYPE.ITEM, params),
+      this.assetsService.getAssetsByName(ASSET_TYPE.AVATAR, params)
+      // this.totemItemsService.getGameByName(params),
+      // this.totemItemsService.getItemsByName(params),
+      // this.totemItemsService.getAvatarsByName(params)
     ]).pipe(
       untilComponentDestroyed(this),
       take(1),
       map(([games, items, avatars]) => { return { games, items, avatars } })
     ).subscribe((data) => {
-      console.log('data', data);
       
       this.gamesArray.next(data.games && data.games?.length ? data.games : null);
-      console.log(this.gamesArray.getValue());
       
       data.items.map((item: Items) => item.gradient = this.getGradient());
       this.itemsArray.next(data.items && data.items?.length ? data.items : null);

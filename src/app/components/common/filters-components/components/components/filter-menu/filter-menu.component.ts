@@ -112,7 +112,7 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   loadMoreGames() {
-    if(this.loadingItems == true && this.type =='games') return;
+    if(this.loadingItems == true || this.type != 'games') return;
     this.loadingItems = true;
     this.gamesService.fetchGames(this.page)
         .subscribe(games => {

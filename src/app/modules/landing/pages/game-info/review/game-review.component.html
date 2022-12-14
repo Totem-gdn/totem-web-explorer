@@ -24,21 +24,28 @@
                     (click)="$event.stopPropagation(); onClickLike()"></div>
                 <div *ngIf="game?.isLiked === true" class="text-yellow solid-like cursor-pointer !w-[18px]"
                     (click)="$event.stopPropagation(); onClickLike()"></div>
-                <p>{{game?.likes ? game?. likes : '0'}}</p>
+                <p class="select-none">{{game?.likes ? game?. likes : '0'}}</p>
             </div>
-            <div class="icon">
+            <div class="icon select-none">
                 <div class="!w-[20px] line-eye"></div>
                 <p>{{game?.views ? game?.views : '0'}}</p>
             </div>
         </div>
         <div class="icon-set">
-            <div class="icon">
+            <div class="icon cursor-pointer" (click)="share.share('Сheck out this game')">
+                <share-button class="absolute" #share></share-button>
                 <div class="!w-[14px] !h-[19px] line-share"></div>
-                <p>{{'nav.share' | translate}}</p>
+                <p class="select-none">{{'nav.share' | translate}}</p>
             </div>
-            <div class="icon">
-                <div class="!w-[16px] line-refresh"></div>
-                <p>{{'nav.refresh' | translate}}</p>
+            <div class="icon cursor-pointer" (click)="
+            updateGame();
+            refresh.style.animation = 'none';
+            refresh.offsetHeight; 
+            refresh.style.animation = 'rotate 0.5s'
+            ">
+                <div #refresh class="!w-[16px] line-refresh"></div>
+
+                <p class="select-none">{{'nav.refresh' | translate}}</p>
             </div>
             <div *ngIf="editInfo.edit" class="icon cursor-pointer" (click)="editGame()">
                 <div class="!w-[16px] !h-[19px] line-edit"></div>
@@ -52,7 +59,8 @@
         <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">
             {{'description.descriptions_game_2' | translate}}
         </p>
-        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">{{game?.general?.description}}</p>
+        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">
+            {{game?.general?.description}}</p>
     </div>
 
     <!-- Details -->
@@ -134,7 +142,9 @@
             </div>
         </div>
 
-        <a class="w-full p-[0px] m-[0px] mt-[20px]" href="{{game.connections.webpage}}" target="_blank"><totem-button [caption]="'Play'" [width]="'100%'"></totem-button></a>
+        <a class="w-full p-[0px] m-[0px] mt-[20px]" href="{{game.connections.webpage}}" target="_blank">
+            <totem-button [caption]="'Play'" [width]="'100%'"></totem-button>
+        </a>
     </div>
 
 </div>

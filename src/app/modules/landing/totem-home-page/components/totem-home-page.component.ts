@@ -1,8 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetsService } from '@app/core/services/assets/assets.service';
-import { TotemItemsService } from '@app/core/services/totem-items.service';
+import { GamesService } from '@app/core/services/assets/games.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, timer } from 'rxjs';
 import Swiper, { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper';
@@ -70,9 +72,9 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
   eventDate: Date = new Date('10/14/2022 18:00:00 GMT+8');
 
   constructor(
-    private totemItemsService: TotemItemsService,
     private router: Router,
-    private assetService: AssetsService
+    private assetService: AssetsService,
+    private gamesService: GamesService
   ) {
     super();
   }
@@ -146,7 +148,6 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
 
   ngOnInit(): void {
     this.initItemsListener();
-    this.getAllItems();
     // init Swiper:
     this.swiper = new Swiper('.swiper', {
 
@@ -202,50 +203,19 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
 
   }
 
-  getAllItems() {
-    this.totemItemsService.getAvatars();
-    this.totemItemsService.getGames();
-    this.totemItemsService.getMostUsedItems();
-    this.totemItemsService.getNewestItems();
-  }
-
   initItemsListener() {
-
-    this.totemItemsService.games.pipe(
-      untilComponentDestroyed(this),
-    ).subscribe((games: any[] | null) => {
-      if (games) {
-        this.games$.next(games);
-      }
+    this.gamesService.fetchGames(1).subscribe(games => {
+      this.games$.next(games);
     })
-
-
-    this.totemItemsService.mostUsedItems.pipe(
-      untilComponentDestroyed(this),
-    ).subscribe((items: any[] | null) => {
-      if (items) {
-        this.mostUsedItems$.next(items);
-      }
+    this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, PARAM_LIST.POPULAR).subscribe(items => {
+      this.mostUsedItems$.next(items);
     })
-
-
-    this.totemItemsService.newestItems.pipe(
-      untilComponentDestroyed(this),
-    ).subscribe((items: any[] | null) => {
-      if (items) {
-        this.newestItems$.next(items);
-      }
+    this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, PARAM_LIST.NEWEST).subscribe(items => {
+      this.newestItems$.next(items);
     })
-
-
-    this.totemItemsService.avatars.pipe(
-      untilComponentDestroyed(this),
-    ).subscribe((avatars: any[] | null) => {
-      if (avatars) {
-        this.avatars$.next(avatars);
-      }
+    this.assetService.fetchAssets(ASSET_TYPE.AVATAR, 1, PARAM_LIST.POPULAR).subscribe(avatars => {
+      this.avatars$.next(avatars);
     })
-
   }
 
   generateItem(event: MouseEvent) {

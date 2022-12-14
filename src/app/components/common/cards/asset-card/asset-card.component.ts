@@ -40,7 +40,10 @@ export class AssetCardComponent implements AfterViewInit {
       this.setRendererUrl(environment.ASSET_RENDERER_URL);
     }
   }
+
   _asset!: AssetInfo;
+  changeImgSrc: boolean = false;
+  timeout?: any;
 
   ngAfterViewInit() {
     this.changeDetector.detectChanges();
@@ -65,6 +68,18 @@ export class AssetCardComponent implements AfterViewInit {
           'event_label': `remove like for ${this.type} with id ${this._asset.id}`,
         });
       });
+    }
+  }
+
+  changeSrc(value: boolean) {
+    console.log(value)
+    if(value == true) {
+      this.timeout = setTimeout(() => {
+        this.changeImgSrc = true;
+      }, 500);
+    } else {
+      clearTimeout(this.timeout);
+      this.changeImgSrc = false;
     }
   }
 
