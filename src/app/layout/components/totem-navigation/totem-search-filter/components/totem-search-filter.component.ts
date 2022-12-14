@@ -95,7 +95,11 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
       take(1),
       map(([games, items, avatars]) => { return { games, items, avatars } })
     ).subscribe((data) => {
+      console.log('data', data);
+      
       this.gamesArray.next(data.games && data.games?.length ? data.games : null);
+      console.log(this.gamesArray.getValue());
+      
       data.items.map((item: Items) => item.gradient = this.getGradient());
       this.itemsArray.next(data.items && data.items?.length ? data.items : null);
       data.avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
