@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
-import { PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Gtag } from 'angular-gtag';
 import { Subject, takeUntil } from 'rxjs';
@@ -54,7 +54,7 @@ export class AvatarsComponent implements OnInit, OnDestroy {
   }
 
   onLoadMore(page: number) {
-    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, page, PARAM_LIST.NEWEST).subscribe();
+    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, page, ASSET_PARAM_LIST.LATEST).subscribe();
   }
 
   ngOnDestroy(): void {

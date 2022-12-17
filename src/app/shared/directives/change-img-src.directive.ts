@@ -13,7 +13,7 @@ export class ChangeSrcDirective implements OnDestroy {
   constructor(private elementRef: ElementRef) {
     this.changes = new MutationObserver((mutations: MutationRecord[]) => {
       mutations.filter(m => m.attributeName === 'src').forEach(() => {
-        this.opacity = 0.2
+        this.opacity = 0;
         this.timeout = setTimeout(() => {
           this.changeSrc.emit(true);
         }, 700);

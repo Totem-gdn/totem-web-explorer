@@ -1,9 +1,11 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params.enum";
+import { DropdownItem } from "@app/core/models/interfaces/dropdown-item.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
-import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
+import { Subject, Subscription, take, takeUntil } from "rxjs";
 
 @Component({
   selector: 'game-dropdown',
@@ -14,138 +16,91 @@ import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdest
   }
 })
 
-export class GameDropdownComponent extends OnDestroyMixin implements AfterViewChecked, OnDestroy, AfterViewInit {
+export class GameDropdownComponent implements OnDestroy {
 
-  constructor(private router: Router,
+
+  constructor(
     public gamesService: GamesService,
     public widgetService: WidgetService,
-    private changeDetector: ChangeDetectorRef,
   ) {
-    super();
   }
 
-  selectedScriptItem!: GameDetail | null;
-
-  @Input() type: string = 'game';
-  @Input() title: string | undefined = 'Menu';
-  @Input() menuActive = false;
-  @Input() alwaysOpen = false;
-  @Input() width: string | null = null;
   @Output() onChange: EventEmitter<GameDetail> = new EventEmitter();
-  games!: GameDetail[];
 
-  resetSearch: boolean = false;
-  selectedItem!: GameDetail;
+  subs = new Subject<void>();
+  dropdownGames!: DropdownItem[];
+  selectedGame!: DropdownItem;
 
-  @ViewChild('dropdown') dropdown!: ElementRef;
+  // Widget
+  scriptSelectedGame?: DropdownItem;
+  scriptSub?: Subscription;
 
-  searchGames = false;
-
-  set selectedGame(game: GameDetail) {
-    if (!game) return;
-    this._selectedGame = game;
-  };
-  _selectedGame!: GameDetail;
-
-  ngAfterViewInit() {
-    this.filterGames('');
-    this.games$();
+  ngOnInit() {
     this.selectedGame$();
-    this.selectedScriptItem$();
-  }
+    this.updateGames();
 
-  ngAfterViewChecked() {
-    this.changeDetector.detectChanges();
-  }
-
-  filterGames(filter: string) {
-    this.searchGames = true;
-    this.games = [];
-    this.gamesService.filterDropdownGames(filter).pipe(
-      untilComponentDestroyed(this),
-    ).subscribe();
-  }
-
-  games$() {
-    this.gamesService.dropdownGames$
-      .pipe(
-        untilComponentDestroyed(this),
-      ).subscribe(games => {
-        if (games) {
-          this.games = games;
-          const sessionGame = this.gamesService.gameInSession;
-          this.selectedGame = this.gamesService.selectedGame;
-          this.title = sessionGame?.general?.name || this.games[0]?.general?.name || '';
-          if (!this.selectedGame) {
-            const game = games.find((el: GameDetail) => el?.general?.name === this.title);
-            if (game) {
-              this.gamesService.selectedGame = this._selectedGame;
-              this.title = game?.general?.name || '';
-            }
-
-          }
-        }
-        this.searchGames = false;
-
-      })
-  }
-
-  selectedScriptItem$() {
-    this.widgetService.selectedGame$
-      .pipe(
-        untilComponentDestroyed(this)
-      ).subscribe(game => {
-        this.selectedScriptItem = game;
-      })
+    const gameInSession = this.gamesService.gameInSession;
+    if (gameInSession) this.selectedGame = this.formatGame(gameInSession);
   }
 
   selectedGame$() {
     this.gamesService.selectedGame$
-      .pipe(
-        untilComponentDestroyed(this),
-      ).subscribe(game => {
-        if (game) {
-          this.selectedGame = game;
-          this.title = game?.general?.name || '';
-        }
+      .pipe(takeUntil(this.subs))
+      .subscribe(game => {
+        if (!game) return;
+        this.selectedGame = this.formatGame(game);
+        console.log(this.selectedGame);
       })
   }
 
+  updateGames(filter: string = '') {
+    this.gamesService.loadGames(filter, true)
+      .subscribe(games => {
+        console.log(games)
+        if (!games) return;
+        if(!this.gamesService.gameInSession) this.gamesService.gameInSession = games[0];
+        this.formatGames(games);
+      })
+  }
+
+  formatGames(games: GameDetail[]) {
+    const dropdownGames: DropdownItem[] = [];
+
+    for (let game of games) {
+      const dropdownGame = this.formatGame(game);
+      dropdownGames.push(dropdownGame);
+    }
+    this.dropdownGames = dropdownGames;
+  }
+
+  formatGame(game: GameDetail) {
+    const title = game?.general?.name || 'Untilted';
+    const subTitle = game?.general?.genre?.[0];
+    const img = game?.images?.smallThumbnail;
+
+    const dropdownGame: DropdownItem = {
+      title,
+      subTitle,
+      data: game,
+      img
+    }
+    return dropdownGame;
+  }
+
   onChangeInput(game: GameDetail) {
-    this.selectedGame = game;
-    this.title = game?.general?.name || '';
+    this.widgetService.scriptIndex = undefined;
+    this.widgetService.selectedGame = game;
     this.gamesService.gameInSession = game;
     this.onChange.emit(game);
-    this.widgetService.scriptIndex = undefined;
-    this.widgetService.updateSelectedGame(game);
-    this.selectedScriptItem = game;
-    if (!this.alwaysOpen) {
-      this.menuActive = false;
-    }
-    this.resetSearch = !this.resetSearch;
   }
 
-  onClick(isClickedInside: any) {
-    if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
-      if (!this.alwaysOpen) {
-        this.menuActive = false;
-      }
-      this.resetSearch = !this.resetSearch;
-    }
+  searchEvent(filter: string) {
+    this.updateGames(filter);
   }
 
-  onClickViewAll() {
-    if (this.type === 'item') {
-      this.router.navigate(['/items']);
-    } else if (this.type === 'game') {
-      this.router.navigate(['/games']);
-    } else if (this.type === 'avatar') {
-      this.router.navigate(['/avatars']);
-    }
-  }
-
-  toggleList() {
-    if (this.alwaysOpen) return;
-    this.menuActive = !this.menuActive;
+  ngOnDestroy(): void {
+    this.subs.next();
+    this.subs.unsubscribe();
+    this.scriptSub?.unsubscribe();
   }
 }

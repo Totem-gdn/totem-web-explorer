@@ -50,6 +50,7 @@ export class DNAParserService {
     // }
 
     getJSON(gameName: string | undefined, type: string): DNAField[] {
+        console.log(DNAFilter);
         if(gameName == 'Dreadstone Keep' && type == 'avatar') return DNAFilter.totemAvatarDreadstoneKeepFilterJson;
         if(gameName == 'Dreadstone Keep' && type != 'avatar') return DNAFilter.totemItemDreadstoneKeepFilterJson;
 

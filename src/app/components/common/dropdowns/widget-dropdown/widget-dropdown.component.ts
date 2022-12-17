@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
-import { timer } from "rxjs";
+import { Subscription, take, takeUntil, timer } from "rxjs";
+import { DropdownSkeletonComponent } from "../dropdown-skeleton/dropdown-skeleton.component";
 import { GameDropdownComponent } from "../game-dropdown/game-dropdown.component";
 
 
@@ -10,57 +11,58 @@ import { GameDropdownComponent } from "../game-dropdown/game-dropdown.component"
   styleUrls: ['../game-dropdown/game-dropdown.component.scss', './widget-dropdown.component.scss']
 })
 
-export class WidgetDropdownComponent extends GameDropdownComponent implements OnInit, OnDestroy {
+export class WidgetDropdownComponent extends GameDropdownComponent implements AfterViewInit {
 
+  @ViewChild('skeleton') skeleton!: any;
 
-  @ViewChild('menuItems') menuItems!: ElementRef;
-
-  scriptStarted: boolean = false;
-  get scriptIndex() { return this.widgetService.scriptIndex };
-  set scriptIndex(index: number | undefined) { this.widgetService.scriptIndex = index }
-
-  ngOnInit() {
-    this.alwaysOpen = true;
-    this.menuActive = true;
-    this.dropdownGames$();
-    this.restartScript();
-  }
-
-  dropdownGames$() {
-    this.gamesService.dropdownGames$.subscribe(games => {
-      if (games) this.restartScript();
-    })
+  ngAfterViewInit(): void {
+    this.skeleton.widgetMode = true;
+    this.startScript();
+    this.widgetGame$();
   }
 
   startScript() {
-    timer(1000, 6000).pipe(
-      untilComponentDestroyed(this),
-    ).subscribe(() => {
-      if (this.scriptIndex == undefined) {
+    this.scriptSub?.unsubscribe();
+
+    this.scriptSub = timer(1000, 6000).subscribe(() => {
+      let scriptIndex = this.widgetService.scriptIndex;
+      if (!this.dropdownGames.length) {
+        scriptIndex = 0;
         return;
       }
-      if (this.scriptIndex >= this.games.length) this.scriptIndex = 0;
-      this.widgetService.updateSelectedGame(this.games[this.scriptIndex]);
-      this.title = this.selectedScriptItem?.general?.name;
-      const menuItems = this.menuItems.nativeElement.getElementsByClassName('menu-item');
-      const itemBottomPos = menuItems[this.scriptIndex].offsetTop - 14;
-      if (this.scriptIndex > 3) {
-        const scrollContainer = this.menuItems.nativeElement as HTMLElement;
-        scrollContainer.scroll({ top: itemBottomPos, behavior: 'smooth' })
+      if(scriptIndex == undefined) {
+        this.scriptSub?.unsubscribe();
+        return;
       }
-      if (this.scriptIndex == 0) {
-        const scrollContainer = this.menuItems.nativeElement as HTMLElement;
-        scrollContainer.scroll({ top: 0, behavior: 'smooth' })
-      }
-      this.widgetService.updateSelectedGame(this.selectedScriptItem);
-      this.scriptIndex++;
+      if (scriptIndex >= this.dropdownGames.length) scriptIndex = 0;
+      this.widgetService.selectedGame = this.dropdownGames[scriptIndex].data;
+      // this.scriptSelectedGame = this.dropdownGames[scriptIndex];
+      // Auto Scroll
+      // const menuItems = this.skeletonMenuRef.menuItemsgetElementsByClassName('menu-item');
+      // const itemBottomPos = menuItems[this.scriptIndex].offsetTop - 14;
+      // if(this.scriptIndex > 3) {
+      //   const scrollContainer = menuItems.nativeElement as HTMLElement;
+      //   scrollContainer.scroll({top: itemBottomPos, behavior: 'smooth'})
+      // }
+      // if(this.scriptIndex == 0) {
+      //   const scrollContainer = menuItems.nativeElement as HTMLElement;
+      //   scrollContainer.scroll({top: 0, behavior: 'smooth'})
+      // }
+      // this.selectedGame = this.dropdownGames[this.scriptIndex];
+      this.widgetService.scriptIndex = scriptIndex + 1;
     })
   }
 
-  restartScript() {
-    if (this.scriptIndex == undefined) return;
-    this.scriptIndex = 0;
-    this.startScript();
+  widgetGame$() {
+    this.widgetService.selectedGame$
+    .pipe(takeUntil(this.subs))
+    .subscribe(selectedGame => {
+      if(!selectedGame) {
+        this.scriptSelectedGame = undefined;
+        return;
+      }
+      this.scriptSelectedGame = this.formatGame(selectedGame);
+    })
   }
 
 }

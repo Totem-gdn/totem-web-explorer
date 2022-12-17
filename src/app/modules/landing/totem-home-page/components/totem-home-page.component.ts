@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
-import { PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
@@ -207,13 +207,13 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
     this.gamesService.fetchGames(1).subscribe(games => {
       this.games$.next(games);
     })
-    this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, PARAM_LIST.POPULAR).subscribe(items => {
+    this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.POPULAR).subscribe(items => {
       this.mostUsedItems$.next(items);
     })
-    this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, PARAM_LIST.NEWEST).subscribe(items => {
+    this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.LATEST).subscribe(items => {
       this.newestItems$.next(items);
     })
-    this.assetService.fetchAssets(ASSET_TYPE.AVATAR, 1, PARAM_LIST.POPULAR).subscribe(avatars => {
+    this.assetService.fetchAssets(ASSET_TYPE.AVATAR, 1, ASSET_PARAM_LIST.POPULAR).subscribe(avatars => {
       this.avatars$.next(avatars);
     })
   }
