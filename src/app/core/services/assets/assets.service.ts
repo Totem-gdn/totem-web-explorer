@@ -7,7 +7,7 @@ import { SearchParamsModel } from "../model/search-params.model";
 import { BehaviorSubject, map, Observable, take, tap } from "rxjs";
 import Web3 from "web3";
 import { CacheService } from "./cache.service";
-import { PARAM_LIST } from "@app/core/models/enums/params.enum";
+import { ASSET_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 const { DNAParser } = require('totem-dna-parser');
 
@@ -51,7 +51,7 @@ export class AssetsService {
     set gem(value: any) { this._gem.next(value) }
 
 
-    updateAssets(type: ASSET_TYPE, page: number, list: PARAM_LIST = PARAM_LIST.NEWEST) {
+    updateAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
         if(this.baseUrl == 'https://api.totem-explorer.com') {
             return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
                 // map(assets => assets.data),
@@ -76,7 +76,7 @@ export class AssetsService {
 
     }
 
-    fetchAssets(type: ASSET_TYPE, page: number, list: PARAM_LIST = PARAM_LIST.NEWEST) {
+    fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
         if (this.baseUrl == 'https://api.totem-explorer.com') {
             return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
         } else {

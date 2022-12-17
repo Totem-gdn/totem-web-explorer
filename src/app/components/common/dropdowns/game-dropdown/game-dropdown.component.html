@@ -1,36 +1,8 @@
-<div class="game-dropdown" (clickOutside)="onClick($event)">
-  <div class="dropdown-toggle" (click)="toggleList()" [ngClass]="menuActive ? 'appear': ''">
-    <span>{{title || 'Game Name'}}</span>
-    <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
-  </div>
 
-  <div #dropdown class="menu w-[200px] sm:w-[300px]" [ngClass]="menuActive ? 'appear': ''">
-      <!-- Search -->
-      <search-field (filter)="filterGames($event)" [reset]="resetSearch"></search-field>
-      <!-- Items -->
-      <div #menuItems class="menu-items">
-          <div
-          class="menu-item"
-          *ngFor="let game of games; let i = index"
-          [id]="'item' + i"
-          (click)="onChangeInput(game);"
-          [ngClass]="[(game?.general?.name === title) ? 'checked': '',(selectedScriptItem?.general?.name === game?.general?.name) ? 'checked-script': '']"
-          [ngStyle]="{'--game-image': 'url('+ game?.images?.smallThumbnail + ')'}">
-                <p class="truncate w-full">{{game?.general?.name}}</p>
-                <span class="truncate w-full">{{game && game?.general?.genre?.[0]}}</span>
-          </div>
-
-          <span class="h-[50px] no-found" *ngIf="games?.length === 0 && !searchGames">{{'home.no_games_found' | translate}}</span>
-
-          <div *ngIf="searchGames" class="flex m-auto items-center h-[50px]">
-              <totem-spinner></totem-spinner>
-          </div>
-      </div>
-      <!-- View All -->
-      <div class="view-all">
-          <div class="content" (click)="onClickViewAll()">
-              <div class="text-center bottom-rectangle">{{'nav.view_all' | translate}}</div>
-          </div>
-      </div>
-  </div>
-</div>
+<dropdown-skeleton #skeleton
+    [items]="dropdownGames" 
+    [itemType]="'game'"
+    [selectedItem]="scriptSelectedGame || selectedGame"
+    (changeInput)="onChangeInput($event)"
+    (changeSearch)="searchEvent($event)">
+</dropdown-skeleton>

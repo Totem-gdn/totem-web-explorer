@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { environment } from "@env/environment";
 import { BehaviorSubject, Observable, tap } from "rxjs";
@@ -59,7 +60,7 @@ export class GamesService {
     }));
   }
 
-  fetchGames(page: number, list = 'latest') {
+  fetchGames(page: number, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
     return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`);
   }
 

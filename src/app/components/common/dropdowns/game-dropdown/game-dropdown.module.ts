@@ -5,6 +5,7 @@ import { SharedModule } from "@app/shared/shared.module";
 import { SearchFieldModule } from "../../../utils/search-field/search-field.module";
 import { TotemSpinnerModule } from "../../../../shared/totem-spinner/totem-spinner.module";
 import { GameDropdownComponent } from "./game-dropdown.component";
+import { DropdownSkeletonModule } from "../dropdown-skeleton/dropdown-skeleton.module";
 
 
 @NgModule({
@@ -14,9 +15,11 @@ import { GameDropdownComponent } from "./game-dropdown.component";
     imports: [
         SharedModule,
         MatIconModule,
-        SearchFieldModule,
+        // SearchFieldModule,
         TotemSpinnerModule,
-        FormsModule
+        FormsModule,
+
+        DropdownSkeletonModule,
     ],
     exports: [
         GameDropdownComponent

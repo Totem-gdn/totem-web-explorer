@@ -88,12 +88,13 @@ export class HomeWidgetComponent implements OnInit, OnDestroy {
     this.widgetService.selectedGame$
     .pipe(takeUntil(this.subs))
     .subscribe(game => {
+      if(!game) return;
       this.selectedGame = game;
     })
   }
 
-  selectGame(event: GameDetail) {
-    this.widgetService.updateSelectedGame(event);
+  selectGame(game: GameDetail) {
+    this.widgetService.selectedGame = game;
   }
 
   ngOnDestroy(): void {

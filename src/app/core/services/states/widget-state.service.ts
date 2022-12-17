@@ -15,7 +15,7 @@ export class WidgetService {
   get selectedGame$() {
     return this._selectedGame.asObservable();
   }
-  updateSelectedGame(game: GameDetail | null) {
+  set selectedGame(game: GameDetail | null) {
     this._selectedGame.next(game);
   }
 
