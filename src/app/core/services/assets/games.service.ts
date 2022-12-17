@@ -16,23 +16,14 @@ export class GamesService {
   constructor(
     private http: HttpClient,
     private baseStorageService: BaseStorageService,
-    ) {
+  ) {
   }
 
-  private _games = new BehaviorSubject<GameDetail[] | null>(null);
-  private _game = new BehaviorSubject<GameDetail | null>(null);
   private _dropdownGames = new BehaviorSubject<GameDetail[] | null>(null);
   private _selectedGame = new BehaviorSubject<GameDetail | null>(null);
 
   private _lastDropdownFilter = new BehaviorSubject<string | null>(null);
 
-  get game() { return this.gameInSession }
-  get game$() { return this._game.asObservable(); }
-  set setGame(value: any) { this._game.next(value); }
-
-  get games$() { return this._games.asObservable(); }
-  get games() { return this._games.getValue(); }
-  set setGames(value: GameDetail[]) { this._games.next(value); }
 
   get dropdownGames() { return this._dropdownGames.getValue() }
   get dropdownGames$() { return this._dropdownGames.asObservable() }
@@ -42,22 +33,10 @@ export class GamesService {
     if (value) {
       this._selectedGame.next(value);
     }
-   }
-
-  
-
-
-  updateGames(page: number, list = 'latest') {
-    return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`).pipe(
-      tap(games => {
-        this._games.next(games);
-      }))
   }
 
-  updateGame(id: string) {
-    return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`).pipe(tap(game => {
-      this._game.next(game);
-    }));
+  fetchGame(id: string | number) {
+    return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`);
   }
 
   fetchGames(page: number, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
@@ -98,10 +77,6 @@ export class GamesService {
       }
       return games;
     }));
-  }
-
-  clearGames() {
-    this._games.next(null);
   }
 
 

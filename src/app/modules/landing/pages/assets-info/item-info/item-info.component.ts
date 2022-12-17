@@ -33,7 +33,7 @@ export class ItemInfoComponent implements AfterViewInit, OnDestroy {
                 const id = params.get('id');
                 if (!id) return;
                 this.item = undefined;
-                this.assetsService.updateAsset(id, 'item').subscribe({
+                this.assetsService.fetchAsset(id, ASSET_TYPE.ITEM).subscribe({
                     next: item => {
                         this.item = item;
                     },

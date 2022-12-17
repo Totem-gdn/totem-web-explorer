@@ -44,17 +44,21 @@ export class GameReviewComponent {
         }
         if (!this.game.isLiked) {
             this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
-                this.gamesService.updateGame(this.game.id)
-                .pipe(take(1))
-                .subscribe();
+                this.loadGame(this.game.id);
             });
         } else {
             this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id).subscribe(() => {
-                this.gamesService.updateGame(this.game.id)
-                .pipe(take(1))
-                .subscribe();
+                this.loadGame(this.game.id);
             });
         }
+    }
+
+    loadGame(gameId: string) {
+        this.gamesService.fetchGame(gameId)
+        .pipe(take(1))
+        .subscribe(game => {
+            this.game = game;
+        });
     }
 
     editGame() {
@@ -84,12 +88,6 @@ export class GameReviewComponent {
         for(let i = 0; i < this.rating.length; i++) {
             this.rating[i].selected = false;
         }
-    }
-
-    updateGame() {
-        this.gamesService.updateGame(this.game.id)
-        .pipe(take(1))
-        .subscribe();
     }
 
     onToggle() {

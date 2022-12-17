@@ -21,9 +21,12 @@ export class FilterComponentsComponent implements OnDestroy {
 
     @Output() loadMore = new EventEmitter<number>();
     @Output() sort = new EventEmitter<string>();
+    @Output() updateEvent = new EventEmitter<void>();
+
     @Input() itemType = 'item';
     @Input() showUpdate = true;
     @Input() showSort = true;
+    @Input() total?: number;
 
     @ViewChild('wrapper') wrapper!: ElementRef;
 

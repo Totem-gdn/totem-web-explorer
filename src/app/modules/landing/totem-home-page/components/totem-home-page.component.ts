@@ -190,7 +190,6 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
     this.avatars$.next([]);
     this.newestItems$.next([]);
     this.mostUsedItems$.next([]);
-    this.assetService.reset();
   }
 
   initImgChanger() {
@@ -208,13 +207,25 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
       this.games$.next(games);
     })
     this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.POPULAR).subscribe(items => {
-      this.mostUsedItems$.next(items);
+      if(items.data) {
+        this.mostUsedItems$.next(items.data)
+        return;
+      }
+      this.mostUsedItems$.next(items as any);
     })
     this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.LATEST).subscribe(items => {
-      this.newestItems$.next(items);
+      if(items.data) {
+        this.newestItems$.next(items.data)
+        return;
+      }
+      this.newestItems$.next(items as any);
     })
     this.assetService.fetchAssets(ASSET_TYPE.AVATAR, 1, ASSET_PARAM_LIST.POPULAR).subscribe(avatars => {
-      this.avatars$.next(avatars);
+      if(avatars.data) {
+        this.avatars$.next(avatars.data)
+        return;
+      }
+      this.avatars$.next(avatars as any);
     })
   }
 

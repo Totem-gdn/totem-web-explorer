@@ -13,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
   //   class: 'pb-[60px]'
   // }
 })
-export class UserAvatarsComponent implements OnInit, OnDestroy {
+export class UserAvatarsComponent implements OnInit {
 
   constructor(
     private assetsService: AssetsService,
@@ -23,26 +23,18 @@ export class UserAvatarsComponent implements OnInit, OnDestroy {
   subs = new Subject<void>();
   avatars!: any[] | null;
 
-  async ngOnInit() {
-    this.updateAssets();
+  ngOnInit() {
+    this.loadMoreAvatars(1);
   }
 
-  updateAssets() {
-    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, 1, ASSET_PARAM_LIST.MY).subscribe();
-    this.assetsService.avatars$
-      .pipe(takeUntil(this.subs))
-      .subscribe(avatars => {
-        this.avatars = avatars;
-      })
-  }
-
-  onLoadMore(page: number) {
-    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, page, ASSET_PARAM_LIST.MY).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.complete();
-    this.assetsService.reset();
+  loadMoreAvatars(page: number) {
+    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, ASSET_PARAM_LIST.MY).subscribe(avatars => {
+      console.log('avatars', avatars)
+      if(avatars.data) {
+        this.avatars = avatars.data;
+        return;
+      }
+      this.avatars = (avatars as any);
+    });
   }
 }

@@ -18,9 +18,9 @@
             <ng-container *ngIf="prop.type == 'map'"></ng-container> -->
             <!-- <filter-menu 
             [title]="prop.description"
-            [inputType]="prop.type == 'int' ? 'range':
-                         prop.type == 'map' ? 'checkbox':
-                         prop.type == 'Color'"></filter-menu> -->
+            [inputType]="prop.type == 'bool' ? 'radio':
+                         prop.type == 'int' ? 'range': ''"
+            [items]="prop.values"></filter-menu> -->
             
         </ng-container>
         <!-- Items Menus -->
@@ -42,6 +42,7 @@
             <filter-menu *ngIf="selectedGame?.general?.name == 'Dreadstone Keep'" [title]="'items.weapon_type' | translate" [items]="weaponType" [menuHeight]="'100px'" [inputType]="'radio'"></filter-menu>
             <filter-menu *ngIf="selectedGame?.general?.name == 'Dreadstone Keep'" [title]="'items.weapon_material' | translate" [items]="weaponMaterial" [inputType]="'radio'"></filter-menu>
         </div>
+
         <!-- Gem Menus -->
         <div *ngIf="type == 'gem'" class="py-[45px] lg:py-0">
             <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'" [type]="'games'"></filter-menu>

@@ -2,6 +2,7 @@ import { Component, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { ASSET_PARAM_LIST } from "@app/core/models/enums/params.enum";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { Gtag } from "angular-gtag";
 import { Subject, takeUntil } from "rxjs";
@@ -15,7 +16,7 @@ import { Subject, takeUntil } from "rxjs";
   }
 })
 
-export class ItemsComponent implements OnDestroy {
+export class ItemsComponent {
 
   constructor(
     private assetsService: AssetsService,
@@ -25,44 +26,46 @@ export class ItemsComponent implements OnDestroy {
     this.gtag.event('page_view');
   }
 
+  items!: AssetInfo[] | null;
+  setItems!: AssetInfo[] | null;
+
   subs = new Subject<void>();
-  items!: any[] | null;
+  sortMethod = ASSET_PARAM_LIST.LATEST;
+  total?: number;
 
-  async ngOnInit() {
-    this.updateAssets();
-    this.assets$();
+  ngOnInit() {
+    this.loadMore(1);
   }
 
-  updateAssets() {
-    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.LATEST).subscribe(() => {
+  onReset() {
+    this.setItems = null;
+    this.loadMore(1, this.sortMethod, true);
+  }
+
+  loadMore(page: number, list = this.sortMethod, reset: boolean = false) {
+    this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(items => {
+      if(items.data) {
+        if(reset) {
+          this.setItems = items.data;
+        } else {
+          this.items = items.data;
+        }
+
+        this.total = items.meta?.total;
+        return;
+      }
+      // Old Endpoint
+      if(reset) {
+        this.setItems = (items as any);
+      } else {
+        this.items = (items as any);
+      }
     });
-    this.assetsService.items$
-      .pipe(takeUntil(this.subs))
-      .subscribe(items => {
-        this.items = items;
-      })
-  }
-
-  assets$() {
-    this.assetsService.items$
-      .pipe(takeUntil(this.subs))
-      .subscribe(items => {
-
-        this.items = items;
-      })
   }
 
   onSort(sortMethod: any) {
-    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1, sortMethod).subscribe();
+    this.sortMethod = sortMethod;
+    this.loadMore(1, this.sortMethod);
   }
 
-  onLoadMore(page: number) {
-    this.assetsService.updateAssets(ASSET_TYPE.ITEM, page, ASSET_PARAM_LIST.LATEST).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.complete();
-    this.assetsService.reset();
-  }
 }

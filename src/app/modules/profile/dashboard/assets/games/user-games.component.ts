@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -17,21 +18,11 @@ export class UserGamesComponent {
   constructor(private gamesService: GamesService) {}
 
   ngOnInit(): void {
-    this.updateGames('my');
-    // this.filters$();
-    this.games$();
+    this.loadMore(1, GAME_PARAM_LIST.LATEST);
   }
 
-  games$() {
-    this.gamesService.games$
-      .pipe(takeUntil(this.subs))
-      .subscribe(games => {
-        this.games = games;
-      })
-  }
-
-  updateGames(filters: 'latest' | 'popular' | 'my' = 'latest') {
-    this.gamesService.updateGames(1, filters)
+  loadMore(page: number, filters: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
+    this.gamesService.fetchGames(page, filters)
       .pipe(takeUntil(this.subs))
       .subscribe(games => {
         this.games = games;

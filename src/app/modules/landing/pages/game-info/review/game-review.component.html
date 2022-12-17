@@ -38,7 +38,7 @@
                 <p class="select-none">{{'nav.share' | translate}}</p>
             </div>
             <div class="icon cursor-pointer" (click)="
-            updateGame();
+            loadGame(game.id);
             refresh.style.animation = 'none';
             refresh.offsetHeight; 
             refresh.style.animation = 'rotate 0.5s'

@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Gtag } from 'angular-gtag';
 import { Subject, takeUntil } from 'rxjs';
@@ -12,45 +13,30 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class GamesComponent implements OnDestroy {
   games: any[] | undefined  | null;
-
   subs = new Subject<void>();
+  sortMethod = GAME_PARAM_LIST.LATEST;
 
   constructor(private gamesService: GamesService, private gtag: Gtag) {
     this.gtag.event('page_view');
   }
 
   ngOnInit(): void {
-    this.updateGames();
-    this.games$();
+    this.loadMore(1);
   }
 
-  updateGames(filters: 'latest' | 'popular' = 'latest') {
-    this.gamesService.updateGames(1, filters)
-      .pipe(takeUntil(this.subs))
-      .subscribe(games => {
-        this.games = games;
-      })
-  }
-
-  onLoadMore(page: number) {
-    this.gamesService.updateGames(page, 'latest').subscribe();
-  }
-
-  games$() {
-    this.gamesService.games$
-      .pipe(takeUntil(this.subs))
-      .subscribe(games => {
-        this.games = games;
-      })
+  loadMore(page: number, list = this.sortMethod) {
+    this.gamesService.fetchGames(page, list).subscribe(games => {
+      this.games = games;
+    });
   }
 
   onSort(sortMethod: any) {
-    this.updateGames(sortMethod);
+    this.sortMethod = sortMethod;
+    this.loadMore(1, this.sortMethod);
   }
 
   ngOnDestroy(): void {
     this.subs.next();
     this.subs.complete();
-    this.gamesService.clearGames();
   }
 }

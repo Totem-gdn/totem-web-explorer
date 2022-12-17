@@ -6,6 +6,7 @@ import { GamesService } from "@app/core/services/assets/games.service";
 import { UserStateService } from "@app/core/services/auth.service";
 import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
 import { Gtag } from "angular-gtag";
+import e from "express";
 
 
 @Component({
@@ -30,28 +31,45 @@ export class GameInfoComponent extends OnDestroyMixin implements OnInit, OnDestr
     pageNotFound = false;
     game!: SubmitGame | any;
     games!: any[];
+
     editInfo: { edit: boolean; gameId: string } = { edit: false, gameId: '' };
     currentUser: UserEntity | null = null;
 
     ngOnInit() {
-        this.game$();
+        this.routeParams$();
+        this.sliderGames();
+        this.userInfo();
+    }
+
+    routeParams$() {
         this.route.paramMap
             .pipe(untilComponentDestroyed(this))
             .subscribe((params: ParamMap) => {
                 const id = params.get('id');
                 if (!id) return;
                 this.game = undefined;
-                this.gameService.updateGame(id).subscribe({
+                this.gameService.fetchGame(id).subscribe({
+                    next: game => {
+                        this.game = game;
+                    },
                     error: () => {
                         this.pageNotFound = true;
                     }
                 });
             })
+    }
 
-        this.gameService.updateGames(1).subscribe(games => {
-            this.games = games;
-        });
-        this.userStateService.currentUser.pipe(untilComponentDestroyed(this)).subscribe((user: UserEntity | null) => {
+    sliderGames() {
+        this.gameService.fetchGames(1)
+            .subscribe(games => {
+                this.games = games;
+            })
+    }
+
+    userInfo() {
+        this.userStateService.currentUser
+        .pipe(untilComponentDestroyed(this))
+        .subscribe((user: UserEntity | null) => {
             if (user) {
                 this.currentUser = user;
                 if (user.wallet == this.game?.owner) {
@@ -61,19 +79,14 @@ export class GameInfoComponent extends OnDestroyMixin implements OnInit, OnDestr
         })
     }
 
-    game$() {
-        this.gameService.game$
-            .pipe(untilComponentDestroyed(this))
-            .subscribe(game => {
-                this.game = game;
-                if (this.currentUser && this.currentUser?.wallet == this.game.owner) {
-                    this.editInfo = { edit: true, gameId: this.game.id };
-                }
-            })
-    }
-
-    override ngOnDestroy(): void {
-        this.gameService.setGame = null;
-        this.gameService.clearGames();
-    }
+    // game$() {
+    //     this.gameService.game$
+    //         .pipe(untilComponentDestroyed(this))
+    //         .subscribe(game => {
+    //             this.game = game;
+    //             if (this.currentUser && this.currentUser?.wallet == this.game.owner) {
+    //                 this.editInfo = { edit: true, gameId: this.game.id };
+    //             }
+    //         })
+    // }
 }

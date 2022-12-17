@@ -15,32 +15,23 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class UserItemsComponent implements OnInit {
 
-  constructor(private assetsService: AssetsService,
-    private cacheService: CacheService) { }
+  constructor(private assetsService: AssetsService) { }
 
   subs = new Subject<void>();
   items!: any[] | null;
 
-  async ngOnInit() {
-    this.getNfts();
+  ngOnInit() {
+    this.loadMoreItems(1);
   }
 
-  getNfts() {
-    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.MY).subscribe();
-    this.assetsService.items$
-      .pipe(takeUntil(this.subs))
-      .subscribe(items => {
-        this.items = items;
-      })
-  }
-  onLoadMore(page: number) {
-    this.assetsService.updateAssets(ASSET_TYPE.ITEM, page, ASSET_PARAM_LIST.MY).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.complete();
-    this.assetsService.reset();
+  loadMoreItems(page: number) {
+    this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, ASSET_PARAM_LIST.MY).subscribe(items => {
+      if(items.data) {
+        this.items = items.data;
+        return;
+      }
+      this.items = (items as any);
+    });
   }
 
 }

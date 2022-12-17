@@ -1,3 +1,10 @@
 
-<filter-components class="pb-[60px]" [showSort]="false" [showUpdate]="false" [itemType]="'game'" [setItems]="games"></filter-components>
+<filter-components 
+    class="pb-[60px]" 
+    [showSort]="false" 
+    [showUpdate]="false" 
+    [itemType]="'game'" 
+    [pushItems]="games"
+    (loadMore)="loadMore($event)">
+</filter-components>
 

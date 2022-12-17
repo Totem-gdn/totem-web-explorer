@@ -1,6 +1,4 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
-import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { DropdownItem } from "@app/core/models/interfaces/dropdown-item.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
@@ -49,7 +47,6 @@ export class GameDropdownComponent implements OnDestroy {
       .subscribe(game => {
         if (!game) return;
         this.selectedGame = this.formatGame(game);
-        console.log(this.selectedGame);
       })
   }
 

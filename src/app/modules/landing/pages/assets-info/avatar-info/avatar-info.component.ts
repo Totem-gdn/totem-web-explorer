@@ -29,13 +29,17 @@ export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
   subs = new Subject<void>();
 
   ngAfterViewInit() {
+    this.routerParams$();
+  }
+
+  routerParams$() {
     this.route.paramMap
       .pipe(takeUntil(this.subs))
       .subscribe((params: ParamMap) => {
         const id = params.get('id');
         if (!id) return;
         this.avatar = undefined;
-        this.assetsService.updateAsset(id, 'avatar').subscribe({
+        this.assetsService.fetchAsset(id, ASSET_TYPE.AVATAR).subscribe({
           next: avatar => {
             this.avatar = avatar;
           },
@@ -43,13 +47,7 @@ export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
             this.avatar = null;
           }
         });
-        // this.assetsService.avatar$
-        // .pipe(takeUntil(this.subs))
-        // .subscribe(avatar => {
-        //     this.avatar = avatar;
-        // })
       });
-      this.changeDetector.detectChanges();
   }
 
   ngOnDestroy(): void {

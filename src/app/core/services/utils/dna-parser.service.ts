@@ -43,14 +43,8 @@ export class DNAParserService {
             ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
     }
 
-    // processProperties(gameName: string | undefined, asset: AssetInfo, properties: any[])
-    // {
-    //     let 
-    //     if(gameName)
-    // }
 
     getJSON(gameName: string | undefined, type: string): DNAField[] {
-        console.log(DNAFilter);
         if(gameName == 'Dreadstone Keep' && type == 'avatar') return DNAFilter.totemAvatarDreadstoneKeepFilterJson;
         if(gameName == 'Dreadstone Keep' && type != 'avatar') return DNAFilter.totemItemDreadstoneKeepFilterJson;
 
@@ -58,7 +52,7 @@ export class DNAParserService {
         if(gameName == 'Monk vs Robots' && type != 'avatar') return DNAFilter.monkVsRobotsItemFilterJson;
 
 
-
+        console.log(DNAFilter)
         //Default filters
         if(!gameName || type != 'avatar') return DNAFilter.itemFilterJson;
         else return DNAFilter.avatarFilterJson;

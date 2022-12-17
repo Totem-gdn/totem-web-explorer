@@ -1,4 +1,9 @@
 
 <totem-profile-stats [type]="'avatar'"></totem-profile-stats>
-<filter-components [showSort]="false" [showUpdate]="false" (loadMore)="onLoadMore($event)"  [itemType]="'avatar'" [pushItems]="avatars"></filter-components>
+<filter-components 
+    [showSort]="false" 
+    [showUpdate]="false" 
+    (loadMore)="loadMoreAvatars($event)"  
+    [itemType]="'avatar'" 
+    [pushItems]="avatars"></filter-components>
 <!-- <div class="pb-[60px]"></div> -->
