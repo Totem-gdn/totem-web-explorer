@@ -1,5 +1,5 @@
-@import 'styles/scss/variables';
-@import 'assets/fonts/icon-fonts/line/line.scss';
+@import "styles/scss/variables";
+@import "assets/fonts/icon-fonts/line/line.scss";
 
 .wrapper {
     padding: 10px;
@@ -10,7 +10,7 @@
 
 .history-grid {
     display: grid;
-    grid-template-columns: minmax(130px, 150px) minmax(200px, 280px) minmax(340px, 1fr) 150px;
+    grid-template-columns: minmax(130px, 150px) minmax(200px, 280px) minmax(340px, 1fr) 130px;
     min-width: 850px;
 }
 
@@ -37,7 +37,28 @@ span {
     .icon {
         line-height: 0.9;
         // padding: 20px;
-        width:14px;
-        height:14px;
+        width: 14px;
+        height: 14px;
+    }
+}
+.dataWraper {
+    position: relative;
+    .base64PopUp {
+        position: absolute;
+        border: 1px solid rgba($color: #ffffff, $alpha: 0.3);
+        color: $white;
+        background-color: $dark-grey;
+        padding: 3px 15px;
+        top: 0px;
+        margin-top: -35px;
+        height: 30px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+    .positionRight {
+        right: 0px;
+    }
+    .positionLeft {
+        left: 0px;
     }
 }

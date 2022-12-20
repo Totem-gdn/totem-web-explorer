@@ -7,17 +7,27 @@
                 <p>{{'modules.description' | translate}}</p>
                 <p>{{'modules.data' | translate}}</p>
             </div>
-            <div *ngFor="let achievement of achievements" class="text-light-grey transaction history-grid">
+            <div *ngFor="let achievement of achievements;let i = index;" class="text-light-grey transaction history-grid">
                 <span>{{achievement.timestamp  | date: 'MM.dd.yy hh:mm' }}</span>
                 <span>{{achievement.gameId}}</span>
                 <span>--</span>
-                <div class="flex items-center cursor-pointer w-[130px] justify-between"
-                    [cdkCopyToClipboard]="achievement.data"
-                    [cdkCopyToClipboardAttempts]="2"
-                    (cdkCopyToClipboardCopied)="onCopy()">
-
-                    <span>{{achievementData(achievement.data)}}</span>
-                    <div class="!ml-[15px] !mb-[6px] icon line-copy_small"></div>
+                <div class="dataWraper flex items-center  w-[130px] justify-between">
+                    <div class="base64PopUp" 
+                        [ngClass]="{
+                            'positionRight': achievement.base64Encoded.length > 12,
+                            'positionLeft': achievement.base64Encoded.length < 12
+                        }" 
+                        *ngIf="achievement.base64Encoded">
+                        {{achievement.base64Encoded}}
+                    </div>
+                    <span class="cursor-pointer" (click)="onCheckBase64(achievement.data, i)">
+                        {{achievementData(achievement.data)}}
+                    </span>
+                    <div class="!ml-[15px] !mb-[6px] icon line-copy_small cursor-pointer"
+                        [cdkCopyToClipboard]="achievement.data"
+                        [cdkCopyToClipboardAttempts]="2"
+                        (cdkCopyToClipboardCopied)="onCopy()">
+                    </div>
                 </div>
             </div>
         </div>
