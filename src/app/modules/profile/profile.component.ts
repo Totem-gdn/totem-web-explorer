@@ -50,11 +50,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.userStateService.currentUser.subscribe(user => {
         if (user) {
-          this.profileService.cacheTotalAssets();
-          this.profileService.cacheTotalFavAssets();
+          this.getAccountMeta();
         }
       })
     )
+  }
+
+  getAccountMeta() {
+    this.subs.add(
+      this.profileService.getUserAssetsCount().subscribe()
+    );
   }
 
   ngOnDestroy(): void {

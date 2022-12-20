@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
+import { ApiResponse } from '@app/core/models/interfaces/api-response.interface';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { FavoritesAssets, FavoritesService } from '@app/core/services/favorites.service';
 import { BaseStorageService } from '@app/core/services/utils/base-storage.service';
@@ -33,14 +34,14 @@ export class FavouritesComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  loadMore(type: string, page: number) {
+  loadMore(type: string, page: number, list?: string) {
     if (type == StorageKey.GAMES) {
-      this.favoritesService.getFavotireGames(page.toString()).pipe(take(1)).subscribe((games: GameDetail[]) => {
+      this.favoritesService.getFavotireGames(page.toString(), list ? list : undefined).pipe(take(1)).subscribe((games: GameDetail[]) => {
         this.games = games;
       });
     }
     if (type == StorageKey.AVATARS || type == StorageKey.ITEMS) {
-      this.favoritesService.getFavotireAssets(type, page.toString()).pipe(take(1)).subscribe((data: FavoritesAssets) => {
+      this.favoritesService.getFavotireAssets(type, page.toString(), list ? list : undefined).pipe(take(1)).subscribe((data: FavoritesAssets) => {
         if (data && data.type == StorageKey.ITEMS) {
           this.items = data.assets;
         }
@@ -49,6 +50,11 @@ export class FavouritesComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  getMoreWithSort(event: any) {
+    console.log(event);
+    this.loadMore(this.activeTab, 1, event);
   }
 
   clearItems() {
