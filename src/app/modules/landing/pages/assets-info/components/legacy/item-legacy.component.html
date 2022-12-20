@@ -11,13 +11,13 @@
                 <span>{{achievement.timestamp  | date: 'MM.dd.yy h:mm' }}</span>
                 <span>{{achievement.gameId}}</span>
                 <span>--</span>
-                <div class="flex items-center cursor-pointer w-[100px] justify-between"
+                <div class="flex items-center cursor-pointer w-[130px] justify-between"
                     [cdkCopyToClipboard]="achievement.data"
                     [cdkCopyToClipboardAttempts]="2"
                     (cdkCopyToClipboardCopied)="onCopy()">
 
                     <span>{{achievementData(achievement.data)}}</span>
-                    <div class="!ml-[5px] !mb-[6px] icon line-copy_small"></div>
+                    <div class="!ml-[15px] !mb-[6px] icon line-copy_small"></div>
                 </div>
             </div>
         </div>
