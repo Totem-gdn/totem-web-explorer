@@ -2,6 +2,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { FiltersService } from '@app/components/common/filters-components/services/filters.service';
 import { TagsService } from '@app/components/common/filters-components/services/tags.service';
+import { DNAField } from '@app/core/models/interfaces/dna-field.model';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Subscription } from 'rxjs';
 
@@ -28,17 +30,16 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   @ViewChild('inputContainer') inputContainer!: ElementRef;
   @ViewChild('menuHeight') menuHeightRef!: ElementRef;
 
-  @Input() inputType = 'checkbox';
+  @Input() inputType: string = 'checkbox';
   @Input() title = 'Title'
-  @Input() type = '';
   @Input() menuHeight = '200px';
   @Input() searchType: string | null = 'search';
-  @Input() items!: any[];
+  @Input() items: GameDetail[] | DNAField[] | undefined;
+
 
 
   ngOnInit() {
     this.resetFilters$();
-    this.processMenuContent();
   }
 
   ngAfterViewInit() {
@@ -48,6 +49,7 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   onClickMenu() {
+    console.log(this.items)
     this.menuActive = !this.menuActive;
 
     if (this.menuActive) {
@@ -101,36 +103,7 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  processMenuContent() {
-    if (this.type == 'games') {
-        this.loadMoreGames();
-    }
-  }
 
-  onInput(e: any) {
-    e.target.checked = false;
-  }
-
-  loadMoreGames() {
-    if(this.loadingItems == true || this.type != 'games') return;
-    this.loadingItems = true;
-    this.gamesService.fetchGames(this.page)
-        .subscribe(games => {
-          if (!this.items) this.items = [];
-
-          for (let game of games) this.items.push(game);
-
-          if(games?.length < 10) {
-            this.loadingItems = null;
-            return;
-          }
-          this.loadingItems = false;
-          this.page++;
-        });
-  }
-  scrolledToBottom() {
-    this.loadMoreGames();
-  }
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();

@@ -52,6 +52,7 @@ export class AssetsFilterComponent implements AfterViewInit {
 
     processFiltersContent(game: GameDetail | null) {
         const properties = this.dnaService.getJSON(game?.general?.name, this.type);
+        console.log('json', properties)
         this.properties = properties;
     }
 
