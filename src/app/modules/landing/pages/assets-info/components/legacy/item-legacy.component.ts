@@ -14,10 +14,9 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
 
   achievementData(data: string) {
     if (data.length > 4) {
-      return data.slice(0, 4) + '...' + data.slice(-(data.length - 4));
+      return data.slice(0, 4) + '...' + data.slice(-4);
     }
     return data;
-
   }
 
   constructor(
