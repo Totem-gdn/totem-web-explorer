@@ -8,4 +8,5 @@ export interface Achievement {
     gameId: string;
     itemId: string;
     timestamp: string;
+    base64Encoded?: string;
 }
