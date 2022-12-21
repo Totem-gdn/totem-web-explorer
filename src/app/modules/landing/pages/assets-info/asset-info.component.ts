@@ -105,13 +105,16 @@ export class AssetInfoComponent implements AfterViewInit {
         const parser = new DNAParser(json, DNA)
         this._item.rarity = parser.getItemRarity(id)
 
-        this.properties.map((prop) => {
+        const newProperties = [...this.properties]
+
+        newProperties.map((prop) => {
             let value = parser.getField(prop.id);
             if (prop.type == 'Color') {
                 value = this.dnaService.rgba2hex(value);
             }
             prop.value = value;
         })
+        this.properties = newProperties;
     }
 
     handleProperties(title: string, value: string) {
