@@ -45,20 +45,26 @@ span {
     position: relative;
     .base64PopUp {
         position: absolute;
-        border: 1px solid rgba($color: #ffffff, $alpha: 0.3);
-        color: $white;
-        background-color: $dark-grey;
-        padding: 3px 15px;
         top: 0px;
-        margin-top: -35px;
-        height: 30px;
-        font-size: 16px;
-        border-radius: 5px;
-    }
-    .positionRight {
         right: 0px;
-    }
-    .positionLeft {
-        left: 0px;
+        margin-top: -85px;
+        background-color: $dark-grey;
+        border-radius: 5px;
+        .flex {
+            .closeIcon {
+                padding-top: 10px;
+                padding-right: 10px;
+                font-size: 15px;
+            }
+            textarea {
+                border: none;
+                color: $white;
+                background-color: inherit;
+                padding: 10px;
+                &:focus {
+                    outline: none !important;
+                }
+            }
+        }
     }
 }

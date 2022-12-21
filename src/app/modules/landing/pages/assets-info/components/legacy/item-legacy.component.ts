@@ -35,6 +35,10 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
     this.messageService.open('Copied to the clipboard');
   }
 
+  onClosePopUp(index: number):void {
+    this.achievements[index].base64Encoded = undefined;
+  }
+
   onCheckBase64(data: string, index: number): void {
     const base64regExp: RegExp = /^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{4}|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{2}={2})$/gm;
 
