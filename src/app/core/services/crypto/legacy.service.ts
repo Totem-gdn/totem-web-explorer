@@ -1,21 +1,24 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
-import { Legacy } from "@app/core/models/interfaces/legacy.model";
+import { Achievement, Legacy, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { environment } from "@env/environment";
-import { map, Observable } from "rxjs";
-
+import { catchError, map, Observable, of } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 
 export class LegacyService {
     baseUrl: string = environment.TOTEM_BASE_API_URL;
+    gdnApiUrl: string = environment.TOTEM_API_GDN_URL;
 
     constructor(private http: HttpClient) {}
 
-    fetchLegacies(id: string | number) {
-        
-        return this.http.get<Legacy>(`https://legacy-api.totem.gdn/${id}`);
+    fetchLegacies(type: string, id: string | number, query?: string): Observable<LegacyResponse<Achievement[]>> {
+
+        return this.http.get<LegacyResponse<Achievement[]>>(`${this.gdnApiUrl}/asset-legacy/${type}?assetId=${id}${query ? query : '&limit=10&offset=0'}`).pipe(
+          catchError((error: any) => of())
+        );
+        /* return this.http.get<Legacy>(`https://legacy-api.totem.gdn/${id}`); */
 
         // return this.http.get<Legacy>(`https://legacy-api.totem.gdn/itemId-000000`);
     }
@@ -38,8 +41,8 @@ export class LegacyService {
         }))
     }
 
-    
-    
+
+
     sortAchievements(legacies: any) {
 
         let formattedLegacies: any = [];
@@ -49,7 +52,7 @@ export class LegacyService {
         for(let legacy of legacies) {
             // let date = new Date(legacy.timestamp).toLocaleString();
             // legacy.timestamp = date;
-            formattedLegacies.push(legacy); 
+            formattedLegacies.push(legacy);
         }
 
         return formattedLegacies;

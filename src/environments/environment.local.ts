@@ -10,6 +10,7 @@ export const environment = {
   ASSET_RENDERER_URL: 'https://asset-renderer.totem-explorer.com',
   TRACKING_G_ID: 'G-L6K946DQFY',
   TOTEM_WEB_EXPLORER_URL: 'https://dev.totem-explorer.com',
+  TOTEM_API_GDN_URL: 'https://api.totem.gdn',
 
   BLOCKCHAIN_CONFIG: {
     name: 'mumbai',

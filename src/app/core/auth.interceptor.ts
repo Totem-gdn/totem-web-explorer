@@ -17,7 +17,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.isAuth()) {
-      if (request.url.includes(environment.TOTEM_BASE_API_URL) || request.url.includes(environment.TOTEM_FAUCET_API_URL)) {
+      if (
+        request.url.includes(environment.TOTEM_BASE_API_URL) ||
+        request.url.includes(environment.TOTEM_FAUCET_API_URL) ||
+        request.url.includes(environment.TOTEM_API_GDN_URL)
+      ) {
         return next.handle(this.transformRequest(request));
       }
       //if (request.url.includes('s3')) {

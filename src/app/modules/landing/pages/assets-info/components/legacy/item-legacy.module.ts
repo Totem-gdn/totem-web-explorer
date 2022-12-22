@@ -1,5 +1,6 @@
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { NgModule } from "@angular/core";
+import { TotemPaginationModule } from "@app/modules/profile/components/common/totem-pagination/totem-pagination.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { ItemLegacyComponent } from "./item-legacy.component";
 
@@ -10,7 +11,8 @@ import { ItemLegacyComponent } from "./item-legacy.component";
     ],
     imports: [
         SharedModule,
-        ClipboardModule
+        ClipboardModule,
+        TotemPaginationModule
     ],
     exports: [
         ItemLegacyComponent
@@ -18,5 +20,5 @@ import { ItemLegacyComponent } from "./item-legacy.component";
 })
 
 export class ItemLegacyModule {
-    
+
 }

@@ -9,3 +9,10 @@ export interface Achievement {
     itemId: string;
     timestamp: string;
 }
+
+export interface LegacyResponse<T> {
+  limit: number;
+  offset: number;
+  results: T;
+  total: number;
+}

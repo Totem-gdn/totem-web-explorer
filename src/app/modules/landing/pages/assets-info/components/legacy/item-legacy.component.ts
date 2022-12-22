@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
-import { Achievement } from '@app/core/models/interfaces/legacy.model';
+import { Achievement, LegacyResponse } from '@app/core/models/interfaces/legacy.model';
 import { LegacyService } from '@app/core/services/crypto/legacy.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
@@ -28,15 +29,29 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
   }
 
   achievements!: Achievement[];
+  total: number = 0;
+  offset: number = 0;
   @Input() asset!: AssetInfo;
+  @Input() type: string = '';
 
   ngOnInit(): void {
-    this.legacyService.fetchLegacies(this.asset.tokenId).pipe(
-      untilComponentDestroyed(this),
-    ).subscribe(leg => {
-      if (!leg.achievements) return;
-      this.achievements = leg.achievements;
-    })
+    this.getLegacyOfAsset();
+  }
+
+  paginationEvent(event: any) {
+    console.log(event);
+
+  }
+
+  getLegacyOfAsset(query?: string) {
+    this.legacyService.fetchLegacies(this.type, this.asset.tokenId, query).pipe(
+        untilComponentDestroyed(this)
+      ).subscribe((response: LegacyResponse<Achievement[]>) => {
+        console.log(response);
+        this.achievements = response?.results || [];
+        this.total = response?.total || 0;
+        this.offset = response?.offset || 0;
+      });
   }
 
   onCopy() {
