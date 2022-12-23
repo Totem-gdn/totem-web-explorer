@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { DNASchemeValidator } from '@app/core/services/utils/dna-scheme-validator';
 import { Subscription } from 'rxjs';
 
 export interface DropzoneError {
@@ -32,6 +33,8 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   dzHovered: boolean = false;
 
   croppedImage: any = '';
+
+  validator = new DNASchemeValidator();
 
   @Input() recommendedResolution: string = '';
   @Input() selfFill: boolean = false;
@@ -141,6 +144,39 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     }
 
     const fileToValidate: File = event.target.files[0];
+    console.log(fileToValidate); //starts new
+    var file = event.srcElement.files[0];
+    console.log(event, file);
+    let json: any[] = [];
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsText(file, "UTF-8");
+      reader.onload = (eventf: any) => {
+        if (eventf.target.result) {
+          json = JSON.parse(eventf.target.result);
+          if (Array.isArray(json)) {
+            console.log("True");
+            const res = json.every((item: any) => {
+              this.validator.validateJson(item);
+              return true;
+            })
+            console.log(res);
+          } else {
+            console.log('ITS NOT ARRAY');
+          }
+        } else {
+          console.log('Your file is empty');
+
+        }
+      }
+    }
+
+
+
+    /* reader.onerror = function (evt) {
+        console.log('error reading file');
+    } */
+    return; //ends new
 
     if (this.isImage(fileToValidate) && !this.jsonFileType) {
       if (fileToValidate.size > 20971520) {
