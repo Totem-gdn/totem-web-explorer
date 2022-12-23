@@ -33,10 +33,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   transformRequest(request: HttpRequest<any>) {
     let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
-    const authorization: string = `Bearer ${creds.userInfo.idToken} ${creds.key}`;
+    const authorization: string = `Bearer ${creds.userInfo.idToken}`;
     return request.clone({
         setHeaders: {
           Authorization: authorization,
+          'X-App-PubKey': creds.key
         }
     })
   }

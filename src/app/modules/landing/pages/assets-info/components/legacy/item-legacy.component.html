@@ -7,17 +7,31 @@
                 <p>{{'modules.description' | translate}}</p>
                 <p>{{'modules.data' | translate}}</p>
             </div>
-            <div *ngFor="let achievement of achievements" class="text-light-grey transaction history-grid">
-                <span>{{achievement.timestamp  | date: 'MM.dd.yy h:mm' }}</span>
+            <div *ngFor="let achievement of achievements;let i = index;" class="text-light-grey transaction history-grid">
+                <span>{{achievement.timestamp  | date: 'MM.dd.yy hh:mm' }}</span>
                 <span>{{achievement.gameId}}</span>
                 <span>--</span>
-                <div class="flex items-center cursor-pointer w-[100px] justify-between"
-                    [cdkCopyToClipboard]="achievement.data"
-                    [cdkCopyToClipboardAttempts]="2"
-                    (cdkCopyToClipboardCopied)="onCopy()">
-
-                    <span>{{achievementData(achievement.data)}}</span>
-                    <div class="!ml-[5px] !mb-[6px] icon line-copy_small"></div>
+                <div class="dataWraper flex items-center  w-[130px] justify-between">
+                    <div class="base64PopUp gradient-border-solid" *ngIf="achievement.base64Encoded">
+                        <div class="flex">
+                             <textarea
+                                readonly
+                                rows="2" 
+                                value="{{achievement.base64Encoded}}"
+                                (blur)="onClosePopUp(i)">
+                            </textarea>
+                            <mat-icon class="closeIcon cursor-pointer" (click)="onClosePopUp(i)">close</mat-icon>
+                        </div>
+                    </div>
+                    
+                    <span class="cursor-pointer" (click)="onCheckBase64(achievement.data, i)">
+                        {{achievementData(achievement.data)}}
+                    </span>
+                    <div class="!ml-[15px] !mb-[6px] icon line-copy_small cursor-pointer"
+                        [cdkCopyToClipboard]="achievement.data"
+                        [cdkCopyToClipboardAttempts]="2"
+                        (cdkCopyToClipboardCopied)="onCopy()">
+                    </div>
                 </div>
             </div>
         </div>
