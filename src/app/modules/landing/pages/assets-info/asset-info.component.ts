@@ -73,8 +73,7 @@ export class AssetInfoComponent implements AfterViewInit {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
-                // this.properties = this.dnaService.getProperties(selectedGame?.general?.name, this.type);
-                this.processItem(this._item?.tokenId, selectedGame?.general?.name);
+                this.processItem(this._item?.tokenId, selectedGame);
             })
     }
 
@@ -86,35 +85,10 @@ export class AssetInfoComponent implements AfterViewInit {
         });
     }
 
-    async processItem(id: number, gameName?: string | undefined) {
-        const url = 'https://matic-mumbai.chainstacklabs.com'
-        let contract = ''
-        const json = this.dnaService.getJSON(gameName, this.type);
-        this.properties = json;
-        if (this.type === 'item') {
-            contract = '0xfC5654489b23379ebE98BaF37ae7017130B45086'
-        } else if (this.type === 'gem') {
-            contract = '0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5'
-        } else if (this.type === 'avatar') {
-            contract = '0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35'
-        }
-        const contractHandler = new ContractHandler(url, contract)
-
-        const DNA = await contractHandler.getDNA(id)
-
-        const parser = new DNAParser(json, DNA)
-        this._item.rarity = parser.getItemRarity(id)
-
-        const newProperties = [...this.properties]
-
-        newProperties.map((prop) => {
-            let value = parser.getField(prop.id);
-            if (prop.type == 'Color') {
-                value = this.dnaService.rgba2hex(value);
-            }
-            prop.value = value;
-        })
-        this.properties = newProperties;
+    async processItem(id: number, game: GameDetail | null = null) {
+        const json = await this.dnaService.getJSONByGame(game, this.type)
+        const properties = await this.dnaService.processJSON(json, this.type, id);
+        this.properties = properties;
     }
 
     handleProperties(title: string, value: string) {

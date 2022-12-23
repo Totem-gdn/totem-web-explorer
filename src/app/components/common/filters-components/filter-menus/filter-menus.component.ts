@@ -1,9 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { DNAField } from "@app/core/models/interfaces/dna-field.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
-import { Subject } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { FiltersService } from "../filters.service";
 
 @Component({
@@ -19,26 +20,52 @@ import { FiltersService } from "../filters.service";
 export class FilterMenusComponent implements OnDestroy {
 
     constructor(private dnaService: DNAParserService,
-                private filtersService: FiltersService) {}
+        @Inject(DOCUMENT) private document: Document,
+        private filtersService: FiltersService) { }
 
     @Input() type!: ASSET_TYPE | 'game';
+
+    @ViewChild('dropupRef', {static: true}) dropupRef!: ElementRef;
 
     selectedGame!: GameDetail;
     dropupActive: boolean = false;
     subs = new Subject<void>();
 
     ngOnInit() {
-        this.filtersService.dropupActive$.subscribe(isActive => {
-            this.dropupActive = isActive;
-        })
-    }
-
-    onClickApply() {
-        // this.filtersService.dropupOpen = false;
+        this.dropupActive$();
     }
 
     clearAll() {
-        // this.filtersService.resetFilters();
+       this.filtersService.reset();
+    }
+
+    dropupActive$() {
+        this.filtersService.dropupActive$
+            .pipe(takeUntil(this.subs))
+            .subscribe(isActive => {
+                this.dropupActive = isActive;
+                this.updateMenu();
+            })
+    }
+
+
+    toggleMenu(toggle: boolean | null = null) {
+        if(toggle == null) this.filtersService.dropupActive = !this.filtersService.dropupActive;
+        else this.filtersService.dropupActive = toggle;
+    }
+
+
+    updateMenu() {
+        if (this.dropupActive) {
+            this.document.body.style.position = 'fixed';
+            this.dropupRef.nativeElement.style.maxHeight = '80vh';
+            this.dropupRef.nativeElement.style.overflowY = 'auto';
+        }
+        if (!this.dropupActive) {
+            this.document.body.style.position = 'inherit';
+            this.dropupRef.nativeElement.style.maxHeight = '0';
+            this.dropupRef.nativeElement.style.overflowY = 'hidden';
+        }
     }
 
     ngOnDestroy(): void {

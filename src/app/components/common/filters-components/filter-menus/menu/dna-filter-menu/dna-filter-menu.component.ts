@@ -1,14 +1,10 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { INPUT_TYPE } from "@app/core/models/enums/input-type.enum";
 import { DNAField } from "@app/core/models/interfaces/dna-field.model";
 import { InputTag } from "@app/core/models/interfaces/input-tag.model";
 import { Subscription } from "rxjs";
 import { FiltersService } from "../../../filters.service";
 
-interface ValueField {
-    key: number | string;
-    value: number | string;
-}
 
 @Component({
     selector: 'dna-filter-menu',
@@ -16,9 +12,10 @@ interface ValueField {
     styleUrls: ['./dna-filter-menu.component.scss']
 })
 
-export class DNAFilterMenuComponent implements OnInit {
+export class DNAFilterMenuComponent implements OnInit, AfterViewInit {
 
-    constructor(private filtersService: FiltersService) { }
+    constructor(private filtersService: FiltersService,
+                private changeDetector: ChangeDetectorRef) { }
 
     @ViewChild('menuRef') menuRef!: ElementRef;
     @ViewChild('wrapper') wrapper!: ElementRef;
@@ -37,13 +34,18 @@ export class DNAFilterMenuComponent implements OnInit {
         }
     };
 
-    menuActive: boolean = false;
     items!: InputTag[] | undefined;
+    menuActive: boolean = false;
 
     sub!: Subscription;
+    itemsNoFound = false;
+    resetFilters = false;
 
     ngOnInit() {
         this.reset$();
+    }
+    ngAfterViewInit(): void {
+        this.changeDetector.detectChanges();
     }
 
     reset$() {
@@ -59,7 +61,9 @@ export class DNAFilterMenuComponent implements OnInit {
         this.handleMenuHeight();
     }
 
-    handleMenuHeight() {
+    handleMenuHeight(customLength: number | null = null) {
+
+        if(!this.menuActive) this.resetFilters = !this.resetFilters;
         const wrapper = this.wrapper.nativeElement.style;
 
         let staticHeight = 50;
@@ -71,10 +75,11 @@ export class DNAFilterMenuComponent implements OnInit {
         } else if (this.inputType == INPUT_TYPE.GRAPH) {
             wrapper.height = '250px';
         } else {
-            staticHeight += 12;
-            if (this.showSearch) staticHeight += 59;
             const menu = this.menuRef.nativeElement.style;
-            const length = this.items?.length;
+            const length = customLength != null ? customLength : this.items?.length;
+
+            if (this.showSearch) staticHeight += 59;
+            if (length) staticHeight += 12;
 
             if (!length) {
                 wrapper.height = `${staticHeight}px`;
@@ -99,9 +104,28 @@ export class DNAFilterMenuComponent implements OnInit {
         this.filtersService.addTag(item, this.inputType);
     }
 
-    handleMenuContent(filter: string) {
-        console.log(filter)
+    filterMenuContent(filter: string) {
+        if(!this.items || !this.menuRef) return;
+        const items = this.menuRef.nativeElement.getElementsByClassName('menu-item');
+        const matchedItems = this.items.filter(item => item.value.includes(filter));
+        console.log(matchedItems, matchedItems.length)
+
+        for(let i = 0; i < items.length; i++) {
+            if(this.items[i].value.includes(filter)) {
+                items[i].style.display = 'flex';
+            } else {
+                items[i].style.display = 'none';
+            }
+        }
+        if(matchedItems.length == 0) {
+            this.itemsNoFound = true;
+            this.handleMenuHeight(1)
+        } else {
+            this.itemsNoFound = false;
+            this.handleMenuHeight(matchedItems.length)
+        }
     }
+
     isValueColor(value: string | undefined) {
         if (!value) return false;
         const s = new Option().style;

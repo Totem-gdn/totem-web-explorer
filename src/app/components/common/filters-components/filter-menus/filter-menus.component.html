@@ -1,6 +1,6 @@
-<div [ngClass]="dropupActive ? 'blur-background lg:hidden': ''" (click)="dropupActive = false"></div>
+<div [ngClass]="dropupActive ? 'blur-background lg:hidden': ''" (click)="toggleMenu(false)"></div>
 
-<div class="dropup-menu lg:!static lg:!p-0 lg:!max-h-[fit-content] lg:!rounded !pt-[0px]" #dropupMenu
+<div class="dropup-menu lg:!static lg:!p-0 lg:!max-h-[fit-content] lg:!rounded !pt-[0px]" #dropupRef
     [ngClass]="dropupActive ? '': '!pb-[0px]'">
 
     <div class="handler-wrapper lg:!hidden" (click)="dropupActive = !dropupActive">
@@ -8,7 +8,7 @@
     </div>
 
     <div class="content">
-        <div class="title lg:!hidden pt-[10px]">
+        <div class="title lg:!hidden pt-[10px] mb-[7px]">
             <h3>{{'items.filters' | translate}}</h3>
         </div>
 
@@ -58,7 +58,7 @@
 
         <div class="dropup-buttons lg:!hidden">
             <button class="button-style-1" (click)="clearAll()">{{'items.clear_all' | translate}}</button>
-            <button class="button-style-1" (click)="dropupActive = false">{{'items.apply' | translate}}</button>
+            <button class="button-style-1" (click)="toggleMenu(false)">{{'items.apply' | translate}}</button>
         </div>
     </div>
 </div>

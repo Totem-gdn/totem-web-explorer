@@ -10,7 +10,7 @@ import { BehaviorSubject, of, switchMap } from "rxjs";
   styleUrls: ['./search-field.component.scss']
 })
 
-export class SearchFieldComponent implements OnInit {
+export class SearchFieldComponent {
 
   constructor(private router: Router,) {
 
@@ -18,47 +18,26 @@ export class SearchFieldComponent implements OnInit {
   @Input() itemType: string = '';
   @Output() changedValue = new EventEmitter<any>();
 
+  @Input() set resetFilters (reset: any) {
+    this.reset();
+  }
+
   items: any[] = [];
   itemsArray = new BehaviorSubject<any[] | null>(null);
-  searchControl = new FormControl('');
+  searchControl = new FormControl('enb');
 
   menuActive: boolean = false;
   searchActive = false;
-  searchInfo = new FormControl('');
 
   onChangeInput(target?: any) {
     this.changedValue.emit(target?.value || '');
   }
 
-  ngOnInit(): void {
-    this.initFormListener();
-  }
-
-  initFormListener() {
-    this.searchInfo.valueChanges.pipe(
-      switchMap((id: string | null) => {
-        return of(id);
-      })
-    )
-      .subscribe((text: string | null) => {
-        if (text?.length) {
-          this.getItems(text);
-        }
-      });
-  }
-
-  getItems(params: string) {
-    let itemsArray = this.items.filter((item: any) => item.name.toLowerCase().includes(params));
-    this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
-  }
-
-  processItems(items: any[] | null) {
-    this.itemsArray.next(items);
-  }
-
   reset() {
+    console.log('reset')
     if (this.searchControl.value == '') return;
     this.searchControl.patchValue('');
+    this.changedValue.emit('')
   }
 
   onClickViewAll() {
@@ -77,8 +56,6 @@ export class SearchFieldComponent implements OnInit {
 
   onBlur() {
     this.searchActive = false;
-    console.log('reset')
-    this.reset();
   }
 
   onClickMenu() {

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { INPUT_TYPE } from "@app/core/models/enums/input-type.enum";
 
 @Component({
     selector: 'games-menus',
@@ -6,5 +7,7 @@ import { Component } from "@angular/core";
 })
 
 export class GamesMenusComponent {
+    get inputType() { return INPUT_TYPE }
+    
     
 }

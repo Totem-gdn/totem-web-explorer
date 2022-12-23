@@ -6,7 +6,7 @@
     </div>
 
     <ng-container *ngIf="showSearch">
-        <search-field (changedValue)="handleMenuContent($event)"></search-field>
+        <search-field [resetFilters]="resetFilters" (changedValue)="filterMenuContent($event)"></search-field>
     </ng-container>
 
     <ng-container *ngIf="inputType === 'range'">
@@ -19,11 +19,10 @@
 
     <ng-container *ngIf="inputType != 'graph' && inputType != 'range'">
         <div #menuRef class="menu-items">
-
             <label class="menu-item flex" *ngFor="let item of items; let i = index">
 
-                <div *ngIf="isValueColor(item.value)" class="overflow-hidden w-9 h-9 img rounded mr-[5px]"
-                    [style.background-color]="item.value">
+                <div class="overflow-hidden w-9 h-9 img rounded mr-[5px]"
+                    [style.background-color]="isValueColor(item.value) ? item.value : '#8A939B'">
                     <!-- <img [src]="item?.images?.smallThumbnail" alt=""> -->
                 </div>
 
@@ -33,10 +32,13 @@
                     <!-- <span class="text-light-grey">{{item?.general?.genre?.[0]}}</span> -->
                 </div>
 
-                <input (change)="onChangeInput($event, item)" name={{title}} [value]="item.value" class="w-6 h-6 bg-transparent"
-                    [type]="inputType">
+                <input (change)="onChangeInput($event, item)" name={{title}} [value]="item.value"
+                    class="w-6 h-6 bg-transparent" [type]="inputType">
 
             </label>
+            <div *ngIf="itemsNoFound" class="placeholder">
+                <p>No items found</p>
+            </div>
         </div>
     </ng-container>
 </div>

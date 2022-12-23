@@ -1,16 +1,15 @@
 
-<!-- <filter-menu [title]="'nav.rarity' | translate"></filter-menu> -->
+<!-- Static -->
+<dna-filter-menu [title]="'Rarity'" [inputType]="inputType.GRAPH">
+</dna-filter-menu>
+
+<!-- Dynamic -->
 <ng-container *ngFor="let item of items">
-    
-    <dna-filter-menu 
-        [title]="item.description" 
-        [values]="item.values"
-        [showSearch]="
+    <dna-filter-menu [title]="item.description" [values]="item.values" [showSearch]="
             item.type == 'map' ? true:
             item.type == 'range' ? true:
             false
-        "
-        [inputType]="
+        " [inputType]="
             item.type == 'int' ? inputType.RANGE :
             item.type == 'bool' ? inputType.RADIO :
             inputType.CHECKBOX

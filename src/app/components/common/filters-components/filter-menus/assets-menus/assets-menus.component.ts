@@ -36,11 +36,10 @@ export class AssetsMenusComponent implements OnInit, OnDestroy {
         })
     }
 
-    processFiltersContent(game: GameDetail | null) {
-        // const items = this.dnaService.getJSON(game?.general?.name, this.menuType);
-        // const items = this.dnaService.getJSON1();
-        // console.log('json', items)
-        // this.items = items;
+    async processFiltersContent(game: GameDetail | null) {
+        const json = await this.dnaService.getJSONByGame(game, this.menuType);
+        const properties = await this.dnaService.processJSON(json, this.menuType);
+        this.items = properties;
     }
 
     ngOnDestroy(): void {

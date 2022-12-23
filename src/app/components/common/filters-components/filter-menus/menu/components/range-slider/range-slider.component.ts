@@ -44,8 +44,8 @@ export class RangeSliderComponent implements AfterViewChecked, AfterViewInit, On
             this.sliderThumbMin.nativeElement.value = 100;
             this.sliderThumbMax.nativeElement.value = 200;
             this.checkThumbPosition();
-            this.changeMaxValue();
             this.changeMinValue();
+            this.changeMaxValue();
             this.setMargins();
         })
     }
@@ -59,9 +59,11 @@ export class RangeSliderComponent implements AfterViewChecked, AfterViewInit, On
 
     ngAfterViewInit() {
         this.checkThumbPosition();
-        this.changeMaxValue();
         this.changeMinValue();
+        this.changeMaxValue();
         this.setMargins();
+
+        this.changeDetector.detectChanges();
     }
 
     update() {
