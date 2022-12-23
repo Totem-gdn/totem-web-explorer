@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { Achievement, Legacy, LegacyEvent, LegacyResponse } from '@app/core/models/interfaces/legacy.model';
 import { LegacyService } from '@app/core/services/crypto/legacy.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 
 @Component({
   selector: 'item-legacy',
@@ -21,13 +22,13 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
   readonly tableSize: number = 4; // change to change the row amount inside the table
 
   @Input() asset!: AssetInfo;
-  @Input() type: string = '';
+  @Input() type!: string;
 
   constructor(
     private legacyService: LegacyService,
     private snackbarService: SnackNotifierService,
   ) {
-    super();
+    super()
   }
 
   ngOnInit(): void {
