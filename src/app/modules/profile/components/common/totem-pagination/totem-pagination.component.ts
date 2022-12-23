@@ -27,6 +27,9 @@ export class TotemPaginationComponent implements OnInit {
   ngOnInit(): void {
     if (this.totalValue > this.size) {
       this.totalPages = Math.floor(this.totalValue / this.size);
+      if (this.totalValue % this.size == 0) {
+        this.totalPages -= 1;
+      }
     } else {
         this.totalPages = 0;
     }
@@ -53,7 +56,7 @@ export class TotemPaginationComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.currentPage !== (this.totalPages - 1)) {
+    if (this.currentPage !== this.totalPages) {
       this.previusPage = this.currentPage;
       this.currentPage += 1;
       this.calcPaginationValues();
