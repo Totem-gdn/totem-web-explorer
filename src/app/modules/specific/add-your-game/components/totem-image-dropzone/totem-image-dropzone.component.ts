@@ -98,6 +98,10 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     return event?.type.includes('image/') ? true : false;
   }
 
+  isJson(event: any): boolean {
+    return event?.type === 'application/json' ? true : false;
+  }
+
 
   // multiple
 
@@ -138,7 +142,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
 
     const fileToValidate: File = event.target.files[0];
 
-    if (this.isImage(fileToValidate)) {
+    if (this.isImage(fileToValidate) && !this.jsonFileType) {
       if (fileToValidate.size > 20971520) {
         this.snackNotifierService.open('File is very large');
         return;
@@ -148,7 +152,7 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.validateFile(fileToValidate)) {
+    if (this.isJson(fileToValidate)) {
         this.file = fileToValidate;
         if (this.file) {
           this.finalizedFile.next(event);
