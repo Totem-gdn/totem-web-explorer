@@ -1,6 +1,4 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
-import { FiltersService } from "@app/components/common/filters-components/services/filters.service";
-import { TagsService } from "@app/components/common/filters-components/services/tags.service";
 import { Subscription } from "rxjs";
 
 export interface Items {
@@ -138,8 +136,7 @@ interface RangeItem {
 
 export class GraphSliderComponent implements OnDestroy, AfterViewInit {
 
-    constructor(private filtersService: FiltersService,
-                private tagsService: TagsService,private changeDetector : ChangeDetectorRef) {}
+    constructor(private changeDetector : ChangeDetectorRef) {}
 
     minValue: number = 100;
     maxValue: number = 200;

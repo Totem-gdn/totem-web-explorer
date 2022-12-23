@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FiltersService } from "@app/components/common/filters-components/services/filters.service";
+import { FiltersService } from "@app/components/common/filters-components/filters.service";
 
 
 @Component({
@@ -15,6 +15,6 @@ export class ClearAllComponent {
     ) { }
 
     onClearAll() {
-        // this.filtersService.resetFilters();
+        this.filtersService.reset();
     }
 }

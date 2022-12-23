@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FiltersService } from "@app/components/common/filters-components/services/filters.service";
+import { FiltersService } from "@app/components/common/filters-components/filters.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -16,13 +16,13 @@ export class FilterSliderComponent implements OnInit, OnDestroy {
     isMenuOpen!: boolean;
 
     ngOnInit() {
-        // this.filtersService.dropupOpen$.subscribe(isOpen => {
-        //     this.isMenuOpen = isOpen;
-        // })
+        this.filtersService.dropupActive$.subscribe(isOpen => {
+            this.isMenuOpen = isOpen;
+        })
     }
 
     onToggleMenu() {
-        // this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
+        this.filtersService.dropupActive = !this.filtersService.dropupActive;
     }
 
     ngOnDestroy(): void {

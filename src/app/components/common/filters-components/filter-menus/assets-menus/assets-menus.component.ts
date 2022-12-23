@@ -25,10 +25,7 @@ export class AssetsMenusComponent implements OnInit, OnDestroy {
     subs = new Subject<void>();
 
     ngOnInit() {
-        // this.items = this.dnaService.getJSON1();
-        if(!this.items) return;
-        console.log('item', this.items)
-        // this.selectedGame$();
+        this.selectedGame$();
     }
 
     selectedGame$() {
@@ -40,9 +37,10 @@ export class AssetsMenusComponent implements OnInit, OnDestroy {
     }
 
     processFiltersContent(game: GameDetail | null) {
-        const items = this.dnaService.getJSON(game?.general?.name, this.menuType);
-        console.log('json', items)
-        this.items = items;
+        // const items = this.dnaService.getJSON(game?.general?.name, this.menuType);
+        // const items = this.dnaService.getJSON1();
+        // console.log('json', items)
+        // this.items = items;
     }
 
     ngOnDestroy(): void {

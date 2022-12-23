@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, Input, ViewChild, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
-import { FiltersService } from "@app/components/common/filters-components/services/filters.service";
-import { TagsService } from "@app/components/common/filters-components/services/tags.service";
+import { FiltersService } from "@app/components/common/filters-components/filters.service";
+import { INPUT_TYPE } from "@app/core/models/enums/input-type.enum";
+import { InputTag } from "@app/core/models/interfaces/input-tag.model";
 import { Subscription } from 'rxjs';
 
 
@@ -15,9 +16,9 @@ import { Subscription } from 'rxjs';
 
 export class RangeSliderComponent implements AfterViewChecked, AfterViewInit, OnDestroy {
 
-    constructor(private tagsService: TagsService,
-        private filtersService: FiltersService,
-        private changeDetector: ChangeDetectorRef) {
+    constructor(
+        private changeDetector: ChangeDetectorRef,
+        private filtersService: FiltersService) {
     }
 
     ngAfterViewChecked() {
@@ -39,22 +40,21 @@ export class RangeSliderComponent implements AfterViewChecked, AfterViewInit, On
     @ViewChild('sliderThumbMax') sliderThumbMax!: ElementRef;
 
     ngOnInit() {
-        // this.sub = this.filtersService.onResetFilters$().subscribe(() => {
-        //     this.tagsService.removeTagByReference(this.sliderThumbMin);
-        //     this.sliderThumbMin.nativeElement.value = 100;
-        //     this.sliderThumbMax.nativeElement.value = 200;
-        //     this.checkThumbPosition();
-        //     this.changeMaxValue();
-        //     this.changeMinValue();
-        //     this.setMargins();
-        // })
+        this.sub = this.filtersService.reset$.subscribe(() => {
+            this.sliderThumbMin.nativeElement.value = 100;
+            this.sliderThumbMax.nativeElement.value = 200;
+            this.checkThumbPosition();
+            this.changeMaxValue();
+            this.changeMinValue();
+            this.setMargins();
+        })
     }
 
     exportValue() {
         const value = `${this.title} ${this.minValue}-${this.maxValue}`;
         const reference = this.sliderThumbMin;
-        const tag = { value: value, type: this.title, inputType: 'range', reference: reference }
-        // this.tagsService.handleRangeTag(tag);
+        const tag: InputTag = { value: value, ref: reference };
+        this.filtersService.addTag(tag, INPUT_TYPE.RANGE);
     }
 
     ngAfterViewInit() {

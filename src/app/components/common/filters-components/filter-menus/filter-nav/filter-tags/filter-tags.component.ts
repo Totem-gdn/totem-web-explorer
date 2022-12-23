@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { TagsService } from "@app/components/common/filters-components/services/tags.service";
+import { FiltersService } from "@app/components/common/filters-components/filters.service";
+import { InputTag } from "@app/core/models/interfaces/input-tag.model";
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
 import { Subscription } from "rxjs";
 
@@ -15,20 +16,21 @@ import { Subscription } from "rxjs";
 
 export class FilterTagsComponent implements OnInit, OnDestroy {
 
-    constructor(private tagsService: TagsService){}
+    constructor(private filtersService: FiltersService){}
 
-    tags: any[] = [];
+    tags: InputTag[] = [];
     sub!: Subscription;
 
     ngOnInit(): void {
-        // this.sub = this.tagsService.getTags$.subscribe(tags => {
-        //     this.tags = tags;
-        // })
+        this.sub = this.filtersService.tags$.subscribe(tags => {
+            if(!tags) return;
+            this.tags = tags;
+        })
     }
 
 
-    onRemoveTag(tag: Tag) {
-        // this.tagsService.removeTag(tag);
+    onRemoveTag(tag: InputTag) {
+        this.filtersService.removeTag(tag);
     }
 
     ngOnDestroy() {

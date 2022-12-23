@@ -5,8 +5,7 @@ import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { DNAParserService } from '@app/core/services/utils/dna-parser.service';
 import { Subject } from 'rxjs';
-
-import { TagsService } from './services/tags.service';
+import { FiltersService } from './filters.service';
 
 @Component({
     selector: 'filter-components',
@@ -21,10 +20,9 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
         // console.log('json   1', this.items)
     }
 
-    constructor(private tagsService: TagsService,
+    constructor(
         private gamesService: GamesService,
-        private cacheService: CacheService,
-        private dnaService: DNAParserService
+        private filtersService: FiltersService
     ) { }
 
     @Output() loadMore = new EventEmitter<number>();
@@ -95,6 +93,7 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
         this.subs.complete();
         this.items = null;
         // this.tagsService.clear();
+        this.filtersService.reset();
     }
 
     getSelectedGame() {
