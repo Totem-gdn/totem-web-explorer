@@ -24,7 +24,7 @@ export class SearchFieldComponent {
 
   items: any[] = [];
   itemsArray = new BehaviorSubject<any[] | null>(null);
-  searchControl = new FormControl('enb');
+  searchControl = new FormControl('');
 
   menuActive: boolean = false;
   searchActive = false;
