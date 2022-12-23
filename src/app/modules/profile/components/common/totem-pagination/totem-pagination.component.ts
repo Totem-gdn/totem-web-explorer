@@ -8,7 +8,7 @@ import { PaginationEvent } from '@app/core/models/interfaces/page-event-interfac
 })
 export class TotemPaginationComponent implements OnInit {
 
-  size: number = 20;
+  @Input() size: number = 20;
 
   fromValue: number = 0;
   toValue: number = 0;
@@ -25,17 +25,21 @@ export class TotemPaginationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if (this.totalValue > 20) {
+    if (this.totalValue > this.size) {
       this.totalPages = Math.floor(this.totalValue / this.size);
+      if (this.totalValue % this.size == 0) {
+        this.totalPages -= 1;
+      }
     } else {
         this.totalPages = 0;
     }
+    if (this.totalValue == 0) return;
     this.calcPaginationValues();
   }
 
   pushEvent() {
     this.paginationValue = {
-      size: 20,
+      size: this.size,
       currentPage: this.currentPage,
       previousPage: this.previusPage
     }
