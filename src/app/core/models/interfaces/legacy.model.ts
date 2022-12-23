@@ -16,3 +16,10 @@ export interface LegacyResponse<T> {
   results: T;
   total: number;
 }
+
+export interface LegacyEvent {
+  playerAddress: string;
+  assetId: string;
+  gameId: string;
+  data: string;
+}

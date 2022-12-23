@@ -53,7 +53,7 @@ export class TotemPaginationComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.currentPage !== this.totalPages) {
+    if (this.currentPage !== (this.totalPages - 1)) {
       this.previusPage = this.currentPage;
       this.currentPage += 1;
       this.calcPaginationValues();

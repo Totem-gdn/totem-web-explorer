@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
-import { Achievement, LegacyResponse } from '@app/core/models/interfaces/legacy.model';
+import { Achievement, LegacyEvent, LegacyResponse } from '@app/core/models/interfaces/legacy.model';
 import { LegacyService } from '@app/core/services/crypto/legacy.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
@@ -30,7 +30,6 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
 
   achievements!: Achievement[];
   total: number = 0;
-  offset: number = 0;
   @Input() asset!: AssetInfo;
   @Input() type: string = '';
 
@@ -40,7 +39,20 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
 
   paginationEvent(event: any) {
     console.log(event);
+    let queryParam: string = '';
+    queryParam += '&offset=' + (event.currentPage * event.size).toString();
+    queryParam += '&limit=' + event.size;
+    this.getLegacyOfAsset(queryParam);
+  }
 
+  createLegacy() {
+    const data: LegacyEvent = {
+      assetId: this.asset.tokenId.toString(),
+      gameId: '2',
+      playerAddress: '0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae',
+      data: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='
+    }
+    this.legacyService.createLegacyEvent(this.type, data).subscribe((res) => console.log(res));
   }
 
   getLegacyOfAsset(query?: string) {
@@ -50,7 +62,6 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
         console.log(response);
         this.achievements = response?.results || [];
         this.total = response?.total || 0;
-        this.offset = response?.offset || 0;
       });
   }
 
