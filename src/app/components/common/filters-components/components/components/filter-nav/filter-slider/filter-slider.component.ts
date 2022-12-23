@@ -16,13 +16,13 @@ export class FilterSliderComponent implements OnInit, OnDestroy {
     isMenuOpen!: boolean;
 
     ngOnInit() {
-        this.filtersService.dropupOpen$.subscribe(isOpen => {
-            this.isMenuOpen = isOpen;
-        })
+        // this.filtersService.dropupOpen$.subscribe(isOpen => {
+        //     this.isMenuOpen = isOpen;
+        // })
     }
 
     onToggleMenu() {
-        this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
+        // this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
     }
 
     ngOnDestroy(): void {

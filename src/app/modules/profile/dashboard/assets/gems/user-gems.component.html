@@ -1,2 +1,2 @@
 <totem-profile-stats [type]="'gem'" [total]="gems?.length"></totem-profile-stats>
-<filter-components [showSort]="false" class="pb-[60px]" [showUpdate]="false" (loadMore)="loadMoreGems($event)" [itemType]="'gem'" [pushItems]="gems"></filter-components>
+<filter-components [showSort]="false" class="pb-[60px]" [showUpdate]="false" (loadMore)="loadMoreGems($event)" [itemType]="assetType.GEM" [pushItems]="gems"></filter-components>

@@ -35,6 +35,9 @@ export class LegacyService {
             console.log(legacy)
         }))
     }
+    createLegacy(type: ASSET_TYPE, body: any) {
+        // return this.http.post(`${this.baseUrl}/asset-legacy/${type}`);
+    }
 
     fetchGameLegacies() {
         return this.http.get(`${this.baseUrl}/game-legacy`);

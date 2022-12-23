@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
 import { ApiResponse } from '@app/core/models/interfaces/api-response.interface';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
@@ -12,6 +13,8 @@ import { BehaviorSubject, Subscription, take } from 'rxjs';
   styleUrls: ['./favourites.component.scss']
 })
 export class FavouritesComponent implements OnInit, OnDestroy {
+  get assetType() { return ASSET_TYPE}
+
   user: any;
   imageUrl: string | null = '';
   messageList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);

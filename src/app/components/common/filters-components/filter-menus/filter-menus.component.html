@@ -1,0 +1,64 @@
+<div [ngClass]="dropupActive ? 'blur-background lg:hidden': ''" (click)="dropupActive = false"></div>
+
+<div class="dropup-menu lg:!static lg:!p-0 lg:!max-h-[fit-content] lg:!rounded !pt-[0px]" #dropupMenu
+    [ngClass]="dropupActive ? '': '!pb-[0px]'">
+
+    <div class="handler-wrapper lg:!hidden" (click)="dropupActive = !dropupActive">
+        <div class="rectangle"></div>
+    </div>
+
+    <div class="content">
+        <div class="title lg:!hidden pt-[10px]">
+            <h3>{{'items.filters' | translate}}</h3>
+        </div>
+
+
+        <ng-container *ngIf="type != 'game'">
+            <assets-menus [menuType]="type"></assets-menus>
+        </ng-container>
+        <ng-container *ngIf="type == 'game'">
+            <games-menus></games-menus>
+        </ng-container>
+        <!-- <ng-container *ngFor="let prop of properties">
+            <ng-container *ngIf="prop.type == 'range'"></ng-container>
+            <ng-container *ngIf="prop.type == 'map'"></ng-container>
+            <filter-menu 
+            [title]="prop.description"
+            [inputType]="prop.type == 'bool' ? 'radio':
+                         prop.type == 'int' ? 'range': ''"
+            [items]="prop.values"></filter-menu>
+            
+        </ng-container> -->
+        <!-- Items Menus -->
+
+
+
+        <!-- <div *ngIf="type == 'item'" class="py-[45px] lg:py-0">
+            <filter-menu [title]="'items.damage' | translate"  [searchType]="'range'"></filter-menu>
+            <filter-menu [title]="'items.magical_power' | translate" [searchType]="'range'"></filter-menu>
+            <filter-menu [title]="'items.element' | translate" [inputType]="'checkbox'" [searchType]="null" [items]="elements"></filter-menu>
+            <filter-menu [title]="'items.range' | translate" [searchType]="'range'"></filter-menu>
+        </div>
+
+        <div *ngIf="type == 'avatar'" class="py-[45px] lg:py-0">
+           
+            <filter-menu [title]="'items.sex' | translate" [items]="sexes" [menuHeight]="'100px'" [inputType]="'radio'" [searchType]="null"></filter-menu>
+            <filter-menu [title]="'items.skin_color' | translate" [items]="skinColors" [inputType]="'checkbox'"></filter-menu>
+            <filter-menu [title]="'items.hair_color' | translate" [items]="hairColors" [inputType]="'checkbox'"></filter-menu>
+            <filter-menu [title]="'items.eye_color' | translate" [items]="eyeColors" [inputType]="'checkbox'"></filter-menu>
+            <filter-menu [title]="'items.hair_style' | translate" [items]="hairStyles" [inputType]="'checkbox'"></filter-menu>
+            <filter-menu *ngIf="selectedGame?.general?.name == 'Dreadstone Keep'" [title]="'items.weapon_type' | translate" [items]="weaponType" [menuHeight]="'100px'" [inputType]="'radio'"></filter-menu>
+            <filter-menu *ngIf="selectedGame?.general?.name == 'Dreadstone Keep'" [title]="'items.weapon_material' | translate" [items]="weaponMaterial" [inputType]="'radio'"></filter-menu>
+        </div> -->
+
+        <!-- Gem Menus -->
+        <!-- <div *ngIf="type == 'gem'" class="py-[45px] lg:py-0">
+            <filter-menu [title]="'nav.rarity' | translate" [searchType]="'graph'"></filter-menu>
+        </div> -->
+
+        <div class="dropup-buttons lg:!hidden">
+            <button class="button-style-1" (click)="clearAll()">{{'items.clear_all' | translate}}</button>
+            <button class="button-style-1" (click)="dropupActive = false">{{'items.apply' | translate}}</button>
+        </div>
+    </div>
+</div>

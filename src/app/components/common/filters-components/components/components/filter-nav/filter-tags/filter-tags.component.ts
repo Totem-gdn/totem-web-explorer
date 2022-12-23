@@ -21,14 +21,14 @@ export class FilterTagsComponent implements OnInit, OnDestroy {
     sub!: Subscription;
 
     ngOnInit(): void {
-        this.sub = this.tagsService.getTags$.subscribe(tags => {
-            this.tags = tags;
-        })
+        // this.sub = this.tagsService.getTags$.subscribe(tags => {
+        //     this.tags = tags;
+        // })
     }
 
 
     onRemoveTag(tag: Tag) {
-        this.tagsService.removeTag(tag);
+        // this.tagsService.removeTag(tag);
     }
 
     ngOnDestroy() {

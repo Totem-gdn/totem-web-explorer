@@ -17,6 +17,7 @@ import { Subject, takeUntil } from "rxjs";
 })
 
 export class ItemsComponent {
+  get assetType() { return ASSET_TYPE }
 
   constructor(
     private assetsService: AssetsService,

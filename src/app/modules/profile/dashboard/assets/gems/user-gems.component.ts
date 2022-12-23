@@ -14,6 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
   }
 })
 export class UserGemsComponent implements OnInit {
+  get assetType() { return ASSET_TYPE }
 
   constructor(private assetsService: AssetsService,
     private cacheService: CacheService) { }

@@ -1,0 +1,16 @@
+
+<!-- <filter-menu [title]="'nav.rarity' | translate"></filter-menu> -->
+<ng-container *ngFor="let item of items">
+    <dna-filter-menu 
+        [title]="item.description" 
+        [values]="item.values"
+        [showSearch]="
+            false
+        "
+        [inputType]="
+            item.type == 'int' ? inputType.RANGE :
+            item.type == 'bool' ? inputType.RADIO :
+            inputType.CHECKBOX
+        "
+        [showSearch]="true"></dna-filter-menu>
+</ng-container>

@@ -60,27 +60,27 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   resetFilters$() {
-    this.sub = this.filtersService.onResetFilters$().subscribe(() => {
-      this.menuActive = false;
+    // this.sub = this.filtersService.onResetFilters$().subscribe(() => {
+    //   this.menuActive = false;
 
-      if (this.menuActive) {
-        this.wrapper.nativeElement.style.maxHeight = '340px';
-      } else if (!this.menuActive) {
-        this.wrapper.nativeElement.style.maxHeight = '50px';
-      }
+    //   if (this.menuActive) {
+    //     this.wrapper.nativeElement.style.maxHeight = '340px';
+    //   } else if (!this.menuActive) {
+    //     this.wrapper.nativeElement.style.maxHeight = '50px';
+    //   }
 
-      this.checkedItems.forEach((tag: any) => {
-        tag.reference.checked = false;
-      })
-      this.checkedItems = [];
-    })
+    //   this.checkedItems.forEach((tag: any) => {
+    //     tag.reference.checked = false;
+    //   })
+    //   this.checkedItems = [];
+    // })
   }
 
   onChangeInput(event: any) {
     const value = event.target.value;
     const reference = event.target;
     if (this.inputType === 'radio') {
-      if(this.checkedItems[0]) this.tagsService.removeTag(this.checkedItems[0]);
+      // if(this.checkedItems[0]) this.tagsService.removeTag(this.checkedItems[0]);
       this.checkedItems = [{ value: value, type: this.title, reference: reference }];
       this.tagsService.addTag = { value: value, type: this.title, inputType: this.inputType, reference: reference };
     }
@@ -98,7 +98,7 @@ export class FilterMenuComponent implements AfterViewInit, OnDestroy {
         const newArray = removeFromArray(this.checkedItems, value);
         this.checkedItems = newArray;
 
-        this.tagsService.removeTag({ value: value, type: this.title, inputType: this.inputType, reference: reference });
+        // this.tagsService.removeTag({ value: value, type: this.title, inputType: this.inputType, reference: reference });
       }
     }
   }

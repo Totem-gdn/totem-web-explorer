@@ -188,22 +188,22 @@ export class GraphSliderComponent implements OnDestroy, AfterViewInit {
     }
 
     ngOnInit() {
-        this.sub = this.filtersService.onResetFilters$().subscribe(() => {
-            this.tagsService.removeTagByReference(this.sliderThumbMin);
-            this.sliderThumbMin.nativeElement.value = 100;
-            this.sliderThumbMax.nativeElement.value = 200;
-            this.checkThumbPosition();
-            this.changeMaxValue();
-            this.changeMinValue();
-            this.setMargins();
-        })
+        // this.sub = this.filtersService.onResetFilters$().subscribe(() => {
+        //     this.tagsService.removeTagByReference(this.sliderThumbMin);
+        //     this.sliderThumbMin.nativeElement.value = 100;
+        //     this.sliderThumbMax.nativeElement.value = 200;
+        //     this.checkThumbPosition();
+        //     this.changeMaxValue();
+        //     this.changeMinValue();
+        //     this.setMargins();
+        // })
     }
 
     exportValue() {
         const value = `${this.title} ${this.minValue}-${this.maxValue}`;
         const reference = this.sliderThumbMin;
         const tag = {value: value, type: this.title, inputType: 'graph', reference: reference}
-        this.tagsService.handleRangeTag(tag);
+        // this.tagsService.handleRangeTag(tag);
     }
 
     checkRange() {

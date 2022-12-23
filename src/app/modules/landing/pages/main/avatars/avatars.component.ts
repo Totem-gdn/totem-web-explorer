@@ -16,6 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
   }
 })
 export class AvatarsComponent implements OnInit {
+  get assetType() { return ASSET_TYPE }
 
   constructor(
     private assetsService: AssetsService,

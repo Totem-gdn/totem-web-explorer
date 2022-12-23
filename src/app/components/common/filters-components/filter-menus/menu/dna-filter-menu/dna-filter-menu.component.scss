@@ -1,0 +1,80 @@
+@import 'styles/scss/variables';
+@import 'assets/fonts/icon-fonts/line/line.scss';
+
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    min-height: 50px;
+    height: 50px;
+    margin-bottom: 8px;
+    transition: height .3s ease-in-out;
+
+    & .menu-filter {
+        padding: 12px;
+    }
+}
+
+.menu-filter {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    gap: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    mat-icon {
+        transition: transform .3s;
+    }
+
+    & .mat-icon {
+        color: $white;
+        height: 7px;
+    }
+
+    & span, p {
+        font-weight: 500;
+        color: $white;
+    }
+
+    &:hover {
+        background-color: $yellow;
+
+        span, p {
+            color: $black;
+            font-weight: 700;
+        }
+        .mat-icon {
+            color: $black;
+        }
+    }
+
+    &:hover .line-arrow_down {
+        color: $black;
+    }
+}
+.line-arrow_down {
+    transition: transform .3s ease-in-out;
+}
+
+.menu-items {
+    transition: height .3s ease-in-out;
+    overflow-y: auto;
+    .menu-item {
+        border-radius: 4px;
+        max-height: 50px;
+        height: 50px;
+        padding: 8px;
+        align-items: center;
+        transition: background-color .2s ease-in-out;
+        cursor: pointer;
+        position: relative;
+    
+        &:hover {
+            background-color: $grey;
+        }
+    }
+}

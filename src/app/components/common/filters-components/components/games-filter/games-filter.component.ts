@@ -22,19 +22,19 @@ export class GamesFilterComponent implements AfterViewInit {
   sub!: Subscription;
 
   ngAfterViewInit() {
-    this.sub = this.filtersService.dropupOpen$.subscribe(isOpen => {
-      this.isDropupOpen = isOpen;
+    // this.sub = this.filtersService.dropupOpen$.subscribe(isOpen => {
+    //   this.isDropupOpen = isOpen;
 
-      this.updateMenu();
-    })
+    //   this.updateMenu();
+    // })
   }
 
   toggleMenu() {
-    this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
+    // this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
   }
 
   onCloseMenu() {
-    this.filtersService.dropupOpen = false;
+    // this.filtersService.dropupOpen = false;
   }
 
   updateMenu() {
@@ -52,11 +52,11 @@ export class GamesFilterComponent implements AfterViewInit {
   }
 
   onClickApply() {
-    this.filtersService.dropupOpen = false;
+    // this.filtersService.dropupOpen = false;
   }
 
   onClickClear() {
-    this.filtersService.resetFilters();
+    // this.filtersService.resetFilters();
   }
 
   ngOnDestroy(): void {

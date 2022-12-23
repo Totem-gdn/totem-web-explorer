@@ -57,7 +57,6 @@ export class SearchFieldComponent implements OnInit {
   }
 
   reset() {
-    console.log(this.searchControl)
     if (this.searchControl.value == '') return;
     this.searchControl.patchValue('');
   }

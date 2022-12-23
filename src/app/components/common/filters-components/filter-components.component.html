@@ -28,8 +28,9 @@
         </div>
 
         <div class="flex h-full">
-            <assets-filter *ngIf="itemType != 'game'" [type]="itemType"></assets-filter>
-            <games-filter *ngIf="itemType === 'game'"></games-filter>
+            <!-- <assets-filter *ngIf="itemType != 'game'" [type]="itemType"></assets-filter>
+            <games-filter *ngIf="itemType === 'game'"></games-filter> -->
+            <filter-menus [type]="itemType"></filter-menus>
 
 
             <div *ngIf="items" class="flex flex-col w-full">

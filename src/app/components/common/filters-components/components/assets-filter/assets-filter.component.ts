@@ -33,12 +33,12 @@ export class AssetsFilterComponent implements AfterViewInit {
     properties!: DNAField[];
 
     ngAfterViewInit() {
-        this.filtersService.dropupOpen$
-        .pipe(takeUntil(this.subs))
-        .subscribe(isOpen => {
-            this.isDropupOpen = isOpen;
-            this.updateMenu();
-        })
+        // this.filtersService.dropupOpen$
+        // .pipe(takeUntil(this.subs))
+        // .subscribe(isOpen => {
+        //     this.isDropupOpen = isOpen;
+        //     this.updateMenu();
+        // })
 
         this.selectedGame$();
         this.changeDetector.detectChanges();
@@ -52,18 +52,18 @@ export class AssetsFilterComponent implements AfterViewInit {
 
     processFiltersContent(game: GameDetail | null) {
         const properties = this.dnaService.getJSON(game?.general?.name, this.type);
-        console.log('json', properties)
+        // console.log('json', properties)
         this.properties = properties;
     }
 
 
 
     toggleMenu() {
-        this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
+        // this.filtersService.dropupOpen = !this.filtersService.dropupOpen;
     }
 
     onCloseMenu() {
-        this.filtersService.dropupOpen = false;
+        // this.filtersService.dropupOpen = false;
     }
 
     updateMenu() {
@@ -80,11 +80,11 @@ export class AssetsFilterComponent implements AfterViewInit {
     }
 
     onClickApply() {
-        this.filtersService.dropupOpen = false;
+        // this.filtersService.dropupOpen = false;
     }
 
     onClickClear() {
-        this.filtersService.resetFilters();
+        // this.filtersService.resetFilters();
     }
 
     ngOnDestroy(): void {

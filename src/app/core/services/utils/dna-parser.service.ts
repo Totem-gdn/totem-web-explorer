@@ -52,7 +52,7 @@ export class DNAParserService {
         if(gameName == 'Monk vs Robots' && type != 'avatar') return DNAFilter.monkVsRobotsItemFilterJson;
 
 
-        console.log(DNAFilter)
+        // console.log(DNAFilter)
         //Default filters
         if(!gameName || type != 'avatar') return DNAFilter.itemFilterJson;
         else return DNAFilter.avatarFilterJson;
