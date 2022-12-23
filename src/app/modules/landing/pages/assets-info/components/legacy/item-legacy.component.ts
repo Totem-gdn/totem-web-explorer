@@ -17,7 +17,7 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
   total: number = 0;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   prevIndexSelected: number = 0;
-  
+
   readonly tableSize: number = 4; // change to change the row amount inside the table
 
   @Input() asset!: AssetInfo;
@@ -60,13 +60,6 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
       data: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='
     }
     this.legacyService.createLegacyEvent(this.type, data).subscribe((res) => console.log(res));
-  }
-
-  achievementData(data: string) {
-    if (data.length > 4) {
-      return data.slice(0, 4) + '...' + data.slice(-(data.length - 4));
-    }
-    return data;
   }
 
   onCopy() {
