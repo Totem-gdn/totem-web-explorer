@@ -1,8 +1,10 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { DNAField } from "@app/core/models/interfaces/dna-field.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { firstValueFrom } from "rxjs";
 // const { itemFilterJson} = require('totem-common-files');
 const DNAFilter = require('totem-common-files');
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
@@ -14,6 +16,8 @@ enum DNA_FILTER {
 @Injectable({ providedIn: 'root' })
 
 export class DNAParserService {
+
+    constructor(private http: HttpClient) {}
 
     // handleDNAField(id: string, value: string) {
 
@@ -46,39 +50,32 @@ export class DNAParserService {
     }
 
 
-    // getJSON(gameName: string | undefined, type: string): DNAField[] {
-    //     if(gameName == 'Dreadstone Keep' && type == 'avatar') return DNAFilter.totemAvatarDreadstoneKeepFilterJson;
-    //     if(gameName == 'Dreadstone Keep' && type != 'avatar') return DNAFilter.totemItemDreadstoneKeepFilterJson;
-
-    //     if(gameName == 'Monk vs Robots' && type == 'avatar') return DNAFilter.monkVsRobotsAvatarFilterJson;
-    //     if(gameName == 'Monk vs Robots' && type != 'avatar') return DNAFilter.monkVsRobotsItemFilterJson;
-
-
-    //     // console.log(DNAFilter)
-    //     //Default filters
-    //     if(!gameName || type != 'avatar') return DNAFilter.itemFilterJson;
-    //     else return DNAFilter.avatarFilterJson;
-    // }
-
     async getJSONByGame(game: GameDetail | null, type: ASSET_TYPE) {
         let json: any = '';
+        let jsonUrl: string | undefined = '';
 
-        if (!game?.connections?.dnaFilters) {
+        if (game?.connections?.dnaFilters) {
             if (type == ASSET_TYPE.AVATAR) {
-                json = game?.connections?.dnaFilters?.avatarFilter;
+                jsonUrl = game?.connections?.dnaFilters?.avatarFilter;
             } else if (type == ASSET_TYPE.ITEM) {
-                json = game?.connections?.dnaFilters?.assetFilter;
+                jsonUrl = game?.connections?.dnaFilters?.assetFilter;
             } else if (type == ASSET_TYPE.GEM) {
-                json = game?.connections?.dnaFilters?.gemFilter;
+                jsonUrl = game?.connections?.dnaFilters?.gemFilter;
             }
         }
-        if (!json) {
+
+        if(!jsonUrl) {
             if (type == ASSET_TYPE.AVATAR) {
                 json = DNAFilter.avatarFilterJson;
+                return json;
             } else {
                 json = DNAFilter.itemFilterJson;
+                return json;
             }
         }
+
+        json = await firstValueFrom(this.http.get<any>(jsonUrl));
+
         return json;
     }
 

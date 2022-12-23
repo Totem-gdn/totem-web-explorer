@@ -26,7 +26,6 @@ export class GamesComponent implements OnDestroy {
 
   loadMore(page: number, list = this.sortMethod) {
     this.gamesService.fetchGames(page, list).subscribe(games => {
-      console.log(games)
       this.games = games;
     });
   }

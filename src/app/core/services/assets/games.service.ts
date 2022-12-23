@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params.enum";
+import { ApiResponse } from "@app/core/models/interfaces/api-response.interface";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { environment } from "@env/environment";
 import { BehaviorSubject, Observable, tap } from "rxjs";
@@ -56,7 +57,8 @@ export class GamesService {
   }
 
   loadGames(filter: string, updateStateGames: boolean) {
-    return this.http.get<GameDetail[]>(`${this.baseUrl}/games/search?name=${filter}`).pipe(tap(games => {
+    return this.http.get<GameDetail[]>(`${this.baseUrl}/games/search?name=${filter}`).pipe(tap(res => {
+      let games = res;
       if ('totem'.includes(filter.toLowerCase())) {
         games.unshift({
           id: 'totem',

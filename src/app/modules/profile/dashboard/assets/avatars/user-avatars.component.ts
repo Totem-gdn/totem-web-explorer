@@ -30,7 +30,6 @@ export class UserAvatarsComponent implements OnInit {
 
   loadMoreAvatars(page: number) {
     this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, ASSET_PARAM_LIST.MY).subscribe(avatars => {
-      console.log('avatars', avatars)
       if(avatars.data) {
         this.avatars = avatars.data;
         return;

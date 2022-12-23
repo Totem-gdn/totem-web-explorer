@@ -56,7 +56,6 @@ export class FavouritesComponent implements OnInit, OnDestroy {
   }
 
   getMoreWithSort(event: any) {
-    console.log(event);
     this.loadMore(this.activeTab, 1, event);
   }
 

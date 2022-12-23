@@ -16,8 +16,6 @@ import { FiltersService } from './filters.service';
 export class FilterComponentsComponent implements OnDestroy, OnInit {
 
     ngOnInit(): void {
-        // this.items = this.dnaService.getJSON1();
-        // console.log('json   1', this.items)
     }
 
     constructor(

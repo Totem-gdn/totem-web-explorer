@@ -34,7 +34,6 @@ export class SearchFieldComponent {
   }
 
   reset() {
-    console.log('reset')
     if (this.searchControl.value == '') return;
     this.searchControl.patchValue('');
     this.changedValue.emit('')

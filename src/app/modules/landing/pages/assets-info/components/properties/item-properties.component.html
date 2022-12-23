@@ -1,7 +1,7 @@
 <div class="flex flex-col wrapper" (onResize)="onResize()">
     <div class="grid-wrapper">
         <div #grid class="grid-container">
-            <div #tag *ngFor="let propertie of _properties" class="item-tag" (mouseover)="onOver(tag, propertie)" (mouseleave)="onLeave()">
+            <div @fade-in-out #tag *ngFor="let propertie of _properties" class="item-tag" (mouseover)="onOver(tag, propertie)" (mouseleave)="onLeave()">
                 <p class="lh-1 text-lg title truncate !text-white">{{propertie.description}}</p>
                 <div class="circle-wrapper">
                     <div class="circle"></div>
@@ -13,7 +13,7 @@
                     <p class="truncate !text-light-grey">{{propertie.value}}</p>
                 </div>
             </div>
-            <div class="" *ngFor="let placeholder of placeholders" class="item-tag placeholder">
+            <div @fade-in-out class="" *ngFor="let placeholder of placeholders" class="item-tag placeholder">
                 <div class="line-item_placeholder"></div>
             </div>
         </div>
