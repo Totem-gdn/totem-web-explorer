@@ -86,7 +86,7 @@ export class DNASchemeValidator {
       console.log('NOT VALID', this.validate.errors as DefinedError);
       const errors: DefinedError[] = this.validate.errors;
       DNAResponseCompose.composeError(errors[0]);
-      return 'OK';
+      return 'ERROR';
     }
   }
 

@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { DNAItemFilter } from '@app/core/models/interfaces/dna-item-filter.interface';
 import { DNASchemeValidator } from '@app/core/services/utils/dna-scheme-validator';
 import { Subscription } from 'rxjs';
 
@@ -144,43 +145,12 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     }
 
     const fileToValidate: File = event.target.files[0];
-    console.log(fileToValidate); //starts new
-    var file = event.srcElement.files[0];
-    console.log(event, file);
-    let json: any[] = [];
-    if (file) {
-      var reader = new FileReader();
-      reader.readAsText(file, "UTF-8");
-      reader.onload = (eventf: any) => {
-        if (eventf.target.result) {
-          json = JSON.parse(eventf.target.result);
-          if (Array.isArray(json)) {
-            console.log("True");
-            const res = json.every((item: any) => {
-              this.validator.validateJson(item);
-              return true;
-            })
-            console.log(res);
-          } else {
-            console.log('ITS NOT ARRAY');
-          }
-        } else {
-          console.log('Your file is empty');
-
-        }
-      }
-    }
-
-
-
-    /* reader.onerror = function (evt) {
-        console.log('error reading file');
-    } */
-    return; //ends new
+    if (!fileToValidate) return;
 
     if (this.isImage(fileToValidate) && !this.jsonFileType) {
       if (fileToValidate.size > 20971520) {
         this.snackNotifierService.open('File is very large');
+        this.removeHover();
         return;
       }
       this.finalizedFile.next(event);
@@ -188,20 +158,67 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.isJson(fileToValidate)) {
-        this.file = fileToValidate;
-        if (this.file) {
-          this.finalizedFile.next(event);
-        }
-    } else {
+    // not json
+    console.log(event);
+
+    if (!this.isJson(fileToValidate)) {
       this.snackNotifierService.open('Your input file is incorrect');
+      this.removeHover();
+      return;
+    };
+
+    // is json
+    if (fileToValidate) {
+      if (fileToValidate.size > 100000) {
+        this.snackNotifierService.open('File is very large, max file size is 100B');
+        this.removeHover();
+        return;
+      }
+      this.validateJson(fileToValidate, event);
+      // this.finalizedFile.next(event);
     }
 
     this.removeHover();
   }
 
-  submitFile(event: any) {
+  validateJson(fileToValidate: File, inputEvent: any) {
+    console.log(fileToValidate); //starts new
+    let json: any[] = [];
+    const reader = new FileReader();
+    reader.readAsText(fileToValidate, "UTF-8");
+    reader.onload = (event: any) => {
 
+      if (!event.target.result) {
+        this.snackNotifierService.open('Your DNA Filter file is empty');
+        return;
+      }
+
+      json = JSON.parse(event.target.result);
+      if (!Array.isArray(json)) {
+        this.snackNotifierService.open('Your DNA Filter file body is incorrect');
+        return;
+      }
+
+      const validationResult = json.every((item: DNAItemFilter) => {
+        const validity: string = this.validator.validateJson(item);
+        return validity == 'OK' ? true : false;
+      });
+
+      console.log(validationResult);
+      if (!validationResult) {
+        this.setInputError('Something went wrong when validating your DNA filter. Please make sure if everything is correct');
+        return;
+      }
+
+      console.log('FILE PASSES ALL VALIDATIONS AND PUSHED TO FILES TO SEND');
+      this.finalizedFile.next(inputEvent);
+
+    }
+  }
+
+  setInputError(msg: string) {
+    this.errorState = true;
+    this.errorEvent.emit({message: msg, status: true});
   }
 
 }
