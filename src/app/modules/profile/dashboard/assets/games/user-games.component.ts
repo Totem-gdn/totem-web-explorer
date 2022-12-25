@@ -13,25 +13,23 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class UserGamesComponent {
   games!: any[] | undefined | null;
-  subs = new Subject<void>();
+  sortMethod = GAME_PARAM_LIST.LATEST;
 
   constructor(private gamesService: GamesService) {}
 
   ngOnInit(): void {
-    this.loadMore(1, GAME_PARAM_LIST.LATEST);
+    this.loadMore(1);
   }
 
-  loadMore(page: number, filters: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
-    this.gamesService.fetchGames(page, filters)
-      .pipe(takeUntil(this.subs))
-      .subscribe(games => {
-        this.games = games;
-      })
+  loadMore(page: number, list = this.sortMethod) {
+    this.gamesService.fetchGames(page, list).subscribe(games => {
+      this.games = games;
+    });
   }
 
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.complete();
+  onSort(sortMethod: any) {
+    this.sortMethod = sortMethod;
+    this.loadMore(1, this.sortMethod);
   }
 
 }

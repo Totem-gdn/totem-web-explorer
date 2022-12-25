@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { Achievement, Legacy, LegacyEvent, LegacyResponse } from '@app/core/models/interfaces/legacy.model';
@@ -7,19 +8,28 @@ import { LegacyService } from '@app/core/services/crypto/legacy.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, take } from 'rxjs';
 
+interface Tooltip {
+  data?: string;
+  active: boolean;
+  decodedData?: string;
+}
 @Component({
   selector: 'item-legacy',
   templateUrl: './item-legacy.component.html',
   styleUrls: ['./item-legacy.component.scss'],
+  animations: [
+    Animations.animations
+  ]
 })
 export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
 
   achievements!: Achievement[];
   total: number = 0;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  prevIndexSelected: number = 0;
-
   readonly tableSize: number = 4; // change to change the row amount inside the table
+
+  tooltip!: Tooltip;
+  @ViewChild('tooltipRef') tooltipRef!: ElementRef;
 
   @Input() asset!: AssetInfo;
   @Input() type!: string;
@@ -67,17 +77,29 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
     this.snackbarService.open('Copied to the clipboard');
   }
 
-  onClosePopUp(index: number):void {
-    this.achievements[index].base64Encoded = undefined;
-  }
 
-  onCheckBase64(data: string, index: number): void {
+  async openTooltip(e: any, data: string) {
+    // Tooltip data
+    this.tooltipRef.nativeElement.focus();
+
+    this.tooltip = { data: data, active: true };
+    let decodedData: string | undefined = undefined;
+
     const base64regExp: RegExp = /^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{4}|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{2}={2})$/gm;
+    if (base64regExp.test(data)) decodedData = Buffer.from(data, 'base64').toString('binary');
 
-    if (base64regExp.test(data)) {
-      this.achievements[this.prevIndexSelected].base64Encoded = undefined;
-      this.achievements[index].base64Encoded = Buffer.from(data, 'base64').toString('binary');
-      this.prevIndexSelected = index;
+    this.tooltip.decodedData = decodedData;
+
+    // Tooltip position
+    const tooltipStyle = this.tooltipRef.nativeElement.style;
+    const tooltipRect = e.target.getBoundingClientRect();
+
+    if (window.innerWidth - 150 < tooltipRect.x + e.target.offsetWidth) {
+      tooltipStyle.left = `${e.target.offsetLeft - (e.target.offsetWidth / 2)}px`;
+      tooltipStyle.top = `${e.target.offsetTop + e.target.offsetHeight}px`;
+    } else {
+      tooltipStyle.left = `${e.target.offsetLeft + (e.target.offsetWidth / 2)}px`;
+      tooltipStyle.top = `${e.target.offsetTop + e.target.offsetHeight}px`;
     }
   }
 

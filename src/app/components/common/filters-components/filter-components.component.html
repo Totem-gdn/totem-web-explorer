@@ -11,7 +11,7 @@
             <div class="flex justify-between w-full">
                 <game-dropdown *ngIf="itemType != 'game'" class="nav-item" [title]="'Game name'"></game-dropdown>
 
-                <sort-by *ngIf="showSort" (sort)="onSort($event)" class="nav-item !ml-auto lg:!mr-0"></sort-by>
+                <sort-by *ngIf="showSort" [extendedSort]="extendedSort" (sort)="onSort($event)" class="nav-item !ml-auto lg:!mr-0"></sort-by>
             </div>
         </div>
     </div>

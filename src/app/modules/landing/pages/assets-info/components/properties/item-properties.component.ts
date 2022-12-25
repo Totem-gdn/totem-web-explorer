@@ -41,6 +41,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   @Input() set properties(properties: any[]) {
     if (!properties) return;
+    console.log('properties', properties)
     this.handlePropertiesInput(properties);
   };
 
@@ -69,8 +70,8 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     const tagRect = e.getBoundingClientRect();
     const width = e.offsetWidth;
     const height = e.offsetHeight;
-    const x = tagRect.x + width / 2;
-    const y = tagRect.y + height / 2;
+    const x = e.offsetLeft + width / 2;
+    const y = e.offsetTop + height / 2;
 
     tooltip.style.visibility = 'visible';
     tooltip.style.opacity = '1';
@@ -95,21 +96,22 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     let gridHeight: any;
     if(this.grid) {
       gridHeight = this.grid.nativeElement.getBoundingClientRect().height;
-      this.grid.nativeElement.style.height = `${gridHeight}px`;
+      // this.grid.nativeElement.style.height = `${gridHeight}px`;
     }
     this._properties = [];
     this.placeholders = [];
     this.placeholdersSub?.unsubscribe();
-
+    console.log('before timeout')
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
+      console.log('after timeout')
+      // if(this.grid) this.grid.nativeElement.style.height = 'auto';
       this._properties = properties;
       this.placeholders$();
-      if(this.grid) this.grid.nativeElement.style.height = 'auto';
       setTimeout(() => {
         this.checkTagsOverflow();
       }, 100)
-    }, 300)
+    }, 400)
   }
 
   placeholders$() {
@@ -130,6 +132,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   gridPlaceholders(length: number) {
     // if(this.placeholders.length == length) return;
+    console.log('length', length)
     if (!this._properties) return;
     if (this._properties.length < length) {
       this.placeholders = [].constructor(length - this._properties.length)
@@ -180,7 +183,6 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
       }
     }
   }
-
 
   onClickViewAll() {
     if (this.toggle === false) {

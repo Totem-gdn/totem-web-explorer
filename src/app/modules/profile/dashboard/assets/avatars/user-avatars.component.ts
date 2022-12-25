@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -22,19 +23,28 @@ export class UserAvatarsComponent implements OnInit {
   ) { }
 
   subs = new Subject<void>();
-  avatars!: any[] | null;
+
+  sortMethod = ASSET_PARAM_LIST.MY;
+  assets!: AssetInfo[] | null;
+  setAssets!: AssetInfo[];
+
 
   ngOnInit() {
-    this.loadMoreAvatars(1);
+    this.loadMoreAssets(1);
   }
 
-  loadMoreAvatars(page: number) {
-    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, ASSET_PARAM_LIST.MY).subscribe(avatars => {
-      if(avatars.data) {
-        this.avatars = avatars.data;
-        return;
+  loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
+    this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(assets => {
+      if(reset) {
+        this.setAssets = assets.data;
+      } else {
+        this.assets = assets.data;
       }
-      this.avatars = (avatars as any);
     });
+  }
+
+  onSort(sortMethod: any) {
+    this.sortMethod = sortMethod;
+    this.loadMoreAssets(1, this.sortMethod);
   }
 }

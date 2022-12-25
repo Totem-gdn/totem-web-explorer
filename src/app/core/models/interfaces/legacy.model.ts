@@ -8,7 +8,6 @@ export interface Achievement {
     gameId: string;
     itemId: string;
     timestamp: string;
-    base64Encoded?: string;
 }
 
 export interface LegacyResponse<T> {

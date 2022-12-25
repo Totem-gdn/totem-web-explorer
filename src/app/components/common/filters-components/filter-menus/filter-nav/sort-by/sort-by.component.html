@@ -9,6 +9,9 @@
     <div #dropdown class="dropdown-menu backdrop-blur-xl gradient-border-solid" [ngClass]="menuActive ? 'appear': ''"
     >
         <div class="menu-items">
+            <div *ngIf="extendedSort" class="menu-item" (click)="onSort('my')">
+                <span class="">{{'items.my' | translate}}</span>
+            </div>
             <div class="menu-item" (click)="onSort('latest')">
                 <span class="">{{'items.newest' | translate}}</span>
             </div>

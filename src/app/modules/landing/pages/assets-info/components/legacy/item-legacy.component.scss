@@ -4,8 +4,10 @@
 .wrapper {
     padding: 10px;
     border: 1px solid $light-grey;
-    overflow-x: scroll;
+    // overflow-x: scroll;
     width: 100%;
+    border-radius: 4px;
+    position: relative;
 }
 
 .history-grid {
@@ -41,34 +43,22 @@ span {
         height: 14px;
     }
 }
-.dataWraper {
-    position: relative;
-    .base64PopUp {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        margin-top: -85px;
-        background-color: $dark-grey;
-        border-radius: 5px;
-        .flex {
-            position: relative;
-            .closeIcon {
-                font-size: 15px;
-                position: absolute;
-                right: 10px;
-                top: 5px;
-            }
-            textarea {
-                border: none;
-                color: $white;
-                background-color: inherit;
-                padding: 5px 20px;
-                resize: none;
-                font-size: 16px;
-                &:focus {
-                    outline: none !important;
-                }
-            }
-        }
+
+.tooltip-wrapper {
+    width: 200px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding: 4px;
+    max-height: 400px;
+    background: rgba(8, 9, 10, 0.5);
+    backdrop-filter: blur(10px);
+
+    .tooltip {
+        overflow-y: scroll;
+        padding: 6px;
+        color: $white;
+        text-align: center;
     }
 }

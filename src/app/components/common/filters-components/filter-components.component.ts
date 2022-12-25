@@ -30,6 +30,7 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
     @Input() itemType!: ASSET_TYPE | 'game';
     @Input() showUpdate = true;
     @Input() showSort = true;
+    @Input() extendedSort = false;
     @Input() total?: number;
 
     @ViewChild('wrapper') wrapper!: ElementRef;

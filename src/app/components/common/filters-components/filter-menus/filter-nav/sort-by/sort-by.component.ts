@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'sort-by',
@@ -9,6 +9,7 @@ export class SortByComponent {
 
   menuActive = false;
 
+  @Input() extendedSort = false;
   @ViewChild('dropdown') dropdown!: ElementRef;
   @Output() sort = new EventEmitter<string>();
   title = 'items.sort_by'; // for translate
@@ -24,9 +25,11 @@ export class SortByComponent {
   }
 
   onSort(option: string) {
+    if(option == 'my') this.title = 'items.my';
     if(option == 'latest') this.title = 'items.newest'; // for translate
     if(option == 'popular') this.title = 'items.most_popular'; // for translate
 
     this.sort.emit(option);
+    this.menuActive = false;
   }
 }

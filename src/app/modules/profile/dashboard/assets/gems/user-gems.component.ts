@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -20,21 +21,29 @@ export class UserGemsComponent implements OnInit {
     private cacheService: CacheService) { }
 
   subs = new Subject<void>();
-  gems!: any[] | null;
+
+  sortMethod = ASSET_PARAM_LIST.MY;
+  assets!: AssetInfo[] | null;
+  setAssets!: AssetInfo[];
+
 
   ngOnInit() {
-    this.loadMoreGems(1);
+    this.loadMoreAssets(1);
   }
 
-  loadMoreGems(page: number) {
-    this.assetsService.fetchAssets(ASSET_TYPE.GEM, page, ASSET_PARAM_LIST.MY).subscribe(gems => {
-      // this.gems = gems;
-      if(gems.data) {
-        this.gems = gems.data;
-        return;
+  loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
+    this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(assets => {
+      if(reset) {
+        this.setAssets = assets.data;
+      } else {
+        this.assets = assets.data;
       }
-      this.gems = (gems as any);
     });
+  }
+
+  onSort(sortMethod: any) {
+    this.sortMethod = sortMethod;
+    this.loadMoreAssets(1, this.sortMethod);
   }
 
 }

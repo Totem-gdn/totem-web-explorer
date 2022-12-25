@@ -1,8 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
-import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
-import { DNAField } from "@app/core/models/interfaces/dna-field.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { firstValueFrom } from "rxjs";
 // const { itemFilterJson} = require('totem-common-files');
@@ -18,27 +16,6 @@ enum DNA_FILTER {
 export class DNAParserService {
 
     constructor(private http: HttpClient) {}
-
-    // handleDNAField(id: string, value: string) {
-
-    //     // if (id == 'primary_color') {
-    //     //     return this.rgba2hex(value);
-    //     // }
-    //     // if (id == 'sex_bio') {
-    //     //     if (value == '0') return 'Male';
-    //     //     if (value == '1') return 'Female';
-    //     // }
-    //     // if (id == 'body_strength') {
-    //     //     if (value == '0') return 'Wimp';
-    //     //     if (value == '1') return 'Muscular';
-    //     // }
-    //     // if (id == 'body_type') {
-    //     //     if (value == '0') return 'Thin';
-    //     //     if (value == '1') return 'Fat';
-    //     // }
-
-    //     return value;
-    // }
 
     rgba2hex(str: any) {
         if (str.match(/^#[a-f0-9]{6}$/i)) return;

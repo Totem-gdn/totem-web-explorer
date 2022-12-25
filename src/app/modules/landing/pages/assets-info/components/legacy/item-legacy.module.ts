@@ -4,6 +4,7 @@ import { TotemPaginationModule } from "@app/modules/profile/components/common/to
 import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "@app/shared/shared.module";
 import { ItemLegacyComponent } from "./item-legacy.component";
+import { TooltipPopupModule } from "@app/components/utils/tooltip-popup/tooltip-popup.module";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ItemLegacyComponent } from "./item-legacy.component";
         ClipboardModule,
         TotemPaginationModule,
         MatIconModule,
+        TooltipPopupModule
     ],
     exports: [
         ItemLegacyComponent

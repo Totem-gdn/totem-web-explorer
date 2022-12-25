@@ -11,14 +11,6 @@ import { ASSET_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 const { DNAParser } = require('totem-dna-parser');
 
-interface AssetsHTTPResponse {
-    data?: AssetInfo[],
-    meta?: {
-        page: number;
-        perPage: number;
-        total: number;
-    }
-}
 @Injectable({ providedIn: 'root' })
 
 export class AssetsService {

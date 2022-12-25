@@ -46,21 +46,10 @@ export class AvatarsComponent implements OnInit {
 
   loadMoreAvatars(page: number, list = this.sortMethod, reset: boolean = false) {
     this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list).subscribe(avatars => {
-      if(avatars.data) {
-        if(reset) {
-          this.setAvatars = avatars.data;
-        } else {
-          this.avatars = avatars.data;
-        }
-
-        this.total = avatars.meta?.total;
-        return;
-      }
-      // Old Endpoint
       if(reset) {
-        this.setAvatars = (avatars as any);
+        this.setAvatars = avatars.data;
       } else {
-        this.avatars = (avatars as any);
+        this.avatars = avatars.data;
       }
     });
   }
