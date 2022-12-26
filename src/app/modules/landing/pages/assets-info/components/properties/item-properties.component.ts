@@ -1,5 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Animations } from '@app/core/animations/animations';
 import { AssetDNAField, DNAField } from '@app/core/models/interfaces/dna-field.model';
 import { Subject, Subscription } from 'rxjs';
 
@@ -12,13 +13,17 @@ enum queries {
   selector: 'item-properties',
   templateUrl: './item-properties.component.html',
   styleUrls: ['./item-properties.component.scss'],
+  animations: [
+    Animations.animations
+  ]
   // host: {
   //   class: 'flex'
   // }
 })
 export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
-  constructor(private media: BreakpointObserver) { }
+  constructor(private media: BreakpointObserver,
+              private changeDetector: ChangeDetectorRef) { }
 
   subs = new Subject<void>();
   showViewAll: boolean | null = false;
@@ -26,25 +31,21 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   placeholdersSub!: Subscription;
 
   tagsWidth = [];
-  _properties!: AssetDNAField[];
+  _properties!: AssetDNAField[] | null;
   placeholders = [];
+  timeout!: any;
 
   @ViewChild('grid') grid!: ElementRef;
   @ViewChild('tooltip') tooltip!: ElementRef;
   tooltipData!: any;
 
   @Input() set properties(properties: any[]) {
-    if(!properties) return;
-    this._properties = properties;
-    this.placeholdersSub?.unsubscribe();
-    this.placeholders$();
-    setTimeout(() => {
-      this.checkTagsOverflow();
-    }, 100)
+    if (!properties) return;
+    this.handlePropertiesInput(properties);
   };
 
   isValueColor(value: string | undefined) {
-    if(!value) return false;
+    if (!value) return false;
     const s = new Option().style;
     s.color = value;
     return s.color !== '';
@@ -52,7 +53,8 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.checkTagsOverflow();
-    this.placeholders$();
+    // this.placeholders$();
+    this.changeDetector.detectChanges();
   }
 
   onResize() {
@@ -60,20 +62,20 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   }
 
   onOver(e: any, propertie: any) {
-    if(!this.tooltip) return;
-    if(!(+e.firstChild.offsetWidth < +e.firstChild.scrollWidth)) return;
+    if (!this.tooltip) return;
+    if (!(+e.firstChild.offsetWidth < +e.firstChild.scrollWidth)) return;
     const tooltip = this.tooltip.nativeElement;
 
     const tagRect = e.getBoundingClientRect();
     const width = e.offsetWidth;
     const height = e.offsetHeight;
-    const x = tagRect.x + width / 2;
-    const y = tagRect.y + height / 2;
+    const x = e.offsetLeft + width / 2;
+    const y = e.offsetTop + height / 2;
 
     tooltip.style.visibility = 'visible';
     tooltip.style.opacity = '1';
 
-    this.tooltipData = {title: propertie.description, value: propertie.value}
+    this.tooltipData = { title: propertie.description, value: propertie.value }
     if (window.innerWidth - 80 < tagRect.x + width) {
       tooltip.style.left = `${x - width / 2}px`;
       tooltip.style.top = `${y}px`;
@@ -83,10 +85,30 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     }
   }
   onLeave() {
-    if(!this.tooltip) return;
+    if (!this.tooltip) return;
     const tooltip = this.tooltip.nativeElement;
     tooltip.style.visibility = 'hidden';
     tooltip.style.opacity = '0';
+  }
+
+  handlePropertiesInput(properties: any[]) {
+    let gridHeight: any;
+    if(this.grid) {
+      gridHeight = this.grid.nativeElement.getBoundingClientRect().height;
+      // this.grid.nativeElement.style.height = `${gridHeight}px`;
+    }
+    this._properties = [];
+    this.placeholders = [];
+    this.placeholdersSub?.unsubscribe();
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      // if(this.grid) this.grid.nativeElement.style.height = 'auto';
+      this._properties = properties;
+      this.placeholders$();
+      setTimeout(() => {
+        this.checkTagsOverflow();
+      }, 100)
+    }, 400)
   }
 
   placeholders$() {
@@ -106,20 +128,20 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   }
 
   gridPlaceholders(length: number) {
-    if(!this._properties?.length) return;
+    if (!this._properties) return;
     if (this._properties.length < length) {
       this.placeholders = [].constructor(length - this._properties.length)
       return;
     }
     const placeholders = length % this._properties.length - this._properties.length % length;
-    if(this._properties.length % length == 0) {
+    if (this._properties.length % length == 0) {
       this.placeholders = [];
     } else {
       this.placeholders = [].constructor(placeholders);
     }
 
 
-    if(this._properties.length / length > 4) {
+    if (this._properties.length / length > 4) {
       this.showViewAll = true;
       this.calculateMaxHeight(4);
     } else {
@@ -128,10 +150,10 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   }
 
   calculateMaxHeight(maxRows: number | null) {
-    if(!this.grid) return;
+    if (!this.grid) return;
     const grid = this.grid.nativeElement;
 
-    if(maxRows == null) {
+    if (maxRows == null) {
       grid.style.maxHeight = '1000px'
       return;
     }
@@ -144,7 +166,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   checkTagsOverflow() {
     const tags = this.grid.nativeElement.getElementsByClassName('item-tag')
-    if(!tags) return;
+    if (!tags) return;
 
     for (let tag of tags) {
       if (+tag.firstChild.offsetWidth < +tag.firstChild.scrollWidth) {
@@ -156,7 +178,6 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
       }
     }
   }
-
 
   onClickViewAll() {
     if (this.toggle === false) {

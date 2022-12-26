@@ -78,14 +78,15 @@ export class AssetInfoComponent implements AfterViewInit {
     }
 
     sliderItems() {
-        this.assetsService.updateAssets(this.type, 1)
+        this.assetsService.fetchAssets(this.type, 1)
         .pipe(take(1))
         .subscribe(assets => {
-            this.assets = assets;
+            this.assets = assets.data;
         });
     }
 
     async processItem(id: number, game: GameDetail | null = null) {
+        this.properties = [];
         const json = await this.dnaService.getJSONByGame(game, this.type)
         const properties = await this.dnaService.processJSON(json, this.type, id);
         this.properties = properties;

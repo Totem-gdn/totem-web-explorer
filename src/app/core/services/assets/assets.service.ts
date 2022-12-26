@@ -4,27 +4,21 @@ import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
 import { SearchParamsModel } from "../model/search-params.model";
-import { BehaviorSubject, map, Observable, take, tap } from "rxjs";
+import { BehaviorSubject, concatMap, map, Observable, switchMap, take, tap } from "rxjs";
 import Web3 from "web3";
-import { CacheService } from "./cache.service";
+import { ApiResponse } from '@app/core/models/interfaces/api-response.interface';
 import { ASSET_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
+import { DNAParserService } from "../utils/dna-parser.service";
 const { DNAParser } = require('totem-dna-parser');
 
-interface AssetsHTTPResponse {
-    data?: AssetInfo[],
-    meta?: {
-        page: number;
-        perPage: number;
-        total: number;
-    }
-}
 @Injectable({ providedIn: 'root' })
 
 export class AssetsService {
     baseUrl: string = environment.TOTEM_BASE_API_URL;
 
     constructor(private http: HttpClient,
+                private dnaService: DNAParserService
     ) { }
 
 
@@ -48,12 +42,16 @@ export class AssetsService {
 
     fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
         if (this.baseUrl == 'https://api.totem-explorer.com') {
-            return this.http.get<AssetsHTTPResponse>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
+            return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
         }
-        return this.http.get<AssetsHTTPResponse>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
+        return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
     }
+
     fetchAsset(id: string, type: ASSET_TYPE) {
-        return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`);
+        return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(map(asset =>  {
+            asset.rarity = asset.tokenId % 100;
+            return asset;
+        }));
     }
 
     formatAssets(assets: AssetInfo[], assetType: string) {

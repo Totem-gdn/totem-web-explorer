@@ -1,7 +1,7 @@
 <div class="dropdown-skeleton" (clickOutside)="onClick($event)">
     <!-- Title -->
     <div class="dropdown-toggle" (click)="menuActive = !menuActive" [ngClass]="menuActive ? 'appear': ''">
-        <span>{{selectedItem?.title || 'Game Name'}}</span>
+        <span>{{selectedItem.title || 'Game Name'}}</span>
         <div class="line-arrow_down" [ngClass]="menuActive || widgetMode ? 'rotate-x-180': ''"></div>
     </div>
 
@@ -16,7 +16,7 @@
             <div class="menu-item" 
                 *ngFor="let item of items; let i = index" 
                 (click)="onChangeInput(item)"
-                [ngClass]="{'selected-item': item?.title == selectedItem?.title, 'selected-script-item': widgetMode && item?.title == selectedItem?.title}">
+                [ngClass]="{'selected-item': item?.title == selectedItem.title, 'selected-script-item': widgetMode && item?.title == selectedItem.title}">
 
                 <div class="img-wrapper">
                     <img [src]="item.img" alt="">

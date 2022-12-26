@@ -1,0 +1,47 @@
+@import 'styles/scss/variables';
+// .dataWraper {
+//     position: relative;
+//     .base64PopUp {
+//         position: absolute;
+//         top: 0px;
+//         right: 0px;
+//         margin-top: -85px;
+//         background-color: $dark-grey;
+//         border-radius: 5px;
+//         .flex {
+//             position: relative;
+//             .closeIcon {
+//                 font-size: 15px;
+//                 position: absolute;
+//                 right: 10px;
+//                 top: 5px;
+//             }
+//             textarea {
+//                 border: none;
+//                 color: $white;
+//                 background-color: inherit;
+//                 padding: 5px 20px;
+//                 resize: none;
+//                 font-size: 16px;
+//                 &:focus {
+//                     outline: none !important;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+.tooltip {
+    // top: 0;
+    // left: 0;
+    // pointer-events:none;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    padding: 15px;
+    background: rgba(8, 9, 10, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    color: $white;
+}

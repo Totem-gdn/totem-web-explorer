@@ -152,7 +152,8 @@
         "filters": "Filters",
         "filter": "Filter",
         "load_more": "Load More",
-        "most_popular": "Most Popular"
+        "most_popular": "Most Popular",
+        "my": "My"
     },
     "core":{
         "first_time_there": "First time there",

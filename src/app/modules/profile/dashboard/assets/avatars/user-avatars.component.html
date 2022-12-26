@@ -1,9 +1,11 @@
 
 <totem-profile-stats [type]="'avatar'"></totem-profile-stats>
 <filter-components 
-    [showSort]="false" 
     [showUpdate]="false" 
-    (loadMore)="loadMoreAvatars($event)"  
+    (loadMore)="loadMoreAssets($event)"  
     [itemType]="assetType.AVATAR" 
-    [pushItems]="avatars"></filter-components>
+    [pushItems]="assets"
+    [setItems]="setAssets"
+    [extendedSort]="true"
+    (sort)="onSort($event)"></filter-components>
 <!-- <div class="pb-[60px]"></div> -->

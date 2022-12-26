@@ -13,7 +13,6 @@ export class CheckObserverDirective {
           mutations.forEach(() => {
             
           })
-          console.log('checked')
         }
         );
     

@@ -16,8 +16,6 @@ import { FiltersService } from './filters.service';
 export class FilterComponentsComponent implements OnDestroy, OnInit {
 
     ngOnInit(): void {
-        // this.items = this.dnaService.getJSON1();
-        // console.log('json   1', this.items)
     }
 
     constructor(
@@ -32,6 +30,7 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
     @Input() itemType!: ASSET_TYPE | 'game';
     @Input() showUpdate = true;
     @Input() showSort = true;
+    @Input() extendedSort = false;
     @Input() total?: number;
 
     @ViewChild('wrapper') wrapper!: ElementRef;

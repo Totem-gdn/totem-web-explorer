@@ -12,19 +12,8 @@
                 <span>{{achievement.gameId}}</span>
                 <span>--</span>
                 <div class="dataWraper flex items-center  w-[130px] justify-between">
-                    <div class="base64PopUp gradient-border-solid" *ngIf="achievement.base64Encoded">
-                        <div class="flex">
-                             <textarea
-                                readonly
-                                rows="2" 
-                                value="{{achievement.base64Encoded}}"
-                                (blur)="onClosePopUp(i)">
-                            </textarea>
-                            <mat-icon class="closeIcon cursor-pointer" (click)="onClosePopUp(i)">close</mat-icon>
-                        </div>
-                    </div>
                     
-                    <span class="cursor-pointer" (click)="onCheckBase64(achievement.data, i)">
+                    <span class="cursor-pointer" (click)="openTooltip($event, achievement.data)">
                         {{achievementData(achievement.data)}}
                     </span>
                     <div class="!ml-[15px] !mb-[6px] icon line-copy_small cursor-pointer"
@@ -46,4 +35,14 @@
     <div *ngIf="!achievements?.length && !achievements" class="flex h-[120px] justify-center items-center">
         <totem-spinner></totem-spinner>
     </div>
+
+    <!-- Tooltip -->
+    <div inputEvents (blur)="tooltip.active = false" class="absolute" #tooltipRef>
+        <div *ngIf="tooltip?.active == true" class="tooltip-wrapper" @fade-in>
+            <div class="tooltip" *ngIf="tooltip?.active">
+                <span>{{tooltip.decodedData ? tooltip.decodedData : tooltip.data}}</span>
+            </div>
+        </div>
+    </div>
+    
 </div>

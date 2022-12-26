@@ -50,7 +50,6 @@ export class DNAFilterMenuComponent implements OnInit, AfterViewInit {
 
     reset$() {
         this.filtersService.reset$.subscribe(() => {
-            console.log('reset');
             this.menuActive = false;
             this.handleMenuHeight();
         })
@@ -108,7 +107,6 @@ export class DNAFilterMenuComponent implements OnInit, AfterViewInit {
         if(!this.items || !this.menuRef) return;
         const items = this.menuRef.nativeElement.getElementsByClassName('menu-item');
         const matchedItems = this.items.filter(item => item.value.includes(filter));
-        console.log(matchedItems, matchedItems.length)
 
         for(let i = 0; i < items.length; i++) {
             if(this.items[i].value.includes(filter)) {
