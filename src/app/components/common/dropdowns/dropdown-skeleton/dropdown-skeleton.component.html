@@ -1,7 +1,7 @@
 <div class="dropdown-skeleton" (clickOutside)="onClick($event)">
     <!-- Title -->
     <div class="dropdown-toggle" (click)="menuActive = !menuActive" [ngClass]="menuActive ? 'appear': ''">
-        <span>{{selectedItem.title || 'Game Name'}}</span>
+        <span>{{selectedItem?.title || 'Game Name'}}</span>
         <div class="line-arrow_down" [ngClass]="menuActive || widgetMode ? 'rotate-x-180': ''"></div>
     </div>
 

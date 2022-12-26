@@ -1,7 +1,7 @@
 
 
 export interface DropdownItem {
-    title: string;
+    title?: string;
     subTitle?: string;
     img?: string;
     ref?: HTMLElement;
