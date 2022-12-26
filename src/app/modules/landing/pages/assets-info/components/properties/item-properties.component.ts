@@ -41,7 +41,6 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
 
   @Input() set properties(properties: any[]) {
     if (!properties) return;
-    console.log('properties', properties)
     this.handlePropertiesInput(properties);
   };
 
@@ -101,10 +100,8 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     this._properties = [];
     this.placeholders = [];
     this.placeholdersSub?.unsubscribe();
-    console.log('before timeout')
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
-      console.log('after timeout')
       // if(this.grid) this.grid.nativeElement.style.height = 'auto';
       this._properties = properties;
       this.placeholders$();
@@ -131,8 +128,6 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
   }
 
   gridPlaceholders(length: number) {
-    // if(this.placeholders.length == length) return;
-    console.log('length', length)
     if (!this._properties) return;
     if (this._properties.length < length) {
       this.placeholders = [].constructor(length - this._properties.length)

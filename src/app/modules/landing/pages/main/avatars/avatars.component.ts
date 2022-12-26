@@ -46,6 +46,9 @@ export class AvatarsComponent implements OnInit {
 
   loadMoreAvatars(page: number, list = this.sortMethod, reset: boolean = false) {
     this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list).subscribe(avatars => {
+      // this.total = avatars.meta.total;
+      
+
       if(reset) {
         this.setAvatars = avatars.data;
       } else {

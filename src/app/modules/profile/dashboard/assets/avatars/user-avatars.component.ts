@@ -35,6 +35,7 @@ export class UserAvatarsComponent implements OnInit {
 
   loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
     this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(assets => {
+      console.log('items', assets)
       if(reset) {
         this.setAssets = assets.data;
       } else {
