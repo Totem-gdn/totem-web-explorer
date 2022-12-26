@@ -73,11 +73,12 @@
                 <h4>Avatar DNA Filter<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="dta-input-section">
                     <div class="dropzone-wrapper w-full mb-[15px]">
-                        <totem-image-dropzone [uniqueId]="'avatar'" [jsonFileType]="true" [dzMinHeight]="'184px'"
+                        <totem-image-dropzone (errorEvent)="setError($event, 'avatar')" [uniqueId]="'avatar'" [jsonFileType]="true" [dzMinHeight]="'184px'"
                             (finalizedFile)="addJsonFile($event, 'avatar')"></totem-image-dropzone>
                     </div>
 
                     <span>{{'specific.upload_json_file' | translate}}</span>
+                    <span @showMessage class="error-message" *ngIf="dnaFilterError.status && dnaFilterError.type == 'avatar'">{{dnaFilterError.message}}</span>
 
                     <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.avatarFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
@@ -113,11 +114,12 @@
                 <h4>{{'specific.item_dna_filter' | translate}}<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="dta-input-section">
                     <div class="dropzone-wrapper w-full mb-[15px]">
-                        <totem-image-dropzone [uniqueId]="'item'" [jsonFileType]="true" [dzMinHeight]="'184px'"
+                        <totem-image-dropzone (errorEvent)="setError($event, 'item')" [uniqueId]="'item'" [jsonFileType]="true" [dzMinHeight]="'184px'"
                             (finalizedFile)="addJsonFile($event, 'item')"></totem-image-dropzone>
                     </div>
 
                     <span>{{'specific.upload_json_file' | translate}}</span>
+                    <span @showMessage class="error-message" *ngIf="dnaFilterError.status && dnaFilterError.type == 'item'">{{dnaFilterError.message}}</span>
 
                     <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.assetFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
@@ -153,11 +155,12 @@
                 <h4>{{'specific.gem_dna_filter' | translate}}<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="dta-input-section">
                     <div class="dropzone-wrapper w-full mb-[15px]">
-                        <totem-image-dropzone [uniqueId]="'gem'" [jsonFileType]="true" [dzMinHeight]="'184px'"
+                        <totem-image-dropzone (errorEvent)="setError($event, 'gem')" [uniqueId]="'gem'" [jsonFileType]="true" [dzMinHeight]="'184px'"
                             (finalizedFile)="addJsonFile($event, 'gem')"></totem-image-dropzone>
                     </div>
 
                     <span>{{'specific.upload_json_file' | translate}}</span>
+                    <span @showMessage class="error-message" *ngIf="dnaFilterError.status && dnaFilterError.type == 'gem'">{{dnaFilterError.message}}</span>
 
                     <div @fileAnimation class="file-bar w-full p-[10px]" *ngIf="selectedJsonFiles.gemFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">

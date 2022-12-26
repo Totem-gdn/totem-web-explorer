@@ -5,6 +5,7 @@ import { JsonDnaFilesUrls, JsonDNAFilters, JsonDNAFiltersToDelete } from "@app/c
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
 import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
 import { Subscription } from "rxjs";
+import { DropzoneError } from "../../../components/totem-image-dropzone/totem-image-dropzone.component";
 
 @Component({
     selector: 'general-description',
@@ -75,6 +76,11 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
     })
     genresForm = this.generalDescription.get('genre') as FormArray;
     dnaFilterUrls: JsonDnaFilesUrls = {};
+    dnaFilterError: DropzoneError & {type: string} = {
+      message: '',
+      status: false,
+      type: ''
+    }
 
     constructor(private formsService: FormsService) { }
 
@@ -133,6 +139,12 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
       this.onJsonFileDelete.emit(this.deletedJsonFiles);
       this.onJsonFileSelected.emit(this.selectedJsonFiles);
       this.isFormValid();
+    }
+
+    setError(error: DropzoneError, type: string) {
+      console.log(error, type);
+
+      this.dnaFilterError = {...error, type: type};
     }
 
     onSelectTag(tag: Tag) {
