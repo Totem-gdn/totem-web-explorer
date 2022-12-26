@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-// import { Web3AuthCore } from "@web3auth/core";
 import { environment } from "@env/environment";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import { Web3Auth } from '@web3auth/modal';
@@ -28,7 +27,7 @@ export class Web3AuthService {
                 chainId: "0x13881",
                 rpcTarget: "https://rpc-mumbai.maticvigil.com"
             },
-
+            
         });
 
         const web3auth = this.web3auth;
