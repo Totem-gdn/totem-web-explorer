@@ -37,6 +37,7 @@ export class UserAvatarsComponent implements OnInit {
     this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(assets => {
       console.log('items', assets)
       if(reset) {
+        // console.log()
         this.setAssets = assets.data;
       } else {
         this.assets = assets.data;

@@ -20,7 +20,6 @@ export class ProfileService {
     getUserAssetsCount(): Observable<AccountMetaBody> {
         return this.getMyAccountInfo().pipe(
             map<AccountEntity, AccountMetaBody>((accountData: AccountEntity) => {
-                console.log(accountData)
                 this.totalAssets.next(accountData.meta);
                 return accountData.meta;
             })

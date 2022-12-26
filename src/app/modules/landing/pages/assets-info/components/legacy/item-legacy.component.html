@@ -40,7 +40,7 @@
     <div inputEvents (blur)="tooltip.active = false" class="absolute" #tooltipRef>
         <div *ngIf="tooltip?.active == true" class="tooltip-wrapper" @fade-in>
             <div class="tooltip" *ngIf="tooltip?.active">
-                <span>{{tooltip?.decodedData ? tooltip?.decodedData : tooltip?.data}}</span>
+                <span>{{tooltip.decodedData ? tooltip.decodedData : tooltip.data}}</span>
             </div>
         </div>
     </div>
