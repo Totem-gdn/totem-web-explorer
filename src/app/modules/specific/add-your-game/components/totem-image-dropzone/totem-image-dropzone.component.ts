@@ -159,8 +159,6 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     }
 
     // not json
-    console.log(event);
-
     if (!this.isJson(fileToValidate)) {
       this.snackNotifierService.open('Your input file is incorrect');
       this.removeHover();
@@ -182,20 +180,27 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
   }
 
   validateJson(fileToValidate: File, inputEvent: any) {
-    console.log(fileToValidate); //starts new
     let json: any[] = [];
     const reader = new FileReader();
     reader.readAsText(fileToValidate, "UTF-8");
     reader.onload = (event: any) => {
 
       if (!event.target.result) {
-        this.snackNotifierService.open('Your DNA Filter file is empty');
+        this.snackNotifierService.open('Your JSON file is empty');
+        return;
+      }
+
+      try {
+        JSON.parse(event.target.result);
+      } catch (err: any) {
+        console.log(err.message);
+        this.snackNotifierService.open('Error: ' + err.message);
         return;
       }
 
       json = JSON.parse(event.target.result);
       if (!Array.isArray(json)) {
-        this.snackNotifierService.open('Your DNA Filter file body is incorrect');
+        this.snackNotifierService.open('Your JSON file body is incorrect');
         return;
       }
 
@@ -214,6 +219,10 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       this.finalizedFile.next(inputEvent);
 
     }
+  }
+
+  removeInput(event: any) {
+    event.target.value = '';
   }
 
   setInputError(msg: string) {
