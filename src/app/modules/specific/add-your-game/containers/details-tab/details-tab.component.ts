@@ -247,7 +247,7 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   processMultipleFiles(event: any) {
-    const files: File[] = Array.from(event.target.files);
+    const files: File[] = Array.from(event.files.target.files);
     const galleryFilesToUpload: any[] = files.map((file: File) => {
       return {
         target: {
@@ -255,21 +255,23 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
-    this.cropMultipleGallery(galleryFilesToUpload, 'gallery');
+    console.log(galleryFilesToUpload, event.imageBase64);
+
+    this.cropMultipleGallery(galleryFilesToUpload, event.imageBase64, 'gallery');
   }
 
-  cropMultipleGallery(galleryFilesToUpload: any[], type: 'gallery') {
+  cropMultipleGallery(galleryFilesToUpload: any[], imageBase64: string[], type: 'gallery') {
     if (!galleryFilesToUpload?.length) {
       return;
     }
-    this.openCropper(galleryFilesToUpload.slice(0, 1)[0], type).pipe(take(1)).subscribe((data: any) => {
+    this.openCropper({file: galleryFilesToUpload.slice(0, 1)[0], imageBase64: imageBase64.slice(0, 1)[0]}, type).pipe(take(1)).subscribe((data: any) => {
       if (data) {
         this.finalizedGalleryImages.push(data);
         this.updateFilesToUpload();
         this.isFormValid(); //IMG VALIDATION
-        this.cropMultipleGallery(galleryFilesToUpload.slice(1), type);
+        this.cropMultipleGallery(galleryFilesToUpload.slice(1), imageBase64.slice(1), type);
       } else {
-        this.cropMultipleGallery(galleryFilesToUpload.slice(1), type);
+        this.cropMultipleGallery(galleryFilesToUpload.slice(1), imageBase64.slice(1), type);
       }
     })
   }
@@ -298,11 +300,14 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
     const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1;
     const widthToResize: number = type == 'cover' ? 1400 : type == 'search' ? 100 : type == 'gallery' ? 1920 : 400;
+    console.log(image);
+
     const options: MatDialogConfig = {
         disableClose: false,
         panelClass: dialogType,
         data: {
-          file: image,
+          file: image.file,
+          imageBase64: image.imageBase64,
           aspectRatio: aspectRation,
           widthToResize: widthToResize
         },

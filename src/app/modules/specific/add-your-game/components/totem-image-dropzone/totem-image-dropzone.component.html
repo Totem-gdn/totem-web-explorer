@@ -53,7 +53,7 @@
     #upload
     accept="{{jsonFileType ? 'application/json' : 'images/*'}}"
   >
-  <img loading="lazy" class="uploaded-image" [src]="existingImageUrl || ''" alt="">
+  <img loading="lazy" class="uploaded-image" [src]="existingImageUrl" alt="">
   <div class="edit-button" (click)="openFileBrowser()">
     <div class="line-edit"></div>
   </div>
