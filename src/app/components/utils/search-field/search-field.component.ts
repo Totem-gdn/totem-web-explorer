@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
-import { BehaviorSubject, of, switchMap } from "rxjs";
+import { BehaviorSubject, debounceTime, of, Subscription, switchMap } from "rxjs";
 
 
 @Component({
@@ -10,11 +10,9 @@ import { BehaviorSubject, of, switchMap } from "rxjs";
   styleUrls: ['./search-field.component.scss']
 })
 
-export class SearchFieldComponent {
+export class SearchFieldComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router,) {
-
-  }
+  constructor(private router: Router,) {}
   @Input() itemType: string = '';
   @Output() changedValue = new EventEmitter<any>();
 
@@ -28,15 +26,19 @@ export class SearchFieldComponent {
 
   menuActive: boolean = false;
   searchActive = false;
+  sub!: Subscription;
 
-  onChangeInput(target?: any) {
-    this.changedValue.emit(target?.value || '');
+  ngOnInit() {
+    this.sub = this.searchControl.valueChanges
+      .pipe(debounceTime(250))
+      .subscribe(value => {
+        this.changedValue.emit(value);
+      })
   }
 
   reset() {
     if (this.searchControl.value == '') return;
     this.searchControl.patchValue('');
-    this.changedValue.emit('')
   }
 
   onClickViewAll() {
@@ -59,5 +61,9 @@ export class SearchFieldComponent {
 
   onClickMenu() {
     this.menuActive = !this.menuActive;
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 }

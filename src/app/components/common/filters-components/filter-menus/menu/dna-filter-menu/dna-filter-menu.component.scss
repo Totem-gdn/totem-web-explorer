@@ -62,7 +62,7 @@
 
 .menu-items {
     transition: height .3s ease-in-out;
-    overflow-y: auto;
+    overflow-y: scroll;
     .menu-item {
         border-radius: 4px;
         max-height: 50px;

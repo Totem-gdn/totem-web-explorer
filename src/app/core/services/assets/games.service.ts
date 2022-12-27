@@ -4,7 +4,7 @@ import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params
 import { ApiResponse } from "@app/core/models/interfaces/api-response.interface";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable, tap } from "rxjs";
+import { BehaviorSubject, debounce, debounceTime, Observable, tap } from "rxjs";
 import { BaseStorageService } from "../utils/base-storage.service";
 
 @Injectable({ providedIn: 'root' })
@@ -44,8 +44,8 @@ export class GamesService {
     return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`);
   }
 
-  getGameByName(word: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/games/search?name=${word}`);
+  getGamesByFilter(filter: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/games/search?name=${filter}`);
   }
 
   filterDropdownGames(filter: string, updateStateGames = true) {

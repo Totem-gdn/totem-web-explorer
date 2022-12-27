@@ -1,4 +1,3 @@
-
 <!-- Static -->
 <dna-filter-menu [title]="'Rarity'" [inputType]="inputType.GRAPH">
 </dna-filter-menu>
@@ -18,6 +17,6 @@
 </ng-container>
 
 <!-- Spinner -->
-<ng-container *ngIf="!items">
+<div *ngIf="!items" class="flex justify-center">
     <totem-spinner></totem-spinner>
-</ng-container>
+</div>

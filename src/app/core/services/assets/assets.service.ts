@@ -49,23 +49,6 @@ export class AssetsService {
         }));
     }
 
-    formatAssets(assets: AssetInfo[], assetType: string) {
-        const formattedAssets: AssetInfo[] = [];
-
-        for (let asset of assets) {
-            const formattedAsset = this.formatAsset(asset, assetType);
-            formattedAssets.push(formattedAsset);
-        }
-        return formattedAssets;
-    }
-
-    formatAsset(asset: AssetInfo, assetType: string) {
-        const parser = new DNAParser()
-        asset.rarity = parser.getItemRarity(asset?.tokenId);
-        asset.assetType = assetType;
-        return asset;
-    }
-
     getAssetsByName(type: ASSET_TYPE, word: string): Observable<any[]> {
         if (this.baseUrl == 'https://api.totem-explorer.com') {
             return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`);
@@ -75,5 +58,22 @@ export class AssetsService {
         }
 
     }
+
+    // formatAssets(assets: AssetInfo[], assetType: string) {
+    //     const formattedAssets: AssetInfo[] = [];
+
+    //     for (let asset of assets) {
+    //         const formattedAsset = this.formatAsset(asset, assetType);
+    //         formattedAssets.push(formattedAsset);
+    //     }
+    //     return formattedAssets;
+    // }
+
+    // formatAsset(asset: AssetInfo, assetType: string) {
+    //     const parser = new DNAParser()
+    //     asset.rarity = parser.getItemRarity(asset?.tokenId);
+    //     asset.assetType = assetType;
+    //     return asset;
+    // }
 
 }

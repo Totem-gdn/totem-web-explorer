@@ -1,5 +1,16 @@
 
+<game-filter-menu
+[title]="'Game Name'">
+</game-filter-menu>
+
 <dna-filter-menu [title]="'Rarity'" [inputType]="inputType.GRAPH">
+</dna-filter-menu>
+
+<dna-filter-menu
+    [title]="'Genres'"
+    [showSearch]="true"
+    [values]="genres"
+    [inputType]="inputType.CHECKBOX">   
 </dna-filter-menu>
 
 <!-- <game-filter-menu></game-filter-menu> -->

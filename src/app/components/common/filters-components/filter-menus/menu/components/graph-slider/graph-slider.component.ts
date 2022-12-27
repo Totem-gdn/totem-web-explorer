@@ -93,6 +93,7 @@ export class GraphSliderComponent implements OnDestroy, AfterViewInit {
             this.changeMaxValue();
             this.changeMinValue();
             this.setMargins();
+            this.checkRange();
         })
     }
 

@@ -10,4 +10,23 @@ export class GamesMenusComponent {
     get inputType() { return INPUT_TYPE }
     
     
+    genres = [
+        'Adventure',
+        'Action',
+        'Visual Novel',
+        'Role Playing',
+        'Puzzle',
+        'Platformer',
+        'Simulation',
+        'Survival',
+        'Interactive Fiction',
+        'Shooter',
+        'Strategy',
+        'Fighting',
+        'Racing',
+        'Card Game',
+        'Educational',
+        'Rhythm',
+        'Sports'
+      ];
 }

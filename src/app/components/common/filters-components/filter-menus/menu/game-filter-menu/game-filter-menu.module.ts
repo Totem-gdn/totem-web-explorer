@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { SearchFieldModule } from "@app/components/utils/search-field/search-field.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { GameFilterMenuComponent } from "./game-filter-menu.component";
 
@@ -8,7 +9,8 @@ import { GameFilterMenuComponent } from "./game-filter-menu.component";
         GameFilterMenuComponent
     ],
     imports: [
-        SharedModule
+        SharedModule,
+        SearchFieldModule
     ],
     exports: [
         GameFilterMenuComponent

@@ -1,50 +1,93 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { INPUT_TYPE } from "@app/core/models/enums/input-type.enum";
 import { InputTag } from "@app/core/models/interfaces/input-tag.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { GamesService } from "@app/core/services/assets/games.service";
+import { debounceTime, takeUntil } from "rxjs";
 import { FiltersService } from "../../../filters.service";
 
 
 @Component({
     selector: 'game-filter-menu',
-    templateUrl: './game-filter-menu.component.html'
+    templateUrl: './game-filter-menu.component.html',
+    styleUrls: ['./game-filter-menu.component.scss']
 })
 
-export class GameFilterMenuComponent {
+export class GameFilterMenuComponent implements OnInit {
 
-    constructor(private filtersService: FiltersService) {
+    constructor(private filtersService: FiltersService,
+                private gamesService: GamesService) {
 
     }
 
     @Input() title = 'Title'
-    @Input() games!: GameDetail[];
+    // @Input() games!: GameDetail[];
 
     @ViewChild('menuRef') menuRef!: ElementRef;
     @ViewChild('wrapper') wrapper!: ElementRef;
 
     inputType: INPUT_TYPE  = INPUT_TYPE.RADIO;
 
+    resetFilters: boolean = false;
     menuActive: boolean = false;
+    gamesNoFound: boolean = false;
+
+    games!: GameDetail[];
+
+    ngOnInit() {
+        this.gamesService.fetchGames(1)
+            .subscribe(games => {
+                this.games = games;
+        })
+        this.reset$();
+    }
 
     toggleMenu() {
         this.menuActive = !this.menuActive;
         this.handleMenuHeight();
     }
 
+    filterMenuContent(filter: string) {
+        this.gamesService.getGamesByFilter(filter)
+            .subscribe(games => {
+                this.games = games;
+                console.log('games', games);
+                if(games?.length == 0) {
+                    this.gamesNoFound = true;
+                    this.handleMenuHeight(1);
+                }  else {
+                    this.gamesNoFound = false;
+                    this.handleMenuHeight();
+                }
+            })
+    }
+
+    reset$() {
+        this.filtersService.reset$.subscribe(() => {
+            this.menuActive = false;
+            this.handleMenuHeight();
+        })
+    }
+
     handleMenuHeight(customLength: number | null = null) {
 
+        if(!this.menuActive) this.resetFilters = !this.resetFilters;
         const wrapper = this.wrapper.nativeElement.style;
 
         let staticHeight = 50;
 
         if (!this.menuActive) {
             wrapper.height = `${staticHeight}px`;
+        } else if (this.inputType == INPUT_TYPE.RANGE) {
+            wrapper.height = '130px';
+        } else if (this.inputType == INPUT_TYPE.GRAPH) {
+            wrapper.height = '250px';
         } else {
             const menu = this.menuRef.nativeElement.style;
             const length = customLength != null ? customLength : this.games?.length;
 
-            // if (this.showSearch) staticHeight += 59;
             if (length) staticHeight += 12;
+            staticHeight += 59;
 
             if (!length) {
                 wrapper.height = `${staticHeight}px`;
@@ -60,7 +103,7 @@ export class GameFilterMenuComponent {
 
     onChangeInput(e: any, gameName: string | undefined) {
         if(!gameName) return;
-        
+        this.title = gameName;
         const tag: InputTag = {
             value: gameName,
             ref: e.target
@@ -70,7 +113,6 @@ export class GameFilterMenuComponent {
             this.filtersService.removeTag(tag);
             return;
         }
-
         this.filtersService.addTag(tag, this.inputType);
     }
 

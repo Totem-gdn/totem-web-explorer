@@ -3,5 +3,5 @@ class="wrapper flex text-base"
 [ngClass]="searchActive ? '!border-yellow': '!border-light-grey'">
     <!-- <mat-icon [svgIcon]="'line:search'"></mat-icon> -->
     <!-- <div class="line-search"></div> -->
-    <input [formControl]="searchControl" (input)="onChangeInput($event.target)" (focus)="onFocus()" (blur)="onBlur()" class="w-full bg-transparent" type="text" placeholder="Filter..">
+    <input [formControl]="searchControl" (focus)="onFocus()" (blur)="onBlur()" class="w-full bg-transparent" type="text" placeholder="Filter..">
 </div>

@@ -20,7 +20,7 @@ export class DNAFilterMenuComponent implements OnInit, AfterViewInit {
     @ViewChild('menuRef') menuRef!: ElementRef;
     @ViewChild('wrapper') wrapper!: ElementRef;
 
-    @Input() inputType!: INPUT_TYPE;
+    @Input() inputType: INPUT_TYPE = INPUT_TYPE.CHECKBOX;
     @Input() title: string = 'untitled';
     @Input() showSearch: boolean = false;
 

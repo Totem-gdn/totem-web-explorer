@@ -1,6 +1,6 @@
 <div class="flex flex-wrap wrapper">
     <div class="tag" *ngFor="let tag of tags" (click)="onRemoveTag(tag)">
-        <span>{{tag.value}}</span>
+        <span class="select-none">{{tag.value}}</span>
         <!-- <mat-icon [svgIcon]="'line:close'"></mat-icon> -->
         <div class="line-close"></div>
     </div>
