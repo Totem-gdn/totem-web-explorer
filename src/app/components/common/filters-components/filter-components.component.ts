@@ -14,7 +14,6 @@ import { FiltersService } from './filters.service';
 })
 
 export class FilterComponentsComponent implements OnDestroy, OnInit {
-
     ngOnInit(): void {
     }
 

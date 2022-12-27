@@ -19,9 +19,9 @@
     <div class="flex flex-col justify-center w-full h-full">
 
         <div class="flex flex-wrap">
-            <filter-update [ngClass]="showUpdate ? '': '!mr-0 lg:!mr-[15px]'" [type]="itemType"
+            <filter-update [ngClass]="showUpdate ? '': '!mr-0 lg:!mr-[15px]'" 
+                [type]="itemType"
                 [showUpdate]="showUpdate"
-                [total]="total"
                 (updateEvent)="updateEvent.emit()">
             </filter-update>
             <filter-tags></filter-tags>

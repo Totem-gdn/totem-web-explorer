@@ -1,6 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { APIResponseMeta } from '@app/core/models/interfaces/api-response.interface';
+import { AssetsService } from '@app/core/services/assets/assets.service';
 import { CacheService } from '@app/core/services/assets/cache.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'filter-update',
@@ -11,15 +14,31 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   }
 })
 
-export class FilterUpdateComponent {
+export class FilterUpdateComponent implements OnInit, OnDestroy {
+  get assetType() { return ASSET_TYPE }
+
+  constructor(private assetsService: AssetsService) {}
 
   @ViewChild('icon') icon!: ElementRef;
-
   @Output() updateEvent = new EventEmitter<void>();
-
   @Input() showUpdate = true;
-  @Input() total?: number;
-  @Input() type!: string;
+  @Input() type!: ASSET_TYPE | 'game';
+
+  sub!: Subscription;
+  total!: string;
+
+  ngOnInit() {
+    this.sub = this.assetsService.totalAssets$
+      .subscribe(total => {
+        if(!total) return;
+        if(this.type == ASSET_TYPE.AVATAR) {
+          this.total = total.total.toString();
+        }
+        if(this.type == ASSET_TYPE.ITEM) {
+          this.total = total.total.toString();
+        }
+      })
+  }
 
   onClick() {
     this.icon.nativeElement.style.animation = 'none';
@@ -27,5 +46,9 @@ export class FilterUpdateComponent {
 
     this.icon.nativeElement.style.animation = 'rotate 0.5s';
     this.updateEvent.emit();
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 }

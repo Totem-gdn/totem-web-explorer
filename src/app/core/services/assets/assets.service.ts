@@ -6,7 +6,7 @@ import { environment } from "@env/environment";
 import { SearchParamsModel } from "../model/search-params.model";
 import { BehaviorSubject, concatMap, map, Observable, switchMap, take, tap } from "rxjs";
 import Web3 from "web3";
-import { ApiResponse } from '@app/core/models/interfaces/api-response.interface';
+import { ApiResponse, APIResponseMeta } from '@app/core/models/interfaces/api-response.interface';
 import { ASSET_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { DNAParserService } from "../utils/dna-parser.service";
@@ -21,30 +21,14 @@ export class AssetsService {
                 private dnaService: DNAParserService
     ) { }
 
-
-    updateAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
-        if(this.baseUrl == 'https://api.totem-explorer.com') {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
-                // map(assets => assets.data),
-                tap(assets => {
-                    const formatedAssets = this.formatAssets(assets, type);
-
-                }));
-        } else {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
-                map(assets => assets.data),
-                tap(assets => {
-                    const formatedAssets = this.formatAssets(assets, type);
-                }));
-        }
-
-    }
+    private _totalAssets = new BehaviorSubject<APIResponseMeta | undefined>(undefined);
+    get totalAssets$() { return this._totalAssets.asObservable() }
 
     fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
-        if (this.baseUrl == 'https://api.totem-explorer.com') {
-            return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
-        }
-        return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
+        return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`)
+            .pipe(tap(assets => {
+                this._totalAssets.next(assets.meta);
+            }));
     }
 
     fetchAsset(id: string, type: ASSET_TYPE) {

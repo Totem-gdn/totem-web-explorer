@@ -50,9 +50,20 @@
 
 
         <div>
-            <item-properties [properties]="properties" *ngIf="activeTab === 'properties'"></item-properties>
-            <item-legacy [type]="type" [asset]="_item" *ngIf="activeTab === 'legacy'"></item-legacy>
-            <item-history [type]="type" [asset]="_item" *ngIf="activeTab === 'history'"></item-history>
+            <item-properties 
+                *ngIf="activeTab === 'properties'"
+                [properties]="properties">
+            </item-properties>
+            <item-legacy 
+                *ngIf="activeTab === 'legacy'"
+                [type]="type" 
+                [asset]="_item">
+            </item-legacy>
+            <item-history 
+                *ngIf="activeTab === 'history'"
+                [type]="type"
+                [asset]="_item">
+            </item-history>
         </div>
     </div>
 

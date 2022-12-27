@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
+import { Animations } from "@app/core/animations/animations";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
@@ -15,7 +16,10 @@ const { DNAParser, ContractHandler } = require('totem-dna-parser');
     styleUrls: ['./asset-info.component.scss'],
     host: {
         class: 'relative'
-    }
+    },
+    animations: [
+        Animations.animations
+    ]
 })
 
 export class AssetInfoComponent implements AfterViewInit {
@@ -32,6 +36,7 @@ export class AssetInfoComponent implements AfterViewInit {
     _item!: any;
     assets!: any[];
     properties!: any[];
+    loading: boolean = false;
 
     notFound: boolean = false;
     subs = new Subject<void>();
@@ -86,13 +91,17 @@ export class AssetInfoComponent implements AfterViewInit {
     }
 
     async processItem(id: number, game: GameDetail | null = null) {
-        this.properties = [];
+        // this.properties = [];
         const json = await this.dnaService.getJSONByGame(game, this.type)
         const properties = await this.dnaService.processJSON(json, this.type, id);
         this.properties = properties;
     }
 
     handleProperties(title: string, value: string) {
+
+    }
+
+    setContentHeight() {
 
     }
 

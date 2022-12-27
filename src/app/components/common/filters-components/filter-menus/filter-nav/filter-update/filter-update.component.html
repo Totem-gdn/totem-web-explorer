@@ -4,5 +4,5 @@
         <!-- <mat-icon [svgIcon]="'line:update'" #icon></mat-icon> -->
         <div #icon class="line-update"></div>
     </div>
-    <span class="ml-2.5 whitespace-nowrap font-medium">{{total ? total + ' items' : '--'}}</span>
+    <span class="ml-2.5 whitespace-nowrap font-medium capitalize">{{total ? total + ' ' + type + 's': '--'}}</span>
 </div>
