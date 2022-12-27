@@ -32,7 +32,7 @@ export class UserGemsComponent implements OnInit {
   }
 
   loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
-    this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(assets => {
+    this.assetsService.fetchAssets(ASSET_TYPE.GEM, page, list).subscribe(assets => {
       if(reset) {
         this.setAssets = assets.data;
       } else {

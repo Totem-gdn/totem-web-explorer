@@ -21,7 +21,6 @@ export class TooltipPopupComponent {
         //   this.achievements[this.prevIndexSelected].base64Encoded = undefined;
         //   this.prevIndexSelected = index;
           this._data = Buffer.from(data, 'base64').toString('binary');
-          console.log(this._data)
         } else {
 
         }

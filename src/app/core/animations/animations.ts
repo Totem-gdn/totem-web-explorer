@@ -194,45 +194,45 @@ export const Animations = {
         )
       ]
     ),
+    // trigger(
+    //   'fade-in-out',
+    //   [
+    //     transition(
+    //       ':enter',
+    //       [
+    //         style({ opacity: 0 }),
+    //         animate('0.3s ease-in-out',
+    //           style({ opacity: 1 }))
+    //       ]
+    //     ),
+    //     transition(
+    //       ':leave',
+    //       [
+    //         style({ opacity: 1 }),
+    //         animate('0.3s ease-in-out',
+    //           style({ opacity: 0 }))
+    //       ]
+    //     )
+    //   ]
+    // ),
     trigger(
       'fade-in-out',
       [
         transition(
           ':enter',
           [
-            style({ opacity: 0 }),
-            animate('0.3s ease-in-out',
-              style({ opacity: 1 }))
-          ]
+            style({ opacity: 0, position: "{{position}}" }),
+            animate("{{duration}} {{delay}} ease-in-out",
+              style({ opacity: "{{in}}", position: "{{position}}" }))
+          ], { params: { in: 1, out: 0, position: '', duration: '0.3s', delay: '0s' } }
         ),
         transition(
           ':leave',
           [
-            style({ opacity: 1 }),
-            animate('0.3s ease-in-out',
-              style({ opacity: 0 }))
-          ]
-        )
-      ]
-    ),
-    trigger(
-      'fade-in-out',
-      [
-        transition(
-          ':enter',
-          [
-            style({ opacity: 0 }),
-            animate('0.3s ease-in-out',
-              style({ opacity: "--{{in}}" }))
-          ], { params: { in: 1, out: 0 } }
-        ),
-        transition(
-          ':leave',
-          [
-            style({ opacity: "--{{in}}" }),
-            animate('0.3s ease-in-out',
-              style({ opacity: 0 }))
-          ], { params: { in: 1, out: 0 } }
+            style({ opacity: "{{in}}", position: "{{position}}" }),
+            animate("{{duration}} {{delay}} ease-in-out",
+            style({ opacity: 0, position: "{{position}}" }))
+          ], { params: { in: 1, out: 0, position: '', duration: '0.3s', delay: '0s' } }
         )
       ]
     ),

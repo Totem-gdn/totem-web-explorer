@@ -1,11 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'sort-by',
   templateUrl: './sort-by.component.html',
   styleUrls: ['./sort-by.component.scss']
 })
-export class SortByComponent {
+export class SortByComponent implements OnInit {
 
   menuActive = false;
 
@@ -13,6 +13,14 @@ export class SortByComponent {
   @ViewChild('dropdown') dropdown!: ElementRef;
   @Output() sort = new EventEmitter<string>();
   title = 'items.sort_by'; // for translate
+
+  ngOnInit() {
+    if(this.extendedSort) {
+      this.title = 'items.my';
+    } else {
+      this.title = 'items.newest';
+    }
+  }
 
   onClickMenu (){
     this.menuActive = !this.menuActive;

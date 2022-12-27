@@ -41,11 +41,9 @@ export class AssetsMenusComponent implements OnInit, OnDestroy {
     }
 
     async processFiltersContent(game: GameDetail | null) {
+        this.items = undefined;
         const json = await this.dnaService.getJSONByGame(game, this.menuType);
         const properties = await this.dnaService.processJSON(json, this.menuType);
-        for(let prop of properties) {
-            console.log(prop)
-        }
         const filtered = properties.filter(prop => { return prop.id != 'primary_color' });
         this.items = filtered;
     }

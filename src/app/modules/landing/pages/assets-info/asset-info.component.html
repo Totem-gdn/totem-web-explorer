@@ -51,18 +51,24 @@
 
         <div>
             <item-properties 
-                *ngIf="activeTab === 'properties'"
-                [properties]="properties">
+            *ngIf="activeTab === 'properties'"
+            [properties]="properties"
+            @fade-in
+            >
             </item-properties>
-            <item-legacy 
+            <item-legacy
                 *ngIf="activeTab === 'legacy'"
                 [type]="type" 
-                [asset]="_item">
+                [asset]="_item"
+                @fade-in
+                >
             </item-legacy>
-            <item-history 
+            <item-history
                 *ngIf="activeTab === 'history'"
+                @fade-in
                 [type]="type"
-                [asset]="_item">
+                [asset]="_item"
+                >
             </item-history>
         </div>
     </div>

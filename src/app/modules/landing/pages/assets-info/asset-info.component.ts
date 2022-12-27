@@ -91,7 +91,7 @@ export class AssetInfoComponent implements AfterViewInit {
     }
 
     async processItem(id: number, game: GameDetail | null = null) {
-        // this.properties = [];
+        this.properties = [];
         const json = await this.dnaService.getJSONByGame(game, this.type)
         const properties = await this.dnaService.processJSON(json, this.type, id);
         this.properties = properties;

@@ -25,17 +25,17 @@ export class FilterUpdateComponent implements OnInit, OnDestroy {
   @Input() type!: ASSET_TYPE | 'game';
 
   sub!: Subscription;
-  total!: string;
+  total!: string | undefined;
 
   ngOnInit() {
     this.sub = this.assetsService.totalAssets$
       .subscribe(total => {
         if(!total) return;
         if(this.type == ASSET_TYPE.AVATAR) {
-          this.total = total.total.toString();
+          this.total = total?.avatars?.total?.toString();
         }
         if(this.type == ASSET_TYPE.ITEM) {
-          this.total = total.total.toString();
+          this.total = total?.items?.total?.toString();
         }
       })
   }

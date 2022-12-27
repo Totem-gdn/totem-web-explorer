@@ -12,6 +12,10 @@ import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { DNAParserService } from "../utils/dna-parser.service";
 const { DNAParser } = require('totem-dna-parser');
 
+interface TotalAssets {
+    avatars?: APIResponseMeta;
+    items?: APIResponseMeta;
+}
 @Injectable({ providedIn: 'root' })
 
 export class AssetsService {
@@ -21,13 +25,20 @@ export class AssetsService {
                 private dnaService: DNAParserService
     ) { }
 
-    private _totalAssets = new BehaviorSubject<APIResponseMeta | undefined>(undefined);
+    private _totalAssets = new BehaviorSubject<TotalAssets>({});
+    set totalAssets(totalAssets: TotalAssets) { this._totalAssets.next(totalAssets) }
+    get totalAssets() { return this._totalAssets.getValue() }
     get totalAssets$() { return this._totalAssets.asObservable() }
 
     fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
         return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`)
             .pipe(tap(assets => {
-                this._totalAssets.next(assets.meta);
+
+                const totalAssets = this.totalAssets;
+                if(type == ASSET_TYPE.AVATAR) totalAssets.avatars = assets.meta;
+                if(type == ASSET_TYPE.ITEM) totalAssets.items = assets.meta;
+                this.totalAssets = totalAssets;
+                
             }));
     }
 
