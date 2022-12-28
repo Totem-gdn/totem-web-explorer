@@ -112,6 +112,8 @@
     }
   }
   li {
+    display: flex !important;
+    justify-content: center !important;
     button {
       width: 46px !important;
       padding: 10px !important;
