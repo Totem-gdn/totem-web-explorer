@@ -236,6 +236,11 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
         return;
       }
 
+      if (!json.length) {
+        this.snackNotifierService.open('Your JSON file body is empty');
+        return;
+      }
+
       const validationResult = json.every((item: DNAItemFilter) => {
         const validity: string = this.validator.validateJson(item);
         return validity == 'OK' ? true : false;
