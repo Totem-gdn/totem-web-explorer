@@ -258,8 +258,12 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeInput(event: any) {
-    event.target.value = '';
+  removeInput(event?: any) {
+    if (event) {
+      event.target.value = '';
+      return;
+    }
+    this.fileInput.nativeElement.value = '';
   }
 
   setInputError(msg: string) {

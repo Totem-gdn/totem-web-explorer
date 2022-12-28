@@ -11,6 +11,7 @@
     [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
     class="file"
     [id]="uniqueId"
+    #upload
     (dragover)="removeInput($event)"
     (change)="getFile($event)"
     type="file"
@@ -22,6 +23,7 @@
     [ngStyle]="{'pointer-events' : dzHovered ? 'all' : 'none'}"
     class="file"
     [id]="uniqueId"
+    #upload
     (dragover)="removeInput($event)"
     (change)="processMultipleFiles($event)"
     type="file"
@@ -33,7 +35,7 @@
     <div class="solid-no-image" *ngIf="!jsonFileType" [ngStyle]="{'color' : dzHovered ? '#8A939B' : ''}"></div>
 
     <div class="browse-caption mt-[18px]">{{jsonFileType ? 'Drop your JSON file here, or' : 'Drop your image here, or'}}
-      <label [ngStyle]="{'pointer-events' : !dzHovered ? 'all' : 'none'}" class="browse-button" [for]="uniqueId">{{'profile.browse' | translate}}</label>
+      <label (click)="removeInput()" [ngStyle]="{'pointer-events' : !dzHovered ? 'all' : 'none'}" class="browse-button" [for]="uniqueId">{{'profile.browse' | translate}}</label>
     </div>
     <div *ngIf="!jsonFileType" class="mt-[15px] gap-[10px] flex flex-col">
       <span>{{'profile.supports' | translate}}: JPG, PNG, GIF </span>
