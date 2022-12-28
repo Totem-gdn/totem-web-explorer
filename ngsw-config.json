@@ -26,5 +26,19 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "https://static-dev.totem-explorer.com/**.json"
+      ],
+      "cacheConfig": {
+        "maxSize": 20,
+        "maxAge": "15s",
+        "timeout": "6s",
+        "strategy": "freshness"
+      }
+    }
   ]
 }
