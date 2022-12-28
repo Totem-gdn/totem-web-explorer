@@ -20,7 +20,8 @@ export class AuthInterceptor implements HttpInterceptor {
       if (
         request.url.includes(environment.TOTEM_BASE_API_URL) ||
         request.url.includes(environment.TOTEM_FAUCET_API_URL) ||
-        request.url.includes(environment.TOTEM_API_GDN_URL)
+        request.url.includes(environment.TOTEM_API_GDN_URL) 
+        // request.url.includes(environment.TOTEM_STATIC_API_URL)
       ) {
         return next.handle(this.transformRequest(request));
       }

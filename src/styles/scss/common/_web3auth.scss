@@ -132,7 +132,7 @@
 
 .w3ajs-email-passwordless-form button, .w3a-external-toggle button {
   background-color: $yellow !important;
-  color: black !important;
+  color: $black !important;
   &:disabled {
     background-color: $dark-grey !important;
     color: $black !important;
