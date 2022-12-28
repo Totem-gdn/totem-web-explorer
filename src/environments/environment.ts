@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   WEB3AUTH_ID: 'BAQ6yarrhApPOJlWKKwyq8hKWitgkASuEKT1cKDz2vf4rvbeh7lPBUhYBHpIIcLIoDIhZxmq0JpW4jqbg6Hqg3o',
   TOTEM_BASE_API_URL: 'https://dev-api.totem-explorer.com',
   TOTEM_FAUCET_API_URL: 'https://faucet.totem-explorer.com',
