@@ -58,7 +58,8 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
       scalable: false,
       movable: true,
       dragMode: 'move',
-      viewMode: 0,
+      viewMode: 1,
+      background: false,
       autoCropArea: 1,
       zoomOnWheel: false,
       ready: () => {
@@ -109,14 +110,17 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
 
   cropImageAndSave() {
     console.log('called');
-    const canvas = this.cropper.getCroppedCanvas({imageSmoothingEnabled: false,
-      imageSmoothingQuality: 'high',});
-    const image64 = canvas.toDataURL('image/webp', 1);
+    const canvas = this.cropper.getCroppedCanvas();
+    const image64 = canvas.toDataURL('image/webp', 0.8);
+    console.log(image64);
+
     const fileToReturn = this.base64ToFile(
       image64,
       this.imageChangedEvent.target.files[0].name,
     )
     this.croppedImage = fileToReturn;
+    console.log(this.croppedImage);
+
   }
 
   ngOnDestroy(): void {

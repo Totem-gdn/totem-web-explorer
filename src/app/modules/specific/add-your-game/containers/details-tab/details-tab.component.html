@@ -17,7 +17,6 @@
             </div>
             <div class="file-container p-[10px] sm:p-[20px]">
               <totem-image-dropzone
-              *ngIf="existingImages?.coverImage"
               (errorEvent)="updateCoverError($event)"
               [uniqueId]="'cover'"
               [finalizedImage]="finalizedImage"
