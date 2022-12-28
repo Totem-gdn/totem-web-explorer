@@ -2,8 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ImagesToUpload, ImagesUrls, JsonDnaFilesUrls, JsonDNAFilters, SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
 import { environment } from "@env/environment";
-import { Observable } from "rxjs";
-
+import { from, mergeMap, Observable } from "rxjs";
+import { sha256 } from "js-sha256"
+import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 
 @Injectable({ providedIn: 'root' })
 
@@ -11,6 +12,7 @@ export class SubmitGameService {
 
   baseUrl: string = environment.TOTEM_BASE_API_URL; // http://534e-45-128-191-180.ngrok.io
   currentIdToUpload: string = '';
+  credentials: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
 
   constructor(private http: HttpClient) {
   }
@@ -61,11 +63,41 @@ export class SubmitGameService {
 
   connectImagesWithUrls(imgUrlPair: { url: string | undefined, file: File | undefined }[]): Observable<any>[] {
     const imgUrlRequests: Observable<any>[] = imgUrlPair.map(pair => this.uploadImage(pair.url, pair.file));
+    console.log(imgUrlRequests);
+
     return imgUrlRequests;
   }
 
   uploadImage(url: string | undefined, file: File | undefined): Observable<any> {
-    return this.http.put<any>(`${url}`, file, { reportProgress: true, observe: 'events' });
+    return from(file!.arrayBuffer().then(buff => new Uint8Array(buff))).pipe(
+      mergeMap(uint8File => {
+        console.log(uint8File);
+        const hash = sha256(uint8File);
+        const hexedHash = sha256.hex(hash);
+        console.log(hash);
+        return this.http.put<any>(
+          `${url}`, file, {
+            reportProgress: true,
+            observe: 'events',
+            headers: {
+              "X-Amz-Content-Sha256": hexedHash
+            }
+          });
+      }));
+
+
+
+    /* console.log(uint8File);
+    const hash = sha256(uint8File);
+      console.log(hash); */
+    /* return this.http.put<any>(
+      `${url}`, file, {
+        reportProgress: true,
+        observe: 'events',
+        headers: {
+          "X-Amz-Content-Sha256": ""
+        }
+      }); */
   }
 
 }
