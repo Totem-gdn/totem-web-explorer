@@ -58,7 +58,7 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
       scalable: false,
       movable: true,
       dragMode: 'move',
-      viewMode: 1,
+      viewMode: 0,
       background: false,
       autoCropArea: 1,
       zoomOnWheel: false,
@@ -140,6 +140,7 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
       this.cropper.zoom(-0.1);
     }
     this.previousScaleValue = this.scaleValue;
+    this.cropImageAndSave();
   }
 
   imageLoaded() {
