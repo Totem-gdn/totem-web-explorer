@@ -4,7 +4,8 @@
   "assetGroups": [
     {
       "name": "app",
-      "installMode": "lazy",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
       "resources": {
         "files": [
           "/favicon.ico",
@@ -31,13 +32,14 @@
     {
       "name": "api",
       "urls": [
-        "https://static-dev.totem-explorer.com/**.json"
+        "https://static-dev.totem-explorer.com/**"
       ],
       "cacheConfig": {
-        "maxSize": 20,
-        "maxAge": "15s",
+        "maxSize": 1,
+        "maxAge": "10s",
         "timeout": "6s",
-        "strategy": "freshness"
+        "strategy": "freshness",
+        "cacheOpaqueResponses": false
       }
     }
   ]
