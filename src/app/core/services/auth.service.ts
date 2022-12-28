@@ -133,6 +133,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     await this.web3AuthService.logout();
     this.snackNotifierService.open('Signed out');
     localStorage.removeItem(StorageKey.USER_INFO);
+    localStorage.removeItem('profile-image');
     this.userInfo$.next(null);
     this.router.navigate(['/']);
   }
@@ -140,6 +141,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     await this.web3AuthService.logout();
     this.snackNotifierService.open('Signed out');
     localStorage.removeItem('user-info');
+    localStorage.removeItem('profile-image');
     this.userInfo$.next(null);
   }
 
