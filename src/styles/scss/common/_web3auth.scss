@@ -8,7 +8,7 @@
 
   .w3a-header__title {
     font-size: 36px !important;
-    margin-bottom: 7px !important;
+    margin-bottom: 10px !important;
   }
   .w3a-header__subtitle {
     font-size: 16px !important;
@@ -51,6 +51,11 @@
   }
 }
 
+.w3a-modal__header {
+  margin-bottom:15px !important;
+  margin-top: 20px !important;
+}
+
 .w3a-social__policy {
   display: none !important;
 }
@@ -65,6 +70,7 @@
   margin-bottom: 15px !important;
 }
 .w3a-modal__inner, .w3ajs-modal-loader {
+  overflow-y: scroll !important;
   border-radius: 4px !important;
   background-color: $black !important;
   background-repeat: no-repeat !important;
@@ -94,6 +100,32 @@
       }
     }
   }
+}
+.w3a-adapter-list { 
+  grid-template-columns: repeat(5,minmax(0,1fr)) !important;
+  li:first-child {
+    grid-column: span 1/ span 1;
+    button {
+      p {
+        display: none !important;
+      }
+    }
+  }
+  li {
+    button {
+      width: 46px !important;
+      padding: 10px !important;
+      height: 46px !important;
+      img {
+        width: 24px !important;
+        height: 24px !important;
+      }
+    }
+  }
+
+}
+.w3a-adapter-list--shrink {
+  max-height: 70px !important;
 }
 
 .w3ajs-email-passwordless-form button, .w3a-external-toggle button {

@@ -32,7 +32,8 @@ export class SearchFieldComponent implements OnInit, OnDestroy {
     this.sub = this.searchControl.valueChanges
       .pipe(debounceTime(250))
       .subscribe(value => {
-        this.changedValue.emit(value);
+
+        this.changedValue.emit(value?.toLowerCase());
       })
   }
 
