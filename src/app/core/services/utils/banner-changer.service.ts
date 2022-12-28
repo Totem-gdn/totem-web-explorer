@@ -19,7 +19,8 @@ export class ChangeBannerService {
           disableClose: false,
           panelClass: dialogType,
           data: {
-            file: image,
+            file: image.file,
+            imageBase64: image.imageBase64,
             aspectRatio: aspectRation,
             widthToResize: widthToResize
           },

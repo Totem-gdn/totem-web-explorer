@@ -14,7 +14,7 @@ export class FileInputComponent implements OnInit {
     imageUrl: string = '';
 
     @Input() inputFile: string = '';
-    @Output() fileSelected = new EventEmitter<string>();
+    @Output() fileSelected = new EventEmitter<any>();
 
     constructor(private changeBannerService: ChangeBannerService) {}
 
@@ -26,15 +26,19 @@ export class FileInputComponent implements OnInit {
         if (fileToValidate.size > 20971520) {
           return;
         }
-        this.openCropper(event);;
+        this.imageReader.readAsDataURL(fileToValidate);
+        this.imageReader.onload = (evt: any) => {
+          this.imageUrl = evt.target.result;
+          this.openCropper({file: event, imageBase64: this.imageUrl});
+        };
       }
     }
 
     openCropper(event: any) {
       this.changeBannerService.changeImage(event, 'banner').pipe(take(1)).subscribe((file: File) => {
         this.imageReader.readAsDataURL(file);
-        this.imageReader.onload = (event: any) => {
-          this.imageUrl = event.target.result;
+        this.imageReader.onload = (evt: any) => {
+          this.imageUrl = evt.target.result;
           this.fileSelected.emit(this.imageUrl);
         };
       })

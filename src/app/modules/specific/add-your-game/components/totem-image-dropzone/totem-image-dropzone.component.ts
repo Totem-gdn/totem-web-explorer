@@ -131,8 +131,35 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       this.removeHover();
       return;
     }
+    this.getDataUrlAndSaveFiles(event, filesToAdd);
+
+    /* const reader = new FileReader();
+    reader.onload = (evt: any) => {
+      this.finalizedFile.next({file: event, imageBase64: evt.target.result});
+      this.removeHover();
+    };
+    reader.readAsDataURL(fileToValidate);
+
     this.multipleFilesEvent.emit(event);
-    this.removeHover();
+    this.removeHover(); */
+  }
+
+  getDataUrlAndSaveFiles(event: any, filesToAdd: File[]) {
+    let count: number = 0;
+    let imagesBase64: string[] = [];
+    const reader = new FileReader();
+    reader.onload = (evt: any) => {
+      imagesBase64.push(evt.target.result);
+      if (count == filesToAdd.length) {
+        this.multipleFilesEvent.emit({files: event, imageBase64: imagesBase64});
+        this.removeHover();
+      } else {
+        reader.readAsDataURL(filesToAdd[count]);
+        count += 1;
+      }
+    };
+    count += 1;
+    reader.readAsDataURL(filesToAdd[0]);
   }
 
   // end of multiple
@@ -153,8 +180,13 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
         this.removeHover();
         return;
       }
-      this.finalizedFile.next(event);
-      this.removeHover();
+      const reader = new FileReader();
+      reader.readAsDataURL(fileToValidate);
+      reader.onload = (evt: any) => {
+        this.finalizedFile.next({file: event, imageBase64: evt.target.result});
+        this.removeHover();
+      };
+      //this.finalizedFile.next(event);
       return;
     }
 
@@ -201,6 +233,11 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       json = JSON.parse(event.target.result);
       if (!Array.isArray(json)) {
         this.snackNotifierService.open('Your JSON file body is incorrect');
+        return;
+      }
+
+      if (!json.length) {
+        this.snackNotifierService.open('Your JSON file body is empty');
         return;
       }
 
