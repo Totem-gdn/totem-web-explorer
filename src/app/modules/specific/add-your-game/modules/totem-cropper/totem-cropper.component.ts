@@ -112,14 +112,14 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
     console.log('called');
     const canvas = this.cropper.getCroppedCanvas();
     const image64 = canvas.toDataURL('image/webp', 0.8);
-    console.log(image64);
+    //console.log(image64);
 
     const fileToReturn = this.base64ToFile(
       image64,
       this.imageChangedEvent.target.files[0].name,
     )
     this.croppedImage = fileToReturn;
-    console.log(this.croppedImage);
+    //console.log(this.croppedImage);
 
   }
 
@@ -136,11 +136,12 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
   scaleImage() {
     if (this.scaleValue > this.previousScaleValue) {
       this.cropper.zoom(0.1);
+      this.cropImageAndSave();
     } else if (this.scaleValue < this.previousScaleValue) {
       this.cropper.zoom(-0.1);
+      this.cropImageAndSave();
     }
     this.previousScaleValue = this.scaleValue;
-    this.cropImageAndSave();
   }
 
   imageLoaded() {
