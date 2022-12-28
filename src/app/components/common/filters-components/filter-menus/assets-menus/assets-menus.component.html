@@ -17,6 +17,6 @@
 </ng-container>
 
 <!-- Spinner -->
-<div *ngIf="!items" class="flex justify-center">
-    <totem-spinner></totem-spinner>
+<div *ngIf="!items" @fade-in class="flex justify-center h-[50px] items-center">
+    <totem-spinner class="m-auto"></totem-spinner>
 </div>

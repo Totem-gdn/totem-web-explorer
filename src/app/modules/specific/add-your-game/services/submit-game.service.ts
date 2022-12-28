@@ -16,6 +16,7 @@ export class SubmitGameService {
   }
 
   postGame(body: SubmitGame | null): Observable<any> {
+    console.log('body', body)
     return this.http.post<any>(`${this.baseUrl}/games`, body);
   }
 

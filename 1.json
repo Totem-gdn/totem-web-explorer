@@ -1,0 +1,57 @@
+{
+    "general": {
+        "name": "Dreadstone Keep",
+        "author": "Tavern Tale",
+        "description": "A hardcore tactical roguelike game in a massive castle crawling with monsters. Choose to go up its spires or down into its cavernous depths to save your town from the terrible overlords of the Dreadstone Keep!",
+        "genre": [
+            "Action",
+            "Strategy",
+            "Fighting"
+        ],
+        "fullDescription": "Dreadstone Keep is a roguelike, strategy turn-based game where you must defeat the two powerful entities that rule the ancient castle. Acquire upgrades, use your wits, and battle powerful pixel art enemies. With one Dark Power at the top and another at the bottom, will you be powerful enough to ensure peace and prosperity for your people?\n\n- Be tactical: you don't have to rush to make your decisions, so make them wisely.\n- Go up or down: you may start your run going to the top of the Keep or into the depths of its dungeons.\n- Collect 15+ upgrades (with the list growing during development!) to make your character a fitting adversary to the Dark Powers."
+    },
+    "details": {
+        "status": "Early Prototype",
+        "platforms": [
+            "Windows"
+        ],
+        "madeWith": "Unity, Aesprite",
+        "session": "",
+        "languages": "English",
+        "inputs": "Keyboard, Controller"
+    },
+    "contacts": {
+        "email": "idan@totem.gdn",
+        "discord": ""
+    },
+    "connections": {
+        "webpage": "https://tavern-tale-studio.itch.io/dreadstone-keep",
+        "assetRenderer": "https://asset-renderer-dsk.totem-explorer.com",
+        "promoVideo": null,
+        "socialLinks": [
+            {
+                "type": "Twitter",
+                "url": "https://twitter.com/TavernTaleStd"
+            },
+            {
+                "type": "Facebook",
+                "url": "https://facebook.com/taverntalestudios"
+            },
+            {
+                "type": "Instagram",
+                "url": "https://instagram.com/taverntalestudio"
+            },
+            {
+                "type": "Discord",
+                "url": "https://discord.gg/bJFXEzKYaf"
+            }
+        ],
+        "dnaFilters": {
+            "avatarFilter": {
+                "filename": "dna-avatar-drdc.json",
+                "mimeType": "application/json",
+                "contentLength": 4668
+            }
+        }
+    }
+}
