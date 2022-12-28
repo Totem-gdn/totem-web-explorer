@@ -50,9 +50,9 @@ export class DNAParserService {
                 return json;
             }
         }
-
-        const headers = new HttpHeaders().set('Content-Type', 'text/plain');
-        json = await firstValueFrom(this.http.get(jsonUrl, {headers, responseType: 'text' as 'json'}));
+        // const headers = new HttpHeaders().set('Content-Type', 'text/plain');
+        json = await firstValueFrom(this.http.get<any>(jsonUrl));
+        
 
         return json;
     }
