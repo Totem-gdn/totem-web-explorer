@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
@@ -51,7 +51,8 @@ export class DNAParserService {
             }
         }
 
-        json = await firstValueFrom(this.http.get(jsonUrl));
+        const headers = new HttpHeaders().set('Content-Type', 'text/plain');
+        json = await firstValueFrom(this.http.get(jsonUrl, {headers, responseType: 'text' as 'json'}));
 
         return json;
     }

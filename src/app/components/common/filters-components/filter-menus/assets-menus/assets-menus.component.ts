@@ -36,16 +36,21 @@ export class AssetsMenusComponent implements OnInit, OnDestroy {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
         .subscribe(selectedGame => {
+            console.log('selected game', selectedGame)
             this.processFiltersContent(selectedGame);
         })
     }
 
     async processFiltersContent(game: GameDetail | null) {
+        console.log('process json')
         this.items = undefined;
         const json = await this.dnaService.getJSONByGame(game, this.menuType);
         const properties = await this.dnaService.processJSON(json, this.menuType);
         const filtered = properties.filter(prop => { return prop.id != 'primary_color' });
         this.items = filtered;
+        // console.log('json1', this.items)
+        // console.log('processed')
+
     }
 
     ngOnDestroy(): void {
