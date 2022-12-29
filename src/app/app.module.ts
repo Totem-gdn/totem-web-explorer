@@ -36,8 +36,8 @@ const routerConfig: ExtraOptions = {
     WelcomeDialogModule,
     VersionDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // enabled: false,
+      // enabled: environment.production,
+      enabled: false,
       registrationStrategy: 'registerImmediately',
   }),
   ],
