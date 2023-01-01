@@ -15,7 +15,7 @@ enum DNA_FILTER {
 
 export class DNAParserService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     rgba2hex(str: any) {
         if (str.match(/^#[a-f0-9]{6}$/i)) return;
@@ -41,7 +41,7 @@ export class DNAParserService {
             }
         }
 
-        if(!jsonUrl) {
+        if (!jsonUrl) {
             if (type == ASSET_TYPE.AVATAR) {
                 json = DNAFilter.avatarFilterJson;
                 return json;
@@ -51,8 +51,16 @@ export class DNAParserService {
             }
         }
         // const headers = new HttpHeaders().set('Content-Type', 'text/plain');
+        // json = await fetch(jsonUrl, {
+        //     mode: "no-cors",
+        //     method: "GET",
+        //     headers: {
+        //         "Accept": "application/json"
+        //     }
+        // })
+        console.log(json)
         json = await firstValueFrom(this.http.get<any>(jsonUrl));
-        
+
 
         return json;
     }
@@ -70,7 +78,7 @@ export class DNAParserService {
         const contractHandler = new ContractHandler(url, contract);
 
         let DNA = ''
-        if(id) DNA = await contractHandler.getDNA(id);
+        if (id) DNA = await contractHandler.getDNA(id);
 
         const parser = new DNAParser(json, DNA);
 

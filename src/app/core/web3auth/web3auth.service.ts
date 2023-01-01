@@ -27,7 +27,9 @@ export class Web3AuthService {
                 chainId: "0x13881",
                 rpcTarget: "https://rpc-mumbai.maticvigil.com"
             },
-            
+            uiConfig: {
+                theme: 'dark'
+            }
         });
 
         const web3auth = this.web3auth;
