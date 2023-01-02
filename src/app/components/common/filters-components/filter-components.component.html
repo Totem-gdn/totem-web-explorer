@@ -2,7 +2,7 @@
 
     <!-- Nav -->
     <div class="flex flex-col">
-        <div class="gap-[0px] lg:gap-[15px] nav-wrapper flex-wrap sm:flex-nowrap" [ngClass]="showSort ? '': 'flex-nowrap'">
+        <div class="gap-[0px] lg:gap-[15px] nav-wrapper flex-wrap sm:flex-nowrap" [ngClass]="showSort || itemType != 'game' ? '': '!flex-nowrap'">
             <div class="flex lg:w-full max-w-[320px]">
                 <filter-slider class="nav-item lg:w-[320px] lg:!hidden"></filter-slider>
                 <clear-all class="nav-item lg:w-[320px] lg:!block !hidden"></clear-all>

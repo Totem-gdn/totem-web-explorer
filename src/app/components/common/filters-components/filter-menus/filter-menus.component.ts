@@ -12,7 +12,7 @@ import { FiltersService } from "../filters.service";
     templateUrl: './filter-menus.component.html',
     styleUrls: ['./filter-menus.component.scss'],
     host: {
-        class: 'flex w-0 h-0 lg:w-[320px] lg:h-[auto] lg:mr-[15px]'
+        class: 'flex w-0 h-0 lg:min-w-[320px] lg:w-[320px] lg:h-[auto] lg:mr-[15px]'
     }
 })
 
