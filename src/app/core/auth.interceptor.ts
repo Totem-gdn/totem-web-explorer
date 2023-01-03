@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
       if (
         request.url.includes(environment.TOTEM_BASE_API_URL) ||
         request.url.includes(environment.TOTEM_FAUCET_API_URL) ||
-        request.url.includes(environment.TOTEM_API_GDN_URL) 
+        request.url.includes(environment.TOTEM_API_GDN_URL)
         // request.url.includes(environment.TOTEM_STATIC_API_URL)
       ) {
         return next.handle(this.transformRequest(request));
@@ -35,12 +35,20 @@ export class AuthInterceptor implements HttpInterceptor {
   transformRequest(request: HttpRequest<any>) {
     let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
     const authorization: string = `Bearer ${creds.userInfo.idToken}`;
-    return request.clone({
+    if (request.url.includes(environment.TOTEM_BASE_API_URL)) {
+      return request.clone({
         setHeaders: {
           Authorization: authorization,
           'X-App-PubKey': creds.key
         }
-    })
+      })
+    } else {
+      return request.clone({
+        setHeaders: {
+          Authorization: `${authorization} ${creds.key}`
+        }
+      })
+    }
   }
 
   isAuth(): boolean {
