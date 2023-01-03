@@ -215,6 +215,7 @@
         "gem_dna_filter": "Gem DNA Filter",
         "upload_json_file": "Upload JSON file with filters for your game",
         "author_name": "Author Name",
+        "id": "ID",
         "your_game_name": "Your Game Name",
         "other_game_name": "Other game name",
         "search_preview": "Search preview",

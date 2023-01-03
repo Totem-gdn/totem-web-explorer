@@ -69,6 +69,15 @@
                 </div>
             </div>
 
+            <div class="block-section pt-[10px] sm:pt-[40px]">
+              <h4>{{'specific.id' | translate}}</h4>
+              <div class="input-section">
+                  <input type="text" formControlName="id" (blur)="isAddressValid(); saveValue()">
+                  <span @showMessage class="error-message" *ngIf="checkErrors('id', 'required')">{{'profile.required_field' | translate}}</span>
+                  <span @showMessage class="error-message" *ngIf="checkErrors('id', 'addressValidity')">{{checkErrors('id', 'addressValidity')?.addressError}}</span>
+              </div>
+            </div>
+
             <div class="block-section">
                 <h4>Avatar DNA Filter<span class="ml-[10px]">({{'profile.optional' | translate}})</span></h4>
                 <div class="dta-input-section">

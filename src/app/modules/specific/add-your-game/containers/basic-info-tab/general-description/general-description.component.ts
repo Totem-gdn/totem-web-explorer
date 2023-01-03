@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Animations } from "@app/core/animations/animations";
 import { JsonDnaFilesUrls, JsonDNAFilters, JsonDNAFiltersToDelete } from "@app/core/models/interfaces/submit-game-interface.model";
 import { Tag } from "@app/core/models/interfaces/tag-interface.model";
+import { CryptoUtilsService } from "@app/core/services/crypto/crypto-utils.service";
 import { FormsService } from "@app/modules/specific/add-your-game/services/forms.service";
 import { Subscription } from "rxjs";
 import { DropzoneError } from "../../../components/totem-image-dropzone/totem-image-dropzone.component";
@@ -25,6 +26,9 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
         }
         if (errorType === 'all') {
             return control?.errors && (control?.touched || control?.dirty);
+        }
+        if (errorType === 'addressValidity') {
+            return control?.errors && (control?.touched || control?.dirty) ? control.errors : false;
         }
     }
 
@@ -73,6 +77,7 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
         description: new FormControl(null, [Validators.required, Validators.maxLength(300)]),
         genre: new FormArray([]),
         fullDescription: new FormControl(null, [Validators.maxLength(3000)]),
+        id: new FormControl(null, Validators.required)
     })
     genresForm = this.generalDescription.get('genre') as FormArray;
     dnaFilterUrls: JsonDnaFilesUrls = {};
@@ -82,7 +87,10 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
       type: ''
     }
 
-    constructor(private formsService: FormsService) { }
+    constructor(
+      private formsService: FormsService,
+      private cryptoUtilsService: CryptoUtilsService,
+      ) { }
 
     ngOnInit() {
       if (this.editMode) {
@@ -92,6 +100,7 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
           description: new FormControl(null, [Validators.maxLength(300)]),
           genre: new FormArray([]),
           fullDescription: new FormControl(null, [Validators.maxLength(3000)]),
+          id: new FormControl(null)
         })
         this.genresForm = this.generalDescription.get('genre') as FormArray;
         this.isFormValid();
@@ -173,6 +182,13 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
         this.formValid.emit({formName: 'general', value: this.generalDescription.valid});
     }
 
+    async isAddressValid() {
+      const address = this.generalDescription.get('id')?.value;
+      const isValid = await this.cryptoUtilsService.checkAddressValidity(address);
+      if (!isValid) {
+        this.generalDescription.get('id')?.setErrors({addressError: 'Address is not valid'})
+      }
+    }
 
     saveValue() {
         const value = this.generalDescription.value;
@@ -191,6 +207,7 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
             author: values.author,
             description: values.description,
             fullDescription: values.fullDescription,
+            id: values.id
         });
         this.setItems = values.genre;
         this.isFormValid();
