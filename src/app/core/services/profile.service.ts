@@ -30,8 +30,8 @@ export class ProfileService {
         return this.http.get<AccountEntity>(`${this.baseUrl}/auth/me`);
     }
 
-    getMessages(): Observable<any> {
-        return this.http.get<any>(`${this.baseUrl}/messages`);
+    getMessages(page: number): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}/messages?page=${page}`);
     }
 
     setMessageAsRead(id: string): Observable<any> {
