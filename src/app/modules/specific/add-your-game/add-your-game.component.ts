@@ -282,7 +282,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
           this.router.navigate(['/games']);
         } else {
           this.clearData();
-          this.goToTab(SUBMISSION_TABS.BASIC_INFO);
+          this.goToTab(SUBMISSION_TABS.BASIC_INFO, 'auto');
         }
       })
     )
