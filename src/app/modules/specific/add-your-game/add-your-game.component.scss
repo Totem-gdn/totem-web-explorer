@@ -2,6 +2,8 @@
 
 .add-your-game {
   min-height: 900px;
+  overflow: auto;
+  overflow-x: hidden;
   &-wrapper {
 
     .progress-block {
