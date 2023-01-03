@@ -2,10 +2,9 @@
 
 .add-your-game {
   min-height: 900px;
-  overflow: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   &-wrapper {
-
+    overflow: hidden;
     .progress-block {
 
       .banner-info {
