@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { Observable } from "rxjs";
 import { StorageKey } from "./models/enums/storage-keys.enum";
+import { UserStateService } from "./services/auth.service";
+import { PopupService } from "./services/states/popup-state.service";
 import { BaseStorageService } from "./services/utils/base-storage.service";
 import { Web3AuthService } from "./web3auth/web3auth.service";
 
@@ -12,7 +14,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private web3: Web3AuthService,
-    private baseStorageService: BaseStorageService
+    private baseStorageService: BaseStorageService,
+    private userService: UserStateService,
+    private popupService: PopupService
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -34,12 +38,18 @@ export class AuthInterceptor implements HttpInterceptor {
 
   transformRequest(request: HttpRequest<any>) {
     let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
+
+    if(this.web3.isLoggedIn() && !creds) {
+      this.popupService.showLogout();
+      this.userService.logoutWithoutRedirect();
+    }
+    
     const authorization: string = `Bearer ${creds.userInfo.idToken}`;
     if (request.url.includes(environment.TOTEM_BASE_API_URL)) {
       return request.clone({
         setHeaders: {
           Authorization: authorization,
-          'X-App-PubKey': creds.key
+          'X-App-PubKey': creds?.key
         }
       })
     } else {

@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
@@ -16,7 +17,7 @@ import { GradientService } from '../services/items-gradient.service';
 @Component({
   selector: 'totem-search-filter',
   templateUrl: './totem-search-filter.component.html',
-  styleUrls: ['./totem-search-filter.component.scss']
+  styleUrls: ['./totem-search-filter.component.scss'],
 })
 export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit, OnDestroy {
   searchInfo = new FormControl('');
@@ -194,7 +195,7 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
 
   onBlur() {
     if (!this.dropdownHovered) {
-      this.dropdownOpened = false;
+      // this.dropdownOpened = false;
     }
   }
 

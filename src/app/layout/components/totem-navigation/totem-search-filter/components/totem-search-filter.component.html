@@ -27,9 +27,17 @@
 
       <div *ngIf="activeTab === tabType.ITEMS_TAB" class="content-items">
         <div *ngIf="itemsArray | async as items; else noItems" class="items-wrapper">
-          <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToItem(item.id)">
+          <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToItem(item.tokenId)">
             <div class="item-prev-icon">
-              <img loading="lazy" *ngIf="item?.tokenId" [src]="assetRendererUrl + '/' + 'item' + '/' + item?.tokenId + '?width=50&height=50'" alt="icon">
+              <img 
+                (changeSrc)="$event ? itemSpinner.style.display = 'block': itemSpinner.style.display = 'none'"
+                loading="lazy" 
+                *ngIf="item?.tokenId" 
+                [src]="assetRendererUrl + '/' + 'item' + '/' + item?.tokenId + '?width=50&height=50'" 
+                alt="icon">
+              <div #itemSpinner class="absolute_center z-1 m-auto">
+                <totem-spinner></totem-spinner>
+              </div>
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
               <div class="item-name">ID: {{item.tokenId}}</div>
@@ -49,7 +57,16 @@
           <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToAvatar(item.id)">
             <!-- <div class="item-prev-icon" [ngStyle]="{'background': item.gradient}"> delete after 31.12.2022 -->
             <div class="item-prev-icon">
-              <img loading="lazy" *ngIf="item?.tokenId" [src]="assetRendererUrl + '/' + 'avatar' + '/' + item?.tokenId + '?width=50&height=50'" alt="icon">
+              <img 
+                loading="lazy" 
+                *ngIf="item?.tokenId" 
+                [src]="assetRendererUrl + '/' + 'avatar' + '/' + item?.tokenId + '?width=50&height=50'" 
+                alt="icon"
+                (changeSrc)="$event ? avatarSpinner.style.display = 'block': avatarSpinner.style.display = 'none'">
+
+              <div #avatarSpinner class="absolute_center z-1 m-auto">
+                <totem-spinner></totem-spinner>
+              </div>
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
               <div class="item-name">ID: {{item.tokenId}}</div>
@@ -68,7 +85,15 @@
         <div *ngIf="gamesArray | async as items; else noItems" class="items-wrapper">
           <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToGame(item.id)">
             <div class="item-prev-icon">
-              <img loading="lazy" [src]="item?.images?.smallThumbnail" alt="icon">
+              <img 
+                loading="lazy" 
+                [src]="item?.images?.smallThumbnail" 
+                alt="icon"
+                (changeSrc)="$event ? gameSpinner.style.display = 'block': gameSpinner.style.display = 'none'">
+
+                <div #gameSpinner class="absolute_center z-1 m-auto">
+                  <totem-spinner></totem-spinner>
+                </div>
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
               <div class="item-name">{{item?.general?.name}}</div>

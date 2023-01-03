@@ -32,6 +32,7 @@ export class DropdownSkeletonComponent implements AfterViewInit {
 
     menuActive: boolean = false;
     widgetMode: boolean = false;
+    resetFilters: boolean = false;
 
     ngAfterViewInit() {
         this.changeDetector.detectChanges();
@@ -50,6 +51,7 @@ export class DropdownSkeletonComponent implements AfterViewInit {
     onClick(isClickedInside: any) {
         if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
             this.menuActive = false;
+            this.resetFilters = !this.resetFilters;
         }
     }
 
