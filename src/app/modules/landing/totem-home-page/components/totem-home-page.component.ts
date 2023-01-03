@@ -3,8 +3,10 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { GamesService } from '@app/core/services/assets/games.service';
+import { HomepageBlocksService } from '@app/core/services/blocks/homepage-blocks.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, timer } from 'rxjs';
 import Swiper, { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper';
@@ -74,7 +76,8 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
   constructor(
     private router: Router,
     private assetService: AssetsService,
-    private gamesService: GamesService
+    private gamesService: GamesService,
+    private homepageBlocksService: HomepageBlocksService,
   ) {
     super();
   }
@@ -182,7 +185,7 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
     });
 
     this.initImgChanger();
-
+    //this.getHomepageBlocks();
   }
 
   override ngOnDestroy(): void {
@@ -190,6 +193,15 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
     this.avatars$.next([]);
     this.newestItems$.next([]);
     this.mostUsedItems$.next([]);
+  }
+
+  getHomepageBlocks() {
+    this.homepageBlocksService
+      .getBlocks()
+      .pipe(untilComponentDestroyed(this))
+      .subscribe((data: HomepageBlock[]) => {
+        console.log(data);
+      });
   }
 
   initImgChanger() {
