@@ -2,7 +2,6 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { APIResponseMeta } from '@app/core/models/interfaces/api-response.interface';
 import { AssetsService } from '@app/core/services/assets/assets.service';
-import { CacheService } from '@app/core/services/assets/cache.service';
 import { BehaviorSubject, Subscription, takeUntil } from 'rxjs';
 
 @Component({

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AssetsCache, TotalAssets } from '@app/core/models/interfaces/assets.modle';
 import { AccountMetaBody, UserCountAssetBody } from '@app/core/models/interfaces/user-interface.model';
-import { CacheService } from '@app/core/services/assets/cache.service';
 import { ProfileService } from '@app/core/services/profile.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, Subscription } from 'rxjs';

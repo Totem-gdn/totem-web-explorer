@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Gtag } from 'angular-gtag';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-games',
@@ -25,12 +25,17 @@ export class GamesComponent implements OnDestroy {
   }
 
   loadMore(page: number, list = this.sortMethod) {
-    this.gamesService.fetchGames(page, list).subscribe(games => {
+    console.log('load more0')
+    this.gamesService.fetchGames(page, list)
+      .pipe(take(1))
+      .subscribe(games => {
       this.games = games;
     });
   }
 
   onSort(sortMethod: any) {
+    console.log('load more1')
+
     this.sortMethod = sortMethod;
     this.loadMore(1, this.sortMethod);
   }

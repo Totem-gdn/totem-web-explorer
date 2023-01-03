@@ -35,7 +35,7 @@ export class GameFilterMenuComponent implements OnInit {
     games!: GameDetail[];
 
     ngOnInit() {
-        this.gamesService.fetchGames(1)
+        this.gamesService.gamesByFilter('')
             .subscribe(games => {
                 this.games = games;
         })
@@ -48,7 +48,8 @@ export class GameFilterMenuComponent implements OnInit {
     }
 
     filterMenuContent(filter: string) {
-        this.gamesService.getGamesByFilter(filter)
+        console.log('filter', filter)
+        this.gamesService.gamesByFilter(filter)
             .subscribe(games => {
                 this.games = games;
                 console.log('games', games);

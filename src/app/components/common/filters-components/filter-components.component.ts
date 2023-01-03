@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
-import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { DNAParserService } from '@app/core/services/utils/dna-parser.service';
 import { Subject } from 'rxjs';

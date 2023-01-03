@@ -3,7 +3,6 @@ import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
-import { CacheService } from '@app/core/services/assets/cache.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -19,7 +18,6 @@ export class UserAvatarsComponent implements OnInit {
 
   constructor(
     private assetsService: AssetsService,
-    private cacheService: CacheService
   ) { }
 
   subs = new Subject<void>();
