@@ -5,8 +5,9 @@
 
 @import 'scss/_main';
 
-html, body { 
-  height: 100%; 
+html, body {
+  height: 100%;
+  scroll-behavior: smooth;
 }
 body { margin: 0; font-family: Roboto; }
 

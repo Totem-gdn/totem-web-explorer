@@ -234,6 +234,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       window.scroll({
         top: 0,
         left: 0,
+        behavior: 'smooth'
       });
     }
     if (tab == SUBMISSION_TABS.DETAILS) {
@@ -242,6 +243,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       window.scroll({
         top: 0,
         left: 0,
+        behavior: 'smooth'
       });
     }
     if (tab == SUBMISSION_TABS.LINKS) {
@@ -250,6 +252,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       window.scroll({
         top: 0,
         left: 0,
+        behavior: 'smooth'
       });
     }
   }
