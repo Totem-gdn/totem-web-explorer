@@ -32,7 +32,6 @@ export class ItemsComponent {
 
   subs = new Subject<void>();
   sortMethod = ASSET_PARAM_LIST.LATEST;
-  total?: number;
 
   ngOnInit() {
     this.loadMore(1);
@@ -45,28 +44,18 @@ export class ItemsComponent {
 
   loadMore(page: number, list = this.sortMethod, reset: boolean = false) {
     this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(items => {
-      if(items.data) {
-        if(reset) {
-          this.setItems = items.data;
-        } else {
-          this.items = items.data;
-        }
 
-        this.total = items.meta?.total;
-        return;
-      }
-      // Old Endpoint
       if(reset) {
-        this.setItems = (items as any);
+        this.setItems = items.data;
       } else {
-        this.items = (items as any);
+        this.items = items.data;
       }
     });
   }
 
   onSort(sortMethod: any) {
     this.sortMethod = sortMethod;
-    this.loadMore(1, this.sortMethod);
+    this.loadMore(1, this.sortMethod, true);
   }
 
 }

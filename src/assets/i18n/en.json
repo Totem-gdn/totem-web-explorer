@@ -153,7 +153,8 @@
         "filter": "Filter",
         "load_more": "Load More",
         "most_popular": "Most Popular",
-        "my": "My"
+        "my": "My",
+        "random": "Random"
     },
     "core":{
         "first_time_there": "First time there",

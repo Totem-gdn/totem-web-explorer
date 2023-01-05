@@ -39,8 +39,11 @@ export class GamesService {
     return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`);
   }
 
-  fetchGames(page: number, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
-    return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`).pipe();
+  fetchGames(page: number, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+    const url = owner ? `${this.baseUrl}/games?page=${page}&list=${list}&owner=${owner}` : `${this.baseUrl}/games?page=${page}&list=${list}`;
+  
+
+    return this.http.get<GameDetail[]>(url).pipe();
   }
 
   gamesByFilter(filter: string): Observable<any> {

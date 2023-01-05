@@ -10,9 +10,6 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-user-avatars',
   templateUrl: './user-avatars.component.html',
   styleUrls: ['./user-avatars.component.scss'],
-  // host: {
-  //   class: 'pb-[60px]'
-  // }
 })
 export class UserAvatarsComponent implements OnInit {
   get assetType() { return ASSET_TYPE }
@@ -22,26 +19,23 @@ export class UserAvatarsComponent implements OnInit {
     private web3Service: Web3AuthService
   ) { }
 
-  subs = new Subject<void>();
+  sortMethod = ASSET_PARAM_LIST.LATEST;
+  type = ASSET_TYPE.AVATAR;
 
-  sortMethod = ASSET_PARAM_LIST.MY;
   assets!: AssetInfo[] | null;
   setAssets!: AssetInfo[];
 
 
   async ngOnInit() {
-    this.loadMoreAssets(1);
+    this.loadMoreAssets(1, this.sortMethod, true);
   }
 
   async loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
 
     const wallet = await this.web3Service.getAccounts();
-    console.log('wallet', wallet)
 
-    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list, wallet).subscribe(assets => {
-      console.log('avatatrs', assets)
+    this.assetsService.fetchAssets(this.type, page, list, wallet).subscribe(assets => {
       if(reset) {
-        // console.log()
         this.setAssets = assets.data;
       } else {
         this.assets = assets.data;
@@ -51,6 +45,6 @@ export class UserAvatarsComponent implements OnInit {
 
   onSort(sortMethod: any) {
     this.sortMethod = sortMethod;
-    this.loadMoreAssets(1, this.sortMethod);
+    this.loadMoreAssets(1, this.sortMethod, true);
   }
 }

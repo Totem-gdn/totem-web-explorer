@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 
 @Component({
   selector: 'sort-by',
@@ -9,17 +10,18 @@ export class SortByComponent implements OnInit {
 
   menuActive = false;
 
-  @Input() extendedSort = false;
+  @Input() type!: ASSET_TYPE | 'game';
   @ViewChild('dropdown') dropdown!: ElementRef;
   @Output() sort = new EventEmitter<string>();
   title = 'items.sort_by'; // for translate
 
   ngOnInit() {
-    if(this.extendedSort) {
-      this.title = 'items.my';
-    } else {
-      this.title = 'items.newest';
-    }
+    this.title = 'items.newest'
+    // if(this.type == 'game') {
+    //   this.title = 'items.my';
+    // } else {
+    //   this.title = 'items.newest';
+    // }
   }
 
   onClickMenu (){
@@ -33,7 +35,7 @@ export class SortByComponent implements OnInit {
   }
 
   onSort(option: string) {
-    if(option == 'my') this.title = 'items.my';
+    if(option == 'random') this.title = 'items.random';
     if(option == 'latest') this.title = 'items.newest'; // for translate
     if(option == 'popular') this.title = 'items.most_popular'; // for translate
 

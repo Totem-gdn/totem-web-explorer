@@ -27,7 +27,7 @@ export class GamesComponent implements OnDestroy {
     this.loadMore(1, this.sortMethod, true);
   }
 
-  loadMore(page: number, list = this.sortMethod, reset: boolean = true) {
+  loadMore(page: number, list = this.sortMethod, reset: boolean = false) {
     this.gamesService.fetchGames(page, list).subscribe(games => {
       if(reset) {
         this.setGames = games;
@@ -39,7 +39,7 @@ export class GamesComponent implements OnDestroy {
 
   onSort(sortMethod: any) {
     this.sortMethod = sortMethod;
-    this.loadMore(1, this.sortMethod);
+    this.loadMore(1, this.sortMethod, true);
   }
 
   ngOnDestroy(): void {

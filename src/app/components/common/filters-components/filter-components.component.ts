@@ -37,24 +37,29 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
     @ViewChild('wrapper') wrapper!: ElementRef;
 
     @Input() set setItems(items: any[] | undefined | null) {
-        // if(items == null) return;
-        console.log('set items', items)
+        if(items == null) return;
         this.items = items;
         this.page = 1;
+        console.log('page', this.page)
         this.showButton = false;
-    }
 
-    @Input() set pushItems(items: any[] | undefined | null) {
-
-        if (items == null) return;
-        if (!this.items?.length) this.items = [];
-        this.items = this.items.concat(items);
         if (items.length < 10) {
             this.showButton = false;
         } else {
             this.showButton = true;
         }
-        this.page++;
+    }
+
+    @Input() set pushItems(items: any[] | undefined | null) {
+        if (items == null) return;
+        if (!this.items?.length) this.items = [];
+        this.items = this.items.concat(items);
+
+        if (items.length < 10) {
+            this.showButton = false;
+        } else {
+            this.showButton = true;
+        }
     }
 
     items: any[] | undefined | null = undefined;
@@ -75,18 +80,6 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
                 // export set games
                 if (filter == undefined) return;
                 this.filterItems.emit(filter);
-
-                // if (this.itemType == 'game') {
-                    
-                //     this.gamesService.gamesByFilter(filter).subscribe(games => {
-                //         this.setItems = games;
-                //     })
-                // }
-                // if (this.itemType != 'game') {
-                //     this.assetsService.getAssetsByName(this.itemType, filter).subscribe(assets => {
-                //         this.setItems = assets;
-                //     })
-                // }
             })
     }
 
@@ -100,6 +93,7 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
     }
 
     onLoadMore() {
+        this.page++;
         this.loadMore.emit(this.page);
     }
 
