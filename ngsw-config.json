@@ -32,7 +32,8 @@
     {
       "name": "api",
       "urls": [
-        "https://static-dev.totem-explorer.com/**"
+        "https://static-dev.totem-explorer.com/**",
+        "https://static.totem-explorer.com/**"
       ],
       "cacheConfig": {
         "maxSize": 1,
