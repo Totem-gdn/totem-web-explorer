@@ -9,12 +9,14 @@
     <div #dropdown class="menu w-[200px] sm:w-[300px]" [ngClass]="menuActive || widgetMode ? 'appear': ''">
 
         <!-- Search -->
-        <search-field (changedValue)="searchEvent($event)"></search-field>
+        <search-field [resetFilters]="resetFilters" (changedValue)="searchEvent($event)"></search-field>
 
         <!-- Items -->
         <div #menuItems class="menu-items">
-            <div class="menu-item" *ngFor="let item of items; let i = index" (click)="onChangeInput(item)"
-                [ngClass]="{'selected-item': item?.title == selectedItem?.title, 'selected-script-item': widgetMode && item?.title == selectedItem?.title}">
+            <div class="menu-item"
+                *ngFor="let item of items; let i = index"
+                (click)="onChangeInput(item)"
+                [ngClass]="{'selected-item': item?.title == selectedItem.title, 'selected-script-item': widgetMode && item?.title == selectedItem.title}">
 
                 <div class="img-wrapper">
                     <img [src]="item.img" alt="">

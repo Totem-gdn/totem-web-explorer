@@ -1,10 +1,10 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
-import { CacheService } from '@app/core/services/assets/cache.service';
 import { GamesService } from '@app/core/services/assets/games.service';
+import { DNAParserService } from '@app/core/services/utils/dna-parser.service';
 import { Subject } from 'rxjs';
-
-import { TagsService } from './services/tags.service';
+import { FiltersService } from './filters.service';
 
 @Component({
     selector: 'filter-components',
@@ -12,18 +12,24 @@ import { TagsService } from './services/tags.service';
     styleUrls: ['./filter-components.component.scss']
 })
 
-export class FilterComponentsComponent implements OnDestroy {
+export class FilterComponentsComponent implements OnDestroy, OnInit {
+    ngOnInit(): void {
+    }
 
-    constructor(private tagsService: TagsService,
+    constructor(
         private gamesService: GamesService,
-        private cacheService: CacheService,
+        private filtersService: FiltersService
     ) { }
 
     @Output() loadMore = new EventEmitter<number>();
     @Output() sort = new EventEmitter<string>();
-    @Input() itemType = 'item';
+    @Output() updateEvent = new EventEmitter<void>();
+
+    @Input() itemType!: ASSET_TYPE | 'game';
     @Input() showUpdate = true;
     @Input() showSort = true;
+    @Input() extendedSort = false;
+    @Input() total?: number;
 
     @ViewChild('wrapper') wrapper!: ElementRef;
 
@@ -83,7 +89,8 @@ export class FilterComponentsComponent implements OnDestroy {
         this.subs.next();
         this.subs.complete();
         this.items = null;
-        this.tagsService.clear();
+        // this.tagsService.clear();
+        this.filtersService.reset();
     }
 
     getSelectedGame() {

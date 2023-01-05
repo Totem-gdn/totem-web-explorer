@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { SidebarState } from '@app/core/models/interfaces/sidebar-type-interface.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
@@ -16,7 +17,7 @@ import { GradientService } from '../services/items-gradient.service';
 @Component({
   selector: 'totem-search-filter',
   templateUrl: './totem-search-filter.component.html',
-  styleUrls: ['./totem-search-filter.component.scss']
+  styleUrls: ['./totem-search-filter.component.scss'],
 })
 export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit, OnDestroy {
   searchInfo = new FormControl('');
@@ -91,7 +92,7 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
     this.loading$.next(true);
     //this.submitGameService.getGame(params);
     combineLatest([
-      this.gamesService.getGameByName(params),
+      this.gamesService.gamesByFilter(params),
       this.assetsService.getAssetsByName(ASSET_TYPE.ITEM, params),
       this.assetsService.getAssetsByName(ASSET_TYPE.AVATAR, params)
       // this.totemItemsService.getGameByName(params),
@@ -102,9 +103,9 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
       take(1),
       map(([games, items, avatars]) => { return { games, items, avatars } })
     ).subscribe((data) => {
-      
+
       this.gamesArray.next(data.games && data.games?.length ? data.games : null);
-      
+
       data.items.map((item: Items) => item.gradient = this.getGradient());
       this.itemsArray.next(data.items && data.items?.length ? data.items : null);
       data.avatars.map((avatar: Items) => avatar.gradient = this.getGradient());
@@ -194,7 +195,7 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
 
   onBlur() {
     if (!this.dropdownHovered) {
-      this.dropdownOpened = false;
+      // this.dropdownOpened = false;
     }
   }
 

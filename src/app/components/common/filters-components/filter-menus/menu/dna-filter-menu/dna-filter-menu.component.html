@@ -1,0 +1,44 @@
+<div #wrapper class="wrapper">
+
+    <div class="menu-filter mb-3" (click)="toggleMenu()" [ngClass]="menuActive ? 'gradient-border-solid bg-grey': ''">
+        <p class="select-none">{{title}}</p>
+        <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
+    </div>
+
+    <ng-container *ngIf="showSearch">
+        <search-field [resetFilters]="resetFilters" (changedValue)="filterMenuContent($event)"></search-field>
+    </ng-container>
+
+    <ng-container *ngIf="inputType === 'range'">
+        <range-slider [title]="title"></range-slider>
+    </ng-container>
+
+    <ng-container *ngIf="inputType === 'graph'">
+        <graph-slider [title]="title"></graph-slider>
+    </ng-container>
+
+    <ng-container *ngIf="inputType != 'graph' && inputType != 'range'">
+        <div #menuRef class="menu-items">
+            <label class="menu-item flex" *ngFor="let item of items; let i = index">
+
+                <div class="overflow-hidden w-9 h-9 img rounded mr-[5px]"
+                    [style.background-color]="isValueColor(item.value) ? item.value : '#8A939B'">
+                    <!-- <img [src]="item?.images?.smallThumbnail" alt=""> -->
+                </div>
+
+                <div class="flex flex-col pr-2.5 pl-[4px]">
+                    <span>{{item.value}}</span>
+
+                    <!-- <span class="text-light-grey">{{item?.general?.genre?.[0]}}</span> -->
+                </div>
+
+                <input (change)="onChangeInput($event, item)" name={{title}} [value]="item.value"
+                    class="w-6 h-6 bg-transparent" [type]="inputType">
+
+            </label>
+            <div *ngIf="itemsNoFound" class="placeholder">
+                <p>No items found</p>
+            </div>
+        </div>
+    </ng-container>
+</div>

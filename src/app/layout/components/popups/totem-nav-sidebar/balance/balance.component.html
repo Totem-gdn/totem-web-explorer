@@ -1,6 +1,5 @@
-<!-- Balance -->
-<div class="balance"
-[ngClass]="mode != 'small' ? 'pl-[12px]': ''">
+<!-- Balance [ngClass]="mode != 'small' ? 'pl-[12px]': ''" - removed-->
+<div class="balance">
     <!-- *ngIf="mode != 'small'" -->
     <div class="title" (click)="onToggleDropdown()">
       <h3 *ngIf="mode != 'small'">Balance</h3>

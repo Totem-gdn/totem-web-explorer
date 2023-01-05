@@ -1,2 +1,11 @@
-<totem-profile-stats [type]="'gem'" [total]="gems?.length"></totem-profile-stats>
-<filter-components [showSort]="false" class="pb-[60px]" [showUpdate]="false" (loadMore)="onLoadMore($event)" [itemType]="'gem'" [pushItems]="gems"></filter-components>
+<totem-profile-stats [type]="'gem'" [total]="assets?.length"></totem-profile-stats>
+<filter-components 
+    class="pb-[60px]" 
+    [showUpdate]="false" 
+    (loadMore)="loadMoreAssets($event)" 
+    [itemType]="assetType.GEM" 
+    [pushItems]="assets"
+    [setItems]="setAssets"
+    [extendedSort]="true"
+    (sort)="onSort($event)">
+</filter-components>

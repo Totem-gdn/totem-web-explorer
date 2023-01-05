@@ -9,7 +9,7 @@ export interface SubmitGame {
   general?: GeneralInfo;
   details?: DetailsInfo;
   images?: ImagesInfo;
-  connections?: ConnectionsInfo;
+  connections?: SubmitGameConnectionsInfo;
   contacts?: ContactsInfo;
   galleryImagesForDelete?: string[];
 }
@@ -45,11 +45,19 @@ export interface GeneralInfo {
   genre?: string[];
 }
 
-export interface ConnectionsInfo {
+export interface SubmitGameConnectionsInfo {
   webpage?: string;
   assetRenderer?: string;
   promoVideo?: string;
   dnaFilters?: JsonDNAFiltersToUpload;
+  socialLinks?: SocialLinksInfo[];
+}
+
+export interface ConnectionsInfo {
+  webpage?: string;
+  assetRenderer?: string;
+  promoVideo?: string;
+  dnaFilters?: JsonDnaFilesUrls;
   socialLinks?: SocialLinksInfo[];
 }
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { DropdownItem } from "@app/core/models/interfaces/dropdown-item.model";
@@ -12,13 +12,14 @@ import { GamesService } from "@app/core/services/assets/games.service";
     styleUrls: ['./dropdown-skeleton.component.scss']
 })
 
-export class DropdownSkeletonComponent {
+export class DropdownSkeletonComponent implements AfterViewInit {
     get selectStyles() { return this.menuActive ? 'appear': this.widgetMode ? 'appear selected-script-item': ''}
 
     constructor(private router: Router,
-        private gamesService: GamesService) { }
+                private gamesService: GamesService,
+                private changeDetector: ChangeDetectorRef) { }
 
-    @Input() items!: DropdownItem[];
+    @Input() items!: DropdownItem[] | undefined;
     @Input() itemType!: ASSET_TYPE | 'game';
     @Input() selectedItem!: DropdownItem;
     @Input() searchActive: boolean = false;
@@ -31,7 +32,11 @@ export class DropdownSkeletonComponent {
 
     menuActive: boolean = false;
     widgetMode: boolean = false;
+    resetFilters: boolean = false;
 
+    ngAfterViewInit() {
+        this.changeDetector.detectChanges();
+    }
 
     onChangeInput(item: DropdownItem) {
         this.selectedItem = item;
@@ -46,6 +51,7 @@ export class DropdownSkeletonComponent {
     onClick(isClickedInside: any) {
         if (this.dropdown.nativeElement.__ngContext__ === isClickedInside.context && isClickedInside.isInside === false && this.menuActive === true) {
             this.menuActive = false;
+            this.resetFilters = !this.resetFilters;
         }
     }
 

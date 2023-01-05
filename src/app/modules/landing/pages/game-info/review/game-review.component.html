@@ -34,13 +34,13 @@
         <div class="icon-set">
             <div class="icon cursor-pointer" (click)="share.share('Сheck out this game')">
                 <share-button class="absolute" #share></share-button>
-                <div class="!w-[14px] !h-[19px] line-share"></div>
+                <div class="!w-[14px] !h-[19px] line-share mt-[1px]"></div>
                 <p class="select-none">{{'nav.share' | translate}}</p>
             </div>
             <div class="icon cursor-pointer" (click)="
-            updateGame();
+            loadGame(game.id);
             refresh.style.animation = 'none';
-            refresh.offsetHeight; 
+            refresh.offsetHeight;
             refresh.style.animation = 'rotate 0.5s'
             ">
                 <div #refresh class="!w-[16px] line-refresh"></div>

@@ -1,5 +1,9 @@
 @import 'styles/scss/variables';
 
+totem-spinner {
+  display: block;
+  transform: scale(0.6);
+}
 .search-filter {
   position: relative;
   font-family: 'Roboto';
@@ -153,6 +157,7 @@
               background-color: $transparent-light;
             }
             .item-prev-icon {
+              position: relative;
               width: 36px;
               height: 36px;
               overflow: hidden;

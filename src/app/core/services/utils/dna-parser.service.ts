@@ -1,6 +1,8 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
-import { DNAField } from "@app/core/models/interfaces/dna-field.model";
+import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { firstValueFrom } from "rxjs";
 // const { itemFilterJson} = require('totem-common-files');
 const DNAFilter = require('totem-common-files');
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
@@ -13,29 +15,10 @@ enum DNA_FILTER {
 
 export class DNAParserService {
 
-    // handleDNAField(id: string, value: string) {
-
-    //     // if (id == 'primary_color') {
-    //     //     return this.rgba2hex(value);
-    //     // }
-    //     // if (id == 'sex_bio') {
-    //     //     if (value == '0') return 'Male';
-    //     //     if (value == '1') return 'Female';
-    //     // }
-    //     // if (id == 'body_strength') {
-    //     //     if (value == '0') return 'Wimp';
-    //     //     if (value == '1') return 'Muscular';
-    //     // }
-    //     // if (id == 'body_type') {
-    //     //     if (value == '0') return 'Thin';
-    //     //     if (value == '1') return 'Fat';
-    //     // }
-
-    //     return value;
-    // }
+    constructor(private http: HttpClient) { }
 
     rgba2hex(str: any) {
-        if(str.match(/^#[a-f0-9]{6}$/i)) return;
+        if (str.match(/^#[a-f0-9]{6}$/i)) return;
         const rgb = str.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
         return (rgb && rgb.length === 4) ? "#" +
             ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
@@ -43,31 +26,70 @@ export class DNAParserService {
             ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
     }
 
-    // processProperties(gameName: string | undefined, asset: AssetInfo, properties: any[])
-    // {
-    //     let 
-    //     if(gameName)
-    // }
 
-    getJSON(gameName: string | undefined, type: string): DNAField[] {
-        console.log(DNAFilter);
-        if(gameName == 'Dreadstone Keep' && type == 'avatar') return DNAFilter.totemAvatarDreadstoneKeepFilterJson;
-        if(gameName == 'Dreadstone Keep' && type != 'avatar') return DNAFilter.totemItemDreadstoneKeepFilterJson;
+    async getJSONByGame(game: GameDetail | null, type: ASSET_TYPE) {
+        let json: any = '';
+        let jsonUrl: string | undefined = '';
 
-        if(gameName == 'Monk vs Robots' && type == 'avatar') return DNAFilter.monkVsRobotsAvatarFilterJson;
-        if(gameName == 'Monk vs Robots' && type != 'avatar') return DNAFilter.monkVsRobotsItemFilterJson;
+        if (game?.connections?.dnaFilters) {
+            if (type == ASSET_TYPE.AVATAR) {
+                jsonUrl = game?.connections?.dnaFilters?.avatarFilter;
+            } else if (type == ASSET_TYPE.ITEM) {
+                jsonUrl = game?.connections?.dnaFilters?.assetFilter;
+            } else if (type == ASSET_TYPE.GEM) {
+                jsonUrl = game?.connections?.dnaFilters?.gemFilter;
+            }
+        }
 
+        if (!jsonUrl) {
+            if (type == ASSET_TYPE.AVATAR) {
+                json = DNAFilter.avatarFilterJson;
+                return json;
+            } else {
+                json = DNAFilter.itemFilterJson;
+                return json;
+            }
+        }
+        // const headers = new HttpHeaders().set('Content-Type', 'text/plain');
+        // json = await fetch(jsonUrl, {
+        //     mode: "no-cors",
+        //     method: "GET",
+        //     headers: {
+        //         "Accept": "application/json"
+        //     }
+        // })
+        console.log(json)
+        json = await firstValueFrom(this.http.get<any>(jsonUrl));
 
-
-        //Default filters
-        if(!gameName || type != 'avatar') return DNAFilter.itemFilterJson;
-        else return DNAFilter.avatarFilterJson;
+        return json;
     }
 
-    processProperties(gameName: string, properties: any[]) {
-        // if (this.type == 'item' || 'gem') this.properties = [{ title: 'Type', id: 'classical_element', value: '--', tooltip: false }, { title: 'Damage', id: 'damage_nd', value: '--', tooltip: false }, { title: 'Range', id: 'range_nd', value: '--', tooltip: false }, { title: 'Power', id: 'power_nd', value: '--', tooltip: false }, { title: 'Magical Power', id: 'magical_exp', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
-        // if (this.type == 'avatar' && gameName == 'Dreadstone Keep') this.properties = [{ title: 'Sex', id: 'sex_bio', value: '--', tooltip: false }, { title: 'Body Strength', id: 'body_strength', value: '--', tooltip: false }, { title: 'Body Type', id: 'body_type', value: '--', tooltip: false }, { title: 'Skin Color', id: 'human_skin_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Color', id: 'human_hair_color', value: '--', tooltip: false, showColor: true }, { title: 'Eye Color', id: 'human_eye_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Style', id: 'hair_styles', value: '--', tooltip: false }, { title: 'Weapon Type', id: 'weapon_type', value: '--', tooltip: false }, { title: 'Weapon Material', id: 'weapon_material', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
-        // if (this.type == 'avatar' && gameName != 'Dreadstone Keep') this.properties = [{ title: 'Sex', id: 'sex_bio', value: '--', tooltip: false }, { title: 'Body Strength', id: 'body_strength', value: '--', tooltip: false }, { title: 'Body Type', id: 'body_type', value: '--', tooltip: false }, { title: 'Skin Color', id: 'human_skin_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Color', id: 'human_hair_color', value: '--', tooltip: false, showColor: true }, { title: 'Eye Color', id: 'human_eye_color', value: '--', tooltip: false, showColor: true }, { title: 'Hair Style', id: 'hair_styles', value: '--', tooltip: false }, { title: 'Primary Color', id: 'primary_color', value: '--', tooltip: false, showColor: true },]
+    async processJSON(json: any[], type: ASSET_TYPE, id: number | null = null) {
+        const url = 'https://matic-mumbai.chainstacklabs.com'
+        let contract = ''
+        if (type == ASSET_TYPE.ITEM) {
+            contract = '0xfC5654489b23379ebE98BaF37ae7017130B45086'
+        } else if (type == ASSET_TYPE.GEM) {
+            contract = '0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5'
+        } else if (type == ASSET_TYPE.AVATAR) {
+            contract = '0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35'
+        }
+        const contractHandler = new ContractHandler(url, contract);
+
+        let DNA = ''
+        if (id) DNA = await contractHandler.getDNA(id);
+
+        const parser = new DNAParser(json, DNA);
+
+        json.map((prop) => {
+            let value = parser.getField(prop.id);
+            if (prop.type == 'Color') {
+                value = this.rgba2hex(value);
+            }
+            prop.value = value;
+        })
+
+        return json;
     }
 
 }

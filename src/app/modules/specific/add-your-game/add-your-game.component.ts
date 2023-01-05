@@ -227,14 +227,14 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     this.imagesToSubmit = formDataToSend;
   }
 
-  goToTab(tab: string) {
+  goToTab(tab: string, scrollBehaviour: 'smooth' | 'auto' = 'smooth') {
     if (tab == SUBMISSION_TABS.BASIC_INFO) {
       this.activeTab = SUBMISSION_TABS.BASIC_INFO;
       this.progress = 33.3;
       window.scroll({
         top: 0,
         left: 0,
-        behavior: 'smooth'
+        behavior: scrollBehaviour
       });
     }
     if (tab == SUBMISSION_TABS.DETAILS) {
@@ -243,7 +243,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       window.scroll({
         top: 0,
         left: 0,
-        behavior: 'smooth'
+        behavior: scrollBehaviour
       });
     }
     if (tab == SUBMISSION_TABS.LINKS) {
@@ -252,7 +252,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
       window.scroll({
         top: 0,
         left: 0,
-        behavior: 'smooth'
+        behavior: scrollBehaviour
       });
     }
   }
@@ -282,7 +282,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
           this.router.navigate(['/games']);
         } else {
           this.clearData();
-          this.goToTab(SUBMISSION_TABS.BASIC_INFO);
+          this.goToTab(SUBMISSION_TABS.BASIC_INFO, 'auto');
         }
       })
     )

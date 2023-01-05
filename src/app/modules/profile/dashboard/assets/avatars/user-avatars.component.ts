@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
-import { CacheService } from '@app/core/services/assets/cache.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -13,36 +13,38 @@ import { Subject, takeUntil } from 'rxjs';
   //   class: 'pb-[60px]'
   // }
 })
-export class UserAvatarsComponent implements OnInit, OnDestroy {
+export class UserAvatarsComponent implements OnInit {
+  get assetType() { return ASSET_TYPE }
 
   constructor(
     private assetsService: AssetsService,
-    private cacheService: CacheService
   ) { }
 
   subs = new Subject<void>();
-  avatars!: any[] | null;
 
-  async ngOnInit() {
-    this.updateAssets();
+  sortMethod = ASSET_PARAM_LIST.MY;
+  assets!: AssetInfo[] | null;
+  setAssets!: AssetInfo[];
+
+
+  ngOnInit() {
+    this.loadMoreAssets(1);
   }
 
-  updateAssets() {
-    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, 1, ASSET_PARAM_LIST.MY).subscribe();
-    this.assetsService.avatars$
-      .pipe(takeUntil(this.subs))
-      .subscribe(avatars => {
-        this.avatars = avatars;
-      })
+  loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
+    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list).subscribe(assets => {
+      console.log('avatatrs', assets)
+      if(reset) {
+        // console.log()
+        this.setAssets = assets.data;
+      } else {
+        this.assets = assets.data;
+      }
+    });
   }
 
-  onLoadMore(page: number) {
-    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, page, ASSET_PARAM_LIST.MY).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.complete();
-    this.assetsService.reset();
+  onSort(sortMethod: any) {
+    this.sortMethod = sortMethod;
+    this.loadMoreAssets(1, this.sortMethod);
   }
 }

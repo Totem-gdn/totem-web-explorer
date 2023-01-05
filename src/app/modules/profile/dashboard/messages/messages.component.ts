@@ -81,9 +81,9 @@ export class MessagesComponent extends OnDestroyMixin implements OnInit {
     this.getMessages();
   }
 
-  getMessages() {
+  getMessages(page: number = 1) {
     this.loading$.next(true);
-    this.profileService.getMessages().pipe(
+    this.profileService.getMessages(page).pipe(
       untilComponentDestroyed(this),
     ).subscribe((data: UserMessage[]) => {
       const messages: UserMessage[] = data.map((message: UserMessage) => {
@@ -110,7 +110,9 @@ export class MessagesComponent extends OnDestroyMixin implements OnInit {
   }
 
   pageEvent(pagination: PaginationEvent) {
-    let arrayToList = this.messageList.getValue().slice(pagination.currentPage * pagination.size, (pagination.currentPage * pagination.size) + pagination.size);
+    console.log(pagination);
+    this.getMessages(pagination.currentPage + 1);
+    //let arrayToList = this.messageList.getValue().slice(pagination.currentPage * pagination.size, (pagination.currentPage * pagination.size) + pagination.size);
     //this.messageList.next(arrayToList);
   }
 

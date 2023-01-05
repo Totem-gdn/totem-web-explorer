@@ -1,3 +1,12 @@
 
 <totem-profile-stats [type]="'item'"></totem-profile-stats>
-<filter-components [showSort]="false" class="pb-[60px]" [showUpdate]="false" (loadMore)="onLoadMore($event)" [itemType]="'item'" [pushItems]="items"></filter-components>
+<filter-components 
+    (sort)="onSort($event)" 
+    class="pb-[60px]" 
+    [showUpdate]="false" 
+    (loadMore)="loadMoreItems($event)" 
+    [itemType]="assetType.ITEM" 
+    [pushItems]="items"
+    [extendedSort]="true"
+    [setItems]="setItems">
+</filter-components>

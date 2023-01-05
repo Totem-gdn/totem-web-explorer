@@ -3,8 +3,10 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { GamesService } from '@app/core/services/assets/games.service';
+import { HomepageBlocksService } from '@app/core/services/blocks/homepage-blocks.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, timer } from 'rxjs';
 import Swiper, { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper';
@@ -74,7 +76,8 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
   constructor(
     private router: Router,
     private assetService: AssetsService,
-    private gamesService: GamesService
+    private gamesService: GamesService,
+    private homepageBlocksService: HomepageBlocksService,
   ) {
     super();
   }
@@ -182,7 +185,7 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
     });
 
     this.initImgChanger();
-
+    //this.getHomepageBlocks();
   }
 
   override ngOnDestroy(): void {
@@ -190,7 +193,15 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
     this.avatars$.next([]);
     this.newestItems$.next([]);
     this.mostUsedItems$.next([]);
-    this.assetService.reset();
+  }
+
+  getHomepageBlocks() {
+    this.homepageBlocksService
+      .getBlocks()
+      .pipe(untilComponentDestroyed(this))
+      .subscribe((data: HomepageBlock[]) => {
+        console.log(data);
+      });
   }
 
   initImgChanger() {
@@ -208,13 +219,25 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
       this.games$.next(games);
     })
     this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.POPULAR).subscribe(items => {
-      this.mostUsedItems$.next(items);
+      if(items.data) {
+        this.mostUsedItems$.next(items.data)
+        return;
+      }
+      this.mostUsedItems$.next(items as any);
     })
     this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.LATEST).subscribe(items => {
-      this.newestItems$.next(items);
+      if(items.data) {
+        this.newestItems$.next(items.data)
+        return;
+      }
+      this.newestItems$.next(items as any);
     })
     this.assetService.fetchAssets(ASSET_TYPE.AVATAR, 1, ASSET_PARAM_LIST.POPULAR).subscribe(avatars => {
-      this.avatars$.next(avatars);
+      if(avatars.data) {
+        this.avatars$.next(avatars.data)
+        return;
+      }
+      this.avatars$.next(avatars as any);
     })
   }
 

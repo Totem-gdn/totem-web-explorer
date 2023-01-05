@@ -1,55 +1,37 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable } from "rxjs";
-import { AssetsCache } from "../models/interfaces/assets.modle";
-
-
+import { BehaviorSubject, map, Observable } from "rxjs";
+import { AccountEntity, AccountMetaBody } from "../models/interfaces/user-interface.model";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class ProfileService
-{
-    constructor(private http: HttpClient) {}
+export class ProfileService {
 
     baseUrl: string = environment.TOTEM_BASE_API_URL;
 
-    private _totalAssets = new BehaviorSubject<AssetsCache>({});
+    private totalAssets: BehaviorSubject<AccountMetaBody> = new BehaviorSubject({});
+    totalAssets$: Observable<AccountMetaBody> = this.totalAssets.asObservable();
 
-    get totalAssets$(): Observable<AssetsCache> { return this._totalAssets.asObservable() }
-    get totalAssets(): AssetsCache { return this._totalAssets.getValue() }
-    set totalAssets(total: any) { this._totalAssets.next(total) }
+    constructor(private http: HttpClient) {}
 
-    cacheTotalAssets(): void
-    {
-        this.http.get<any>(`${this.baseUrl}/auth/me`).subscribe(total => {
-            let _total = this.totalAssets;
-            _total.totalAvatars = total.avatars;
-            _total.totalItems = total.items;
-            _total.totalGems = total.gems;
-            this.totalAssets = _total;
-        })
-    }
-    cacheTotalFavAssets(): void
-    {
-        let _total = this.totalAssets;
-        const assets = ['items', 'avatars', 'gems'];
-
-        for(let asset of assets)
-        {
-            this.http.get<any>(`${this.baseUrl}/assets/favorites/${asset}`).subscribe(total => {
-                if(asset = 'items') _total.totalFavItems = total.length;
-                if(asset = 'avatars') _total.totalFavAvatars = total.length;
-                if(asset = 'gems') _total.totalFavGems = total.length;
-                this.totalAssets = _total;
+    getUserAssetsCount(): Observable<AccountMetaBody> {
+        return this.getMyAccountInfo().pipe(
+            map<AccountEntity, AccountMetaBody>((accountData: AccountEntity) => {
+                this.totalAssets.next(accountData.meta);
+                return accountData.meta;
             })
-        }
+        );
     }
 
-    getMessages(): Observable<any> {
-        return this.http.get<any>(`${this.baseUrl}/messages`);
+    getMyAccountInfo(): Observable<AccountEntity> {
+        return this.http.get<AccountEntity>(`${this.baseUrl}/auth/me`);
+    }
+
+    getMessages(page: number): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}/messages?page=${page}`);
     }
 
     setMessageAsRead(id: string): Observable<any> {

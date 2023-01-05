@@ -14,7 +14,7 @@
 .dropdown-skeleton {
     max-width: 200px;
     width: 100%;
-  
+
     .dropdown-toggle {
       color: $white;
       width: 200px;
@@ -27,21 +27,21 @@
       padding: 8px 12px;
       align-items: center;
       font-weight: 500;
-  
+
       transition: background-color .3s, color .3s, border .3s;
-  
+
       span {
         white-space: nowrap;
         user-select: none;
         pointer-events: none;
         font-weight: 700;
       }
-  
+
       .line-arrow_down {
         transition: transform .3s;
         width: 12px !important;
       }
-  
+
       &:hover {
         background-color: $yellow;
         color: $black;
@@ -53,7 +53,7 @@
         @extend %gradient-border-solid;
        }
     }
-  
+
     .menu {
       margin-top: 10px;
       @extend %gradient-border-solid;
@@ -65,13 +65,14 @@
       z-index: 30;
       transition: opacity 0.4s, visibility 0.4s;
       border-radius: 4px;
+
       .menu-items {
         padding: 0 5px;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
         max-height: 200px;
-  
+
         .menu-item {
           display: flex;
           gap: 10px;
@@ -95,14 +96,14 @@
             line-height: 16px;
             height: 16px;
           }
-  
+
           span {
             color: $light-grey;
             grid-area: genre;
             line-height: 16px;
             height: 16px;
           }
-  
+
           .img-wrapper {
             grid-area: before;
             width: 36px;
@@ -113,17 +114,17 @@
 
              }
           }
-  
-  
+
+
         }
-  
+
       }
-  
+
       .view-all {
         display: flex;
         justify-content: center;
         padding-top: 10px;
-  
+
         .content {
           display: flex;
           flex-direction: column;

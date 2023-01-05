@@ -5,6 +5,30 @@ export interface UserEntity {
   wallet?: string;
 }
 
+export interface AccountEntity {
+    id: string;
+    publicKey: string;
+    welcomeTokens: number;
+    meta: AccountMetaBody;
+}
+
+export interface AccountMetaBody {
+  own?: UserAssetCountEntity;
+  favorites?: UserAssetCountEntity;
+}
+
+export interface UserCountAssetBody {
+  all: number;
+  rare: number;
+  unique: number;
+}
+
+export interface UserAssetCountEntity {
+  items: UserCountAssetBody;
+  avatars: UserCountAssetBody;
+  gems: UserCountAssetBody;
+}
+
 export interface UserMessage {
   date: string;
   id: string;

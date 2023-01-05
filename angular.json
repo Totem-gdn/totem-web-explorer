@@ -97,7 +97,7 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ],
-              "serviceWorker": false,
+              "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json",
               "buildOptimizer": false,
               "optimization": false,

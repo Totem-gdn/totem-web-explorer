@@ -4,112 +4,50 @@ import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
 import { SearchParamsModel } from "../model/search-params.model";
-import { BehaviorSubject, map, Observable, take, tap } from "rxjs";
+import { BehaviorSubject, concatMap, map, Observable, switchMap, take, tap } from "rxjs";
 import Web3 from "web3";
-import { CacheService } from "./cache.service";
+import { ApiResponse, APIResponseMeta } from '@app/core/models/interfaces/api-response.interface';
 import { ASSET_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
+import { DNAParserService } from "../utils/dna-parser.service";
 const { DNAParser } = require('totem-dna-parser');
 
 
+interface TotalAssets {
+    avatars?: APIResponseMeta;
+    items?: APIResponseMeta;
+}
 @Injectable({ providedIn: 'root' })
 
 export class AssetsService {
     baseUrl: string = environment.TOTEM_BASE_API_URL;
 
     constructor(private http: HttpClient,
-        private web3: Web3AuthService,
-        private cacheService: CacheService
+                private dnaService: DNAParserService
     ) { }
 
-    private _avatars = new BehaviorSubject<AssetInfo[] | null>(null);
-    private _gems = new BehaviorSubject<AssetInfo[] | null>(null);
-    private _items = new BehaviorSubject<AssetInfo[] | null>(null);
-    private _avatar = new BehaviorSubject<AssetInfo | null>(null);
-    private _gem = new BehaviorSubject<AssetInfo | null>(null);
-    private _item = new BehaviorSubject<AssetInfo | null>(null);
-
-    get avatars$() { return this._avatars.asObservable() }
-    get items$() { return this._items.asObservable() }
-    get gems$() { return this._gems.asObservable() }
-    get avatar$() { return this._avatar.asObservable() }
-    get item$() { return this._item.asObservable() }
-    get gem$() { return this._gem.asObservable() }
-
-    assset$(type: string) {
-        if (type == 'avatar') return this.avatar$;
-        if (type == 'item') return this.item$;
-        return this.gem$;
-    }
-
-
-    set avatars(value: any) { this._avatars.next(value) }
-    set items(value: any) { this._items.next(value) }
-    set gems(value: any) { this._gems.next(value) }
-    set avatar(value: any) { this._avatar.next(value) }
-    set item(value: any) { this._item.next(value) }
-    set gem(value: any) { this._gem.next(value) }
-
-
-    updateAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
-        if(this.baseUrl == 'https://api.totem-explorer.com') {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
-                // map(assets => assets.data),
-                tap(assets => {
-                    const formatedAssets = this.formatAssets(assets, type);
-    
-                    if (type == 'avatar') this._avatars.next(formatedAssets);
-                    if (type == 'gem') this._gems.next(formatedAssets);
-                    if (type == 'item') this._items.next(formatedAssets);
-                }));
-        } else {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(
-                map(assets => assets.data),
-                tap(assets => {
-                    const formatedAssets = this.formatAssets(assets, type);
-    
-                    if (type == 'avatar') this._avatars.next(formatedAssets);
-                    if (type == 'gem') this._gems.next(formatedAssets);
-                    if (type == 'item') this._items.next(formatedAssets);
-                }));
-        }
-
-    }
+    private _totalAssets = new BehaviorSubject<TotalAssets>({});
+    set totalAssets(totalAssets: TotalAssets) { this._totalAssets.next(totalAssets) }
+    get totalAssets() { return this._totalAssets.getValue() }
+    get totalAssets$() { return this._totalAssets.asObservable() }
 
     fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
-        if (this.baseUrl == 'https://api.totem-explorer.com') {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`);
-        } else {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`).pipe(map(assets => assets.data));
-        }
-       
+        return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`)
+            .pipe(tap(assets => {
+
+                const totalAssets = this.totalAssets;
+                if(type == ASSET_TYPE.AVATAR) totalAssets.avatars = assets.meta;
+                if(type == ASSET_TYPE.ITEM) totalAssets.items = assets.meta;
+                this.totalAssets = totalAssets;
+
+            }));
     }
 
-    updateAsset(id: string, type: string) {
-        return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(tap(asset => {
-            const formattedAsset = this.formatAsset(asset, type);
-
-            if (type == 'item') this._item.next(formattedAsset);
-            if (type == 'avatar') this._avatar.next(formattedAsset);
-            if (type == 'gem') this._gem.next(formattedAsset);
+    fetchAsset(id: string, type: ASSET_TYPE) {
+        return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(map(asset =>  {
+            asset.rarity = asset.tokenId % 100;
+            return asset;
         }));
-    }
-
-    formatAssets(assets: AssetInfo[], assetType: string) {
-        const formattedAssets: AssetInfo[] = [];
-
-        for (let asset of assets) {
-            const formattedAsset = this.formatAsset(asset, assetType);
-            formattedAssets.push(formattedAsset);
-        }
-        return formattedAssets;
-    }
-
-    formatAsset(asset: AssetInfo, assetType: string) {
-        const parser = new DNAParser()
-        asset.rarity = parser.getItemRarity(asset?.tokenId);
-        asset.assetType = assetType;
-        return asset;
     }
 
     getAssetsByName(type: ASSET_TYPE, word: string): Observable<any[]> {
@@ -122,13 +60,21 @@ export class AssetsService {
 
     }
 
+    // formatAssets(assets: AssetInfo[], assetType: string) {
+    //     const formattedAssets: AssetInfo[] = [];
 
-    reset() {
-        this._avatars.next(null);
-        this._gems.next(null);
-        this._items.next(null);
-        this._avatar.next(null);
-        this._gem.next(null);
-        this._item.next(null);
-    }
+    //     for (let asset of assets) {
+    //         const formattedAsset = this.formatAsset(asset, assetType);
+    //         formattedAssets.push(formattedAsset);
+    //     }
+    //     return formattedAssets;
+    // }
+
+    // formatAsset(asset: AssetInfo, assetType: string) {
+    //     const parser = new DNAParser()
+    //     asset.rarity = parser.getItemRarity(asset?.tokenId);
+    //     asset.assetType = assetType;
+    //     return asset;
+    // }
+
 }

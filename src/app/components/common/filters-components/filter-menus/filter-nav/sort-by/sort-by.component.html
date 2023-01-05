@@ -1,0 +1,23 @@
+
+<div class="dropdown" (clickOutside)="onClick($event)">
+    <div class="menu-filter bg-grey" (click)="onClickMenu()" 
+    [ngClass]="menuActive ? 'gradient-border-solid': ''">
+        <span class="whitespace-nowrap">{{title | translate}}</span>
+        <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
+    </div>
+
+    <div #dropdown class="dropdown-menu backdrop-blur-xl gradient-border-solid" [ngClass]="menuActive ? 'appear': ''"
+    >
+        <div class="menu-items">
+            <div *ngIf="extendedSort" class="menu-item" (click)="onSort('my')">
+                <span class="">{{'items.my' | translate}}</span>
+            </div>
+            <div class="menu-item" (click)="onSort('latest')">
+                <span class="">{{'items.newest' | translate}}</span>
+            </div>
+            <div class="menu-item" (click)="onSort('popular')">
+                <span class="">{{'items.most_popular' | translate}}</span>
+            </div>
+        </div>
+    </div>
+</div>

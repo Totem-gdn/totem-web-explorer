@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
-import { CacheService } from '@app/core/services/assets/cache.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -13,35 +13,35 @@ import { Subject, takeUntil } from 'rxjs';
     class: 'min-h-[calc(100vh-70px)]'
   }
 })
-export class UserGemsComponent implements OnInit, OnDestroy {
+export class UserGemsComponent implements OnInit {
+  get assetType() { return ASSET_TYPE }
 
-  constructor(private assetsService: AssetsService,
-    private cacheService: CacheService) { }
+  constructor(private assetsService: AssetsService,) { }
 
   subs = new Subject<void>();
-  gems!: any[] | null;
 
-  async ngOnInit() {
-    this.getNfts();
+  sortMethod = ASSET_PARAM_LIST.MY;
+  assets!: AssetInfo[] | null;
+  setAssets!: AssetInfo[];
+
+
+  ngOnInit() {
+    this.loadMoreAssets(1);
   }
 
-  getNfts() {
-    this.assetsService.updateAssets(ASSET_TYPE.GEM, 1, ASSET_PARAM_LIST.MY).subscribe();
-    this.assetsService.gems$
-      .pipe(takeUntil(this.subs))
-      .subscribe(gems => {
-        this.gems = gems;
-      })
-  }
-  onLoadMore(page: number) {
-    this.assetsService.updateAssets(ASSET_TYPE.GEM, page, ASSET_PARAM_LIST.MY).subscribe();
+  loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
+    this.assetsService.fetchAssets(ASSET_TYPE.GEM, page, list).subscribe(assets => {
+      if(reset) {
+        this.setAssets = assets.data;
+      } else {
+        this.assets = assets.data;
+      }
+    });
   }
 
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.complete();
-    this.assetsService.reset();
-
+  onSort(sortMethod: any) {
+    this.sortMethod = sortMethod;
+    this.loadMoreAssets(1, this.sortMethod);
   }
 
 }

@@ -1,0 +1,22 @@
+<!-- Static -->
+<dna-filter-menu [title]="'Rarity'" [inputType]="inputType.GRAPH">
+</dna-filter-menu>
+
+<!-- Dynamic -->
+<ng-container *ngFor="let item of items">
+    <dna-filter-menu [title]="item.description" [values]="item.values" [showSearch]="
+            item.type == 'map' ? true:
+            item.type == 'range' ? true:
+            false
+        " [inputType]="
+            item.type == 'int' ? inputType.RANGE :
+            item.type == 'bool' ? inputType.RADIO :
+            inputType.CHECKBOX
+            ">
+    </dna-filter-menu>
+</ng-container>
+
+<!-- Spinner -->
+<div *ngIf="!items" @fade-in class="flex justify-center h-[50px] items-center">
+    <totem-spinner class="m-auto"></totem-spinner>
+</div>

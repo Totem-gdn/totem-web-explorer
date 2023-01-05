@@ -1,8 +1,0 @@
-
-<div class="flex items-center" *ngIf="showUpdate">
-    <div class="flex justify-center items-center update" (click)="onClick()">
-        <!-- <mat-icon [svgIcon]="'line:update'" #icon></mat-icon> -->
-        <div #icon class="line-update"></div>
-    </div>
-    <span class="ml-2.5 whitespace-nowrap font-medium">{{(_total | async) ? (_total | async) + ' items' : '--'}}</span>
-</div>

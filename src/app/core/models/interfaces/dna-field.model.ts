@@ -5,7 +5,7 @@ export interface DNAField {
     length: number;
     start: number;
     type: string;
-    values?: string[];
+    values?: any[];
 }
 
 export interface AssetDNAField {

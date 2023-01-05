@@ -11,7 +11,7 @@
         <div
         fxLayout="row"
         fxLayoutAlign="center center"
-        [cdkCopyToClipboard]="item?.owner"
+        [cdkCopyToClipboard]="item?.owner || ''"
         [cdkCopyToClipboardAttempts]="2"
         (cdkCopyToClipboardCopied)="walletCopied()"
         class="user-id"
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="icon-set">
-            <div class="icon cursor-pointer" (click)="share.share('Сheck out this asset')">
+            <div class="icon cursor-pointer mt-[1px]" (click)="share.share('Сheck out this asset')">
                 <share-button class="absolute" #share></share-button>
                 <div class="line-share"></div>
                 <p class="select-none">{{'modules.share' | translate}}</p>
@@ -46,7 +46,7 @@
             <div class="icon cursor-pointer" (click)="
             updateAsset();
             refresh.style.animation = 'none';
-            refresh.offsetHeight; 
+            refresh.offsetHeight;
             refresh.style.animation = 'rotate 0.5s'">
                 <div #refresh class="line-refresh">
             </div>
@@ -62,12 +62,12 @@
     <div class="play !mb-[40px] lg:!mb-[0px]" #playContainer>
             <div class="flex flex-wrap gap-[13px]">
                 <div class="item-tag">
-                    <h4 *ngIf="item?.lastUsed || item?.lastUsed == 0">{{item?.lastUsed}}</h4>
+                    <!-- <h4 *ngIf="item?.lastUsed || item?.lastUsed == 0">{{item?.lastUsed}}</h4> -->
                     <h4 *ngIf="!item?.lastUsed">--</h4>
                     <p>{{'asset_card.last_used' | translate}}</p>
                 </div>
                 <div class="item-tag">
-                    <h4>{{item?.rarity ? item.rarity : '--'}}</h4>
+                    <h4>{{item?.rarity ? item?.rarity : '--'}}</h4>
                     <p>{{'nav.rarity' | translate}}</p>
                 </div>
                 <div class="item-tag">

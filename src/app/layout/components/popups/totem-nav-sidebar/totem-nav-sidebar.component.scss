@@ -173,7 +173,7 @@
         z-index: 2;
         width: 120px;
         max-height: 120px;
-        margin-top: 60px;
+        margin-top: 30px;
         position: relative;
         &::before {
           content: "";
@@ -202,7 +202,7 @@
       .user-name {
         position: relative;
         z-index: 3;
-        margin-top: 12px;
+        margin-top: 14px;
         font-weight: 500;
         font-size: 24px;
         line-height: 28px;
@@ -221,7 +221,7 @@
           padding: 7px 16px;
           position: absolute;
           z-index: 20;
-          top: 66px;
+          top: 56px;
           left: 0px;
           font-weight: 400;
           font-size: 14px;
@@ -237,7 +237,7 @@
       .user-id {
         cursor: pointer;
         z-index: 2;
-        margin-top: 4px;
+        margin-top: 5px;
         font-weight: 400;
         font-size: 16px;
         line-height: 19px;
@@ -261,8 +261,8 @@
       .sidenav {
         z-index: 2;
         width: 100%;
-        margin-top: 40px;
-        padding-left: 12px;
+        margin-top: 14px;
+        //padding-left: 12px;
         a, span {
           font-weight: 500;
           font-size: 24px;
@@ -274,7 +274,7 @@
             color: #fff;
           }
           &:not(:first-child) {
-            margin-top: 30px;
+            margin-top: 24px;
           }
         }
         a.active-route {
@@ -319,7 +319,7 @@
         inset: 0;
         padding-left: 1px;
         border-radius: 4px;
-        background: $linear-light-nav;
+        background: $linear-light-sidenav;
         -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);

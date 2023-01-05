@@ -62,17 +62,17 @@ export class HomeWidgetComponent implements OnInit, OnDestroy {
   selectedGame!: GameDetail | null;
   subs = new Subject<void>();
 
-  constructor(private assetsService: AssetsService, 
+  constructor(private assetsService: AssetsService,
               private widgetService: WidgetService,
               private gamesService: GamesService) {
 
-    this.assetsService.updateAssets(ASSET_TYPE.AVATAR, 1).subscribe(avatars => {
-      if (!avatars) return;
-      this.card1 = avatars[0];
+    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, 1).subscribe(avatars => {
+      if(!avatars.data) return;
+      this.card1 = avatars.data[0];
     });
-    this.assetsService.updateAssets(ASSET_TYPE.ITEM, 1).subscribe(items => {
-      if (!items) return;
-      this.card2 = items[0];
+    this.assetsService.fetchAssets(ASSET_TYPE.ITEM, 1).subscribe(items => {
+      if(!items.data) return;
+      this.card2 = items.data[0];
     });
   }
 

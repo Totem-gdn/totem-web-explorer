@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
+import { Animations } from "@app/core/animations/animations";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
@@ -15,7 +16,10 @@ const { DNAParser, ContractHandler } = require('totem-dna-parser');
     styleUrls: ['./asset-info.component.scss'],
     host: {
         class: 'relative'
-    }
+    },
+    animations: [
+        Animations.animations
+    ]
 })
 
 export class AssetInfoComponent implements AfterViewInit {
@@ -32,6 +36,7 @@ export class AssetInfoComponent implements AfterViewInit {
     _item!: any;
     assets!: any[];
     properties!: any[];
+    loading: boolean = false;
 
     notFound: boolean = false;
     subs = new Subject<void>();
@@ -73,48 +78,30 @@ export class AssetInfoComponent implements AfterViewInit {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
-                // this.properties = this.dnaService.getProperties(selectedGame?.general?.name, this.type);
-                this.processItem(this._item?.tokenId, selectedGame?.general?.name);
+                this.processItem(this._item?.tokenId, selectedGame);
             })
     }
 
     sliderItems() {
-        this.assetsService.updateAssets(this.type, 1)
+        this.assetsService.fetchAssets(this.type, 1)
         .pipe(take(1))
         .subscribe(assets => {
-            this.assets = assets;
+            this.assets = assets.data;
         });
     }
 
-    async processItem(id: number, gameName?: string | undefined) {
-        const url = 'https://matic-mumbai.chainstacklabs.com'
-        let contract = ''
-        const json = this.dnaService.getJSON(gameName, this.type);
-        this.properties = json;
-        if (this.type === 'item') {
-            contract = '0xfC5654489b23379ebE98BaF37ae7017130B45086'
-        } else if (this.type === 'gem') {
-            contract = '0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5'
-        } else if (this.type === 'avatar') {
-            contract = '0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35'
-        }
-        const contractHandler = new ContractHandler(url, contract)
-
-        const DNA = await contractHandler.getDNA(id)
-
-        const parser = new DNAParser(json, DNA)
-        this._item.rarity = parser.getItemRarity(id)
-
-        this.properties.map((prop) => {
-            let value = parser.getField(prop.id);
-            if (prop.type == 'Color') {
-                value = this.dnaService.rgba2hex(value);
-            }
-            prop.value = value;
-        })
+    async processItem(id: number, game: GameDetail | null = null) {
+        this.properties = [];
+        const json = await this.dnaService.getJSONByGame(game, this.type)
+        const properties = await this.dnaService.processJSON(json, this.type, id);
+        this.properties = properties;
     }
 
     handleProperties(title: string, value: string) {
+
+    }
+
+    setContentHeight() {
 
     }
 

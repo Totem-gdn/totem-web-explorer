@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { map, Observable } from "rxjs";
+import { ApiResponse } from "../models/interfaces/api-response.interface";
 import { AssetInfo } from "../models/interfaces/asset-info.model";
 import { GameDetail } from "../models/interfaces/submit-game-interface.model";
 
@@ -20,19 +21,19 @@ export class FavoritesService {
     private http: HttpClient
   ) {}
 
-    getFavotireAssets(type: string, page: string): Observable<FavoritesAssets> {
-      return this.http.get<AssetInfo[]>(`${this.baseUrl}/assets/favorites/${type}?page=${page}`).pipe(
-        map<AssetInfo[], FavoritesAssets>((assets: AssetInfo[]) => {
+    getFavotireAssets(type: string, page: string, list?: string): Observable<FavoritesAssets> {
+      return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/favorites/${type}?page=${page}${list ? '&list=' + list : ''}`).pipe(
+        map<ApiResponse<AssetInfo[]>, FavoritesAssets>((assets: ApiResponse<AssetInfo[]>) => {
           return {
             type: type,
-            assets: assets
+            assets: assets.data
           }
         })
       );
     }
 
-    getFavotireGames(page: string): Observable<GameDetail[]> {
-      return this.http.get<GameDetail[]>(`${this.baseUrl}/games/favorites?page=${page}`);
+    getFavotireGames(page: string, list?: string): Observable<GameDetail[]> {
+      return this.http.get<GameDetail[]>(`${this.baseUrl}/games/favorites?page=${page}${list ? '&list=' + list : ''}`);
     }
 
 }

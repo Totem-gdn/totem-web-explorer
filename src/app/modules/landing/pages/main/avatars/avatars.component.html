@@ -1,3 +1,10 @@
 
 
-<filter-components (sort)="onSort($event)" (loadMore)="onLoadMore($event)" [itemType]="'avatar'" [pushItems]="avatars"></filter-components>
+<filter-components 
+    (sort)="onSort($event)" 
+    (loadMore)="loadMoreAvatars($event)" 
+    [itemType]="assetType.AVATAR" 
+    [pushItems]="avatars"
+    [setItems]="setAvatars"
+    (updateEvent)="onReset()">
+</filter-components>

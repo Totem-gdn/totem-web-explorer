@@ -1,0 +1,16 @@
+<div class="cols-wrapp" fxLayout="row" fxLayoutAlign="space-between end">
+    <div *ngFor="let item of items" class="item-col" [ngStyle]="{'height': item.amountOfItems + 'px', 'background': item.isInRange ? '#ffd013' : ''}"></div>
+  </div>
+  <div class="range-slider relative">
+      <div #sliderTrackMin class="slider"></div>
+      <input #sliderThumbMin class="ml-auto cursor-pointer h-1 w-full" type="range" min="0" max="100" value="10"
+          (input)="update()">
+  
+      <div #sliderTrackMax class="slider"></div>
+      <input #sliderThumbMax class="cursor-pointer h-1 w-full" type="range" min="0" max="100" value="20"
+          (input)="update()">
+  </div>
+
+<div class="mb-[15px] mt-[25px] flex w-full">
+    <span class="text-light-grey">{{'items.range' | translate}}:&nbsp;&nbsp;&nbsp;{{minValue}}-{{maxValue}}</span>
+</div>

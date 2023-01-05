@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { GamesService } from '@app/core/services/assets/games.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-games',
@@ -12,35 +13,25 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class UserGamesComponent {
   games!: any[] | undefined | null;
-  subs = new Subject<void>();
+  sortMethod = GAME_PARAM_LIST.LATEST;
 
   constructor(private gamesService: GamesService) {}
 
   ngOnInit(): void {
-    this.updateGames('my');
-    // this.filters$();
-    this.games$();
+    this.loadMore(1);
   }
 
-  games$() {
-    this.gamesService.games$
-      .pipe(takeUntil(this.subs))
+  loadMore(page: number, list = this.sortMethod) {
+    this.gamesService.fetchGames(page, list)
+      .pipe(take(1))
       .subscribe(games => {
-        this.games = games;
-      })
+      this.games = games;
+    });
   }
 
-  updateGames(filters: 'latest' | 'popular' | 'my' = 'latest') {
-    this.gamesService.updateGames(1, filters)
-      .pipe(takeUntil(this.subs))
-      .subscribe(games => {
-        this.games = games;
-      })
-  }
-
-  ngOnDestroy(): void {
-    this.subs.next();
-    this.subs.complete();
+  onSort(sortMethod: any) {
+    this.sortMethod = sortMethod;
+    this.loadMore(1, this.sortMethod);
   }
 
 }

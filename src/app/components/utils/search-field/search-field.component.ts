@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
-import { BehaviorSubject, of, switchMap } from "rxjs";
+import { BehaviorSubject, debounceTime, of, Subscription, switchMap } from "rxjs";
 
 
 @Component({
@@ -10,13 +10,15 @@ import { BehaviorSubject, of, switchMap } from "rxjs";
   styleUrls: ['./search-field.component.scss']
 })
 
-export class SearchFieldComponent implements OnInit {
+export class SearchFieldComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router,) {
-
-  }
+  constructor(private router: Router,) {}
   @Input() itemType: string = '';
   @Output() changedValue = new EventEmitter<any>();
+
+  @Input() set resetFilters (reset: any) {
+    this.reset();
+  }
 
   items: any[] = [];
   itemsArray = new BehaviorSubject<any[] | null>(null);
@@ -24,40 +26,18 @@ export class SearchFieldComponent implements OnInit {
 
   menuActive: boolean = false;
   searchActive = false;
-  searchInfo = new FormControl('');
+  sub!: Subscription;
 
-  onChangeInput(target?: any) {
-    this.changedValue.emit(target?.value || '');
-  }
+  ngOnInit() {
+    this.sub = this.searchControl.valueChanges
+      .pipe(debounceTime(250))
+      .subscribe(value => {
 
-  ngOnInit(): void {
-    this.initFormListener();
-  }
-
-  initFormListener() {
-    this.searchInfo.valueChanges.pipe(
-      switchMap((id: string | null) => {
-        return of(id);
+        this.changedValue.emit(value?.toLowerCase());
       })
-    )
-      .subscribe((text: string | null) => {
-        if (text?.length) {
-          this.getItems(text);
-        }
-      });
-  }
-
-  getItems(params: string) {
-    let itemsArray = this.items.filter((item: any) => item.name.toLowerCase().includes(params));
-    this.processItems(itemsArray && itemsArray.length ? itemsArray.slice(0, 4) : null);
-  }
-
-  processItems(items: any[] | null) {
-    this.itemsArray.next(items);
   }
 
   reset() {
-    console.log(this.searchControl)
     if (this.searchControl.value == '') return;
     this.searchControl.patchValue('');
   }
@@ -78,11 +58,13 @@ export class SearchFieldComponent implements OnInit {
 
   onBlur() {
     this.searchActive = false;
-    console.log('reset')
-    this.reset();
   }
 
   onClickMenu() {
     this.menuActive = !this.menuActive;
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 }

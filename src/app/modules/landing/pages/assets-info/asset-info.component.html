@@ -35,7 +35,7 @@
                         (click)="activeTab = 'properties'">{{'modules.properties' | translate}}</div>
 
                     <div class="tab sm:!text-base sm:!px-[10px]"
-                        [ngClass]="activeTab === 'legacy' ? 'bg-black !text-white': ''" 
+                        [ngClass]="activeTab === 'legacy' ? 'bg-black !text-white': ''"
                         (click)="activeTab = 'legacy'">
                         {{'modules.legacy' | translate}}</div>
 
@@ -50,9 +50,26 @@
 
 
         <div>
-            <item-properties [properties]="properties" *ngIf="activeTab === 'properties'"></item-properties>
-            <item-legacy [asset]="_item" *ngIf="activeTab === 'legacy'"></item-legacy>
-            <item-history [type]="type" [asset]="_item" *ngIf="activeTab === 'history'"></item-history>
+            <item-properties 
+            *ngIf="activeTab === 'properties'"
+            [properties]="properties"
+            @fade-in
+            >
+            </item-properties>
+            <item-legacy
+                *ngIf="activeTab === 'legacy'"
+                [type]="type" 
+                [asset]="_item"
+                @fade-in
+                >
+            </item-legacy>
+            <item-history
+                *ngIf="activeTab === 'history'"
+                @fade-in
+                [type]="type"
+                [asset]="_item"
+                >
+            </item-history>
         </div>
     </div>
 

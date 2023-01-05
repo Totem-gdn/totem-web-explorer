@@ -1,10 +1,9 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
-import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { DropdownItem } from "@app/core/models/interfaces/dropdown-item.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
+import { environment } from "@env/environment";
 import { Subject, Subscription, take, takeUntil } from "rxjs";
 
 @Component({
@@ -36,8 +35,8 @@ export class GameDropdownComponent implements OnDestroy {
   scriptSub?: Subscription;
 
   ngOnInit() {
-    this.selectedGame$();
     this.updateGames();
+    this.selectedGame$();
 
     const gameInSession = this.gamesService.gameInSession;
     if (gameInSession) this.selectedGame = this.formatGame(gameInSession);
@@ -49,27 +48,45 @@ export class GameDropdownComponent implements OnDestroy {
       .subscribe(game => {
         if (!game) return;
         this.selectedGame = this.formatGame(game);
-        console.log(this.selectedGame);
       })
   }
 
   updateGames(filter: string = '') {
-    this.gamesService.loadGames(filter, true)
+    this.gamesService.gamesByFilter(filter)
       .subscribe(games => {
-        console.log(games)
+        console.log('games')
         if (!games) return;
         if(!this.gamesService.gameInSession) this.gamesService.gameInSession = games[0];
-        this.formatGames(games);
+        this.formatGames(games, filter);
       })
   }
 
-  formatGames(games: GameDetail[]) {
+  formatGames(games: GameDetail[], filter: string) {
+    // games[0].
     const dropdownGames: DropdownItem[] = [];
+    if ('totem'.includes(filter.toLowerCase())) {
+      dropdownGames.push(this.formatGame(
+        {
+          id: 'totem',
+          general: {
+            name: 'Totem',
+            genre: ['Canonical', 'View']
+          },
+          connections: {
+            assetRenderer: environment.ASSET_RENDERER_URL
+          },
+          images: {
+            smallThumbnail: 'assets/icons/nav/logo-small.svg'
+          }
+        }
+      ))
+    }
 
     for (let game of games) {
       const dropdownGame = this.formatGame(game);
       dropdownGames.push(dropdownGame);
     }
+    console.log(dropdownGames)
     this.dropdownGames = dropdownGames;
   }
 

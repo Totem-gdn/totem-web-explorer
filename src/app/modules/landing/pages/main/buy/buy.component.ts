@@ -1,5 +1,7 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { fadeInBotAnimation } from '@app/core/animations/fade-in';
+
 import { BuyAssetService } from '@app/core/services/assets/buy-asset.service';
 import { CryptoUtilsService } from '@app/core/services/crypto/crypto-utils.service';
 import { TransferService } from '@app/core/services/crypto/transfer.service';
@@ -11,7 +13,10 @@ import { SnackNotifierService } from '../../../../../components/utils/snack-bar-
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',
-  styleUrls: ['./buy.component.scss']
+  styleUrls: ['./buy.component.scss'],
+  animations: [
+    fadeInBotAnimation
+  ]
 })
 export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 

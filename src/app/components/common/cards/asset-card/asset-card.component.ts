@@ -25,18 +25,18 @@ export class AssetCardComponent implements AfterViewInit {
 
   @Input() type: string = 'item';
   @Input() set asset(asset: AssetInfo) {
-    if(!asset) return;
+    if (!asset) return;
     this._asset = asset;
     this._asset.rarity = asset.tokenId % 100;
-    if(!asset.rendererUrl) this.updateUrl();
+    if (!asset.rendererUrl) this.updateUrl();
   };
 
   @Input() customBackground: string | null = null;
   @Input() set selectedGame(game: GameDetail | null) {
-    if(!game) return;
+    if (!game) return;
     if (game?.connections?.assetRenderer && this._asset && (this.type == 'avatar' || this.type == 'item')) {
       this.setRendererUrl(game?.connections.assetRenderer);
-    } else if(this._asset) {
+    } else if (this._asset) {
       this.setRendererUrl(environment.ASSET_RENDERER_URL);
     }
   }
@@ -54,24 +54,40 @@ export class AssetCardComponent implements AfterViewInit {
       return;
     }
     if (!this.type) return;
-    this._asset.isLiked = !this._asset.isLiked;
-    if (this._asset.isLiked) {
-      this.favService.addLike(this.type, this._asset.id).subscribe(() => {
-        this.gtag.event('add_like', {
-          'event_label': `add like for ${this.type} with id ${this._asset.id}`,
-        });
+    
+    if (!this._asset.isLiked) {
+      this.favService.addLike(this.type, this._asset.id).subscribe({
+        next: () => {
+          this.gtag.event('add_like', {
+            'event_label': `add like for ${this.type} with id ${this._asset.id}`,
+          });
+          console.log('added like')
+          this._asset.isLiked = true;
+          console.log(this._asset.isLiked);
+        },
+        error: error => {
+          console.log(error)
+          this.messageService.open('Error');
+        }
       });
     } else {
-      this.favService.removeLike(this.type, this._asset.id).subscribe(() => {
-        this.gtag.event('remove_like', {
-          'event_label': `remove like for ${this.type} with id ${this._asset.id}`,
-        });
+      this.favService.removeLike(this.type, this._asset.id).subscribe({
+        next: () => {
+          this.gtag.event('remove_like', {
+            'event_label': `remove like for ${this.type} with id ${this._asset.id}`,
+          });
+          this._asset.isLiked = false;
+        },
+        error: error => {
+          console.log(error)
+          this.messageService.open('Error')
+        }
       });
     }
   }
 
   setRendererUrl(rendererUrl: string) {
-    if(!rendererUrl && !this._asset) return;
+    if (!rendererUrl && !this._asset) return;
     this._asset.rendererUrl = `${rendererUrl}/${this.type}/${this._asset?.tokenId}?width=400&height=400`;
   }
 

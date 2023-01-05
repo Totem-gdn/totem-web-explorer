@@ -33,14 +33,15 @@ export class GameCardComponent {
     this.game.isLiked = !this.game.isLiked;
     if (this.game.isLiked) {
       this.favouritesService.addLike(CARD_TYPE.GAME, this.game.id).subscribe();
-      this.gameService.updateGame(this.game.id).subscribe();
+      this.gameService.fetchGame(this.game.id).subscribe(game => {
+        this.game = game;
+      });
     } else {
-      this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id).subscribe();
-      this.gameService.updateGame(this.game.id).subscribe();
+      this.favouritesService.removeLike(CARD_TYPE.GAME, this.game.id).subscribe(game => {
+        this.game = game;
+      });
+      this.gameService.fetchGame(this.game.id).subscribe();
     }
-  }
-
-  check() {
   }
 
   onNavigate() {

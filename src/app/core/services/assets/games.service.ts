@@ -1,9 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params.enum";
+import { ApiResponse } from "@app/core/models/interfaces/api-response.interface";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable, tap } from "rxjs";
+import { BehaviorSubject, debounce, debounceTime, map, Observable, shareReplay, tap } from "rxjs";
+import { CacheService } from "../cache.service";
 import { BaseStorageService } from "../utils/base-storage.service";
 
 @Injectable({ providedIn: 'root' })
@@ -16,92 +18,48 @@ export class GamesService {
   constructor(
     private http: HttpClient,
     private baseStorageService: BaseStorageService,
-    ) {
+    private cacheService: CacheService
+  ) {
   }
 
-  private _games = new BehaviorSubject<GameDetail[] | null>(null);
-  private _game = new BehaviorSubject<GameDetail | null>(null);
-  private _dropdownGames = new BehaviorSubject<GameDetail[] | null>(null);
+  // private _dropdownGames = new BehaviorSubject<GameDetail[] | null>(null);
+  // get dropdownGames() { return this._dropdownGames.getValue() }
+  // get dropdownGames$() { return this._dropdownGames.asObservable() }
+
   private _selectedGame = new BehaviorSubject<GameDetail | null>(null);
-
-  private _lastDropdownFilter = new BehaviorSubject<string | null>(null);
-
-  get game() { return this.gameInSession }
-  get game$() { return this._game.asObservable(); }
-  set setGame(value: any) { this._game.next(value); }
-
-  get games$() { return this._games.asObservable(); }
-  get games() { return this._games.getValue(); }
-  set setGames(value: GameDetail[]) { this._games.next(value); }
-
-  get dropdownGames() { return this._dropdownGames.getValue() }
-  get dropdownGames$() { return this._dropdownGames.asObservable() }
-
   get selectedGame$() { return this._selectedGame.asObservable() }
   set selectedGame(value: GameDetail) {
     if (value) {
       this._selectedGame.next(value);
     }
-   }
-
-  
-
-
-  updateGames(page: number, list = 'latest') {
-    return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`).pipe(
-      tap(games => {
-        this._games.next(games);
-      }))
   }
 
-  updateGame(id: string) {
-    return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`).pipe(tap(game => {
-      this._game.next(game);
-    }));
+
+  fetchGame(id: string | number) {
+    return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`);
   }
 
   fetchGames(page: number, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
-    return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`);
+    return this.http.get<GameDetail[]>(`${this.baseUrl}/games?page=${page}&list=${list}`).pipe();
   }
 
-  getGameByName(word: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/games/search?name=${word}`);
-  }
+  gamesByFilter(filter: string): Observable<any> {
 
-  filterDropdownGames(filter: string, updateStateGames = true) {
-    if (filter == this._lastDropdownFilter.getValue()) {
-      return this._dropdownGames.asObservable();
+    let url = '';
+    if (filter) {
+      url = `${this.baseUrl}/games/search?name=${filter}`;
+    } else {
+      url = `${this.baseUrl}/games`;
     }
-    this._lastDropdownFilter.next(filter);
-    return this.loadGames(filter, updateStateGames)
-  }
 
-  loadGames(filter: string, updateStateGames: boolean) {
-    return this.http.get<GameDetail[]>(`${this.baseUrl}/games/search?name=${filter}`).pipe(tap(games => {
-      if ('totem'.includes(filter.toLowerCase())) {
-        games.unshift({
-          id: 'totem',
-          general: {
-            name: 'Totem',
-            genre: ['Canonical', 'View']
-          },
-          connections: {
-            assetRenderer: environment.ASSET_RENDERER_URL
-          },
-          images: {
-            smallThumbnail: 'assets/icons/nav/logo-small.svg'
-          }
-        })
-      }
-      if (updateStateGames) {
-        this._dropdownGames.next(games);
-      }
-      return games;
-    }));
-  }
+    if (this.cacheService.lastFilter == filter) return this.cacheService.cachedGames$;
+    this.cacheService.lastFilter = filter;
 
-  clearGames() {
-    this._games.next(null);
+    return this.http.get<GameDetail[]>(url).pipe(
+      tap(games => {
+        this.cacheService.cachedGames = games;
+      })
+    );
   }
 
 
