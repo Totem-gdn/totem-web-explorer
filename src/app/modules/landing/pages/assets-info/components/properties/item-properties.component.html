@@ -7,7 +7,7 @@
                     <div class="circle-wrapper">
                         <div class="circle"></div>
                     </div>
-        
+
                     <div class="flex justify-center items-center mt-[2px]">
                         <div *ngIf="isValueColor(propertie?.value)" class="w-[14px] min-w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
                             [style.background-color]="propertie.value"></div>
@@ -22,7 +22,7 @@
                 <totem-spinner @fade-in-out class="absolute_center"></totem-spinner>
             </ng-container>
         </div>
-        
+
         <!-- Tolltip -->
         <div #tooltip class="tooltip">
             <span class="whitespace-nowrap">{{tooltipData?.title}}</span>

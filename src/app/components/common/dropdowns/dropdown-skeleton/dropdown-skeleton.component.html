@@ -13,8 +13,8 @@
 
         <!-- Items -->
         <div #menuItems class="menu-items">
-            <div class="menu-item" 
-                *ngFor="let item of items; let i = index" 
+            <div class="menu-item"
+                *ngFor="let item of items; let i = index"
                 (click)="onChangeInput(item)"
                 [ngClass]="{'selected-item': item?.title == selectedItem.title, 'selected-script-item': widgetMode && item?.title == selectedItem.title}">
 
