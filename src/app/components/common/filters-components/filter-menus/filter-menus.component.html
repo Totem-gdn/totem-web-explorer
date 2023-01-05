@@ -22,12 +22,12 @@
         <!-- <ng-container *ngFor="let prop of properties">
             <ng-container *ngIf="prop.type == 'range'"></ng-container>
             <ng-container *ngIf="prop.type == 'map'"></ng-container>
-            <filter-menu 
+            <filter-menu
             [title]="prop.description"
             [inputType]="prop.type == 'bool' ? 'radio':
                          prop.type == 'int' ? 'range': ''"
             [items]="prop.values"></filter-menu>
-            
+
         </ng-container> -->
         <!-- Items Menus -->
 
@@ -41,7 +41,7 @@
         </div>
 
         <div *ngIf="type == 'avatar'" class="py-[45px] lg:py-0">
-           
+
             <filter-menu [title]="'items.sex' | translate" [items]="sexes" [menuHeight]="'100px'" [inputType]="'radio'" [searchType]="null"></filter-menu>
             <filter-menu [title]="'items.skin_color' | translate" [items]="skinColors" [inputType]="'checkbox'"></filter-menu>
             <filter-menu [title]="'items.hair_color' | translate" [items]="hairColors" [inputType]="'checkbox'"></filter-menu>

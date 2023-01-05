@@ -62,7 +62,7 @@ export class HomeWidgetComponent implements OnInit, OnDestroy {
   selectedGame!: GameDetail | null;
   subs = new Subject<void>();
 
-  constructor(private assetsService: AssetsService, 
+  constructor(private assetsService: AssetsService,
               private widgetService: WidgetService,
               private gamesService: GamesService) {
 

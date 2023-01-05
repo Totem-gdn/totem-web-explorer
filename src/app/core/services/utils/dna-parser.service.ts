@@ -61,7 +61,6 @@ export class DNAParserService {
         console.log(json)
         json = await firstValueFrom(this.http.get<any>(jsonUrl));
 
-
         return json;
     }
 

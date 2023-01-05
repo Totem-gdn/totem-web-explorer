@@ -12,6 +12,7 @@ import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { DNAParserService } from "../utils/dna-parser.service";
 const { DNAParser } = require('totem-dna-parser');
 
+
 interface TotalAssets {
     avatars?: APIResponseMeta;
     items?: APIResponseMeta;
@@ -38,7 +39,7 @@ export class AssetsService {
                 if(type == ASSET_TYPE.AVATAR) totalAssets.avatars = assets.meta;
                 if(type == ASSET_TYPE.ITEM) totalAssets.items = assets.meta;
                 this.totalAssets = totalAssets;
-                
+
             }));
     }
 
