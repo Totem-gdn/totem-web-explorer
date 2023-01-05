@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { DropdownItem } from "@app/core/models/interfaces/dropdown-item.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
@@ -15,12 +15,13 @@ import { Subject, Subscription, take, takeUntil } from "rxjs";
   }
 })
 
-export class GameDropdownComponent implements OnDestroy {
+export class GameDropdownComponent implements OnDestroy, OnInit {
 
 
   constructor(
     public gamesService: GamesService,
     public widgetService: WidgetService,
+    public changeDetector: ChangeDetectorRef
   ) {
   }
 
@@ -41,6 +42,10 @@ export class GameDropdownComponent implements OnDestroy {
     const gameInSession = this.gamesService.gameInSession;
     if (gameInSession) this.selectedGame = this.formatGame(gameInSession);
   }
+
+  // ngAfterViewInit(): void {
+  //   this.changeDetector.detectChanges();
+  // }
 
   selectedGame$() {
     this.gamesService.selectedGame$

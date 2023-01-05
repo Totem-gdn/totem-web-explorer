@@ -19,6 +19,7 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements Af
     this.skeleton.widgetMode = true;
     this.startScript();
     this.widgetGame$();
+    this.changeDetector.detectChanges();
   }
 
   startScript() {
