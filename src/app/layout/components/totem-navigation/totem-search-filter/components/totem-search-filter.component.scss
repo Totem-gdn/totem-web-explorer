@@ -64,16 +64,18 @@ totem-spinner {
     color: $light-grey;
   } */
   .close-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 3;
     opacity: 0;
     color: $light-grey;
     position: absolute;
     top: 12px;
     right: 12px;
-    //font-size: 22px;
     width: 16px;
     height: 16px;
-    font-size: 16px;
+    font-size: 12px;
     cursor: pointer;
     transition: opacity 0.5s ease-out;
   }

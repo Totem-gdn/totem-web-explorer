@@ -43,7 +43,6 @@
 <ng-template #cardTemplate let-data="cardInfo">
   <div class="card-body h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
     <div class="img-preview h-full w-full" fxLayout="column" fxLayoutAlign="center center">
-      <!-- <mat-icon *ngIf="!data.image" [svgIcon]="'solid:no-image'"></mat-icon> -->
       <div class="solid-no-image"  *ngIf="!data.image"></div>
       <img loading="lazy" *ngIf="data.image" [src]="data.image" alt="preview">
     </div>
@@ -51,7 +50,6 @@
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <h3 class="text-light-grey">{{'home.preview' | translate}}</h3>
         <div>
-          <!-- <mat-icon class="like" [svgIcon]="'line:like'"></mat-icon> -->
           <div class="line-like"></div>
         </div>
       </div>

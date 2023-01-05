@@ -13,15 +13,6 @@
     cursor: pointer;
     transition: all 0.2s;
 
-    mat-icon {
-        transition: transform .3s;
-    }
-
-    & .mat-icon {
-        color: $white;
-        height: 7px;
-    }
-
     & span, p {
         font-weight: 500;
         color: $white;
@@ -33,9 +24,6 @@
         span, p {
             color: $black;
             font-weight: 700;
-        }
-        .mat-icon {
-            color: $black;
         }
     }
 }

@@ -34,12 +34,6 @@
     border-radius: 4px;
     transition: all 0.2s;
 
-    & .mat-icon {
-        color: $white;
-        width: 18px;
-        height: 18px;
-    }
-
     & span {
         color: $white;
     }
@@ -51,7 +45,7 @@
     &:hover {
         background-color: $yellow;
 
-        .mat-icon, span, p, .line-tune {
+         span, p, .line-tune {
             color: $black;
             font-weight: 700;
         }

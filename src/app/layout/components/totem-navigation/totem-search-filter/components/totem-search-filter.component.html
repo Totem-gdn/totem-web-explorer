@@ -1,5 +1,5 @@
 <div class="search-filter">
-  <mat-icon *ngIf="searchInfo.value" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" class="close-icon" (click)="eraseInput()">{{'nav.close' | translate}}</mat-icon>
+  <div class="close-icon line-close" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" (click)="eraseInput()"></div>
 
   <input autocomplete="off" class="search-filter-input" #searchInput type="text" id="filterInput" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search..">
 

@@ -36,6 +36,12 @@
   margin-bottom: 5px !important;
 }
 
+.line-mail-closed {
+  &:before {
+    content: $line-mail-closed;
+  }
+}
+
 .line-burger {
   
   &:before {

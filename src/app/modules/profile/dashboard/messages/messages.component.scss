@@ -434,20 +434,20 @@
               margin-right: 0px;
             }
             cursor: pointer;
-            &:hover {
-              mat-icon {
-                color: #fff;
-              }
-            }
-            mat-icon {
-              transition: transform 0.33s ease-out;
-              font-style: normal;
-              font-weight: 500;
-              color: $light-grey;
-              height: 7.14px;
-              width: auto;
-              font-size: 12px;
-            }
+            // &:hover {
+            //   mat-icon {
+            //     color: #fff;
+            //   }
+            // }
+            // mat-icon {
+            //   transition: transform 0.33s ease-out;
+            //   font-style: normal;
+            //   font-weight: 500;
+            //   color: $light-grey;
+            //   height: 7.14px;
+            //   width: auto;
+            //   font-size: 12px;
+            // }
           }
         }
 
