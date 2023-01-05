@@ -3,6 +3,7 @@ import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
+import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -18,6 +19,7 @@ export class UserAvatarsComponent implements OnInit {
 
   constructor(
     private assetsService: AssetsService,
+    private web3Service: Web3AuthService
   ) { }
 
   subs = new Subject<void>();
@@ -27,12 +29,16 @@ export class UserAvatarsComponent implements OnInit {
   setAssets!: AssetInfo[];
 
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loadMoreAssets(1);
   }
 
-  loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
-    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list).subscribe(assets => {
+  async loadMoreAssets(page: number, list = this.sortMethod, reset: boolean = false) {
+
+    const wallet = await this.web3Service.getAccounts();
+    console.log('wallet', wallet)
+
+    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list, wallet).subscribe(assets => {
       console.log('avatatrs', assets)
       if(reset) {
         // console.log()

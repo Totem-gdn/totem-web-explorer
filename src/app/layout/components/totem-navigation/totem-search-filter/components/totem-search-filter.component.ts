@@ -164,13 +164,13 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
   goToPage() {
     if (this.activeTab === this.tabType.ITEMS_TAB) {
       /* router */
-      this.router.navigate(['../items'], { queryParams: { searchParams: this.searchInfo.value } });
+      this.router.navigate(['../items'], { queryParams: { query: this.searchInfo.value } });
     } else if (this.activeTab === this.tabType.AVATARS_TAB) {
       /* router */
-      this.router.navigate(['../avatars'], { queryParams: { searchParams: this.searchInfo.value } });
+      this.router.navigate(['../avatars'], { queryParams: { query: this.searchInfo.value } });
     } else if (this.activeTab === this.tabType.GAMES_TAB) {
       /* router */
-      this.router.navigate(['../games'], { queryParams: { searchParams: this.searchInfo.value } });
+      this.router.navigate(['../games'], { queryParams: { query: this.searchInfo.value } });
     }
     if (this.focusState === 'true') {
       this.routingEvent.next('closed');
@@ -195,7 +195,7 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
 
   onBlur() {
     if (!this.dropdownHovered) {
-      // this.dropdownOpened = false;
+      this.dropdownOpened = false;
     }
   }
 

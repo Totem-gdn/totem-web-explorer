@@ -31,8 +31,11 @@ export class AssetsService {
     get totalAssets() { return this._totalAssets.getValue() }
     get totalAssets$() { return this._totalAssets.asObservable() }
 
-    fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
-        return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`)
+    fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+
+        const url = owner ? `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&owner=${owner}` : `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`
+        // return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=my&owner=0x6c1CCF9Ba75ec1c2BDdA695250d96a9D88caA102&page=${page}`)
+        return this.http.get<ApiResponse<AssetInfo[]>>(url)
             .pipe(tap(assets => {
 
                 const totalAssets = this.totalAssets;
