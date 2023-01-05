@@ -54,7 +54,6 @@ export class GameDropdownComponent implements OnDestroy {
   updateGames(filter: string = '') {
     this.gamesService.gamesByFilter(filter)
       .subscribe(games => {
-        console.log('games')
         if (!games) return;
         if(!this.gamesService.gameInSession) this.gamesService.gameInSession = games[0];
         this.formatGames(games, filter);
@@ -86,7 +85,6 @@ export class GameDropdownComponent implements OnDestroy {
       const dropdownGame = this.formatGame(game);
       dropdownGames.push(dropdownGame);
     }
-    console.log(dropdownGames)
     this.dropdownGames = dropdownGames;
   }
 

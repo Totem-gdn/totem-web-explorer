@@ -93,8 +93,8 @@ export class TotemSearchFilterComponent extends OnDestroyMixin implements OnInit
     //this.submitGameService.getGame(params);
     combineLatest([
       this.gamesService.gamesByFilter(params),
-      this.assetsService.getAssetsByName(ASSET_TYPE.ITEM, params),
-      this.assetsService.getAssetsByName(ASSET_TYPE.AVATAR, params)
+      this.assetsService.getAssetsByFilter(ASSET_TYPE.ITEM, params),
+      this.assetsService.getAssetsByFilter(ASSET_TYPE.AVATAR, params)
       // this.totemItemsService.getGameByName(params),
       // this.totemItemsService.getItemsByName(params),
       // this.totemItemsService.getAvatarsByName(params)

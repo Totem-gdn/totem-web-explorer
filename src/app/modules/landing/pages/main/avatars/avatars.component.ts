@@ -5,7 +5,7 @@ import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Gtag } from 'angular-gtag';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-avatars',
@@ -15,13 +15,14 @@ import { Subject, takeUntil } from 'rxjs';
     class: 'px-[20px] lg:pt-[40px] min-h-[calc(100vh-70px)]'
   }
 })
-export class AvatarsComponent implements OnInit {
+export class AvatarsComponent implements OnInit, OnDestroy {
   get assetType() { return ASSET_TYPE }
 
   constructor(
     private assetsService: AssetsService,
     private gtag: Gtag,
     private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     this.gtag.event('page_view');
   }
@@ -31,31 +32,56 @@ export class AvatarsComponent implements OnInit {
   setAvatars!: AssetInfo[] | null;
 
   sortMethod = ASSET_PARAM_LIST.LATEST;
-  total?: number;
 
   subs = new Subject<void>();
+  filter?: string;
 
   ngOnInit() {
-    this.loadMoreAvatars(1);
+    this.params$();
+  }
+
+  params$() {
+    this.route.queryParams
+      .pipe(takeUntil(this.subs))
+      .subscribe(params => {
+        const filter = params['query'];
+        this.filter = filter;
+        this.loadMore(1, this.sortMethod, true);
+      })
+  }
+
+  loadMore(page: number, list = this.sortMethod, reset: boolean = false) {
+    if(this.filter) {
+      this.assetsService.getAssetsByFilter(ASSET_TYPE.AVATAR, this.filter, page, this.sortMethod).subscribe(avatars => {
+        if(reset) {
+          this.setAvatars = avatars;
+        } else {
+          this.avatars = avatars;
+        }
+      });
+    } else {
+      this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(avatars => {
+        if(reset) {
+          this.setAvatars = avatars.data;
+        } else {
+          this.avatars = avatars.data;
+        }
+      });
+    }
   }
 
   onReset() {
     this.setAvatars = null;
-    this.loadMoreAvatars(1, this.sortMethod, true);
-  }
-
-  loadMoreAvatars(page: number, list = this.sortMethod, reset: boolean = false) {
-    this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list).subscribe(avatars => {
-      if(reset) {
-        this.setAvatars = avatars.data;
-      } else {
-        this.avatars = avatars.data;
-      }
-    });
+    this.loadMore(1, this.sortMethod, true);
   }
 
   onSort(sortMethod: any) {
     this.sortMethod = sortMethod;
-    this.loadMoreAvatars(1, this.sortMethod, true);
+    this.loadMore(1, this.sortMethod, true);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.next();
+    this.subs.complete();
   }
 }

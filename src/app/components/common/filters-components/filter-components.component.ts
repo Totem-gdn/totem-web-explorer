@@ -8,6 +8,11 @@ import { DNAParserService } from '@app/core/services/utils/dna-parser.service';
 import { Subject, take, takeUntil } from 'rxjs';
 import { FiltersService } from './filters.service';
 
+interface LoadByFilter {
+    page: number;
+    filter: string;
+    reset: boolean;
+}
 @Component({
     selector: 'filter-components',
     templateUrl: './filter-components.component.html',
@@ -27,7 +32,6 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
     @Output() loadMore = new EventEmitter<number>();
     @Output() sort = new EventEmitter<string>();
     @Output() updateEvent = new EventEmitter<void>();
-    @Output() filterItems = new EventEmitter<string>();
 
     @Input() itemType!: ASSET_TYPE | 'game';
     @Input() showUpdate = true;
@@ -40,7 +44,6 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
         if(items == null) return;
         this.items = items;
         this.page = 1;
-        console.log('page', this.page)
         this.showButton = false;
 
         if (items.length < 10) {
@@ -63,24 +66,15 @@ export class FilterComponentsComponent implements OnDestroy, OnInit {
     }
 
     items: any[] | undefined | null = undefined;
+
     selectedGame!: GameDetail;
     showButton = true;
     subs = new Subject<void>();
+
     page = 1;
+    filter?: string;
 
     ngOnInit(): void {
-        this.routeParams$();
-    }
-
-    routeParams$() {
-        this.route.queryParams
-            .pipe(takeUntil(this.subs))
-            .subscribe(params => {
-                const filter = params['query'];
-                // export set games
-                if (filter == undefined) return;
-                this.filterItems.emit(filter);
-            })
     }
 
     onSort(sortMethod: any) {

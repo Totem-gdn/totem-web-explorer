@@ -32,7 +32,6 @@ export class LegacyService {
     }
     fetchAssetLegacyById(type: ASSET_TYPE, id: string | number) {
         return this.http.get(`${this.baseUrl}/asset-legacy/${type}/${id}`).pipe(map(legacy => {
-            console.log(legacy)
         }))
     }
     createLegacy(type: ASSET_TYPE, body: any) {

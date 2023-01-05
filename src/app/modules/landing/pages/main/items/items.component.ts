@@ -16,13 +16,14 @@ import { Subject, takeUntil } from "rxjs";
   }
 })
 
-export class ItemsComponent {
+export class ItemsComponent implements OnDestroy {
   get assetType() { return ASSET_TYPE }
 
   constructor(
     private assetsService: AssetsService,
     private gtag: Gtag,
     private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     this.gtag.event('page_view');
   }
@@ -32,9 +33,40 @@ export class ItemsComponent {
 
   subs = new Subject<void>();
   sortMethod = ASSET_PARAM_LIST.LATEST;
+  filter?: string;
 
   ngOnInit() {
-    this.loadMore(1);
+    this.params$();
+  }
+
+  params$() {
+    this.route.queryParams
+      .pipe(takeUntil(this.subs))
+      .subscribe(params => {
+        const filter = params['query'];
+        this.filter = filter;
+        this.loadMore(1, this.sortMethod, true);
+      })
+  }
+
+  loadMore(page: number, list = this.sortMethod, reset: boolean = false) {
+    if(this.filter) {
+      this.assetsService.getAssetsByFilter(ASSET_TYPE.AVATAR, this.filter, page, this.sortMethod).subscribe(items => {
+        if(reset) {
+          this.setItems = items;
+        } else {
+          this.items = items;
+        }
+      });
+    } else {
+      this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(items => {
+        if(reset) {
+          this.setItems = items.data;
+        } else {
+          this.items = items.data;
+        }
+      });
+    }
   }
 
   onReset() {
@@ -42,20 +74,13 @@ export class ItemsComponent {
     this.loadMore(1, this.sortMethod, true);
   }
 
-  loadMore(page: number, list = this.sortMethod, reset: boolean = false) {
-    this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(items => {
-
-      if(reset) {
-        this.setItems = items.data;
-      } else {
-        this.items = items.data;
-      }
-    });
-  }
-
   onSort(sortMethod: any) {
     this.sortMethod = sortMethod;
     this.loadMore(1, this.sortMethod, true);
   }
 
+  ngOnDestroy(): void {
+    this.subs.next();
+    this.subs.complete();
+  }
 }
