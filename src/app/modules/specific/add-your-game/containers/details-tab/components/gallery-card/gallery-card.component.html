@@ -9,7 +9,6 @@
       <div class="file-size mt-[6px]">{{imageFile?.size ? (imageFile?.size | number: '1.2-2') + ' MB' : 'Gallery image'}}</div>
     </div>
     <div class="delete-button" (click)="imageFile && !existingImageUrl ? removeItem(imageFile) : removeUrl(existingImageUrl)">
-      <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
       <div class="delete-icon solid-delete-icon"></div>
     </div>
   </div>

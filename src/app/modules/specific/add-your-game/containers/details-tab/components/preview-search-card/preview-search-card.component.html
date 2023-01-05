@@ -7,7 +7,6 @@
   </div>
   <div class="preview-content w-full p-[6px] mt-[10px]" fxLayout="column" fxLayoutAlign="center start">
     <div class="search-block flex-row px-[12px] w-full" fxLayoutAlign="start center">
-      <!-- <mat-icon [svgIcon]="'line:search'"></mat-icon> -->
       <div class="line-search"></div>
       <div class="ml-[10px]">
         {{'items.filter' | translate}}...
@@ -17,7 +16,6 @@
     <div class="image-preview-block flex-row px-[6px] mt-[18px] w-full" fxLayoutAlign="start center">
       <div class="img-preview">
         <div *ngIf="!imageUrl && !existingImageUrl" class="preview-placeholder" fxLayout="column" fxLayoutAlign="center center">
-          <!-- <mat-icon [svgIcon]="'solid:no-image'"></mat-icon> -->
           <div class="solid-no-image"></div>
         </div>
         <img loading="lazy" *ngIf="imageUrl" [src]="imageUrl" alt="preview">

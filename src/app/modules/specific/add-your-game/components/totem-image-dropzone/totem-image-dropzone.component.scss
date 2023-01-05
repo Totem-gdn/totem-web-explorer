@@ -1,7 +1,5 @@
 @import 'styles/scss/variables';
 
-@import 'assets/fonts/icon-fonts/line/line.scss';
-@import 'assets/fonts/icon-fonts/solid/solid.scss';
 
 .file-container {
   position: relative;
@@ -33,12 +31,12 @@
     line-height: 16px;
     text-align: center;
     color: $light-grey;
-    mat-icon {
-      height: auto;
-      width: 90px;
-      color: $grey;
-      transition: color 0.33s ease-out;
-    }
+    // mat-icon {
+    //   height: auto;
+    //   width: 90px;
+    //   color: $grey;
+    //   transition: color 0.33s ease-out;
+    // }
     .doc-image {
       // width: 66px;
       height: auto;

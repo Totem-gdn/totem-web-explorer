@@ -64,37 +64,23 @@
             <div class="w-full mt-[22px]" fxLayout="row" fxLayoutAlign="space-between center">
               <div class="caption">150 USDC</div>
               <a href="https://mumbai.polygonscan.com/tx/{{usdcHash}}" target="_blank" class="caption-light">
-                <!-- <mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon> -->
                 <div class="line-open_new ml-[5px]"></div>
               </a>
             </div>
             <div class="w-full mt-[20px]" fxLayout="row" fxLayoutAlign="space-between center">
               <div class="caption">0.03 MATIC</div>
               <a href="https://mumbai.polygonscan.com/tx/{{maticHash}}" target="_blank" class="caption-light">
-                <!-- <mat-icon class="ml-[5px]" [svgIcon]="'line:open_new'"></mat-icon> -->
-                <div class="line-open_new ml-[5px]"></div>
+               <div class="line-open_new ml-[5px]"></div>
               </a>
             </div>
           </div>
           <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center center">
             <div class="content-block-body-progress-bar" fxLayout="row" fxLayoutAlign="space-between center">
 
-              <!-- <div class="circles-wrapper">
-                <totem-spinner @stopLoader *ngIf="!steps[0].step && steps[0].loading && !errorState" [size]="'14'"></totem-spinner>
-                <div @stopLoader *ngIf="!steps[0].loading" class="disabled-circle"
-                  [ngStyle]="{'background-color': steps[0].step && !errorState ? '#ffd013' : stepIndex >= 0 && errorState ? '#FF5252' : ''}"></div>
-                <mat-icon @stopLoader *ngIf="errorState && stepIndex == 0" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon>
-              </div>
-
-              <mat-progress-bar [ngStyle]="{'color': stepIndex >= 0 && errorState ? '#FF5252' : ''}"
-                class="progress-bar mx-[5px]" mode="determinate" value="{{steps[0].step ? '100' : '0'}}">
-              </mat-progress-bar> -->
-
               <div class="circles-wrapper">
                 <totem-spinner *ngIf="!steps[1].step && steps[1].loading && !errorState" [size]="'14'"></totem-spinner>
                 <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle"
                   [ngStyle]="{'background-color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}"></div>
-                <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 1" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
                 <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 1"></div>
               </div>
 
@@ -107,7 +93,6 @@
                 <totem-spinner @stopLoader *ngIf="!steps[2].step && steps[2].loading && !errorState" [size]="'14'"></totem-spinner>
                 <div @stopLoader *ngIf="!steps[2].loading" class="disabled-circle"
                 [ngStyle]="{'background-color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}"></div>
-                <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 2" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
                 <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 2"></div>
 
               </div>
@@ -121,7 +106,6 @@
                 <totem-spinner @stopLoader *ngIf="!steps[3].step && steps[3].loading && !errorState" [size]="'14'"></totem-spinner>
                 <div @stopLoader *ngIf="!steps[3].loading" class="disabled-circle"
                 [ngStyle]="{'background-color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}"></div>
-                <!-- <mat-icon @stopLoader *ngIf="errorState && stepIndex == 3" class="warning-icon" [svgIcon]="'solid:warning-icon'"></mat-icon> -->
                 <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 3"></div>
               </div>
 

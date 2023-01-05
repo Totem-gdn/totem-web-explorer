@@ -1,8 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Gtag } from 'angular-gtag';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-games',
@@ -12,7 +13,9 @@ import { Subject, take, takeUntil } from 'rxjs';
   }
 })
 export class GamesComponent implements OnDestroy {
-  games: any[] | undefined  | null;
+  games: GameDetail[] | undefined  | null;
+  setGames: GameDetail[] | undefined | null;
+
   subs = new Subject<void>();
   sortMethod = GAME_PARAM_LIST.LATEST;
 
@@ -21,23 +24,22 @@ export class GamesComponent implements OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadMore(1);
+    this.loadMore(1, this.sortMethod, true);
   }
 
-  loadMore(page: number, list = this.sortMethod) {
-    console.log('load more0')
-    this.gamesService.fetchGames(page, list)
-      .pipe(take(1))
-      .subscribe(games => {
-      this.games = games;
+  loadMore(page: number, list = this.sortMethod, reset: boolean = false) {
+    this.gamesService.fetchGames(page, list).subscribe(games => {
+      if(reset) {
+        this.setGames = games;
+      } else {
+        this.games = games;
+      }
     });
   }
 
   onSort(sortMethod: any) {
-    console.log('load more1')
-
     this.sortMethod = sortMethod;
-    this.loadMore(1, this.sortMethod);
+    this.loadMore(1, this.sortMethod, true);
   }
 
   ngOnDestroy(): void {

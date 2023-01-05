@@ -8,7 +8,6 @@
         [ngClass]="isMenuOpen ? 'border border-yellow': 'border border-grey'">
 
             <div *ngIf="isMenuOpen === false" class="line-tune"></div>
-            <!-- <mat-icon class="!h-12px" *ngIf="isMenuOpen === true" [svgIcon]="'line:arrow_left'"></mat-icon> -->
             <div class="line-arrow_left !h-12px" *ngIf="isMenuOpen === true"></div>
 
             <span>{{'items.filter' | translate}}</span>

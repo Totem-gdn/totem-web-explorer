@@ -1,6 +1,5 @@
 @import 'styles/scss/variables';
-@import 'assets/fonts/icon-fonts/mail-font.scss';
-@import 'assets/fonts/icon-fonts/line/line.scss';
+
 
 span {
   font-size: unset;
@@ -177,7 +176,7 @@ span {
             place-content: center;
             align-items: center;
             cursor: pointer;
-            mat-icon {
+            .line-mail-closed, .icon-font-favourite {
               font-size: 22px;
             }
           }
@@ -208,9 +207,10 @@ span {
             color: #FFFFFF;
             border-radius: 4px;
             transition: color 0.3s, background-color 0.3s;
-            & .mat-icon {
+            & .line-mail-closed {
               width: 24px !important;
               height: 24px !important;
+              font-size: 24px;
               margin-right: 10px;
             }
             &:hover {

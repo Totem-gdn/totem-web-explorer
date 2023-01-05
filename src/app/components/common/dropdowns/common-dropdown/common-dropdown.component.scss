@@ -1,8 +1,6 @@
 @import 'styles/scss/variables';
 @import 'styles/scss/placeholders';
-@import 'assets/fonts/icon-fonts/mail-font.scss';
-@import 'assets/fonts/icon-fonts/line/line.scss';
-@import 'assets/fonts/icon-fonts/solid/solid.scss';
+
 
 .align-items-center {
   align-items: center;
@@ -26,11 +24,6 @@
             white-space: nowrap;
             user-select: none;
             font-size: 16px;
-        }
-        .mat-icon {
-            margin-bottom: auto;
-            transition: transform .3s;
-            width: 12px !important;
         }
         .token-wrapper {
           width: 20px !important;

@@ -8,11 +8,9 @@
           <div class="image-block-title">{{'specific.cover_image' | translate}}</div>
           <div class="cover-image-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div *ngIf="finalizedImage" class="edit-button" (click)="cropSelectedImage(finalizedImage, 'cover', true)">
-              <!-- <mat-icon>edit_square</mat-icon> -->
               <div class="line-edit"></div>
             </div>
             <div *ngIf="finalizedImage" class="del-button" (click)="removeImage('cover')">
-              <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
               <div class="solid-delete-icon"></div>
             </div>
             <div class="file-container p-[10px] sm:p-[20px]">
@@ -41,11 +39,9 @@
               </div>
               <div class="preview-block card-preview p-[17px] w-full h-full">
                 <div *ngIf="finalizedCardImage" class="edit-button" (click)="cropSelectedImage(finalizedCardImage, 'card', true)">
-                  <!-- <mat-icon>edit_square</mat-icon> -->
                   <div class="line-edit"></div>
                 </div>
                 <div *ngIf="finalizedCardImage" class="del-button" (click)="removeImage('card')">
-                  <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                   <div class="solid-delete-icon"></div>
                 </div>
                 <totem-preview-card [finalizedImage]="finalizedCardImage" [existingImageUrl]="existingImages.cardThumbnail"></totem-preview-card>
@@ -65,11 +61,9 @@
               </div>
               <div class="preview-block search-preview py-[18px] px-[37px] w-full h-full">
                 <div *ngIf="finalizedSearchImage" class="edit-button" (click)="cropSelectedImage(finalizedSearchImage, 'search', true)">
-                  <!-- <mat-icon>edit_square</mat-icon> -->
                   <div class="line-edit"></div>
                 </div>
                 <div *ngIf="finalizedSearchImage" class="del-button" (click)="removeImage('search')">
-                  <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                   <div class="solid-delete-icon"></div>
                 </div>
                 <totem-preview-search-card [finalizedImage]="finalizedSearchImage" [existingImageUrl]="existingImages.smallThumbnail"></totem-preview-search-card>

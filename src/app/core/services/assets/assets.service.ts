@@ -23,7 +23,7 @@ export class AssetsService {
     baseUrl: string = environment.TOTEM_BASE_API_URL;
 
     constructor(private http: HttpClient,
-                private dnaService: DNAParserService
+        private dnaService: DNAParserService
     ) { }
 
     private _totalAssets = new BehaviorSubject<TotalAssets>({});
@@ -31,50 +31,32 @@ export class AssetsService {
     get totalAssets() { return this._totalAssets.getValue() }
     get totalAssets$() { return this._totalAssets.asObservable() }
 
-    fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
-        return this.http.get<ApiResponse<AssetInfo[]>>(`${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`)
+    fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+
+        const url = owner ? `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&owner=${owner}` : `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`
+        
+        return this.http.get<ApiResponse<AssetInfo[]>>(url)
             .pipe(tap(assets => {
 
                 const totalAssets = this.totalAssets;
-                if(type == ASSET_TYPE.AVATAR) totalAssets.avatars = assets.meta;
-                if(type == ASSET_TYPE.ITEM) totalAssets.items = assets.meta;
+                if (type == ASSET_TYPE.AVATAR) totalAssets.avatars = assets.meta;
+                if (type == ASSET_TYPE.ITEM) totalAssets.items = assets.meta;
                 this.totalAssets = totalAssets;
 
             }));
     }
 
     fetchAsset(id: string, type: ASSET_TYPE) {
-        return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(map(asset =>  {
+        return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(map(asset => {
             asset.rarity = asset.tokenId % 100;
             return asset;
         }));
     }
 
     getAssetsByName(type: ASSET_TYPE, word: string): Observable<any[]> {
-        if (this.baseUrl == 'https://api.totem-explorer.com') {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`);
-        } else {
-            return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`)
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`)
             .pipe(map(assets => assets.data));
-        }
 
     }
-
-    // formatAssets(assets: AssetInfo[], assetType: string) {
-    //     const formattedAssets: AssetInfo[] = [];
-
-    //     for (let asset of assets) {
-    //         const formattedAsset = this.formatAsset(asset, assetType);
-    //         formattedAssets.push(formattedAsset);
-    //     }
-    //     return formattedAssets;
-    // }
-
-    // formatAsset(asset: AssetInfo, assetType: string) {
-    //     const parser = new DNAParser()
-    //     asset.rarity = parser.getItemRarity(asset?.tokenId);
-    //     asset.assetType = assetType;
-    //     return asset;
-    // }
 
 }

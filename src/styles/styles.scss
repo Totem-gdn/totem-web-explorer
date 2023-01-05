@@ -3,6 +3,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import 'assets/fonts/icon-fonts/line/line.scss';
+@import 'assets/fonts/icon-fonts/solid/solid.scss';
+@import 'assets/fonts/icon-fonts/mail-font.scss';
+
+
 @import 'scss/_main';
 
 html, body {

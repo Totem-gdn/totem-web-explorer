@@ -5,10 +5,6 @@
         <img loading="lazy" [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>
 
-    <div *ngIf="!game?.images?.cardThumbnail" class="placeholder">
-        <mat-icon class="text-grey" [svgIcon]="'line:game-place'"></mat-icon>
-    </div>
-
     <div class="p-4 flex flex-col mt-auto absolute left-0 right-0 bottom-0 h-[175px] border-t border-t-dark-grey justify-end">
 
         <div class="flex justify-between">

@@ -1,6 +1,5 @@
 <div class="card-body h-full w-full" fxLayout="column" fxLayoutAlign="space-between center">
   <div class="img-preview h-full w-full" fxLayout="column" fxLayoutAlign="center center">
-    <!-- <mat-icon *ngIf="!imageUrl" [svgIcon]="'solid:no-image'"></mat-icon> -->
     <div class="solid-no-image" *ngIf="!imageUrl && !existingImageUrl"></div>
     <img loading="lazy" *ngIf="imageUrl" [src]="imageUrl" alt="preview">
     <img loading="lazy" *ngIf="!imageUrl && existingImageUrl" [src]="existingImageUrl" alt="preview">
@@ -9,7 +8,6 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <h3 class="text-light-grey">{{'home.preview' | translate}}</h3>
       <div>
-        <!-- <mat-icon class="like" [svgIcon]="'line:like'"></mat-icon> -->
         <div class="line-like like"></div>
       </div>
     </div>

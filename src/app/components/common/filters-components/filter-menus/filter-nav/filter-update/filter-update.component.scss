@@ -1,7 +1,6 @@
 
 @import 'styles/scss/variables';
-@import 'assets/fonts/icon-fonts/mail-font.scss';
-@import 'assets/fonts/icon-fonts/line/line.scss';
+
 
 .update {
     width: 50px;
@@ -17,14 +16,6 @@
     &:hover {
         background-color: $yellow;
         color: $black;
-    }
-
-    .mat-icon {
-        transition: rotate 0.5s ease-in-out;
-        &:hover {
-
-            // transform: rotate(360deg);
-        }
     }
 }
 

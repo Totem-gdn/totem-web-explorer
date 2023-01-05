@@ -16,7 +16,7 @@
                             (changeSrc)="showSpinner = $event"
                             [src]="assetRendererUrl + '/' + type + '/' + _item?.tokenId + '?width=470&height=470'"
                             alt=""
-                            (error)="updateUrl()">
+                            (error)="updateUrl(); showSpinner = false">
 
                         <totem-spinner *ngIf="showSpinner" class="z-1 absolute_center m-auto"></totem-spinner>
 

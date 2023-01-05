@@ -48,8 +48,7 @@
                         <div @fade-in class="tag" *ngFor="let genre of genresForm.controls"
                             (click)="onRemoveGenre(genre)">
                             <span>{{genre.value}}</span>
-                            <!-- <mat-icon [svgIcon]="'line:close'"></mat-icon> -->
-                            <div class="line-close"></div>
+                           <div class="line-close"></div>
                         </div>
                     </div>
                     <span>{{'specific.choose_genres_in_menu' | translate}}</span>
@@ -83,12 +82,10 @@
                     <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.avatarFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
-                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px]">{{selectedJsonFiles.avatarFilter.name}}</div>
                         </div>
                         <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('avatar')">
-                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
@@ -99,12 +96,10 @@
                         fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
-                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px] max-w-[160px] truncate">{{dnaFilterUrls.avatarFilter}}</div>
                         </div>
                         <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('avatar')">
-                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
@@ -124,12 +119,10 @@
                     <div @fileAnimation class="file-bar w-full p-[10px] mb-[16px]" *ngIf="selectedJsonFiles.assetFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
-                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px]">{{selectedJsonFiles.assetFilter.name}}</div>
                         </div>
                         <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('item')">
-                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
@@ -140,12 +133,10 @@
                         fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
-                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px] max-w-[160px] truncate">{{dnaFilterUrls.assetFilter}}</div>
                         </div>
                         <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('item')">
-                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
@@ -165,12 +156,10 @@
                     <div @fileAnimation class="file-bar w-full p-[10px]" *ngIf="selectedJsonFiles.gemFilter" fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
-                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px]">{{selectedJsonFiles.gemFilter.name}}</div>
                         </div>
                         <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('gem')">
-                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
@@ -181,12 +170,10 @@
                         fxLayout="row"
                         fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="start center">
-                            <!-- <mat-icon class="doc-icon ml-[4px]" [svgIcon]="'solid:doc-image'"></mat-icon> -->
                             <div class="solid-doc-image doc-icon  ml-[4px]"></div>
                             <div class="file-name ml-[14px] max-w-[160px] truncate">{{dnaFilterUrls.gemFilter}}</div>
                         </div>
                         <div class="remove-button" fxLayout="row" fxLayoutAlign="center center" (click)="removeFile('gem')">
-                            <!-- <mat-icon class="delete-icon" [svgIcon]="'solid:delete-icon'"></mat-icon> -->
                             <div class="solid-delete-icon delete-icon"></div>
                         </div>
                     </div>
