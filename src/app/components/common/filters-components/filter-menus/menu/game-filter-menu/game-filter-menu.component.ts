@@ -48,11 +48,9 @@ export class GameFilterMenuComponent implements OnInit {
     }
 
     filterMenuContent(filter: string) {
-        console.log('filter', filter)
         this.gamesService.gamesByFilter(filter)
             .subscribe(games => {
                 this.games = games;
-                console.log('games', games);
                 if(games?.length == 0) {
                     this.gamesNoFound = true;
                     this.handleMenuHeight(1);

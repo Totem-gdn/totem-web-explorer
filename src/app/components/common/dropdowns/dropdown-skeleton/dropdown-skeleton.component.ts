@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { DropdownItem } from "@app/core/models/interfaces/dropdown-item.model";
@@ -12,7 +12,7 @@ import { GamesService } from "@app/core/services/assets/games.service";
     styleUrls: ['./dropdown-skeleton.component.scss']
 })
 
-export class DropdownSkeletonComponent implements AfterViewInit {
+export class DropdownSkeletonComponent implements AfterViewInit, AfterViewChecked {
     get selectStyles() { return this.menuActive ? 'appear': this.widgetMode ? 'appear selected-script-item': ''}
 
     constructor(private router: Router,
@@ -36,6 +36,9 @@ export class DropdownSkeletonComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.changeDetector.detectChanges();
+    }
+    ngAfterViewChecked(): void {
+        // this.changeDetector.detectChanges();
     }
 
     onChangeInput(item: DropdownItem) {

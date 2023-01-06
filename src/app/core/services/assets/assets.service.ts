@@ -34,7 +34,7 @@ export class AssetsService {
     fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
 
         const url = owner ? `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&owner=${owner}` : `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`
-        
+
         return this.http.get<ApiResponse<AssetInfo[]>>(url)
             .pipe(tap(assets => {
 
@@ -46,17 +46,17 @@ export class AssetsService {
             }));
     }
 
+    getAssetsByFilter(type: ASSET_TYPE, filter: string, page: number = 1, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?page=${page}&list=${list}&search=${filter}`)
+        .pipe(map(assets => assets.data));
+
+    }
+
     fetchAsset(id: string, type: ASSET_TYPE) {
         return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(map(asset => {
             asset.rarity = asset.tokenId % 100;
             return asset;
         }));
-    }
-
-    getAssetsByName(type: ASSET_TYPE, word: string): Observable<any[]> {
-        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?search=${word}`)
-            .pipe(map(assets => assets.data));
-
     }
 
 }

@@ -43,10 +43,10 @@ export class GamesService {
     const url = owner ? `${this.baseUrl}/games?page=${page}&list=${list}&owner=${owner}` : `${this.baseUrl}/games?page=${page}&list=${list}`;
   
 
-    return this.http.get<GameDetail[]>(url).pipe();
+    return this.http.get<GameDetail[]>(url);
   }
 
-  gamesByFilter(filter: string): Observable<any> {
+  gamesByFilter(filter: string, page: number = 1, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST): Observable<any> {
 
     let url = '';
     if (filter) {
@@ -63,6 +63,12 @@ export class GamesService {
         this.cacheService.cachedGames = games;
       })
     );
+  }
+
+  getGamesByFilter(filter: string, page: number = 1, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
+    const url = `${this.baseUrl}/games?search=${filter}&page=${page}&list=${list}`;
+
+    return this.http.get<GameDetail[]>(url);
   }
 
 

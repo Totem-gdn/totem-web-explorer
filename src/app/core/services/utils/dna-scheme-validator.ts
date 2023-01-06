@@ -162,7 +162,6 @@ export class DNASchemeValidator {
   }
 
   validateJson(json: any): string {
-    console.log(json);
 
     if (this.validate(json)) {
       console.log('VALID');

@@ -61,9 +61,7 @@ export class AssetCardComponent implements AfterViewInit {
           this.gtag.event('add_like', {
             'event_label': `add like for ${this.type} with id ${this._asset.id}`,
           });
-          console.log('added like')
           this._asset.isLiked = true;
-          console.log(this._asset.isLiked);
         },
         error: error => {
           console.log(error)
