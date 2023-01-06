@@ -57,12 +57,13 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   }
 
   updateGames(filter: string = '') {
-    this.gamesService.gamesByFilter(filter)
+    this.gamesService.gamesByFilter(filter, 1)
+      // .pipe(take(1))
       .subscribe(games => {
         if (!games) return;
         if(!this.gamesService.gameInSession) this.gamesService.gameInSession = games[0];
         this.formatGames(games, filter);
-      })
+      });
   }
 
   formatGames(games: GameDetail[], filter: string) {

@@ -50,7 +50,7 @@ export class GamesService {
 
     let url = '';
     if (filter) {
-      url = `${this.baseUrl}/games/search?name=${filter}&page=${page}&list=${list}`;
+      url = `${this.baseUrl}/games/search?name=${filter}`;
     } else {
       url = `${this.baseUrl}/games`;
     }
