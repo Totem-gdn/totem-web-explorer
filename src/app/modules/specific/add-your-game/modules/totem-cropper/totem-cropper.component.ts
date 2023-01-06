@@ -30,6 +30,8 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
     tick: new FormControl<number>(0),
   });
 
+  mobileMode: boolean = false;
+
   @ViewChild("image", {static: false}) public imageElement!: ElementRef;
   private cropper!: Cropper;
 
@@ -70,6 +72,23 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
         this.cropImageAndSave();
       }
     });
+  }
+
+  enableMobileMode() {
+    if (this.aspectRatio == 1.78/1) {
+      this.aspectRatio = 1/1.78;
+      this.widthToResize = 1080;
+      this.cropper.setAspectRatio(this.aspectRatio);
+      this.cropImageAndSave();
+      this.mobileMode = true;
+    } else
+    if (this.aspectRatio == 1/1.78) {
+      this.aspectRatio = 1.78/1;
+      this.widthToResize = 1920;
+      this.cropper.setAspectRatio(this.aspectRatio);
+      this.cropImageAndSave();
+      this.mobileMode = false;
+    }
   }
 
   /* initCropper() {
