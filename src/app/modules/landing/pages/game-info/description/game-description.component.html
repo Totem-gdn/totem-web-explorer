@@ -2,7 +2,22 @@
     <div class="images-block pb-[40px] sm:pb-[60px]">
         <!-- <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt=""> -->
         <!-- <div class=""></div> -->
-        <img loading="lazy" #image class="sm:h-[430px] hl-image" *ngIf="!_game?.images?.galley" [src]="hlImage" [alt]="_game?.general?.name">
+        <div #image *ngIf="!_game?.images?.galley" class="rounded sm:h-[430px] image-wrapper relative overflow-hidden">
+          <img
+          loading="lazy" class="h-full hl-image relative z-2"
+          [src]="hlImage"
+          [alt]="_game?.general?.name"
+          >
+          <img
+          loading="lazy" class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
+          [src]="hlImage"
+          [alt]="_game?.general?.name"
+          >
+          <!-- <div class="image-bg absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
+            [ngStyle]="{'background': hlImage ? 'linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('+hlImage+')' : '#202225'}">
+          </div> -->
+        </div>
+        <!-- <img loading="lazy" #image class="sm:h-[430px] hl-image" *ngIf="!_game?.images?.galley" [src]="hlImage" [alt]="_game?.general?.name"> -->
         <portfolio-carousel (changeImg)="onChangeImg($event)" [images]="_game?.images?.gallery"></portfolio-carousel>
     </div>
 
