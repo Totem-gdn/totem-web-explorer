@@ -1,5 +1,9 @@
 @import 'styles/scss/variables';
 
+img {
+    border-radius: 4px;
+    object-fit: contain;
+}
 
 .description {
     display: flex;
@@ -8,10 +12,31 @@
     max-width: 810px;
 }
 
-.hl-image {
+.image-wrapper {
+  border: 1px solid $light-grey;
+  transition: opacity .2s;
+}
+
+.hl-image-blurred {
+  filter: blur(10px) brightness(80%);
+  transform: scale(1.1);
+  object-fit: cover;
+}
+
+/* .hl-image {
+    backdrop-filter: blur(5px);
+    transition: backdrop-filter .2s;
+} */
+/* .image-bg {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  transition: opacity .2s;
+} */
+
+/* .hl-image {
     transition: opacity .2s;
     border: 1px solid $light-grey;
-}
+} */
 
 .tags {
     display: flex;
@@ -45,7 +70,4 @@ p {
     }
 }
 
-img {
-    border-radius: 4px;
-    object-fit: cover;
-}
+

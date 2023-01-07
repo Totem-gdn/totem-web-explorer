@@ -7,6 +7,20 @@ img {
   font-size: 18px;
 }
 
+.mobile-button {
+  padding-top: 14px;
+  height: 20px;
+  width: 20px;
+  .mobile-icon {
+    border: 1px solid #fff;
+    border-width: 2px 3px;
+    border-radius: 4px;
+    height: 14px;
+    width: 20px;
+    transition: transform 0.33s ease-out;
+  }
+}
+
 .close-wrapper {
   button {
     display: flex;
@@ -69,7 +83,7 @@ img {
       height: 40px;
 
       .crop-tools {
-        max-width: 412px;
+        max-width: 442px;
         width: 100%;
         margin-right: 20px;
         color: #fff;
