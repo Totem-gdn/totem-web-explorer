@@ -22,7 +22,7 @@ export class GameDescriptionComponent {
         this.image.nativeElement.style.opacity = '0';
         setTimeout(() => {
             this.hlImage = image;
-            this.image.nativeElement.style.opacity = '1';       
+            this.image.nativeElement.style.opacity = '1';
         }, 200)
     }
 
