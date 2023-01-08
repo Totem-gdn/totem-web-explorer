@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { COLOR_POPUP_TYPE } from "@app/core/models/enums/popup.enum";
 import { AssetTransation } from "@app/core/models/interfaces/asset-info.model";
 import { BehaviorSubject } from "rxjs";
 
@@ -9,7 +10,7 @@ export class PopupService {
 
     private _showTokenTransaction = new BehaviorSubject<boolean>(false);
     private _showAssetTransaction = new BehaviorSubject<AssetTransation | undefined>(undefined);
-    private _showLogoutPopup = new BehaviorSubject<boolean>(false);
+    private _showColorPopup = new BehaviorSubject<COLOR_POPUP_TYPE | undefined>(undefined);
     private _showSidebarPopup = new BehaviorSubject<boolean>(false);
     private _showSmallSidebarPopup = new BehaviorSubject<boolean>(false);
     private _showSidebarFilterPopup = new BehaviorSubject<boolean>(false);
@@ -38,7 +39,7 @@ export class PopupService {
     showSidebarFilter() { this._showSidebarFilterPopup.next(true); }
     closeSidebarFilter() { this._showSidebarFilterPopup.next(false) }
 
-    get logout$() { return this._showLogoutPopup.asObservable(); }
-    showLogout() { this._showLogoutPopup.next(true); }
-    closeLogout() { this._showLogoutPopup.next(false) }
+    get colorPopup$() { return this._showColorPopup.asObservable(); }
+    showColorPopup(type: COLOR_POPUP_TYPE) { this._showColorPopup.next(type); }
+    closeColorPopup() { this._showColorPopup.next(undefined) }
 }

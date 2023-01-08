@@ -5,7 +5,7 @@ import { UserStateService } from "@app/core/services/auth.service";
 import { PopupService } from "../../../../core/services/states/popup-state.service";
 
 @Component({
-    selector: 'logout',
+    // selector: 'logout',
     templateUrl: './logout.component.html',
     styleUrls: ['./logout.component.scss'],
     animations: [
@@ -13,7 +13,7 @@ import { PopupService } from "../../../../core/services/states/popup-state.servi
     ]
 })
 
-export class LogoutComponent implements OnInit {
+export class LogoutComponent {
 
     constructor(private popupService: PopupService,
                 private router: Router,
@@ -21,23 +21,23 @@ export class LogoutComponent implements OnInit {
 
     showPopup = false;
 
-    ngOnInit() {
-        this.logout$();
-    }
+    // ngOnInit() {
+    //     this.logout$();
+    // }
 
-    logout$() {
-        this.popupService.logout$.subscribe(showPopup => {
-            this.showPopup = showPopup;
-        })
-    }
+    // logout$() {
+    //     this.popupService.logout$.subscribe(showPopup => {
+    //         this.showPopup = showPopup;
+    //     })
+    // }
 
-    closePopup() {
-        this.popupService.closeLogout();
-        this.router.navigate(['/']);
-    }
+    // closePopup() {
+    //     this.popupService.closeLogout();
+    //     this.router.navigate(['/']);
+    // }
 
-    async login() {
-        await this.authService.login();
-        this.popupService.closeLogout();
-    }
+    // async login() {
+    //     await this.authService.login();
+    //     this.popupService.closeLogout();
+    // }
 }

@@ -1,0 +1,15 @@
+<div class="content">
+    <div class="img-wrapper">
+        <img src="assets/images/popup/logout-mamont.webp" alt="">
+    </div>
+
+    <h3 class="font-medium text-white">{{'popups.session_expired' | translate}}</h3>
+
+    <span class="text-light-grey leading-tight">{{'popups.continue_session_login_again' | translate}}.</span>
+</div>
+
+<div class="buttons">
+    <button mat-ripple class="button-1" (click)="closePopup()">{{'nav.cancel' | translate}}</button>
+
+    <button mat-ripple class="button-2" (click)="login()">{{'nav.login' | translate}}</button>
+</div>
