@@ -1,0 +1,49 @@
+<!-- <ng-container *ngIf="info?.type == 'transfer'">
+    <div class="flex w-full">
+        Atrributes
+        <div class="attributes">
+            ID 
+            <div class="attribute mb-[10px]">
+                <p class="mt-[5px]">ID: {{info?.assetInfo?.tokenId}}</p>
+            </div>
+            Rarity, Games 
+            <div class="attribute flex">
+                <div class="flex flex-col">
+                    <p>{{info?.assetInfo?.rarity}}</p>
+                    <span class="text-light-grey">{{'nav.rarity' | translate}}</span>
+                </div>
+                <div class="flex flex-col pl-[10px]">
+                    <p>{{info?.assetInfo?.games}}</p>
+                    <span class="text-light-grey">{{'nav.games' | translate}} {{'nav.played' | translate}}</span>
+                </div>
+            </div>
+        </div>
+        Image
+        <div class="img-wrapper">
+            <img loading="lazy" [src]="info?.assetInfo?.rendererUrl" alt="">
+            <div class="placeholder"></div>
+        </div>
+    </div>
+</ng-container> -->
+
+<ng-container>
+    <div class="flex w-full">
+        <!-- Atrributes -->
+        <div class="attributes flex flex-col justify-center">
+            <!-- ID  -->
+            <div class="attribute mb-[10px]">
+                <p class="leading-4">Type: {{capitalize(info?.type)}}</p>
+            </div>
+            <!-- Rarity, Games  -->
+            <div class="attribute flex">
+                <span class="text-light-grey leading-5">You purchase a unique randomly generated item</span>
+            </div>
+        </div>
+        <!-- Image -->
+        <div class="img-wrapper">
+            <div *ngIf="info?.type == 'avatar'" class="img-preview solid-buy-avatar"></div>
+            <div *ngIf="info?.type == 'item'" class="img-preview solid-buy-item"></div>
+            <div *ngIf="info?.type == 'gem'" class="img-preview solid-buy-gem"></div>
+        </div>
+    </div>
+</ng-container>

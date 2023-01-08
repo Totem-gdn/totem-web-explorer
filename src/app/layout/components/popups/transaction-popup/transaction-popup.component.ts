@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
-import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { AssetInfo, AssetTransation, PaymentInfo } from "@app/core/models/interfaces/asset-info.model";
 import { Subject, takeUntil } from "rxjs";
 import { PopupService } from "../../../../core/services/states/popup-state.service";
 
@@ -19,8 +19,8 @@ export class TransactionPopupComponent implements OnInit, OnDestroy {
     constructor(private popupService: PopupService) {}
 
     subs = new Subject<void>();
-    tokenTransaction: boolean = false;
-    assetTransaction: AssetInfo | null = null;
+    tokenTransaction?: boolean = false;
+    assetTransaction?: AssetTransation;
     
     ngOnInit() {
         this.tokenTransactionPopup$();
@@ -37,8 +37,8 @@ export class TransactionPopupComponent implements OnInit, OnDestroy {
     assetTransactionPopup$() {
         this.popupService.assetTransaction$
             .pipe(takeUntil(this.subs))
-            .subscribe(item => {
-                this.assetTransaction = item;
+            .subscribe(assetTransaction => {
+                this.assetTransaction = assetTransaction;
             })
     }
 

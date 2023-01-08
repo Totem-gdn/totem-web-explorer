@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "@app/shared/shared.module";
+import { AttributesModule } from "./attributes/attributes.module";
 import { SendAssetComponent } from "./send-asset.component";
 
 @NgModule({
@@ -7,7 +8,8 @@ import { SendAssetComponent } from "./send-asset.component";
         SendAssetComponent
     ],
     imports: [
-        SharedModule
+        SharedModule,
+        AttributesModule
     ],
     exports: [
         SendAssetComponent
