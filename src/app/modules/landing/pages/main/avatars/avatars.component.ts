@@ -60,7 +60,7 @@ export class AvatarsComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page, list).subscribe(avatars => {
+      this.assetsService.fetchAssets(ASSET_TYPE.AVATAR, page, list).subscribe(avatars => {
         if(reset) {
           this.setAvatars = avatars.data;
         } else {
