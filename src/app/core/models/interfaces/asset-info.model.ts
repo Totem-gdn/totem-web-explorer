@@ -1,3 +1,4 @@
+import { ASSET_TYPE } from "../enums/asset-types.enum";
 
 export interface AssetInfo {
     createdAt: string;
@@ -15,4 +16,25 @@ export interface AssetInfo {
     assetType?: string;
     rendererUrl?: string | undefined;
     price?: string;
+}
+
+// export interface AssetTransationType {
+//     type: 
+// }
+export interface PaymentInfo {
+    type?: ASSET_TYPE;
+    paymentInfo?: {
+        address?: string;
+        price?: string;
+        token?: string;
+    }
+}
+
+export function IsPaymentInfo(obj: any): obj is PaymentInfo {
+    return 'type' in obj && 'paymentInfo' in obj;
+}
+export interface AssetTransation {
+    type?: 'payment' | 'transfer';
+    assetInfo?: AssetInfo;
+    paymentInfo?: PaymentInfo;
 }

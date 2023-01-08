@@ -62,7 +62,8 @@ export class CryptoUtilsService
         const gasFee = web3.utils.fromWei(fee.toString());
         return gasFee;
     }
-    async estimateUSDCGasFee(to: string, amount: string) {
+    async estimateUSDCGasFee(to?: string, amount?: string) {
+        if(to == undefined || amount == undefined) return;
         const web3 = new Web3(this.web3.provider as any);
         const wallet = await this.web3.getAccounts();
 

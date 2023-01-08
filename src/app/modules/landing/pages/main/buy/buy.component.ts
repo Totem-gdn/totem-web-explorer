@@ -1,10 +1,13 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { fadeInBotAnimation } from '@app/core/animations/fade-in';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { AssetInfo, PaymentInfo } from '@app/core/models/interfaces/asset-info.model';
 
 import { BuyAssetService } from '@app/core/services/assets/buy-asset.service';
 import { CryptoUtilsService } from '@app/core/services/crypto/crypto-utils.service';
 import { TransferService } from '@app/core/services/crypto/transfer.service';
+import { PopupService } from '@app/core/services/states/popup-state.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { Gtag } from 'angular-gtag';
 import { fromEvent, Subject, takeUntil } from 'rxjs';
@@ -21,22 +24,20 @@ import { SnackNotifierService } from '../../../../../components/utils/snack-bar-
 export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
-    private transferService: TransferService,
-    private cryptoUtilsService: CryptoUtilsService,
     private buyAssetService: BuyAssetService,
     private web3Service: Web3AuthService,
-    private snackService: SnackNotifierService,
     private breakpointObserver: BreakpointObserver,
+    private popupService: PopupService,
+    private cryptoUtilsService: CryptoUtilsService,
+    private snackService: SnackNotifierService,
     private gtag: Gtag
   ) {
     this.gtag.event('page_view');
   }
 
-  maticBalance: any = 0;
-  tokenBalance: any = 0;
-  assets: any[] = [{ type: 'item' }, { type: 'avatar' }, { type: 'gem' },];
+  assets: PaymentInfo[] = [{ type: ASSET_TYPE.ITEM }, { type: ASSET_TYPE.AVATAR }, { type: ASSET_TYPE.GEM },];
 
-  disableButton: boolean | null = null;
+  // disableButton: boolean | null = null;
   disableLoop = { disable: false, immutable: false };
   loop: any;
 
@@ -78,51 +79,47 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  async onBuyItem(address: string, amount: any, type: string) {
+  async onBuyItem(paymentInfo: PaymentInfo) {
+    if(!paymentInfo?.paymentInfo?.address || !paymentInfo?.paymentInfo?.price) return;
 
     if (!this.web3Service.isLoggedIn()) {
       // this.snackService.open('PLEASE Login');
       this.web3Service.login();
-      this.gtag.event(`${type}_purchase`, {
+      this.gtag.event(`${paymentInfo?.type}_purchase`, {
         'event_label': 'Generate item when user is not login',
       });
       return;
     }
 
-    const [maticBalance, usdcBalance] = await Promise.all([
-      this.web3Service.getBalance(),
-      this.cryptoUtilsService.getUSDCBalance()
-    ])
+    const usdcBalance = await this.cryptoUtilsService.getUSDCBalance();
 
-    if (+usdcBalance < +amount) {
+    if (+usdcBalance < +paymentInfo?.paymentInfo?.price) {
       this.snackService.open('Insufficient USDC balance');
       return;
     }
 
-    const usdcGasFee = await this.cryptoUtilsService.estimateUSDCGasFee(address, amount);
+    this.popupService.showAssetTransaction('payment', paymentInfo);
 
-    if (!maticBalance || +maticBalance <= 0 || +maticBalance < +usdcGasFee) {
-      this.snackService.open('Insufficient MATIC balance');
-      return;
-    }
-    if (usdcBalance == '0' || +usdcBalance < +amount) {
-      this.snackService.open('Insufficient USDC balance');
-      return;
-    }
+    // const usdcGasFee = await this.cryptoUtilsService.estimateUSDCGasFee(address, amount);
 
-    this.gtag.event(`${type}_purchase`, {
-      'event_label': `Click on Generate ${type}`,
-    });
+    // if (!maticBalance || +maticBalance <= 0 || +maticBalance < +usdcGasFee) {
+    //   this.snackService.open('Insufficient MATIC balance');
+    //   return;
+    // }
+    // if (usdcBalance == '0' || +usdcBalance < +amount) {
+    //   this.snackService.open('Insufficient USDC balance');
+    //   return;
+    // }
 
-    this.snackService.open('Processing transaction')
+    // this.gtag.event(`${type}_purchase`, {
+    //   'event_label': `Click on Generate ${type}`,
+    // });
 
-    this.transferService.transferUSDC(address, amount).then(res => {
-      this.snackService.open('Your Totem Asset has been created successfully');
-      this.cryptoUtilsService.updateBalance();
-    })
-    // .catch(err => {
-    //   console.error(err.stack);
-    //   this.snackService.open('Error while processing transaction');
+    // this.snackService.open('Processing transaction')
+
+    // this.transferService.transferUSDC(address, amount).then(res => {
+    //   this.snackService.open('Your Totem Asset has been created successfully');
+    //   this.cryptoUtilsService.updateBalance();
     // })
   }
 
@@ -138,6 +135,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
         if (asset == 'item') this.assets[0].paymentInfo = info;
         if (asset == 'avatar') this.assets[1].paymentInfo = info;
         if (asset == 'gem') this.assets[2].paymentInfo = info;
+        console.log(this.assets)
         if (this.assets.length == 3) {
           this.playAnimation();
         }

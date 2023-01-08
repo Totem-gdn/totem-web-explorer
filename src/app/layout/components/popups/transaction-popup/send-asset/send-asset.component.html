@@ -4,31 +4,7 @@
         <p class="mb-[15px]">{{'nav.you_are_about_to_purchase' | translate}}:</p>
     
         <div class="asset-preview">
-            <div class="flex w-full">
-                <!-- Atrributes -->
-                <div class="attributes">
-                    <!-- ID  -->
-                    <div class="attribute mb-[10px]">
-                        <p class="mt-[5px]">ID: {{asset?.tokenId}}</p>
-                    </div>
-                    <!-- Rarity, Games  -->
-                    <div class="attribute flex">
-                        <div class="flex flex-col">
-                            <p>{{asset?.rarity}}</p>
-                            <span class="text-light-grey">{{'nav.rarity' | translate}}</span>
-                        </div>
-                        <div class="flex flex-col pl-[10px]">
-                            <p>{{asset?.games}}</p>
-                            <span class="text-light-grey">{{'nav.games' | translate}} {{'nav.played' | translate}}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Image -->
-                <div class="img-wrapper">
-                    <img loading="lazy" [src]="asset?.rendererUrl" alt="">
-                    <div class="placeholder"></div>
-                </div>
-            </div>
+            <attributes [info]="paymentInfo"></attributes>
         </div>
     
         <div class="balance">
@@ -39,14 +15,14 @@
                     <div class="icon icon-font-USDC"></div>
                     <div class="flex flex-col overflow-hidden">
                         <span>USDC</span>
-                        <span class="text-light-grey truncate">{{balance.usdc ? balance.usdc : '--'}}</span>
+                        <span class="text-white truncate">{{balance.usdc ? balance.usdc : '--'}}</span>
                     </div>
                 </div>
                 <div class="token-wrapper">
                     <div class="icon icon-font-MATIC"></div>
                     <div class="flex flex-col overflow-hidden">
                         <span>MATIC</span>
-                        <span class="text-light-grey truncate">{{balance.matic ? balance.matic : '--'}}</span>
+                        <span class="text-white truncate">{{balance.matic ? balance.matic : '--'}}</span>
                     </div>
                 </div>
     
@@ -54,7 +30,7 @@
         </div>
     
         <div class="price">
-            <span class="text">Price: <span class="text-light-grey">{{asset?.price ? asset?.price : '--'}}</span></span>
+            <span class="text">Price: <span class="text-white">{{info?.assetInfo?.price ? info?.assetInfo?.price : paymentInfo?.paymentInfo?.price}}</span></span>
             <div class="flex">
                 <div class="icon icon-font-USDC"></div>
                 <span>USDC</span>
@@ -69,5 +45,6 @@
 
 <div class="buttons">
     <button matRipple (click)="onClose()">{{'nav.cancel' | translate}}</button>
-    <button matRipple class="button-2" [disabled]="true">{{'nav.confirm' | translate}}</button>
+    <button matRipple class="button-2" 
+        (click)="onBuy(paymentInfo?.type, paymentInfo?.paymentInfo?.address, paymentInfo?.paymentInfo?.price)">{{'nav.confirm' | translate}}</button>
 </div>
