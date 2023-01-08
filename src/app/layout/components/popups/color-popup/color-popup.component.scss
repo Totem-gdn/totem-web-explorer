@@ -1,0 +1,117 @@
+@import 'styles/scss/variables';
+
+.overlay {
+    position: fixed;
+    display: flex; 
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(67, 67, 67, 0.25);
+    backdrop-filter: blur(20px);
+    z-index: 101;
+
+    .popup {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+        margin: auto;
+        background-color: $black;
+        border-radius: 4px;
+        padding: 15px;
+        max-width: 280px;
+        max-height: 400px;
+        height: 100%;
+        width: 100%;
+        &::before {
+            background: linear-gradient(136.18deg, #969595 -6.89%, rgba(85, 85, 85, 0) 103.07%);
+        }
+
+    }
+
+    .popup-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+}
+
+.content {
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    .img-wrapper {
+        margin-left: 15px;
+        max-width: 195px;
+        margin-bottom: 15px;
+        img {
+            
+        }
+    }
+    h3 {
+        margin-bottom: 7px;
+    }
+    span {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.buttons {
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+    display: flex;
+    margin-bottom: 16px;
+    padding: 0 10px;
+    justify-content: center;
+    width: 100%;
+    button {
+        flex: 1 1 0px;
+        border-radius: 4px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: flex;
+        background-color: $dark-grey;
+        transition: background-color .3s, color .3s;
+        color: white;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $yellow;
+            font-weight: 700;
+            color: $black;
+        }
+        &:disabled {
+            pointer-events: none;
+            background-color: $dark-grey;
+            color: $light-grey;
+        }
+    }
+    .button-2 {
+        background-color: $yellow;
+        color: $black;
+        font-weight: 700;
+        &:disabled {
+            font-weight: 500;
+        }
+    }
+}
+
+.circle-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

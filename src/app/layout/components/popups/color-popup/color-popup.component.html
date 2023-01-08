@@ -1,0 +1,13 @@
+<div @fade-in-out class="overlay" *ngIf="this.type">
+
+    <div class="popup gradient-border-solid">
+        <div #circlesRef class="circle-wrapper blur-70">
+            <bg-circle class="top-[-100px] left-[0]" [background]="'#00BC58'" [width]="'150px'"></bg-circle>
+            <bg-circle class="top-[0] left-[-120px]" [background]="'#FFD011'" [width]="'150px'"></bg-circle>
+            <bg-circle class="top-[100px] left-[-75px]" [background]="'#5823C9'" [width]="'100px'"></bg-circle>
+        </div>
+
+        <logout class="popup-content" *ngIf="type == popupType.LOGOUT"></logout>
+    </div>
+
+</div>

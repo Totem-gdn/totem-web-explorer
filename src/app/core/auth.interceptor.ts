@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { Observable } from "rxjs";
+import { COLOR_POPUP_TYPE } from "./models/enums/popup.enum";
 import { StorageKey } from "./models/enums/storage-keys.enum";
 import { UserStateService } from "./services/auth.service";
 import { PopupService } from "./services/states/popup-state.service";
@@ -40,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
 
     if(this.web3.isLoggedIn() && !creds) {
-      this.popupService.showLogout();
+      this.popupService.showColorPopup(COLOR_POPUP_TYPE.LOGOUT);
       this.userService.logoutWithoutRedirect();
     }
     
