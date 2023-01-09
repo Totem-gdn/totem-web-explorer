@@ -26,7 +26,7 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
   achievements!: Achievement[];
   total: number = 0;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  readonly tableSize: number = 4; // change to change the row amount inside the table
+  readonly tableSize: number = 5; // change to change the row amount inside the table
 
   tooltip!: Tooltip;
   @ViewChild('tooltipRef') tooltipRef!: ElementRef;

@@ -1,13 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { StorageKey } from '@app/core/models/enums/storage-keys.enum';
 import { SUBMISSION_TABS } from '@app/core/models/enums/submission-tabs.enum';
 import { GameDetail, ImageEvents, ImagesInfo, ImagesToUpload, JsonDNAFilters, JsonDNAFiltersToDelete, SubmitGame, SubmitGameResponse } from '@app/core/models/interfaces/submit-game-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { CompressImageService } from '@app/core/services/utils/compress-image.service';
 import { Gtag } from 'angular-gtag';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from './modules/image-uploader/image-uploader.component';
 import { FormsService } from './services/forms.service';
 import { SubmitGameService } from './services/submit-game.service';
@@ -49,6 +51,7 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     private gtag: Gtag,
     private router: Router,
     private route: ActivatedRoute,
+    private snackNotifierService: SnackNotifierService
   ) {
     this.gtag.event('page_view');
   }
@@ -174,17 +177,31 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
 
   postGame(formData: SubmitGame) {
     this.subs.add(
-      this.submitGameService.postGame(formData).subscribe((data: SubmitGameResponse) => {
-        //this.processResponse(data);
-        this.openImgUploaderDialog(this.imagesToUpload, data, this.jsonFilesToUpload);
+      this.submitGameService.postGame(formData)
+        .pipe(catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          this.snackNotifierService.open(error?.error?.message || error?.message);
+          return of();
+        }))
+        .subscribe((data: SubmitGameResponse) => {
+        if (data) {
+          this.openImgUploaderDialog(this.imagesToUpload, data, this.jsonFilesToUpload);
+        }
       })
     )
   }
   updateGame(formData: SubmitGame) {
     this.subs.add(
-      this.submitGameService.updateGame(formData, this.gameToEdit.id).subscribe((data: SubmitGameResponse) => {
-        //this.processResponse(data);
-        this.openImgUploaderDialog(this.imagesToUpload, data, this.jsonFilesToUpload);
+      this.submitGameService.updateGame(formData, this.gameToEdit.id)
+        .pipe(catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          this.snackNotifierService.open(error?.error?.message || error?.message);
+          return of();
+        }))
+        .subscribe((data: SubmitGameResponse) => {
+        if (data) {
+          this.openImgUploaderDialog(this.imagesToUpload, data, this.jsonFilesToUpload);
+        }
       })
     )
   }
