@@ -14,6 +14,7 @@ export class ChangeSrcDirective implements OnDestroy {
     this.changes = new MutationObserver((mutations: MutationRecord[]) => {
       mutations.filter(m => m.attributeName === 'src').forEach(() => {
         this.opacity = 0;
+        clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
           this.changeSrc.emit(true);
         }, 700);
@@ -36,8 +37,8 @@ export class ChangeSrcDirective implements OnDestroy {
   }
 
   @HostBinding('style.opacity') opacity = 0;
+  
   @HostListener('load')
-
   onLoad(): void {
     this.opacity = 1;
     clearTimeout(this.timeout);

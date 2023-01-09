@@ -1,0 +1,15 @@
+<div class="content">
+    <div class="img-wrapper">
+        <img src="assets/images/popup/transaction-failed.png" alt="">
+    </div>
+
+    <h3 class="font-medium text-white">Transaction failed, no funds</h3>
+
+    <span class="text-light-grey leading-tight">if you want to continue the transaction, top up your wallet.</span>
+</div>
+
+<div class="buttons">
+    <button mat-ripple class="button-1" (click)="closePopup()">{{'nav.cancel' | translate}}</button>
+
+    <button mat-ripple class="button-2" (click)="onClaim()">Claim</button>
+</div>

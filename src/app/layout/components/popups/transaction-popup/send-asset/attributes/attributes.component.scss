@@ -1,0 +1,36 @@
+
+.img-preview {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    max-width: 100px;
+    width: 100%;
+    height: auto;
+
+    .img-wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 10px;
+        .item {
+            font-size: 80px;
+        }
+    }
+}
+
+.circle-wrapper {
+    overflow: hidden;
+    filter: blur(25px);
+    will-change: transform;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.placeholder {
+    width: 100%;
+    margin-top: 100%;
+}

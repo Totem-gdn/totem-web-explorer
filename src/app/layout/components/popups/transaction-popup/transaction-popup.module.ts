@@ -4,6 +4,7 @@ import { SharedModule } from "@app/shared/shared.module";
 import { SendTokensModule } from "./send-tokens/send-tokens.module";
 import { SendAssetModule } from "./send-asset/send-asset.module";
 import { TransactionPopupComponent } from "./transaction-popup.component";
+import { PaymentMethodModule } from "./payment-method/payment-method.module";
 
 @NgModule({
     declarations: [
@@ -11,9 +12,11 @@ import { TransactionPopupComponent } from "./transaction-popup.component";
     ],
     imports: [
         SharedModule,
+        MatRippleModule,
+
         SendTokensModule,
         SendAssetModule,
-        MatRippleModule,
+        PaymentMethodModule
     ],
     exports: [
         TransactionPopupComponent

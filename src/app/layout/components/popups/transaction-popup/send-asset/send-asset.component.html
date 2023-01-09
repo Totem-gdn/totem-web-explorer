@@ -1,50 +1,70 @@
 <div class="main-block-wrapper">
     <div class="wrapper px-[10px] py-[25px] sm:p-[25px]">
-        <h3 class="mb-[10px]">{{'nav.purchase' | translate}}</h3>
-        <p class="mb-[15px]">{{'nav.you_are_about_to_purchase' | translate}}:</p>
-    
-        <div class="asset-preview">
-            <attributes [info]="paymentInfo"></attributes>
-        </div>
-    
-        <div class="balance">
-            <p class="text-light-grey mb-[10px]">{{'nav.your_balance' | translate}}: </p>
-            <div class="flex flex-col">
-    
-                <div class="token-wrapper pb-[15px]">
+        <ng-container *ngIf="!choosePaymentMethod">
+            <h3 class="mb-[10px]">{{'nav.purchase' | translate}}</h3>
+            <p class="mb-[15px]">{{'nav.you_are_about_to_purchase' | translate}}:</p>
+
+            <div class="asset-preview">
+                <attributes [info]="paymentInfo"></attributes>
+            </div>
+
+            <div class="balance">
+                <p class="text-light-grey mb-[10px]">{{'nav.your_balance' | translate}}: </p>
+                <div class="flex flex-col">
+
+                    <div class="token-wrapper pb-[15px]">
+                        <div class="icon icon-font-USDC"></div>
+                        <div class="flex flex-col overflow-hidden">
+                            <span>USDC</span>
+                            <span class="text-white truncate">{{balance.usdc ? balance.usdc : '--'}}</span>
+                        </div>
+                    </div>
+                    <div class="token-wrapper">
+                        <div class="icon icon-font-MATIC"></div>
+                        <div class="flex flex-col overflow-hidden">
+                            <span>MATIC</span>
+                            <span class="text-white truncate">{{balance.matic ? balance.matic : '--'}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="price">
+                <span class="text">Price: <span class="text-white">{{info?.assetInfo?.price ? info?.assetInfo?.price :
+                        paymentInfo?.paymentInfo?.price}}</span></span>
+                <div class="flex">
                     <div class="icon icon-font-USDC"></div>
-                    <div class="flex flex-col overflow-hidden">
-                        <span>USDC</span>
-                        <span class="text-white truncate">{{balance.usdc ? balance.usdc : '--'}}</span>
-                    </div>
+                    <span>USDC</span>
                 </div>
-                <div class="token-wrapper">
-                    <div class="icon icon-font-MATIC"></div>
-                    <div class="flex flex-col overflow-hidden">
-                        <span>MATIC</span>
-                        <span class="text-white truncate">{{balance.matic ? balance.matic : '--'}}</span>
-                    </div>
-                </div>
-    
             </div>
-        </div>
-    
-        <div class="price">
-            <span class="text">Price: <span class="text-white">{{info?.assetInfo?.price ? info?.assetInfo?.price : paymentInfo?.paymentInfo?.price}}</span></span>
-            <div class="flex">
-                <div class="icon icon-font-USDC"></div>
-                <span>USDC</span>
+            <div class="gas-fee">
+                <div class="line-info icon"></div>
+                <span>{{'nav.gas_fee' | translate}}: <span class="text-light-grey">{{gasFee ? gasFee :
+                        '--'}}</span></span>
             </div>
-        </div>
-        <div class="gas-fee">
-            <div class="line-info icon"></div>
-            <span>{{'nav.gas_fee' | translate}}: <span class="text-light-grey">{{gasFee ? gasFee : '--'}}</span></span>
-        </div>
+        </ng-container>
+
+        <ng-container>
+            <payment-method @fade-in *ngIf="choosePaymentMethod"></payment-method>
+        </ng-container>
     </div>
 </div>
 
 <div class="buttons">
-    <button matRipple (click)="onClose()">{{'nav.cancel' | translate}}</button>
-    <button matRipple class="button-2" 
-        (click)="onBuy(paymentInfo?.type, paymentInfo?.paymentInfo?.address, paymentInfo?.paymentInfo?.price)">{{'nav.confirm' | translate}}</button>
+    <ng-container *ngIf="!choosePaymentMethod">
+        <button matRipple (click)="onClose()">{{'nav.cancel' | translate}}</button>
+        <button matRipple class="button-2"
+            (click)="onBuy(paymentInfo?.type, paymentInfo?.paymentInfo?.address, paymentInfo?.paymentInfo?.price)">{{'nav.confirm'
+            | translate}}</button>
+    </ng-container>
+
+    <ng-container *ngIf="choosePaymentMethod">
+        <button matRipple (click)="onClose()">{{'nav.cancel' | translate}}</button>
+        <button matRipple class="button-2"
+            [disabled]="!paymentMethod"
+            (click)="onContinue()">
+            Continue
+        </button>
+    </ng-container>
 </div>

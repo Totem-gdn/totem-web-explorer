@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { BackgroundCircleModule } from "@app/components/utils/bg-circle/bg-circle.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { AttributesComponent } from "./attributes.component";
 
@@ -8,7 +9,9 @@ import { AttributesComponent } from "./attributes.component";
         AttributesComponent
     ],
     imports: [
-        SharedModule
+        SharedModule,
+
+        BackgroundCircleModule
     ],
     exports: [
         AttributesComponent
