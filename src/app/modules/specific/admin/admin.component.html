@@ -1,13 +1,25 @@
 <div *ngIf="currentUser" class="tab-wrapper px-[20px] mt-[30px]" fxLayout="row" fxLayoutAlign="start center">
-  <button (click)="changeTab('unlisted')" [ngClass]="{'active-tab' : selectedTab == 'unlisted'}" matRipple class="mr-[14px]">Unlisted games</button>
-  <button (click)="changeTab('listed')" [ngClass]="{'active-tab' : selectedTab == 'listed'}" matRipple>Published games</button>
+  <button (click)="currentPage = 1; changeTab('unlisted')" [ngClass]="{'active-tab' : selectedTab == 'unlisted'}" matRipple class="mr-[14px]">Unlisted games</button>
+  <button (click)="currentPage = 1; changeTab('listed')" [ngClass]="{'active-tab' : selectedTab == 'listed'}" matRipple>Published games</button>
 </div>
 <div *ngIf="games && games.length && !(loading$ | async)" class="wrapper py-[30px] relative" fxLayout="column" fxLayoutAlign="start start">
   <div class="w-full h-[24px] mb-[30px]" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="title">{{selectedTab == 'unlisted' ? 'Games to approve:' : 'My approved games:'}}</div>
-    <div (click)="selectedTab == 'unlisted' ? getGames() : getApprovedGames(currentUser?.wallet!)" class="cursor-pointer" fxLayout="row" fxLayoutAlign="flex-end center">
-      <p>{{'nav.refresh' | translate}}</p>
-      <div class="ml-[10px] line-refresh"></div>
+    <div class="flex flex-row items-center justify-center">
+      <div class="mr-3">
+        <div class="nav-buttons">
+          <div class="nav-buttons-button" (click)="selectedTab == 'unlisted' ? getMore(-1) : getMoreApprovedGames(currentUser?.wallet!, -1)">
+            <div class="line-arrow_left"></div>
+          </div>
+          <div class="nav-buttons-button"  (click)="selectedTab == 'unlisted' ? getMore(1) : getMoreApprovedGames(currentUser?.wallet!, 1)">
+            <div class="line-arrow_right"></div>
+          </div>
+        </div>
+      </div>
+      <div (click)="currentPage = 1; selectedTab == 'unlisted' ? getGames() : getApprovedGames(currentUser?.wallet!)" class="cursor-pointer" fxLayout="row" fxLayoutAlign="flex-end center">
+        <p>{{'nav.refresh' | translate}}</p>
+        <div class="ml-[10px] line-refresh"></div>
+      </div>
     </div>
 
   </div>

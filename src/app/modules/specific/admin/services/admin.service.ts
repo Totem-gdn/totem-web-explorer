@@ -16,11 +16,11 @@ export class AdminService {
   getGame(id: string) {
     this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => { })
   }
-  getGames() {
-    return this.http.get<any>(`${this.baseUrl}/games?approved=false&page=1`);
+  getGames(page: number) {
+    return this.http.get<any>(`${this.baseUrl}/games?approved=false&page=${page}`);
   }
-  getApprovedGames(owner: string) {
-    return this.http.get<any>(`${this.baseUrl}/games?owner=${owner}`);
+  getApprovedGames(owner: string, page: number) {
+    return this.http.get<any>(`${this.baseUrl}/games?owner=${owner}&page=${page}`);
   }
   approveGame(id: string): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}/games/${id}/approve`, {});
