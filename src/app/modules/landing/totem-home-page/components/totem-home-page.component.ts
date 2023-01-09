@@ -2,6 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { BLOCK_TYPE } from '@app/core/models/enums/block-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 import { AssetsService } from '@app/core/services/assets/assets.service';
@@ -70,6 +71,10 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
   x: number = 0;
   y: number = 0;
   items = [{ image: 'assets/images/item-img-1.png' }, { image: 'assets/images/item-img-2.png' }, { image: 'assets/images/item-img-3.png' }, { image: 'assets/images/item-img-4.png' }, { image: 'assets/images/item-img-1.png' }, { image: 'assets/images/item-img-1.png' }, { image: 'assets/images/item-img-1.png' }];
+
+  promoGame: HomepageBlock | undefined = undefined;
+  promoVideo: HomepageBlock | undefined = undefined;
+  eventBanner: HomepageBlock | undefined = undefined;
 
   eventDate: Date = new Date('10/14/2022 18:00:00 GMT+8');
 
@@ -185,7 +190,7 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
     });
 
     this.initImgChanger();
-    //this.getHomepageBlocks();
+    this.getHomepageBlocks();
   }
 
   override ngOnDestroy(): void {
@@ -200,7 +205,21 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
       .getBlocks()
       .pipe(untilComponentDestroyed(this))
       .subscribe((data: HomepageBlock[]) => {
-        console.log(data);
+
+        if (!data) return;
+
+        data.forEach((block: HomepageBlock) => {
+          if (block.type === BLOCK_TYPE.PROMO_GAME) {
+            this.promoGame = block;
+          };
+          if (block.type === BLOCK_TYPE.PROMO_VIDEO) {
+            this.promoVideo = block;
+          };
+          if (block.type === BLOCK_TYPE.EVENT_BANNER) {
+            this.eventBanner = block;
+          };
+        });
+
       });
   }
 

@@ -48,7 +48,7 @@
     </div>
 
     <div class="content-distance">
-      <totem-promo-game [game]="testGame"></totem-promo-game>
+      <totem-promo-game [game]="promoGame"></totem-promo-game>
     </div>
 
     <div class="content-distance">
@@ -61,7 +61,7 @@
     </div>
 
     <div class="content-distance">
-      <totem-event-counter [eventDate]="eventDate"></totem-event-counter>
+      <totem-event-counter [eventBanner]="eventBanner"></totem-event-counter>
     </div>
 
     <div class="content-distance">
@@ -83,7 +83,7 @@
     </div>
 
     <div class="content-distance content-distance-bottom">
-      <totem-meet-us *ngIf="showAfterScroll"></totem-meet-us>
+      <totem-meet-us [promoVideo]="promoVideo" *ngIf="showAfterScroll"></totem-meet-us>
     </div>
 
   </div>
