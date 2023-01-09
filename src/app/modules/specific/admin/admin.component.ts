@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
+import { PaginationEvent } from "@app/core/models/interfaces/page-event-interface.model";
 import { UserEntity } from "@app/core/models/interfaces/user-interface.model";
 import { UserStateService } from "@app/core/services/auth.service";
 import { BehaviorSubject, Subscription, take } from "rxjs";
@@ -29,7 +30,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     games: any[] = [];
     selectedTab: 'listed' | 'unlisted' = 'unlisted';
     currentUser: UserEntity | null = null;
-
+    currentPage: number = 1;
     ngOnInit() {
       this.getGames();
       this.subs.add(
@@ -44,10 +45,24 @@ export class AdminComponent implements OnInit, OnDestroy {
       )
     }
 
-    getGames() {
-      this.loading$.next(true);
-      this.adminService.getGames().pipe(take(1)).subscribe((games: any[]) => {
+    getMore(page: number) {
+      this.currentPage += page;
+      if (this.currentPage == 0) {
+        this.currentPage = 1;
+      }
+      this.getGames(this.currentPage);
+    }
+    getMoreApprovedGames(owner: string, page: number) {
+      this.currentPage += page;
+      if (this.currentPage == 0) {
+        this.currentPage = 1;
+      }
+      this.getApprovedGames(owner, this.currentPage);
+    }
 
+    getGames(page: number = 1) {
+      this.loading$.next(true);
+      this.adminService.getGames(page).pipe(take(1)).subscribe((games: any[]) => {
         this.games = games.map((game: any) => {
           game.approved = false
           game.deleted = false
@@ -57,9 +72,9 @@ export class AdminComponent implements OnInit, OnDestroy {
       })
     }
 
-    getApprovedGames(owner: string) {
+    getApprovedGames(owner: string, page: number = 1) {
       this.loading$.next(true);
-      this.adminService.getApprovedGames(owner).pipe(take(1)).subscribe((games: any[]) => {
+      this.adminService.getApprovedGames(owner, page).pipe(take(1)).subscribe((games: any[]) => {
 
         this.games = games.map((game: any) => {
           game.rejected = false

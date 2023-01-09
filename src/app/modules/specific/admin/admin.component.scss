@@ -4,6 +4,42 @@
 :host {
   min-height: 60vh;
 }
+.line-arrow_left, .line-arrow_right, * {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: $light-grey;
+  transition: color 0.33s ease-out;
+}
+.nav-buttons {
+  width: 50px;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: row;
+  place-content: space-between;
+
+  &-button {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      .line-arrow_left, .line-arrow_right {
+        color: #fff;
+      }
+    }
+
+    .line-arrow_left, .line-arrow_right {
+      width: auto;
+      font-size: 12px;
+    }
+  }
+
+}
 
 .tab-wrapper {
   button {
