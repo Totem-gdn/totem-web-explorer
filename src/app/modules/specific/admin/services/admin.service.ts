@@ -17,7 +17,7 @@ export class AdminService {
     this.http.get<any>(`${this.baseUrl}/games/${id}`).subscribe((data: any) => { })
   }
   getGames() {
-    return this.http.get<any>(`${this.baseUrl}/games?approved=false&page=3`);
+    return this.http.get<any>(`${this.baseUrl}/games?approved=false&page=1`);
   }
   getApprovedGames(owner: string) {
     return this.http.get<any>(`${this.baseUrl}/games?owner=${owner}`);
