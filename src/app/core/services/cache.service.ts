@@ -15,7 +15,7 @@ export class CacheService {
     private _cachedGames = new BehaviorSubject<GameDetail[] | null>(null);
     set cachedGames(filter: GameDetail[] | null) { this._cachedGames.next(filter) }
     get cachedGames$() {
-        console.log('get cached games')
+        console.log('get cached games', this.cachedGames)
         // return this._cachedGames.asObservable()
         return this._cachedGames.asObservable();
         // return new Observable<GameDetail[] | null>(obs => {

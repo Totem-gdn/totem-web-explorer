@@ -2,17 +2,22 @@
 
     <!-- Nav -->
     <div class="flex flex-col">
-        <div class="gap-[0px] lg:gap-[15px] nav-wrapper flex-wrap sm:flex-nowrap" [ngClass]="itemType != 'game' ? '': '!flex-nowrap'">
-            <div class="flex lg:w-full max-w-[320px]">
-                <filter-slider class="nav-item lg:w-[320px] lg:!hidden"></filter-slider>
-                <clear-all class="nav-item lg:w-[320px] lg:!block !hidden"></clear-all>
-            </div>
+        <div class="gap-[0px] nav-wrapper flex-wrap sm:flex-nowrap" [ngClass]="itemType != 'game' ? '': '!flex-nowrap'">
+            <!-- <div class="flex lg:w-full max-w-[320px]">
 
-            <div class="flex justify-between w-full">
-                <game-dropdown *ngIf="itemType != 'game'" class="nav-item" [title]="'Game name'"></game-dropdown>
+            </div> -->
 
-                <sort-by *ngIf="showSort" [type]="itemType" (sort)="onSort($event)" class="nav-item !ml-auto lg:!mr-0"></sort-by>
-            </div>
+            <!-- <div class="flex justify-between w-full">
+
+            </div> -->
+            <filter-slider class="nav-item lg:max-w-[320px] lg:w-full lg:!hidden"></filter-slider>
+            <clear-all class="order-1 sm:order-none nav-item lg:max-w-[320px] lg:w-full lg:!block !hidden"></clear-all>
+
+            <game-dropdown *ngIf="itemType != 'game'" class="order-3 sm:order-none nav-item" [title]="'Game name'"></game-dropdown>
+
+            <sort-by *ngIf="showSort" [type]="itemType" (sort)="onSort($event)" class="order-2 sm:order-none nav-item !ml-auto !mr-0"></sort-by>
+
+            
         </div>
     </div>
 

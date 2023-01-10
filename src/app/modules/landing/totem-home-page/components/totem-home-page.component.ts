@@ -216,7 +216,7 @@ export class TotemHomePageComponent extends OnDestroyMixin implements OnInit, On
 
   initItemsListener() {
     this.gamesService.fetchGames(1).subscribe(games => {
-      this.games$.next(games);
+      this.games$.next(games.data);
     })
     this.assetService.fetchAssets(ASSET_TYPE.ITEM, 1, ASSET_PARAM_LIST.POPULAR).subscribe(items => {
       if(items.data) {

@@ -4,7 +4,7 @@ import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.mo
 import { GamesService } from "@app/core/services/assets/games.service";
 import { WidgetService } from "@app/core/services/states/widget-state.service";
 import { environment } from "@env/environment";
-import { Subject, Subscription, take, takeUntil } from "rxjs";
+import { first, Subject, Subscription, take, takeUntil } from "rxjs";
 
 @Component({
   selector: 'game-dropdown',
@@ -58,7 +58,7 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
 
   updateGames(filter: string = '') {
     this.gamesService.gamesByFilter(filter, 1)
-      // .pipe(take(1))
+      .pipe(first(games => games))
       .subscribe(games => {
         if (!games) return;
         if(!this.gamesService.gameInSession) this.gamesService.gameInSession = games[0];
@@ -67,7 +67,7 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   }
 
   formatGames(games: GameDetail[], filter: string) {
-    // games[0].
+
     const dropdownGames: DropdownItem[] = [];
     if ('totem'.includes(filter.toLowerCase())) {
       dropdownGames.push(this.formatGame(

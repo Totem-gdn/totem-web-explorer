@@ -36,9 +36,9 @@ export class UserGamesComponent {
 
     this.gamesService.fetchGames(page, list, wallet).subscribe(games => {
       if(reset) {
-        this.setGames = games;
+        this.setGames = games.data;
       } else {
-        this.games = games;
+        this.games = games.data;
       }
     });
   }
