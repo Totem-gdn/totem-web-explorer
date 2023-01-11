@@ -57,11 +57,16 @@
         </div>
         <!-- <p class="jam-info-caption font-totem mt-[10px]">October 14th, 18PM GMT+8</p> -->
       </div>
-      <div class="gradient-face abs-full"></div>
+      <!-- <div class="gradient-face abs-full"></div> -->
       <img loading="lazy" [src]="eventBanner.data?.image?.length ? (eventBanner.data?.image! | safe) : 'assets/images/gamejam.webp'" alt="jam" width="100%" [height]="heightForBanner">
     </div>
     <div fxFlex="32%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" class="timer-container">
-      <div class="title font-totem">{{eventBanner.data?.title || 'GameJam+'}}</div>
+      <div class="title font-totem"
+      [ngStyle]="{
+        'font-size': eventBanner.data?.titleSizes![fontSizeNumber] + 'px',
+        'line-height': eventBanner.data?.titleSizes![fontSizeNumber] + 'px'
+      }"
+      >{{eventBanner.data?.title || 'GameJam+'}}</div>
       <div class="image-container-tablet">
         <div class="floating-border abs-full">
           <div class="floating-border-wrapper">
@@ -124,7 +129,7 @@
           </div>
           <!-- <p class="jam-info-caption font-totem mt-[10px]">{{event.data.eventDate.date | date:event.data.eventDate.format}}</p> -->
         </div>
-        <div class="gradient-face abs-full"></div>
+        <!-- <div class="gradient-face abs-full"></div> -->
         <img loading="lazy" [src]="eventBanner.data?.image?.length ? (eventBanner.data?.image! | safe) : 'assets/images/gamejam.webp'" alt="jam">
       </div>
       <div class="timer-block" fxLayout="row" fxLayoutAlign="space-between center">

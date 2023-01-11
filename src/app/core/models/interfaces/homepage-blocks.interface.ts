@@ -18,6 +18,8 @@ export interface HomepageBlock {
   data?: {
       type?       : string;
       title?      : string;
+      titleFont?  : string;
+      titleSizes?: string[];
       description?: string;
       image?      : string;
       gameUrl?    : string;
