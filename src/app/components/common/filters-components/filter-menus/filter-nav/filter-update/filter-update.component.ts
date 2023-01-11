@@ -43,7 +43,7 @@ export class FilterUpdateComponent implements OnInit, OnDestroy {
     this.gamesService.totalGames$
       .pipe(takeUntil(this.subs))
       .subscribe(total => {
-        if(this.type = 'game') this.total = total?.toString();
+        if(this.type == 'game') this.total = total?.toString();
       })
   }
 
