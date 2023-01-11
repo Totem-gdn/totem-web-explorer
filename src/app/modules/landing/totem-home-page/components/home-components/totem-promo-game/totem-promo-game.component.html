@@ -1,12 +1,12 @@
-<div class="promo-game-wrapper md:!h-[260px]">
+<div class="promo-game-wrapper md:!h-[260px]" *ngIf="game">
   <div class="game-info md:!w-[450px] md:!h-[260px]" fxLayout="column" fxLayoutAlign="center start">
-    <div class="game-name">{{game[0].name}}</div>
-    <div class="game-description">{{game[0].description}}</div>
+    <div class="game-name">{{game.data!.title}}</div>
+    <div class="game-description">{{game.data!.description}}</div>
     <div class="game-cta">
       <totem-button [customId]="'promoButton'" [caption]="'home.play_now' | translate" (click)="goToGame()"></totem-button>
     </div>
   </div>
   <div class="img-wrapper">
-    <img loading="lazy" [src]="game[0].url" alt="game-icon" width="100%" [height]="innerWidth > 767 ? 260 : 460">
+    <img loading="lazy" [src]="game.data!.image?.length ? (game.data!.image! | safe) : 'assets/images/dino-game.webp'" alt="game-icon" width="100%" [height]="innerWidth > 767 ? 260 : 460">
   </div>
 </div>

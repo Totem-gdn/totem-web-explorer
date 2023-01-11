@@ -1,4 +1,4 @@
-<div class="totem-meet-us">
+<div class="totem-meet-us" *ngIf="promoVideo">
   <div class="totem-meet-us-bg">
       <span style="--i: -2s;" class="first-circle"></span>
       <span style="--i: -3s;" class="second-circle"></span>
@@ -9,13 +9,13 @@
       <span style="--i: -8s;" class="seventh-circle"></span>
     </div>
   <div class="totem-meet-us-wrapper" fxLayout="column" fxLayoutAlign="center center">
-    <div class="head-caption font-totem">{{'home.meet_totem' | translate}}</div>
+    <div class="head-caption font-totem">{{promoVideo.data!.title || ('home.meet_totem' | translate)}}</div>
     <div class="totem-video-block">
       <iframe
         title="Promo video"
         loading="lazy"
         class="totem-video"
-        src="https://www.youtube.com/embed/Pfswi73BQU4?autoplay=1&mute=1">
+        [src]="promoVideo ? (promoVideo.data!.videoUrl! | safe) : 'https://www.youtube.com/embed/Pfswi73BQU4?autoplay=1&mute=1'">
       </iframe>
     </div>
   </div>

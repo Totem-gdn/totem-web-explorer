@@ -1,4 +1,5 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 
 @Component({
   selector: 'totem-promo-game',
@@ -6,7 +7,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
   styleUrls: ['./totem-promo-game.component.scss']
 })
 export class TotemPromoGameComponent implements OnInit {
-  @Input() game!: any[];
+  @Input() game: HomepageBlock | undefined = undefined;
   innerWidth: number = 0;
   constructor() { }
 
@@ -15,7 +16,7 @@ export class TotemPromoGameComponent implements OnInit {
   }
 
   goToGame() {
-    window.open(this.game[0].gameUrl, '_blank');
+    window.open(this.game!.data!.gameUrl, '_blank');
   }
 
   @HostListener('window:resize', ['$event'])

@@ -1,4 +1,5 @@
 import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -9,11 +10,14 @@ import { Subscription, timer } from 'rxjs';
 export class TotemEventCounterComponent implements OnInit, OnDestroy {
 
   subscribe!: Subscription;
-  @Input() eventDate!: Date;
+  eventDate!: Date;
   days: number = 0;
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
+
+  @Input() eventBanner: HomepageBlock | undefined = undefined;
+  fontSizeNumber: number = 0;
 
   eventDateTime: number = 0;
 
@@ -22,12 +26,15 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
   constructor(){}
 
   ngOnInit(): void {
+    this.calcSizeForBanner();
+    if (!this.eventBanner?.data?.eventDate?.date) return;
+    this.eventDate = new Date(this.eventBanner.data.eventDate.date);
+
     this.eventDateTime = this.eventDate.getTime();
     let currentDate: number = new Date().getTime();
     if (this.eventDateTime > currentDate) {
       this.calcRemainingTime();
     }
-    this.calcSizeForBanner();
   }
 
   calcRemainingTime() {
@@ -49,6 +56,10 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
     });
   }
 
+  goToEventPage(event: any) {
+    window.open(this.eventBanner!.data!.eventUrl, '_blank');
+  }
+
   ngOnDestroy(): void {
       this.subscribe?.unsubscribe();
   }
@@ -62,12 +73,15 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
     const innerWidth = window.innerWidth
     if(innerWidth > 961) {
       this.heightForBanner = 438;
+      this.fontSizeNumber = 0;
     }
     if(innerWidth < 600) {
       this.heightForBanner = 280;
+      this.fontSizeNumber = 1;
     }
     if(innerWidth < 490) {
       this.heightForBanner = 205;
+      this.fontSizeNumber = 2;
     }
   }
 }

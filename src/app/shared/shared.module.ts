@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
+import { SafeUrlPipeModule } from "@app/core/pipes/safe-url/safe-url.module";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NgxMaskModule } from "ngx-mask";
@@ -16,7 +17,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
     declarations: [
         LoadingSpinner,
-        
+
     ],
     imports: [
         CommonModule,
@@ -25,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         PipesModule,
         DirectivesModule,
         TotemSpinnerModule,
+        SafeUrlPipeModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -45,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
         LoadingSpinner,
         TotemSpinnerModule,
+        SafeUrlPipeModule
     ]
 })
 

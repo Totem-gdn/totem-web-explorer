@@ -17,7 +17,7 @@ import { SharedModule } from '@app/shared/shared.module';
     MatButtonModule,
     TotemButtonModule,
     SharedModule,
-    CommonModule
+    CommonModule,
   ],
   exports: [
     TotemEventCounterComponent

@@ -274,7 +274,7 @@
             padding: 53px 39px;
           }
           &-title {
-            margin-bottom: 10px;
+            //margin-bottom: 10px;
             &-face, &-blured {
               font-weight: 400;
               font-size: 64px;
@@ -347,7 +347,7 @@
         @media (max-width: 490px) {
           height: 205px;
         }
-        &::before {
+        /* &::before {
           content: "";
           pointer-events: none;
           position: absolute;
@@ -362,7 +362,7 @@
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           transition: opacity 0.33s ease-out;
-        }
+        } */
       }
     }
   }
