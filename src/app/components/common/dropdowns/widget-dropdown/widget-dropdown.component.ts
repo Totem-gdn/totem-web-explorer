@@ -27,7 +27,7 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements Af
 
     this.scriptSub = timer(1000, 6000).subscribe(() => {
       let scriptIndex = this.widgetService.scriptIndex;
-      if (!this.dropdownGames.length) {
+      if (!this.dropdownGames?.length) {
         scriptIndex = 0;
         return;
       }
@@ -35,7 +35,7 @@ export class WidgetDropdownComponent extends GameDropdownComponent implements Af
         this.scriptSub?.unsubscribe();
         return;
       }
-      if (scriptIndex >= this.dropdownGames.length) scriptIndex = 0;
+      if (scriptIndex >= this.dropdownGames?.length) scriptIndex = 0;
       this.widgetService.selectedGame = this.dropdownGames[scriptIndex].data;
       // this.scriptSelectedGame = this.dropdownGames[scriptIndex];
       // Auto Scroll
