@@ -1,18 +1,23 @@
 <div class="dropdown-skeleton" (clickOutside)="onClick($event)">
     <!-- Title -->
-    <div class="dropdown-toggle" (click)="menuActive = !menuActive" [ngClass]="menuActive ? 'appear': ''">
+    <div class="dropdown-toggle" 
+        (click)="menuActive = !menuActive" 
+        [ngClass]="{'appear': menuActive,'!w-[250px] sm:!w-[200px]': widgetMode }">
+
         <span>{{selectedItem?.title || 'Game Name'}}</span>
         <div class="line-arrow_down" [ngClass]="menuActive || widgetMode ? 'rotate-x-180': ''"></div>
     </div>
 
 
-    <div #dropdown class="menu w-[200px] sm:w-[300px]" [ngClass]="menuActive || widgetMode ? 'appear': ''">
+    <div #dropdown class="menu w-[200px] sm:w-[300px]" 
+        [ngClass]="{'appear': menuActive || widgetMode, 'w-[250px] sm:w-[300px]': widgetMode}">
 
         <!-- Search -->
         <search-field [resetFilters]="resetFilters" (changedValue)="searchEvent($event)"></search-field>
 
         <!-- Items -->
-        <div #menuItems class="menu-items">
+        <div #menuItems class="menu-items"
+            [ngClass]="widgetMode ? '!max-h-[100px] lg:!max-h-[200px]': ''">
             <div class="menu-item"
                 *ngFor="let item of items; let i = index"
                 (click)="onChangeInput(item)"

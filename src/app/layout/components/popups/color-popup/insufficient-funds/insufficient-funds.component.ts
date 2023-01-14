@@ -65,7 +65,6 @@ export class InsufficientFundsComponent implements OnDestroy {
     }
 
     updateBalance() {
-        console.log('update balance')
         this.cryptoUtilsService.updateBalance();
     }
 

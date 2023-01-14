@@ -30,6 +30,7 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   subs = new Subject<void>();
   dropdownGames!: DropdownItem[];
   selectedGame!: DropdownItem;
+  menuHeight = '100px';
 
   // Widget
   scriptSelectedGame?: DropdownItem;
@@ -42,10 +43,6 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
     const gameInSession = this.gamesService.gameInSession;
     if (gameInSession) this.selectedGame = this.formatGame(gameInSession);
   }
-
-  // ngAfterViewInit(): void {
-  //   this.changeDetector.detectChanges();
-  // }
 
   selectedGame$() {
     this.gamesService.selectedGame$

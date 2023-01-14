@@ -25,7 +25,6 @@ export class ColorPopupComponent implements OnDestroy {
 
     ngOnInit() {
         this.sub = this.popupService.colorPopup$.subscribe(type => {
-            console.log('type', this.type)
             this.type = type;
         })
     }

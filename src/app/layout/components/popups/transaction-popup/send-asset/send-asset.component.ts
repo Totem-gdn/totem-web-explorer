@@ -58,7 +58,6 @@ export class SendAssetComponent implements OnInit, OnDestroy {
             } else this.choosePaymentMethod = false;
         }
 
-        console.log('paymnet info', this.paymentInfo)
     };
 
     paymentInfo?: PaymentInfo;

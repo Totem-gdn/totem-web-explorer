@@ -12,7 +12,7 @@ import { GamesService } from "@app/core/services/assets/games.service";
     styleUrls: ['./dropdown-skeleton.component.scss']
 })
 
-export class DropdownSkeletonComponent implements AfterViewInit, AfterViewChecked {
+export class DropdownSkeletonComponent implements AfterViewInit {
     get selectStyles() { return this.menuActive ? 'appear': this.widgetMode ? 'appear selected-script-item': ''}
 
     constructor(private router: Router,
@@ -28,7 +28,6 @@ export class DropdownSkeletonComponent implements AfterViewInit, AfterViewChecke
     @Output() changeSearch = new EventEmitter<any>();
 
     @ViewChild('dropdown') dropdown!: ElementRef;
-    @ViewChild('menu-items') menuItems!: ElementRef;
 
     menuActive: boolean = false;
     widgetMode: boolean = false;
@@ -36,9 +35,6 @@ export class DropdownSkeletonComponent implements AfterViewInit, AfterViewChecke
 
     ngAfterViewInit() {
         this.changeDetector.detectChanges();
-    }
-    ngAfterViewChecked(): void {
-        // this.changeDetector.detectChanges();
     }
 
     onChangeInput(item: DropdownItem) {

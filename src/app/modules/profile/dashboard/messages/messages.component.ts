@@ -110,7 +110,6 @@ export class MessagesComponent extends OnDestroyMixin implements OnInit {
   }
 
   pageEvent(pagination: PaginationEvent) {
-    console.log(pagination);
     this.getMessages(pagination.currentPage + 1);
     //let arrayToList = this.messageList.getValue().slice(pagination.currentPage * pagination.size, (pagination.currentPage * pagination.size) + pagination.size);
     //this.messageList.next(arrayToList);
