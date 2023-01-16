@@ -45,12 +45,12 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   }
 
   selectedGame$() {
-    this.gamesService.selectedGame$
-      .pipe(takeUntil(this.subs))
-      .subscribe(game => {
-        if (!game) return;
-        this.selectedGame = this.formatGame(game);
-      })
+    // this.gamesService.selectedGame$
+    //   .pipe(takeUntil(this.subs))
+    //   .subscribe(game => {
+    //     if (!game) return;
+    //     this.selectedGame = this.formatGame(game);
+    //   })
   }
 
   updateGames(filter: string = '') {
@@ -65,7 +65,10 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
 
   formatGames(games: GameDetail[], filter: string) {
 
+    const gameInSession = this.gamesService.gameInSession;
+
     const dropdownGames: DropdownItem[] = [];
+
     if ('totem'.includes(filter.toLowerCase())) {
       dropdownGames.push(this.formatGame(
         {
@@ -84,7 +87,12 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
       ))
     }
 
+    if (gameInSession?.general?.name?.includes(filter.toLowerCase()) && gameInSession?.general?.name.toLowerCase() != 'еotem') {
+      dropdownGames.push(this.formatGame(gameInSession))
+    }
+
     for (let game of games) {
+      if(game?.general?.name?.toLowerCase() == gameInSession?.general?.name?.toLowerCase()) continue;
       const dropdownGame = this.formatGame(game);
       dropdownGames.push(dropdownGame);
     }

@@ -51,6 +51,6 @@ export class GemInfoComponent implements OnInit, OnDestroy {
     }
 
     getSelectedGame() {
-        return this.gamesService.selectedGame$;
+        return this.gamesService.gameInSession;
     }
 }

@@ -90,15 +90,17 @@ export class GamesService {
   }
 
 
-  set gameInSession(game: GameDetail) {
+  set gameInSession(game: GameDetail | undefined) {
+    if(!game) return;
     this.baseStorageService.setItem(this.uniqSessionKey, JSON.stringify(game), 'sesion');
     this.selectedGame = game;
   }
 
-  get gameInSession(): GameDetail {
+  get gameInSession(): GameDetail | undefined {
     const elSession = this.baseStorageService.getItem(this.uniqSessionKey, 'sesion');
     let game;
     if (elSession) {
+      
       game = JSON.parse(elSession);
       this.selectedGame = game;
     }

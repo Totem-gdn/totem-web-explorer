@@ -41,6 +41,7 @@ export class DropdownSkeletonComponent implements AfterViewInit {
         this.selectedItem = item;
         this.changeInput.emit(item.data);
         this.menuActive = false;
+        this.resetFilters = !this.resetFilters;
     }
 
     searchEvent(e: any) {

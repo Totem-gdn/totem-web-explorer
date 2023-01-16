@@ -52,7 +52,7 @@ export class AssetInfoComponent implements AfterViewInit {
         this.processItem(asset?.tokenId)
     }
 
-    @Input() set selectedGame(game: GameDetail | null) {
+    @Input() set selectedGame(game: GameDetail | null | undefined) {
         if (!game) return;
         if (game?.connections?.assetRenderer) {
             this.assetRendererUrl = game?.connections.assetRenderer;

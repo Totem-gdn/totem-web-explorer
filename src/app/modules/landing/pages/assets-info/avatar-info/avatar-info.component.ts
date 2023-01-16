@@ -56,6 +56,6 @@ export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
   }
 
   getSelectedGame() {
-    return this.gamesService.selectedGame$;
+    return this.gamesService.gameInSession;
   }
 }
