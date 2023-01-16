@@ -9,8 +9,8 @@
     </div>
 
 
-    <div #dropdown class="menu w-[200px] sm:w-[300px]" 
-        [ngClass]="{'appear': menuActive || widgetMode, 'w-[250px] sm:w-[300px]': widgetMode}">
+    <div #dropdown class="menu lg:w-[300px]" 
+        [ngClass]="{'appear': menuActive || widgetMode, 'w-[250px] sm:!w-[300px]': widgetMode}">
 
         <!-- Search -->
         <search-field [resetFilters]="resetFilters" (changedValue)="searchEvent($event)"></search-field>
