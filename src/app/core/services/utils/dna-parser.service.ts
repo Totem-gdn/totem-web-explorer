@@ -59,13 +59,7 @@ export class DNAParserService {
         //     }
         // })
         console.log('json reques')
-        // json = await firstValueFrom(
-        //     this.http.get<any>(jsonUrl)
-        //         .pipe(catchError(error => {
-        //             console.log(error)
-        //             return '';
-        //         }))
-        // );
+        json = await firstValueFrom(this.http.get<any>(jsonUrl))
 
         return json;
     }

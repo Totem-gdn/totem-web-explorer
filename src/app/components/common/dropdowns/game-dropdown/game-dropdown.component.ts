@@ -37,6 +37,8 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   scriptSub?: Subscription;
 
   ngOnInit() {
+    const sessionGame = this.gamesService.gameInSession;
+    if(sessionGame) this.gamesService.selectedGame = sessionGame;
     this.updateGames();
     this.selectedGame$();
 

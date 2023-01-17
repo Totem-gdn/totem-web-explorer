@@ -79,7 +79,7 @@ export class AssetInfoComponent implements AfterViewInit {
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
                 console.log('selected game')
-                // this.processItem(this._item?.tokenId, selectedGame);
+                this.processItem(this._item?.tokenId, selectedGame);
             })
     }
 
