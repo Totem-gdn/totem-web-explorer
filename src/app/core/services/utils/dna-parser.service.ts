@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
-import { firstValueFrom } from "rxjs";
+import { catchError, firstValueFrom, throwError } from "rxjs";
 // const { itemFilterJson} = require('totem-common-files');
 const DNAFilter = require('totem-common-files');
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
@@ -58,7 +58,14 @@ export class DNAParserService {
         //         "Accept": "application/json"
         //     }
         // })
-        json = await firstValueFrom(this.http.get<any>(jsonUrl));
+        console.log('json reques')
+        // json = await firstValueFrom(
+        //     this.http.get<any>(jsonUrl)
+        //         .pipe(catchError(error => {
+        //             console.log(error)
+        //             return '';
+        //         }))
+        // );
 
         return json;
     }

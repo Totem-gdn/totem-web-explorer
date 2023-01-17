@@ -33,6 +33,7 @@ export class GamesService {
 
   get selectedGame$() { return this._selectedGame.asObservable() }
   set selectedGame(value: GameDetail) {
+    
     if (value) {
       this._selectedGame.next(value);
     }
@@ -100,9 +101,9 @@ export class GamesService {
     const elSession = this.baseStorageService.getItem(this.uniqSessionKey, 'sesion');
     let game;
     if (elSession) {
-      
+      console.log('set selected game')
       game = JSON.parse(elSession);
-      this.selectedGame = game;
+      // this.selectedGame = game;
     }
     return game;
   }
