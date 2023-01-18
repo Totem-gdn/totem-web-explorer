@@ -20,7 +20,7 @@ const versionInfo = {
     lastCommitMessage: commitMsg,
     lastCommitNumber: totalCommitCount,
     environment: env,
-    date: new Date()
+    lastBuildTime: new Date()
 }
 
 const versionInfoJson = JSON.stringify(versionInfo, null, 2);
