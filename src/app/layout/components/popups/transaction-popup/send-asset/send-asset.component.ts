@@ -25,15 +25,8 @@ import { Subject, takeUntil } from "rxjs";
 
 export class SendAssetComponent implements OnInit, OnDestroy {
 
-    set paymentMethod(method: PAYMENT_METHOD | null) {
-        {
-            if (!method) return;
-            this.localStorage.setItem('paymentMethod', method)
-        }
-    }
     get paymentMethod() { 
-        const method = (this.localStorage.getItem('paymentMethod') as PAYMENT_METHOD | null)
-        return method;
+        return this.transferService.paymentMethod;
      }
 
     constructor(
@@ -43,7 +36,6 @@ export class SendAssetComponent implements OnInit, OnDestroy {
         private snackService: SnackNotifierService,
         private gtag: Gtag,
         private transferService: TransferService,
-        private localStorage: BaseStorageService
     ) {
         this.gtag.event('page_view');
     }

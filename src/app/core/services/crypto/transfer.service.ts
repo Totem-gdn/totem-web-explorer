@@ -1,7 +1,9 @@
 
 import { Injectable } from "@angular/core";
+import { PAYMENT_METHOD } from "@app/core/models/enums/transaction-type.enum";
 import { GetTokensABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { BehaviorSubject } from "rxjs";
 import Web3 from "web3";
 
 
@@ -14,6 +16,9 @@ export class TransferService {
         private web3: Web3AuthService,
     ) { }
 
+    private _paymentMethod = new BehaviorSubject<PAYMENT_METHOD | null>(null);
+    set paymentMethod(method: PAYMENT_METHOD | null) { this._paymentMethod.next(method) }
+    get paymentMethod() { return this._paymentMethod.getValue() }
 
     async transferMatic(address: string, amount: number) {
         const web3 = new Web3(this.web3.provider as any);

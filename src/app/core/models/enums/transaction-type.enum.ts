@@ -5,6 +5,7 @@ export enum TRANSACTION_TYPE {
 }
 
 export enum PAYMENT_METHOD {
+    ABSENT = 'absent',
     CARD = 'card',
     WALLET = 'wallet'
 }
