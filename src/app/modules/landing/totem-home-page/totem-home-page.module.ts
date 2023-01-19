@@ -19,6 +19,7 @@ import { NgParticlesModule } from 'ng-particles';
 import { RouterModule } from '@angular/router';
 import { CardsModule } from '../../../components/common/cards/cards.module';
 import { CarouselModule } from '@app/components/common/carousel/carousel.module';
+import { TotemWidgetModule } from './components/home-components/totem-widget/totem-widget.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CarouselModule } from '@app/components/common/carousel/carousel.module'
     GameCardModule,
     CarouselModule,
     HomeWidgetModule,
+    TotemWidgetModule,
     CardsModule,
 
     BackgroundCircleModule,

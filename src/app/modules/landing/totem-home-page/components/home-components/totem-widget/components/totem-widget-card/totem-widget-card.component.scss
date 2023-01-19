@@ -1,0 +1,25 @@
+@import 'styles/scss/variables';
+
+.card-top-bar {
+  background: linear-gradient(73.08deg, rgba(8, 9, 10, 0.8) 26.96%, rgba(0, 0, 0, 0.2) 192.77%);
+}
+
+
+.card-content {
+  border-radius: 4px;
+}
+.card-image-wrapper {
+  background: rgba(10, 10, 8, 0.5);
+}
+.card-footer {
+  background: rgba(53, 56, 64, 0.9);
+}
+.like {
+  font-size: 15.4px !important;
+  cursor: unset;
+  width: 17.4px !important;
+  height: 15.4px !important;
+  &:hover {
+    color: $light-grey;
+  }
+}

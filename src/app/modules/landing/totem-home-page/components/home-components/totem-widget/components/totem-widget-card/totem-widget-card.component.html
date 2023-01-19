@@ -1,0 +1,37 @@
+<div class="w-[190px] h-[288px]">
+  <div class="card-top-bar h-[40px] w-full rounded flex flex-row items-center justify-start p-1">
+    <img class="rounded object-cover w-[32px] h-[32px]" [src]="game?.images?.smallThumbnail" alt="thumb">
+    <div class="flex flex-col items-start justify-center ml-2">
+      <p class="font-medium text-[14px] leading-[16px]">{{game?.general?.name}}</p>
+      <p class="font-normal text-[12px] text-[#8A939B] leading-[12px]">{{game?.general?.genre![0]}}</p>
+    </div>
+  </div>
+  <div *ngIf="asset" class="card-content h-[244px] flex flex-col w-full mt-1 overflow-hidden">
+    <div class="h-full w-full card-image-wrapper shrink overflow-hidden">
+      <img class="h-full w-full object-cover" [src]="asset?.rendererUrl" alt="asset">
+    </div>
+    <div class="h-[76px] w-full card-footer flex flex-col shrink-0 p-2">
+      <div class="flex flex-row items-center justify-between">
+        <p class="font-medium text-[20px] leading-[23px]">ID: {{asset.tokenId}}</p>
+        <div class="like line-like"></div>
+      </div>
+      <div class="flex flex-row items-center justify-between mt-2">
+        <div class="flex flex-col items-start justify-start">
+          <p class="font-medium text-[13px] leading-[15px]">{{asset.updatedAt | date:'dd.MM.yy'}}</p>
+          <p class="font-medium text-[10px] leading-[12px] text-[#8A939B]">Last used</p>
+        </div>
+        <div class="flex flex-col items-start justify-start">
+          <p class="font-medium text-[13px] leading-[15px]">{{asset.rarity}}</p>
+          <p class="font-medium text-[10px] leading-[12px] text-[#8A939B]">Rarity</p>
+        </div>
+        <div class="flex flex-col items-start justify-start">
+          <p class="font-medium text-[13px] leading-[15px]">{{asset.games}}</p>
+          <p class="font-medium text-[10px] leading-[12px] text-[#8A939B]">Games used</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!asset" class="card-content h-[250px] flex flex-col w-full items-center justify-center mt-1 overflow-hidden">
+    <totem-spinner [size]="'36'"></totem-spinner>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="widget-wrapper relative min-h-[400px] flex flex-row items-center flex-wrap align-middle lg:flex-nowrap justify-around lg:justify-between p-[25px] lg:p-[25px]">
+
+  <div class="bg-circle-wrapper z-1">
+    <bg-circle class="left-[-140px] top-[-140px]" [width]="'280px'" [background]="'#FFD011'"></bg-circle>
+    <bg-circle class="left-[200px] top-[-75px]" [width]="'150px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="left-[0px] top-[100px]" [width]="'200px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="left-[600px] bottom-[-140px] z-11 blur-bold" [width]="'230px'" [background]="'#FFD011'"></bg-circle>
+
+    <bg-circle class="right-[260px] top-[0px]" [width]="'260px'" [background]="'#3A23C9'"></bg-circle>
+    <bg-circle class="right-[-130px] top-[-130px]" [width]="'260px'" [background]="'#2397C9'"></bg-circle>
+    <bg-circle class="right-[0] bottom-[-70px]" [width]="'200px'" [background]="'#FFD011'"></bg-circle>
+    <bg-circle class="left-[500px] bottom-[-30px]" [width]="'150px'" [background]="'#5823C9'"></bg-circle>
+    <bg-circle class="right-[0px] bottom-[-200px]" [width]="'400px'" [background]="'#8023C9'"></bg-circle>
+  </div>
+
+  <div class="flex flex-col justify-center items-start h-full max-w-[400px] z-2">
+    <p class="font-totem uppercase font-normal text-[32px] leading-[32px]">Try on your Item for any game!</p>
+    <p class="max-w-[306px] w-full font-medium text-[16px] leading-[18.75px] mt-4">See how the appearance of the same item or avatar changes in different games!</p>
+    <div class="flex flex-row flex-nowrap items-center justify-center asset-selector-button h-[40px] max-w-[264px] w-full relative cursor-pointer mt-9">
+      <p class="font-bold text-[16px] leading-[18.75px] text-center w-1/2 z-2" (click)="selectAsset('avatar')" [ngStyle]="{'color': assetTypeSelected == 'avatar' ? '#111' : ''}">Avatars</p>
+      <p class="font-bold text-[16px] leading-[18.75px] text-center w-1/2 z-2" (click)="selectAsset('item')" [ngStyle]="{'color': assetTypeSelected == 'item' ? '#111' : ''}">Items</p>
+      <div
+        class="button-selector absolute h-full w-1/2 z-1"
+        [ngStyle]="{'transform': assetTypeSelected == 'item' ? 'translateX(100%)' : 'translateX(0%)'}">
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full max-w-[784px] flex flex-col z-2">
+    <p class="font-bold text-[36px] leading-[42px]">ID: {{assetsSelected.length ? assetsSelected[0].tokenId : 0}}</p>
+    <div class="w-full max-w-[784px] flex flex-row justify-between mt-2">
+      <ng-container *ngFor="let item of games.slice(0, 4); let i = index">
+        <totem-widget-card [game]="item" [asset]="assetsSelected[i]"></totem-widget-card>
+      </ng-container>
+    </div>
+  </div>
+
+</div>
