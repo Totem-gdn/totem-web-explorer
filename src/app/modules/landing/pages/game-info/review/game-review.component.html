@@ -56,11 +56,8 @@
 
     <!-- Text -->
     <div class="flex max-w-[calc(100vw-40px)]">
-        <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">
-            {{'description.descriptions_game_2' | translate}}
-        </p>
-        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">
-            {{game?.general?.description}}</p>
+        <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">{{'description.descriptions_game_2' | translate}}</p>
+        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">{{game?.general?.description}}</p>
     </div>
 
     <!-- Details -->
