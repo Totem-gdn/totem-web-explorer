@@ -27,21 +27,5 @@
         ]
       }
     }
-  ],
-  "dataGroups": [
-    {
-      "name": "api",
-      "urls": [
-        "https://static-dev.totem-explorer.com/**",
-        "https://static.totem-explorer.com/**"
-      ],
-      "cacheConfig": {
-        "maxSize": 1,
-        "maxAge": "10s",
-        "timeout": "6s",
-        "strategy": "freshness",
-        "cacheOpaqueResponses": false
-      }
-    }
   ]
 }
