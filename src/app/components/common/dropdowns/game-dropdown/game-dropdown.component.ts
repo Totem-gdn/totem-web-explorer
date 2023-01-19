@@ -43,6 +43,7 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
     this.selectedGame$();
 
     const gameInSession = this.gamesService.gameInSession;
+    console.log('game is session', gameInSession)
     if (gameInSession) this.selectedGame = this.formatGame(gameInSession);
   }
 
@@ -68,6 +69,7 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   formatGames(games: GameDetail[], filter: string) {
 
     const gameInSession = this.gamesService.gameInSession;
+    console.log('game IS', gameInSession)
 
     const dropdownGames: DropdownItem[] = [];
 
@@ -89,7 +91,7 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
       ))
     }
 
-    if (gameInSession?.general?.name?.includes(filter.toLowerCase()) && gameInSession?.general?.name.toLowerCase() != 'еotem') {
+    if (gameInSession?.general?.name?.includes(filter.toLowerCase()) && gameInSession?.general?.name.toLowerCase() != 'totem') {
       dropdownGames.push(this.formatGame(gameInSession))
     }
 
