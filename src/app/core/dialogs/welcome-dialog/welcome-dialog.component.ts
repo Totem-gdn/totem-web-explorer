@@ -237,6 +237,7 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.unsubscribe();
     clearInterval(this.slideInterval);
+    this.web3Service.resetUsdcAndMaticResponse();
   }
 
 }
