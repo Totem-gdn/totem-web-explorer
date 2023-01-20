@@ -159,6 +159,7 @@
     "core":{
         "first_time_there": "First time there",
         "we_are_giving_away": "We are giving away a small amount of tokens which will allow you to buy several Totem assets",
+        "we_are_giving_funds": "We are sending you some funds so you can purchase your first game assets. This can take up to one minute",
         "welcome_to": "Welcome to"
     },
     "popups":{
