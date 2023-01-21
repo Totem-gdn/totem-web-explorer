@@ -63,6 +63,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
     let token = userInfo?.idToken;
     let publicKey;
+    this.openWelcomeDialog();
     if (userInfo?.idToken) {
       // Social Wallets
       token = userInfo?.idToken;
