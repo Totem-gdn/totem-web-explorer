@@ -29,6 +29,8 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
   slideInterval: any;
   slideStep: 'first' | 'second' | 'third' | 'fourth' = 'first';
 
+  closeInterval: any;
+  secondsToClose: number = 5;
   buttonCaption: string = "Let's start";
   tokensClaimed: { MATIC: boolean, USDC: boolean } = { MATIC: false, USDC: false };
   steps: any = [
@@ -85,7 +87,7 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
         return;
       }
     }, 2400);
-    this.setAsAccept();
+    this.listenTxAndGetFunds();
   }
 
   // transaction
@@ -147,6 +149,7 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
       this.steps[this.stepIndex].step = true;
       this.steps[this.stepIndex].loading = false;
       this.cryptoUtilsService.updateBalance();
+      this.setAsAccept();
     }
   }
 
@@ -184,6 +187,16 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
     )
   }
 
+  startCountToClose() {
+    this.closeInterval = setInterval(()=>{
+      this.secondsToClose -= 1;
+      if (this.secondsToClose == 0) {
+        this.close();
+        clearInterval(this.closeInterval);
+      }
+    }, 1000);
+  }
+
   //
 
   setAsAccept() {
@@ -191,17 +204,17 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
       this.tokenGiveawayService.setActivity(1).pipe(
         catchError((err: HttpErrorResponse) => {
           this.snackService.open(err.error?.message || err.message);
-          this.errorMessage = err.error?.message || err.message;
-          this.errorState = true;
+          //this.errorMessage = err.error?.message || err.message;
+          //this.errorState = true;
           return of();
         })
       ).subscribe((response: WelcomeUser) => {
         if (response && response.welcomeTokens == 1) {
-          this.listenTxAndGetFunds();
+          this.startCountToClose();
         } else {
-          this.errorMessage = 'There was an error while processing your request.';
           this.snackService.open('Error while processing your request');
-          this.errorState = true;
+          //this.errorMessage = 'There was an error while processing your request.';
+          //this.errorState = true;
         }
       })
     );
