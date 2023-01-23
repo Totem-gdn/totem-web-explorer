@@ -18,6 +18,7 @@ export class LegacyService {
         return this.http.get<LegacyResponse<Achievement[]>>(`${this.gdnApiUrl}/asset-legacy/${type}?assetId=${id}${query}`).pipe(
           catchError((error: any) => of())
         );
+        
         /* return this.http.get<Legacy>(`https://legacy-api.totem.gdn/${id}`); */
 
         // return this.http.get<Legacy>(`https://legacy-api.totem.gdn/itemId-000000`);
