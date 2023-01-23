@@ -84,7 +84,7 @@
       <div *ngIf="activeTab === tabType.GAMES_TAB" class="content-games">
         <div *ngIf="gamesArray | async as items; else noItems" class="items-wrapper">
           <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToGame(item.id)">
-            <div class="item-prev-icon">
+            <div class="item-prev-icon shrink-0">
               <img
                 loading="lazy"
                 [src]="item?.images?.smallThumbnail"
@@ -95,8 +95,8 @@
                   <totem-spinner></totem-spinner>
                 </div>
             </div>
-            <div fxLayout="column" fxLayoutAlign="center start">
-              <div class="item-name">{{item?.general?.name}}</div>
+            <div fxLayout="column" fxLayoutAlign="center start" class="w-full truncate">
+              <div class="item-name truncate max-w-full w-full">{{item?.general?.name}}</div>
               <div class="item-type">{{item?.general?.genre ? item?.general.genre[0] : 'Action'}}</div>
             </div>
           </div>
