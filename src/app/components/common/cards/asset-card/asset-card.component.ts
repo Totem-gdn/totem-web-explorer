@@ -54,7 +54,7 @@ export class AssetCardComponent implements AfterViewInit {
       return;
     }
     if (!this.type) return;
-    
+
     if (!this._asset.isLiked) {
       this.favService.addLike(this.type, this._asset.id).subscribe({
         next: () => {
@@ -86,7 +86,8 @@ export class AssetCardComponent implements AfterViewInit {
 
   setRendererUrl(rendererUrl: string) {
     if (!rendererUrl && !this._asset) return;
-    this._asset.rendererUrl = `${rendererUrl}/${this.type}/${this._asset?.tokenId}?width=400&height=400`;
+    const rendererUrlChecked = rendererUrl.slice(-1) === '/' ? rendererUrl.slice(0, -1) : rendererUrl;
+    this._asset.rendererUrl = `${rendererUrlChecked}/${this.type}/${this._asset?.tokenId}?width=400&height=400`;
   }
 
   onNavigate() {
