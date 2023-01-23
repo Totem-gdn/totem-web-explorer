@@ -48,12 +48,12 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   }
 
   selectedGame$() {
-    // this.gamesService.selectedGame$
-    //   .pipe(takeUntil(this.subs))
-    //   .subscribe(game => {
-    //     if (!game) return;
-    //     this.selectedGame = this.formatGame(game);
-    //   })
+    this.gamesService.selectedGame$
+      .pipe(takeUntil(this.subs))
+      .subscribe(game => {
+        if (!game) return;
+        this.selectedGame = this.formatGame(game);
+      })
   }
 
   updateGames(filter: string = '') {
@@ -61,7 +61,7 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
       .pipe(first(games => games))
       .subscribe(games => {
         if (!games) return;
-        if(!this.gamesService.gameInSession) this.gamesService.gameInSession = games[0];
+        // if(!this.gamesService.gameInSession) this.gamesService.gameInSession = games[0];
         this.formatGames(games, filter);
       });
   }

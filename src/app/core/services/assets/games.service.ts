@@ -101,6 +101,21 @@ export class GamesService {
   get gameInSession(): GameDetail | null {
     const elSession = this.baseStorageService.getItem(this.uniqSessionKey, 'local');
     let game;
+    if(!elSession) {
+      return         {
+        id: 'totem',
+        general: {
+          name: 'Totem',
+          genre: ['Canonical', 'View']
+        },
+        connections: {
+          assetRenderer: environment.ASSET_RENDERER_URL
+        },
+        images: {
+          smallThumbnail: 'assets/icons/nav/logo-small.svg'
+        }
+      }
+    }
     if (elSession) {
       game = JSON.parse(elSession);
     }
