@@ -115,6 +115,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
         if (asset == 'item') this.assets[0].paymentInfo = info;
         if (asset == 'avatar') this.assets[1].paymentInfo = info;
         if (asset == 'gem') this.assets[2].paymentInfo = info;
+        console.log(this.assets)
         if (this.assets.length == 3) {
           this.playAnimation();
         }

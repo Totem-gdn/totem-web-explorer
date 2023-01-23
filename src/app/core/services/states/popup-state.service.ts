@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
+<<<<<<< HEAD
 import { COLOR_POPUP_TYPE } from "@app/core/models/enums/popup.enum";
+=======
+>>>>>>> 08d45b6 (buy asset popup)
 import { AssetTransation } from "@app/core/models/interfaces/asset-info.model";
 import { BehaviorSubject } from "rxjs";
 
@@ -10,7 +13,11 @@ export class PopupService {
 
     private _showTokenTransaction = new BehaviorSubject<boolean>(false);
     private _showAssetTransaction = new BehaviorSubject<AssetTransation | undefined>(undefined);
+<<<<<<< HEAD
     private _showColorPopup = new BehaviorSubject<COLOR_POPUP_TYPE | undefined>(undefined);
+=======
+    private _showLogoutPopup = new BehaviorSubject<boolean>(false);
+>>>>>>> 08d45b6 (buy asset popup)
     private _showSidebarPopup = new BehaviorSubject<boolean>(false);
     private _showSmallSidebarPopup = new BehaviorSubject<boolean>(false);
     private _showSidebarFilterPopup = new BehaviorSubject<boolean>(false);
