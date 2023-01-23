@@ -60,9 +60,9 @@
     </ng-container>
 
     <ng-container *ngIf="choosePaymentMethod">
-        <button matRipple (click)="onClose()">{{'nav.cancel' | translate}}</button>
+        <button [disabled]="loading" matRipple (click)="onClose()">{{'nav.cancel' | translate}}</button>
         <button matRipple class="button-2"
-            [disabled]="!paymentMethod"
+            [disabled]="!paymentMethod || loading"
             (click)="onContinue()">
             Continue
         </button>

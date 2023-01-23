@@ -1,17 +1,19 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { PAYMENT_METHOD } from "@app/core/models/enums/transaction-type.enum";
-import { AssetInfo, AssetTransation, IsPaymentInfo, PaymentInfo } from "@app/core/models/interfaces/asset-info.model";
+import { AssetInfo, AssetTransation, CardPaymentResponse, IsPaymentInfo, PaymentInfo } from "@app/core/models/interfaces/asset-info.model";
 import { TokenBalance } from "@app/core/models/interfaces/token-balance.modle";
 import { CryptoUtilsService } from "@app/core/services/crypto/crypto-utils.service";
+import { TransactionsService } from "@app/core/services/crypto/transactions.service";
 import { TransferService } from "@app/core/services/crypto/transfer.service";
 import { PopupService } from "@app/core/services/states/popup-state.service";
 import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { Gtag } from "angular-gtag";
-import { Subject, takeUntil } from "rxjs";
+import { catchError, of, Subject, takeUntil } from "rxjs";
 
 
 @Component({
@@ -25,7 +27,7 @@ import { Subject, takeUntil } from "rxjs";
 
 export class SendAssetComponent implements OnInit, OnDestroy {
 
-    get paymentMethod() { 
+    get paymentMethod() {
         return this.transferService.paymentMethod;
      }
 
@@ -36,12 +38,13 @@ export class SendAssetComponent implements OnInit, OnDestroy {
         private snackService: SnackNotifierService,
         private gtag: Gtag,
         private transferService: TransferService,
+        private transactionsService: TransactionsService,
     ) {
         this.gtag.event('page_view');
     }
 
     @Input() set info(info: AssetTransation) {
-        
+
         if(info.type == 'payment') {
             this.paymentInfo = info.paymentInfo;
             if (!this.paymentMethod) {
@@ -56,6 +59,7 @@ export class SendAssetComponent implements OnInit, OnDestroy {
 
     subs = new Subject<void>();
     choosePaymentMethod: boolean = false;
+    loading: boolean = false;
 
     balance!: TokenBalance;
     gasFee?: string;
@@ -80,7 +84,36 @@ export class SendAssetComponent implements OnInit, OnDestroy {
     }
 
     onContinue() {
+        if (this.paymentMethod === 'card') {
+          console.log(this.paymentMethod);
+          this.buyWithCard();
+          return;
+        }
+        if (this.paymentMethod === 'wallet') {
+          console.log(this.paymentMethod);
+        }
         this.choosePaymentMethod = false;
+    }
+
+    buyWithCard() {
+      this.loading = true;
+      this.transactionsService.buyAssetWithCard(this.paymentInfo?.type!).pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.snackService.open(err.error.message || err.message);
+          this.loading = false;
+          return of();
+        }))
+        .subscribe((data: CardPaymentResponse) => {
+          if (data && data.url) {
+            this.openInNewWindow(data.url);
+          }
+          console.log(data);
+          this.loading = false;
+        });
+    }
+
+    openInNewWindow(url: string) {
+      window.open(url, '_self');
     }
 
     async onBuy(type?: ASSET_TYPE, address?: string, price?: string) {

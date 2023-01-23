@@ -55,7 +55,8 @@ export class AssetInfoComponent implements AfterViewInit {
     @Input() set selectedGame(game: GameDetail | null | undefined) {
         if (!game) return;
         if (game?.connections?.assetRenderer) {
-            this.assetRendererUrl = game?.connections.assetRenderer;
+            const rendererUrlChecked = game?.connections.assetRenderer.slice(-1) === '/' ? game?.connections.assetRenderer.slice(0, -1) : game?.connections.assetRenderer;
+            this.assetRendererUrl = rendererUrlChecked;
         } else {
             this.assetRendererUrl = environment.ASSET_RENDERER_URL;
         }

@@ -72,6 +72,11 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
     }
     this.legacyService.createLegacyEvent(this.type, data).subscribe((res) => console.log(res));
   }
+  getGame() {
+    this.legacyService.getGameFromCore().subscribe((data: any) => {
+      console.log(data);
+    })
+  }
 
   onCopy() {
     this.snackbarService.open('Copied to the clipboard');
