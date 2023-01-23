@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 
 @Component({
   selector: 'totem-meet-us',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./totem-meet-us.component.scss']
 })
 export class TotemMeetUsComponent implements OnInit {
-  @Input() game!: any[];
+  @Input() promoVideo: HomepageBlock | undefined;
 
   constructor() { }
 

@@ -38,20 +38,11 @@
       <home-widget class="z-10"></home-widget>
     </div>
 
+    <div class="content-distance">
+      <totem-promo-game [game]="promoGame"></totem-promo-game>
+    </div>
+
     <div class="content-distance" *ngIf="showAfterScroll">
-      <horizontal-carousel
-        [title]="'home.the_most_popular_items' | translate"
-        [menuTitle]="'Game name'"
-        [itemType]="'item'"
-        [items]="mostUsedItems$ | async">
-      </horizontal-carousel>
-    </div>
-
-    <div class="content-distance">
-      <totem-promo-game [game]="testGame"></totem-promo-game>
-    </div>
-
-    <div class="content-distance">
       <horizontal-carousel
         [title]="'home.the_most_used_avatars' | translate"
         [itemType]="'avatar'"
@@ -60,8 +51,17 @@
       </horizontal-carousel>
     </div>
 
+    <div class="content-distance" *ngIf="showAfterScroll">
+      <horizontal-carousel
+        [title]="'home.the_most_used_items' | translate"
+        [menuTitle]="'Game name'"
+        [itemType]="'item'"
+        [items]="mostUsedItems$ | async">
+      </horizontal-carousel>
+    </div>
+
     <div class="content-distance">
-      <totem-event-counter [eventDate]="eventDate"></totem-event-counter>
+      <totem-event-counter [eventBanner]="eventBanner"></totem-event-counter>
     </div>
 
     <div class="content-distance">
@@ -73,17 +73,17 @@
       </horizontal-carousel>
     </div>
 
-    <div class="content-distance">
+    <!-- <div class="content-distance">
       <horizontal-carousel
         [title]="'home.newest_totem_items' | translate"
         [menuTitle]="'Game name'"
         [itemType]="'item'"
         [items]="newestItems$ | async">
       </horizontal-carousel>
-    </div>
+    </div> -->
 
     <div class="content-distance content-distance-bottom">
-      <totem-meet-us *ngIf="showAfterScroll"></totem-meet-us>
+      <totem-meet-us [promoVideo]="promoVideo" *ngIf="showAfterScroll"></totem-meet-us>
     </div>
 
   </div>

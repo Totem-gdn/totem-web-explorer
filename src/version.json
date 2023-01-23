@@ -1,0 +1,10 @@
+{
+  "shortSHA": "8907283d",
+  "SHA": "8907283d37e7c4c6e57308b5a5afaa0df8d1281c",
+  "branch": "versioning",
+  "lastCommitAuthor": "'Maxx Tiyechko'",
+  "lastCommitTime": "'Wed Jan 18 12:18:17 2023 +0200'",
+  "lastCommitMessage": "changed pyment method, widget fix",
+  "lastCommitNumber": "1059",
+  "environment": "production"
+}

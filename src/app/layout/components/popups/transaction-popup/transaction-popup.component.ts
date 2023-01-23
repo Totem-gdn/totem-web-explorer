@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
 import { AssetInfo, AssetTransation, PaymentInfo } from "@app/core/models/interfaces/asset-info.model";
+import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { Subject, takeUntil } from "rxjs";
 import { PopupService } from "../../../../core/services/states/popup-state.service";
 
@@ -16,12 +17,13 @@ import { PopupService } from "../../../../core/services/states/popup-state.servi
 
 export class TransactionPopupComponent implements OnInit, OnDestroy {
 
-    constructor(private popupService: PopupService) {}
+    constructor(private popupService: PopupService,) { }
 
     subs = new Subject<void>();
     tokenTransaction?: boolean = false;
     assetTransaction?: AssetTransation;
-    
+    choosePaymentMethod: boolean = false;
+
     ngOnInit() {
         this.tokenTransactionPopup$();
         this.assetTransactionPopup$();

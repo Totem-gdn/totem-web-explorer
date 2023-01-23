@@ -1,0 +1,42 @@
+@import "styles/scss/variables";
+
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .payment-method {
+        cursor: pointer;
+        background-color: $grey;
+        border-radius: 4px;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+
+        .icon {
+            transition: color .4s;
+            color: $light-grey;
+            font-size: 28px;
+            margin-right: 8px;
+        }
+        input {
+            transition: border .4s;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        p {
+            margin: auto;
+        }
+
+        &:hover .icon {
+            color: $yellow !important;
+        }
+        &:hover input {
+            border: 1px solid $yellow;
+        }
+    }
+}
+
+.disabled {
+    pointer-events: none;
+}

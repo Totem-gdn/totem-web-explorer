@@ -37,8 +37,8 @@ export class ChangeSrcDirective implements OnDestroy {
   }
 
   @HostBinding('style.opacity') opacity = 0;
+  
   @HostListener('load')
-
   onLoad(): void {
     this.opacity = 1;
     clearTimeout(this.timeout);

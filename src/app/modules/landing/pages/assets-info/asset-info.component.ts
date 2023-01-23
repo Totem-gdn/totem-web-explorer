@@ -52,7 +52,7 @@ export class AssetInfoComponent implements AfterViewInit {
         this.processItem(asset?.tokenId)
     }
 
-    @Input() set selectedGame(game: GameDetail | null) {
+    @Input() set selectedGame(game: GameDetail | null | undefined) {
         if (!game) return;
         if (game?.connections?.assetRenderer) {
             this.assetRendererUrl = game?.connections.assetRenderer;
@@ -78,6 +78,7 @@ export class AssetInfoComponent implements AfterViewInit {
         this.gamesService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
+                console.log('selected game')
                 this.processItem(this._item?.tokenId, selectedGame);
             })
     }
@@ -91,6 +92,7 @@ export class AssetInfoComponent implements AfterViewInit {
     }
 
     async processItem(id: number, game: GameDetail | null = null) {
+        console.log('process item')
         this.properties = [];
         const json = await this.dnaService.getJSONByGame(game, this.type)
         const properties = await this.dnaService.processJSON(json, this.type, id);

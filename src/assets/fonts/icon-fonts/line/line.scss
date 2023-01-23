@@ -30,6 +30,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.line-creditcard {
+  &:before {
+    content: $line-creditcard;     
+    // color: #8a939b;
+  }
+}
+.line-usdc-token {
+  &:before {
+    content: $line-usds-token;     
+    // color: #8a939b;
+  }
+}
+
 .copy-lg {
   font-size: 22px !important;
   margin-left: 5px !important;

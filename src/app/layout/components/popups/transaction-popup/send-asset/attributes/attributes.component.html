@@ -40,10 +40,19 @@
             </div>
         </div>
         <!-- Image -->
-        <div class="img-wrapper">
-            <div *ngIf="info?.type == 'avatar'" class="img-preview solid-buy-avatar"></div>
-            <div *ngIf="info?.type == 'item'" class="img-preview solid-buy-item"></div>
-            <div *ngIf="info?.type == 'gem'" class="img-preview solid-buy-gem"></div>
+        <div #wrapper class="img-preview" (onResize)="onResize()">
+            <div class="circle-wrapper">
+                <bg-circle [width]="'60px'" class="top-[30px] left-[0px]" [background]="'#3A23C9'"></bg-circle>
+                <bg-circle [width]="'80px'" class="bottom-[0px] right-[0px]" [background]="'#00BC6D'"></bg-circle>
+                <bg-circle [width]="'80px'" class="right-[0px] top-[0px]" [background]="'#8023C9'"></bg-circle>
+            </div>
+
+            <div class="img-wrapper">
+                <div *ngIf="info?.type == 'avatar'" class="item solid-buy-avatar"></div>
+                <div *ngIf="info?.type == 'item'" class="item solid-buy-item"></div>
+                <div *ngIf="info?.type == 'gem'" class="item solid-buy-gem"></div>
+            </div>
+            <div class="placeholder"></div>
         </div>
     </div>
 </ng-container>

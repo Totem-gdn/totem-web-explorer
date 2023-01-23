@@ -2,6 +2,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { fadeInBotAnimation } from '@app/core/animations/fade-in';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { COLOR_POPUP_TYPE } from '@app/core/models/enums/popup.enum';
 import { AssetInfo, PaymentInfo } from '@app/core/models/interfaces/asset-info.model';
 
 import { BuyAssetService } from '@app/core/services/assets/buy-asset.service';
@@ -94,33 +95,12 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
     const usdcBalance = await this.cryptoUtilsService.getUSDCBalance();
 
     if (+usdcBalance < +paymentInfo?.paymentInfo?.price) {
-      this.snackService.open('Insufficient USDC balance');
+      this.popupService.showColorPopup(COLOR_POPUP_TYPE.INSUFFICIENT_FUNDS);
+      // this.snackService.open('Insufficient USDC balance');
       return;
     }
 
     this.popupService.showAssetTransaction('payment', paymentInfo);
-
-    // const usdcGasFee = await this.cryptoUtilsService.estimateUSDCGasFee(address, amount);
-
-    // if (!maticBalance || +maticBalance <= 0 || +maticBalance < +usdcGasFee) {
-    //   this.snackService.open('Insufficient MATIC balance');
-    //   return;
-    // }
-    // if (usdcBalance == '0' || +usdcBalance < +amount) {
-    //   this.snackService.open('Insufficient USDC balance');
-    //   return;
-    // }
-
-    // this.gtag.event(`${type}_purchase`, {
-    //   'event_label': `Click on Generate ${type}`,
-    // });
-
-    // this.snackService.open('Processing transaction')
-
-    // this.transferService.transferUSDC(address, amount).then(res => {
-    //   this.snackService.open('Your Totem Asset has been created successfully');
-    //   this.cryptoUtilsService.updateBalance();
-    // })
   }
 
   updateAssets() {
@@ -135,7 +115,6 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
         if (asset == 'item') this.assets[0].paymentInfo = info;
         if (asset == 'avatar') this.assets[1].paymentInfo = info;
         if (asset == 'gem') this.assets[2].paymentInfo = info;
-        console.log(this.assets)
         if (this.assets.length == 3) {
           this.playAnimation();
         }

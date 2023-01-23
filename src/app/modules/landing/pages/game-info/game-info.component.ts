@@ -62,7 +62,7 @@ export class GameInfoComponent extends OnDestroyMixin implements OnInit, OnDestr
     sliderGames() {
         this.gameService.fetchGames(1)
             .subscribe(games => {
-                this.games = games;
+                this.games = games.data;
             })
     }
 

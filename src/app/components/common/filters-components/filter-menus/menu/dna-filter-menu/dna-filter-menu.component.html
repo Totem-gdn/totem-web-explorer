@@ -35,6 +35,7 @@
                 <input (change)="onChangeInput($event, item)" name={{title}} [value]="item.value"
                     class="w-6 h-6 bg-transparent" [type]="inputType">
 
+                    
             </label>
             <div *ngIf="itemsNoFound" class="placeholder">
                 <p>No items found</p>
