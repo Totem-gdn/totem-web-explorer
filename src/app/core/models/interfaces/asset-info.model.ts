@@ -19,7 +19,7 @@ export interface AssetInfo {
 }
 
 // export interface AssetTransationType {
-//     type: 
+//     type:
 // }
 export interface PaymentInfo {
     type?: ASSET_TYPE;
@@ -28,6 +28,11 @@ export interface PaymentInfo {
         price?: string;
         token?: string;
     }
+}
+
+export interface CardPaymentResponse {
+    url?: string;
+    order?: string;
 }
 
 export function IsPaymentInfo(obj: any): obj is PaymentInfo {
