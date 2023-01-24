@@ -1,7 +1,7 @@
 
 #w3a-modal {
   backdrop-filter: blur(40px) !important;
-  font-family: Roboto !important;
+  font-family: 'Archivo' !important;
   --text-color2: $light-grey !important;
   --text-color1: $light-grey !important;
   --tw-ring-color: $yellow !important;
@@ -101,7 +101,7 @@
     }
   }
 }
-.w3a-adapter-list { 
+.w3a-adapter-list {
   grid-template-columns: repeat(5,minmax(0,1fr)) !important;
   li:first-child {
     grid-column: span 1/ span 1;
