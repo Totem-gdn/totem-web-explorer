@@ -14,11 +14,11 @@ import { StoreService } from '@app/core/store/store.service';
 import { environment } from '@env/environment';
 
 @Component({
-  selector: 'totem-asset-slider',
-  templateUrl: './totem-asset-slider.component.html',
-  styleUrls: ['./totem-asset-slider.component.scss'],
+  selector: 'totem-entity-slider',
+  templateUrl: './totem-entity-slider.component.html',
+  styleUrls: ['./totem-entity-slider.component.scss'],
 })
-export class TotemAssetSliderComponent {
+export class TotemEntitySliderComponent {
 
   selectedGame$: BehaviorSubject<GameDetail | null> = new BehaviorSubject<GameDetail | null>(null);
 
@@ -26,7 +26,7 @@ export class TotemAssetSliderComponent {
   items$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
   avatars$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
 
-  @Input() assetTypeSelected: 'item' | 'avatar' = 'item';
+  @Input() assetTypeSelected: 'item' | 'avatar' | 'game' = 'item';
   @Input() searchType: 'latest' | 'popular' = 'latest';
   @Input() caption: string = '';
   @Input() withGameSelector: boolean = false;
@@ -37,19 +37,20 @@ export class TotemAssetSliderComponent {
 
   ngOnInit(): void {
     this.listenSelectedGameAndAsset();
-
-    this.storeService.games$.subscribe((games: GameDetail[]) => {
-      console.log('GAMES FROM STORAGE: ', games);
-      this.games$.next(games);
-    });
-
+    this.listenGames();
     if (this.assetTypeSelected === 'item') {
       this.listenItems();
     }
     if (this.assetTypeSelected === 'avatar') {
       this.listenAvatars();
     }
+  }
 
+  listenGames() {
+    this.storeService.games$.subscribe((games: GameDetail[]) => {
+      console.log('GAMES FROM STORAGE: ', games);
+      this.games$.next(games);
+    });
   }
 
   listenAvatars() {
@@ -90,7 +91,7 @@ export class TotemAssetSliderComponent {
 
   setRendererUrlForAll() {
     const selectedGame = this.selectedGame$.getValue();
-    const items = this.items$.getValue();
+    const items = this.assetTypeSelected === 'item' ? this.items$.getValue() : this.avatars$.getValue();
 
     const assets: AssetInfo[] = items.map((asset: AssetInfo) => {
         const rendererUrlChecked = this.componeRendererUrl(selectedGame);
@@ -100,7 +101,14 @@ export class TotemAssetSliderComponent {
           rarity: asset?.tokenId! % 100
         }
     });
-    this.items$.next(assets);
+
+    if (this.assetTypeSelected === 'item') {
+      this.items$.next(assets);
+    }
+    if (this.assetTypeSelected === 'avatar') {
+      this.avatars$.next(assets);
+    }
+
   }
 
 }
