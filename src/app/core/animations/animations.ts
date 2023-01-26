@@ -32,6 +32,35 @@ export const Animations = {
       ]
     ),
     trigger(
+      'toggleSelector',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translateY(-10px)', opacity: 0 }),
+            group([
+              animate('0.22s ease-in-out',
+                style({ transform: 'translateY(0px)' })),
+              animate('0.22s ease-in-out',
+                style({ opacity: 1 }))
+            ])
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ transform: 'translateY(0px)', opacity: 1 }),
+            group([
+              animate('0.22s ease-in-out',
+                style({ transform: 'translateY(-10px)' })),
+              animate('0.22s ease-in-out',
+                style({ opacity: 0 }))
+            ])
+          ]
+        )
+      ]
+    ),
+    trigger(
       'showGas',
       [
         transition(

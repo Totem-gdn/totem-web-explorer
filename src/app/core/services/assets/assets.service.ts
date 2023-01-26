@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { AssetInfo, AssetTypes } from "@app/core/models/interfaces/asset-info.model";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { environment } from "@env/environment";
 import { SearchParamsModel } from "../model/search-params.model";
@@ -31,7 +31,7 @@ export class AssetsService {
     get totalAssets() { return this._totalAssets.getValue() }
     get totalAssets$() { return this._totalAssets.asObservable() }
 
-    fetchAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+    fetchAssets(type: AssetTypes, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
 
         const url = owner ? `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&owner=${owner}` : `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`
 

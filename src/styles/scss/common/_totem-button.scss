@@ -1,0 +1,19 @@
+@import '../totem-variables';
+.totem-primary-button,
+.totem-default-button,
+.totem-secondary-button {
+  background: $totem-violet;
+  color: inherit;
+  border: none;
+  padding: 0px 24px;
+  margin: 0;
+  cursor: pointer;
+  outline: inherit;
+  border-radius: 40px;
+  font-style: normal;
+}
+
+.totem-secondary-button {
+  border: 1px solid $totem-white;
+  background: transparent;
+}

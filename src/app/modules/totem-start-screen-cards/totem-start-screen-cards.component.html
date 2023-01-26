@@ -1,0 +1,64 @@
+<div class="w-full h-auto flex flex-row items-end justify-between relative px-10 pb-6 mt-12" *ngIf="(selectedGame$ | async) && (selectedAsset$ | async)">
+
+  <div class="flex flex-col items-start justify-between z-1 mr-6">
+    <totem-selected-asset-card *ngIf="selectedAsset$ | async" [asset]="selectedAsset$ | async"></totem-selected-asset-card>
+    <ng-container *ngTemplateOutlet="largeGameBar, context: {selectedGame: selectedGame$ | async}"></ng-container>
+  </div>
+
+  <div class="flex flex-col items-start justify-start w-full max-w-[1032px] z-1">
+
+    <div class="flex flex-row items-center justify-start">
+      <p class="text-[40px] font-medium leading-[44px]">Showing</p>
+      <totem-entity-selector [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
+      <p class="text-[40px] font-medium leading-[44px]">on several games</p>
+    </div>
+
+    <div class="w-full mt-6">
+      <p class="text-[20px] font-medium leading-[22px] t-col-light-grey">{{'Id facilisis sed ac ornare turpis. Nunc erat cras diam aenean aliquam scelerisque facilisis massa interdum. Commodo blandit mattis ut non. Orci quam euismod consectetur risus tempor a aliquam id. Arcu quis tristique mattis blandit aliquam. Volutpat id vitae dis dolor' | slice: 0:200 }}...</p>
+    </div>
+
+    <ng-container *ngIf="(selectedGames$ | async)?.length && (selectedAssets$ | async)?.length">
+      <div class="w-full flex flex-row items-end justify-between mt-6">
+        <ng-container *ngFor="let asset of (selectedAssets$ | async) | slice: 0:4; let i = index">
+          <div class="flex flex-col items-start justify-start">
+            <totem-asset-card *ngIf="selectedAsset$ | async" [asset]="asset"></totem-asset-card>
+            <ng-container *ngTemplateOutlet="smallGameBar, context: {game: (selectedGames$ | async)![i]}"></ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+  </div>
+
+  <div class="absolute z-0 bg-block h-[280px] w-full bottom-0 left-0 right-0"></div>
+</div>
+
+
+
+<ng-template #largeGameBar let-game="selectedGame">
+  <ng-container *ngIf="game">
+    <div class="mt-6 w-[360px] h-[56px] px-6 large-game-bar t-bg-black flex flex-row items-center justify-start" (click)="setAnotherAsset()">
+      <div class="w-[40px] h-[40px] rounded-[8px] overflow-hidden shrink-0">
+        <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
+      </div>
+      <div class="flex flex-col h-full items-start justify-center ml-2">
+        <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
+        <p class="text-[14px] font-medium leading-[15px] t-col-light-grey">{{game.general?.genre![0]}}</p>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #smallGameBar let-game="game">
+  <ng-container *ngIf="game">
+    <div class="mt-6 w-[240px] h-[56px] px-2 small-game-bar t-bg-grey flex flex-row items-center justify-start">
+      <div class="w-[40px] h-[40px] rounded-[8px] overflow-hidden shrink-0">
+        <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
+      </div>
+      <div class="flex flex-col h-full items-start justify-center ml-2">
+        <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
+        <p class="text-[14px] font-medium leading-[15px] t-col-light-grey">{{game.general?.genre![0]}}</p>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

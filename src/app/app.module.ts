@@ -16,6 +16,8 @@ import { WelcomeDialogModule } from './core/dialogs/welcome-dialog/welcome-dialo
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ServiceWorkerService } from './service-worker.service';
 import { VersionDialogModule } from './core/dialogs/version-dialog/version-dialog.module';
+import { IconsModule } from './core/icons/icons.module';
+import { TotemLayoutModule } from './layout/totem-layout/totem-layout.module';
 
 
 const routerConfig: ExtraOptions = {
@@ -32,13 +34,15 @@ const routerConfig: ExtraOptions = {
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes, routerConfig),
     LayoutModule,
+    TotemLayoutModule,
     GtagModule.forRoot({ trackingId: environment.TRACKING_G_ID, trackPageviews: true }),
     WelcomeDialogModule,
     VersionDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
-  }),
+    }),
+    IconsModule
   ],
   providers: [
     UserStateService,

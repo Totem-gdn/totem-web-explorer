@@ -14,12 +14,14 @@ export interface AssetInfo {
     views: string;
     rarity?: number | string;
     assetType?: string;
-    rendererUrl?: string | undefined;
+    rendererUrl?: string;
     price?: string;
 }
 
+export type AssetTypes = 'item' | 'avatar' | 'gem';
+
 // export interface AssetTransationType {
-//     type: 
+//     type:
 // }
 export interface PaymentInfo {
     type?: ASSET_TYPE;
