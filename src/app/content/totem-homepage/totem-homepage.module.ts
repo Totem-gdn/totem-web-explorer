@@ -6,7 +6,10 @@ import { SharedModule } from '@app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { TotemHomepageComponent } from './totem-homepage.component';
 import { TotemStartScreenCardsModule } from '@app/modules/totem-start-screen-cards/totem-start-screen-cards.module';
-import { TotemAssetSliderModule } from '@app/modules/totem-asset-slider/totem-asset-slider.module';
+import { TotemEntitySliderModule } from '@app/modules/totem-entity-slider/totem-entity-slider.module';
+import { TotemEventCounterModule } from '@app/modules/landing/totem-home-page/components/home-components/totem-event-counter/totem-event-counter.module';
+import { TotemPromoGameModule } from '@app/modules/landing/totem-home-page/components/home-components/totem-promo-game/totem-promo-game.module';
+import { TotemExplorerVideoModule } from '@app/modules/totem-explorer-video/totem-explorer-video.module';
 
 @NgModule({
   declarations: [TotemHomepageComponent],
@@ -17,7 +20,10 @@ import { TotemAssetSliderModule } from '@app/modules/totem-asset-slider/totem-as
     RouterModule,
     SharedModule,
     TotemStartScreenCardsModule,
-    TotemAssetSliderModule
+    TotemEntitySliderModule,
+    TotemEventCounterModule,
+    TotemPromoGameModule,
+    TotemExplorerVideoModule
   ],
   exports: [],
   providers: [],

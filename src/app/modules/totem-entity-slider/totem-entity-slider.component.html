@@ -14,5 +14,10 @@
       <totem-asset-card [asset]="avatar"></totem-asset-card>
     </ng-container>
   </div>
+  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6" *ngIf="(games$ | async)?.length && assetTypeSelected === 'game'">
+    <ng-container *ngFor="let game of (games$ | async) | slice: 0:4">
+      <totem-game-card [game]="game"></totem-game-card>
+    </ng-container>
+  </div>
 </div>
 

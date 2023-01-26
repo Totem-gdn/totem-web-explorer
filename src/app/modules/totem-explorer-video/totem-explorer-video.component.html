@@ -1,0 +1,18 @@
+<div class="totem-explorer-video w-full" *ngIf="promoVideo">
+  <div class="totem-explorer-video-wrapper w-full flex flex-row items-center justify-between">
+    <!-- <div class="head-caption font-totem">{{promoVideo.data!.title || ('home.meet_totem' | translate)}}</div> -->
+    <div class="flex flex-col items-start justify-center w-full max-w-[390px]">
+      <p class="text-[32px] leading-[35px] font-medium">Learn how to get more fun from Explorer!</p>
+      <p class="text-[16px] leading-[17px] font-normal t-col-light-grey my-6">Lorem ipsum dolor sit amet consectetur. Metus in facilisis tellus nibh. Commodo semper urna egestas volutpat at. Lacinia enim commodo viverra maecenas integer et nisl varius ultrices. Massa porttitor sed risus a vitae habitant ligula tellus ipsum. Neque nisl cras non posuere viverra ac consectetur tellus enim. Nam egestas metus enim neque. Lorem varius justo leo lacus orci. Vel sapien arcu sed lacus enim feugiat. Interdum auctor amet arcu sed dolor ut.</p>
+      <button class="totem-primary-button h-[48px] text-[20px] leading-[22px] font-medium !px-10" (click)="goToPage()">Join us</button>
+    </div>
+    <div class="totem-video-block rounded-[24px] overflow-hidden">
+      <iframe
+        title="Promo video"
+        loading="lazy"
+        class="totem-video"
+        [src]="promoVideo ? (promoVideo.data!.videoUrl! | safe) : 'https://www.youtube.com/embed/Pfswi73BQU4?autoplay=1&mute=1'">
+      </iframe>
+    </div>
+  </div>
+</div>
