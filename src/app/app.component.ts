@@ -5,6 +5,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { UserStateService } from './core/services/auth.service';
+import { StoreService } from './core/store/store.service';
 import { ServiceWorkerService } from './service-worker.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { ServiceWorkerService } from './service-worker.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {
-    class: 'flex flex-auto w-full'
+    class: 'flex flex-auto w-full overflow-hidden'
   }
 })
 export class AppComponent {
@@ -27,12 +28,14 @@ export class AppComponent {
     private router: Router,
     private viewportScroller: ViewportScroller,
     private gtag: Gtag,
-    private sWService: ServiceWorkerService
+    private sWService: ServiceWorkerService,
+    private storeService: StoreService
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
     this.userStateService.initAccount();
     this.sWService.listenNewVersion();
+    this.storeService.getAssetsAndGames();
     this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))
       .pipe(delay(1))

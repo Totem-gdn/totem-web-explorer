@@ -2,15 +2,17 @@
 import { Route } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
+import { TotemLayoutComponent } from './layout/totem-layout/totem-layout.component';
 
 export const AppRoutes: Route[] = [
 
   {
     path: '',
-    component: LayoutComponent,
+    component: TotemLayoutComponent,
 
     children: [
-      { path: '', loadChildren: () => import('app/modules/landing/totem-home-page/totem-home-page.module').then(m => m.TotemHomePageModule) },
+      /* { path: '', loadChildren: () => import('app/modules/landing/totem-home-page/totem-home-page.module').then(m => m.TotemHomePageModule) }, */
+      { path: '', loadChildren: () => import('app/content/totem-homepage/totem-homepage.module').then(m => m.TotemHomepageModule) },
 
       { path: 'avatars', loadChildren: () => import('@app/modules/landing/pages/main/avatars/avatars.module').then(m => m.AvatarsModule) },
       { path: 'items', loadChildren: () => import('@app/modules/landing/pages/main/items/items.module').then(m => m.ItemsModule) },

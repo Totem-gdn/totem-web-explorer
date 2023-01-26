@@ -1,0 +1,40 @@
+<div class="totem-asset-selector px-5 flex flex-row items-center justify-start cursor-pointer relative">
+  <div class="relative flex flex-row items-center justify-start" #toggleButton (click)="menuActive = !menuActive">
+    <div *ngIf="type === 'asset'" class="relative">
+      <p class="text-[48px] font-semibold leading-[52px] relative z-2">Avatar ID: {{activeAsset?.tokenId}}</p>
+      <div class="w-[calc(100%+16px)] h-3 absolute t-bg-violet bottom-[4px] rounded-[40px] -left-2 z-1"></div>
+    </div>
+    <div *ngIf="type === 'game'" class="relative">
+      <p class="text-[32px] font-medium leading-[35px] relative z-2">{{activeGame?.general?.name}}</p>
+      <div class="w-full h-[2px] absolute t-bg-violet -bottom-[2px] rounded-[40px] left-0 right-0 z-1"></div>
+    </div>
+    <mat-icon *ngIf="type === 'asset'" class="ml-5 leading-[30px] !w-[30px] !h-[30px]" [svgIcon]="'feather:expand_down'"></mat-icon>
+  </div>
+
+  <div
+    *ngIf="menuActive"
+    [@toggleSelector]
+    #dropdown
+    class="w-full absolute h-[200px] t-bg-violet top-15 left-0 right-0 rounded-[8px] t-bg-grey overflow-hidden z-2"
+    >
+    <div *ngIf="type === 'asset'" class="asset-selector-menu-wrapper w-full h-full overflow-x-hidden overflow-y-auto flex flex-col items-center justify-start p-2 rounded-[8px]">
+      <ng-container *ngFor="let asset of assets">
+        <div
+          class="w-full h-12 shrink-0 rounded-[12px] asset-selector-item flex flex-row items-center justify-start px-4"
+          (click)="selectAsset(asset)">
+          Asset ID: {{asset.tokenId}}
+        </div>
+      </ng-container>
+    </div>
+    <div *ngIf="type === 'game'" class="asset-selector-menu-wrapper w-full h-full overflow-x-hidden overflow-y-auto flex flex-col items-center justify-start p-2 rounded-[8px]">
+      <ng-container *ngFor="let game of games">
+        <div
+          class="w-full h-12 shrink-0 rounded-[12px] asset-selector-item flex flex-row items-center justify-start px-4"
+          (click)="selectGame(game)">
+          Game: {{game?.general?.name}}
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</div>

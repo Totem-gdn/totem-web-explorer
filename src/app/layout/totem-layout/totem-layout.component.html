@@ -1,0 +1,18 @@
+
+
+<div class="w-full h-full totem-layout flex flex-col relative">
+    <!-- Header -->
+    <div class="totem-nav-wrapper h-20 min-h-[5rem] w-full z-90">
+        <totem-header></totem-header>
+    </div>
+
+    <div class="flex flex-row flex-auto w-full h-fit">
+      <totem-sidenav></totem-sidenav>
+      <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <totem-footer></totem-footer>
+    </div>
+</div>

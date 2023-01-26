@@ -1,0 +1,20 @@
+@import "styles/scss/totem-variables";
+
+:host {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.totem-header {
+  background-color: $totem-black;
+  position: relative;
+  border-bottom: 1px solid #353840;
+}
+
+.totem-navigation-items {
+  a {
+    margin-left: 50px;
+  }
+}

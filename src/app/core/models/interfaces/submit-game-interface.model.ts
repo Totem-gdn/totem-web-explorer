@@ -108,7 +108,7 @@ export interface ImageEvents {
 }
 
 
-export interface GameDetail {
+export interface GameDetail extends CustomCheckboxField {
   [index: string]: any;
   general?: GeneralInfo;
   details?: DetailsInfo;
@@ -124,6 +124,10 @@ export interface GameDetail {
   players?: number;
   updatedAt?: string;
   views?: number;
+}
+
+export interface CustomCheckboxField {
+  checked?: boolean;
 }
 
 export interface JsonDNAFilters {
