@@ -41,10 +41,11 @@ export class AuthInterceptor implements HttpInterceptor {
     let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
 
     if(this.web3.isLoggedIn() && !creds) {
+      console.log('CALLED INSIDE THE INTERCEPOTR');
       this.popupService.showColorPopup(COLOR_POPUP_TYPE.LOGOUT);
       this.userService.logoutWithoutRedirect();
     }
-    
+
     const authorization: string = `Bearer ${creds.userInfo.idToken}`;
     if (request.url.includes(environment.TOTEM_BASE_API_URL)) {
       return request.clone({
