@@ -16,10 +16,10 @@
       <a routerLinkActive="active-route" routerLink="/games">Games</a>
     </nav>
     <div class="ml-[72px]">
-      <button class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
+      <button (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
     </div>
     <div class="ml-[12px]">
-      <button class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
+      <button (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
     </div>
   </div>
 </div>

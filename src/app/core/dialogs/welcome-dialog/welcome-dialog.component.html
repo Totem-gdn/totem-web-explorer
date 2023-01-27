@@ -90,7 +90,7 @@
           <totem-button (click)="closeWithAccept()" [width]="'100%'" [height]="'40px'" [caption]="'nav.get_it' | translate"></totem-button>
         </div> -->
         <totem-button (clicked)="close()" [disabled]="!tokensClaimed.MATIC && !tokensClaimed.USDC" class="w-[140px]" [width]="'100%'" [height]="'40px'"
-        [caption]="(tokensClaimed.MATIC && tokensClaimed.USDC) ? buttonCaption + ' (' + secondsToClose + ')' : buttonCaption"></totem-button>
+        [caption]="showCounter ? buttonCaption + ' (' + secondsToClose + ')' : buttonCaption"></totem-button>
       </div>
     </div>
   </div>
