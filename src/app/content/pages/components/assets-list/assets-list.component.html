@@ -7,11 +7,14 @@
         </div>
     </div>
 
-    <div class="list">
+    <div class="list" *ngIf="type != 'game'">
         <totem-asset-card *ngFor="let asset of assets" [asset]="asset"></totem-asset-card>
     </div>
+    <div class="list" *ngIf="type == 'game'">
+        <totem-game-card *ngFor="let game of games" [game]="games"></totem-game-card>
+    </div>
 
-    <div *ngIf="assets?.length && assets != null" class="flex justify-center mt-[30px]">
+    <div *ngIf="assets?.length && assets != null || games?.length && games != null" class="flex justify-center mt-[30px]">
         <button class="totem-primary-button" (click)="loadMore()">Load More</button>
     </div>
 </div>

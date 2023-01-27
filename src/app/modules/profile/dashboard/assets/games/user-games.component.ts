@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
@@ -18,7 +18,7 @@ export class UserGamesComponent {
   games: GameDetail[] | undefined  | null;
   setGames: GameDetail[] | undefined | null;
 
-  sortMethod = GAME_PARAM_LIST.LATEST;
+  sortMethod = ASSET_PARAM_LIST.LATEST;
 
   constructor(private gamesService: GamesService,
               private gtag: Gtag,

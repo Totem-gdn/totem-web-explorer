@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { GamesService } from '@app/core/services/assets/games.service';
 
@@ -22,6 +23,7 @@ export class AssetsListComponent implements OnInit {
               private assetsService: AssetsService) { }
 
   assets: AssetInfo[] | null = null;
+  games: GameDetail[] | null = null
 
   list = ASSET_PARAM_LIST.LATEST;
   page = 1;
@@ -30,7 +32,9 @@ export class AssetsListComponent implements OnInit {
     if(this.type != 'game') {
       this.loadAssets(this.type, 1);
     }
-    
+    if(this.type == 'game') {
+      this.loadGames(1, this.list);
+    }
   }
 
   loadAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
@@ -49,16 +53,40 @@ export class AssetsListComponent implements OnInit {
       })
   }
 
+  loadGames(page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
+    this.gamesService.fetchGames(page, list)
+      .subscribe(games => {
+        if(action == 'push') {
+          for(let asset of games.data) {
+            if(!this.games) this.games = [];
+            this.games.push(asset);
+          }
+        } else if(action == 'set') {
+          this.games = games.data;
+        }
+        
+        console.log('games', games.data)
+      })
+  }
+
   loadMore() {
     this.page++;
-    if(this.type == 'game') return;
+    if(this.type == 'game') {
+      this.loadGames(this.page, this.list, 'set');
+      return;
+    }
     this.loadAssets(this.type, this.page, this.list);
   }
 
   onSort(list: ASSET_PARAM_LIST) {
-    if(this.type == 'game')return;
+    this.list = list;
     this.page = 1;
-    this.loadAssets(this.type, this.page, list, 'set');
+    if(this.type == 'game') {
+      this.loadGames(this.page, this.list, 'set');
+      return;
+    }
+
+    this.loadAssets(this.type, this.page, this.list, 'set');
   }
 
 }
