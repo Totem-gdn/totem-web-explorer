@@ -15,6 +15,13 @@
 
 .totem-navigation-items {
   a {
+    padding: 2px 8px;
+    background-color: transparent;
     margin-left: 50px;
+    transition: backtround-color .3s;
   }
+}
+.active-route {
+  border-radius: 37px;
+  background-color: $totem-violet !important;
 }

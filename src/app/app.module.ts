@@ -18,10 +18,6 @@ import { ServiceWorkerService } from './service-worker.service';
 import { VersionDialogModule } from './core/dialogs/version-dialog/version-dialog.module';
 import { IconsModule } from './core/icons/icons.module';
 import { TotemLayoutModule } from './layout/totem-layout/totem-layout.module';
-import { DemoGamesComponent } from './content/pages/demo-games/demo-games.component';
-import { DemoAvatarsComponent } from './content/pages/demo-avatars/demo-avatars.component';
-import { DemoItemsComponent } from './content/pages/demo-items/demo-items.component';
-
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,

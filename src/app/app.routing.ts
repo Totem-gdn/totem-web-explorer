@@ -14,6 +14,10 @@ export const AppRoutes: Route[] = [
       /* { path: '', loadChildren: () => import('app/modules/landing/totem-home-page/totem-home-page.module').then(m => m.TotemHomePageModule) }, */
       { path: '', loadChildren: () => import('app/content/totem-homepage/totem-homepage.module').then(m => m.TotemHomepageModule) },
 
+      { path: 'avatars', loadChildren: () => import('@app/content/pages/demo-avatars/demo-avatars.module').then(m => m.DemoAvatarsModule) },
+      { path: 'items', loadChildren: () => import('@app/content/pages/demo-items/demo-items.module').then(m => m.DemoItemsModule) },
+      { path: 'games', loadChildren: () => import('@app/content/pages/demo-games/demo-games.module').then(m => m.DemoGamesModule) },
+
       // { path: 'avatars', loadChildren: () => import('@app/modules/landing/pages/main/avatars/avatars.module').then(m => m.AvatarsModule) },
       // { path: 'items', loadChildren: () => import('@app/modules/landing/pages/main/items/items.module').then(m => m.ItemsModule) },
       // { path: 'games', loadChildren: () => import('@app/modules/landing/pages/main/games/games.module').then(m => m.GamesModule) },
