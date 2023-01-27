@@ -17,7 +17,7 @@ export class AssetsListComponent implements OnInit {
     let str = this.type;
     return this.type.toLowerCase().charAt(0).toUpperCase() + str.slice(1) + 's';
   }
-  @Input() type!: ASSET_TYPE | 'game';
+  @Input() type!: ASSET_TYPE | 'game' ;
 
   constructor(private gamesService: GamesService,
               private assetsService: AssetsService) { }

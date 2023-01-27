@@ -16,10 +16,10 @@ export class SortByComponent implements OnInit {
   @ViewChild('dropdown') dropdown!: ElementRef;
 
   @Output() sort = new EventEmitter<ASSET_PARAM_LIST>();
-  title = 'items.sort_by'; // for translate
+  title:string = 'Newest'; // for translate
 
   ngOnInit() {
-    this.title = 'items.newest'
+    // this.title = 'items.newest'
     // if(this.type == 'game') {
     //   this.title = 'items.my';
     // } else {
@@ -38,7 +38,10 @@ export class SortByComponent implements OnInit {
   }
 
   onSort(option: ASSET_PARAM_LIST) {
+    if(option == ASSET_PARAM_LIST.LATEST) this.title = 'Newest';
+    if(option == ASSET_PARAM_LIST.POPULAR) this.title = 'Popular';
 
+    // this.title = option;
 
     this.sort.emit(option);
     this.menuActive = false;

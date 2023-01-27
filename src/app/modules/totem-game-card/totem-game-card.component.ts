@@ -45,11 +45,11 @@ export class TotemGameCardComponent {
       });
       this.gameService.fetchGame(this.game.id).subscribe();
     }
-  }
+  } */
 
   onNavigate() {
     const id = this.game?.id;
     this.router.navigate(['/game', id]);
-  } */
+  } 
 
 }

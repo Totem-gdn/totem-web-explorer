@@ -1,0 +1,73 @@
+<div class="description m-auto lg:m-0">
+    <div class="images-block pb-[40px] sm:pb-[60px]">
+        <!-- <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt=""> -->
+        <!-- <div class=""></div> -->
+        <div #image *ngIf="!_game?.images?.galley" class="rounded sm:h-[430px] image-wrapper relative overflow-hidden">
+          <img
+          loading="lazy" class="h-full hl-image relative z-2"
+          [src]="hlImage"
+          [alt]="_game?.general?.name"
+          >
+          <img
+          loading="lazy" class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
+          [src]="hlImage"
+          [alt]="_game?.general?.name"
+          >
+          <!-- <div class="image-bg absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
+            [ngStyle]="{'background': hlImage ? 'linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('+hlImage+')' : '#202225'}">
+          </div> -->
+        </div>
+        <!-- <img loading="lazy" #image class="sm:h-[430px] hl-image" *ngIf="!_game?.images?.galley" [src]="hlImage" [alt]="_game?.general?.name"> -->
+        <portfolio-carousel (changeImg)="onChangeImg($event)" [images]="_game?.images?.gallery"></portfolio-carousel>
+    </div>
+
+    <div class="flex gap-[40px] sm:gap-[60px] justify-between flex-wrap xl:flex-nowrap">
+        <div *ngIf="_game?.general?.fullDescription == undefined && !_game" class="flex flex-col">
+            <h4 class="mb-[30px]">{{'modules.description' | translate}}</h4>
+            <p class="font-medium ">
+                {{'description.default_descriptions_game' | translate}}
+            </p>
+        </div>
+
+        <div *ngIf="_game?.general?.fullDescription" class="flex flex-col">
+            <h4 class="mb-[30px]">{{'modules.description' | translate}}</h4>
+            <p class="overflow-hidden" *ngIf="_game?.general?.fullDescription">{{_game?.general?.fullDescription}}</p>
+        </div>
+
+        <div class="flex flex-col min-w-[250px] w-[250px]">
+            <h4 class="mb-[30px]">{{'modules.genre' | translate}}</h4>
+            <div *ngIf="_game?.general?.genre" class="tags pb-[60px]">
+                <div class="tag" *ngFor="let genre of _game?.general?.genre">
+                    <span>{{genre}}</span>
+                </div>
+            </div>
+
+            <div *ngIf="!_game?.general?.genre && !_game?.general?.genre?.length" class="tags pb-[60px]">
+                <div class="tag" *ngFor="let _ of [].constructor(8)">
+                    <span>{{'modules.meaningful_choices' | translate}}</span>
+                </div>
+            </div>
+
+            <ng-container *ngIf="_game?.connections?.socialLinks && _game?.connections?.socialLinks?.length != 0">
+                <h4 class="pb-[15px]">{{'profile.links' | translate}}</h4>
+
+                <div class="links">
+                    <ng-container *ngFor="let link of _game?.connections?.socialLinks">
+                        <a *ngIf="link.type == 'Discord'" class="link" [href]="link.url" target="_blank">
+                            <div class="line-discord"></div>
+                        </a>
+                        <a *ngIf="link.type == 'Facebook'" class="link" [href]="link.url" target="_blank">
+                            <div class="line-facebook"></div>
+                        </a>
+                        <a *ngIf="link.type == 'Twitter'" class="link" [href]="link.url" target="_blank">
+                            <div class="line-twitter"></div>
+                        </a>
+                        <a *ngIf="link.type == 'Instagram'" class="link" [href]="link.url" target="_blank">
+                            <div class="line-instagram"></div>
+                        </a>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
