@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -9,11 +9,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
         class: 'flex flex-auto w-full h-full'
   },
 })
-export class PurchaseSuccessDialogComponent implements OnInit {
+export class PurchaseSuccessDialogComponent implements OnInit, AfterViewInit {
   asset: string = '';
   status: string = '';
   assetName: string = '';
   assetNameMultiple: string = '';
+  closeInterval: any;
+  secondsToClose: number = 5;
 
   constructor(
     public dialogRef: MatDialogRef<PurchaseSuccessDialogComponent>,
@@ -36,6 +38,20 @@ export class PurchaseSuccessDialogComponent implements OnInit {
       this.assetName = 'Gem';
       this.assetNameMultiple = 'Gems';
     }
+  }
+
+  ngAfterViewInit() {
+    this.startCounter();
+  }
+
+  startCounter() {
+    this.closeInterval = setInterval(()=>{
+      this.secondsToClose -= 1;
+      if (this.secondsToClose == 0) {
+        this.dialogRef.close(false);
+        clearInterval(this.closeInterval);
+      }
+    }, 1000);
   }
 
 }
