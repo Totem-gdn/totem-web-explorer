@@ -1,9 +1,10 @@
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { Router, Scroll } from '@angular/router';
+import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
+import { PurchaseSuccessDialogService } from './core/dialogs/purchase-success-dialog/services/purchase-success-dialog.service';
 import { UserStateService } from './core/services/auth.service';
 import { ServiceWorkerService } from './service-worker.service';
 
@@ -25,9 +26,11 @@ export class AppComponent {
     private userStateService: UserStateService,
     @Inject(PLATFORM_ID) private platformId: any,
     private router: Router,
+    private route: ActivatedRoute,
     private viewportScroller: ViewportScroller,
     private gtag: Gtag,
-    private sWService: ServiceWorkerService
+    private sWService: ServiceWorkerService,
+    private purchaseSuccessDialogService: PurchaseSuccessDialogService,
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
@@ -50,11 +53,27 @@ export class AppComponent {
 
     this.gtag.event('page_view');
 
-    // this.userStateService.currentUser.subscribe(user => {
-    //   if(user) {
-    //     this.sellAsset.transferNft()
-    //   }
-    // })
+    this.userStateService.currentUser.subscribe(user => {
+      console.log('AFASASFS');
+      if(user) {
+        console.log(this.route.snapshot);
+        const paramSnapshot = this.route.snapshot;
+        const paymentResult: string = paramSnapshot.queryParams['payment_result'];
+        const assetType: string = paramSnapshot.queryParams['type'];
+        console.log(paymentResult, assetType);
+        if (paymentResult === 'success' && assetType) {
+          this.purchaseSuccessDialogService.openPurchaseSuccessDialog(paymentResult, assetType).subscribe((data: boolean) => {
+            if (data == true) {
+              this.router.navigate(['profile']);
+            }
+            if (data == false) {
+              this.router.navigate(['/']);
+            }
+          });
+        }
+      }
+    });
+
   }
 
 }
