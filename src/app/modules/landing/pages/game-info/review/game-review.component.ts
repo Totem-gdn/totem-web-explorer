@@ -4,6 +4,7 @@ import { CARD_TYPE } from "@app/core/models/enums/card-types.enum";
 import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
 import { GamesService } from "@app/core/services/assets/games.service";
+import { UserStateService } from "@app/core/services/auth.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
 import { take } from "rxjs";
@@ -25,7 +26,7 @@ interface Rate {
 export class GameReviewComponent {
 
     constructor(private favouritesService: FavouritesService,
-        private messageService: SnackNotifierService,
+        private authService: UserStateService,
         private web3Service: Web3AuthService,
         private gamesService: GamesService,
         private router: Router,) { }
@@ -37,9 +38,9 @@ export class GameReviewComponent {
 
     rating: Rate[] = [{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false}]
 
-    onClickLike() {
+    async onClickLike() {
         if (!this.web3Service.isLoggedIn()) {
-            this.web3Service.login();
+            await this.authService.login();
             return;
         }
         if (!this.game.isLiked) {
