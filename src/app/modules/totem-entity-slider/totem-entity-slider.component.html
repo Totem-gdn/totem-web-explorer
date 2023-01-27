@@ -5,9 +5,7 @@
     <totem-entity-selector *ngIf="withGameSelector && (games$ | async)" [type]="'game'" [games]="(games$ | async)!" [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
   </div>
   <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6" *ngIf="(items$ | async)?.length && assetTypeSelected === 'item'">
-    <ng-container *ngFor="let item of (items$ | async) | slice: 0:6">
-      <totem-asset-card [asset]="item"></totem-asset-card>
-    </ng-container>
+   <slider-wireframe [assets]="items$ | async"></slider-wireframe>
   </div>
   <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6" *ngIf="(avatars$ | async)?.length && assetTypeSelected === 'avatar'">
     <ng-container *ngFor="let avatar of (avatars$ | async) | slice: 0:6">

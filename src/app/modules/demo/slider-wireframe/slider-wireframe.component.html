@@ -1,0 +1,16 @@
+
+
+<div class="wrapper">
+
+    <div #wrapper class="slider">
+        <div class="slider-track" #slider>
+            <div class="card-wrapper" *ngFor="let card of cards">
+                <totem-asset-card [asset]="card"></totem-asset-card>
+            </div>
+        </div>
+    </div>
+
+    <slider-arrow [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
+    <slider-arrow (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>
+
+</div>

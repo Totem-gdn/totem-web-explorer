@@ -1,0 +1,39 @@
+
+.wrapper {
+    position: relative;
+
+    .slider {
+        // overflow: scroll;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        .slider-track {
+            // width: 100%;
+            transition: transform .3s;
+            display: inline-flex;
+            
+            gap: 15px;
+            // height: 240px;
+        
+            .card-wrapper {
+                width: 240px;
+                // width: 100%;
+                // background-color: red;
+            }
+        }
+
+    }
+
+    .left-arrow {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    .right-arrow {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateX(50%) translateY(-50%);
+    }
+}
