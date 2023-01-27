@@ -54,13 +54,11 @@ export class AppComponent {
     this.gtag.event('page_view');
 
     this.userStateService.currentUser.subscribe(user => {
-      console.log('AFASASFS');
       if(user) {
         console.log(this.route.snapshot);
         const paramSnapshot = this.route.snapshot;
         const paymentResult: string = paramSnapshot.queryParams['payment_result'];
         const assetType: string = paramSnapshot.queryParams['type'];
-        console.log(paymentResult, assetType);
         if (paymentResult === 'success' && assetType) {
           this.purchaseSuccessDialogService.openPurchaseSuccessDialog(paymentResult, assetType).subscribe((data: boolean) => {
             if (data == true) {
