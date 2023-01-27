@@ -57,6 +57,7 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
 
   errorMessage: string = '';
   errorState: boolean = false;
+  showCounter: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<WelcomeDialogComponent>,
@@ -188,6 +189,7 @@ export class WelcomeDialogComponent implements OnInit, OnDestroy {
   }
 
   startCountToClose() {
+    this.showCounter = true;
     this.closeInterval = setInterval(()=>{
       this.secondsToClose -= 1;
       if (this.secondsToClose == 0) {

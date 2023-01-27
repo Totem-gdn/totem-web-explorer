@@ -63,7 +63,6 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
     let token = userInfo?.idToken;
     let publicKey;
-    this.openWelcomeDialog();
     if (userInfo?.idToken) {
       // Social Wallets
       token = userInfo?.idToken;
@@ -111,7 +110,6 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
         this.gtag.event('welcome_dialog_accept', {
           event_label: 'Welcome dialog accept',
         });
-        this.openTxDialog();
       }
       if (data && data.status == GIVEAWAY_STATUS.REJECTED) {
         // do nothing (to delete)

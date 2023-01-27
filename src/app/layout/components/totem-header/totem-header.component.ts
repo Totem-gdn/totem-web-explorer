@@ -21,8 +21,6 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private sidenavStateService: SidenavStateService,
-    private sideProfileStateService: SideProfileStateService,
     private userStateService: UserStateService,
     ) {}
 
@@ -46,22 +44,10 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
     this.subs.add(
       this.userStateService.isLoading.subscribe((value: boolean) => {
-        this.loading$.next(value)
+        this.loading$.next(value);
       })
     )
 
-  }
-
-  openSidenav() {
-    this.sidenavStateService.updateLoadingStatus({isOpen: true, type: 'nav'});
-  }
-
-  openSidefilter() {
-    this.sidenavStateService.updateLoadingStatus({isOpen: true, type: 'filter'});
-  }
-
-  openSideProfile() {
-    this.sideProfileStateService.updateState(true);
   }
 
   logIn() {
@@ -73,7 +59,6 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
   }
 
   navigateToBuy() {
-    // view_item_list gtag
     this.router.navigate(['/buy']);
   }
 
