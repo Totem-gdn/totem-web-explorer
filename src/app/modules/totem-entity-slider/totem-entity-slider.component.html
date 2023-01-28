@@ -4,33 +4,33 @@
     <totem-entity-selector *ngIf="withGameSelector && (games$ | async)" [type]="'game'" [games]="(games$ | async)!"
       [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
   </div>
-  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6"
-    *ngIf="(items$ | async)?.length && assetTypeSelected === 'item'">
+
+  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6">
 
     <slider-wireframe 
-        [assets]="(items$ | async)">
+      *ngIf="(items$ | async)?.length && assetTypeSelected === 'item'" 
+      [assets]="(items$ | async)">
     </slider-wireframe>
 
-  </div>
-  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6"
-    *ngIf="(avatars$ | async)?.length && assetTypeSelected === 'avatar'">
+    <slider-wireframe 
+      *ngIf="(games$ | async)?.length && assetTypeSelected === 'legacy'"
+      [mode]="'dots'"
+      [type]="'legacy'" 
+      [itemsOnScreen]="3" 
+      [assets]="(games$ | async)">
+    </slider-wireframe>
+
 
     <slider-wireframe 
-        [assets]="(avatars$ | async)">
+      *ngIf="(avatars$ | async)?.length && assetTypeSelected === 'avatar'"
+      [assets]="(avatars$ | async)">
     </slider-wireframe>
-    <!-- <ng-container *ngFor="let avatar of (avatars$ | async) | slice: 0:6">
-      <totem-asset-card [asset]="avatar"></totem-asset-card>
-    </ng-container> -->
-  </div>
-  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6"
-    *ngIf="(games$ | async)?.length && assetTypeSelected === 'game'">
-    <!-- <ng-container *ngFor="let game of (games$ | async) | slice: 0:4">
-      <totem-game-card [game]="game"></totem-game-card>
-    </ng-container> -->
+
     <slider-wireframe 
-        [type]="'game'" 
-        [itemsOnScreen]="4" 
-        [assets]="(games$ | async) | slice: 0:7">
+      *ngIf="(games$ | async)?.length && assetTypeSelected === 'game'"
+      [type]="'game'" 
+      [itemsOnScreen]="4" 
+      [assets]="(games$ | async)">
     </slider-wireframe>
 
   </div>

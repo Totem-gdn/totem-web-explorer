@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BLOCK_TYPE } from '@app/core/models/enums/block-types.enum';
 import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { GamesService } from '@app/core/services/assets/games.service';
 import { HomepageBlocksService } from '@app/core/services/blocks/homepage-blocks.service';
 import { GamesStoreService } from '@app/core/store/games-store.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
 
   constructor(
     private gamesStoreService: GamesStoreService,
+    private gamesService: GamesService,
     private homepageBlocksService: HomepageBlocksService,
   ) {
     super();
@@ -29,11 +31,20 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
   }
 
   ngOnInit(): void {
+    this.fetchGames();
     /* this.gamesStoreService.games$.subscribe((data: GameDetail[]) => {
       this.games$.next(data);
     }); */
     //this.gamesStoreService.getGames();
     this.getHomepageBlocks();
+  }
+
+  fetchGames() {
+    this.gamesService.fetchGames(1)
+      .pipe(take(1))
+      .subscribe(games => {
+        this.games$.next(games.data);
+      })
   }
 
   getHomepageBlocks() {

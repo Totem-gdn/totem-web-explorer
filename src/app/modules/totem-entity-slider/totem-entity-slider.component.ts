@@ -28,7 +28,7 @@ export class TotemEntitySliderComponent {
   items$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
   avatars$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
 
-  @Input() assetTypeSelected: 'item' | 'avatar' | 'game' = 'item';
+  @Input() assetTypeSelected: 'item' | 'avatar' | 'game' | 'legacy' = 'item';
   @Input() searchType: 'latest' | 'popular' = 'latest';
   @Input() caption: string = '';
   @Input() withGameSelector: boolean = false;
@@ -44,6 +44,7 @@ export class TotemEntitySliderComponent {
   ) { }
 
   ngOnInit(): void {
+    console.log('rebaerberdb type', this.assetTypeSelected)
     this.listenSelectedGameAndAsset();
     this.listenGames();
 

@@ -21,8 +21,12 @@ export class SliderWireframeComponent {
   @ViewChild('wrapper', {static: true}) wrapper!: ElementRef;
 
   @Input() itemsOnScreen: number = 6;
-  @Input() type: 'game' | 'asset' = 'asset';
+  @Input() type: 'game' | 'asset' | 'legacy' = 'asset';
+  @Input() mode: 'arrows' | 'dots' = 'arrows';
   @Input() set assets(assets: any[] | null) {
+    // console.log('set assets')
+    if(this.type == 'legacy') console.log('set legacy', assets)
+    console.log('type', this.type)
     this.cards = assets;
     setTimeout(() => {
       this.calculateSliderWidth();
@@ -36,19 +40,20 @@ export class SliderWireframeComponent {
   slideWidth: number = 240;
 
 
-  toggleSlides(direction: 'next' | 'prev') {
-    if(direction == 'next') {
-      if(this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
-        console.log('length', this.cards?.length,)
-        this.slideIndex = 0;
-      } else {
-        this.slideIndex++;
+  toggleSlides(direction: 'next' | 'prev' | 'index') {
+    
+    if(direction != 'index') {
+      if(direction == 'next') {
+        if(this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
+          this.slideIndex = 0;
+        } else {
+          this.slideIndex++;
+        }
+      }
+      else if(this.slideIndex >= 1)  {
+        this.slideIndex--;
       }
     }
-    else if(this.slideIndex >= 1)  {
-      this.slideIndex--;
-    }
-    console.log('slide index', this.slideIndex)
 
     const gap = 15;
     const transformWidth = (this.slideWidth + gap) * this.slideIndex;
@@ -57,12 +62,10 @@ export class SliderWireframeComponent {
 
   calculateSliderWidth() {
     const slider = this.wrapper.nativeElement;
-    console.log('slider width', slider.offsetWidth)
     const gap = 15;
     this.slideWidth = ((slider.offsetWidth - ((this.itemsOnScreen - 1) * gap)) / this.itemsOnScreen);
     const cards = slider.getElementsByClassName('card-wrapper');
     for(let card of cards) {
-      console.log('card', card)
       card.style.width = `${this.slideWidth}px`
     }
   }

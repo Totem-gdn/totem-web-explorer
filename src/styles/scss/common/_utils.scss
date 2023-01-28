@@ -1,5 +1,4 @@
-@import 'styles/scss/placeholders';
-
+@import "styles/scss/placeholders";
 
 .blur-bold {
     filter: blur(200px);
@@ -7,6 +6,22 @@
 
 .blur-md {
     filter: blur(150px);
+}
+.max-2-lines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.max-3-lines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .blur-sm {
@@ -29,24 +44,24 @@
 //     transition: display .3s .3s;
 // }
 .absolute_center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .bottom-rectangle {
     position: relative;
     padding-bottom: 6px;
     color: $light-grey;
     &::after {
-      position: absolute;
-      content: "";
-      bottom: 0px;
-      left: -20%;
-      width: 140%;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      border-bottom: 2px solid #ffd013;
+        position: absolute;
+        content: "";
+        bottom: 0px;
+        left: -20%;
+        width: 140%;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        border-bottom: 2px solid #ffd013;
     }
 }
 
@@ -115,8 +130,6 @@
 .gradient-border-solid {
     @extend %gradient-border-solid;
 }
-
-
 
 // .game-dropdown {
 //   max-width: 200px;
@@ -234,7 +247,6 @@
 //           background-size: contain;
 //           background-image: var(--game-image);
 //         }
-
 
 //       }
 

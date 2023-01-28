@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { TotemAssetCardModule } from "@app/modules/totem-asset-card/totem-asset-card.module";
 import { TotemGameCardModule } from "@app/modules/totem-game-card/totem-game-card.module";
+import { TotemLegacyCardModule } from "@app/modules/totem-legacy-card/totem-legacy-card.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { SliderArrowModule } from "./slider-arrow/slider-arrow.module";
 import { SliderWireframeComponent } from "./slider-wireframe.component";
@@ -15,7 +16,8 @@ import { SliderWireframeComponent } from "./slider-wireframe.component";
 
         TotemAssetCardModule,
         TotemGameCardModule,
-        SliderArrowModule
+        SliderArrowModule,
+        TotemLegacyCardModule,
     ],
     exports: [
         SliderWireframeComponent
