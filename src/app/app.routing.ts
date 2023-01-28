@@ -14,6 +14,7 @@ export const AppRoutes: Route[] = [
       /* { path: '', loadChildren: () => import('app/modules/landing/totem-home-page/totem-home-page.module').then(m => m.TotemHomePageModule) }, */
       { path: '', loadChildren: () => import('app/content/totem-homepage/totem-homepage.module').then(m => m.TotemHomepageModule) },
 
+      { path: 'buy', loadChildren: () => import('@app/content/buy-asset/buy-asset.module').then(m => m.TotemBuyAssetModule) },
       { path: 'avatars', loadChildren: () => import('@app/content/pages/demo-avatars/demo-avatars.module').then(m => m.DemoAvatarsModule) },
       { path: 'items', loadChildren: () => import('@app/content/pages/demo-items/demo-items.module').then(m => m.DemoItemsModule) },
       { path: 'games', loadChildren: () => import('@app/content/pages/demo-games/demo-games.module').then(m => m.DemoGamesModule) },

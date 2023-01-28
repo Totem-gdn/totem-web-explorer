@@ -28,6 +28,10 @@ export class TotemGameCardComponent {
     console.log('game', this.game)
   }
 
+  goToGame(game: GameDetail) {
+    this.router.navigate(['game', game.id]);
+  }
+
   /* onClickLike() {
     if(!this.web3Service.isLoggedIn()) {
       this.messageService.open('Unauthorized');

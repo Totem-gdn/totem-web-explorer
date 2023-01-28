@@ -37,7 +37,7 @@
 
 <ng-template #largeGameBar let-game="selectedGame">
   <ng-container *ngIf="game">
-    <div class="mt-6 w-[360px] h-[56px] px-6 large-game-bar t-bg-black flex flex-row items-center justify-start" (click)="setAnotherAsset()">
+    <div class="mt-6 w-[360px] h-[56px] px-6 large-game-bar t-bg-black flex flex-row items-center justify-start cursor-pointer" (click)="goToGame(game)">
       <div class="w-[40px] h-[40px] rounded-[8px] overflow-hidden shrink-0">
         <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
       </div>
@@ -51,7 +51,7 @@
 
 <ng-template #smallGameBar let-game="game">
   <ng-container *ngIf="game">
-    <div class="mt-6 w-[240px] h-[56px] px-2 small-game-bar t-bg-grey flex flex-row items-center justify-start">
+    <div class="mt-6 w-[240px] h-[56px] px-2 small-game-bar t-bg-grey flex flex-row items-center justify-start cursor-pointer" (click)="goToGame(game)">
       <div class="w-[40px] h-[40px] rounded-[8px] overflow-hidden shrink-0">
         <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
       </div>

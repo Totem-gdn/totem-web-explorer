@@ -49,10 +49,12 @@ export class TotemEntitySelectorComponent {
 
   selectAsset(asset: AssetInfo) {
     this.assetSelected.emit(asset);
+    this.menuActive = false;
   }
 
   selectGame(game: GameDetail) {
     this.gameSelected.emit(game);
+    this.menuActive = false;
   }
 
 }

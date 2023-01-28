@@ -27,6 +27,10 @@ export class TotemAssetCardComponent {
   ngOnInit() {
   }
 
+  goToAsset(asset: AssetInfo) {
+    this.router.navigate([asset.assetType, asset.id]);
+  }
+
   /* onClickLike() {
     if(!this.web3Service.isLoggedIn()) {
       this.messageService.open('Unauthorized');

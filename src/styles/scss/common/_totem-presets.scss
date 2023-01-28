@@ -1,0 +1,9 @@
+.totem-hover {
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  transition: border 0.33s ease-out, transform 0.33s ease-out;
+  &:hover {
+    border: 1px solid $totem-violet;
+    transform: translateY(-6px);
+  }
+}
