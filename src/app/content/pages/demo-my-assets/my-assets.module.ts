@@ -1,4 +1,7 @@
+
+import { CdkCopyToClipboard, ClipboardModule } from "@angular/cdk/clipboard";
 import { NgModule } from "@angular/core";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { TotemEntitySliderModule } from "@app/modules/totem-entity-slider/totem-entity-slider.module";
 import { SharedModule } from "@app/shared/shared.module";
@@ -16,7 +19,9 @@ import { MyAssetsRoutes } from "./my-assets.routing";
         RouterModule.forChild(MyAssetsRoutes),
 
         SortByModule,
-        TotemEntitySliderModule
+        TotemEntitySliderModule,
+        ClipboardModule,
+        MatIconModule
     ],
     exports: [
         MyAssetsComponent

@@ -4,6 +4,7 @@ import { UserStateService } from "@app/core/services/auth.service";
 import { ProfileService } from "@app/core/services/profile.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { Subject, take, takeUntil } from "rxjs";
+import { CdkCopyToClipboard } from "@angular/cdk/clipboard";
 
 @Component({
     selector: 'my-assets',
@@ -22,7 +23,9 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
 
     subs = new Subject<void>();
 
-    title?: string;
+    title: string = 'Showing...';
+
+    wallet?: string;
     avatarsTitle: string = '';
     itemsTitle: string = '';
     list = ASSET_PARAM_LIST.LATEST;
@@ -35,7 +38,8 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
         .pipe(takeUntil(this.subs))
         .subscribe(user => {
             if(user) {
-                this.title = `Assets for User ${user.wallet}`
+                this.wallet = user.wallet;
+                this.title = `Showing Assets for User`
 
                 this.profileService.getUserAssetsCount()
                     .pipe(take(1))

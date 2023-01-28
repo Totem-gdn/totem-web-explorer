@@ -1,9 +1,20 @@
 <div class="wrapper">
     <div class="header">
-        <div class="title">Explore {{title}}</div>
+        <div class="flex flex-row items-center">
+            <div class="flex" *ngIf="wallet">
+                <div class="flex wallet">
+                    <p 
+                    class="text-[32px] font-medium leading-[35px]">{{title}}</p>
+                    <p
+                    class="address text-[28px] font-medium leading-[35px] pl-[15px] text-light-grey mt-[3px]"
+                    [cdkCopyToClipboard]="wallet ? wallet : ''"
+                    [cdkCopyToClipboardAttempts]="2">{{this.wallet.slice(0, 6) + '...' + this.wallet.slice(-4)}}</p>
+                    <mat-icon [svgIcon]="'line:copy'"></mat-icon>
+                </div>
+            </div>
 
-        <div class="menus">
-            <sort-by (sort)="onSort($event)"></sort-by>
+            <!-- <totem-entity-selector *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
+                [activeGame]="selectedGame | async" (gameSelected)="setGame($event)"></totem-entity-selector> -->
         </div>
     </div>
 

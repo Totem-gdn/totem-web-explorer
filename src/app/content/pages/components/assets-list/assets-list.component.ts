@@ -6,7 +6,7 @@ import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.mo
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { StoreService } from '@app/core/store/store.service';
-import { Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'assets-list',
@@ -15,10 +15,10 @@ import { Subject, takeUntil } from 'rxjs';
 })
 
 export class AssetsListComponent implements OnInit, OnDestroy {
-  get title() { 
-    let str = this.type;
-    return this.type.toLowerCase().charAt(0).toUpperCase() + str.slice(1) + 's';
-  }
+  // get title() { 
+  //   let str = this.type;
+  //   return 'Showing' + this.type.toLowerCase().charAt(0).toUpperCase() + str.slice(1) + 's';
+  // }
 
   @Input() type!: ASSET_TYPE | 'game' ;
 
@@ -39,8 +39,11 @@ export class AssetsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  games: GameDetail[] | null = null;
-  _assets: AssetInfo[] | null = null;
+  games: GameDetail[] = [];
+  _assets: AssetInfo[] = [];
+
+  title: string = `Showing ...`
+  selectedGame = new BehaviorSubject<GameDetail | null>(null);
 
   subs = new Subject<void>();
   list = ASSET_PARAM_LIST.LATEST;
@@ -48,6 +51,8 @@ export class AssetsListComponent implements OnInit, OnDestroy {
   page = 1;
 
   ngOnInit(): void {
+    this.loadGames(1, this.list);
+
     if(this.type != 'game') {
       this.loadAssets(this.type, 1);
     }
@@ -62,7 +67,7 @@ export class AssetsListComponent implements OnInit, OnDestroy {
     this.storeService.selectedGame$
       .pipe(takeUntil(this.subs))
       .subscribe(game => {
-
+        this.selectedGame.next(game)
         if(this.type != 'game' && this._assets) this._assets = this.storeService.setRenderer(this.type, this._assets);
 
         console.log('selected game', game)
@@ -72,6 +77,7 @@ export class AssetsListComponent implements OnInit, OnDestroy {
   loadAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
     this.assetsService.fetchAssets(type, page, list)
       .subscribe(assets => {
+        this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
         this.setAssets(assets.data, action);
         if(assets.data.length < 10) this.loadMoreActive = false;
 
@@ -80,9 +86,14 @@ export class AssetsListComponent implements OnInit, OnDestroy {
       })
   }
 
+  setGame(game: GameDetail) {
+    this.storeService.selectGame(game);
+  }
+
   loadGames(page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
     this.gamesService.fetchGames(page, list)
       .subscribe(games => {
+        if(this.type == 'game') this.title = `Showing ${games.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'}`
         if(action == 'push') {
           for(let game of games.data) {
             if(!this.games) this.games = [];
@@ -92,7 +103,6 @@ export class AssetsListComponent implements OnInit, OnDestroy {
           this.games = games.data;
         }
         if(games.data.length < 10) this.loadMoreActive = false;
-        console.log('games', this.games)
       })
   }
 
