@@ -25,6 +25,7 @@ export class TotemGameCardComponent {
   @Input() game: GameDetail | null = null;
 
   ngOnInit() {
+    console.log('game', this.game)
   }
 
   /* onClickLike() {

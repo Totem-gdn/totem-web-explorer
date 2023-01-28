@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { GamesService } from '@app/core/services/assets/games.service';
+import { StoreService } from '@app/core/store/store.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'assets-list',
@@ -12,20 +14,37 @@ import { GamesService } from '@app/core/services/assets/games.service';
   styleUrls: ['./assets-list.component.scss']
 })
 
-export class AssetsListComponent implements OnInit {
+export class AssetsListComponent implements OnInit, OnDestroy {
   get title() { 
     let str = this.type;
     return this.type.toLowerCase().charAt(0).toUpperCase() + str.slice(1) + 's';
   }
+
   @Input() type!: ASSET_TYPE | 'game' ;
 
   constructor(private gamesService: GamesService,
-              private assetsService: AssetsService) { }
+              private assetsService: AssetsService,
+              private storeService: StoreService) { }
 
-  assets: AssetInfo[] | null = null;
-  games: GameDetail[] | null = null
+  setAssets(assets: AssetInfo[] | null, action: 'set' | 'push' = 'push') {
+    if(this.type == 'game' || !assets) return;
+    const _assets = this.storeService.setRenderer(this.type, assets);
 
+    if(action == 'push') {
+      if(!this._assets) this._assets = [];
+      for(let asset of _assets) this._assets.push(asset);
+    }
+    if(action == 'set') {
+      this._assets = _assets;
+    }
+  }
+
+  games: GameDetail[] | null = null;
+  _assets: AssetInfo[] | null = null;
+
+  subs = new Subject<void>();
   list = ASSET_PARAM_LIST.LATEST;
+  loadMoreActive = true;
   page = 1;
 
   ngOnInit(): void {
@@ -35,19 +54,27 @@ export class AssetsListComponent implements OnInit {
     if(this.type == 'game') {
       this.loadGames(1, this.list);
     }
+
+    this.selectedGame$();
+  }
+
+  selectedGame$() {
+    this.storeService.selectedGame$
+      .pipe(takeUntil(this.subs))
+      .subscribe(game => {
+
+        if(this.type != 'game' && this._assets) this._assets = this.storeService.setRenderer(this.type, this._assets);
+
+        console.log('selected game', game)
+      })
   }
 
   loadAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
     this.assetsService.fetchAssets(type, page, list)
       .subscribe(assets => {
-        if(action == 'push') {
-          for(let asset of assets.data) {
-            if(!this.assets) this.assets = [];
-            this.assets.push(asset);
-          }
-        } else if(action == 'set') {
-          this.assets = assets.data;
-        }
+        this.setAssets(assets.data, action);
+        if(assets.data.length < 10) this.loadMoreActive = false;
+
         
         console.log('assets', assets.data)
       })
@@ -57,28 +84,29 @@ export class AssetsListComponent implements OnInit {
     this.gamesService.fetchGames(page, list)
       .subscribe(games => {
         if(action == 'push') {
-          for(let asset of games.data) {
+          for(let game of games.data) {
             if(!this.games) this.games = [];
-            this.games.push(asset);
+            this.games.push(game);
           }
         } else if(action == 'set') {
           this.games = games.data;
         }
-        
-        console.log('games', games.data)
+        if(games.data.length < 10) this.loadMoreActive = false;
+        console.log('games', this.games)
       })
   }
 
   loadMore() {
     this.page++;
     if(this.type == 'game') {
-      this.loadGames(this.page, this.list, 'set');
+      this.loadGames(this.page, this.list);
       return;
     }
     this.loadAssets(this.type, this.page, this.list);
   }
 
   onSort(list: ASSET_PARAM_LIST) {
+    this.loadMoreActive = true;
     this.list = list;
     this.page = 1;
     if(this.type == 'game') {
@@ -87,6 +115,11 @@ export class AssetsListComponent implements OnInit {
     }
 
     this.loadAssets(this.type, this.page, this.list, 'set');
+  }
+
+  ngOnDestroy(): void {
+    this.subs.next();
+    this.subs.complete();
   }
 
 }

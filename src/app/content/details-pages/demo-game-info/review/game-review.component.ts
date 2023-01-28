@@ -30,7 +30,7 @@ export class GameReviewComponent {
     @ViewChild('dropdown') dropdown!: ElementRef;
     @Input() game!: SubmitGame | any;
     @Input() editInfo: { edit: boolean; gameId: string } = { edit: false, gameId: '' };
-    toggleDropdown = false;
+
 
     rating: Rate[] = [{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false}]
 
@@ -85,20 +85,5 @@ export class GameReviewComponent {
         for(let i = 0; i < this.rating.length; i++) {
             this.rating[i].selected = false;
         }
-    }
-
-    onToggle() {
-        this.toggleDropdown = !this.toggleDropdown;
-
-        const dropdown: HTMLElement = this.dropdown.nativeElement;
-        document.body.style.position = 'fixed';
-        if(this.toggleDropdown) {
-            dropdown.blur();
-            dropdown.style.maxHeight = '520px';
-        } else {
-
-            dropdown.style.maxHeight = '1px';
-        }
-        document.body.style.position = 'static';
     }
 }

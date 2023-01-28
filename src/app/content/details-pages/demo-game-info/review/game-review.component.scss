@@ -9,14 +9,15 @@
 
     .play {
         border-radius: 12px;
-        margin: 40px 0 30px 0;
+        margin: 25px 0;
         padding: 20px;
         display: flex;
         flex-direction: column;
-        border: 1px solid $light-grey;
+        border: 1px solid $totem-divider-grey;
 
         .item-tag {
-            background-color: $dark-grey;
+            border-radius: 12px;
+            background-color: $totem-dark-grey;
             flex-grow: 1;
             max-width: unset;
         }
@@ -79,72 +80,39 @@
 .lh-33 {
     line-height: 33px;
 }
+.graphic {
+    border: 1px solid $totem-divider-grey;
+    border-radius: 16px;
+    padding: 15px;
+
+    .title {
+        margin-bottom: 15px;
+    }
+    .cards {
+        display: flex;
+        gap: 15px;
+        .card {
+            
+            width: 50%;
+            overflow: hidden;
+            border-radius: 24px;
+            background-color: $totem-grey;
+            display: flex;
+            flex-direction: column;
+            img {
+                height: 185px;
+            }
+            .bottom {
+                background-color: $totem-dark-grey;
+                height: 55px;
+                padding: 15px;
+            }
+        }
+    }
+}
 
 p {
     white-space: pre-wrap;
 }
 
-.dropdown-wrapper {
 
-    .dropdown-button {
-        display: flex;
-        justify-content: space-between;
-        padding-bottom: 10px;
-        padding-top: 10px;
-        cursor: pointer;
-
-        .line-arrow_down {
-            transition: transform .5s ease-in-out;
-            transform: rotateX(0deg);
-        }
-    }
-    .dropdown-table-wrapper {
-        overflow: hidden;
-        transition: max-height .5s ease-in-out;
-        max-height: 1px;
-        .dropdown-table {
-            // border-radius: 4px;
-            transition: border-radius .5s ease-in-out;
-            border: 1px solid $light-grey;
-            padding: 12px;
-
-            p {
-                font-weight: 500;
-            }
-            span {
-                -webkit-line-clamp: 2;
-                line-clamp: 2;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-
-            .row {
-                display: flex;
-                border-bottom: 1px solid $light-grey;
-
-                div {
-                    display: flex;
-                    align-items: center;
-                }
-                div:first-child {
-                    font-weight: 500;
-                    width: 130px;
-                    min-width: 130px;
-                    height: 60px;
-                    padding-left: 12px;
-                    border-right: 1px solid $light-grey;
-                }
-                div:last-child {
-                    padding-left: 12px;
-                    width: 100%;
-                    max-height: 60px;
-                }
-                &:last-child {
-                    border-bottom: none;
-                }
-            }
-        }
-    }
-}

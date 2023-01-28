@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { environment } from "@env/environment.local";
 import { BehaviorSubject, combineLatest, map, Observable, take } from "rxjs";
 import { ASSET_TYPE } from "../models/enums/asset-types.enum";
 import { ApiResponse } from "../models/interfaces/api-response.interface";
@@ -15,8 +16,9 @@ export class StoreService {
   private selectedAsset: BehaviorSubject<AssetInfo | null> = new BehaviorSubject<AssetInfo | null>(null);
   selectedAsset$: Observable<AssetInfo | null> = this.selectedAsset.asObservable();
 
-  private selectedGame: BehaviorSubject<GameDetail | null> = new BehaviorSubject<GameDetail | null>(null);
-  selectedGame$: Observable<GameDetail | null> = this.selectedGame.asObservable();
+  private _selectedGame: BehaviorSubject<GameDetail | null> = new BehaviorSubject<GameDetail | null>(null);
+  selectedGame$: Observable<GameDetail | null> = this._selectedGame.asObservable();
+  get selectedGame() { return this._selectedGame.getValue() }
 
   private avatars: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
   avatars$: Observable<AssetInfo[]> = this.avatars.asObservable();
@@ -37,7 +39,18 @@ export class StoreService {
   }
 
   selectGame(game: GameDetail) {
-    this.selectedGame.next(game);
+    this._selectedGame.next(game);
+  }
+
+  setRenderer(type: ASSET_TYPE, oldAssets: AssetInfo[]) {
+    const assets = [...oldAssets];
+    const rendererUrl = this.selectedGame?.connections?.assetRenderer;
+    let url = rendererUrl ? rendererUrl : environment.ASSET_RENDERER_URL;
+
+    for(let asset of assets) 
+      asset.rendererUrl = `${url}/${type}/${asset.tokenId}?width=400&height=400`;
+    console.log('set assets', assets)
+    return assets;
   }
 
   getAssetsAndGames(page: number = 1) {

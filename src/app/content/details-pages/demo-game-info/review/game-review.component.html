@@ -1,6 +1,6 @@
 <div class="rewiew">
-    <h2 *ngIf="!game?.general?.name" class="mb-[40px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
-    <h2 *ngIf="game?.general?.name" class="mb-[40px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
+    <h2 *ngIf="!game?.general?.name" class="mb-[25px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
+    <h2 *ngIf="game?.general?.name" class="mb-[25px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
     <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
         <h4 class="flex whitespace-nowrap lh-unset">
@@ -56,70 +56,8 @@
 
     <!-- Text -->
     <div class="flex max-w-[calc(100vw-40px)]">
-        <p *ngIf="!game?.general?.description" class="font-medium pb-[40px]">{{'description.descriptions_game_2' | translate}}</p>
-        <p *ngIf="game?.general?.description" class="font-medium pb-[40px] overflow-hidden">{{game?.general?.description}}</p>
-    </div>
-
-    <!-- Details -->
-    <div class="dropdown-wrapper">
-        <div class="dropdown-button" (click)="onToggle()">
-            <h4>{{'nav.details' | translate}}</h4>
-            <div class="text-light-grey !w-[14px] mr-[5px] line-arrow_down"
-                [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></div>
-        </div>
-
-        <div #dropdown class="dropdown-table-wrapper">
-            <div class="dropdown-table" [ngClass]="toggleDropdown ? 'rounded': 'rounded-none'">
-                <div *ngIf="game?.updatedAt" class="row">
-                    <div>
-                        <p>{{'nav.updated' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.updatedAt | date: 'M.dd.yy h:mm'}}</span></div>
-                </div>
-                <div *ngIf="game?.updatedAt" class="row">
-                    <div>
-                        <p>{{'nav.published' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.createdAt | creationTime }}</span></div>
-                </div>
-                <div *ngIf="game?.details?.status" class="row">
-                    <div>
-                        <p>{{'nav.status' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.details?.status}}</span></div>
-                </div>
-                <div *ngIf="game?.details?.platforms" class="row">
-                    <div>
-                        <p>{{'nav.platforms' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.details?.platforms.join(', ')}}</span></div>
-                </div>
-                <div *ngIf="game?.details?.madeWith" class="row">
-                    <div>
-                        <p>{{'nav.made_with' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.details?.madeWith}}</span></div>
-                </div>
-                <div *ngIf="game?.details?.session" class="row">
-                    <div>
-                        <p>{{'nav.session' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.details?.session}}</span></div>
-                </div>
-                <div *ngIf="game?.details?.languages" class="row">
-                    <div>
-                        <p>{{'nav.languages' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.details?.languages}}</span></div>
-                </div>
-                <div *ngIf="game?.details?.inputs" class="row">
-                    <div>
-                        <p>{{'nav.inputs' | translate}}</p>
-                    </div>
-                    <div><span>{{game?.details?.inputs}}</span></div>
-                </div>
-            </div>
-        </div>
+        <p *ngIf="!game?.general?.description" class="font-medium">{{'description.descriptions_game_2' | translate}}</p>
+        <p *ngIf="game?.general?.description" class="font-medium overflow-hidden">{{game?.general?.description}}</p>
     </div>
 
 
@@ -142,6 +80,26 @@
         <a class="w-full p-[0px] m-[0px] mt-[20px]" href="{{game.connections.webpage}}" target="_blank">
             <button class="totem-primary-button">Play</button>
         </a>
+    </div>
+
+    <div class="graphic">
+        <h3 class="title">{{game?.general?.name}} assets graphic:</h3>
+        <div class="cards">
+            <div class="card">
+                <div class="img-wrapper">
+                    <img [src]="game?.connections?.assetRenderer + '/avatar/100'" alt="">
+                </div>
+                <div class="bottom"><p>Avatar example</p></div>
+                
+            </div>
+            <div class="card">
+                <div class="img-wrapper">
+                    <img [src]="game?.connections?.assetRenderer + '/item/100'" alt="">
+                </div>
+                <div class="bottom"><p>Item example</p></div>
+            </div>
+
+        </div>
     </div>
 
 </div>

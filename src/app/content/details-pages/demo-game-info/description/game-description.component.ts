@@ -11,15 +11,31 @@ import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 })
 
 export class GameDescriptionComponent {
-
+    toggleDropdown = false;
     @Input() set game(game: any) {
         this._game = game;
         this.hlImage = game?.images?.gallery[0];
     };
+    @ViewChild('dropdown') dropdown!: ElementRef;
     @ViewChild('image') image!: ElementRef;
 
     _game: any;
     hlImage!: string;
+
+    onToggle() {
+        this.toggleDropdown = !this.toggleDropdown;
+
+        const dropdown: HTMLElement = this.dropdown.nativeElement;
+        document.body.style.position = 'fixed';
+        if(this.toggleDropdown) {
+            dropdown.blur();
+            dropdown.style.maxHeight = '520px';
+        } else {
+
+            dropdown.style.maxHeight = '1px';
+        }
+        document.body.style.position = 'static';
+    }
 
     onChangeImg(image: string) {
         this.image.nativeElement.style.opacity = '0';
