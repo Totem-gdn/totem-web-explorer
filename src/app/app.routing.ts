@@ -17,7 +17,7 @@ export const AppRoutes: Route[] = [
       { path: 'avatars', loadChildren: () => import('@app/modules/landing/pages/main/avatars/avatars.module').then(m => m.AvatarsModule) },
       { path: 'items', loadChildren: () => import('@app/modules/landing/pages/main/items/items.module').then(m => m.ItemsModule) },
       { path: 'games', loadChildren: () => import('@app/modules/landing/pages/main/games/games.module').then(m => m.GamesModule) },
-      { path: 'buy', loadChildren: () => import('@app/modules/landing/pages/main/buy/buy.module').then(m => m.BuyModule) },
+      { path: 'buy', loadChildren: () => import('@app/content/buy-asset/buy-asset.module').then(m => m.TotemBuyAssetModule) },
       { path: 'help', loadChildren: () => import('@app/modules/landing/pages/main/help/help.module').then(m => m.HelpModule) },
       { path: 'terms-and-policy', loadChildren: () => import('@app/modules/landing/pages/terms-and-policy/terms-and-policy.module').then(m => m.TermsAndPolicyModule) },
       { path: 'profile', loadChildren: () => import('app/modules/profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },

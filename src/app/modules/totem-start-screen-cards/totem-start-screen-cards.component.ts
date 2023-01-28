@@ -89,8 +89,8 @@ export class TotemStartScreenCardsComponent {
 
   // utils
 
-  setAnotherAsset() {
-    this.setAsset(this.avatars$.getValue()[2])
+  goToGame(game: GameDetail) {
+    this.router.navigate(['game', game.id]);
   }
 
   componeRendererUrl(game: GameDetail | null): string {

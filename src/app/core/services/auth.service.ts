@@ -40,7 +40,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     this.loading$.next(true);
     await this.web3AuthService.init();
     const isLoggedIn = this.web3AuthService.isLoggedIn();
-    this.loading$.next(false);
+    //this.loading$.next(false);
     if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
     }

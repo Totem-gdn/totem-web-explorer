@@ -1,0 +1,48 @@
+@import 'styles/scss/totem-variables';
+
+:host {
+  display: flex;
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+.totem-buy-asset {
+  min-height: calc(100vh - 80px);
+}
+
+.asset-card {
+  background: rgba(35, 37, 47, 0.2);
+  border: 1px solid #8A93A0;
+  backdrop-filter: blur(40px);
+  transition: transform 0.44s ease-out;
+  user-select: none;
+
+  .image-wrapper {
+    border: 1px dashed #8A93A0;
+    border-radius: 12px;
+  }
+
+  .icon {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    margin-top: 30px;
+    color: $totem-dark-grey;
+    transition: color 0.44s ease-out;
+    &::before {
+      margin: auto;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    .image-wrapper {
+      .icon {
+        color: $totem-white;
+      }
+    }
+  }
+
+}
