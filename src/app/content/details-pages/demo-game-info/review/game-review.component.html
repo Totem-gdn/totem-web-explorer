@@ -1,0 +1,105 @@
+<div class="rewiew">
+    <h2 *ngIf="!game?.general?.name" class="mb-[25px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
+    <h2 *ngIf="game?.general?.name" class="mb-[25px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
+
+    <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
+        <h4 class="flex whitespace-nowrap lh-unset">
+            <p class="text-light-grey pr-[10px] lh-33">{{'modules.author' | translate}}:</p>{{game?.general?.author
+            ? game?.general?.author : 'Triple Troping'}}
+        </h4>
+
+        <!-- Stars -->
+        <!-- <div #stars class="stars">
+            <div #star *ngFor="let rate of rating; let i = index"
+                (click)="starsAction('save', i)" (mouseenter)="starsAction('hover', i)" (mouseleave)="starsAction('leave', i)"
+                class="star" [ngClass]="rate.isHovered || rate.selected == true ? 'solid-star': 'line-star'"></div>
+            <p class="ml-[8px] my-auto">(--)</p>
+        </div> -->
+    </div>
+    <!-- Icons -->
+    <div class="icon-wrapper">
+        <div class="icon-set">
+            <div class="icon !pl-0">
+                <div *ngIf="game?.isLiked === false" class="line-like !w-[18px]"
+                    (click)="$event.stopPropagation(); onClickLike()"></div>
+                <div *ngIf="game?.isLiked === true" class="text-yellow solid-like cursor-pointer !w-[18px]"
+                    (click)="$event.stopPropagation(); onClickLike()"></div>
+                <p class="select-none">{{game?.likes ? game?. likes : '0'}}</p>
+            </div>
+            <div class="icon select-none">
+                <div class="!w-[20px] line-eye"></div>
+                <p>{{game?.views ? game?.views : '0'}}</p>
+            </div>
+        </div>
+        <div class="icon-set">
+            <div class="icon cursor-pointer" (click)="share.share('Сheck out this game')">
+                <share-button class="absolute" #share></share-button>
+                <div class="!w-[14px] !h-[19px] line-share mt-[1px]"></div>
+                <p class="select-none">{{'nav.share' | translate}}</p>
+            </div>
+            <div class="icon cursor-pointer" (click)="
+            loadGame(game.id);
+            refresh.style.animation = 'none';
+            refresh.offsetHeight;
+            refresh.style.animation = 'rotate 0.5s'
+            ">
+                <div #refresh class="!w-[16px] line-refresh"></div>
+
+                <p class="select-none">{{'nav.refresh' | translate}}</p>
+            </div>
+            <div *ngIf="editInfo.edit" class="icon cursor-pointer" (click)="editGame()">
+                <div class="!w-[16px] !h-[19px] line-edit"></div>
+                <p>{{'nav.edit' | translate}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text -->
+    <div class="flex max-w-[calc(100vw-40px)]">
+        <p *ngIf="!game?.general?.description" class="font-medium">{{'description.descriptions_game_2' | translate}}</p>
+        <p *ngIf="game?.general?.description" class="font-medium overflow-hidden">{{game?.general?.description}}</p>
+    </div>
+
+
+    <div class="play">
+        <div class="flex flex-wrap gap-[13px]">
+            <div class="item-tag">
+                <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
+                <p>{{'nav.players' | translate}}</p>
+            </div>
+            <div class="item-tag">
+                <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
+                <p>{{'nav.items' | translate}}</p>
+            </div>
+            <div class="item-tag">
+                <h4>{{game?.assets?.avatars || game?.assets?.avatars == 0 ? game?.assets?.avatars : '24.05.22'}}</h4>
+                <p>{{'nav.avatars' | translate}}</p>
+            </div>
+        </div>
+
+        <a class="w-full p-[0px] m-[0px] mt-[20px]" href="{{game.connections.webpage}}" target="_blank">
+            <button class="totem-primary-button">Play</button>
+        </a>
+    </div>
+
+    <div class="graphic">
+        <h3 class="title">{{game?.general?.name}} assets graphic:</h3>
+        <div class="cards">
+            <div class="card">
+                <div class="img-wrapper">
+                    <img [src]="game?.connections?.assetRenderer + '/avatar/100'" alt="">
+                </div>
+                <div class="bottom"><p>Avatar example</p></div>
+                
+            </div>
+            <div class="card">
+                <div class="img-wrapper">
+                    <img [src]="game?.connections?.assetRenderer + '/item/100'" alt="">
+                </div>
+                <div class="bottom"><p>Item example</p></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

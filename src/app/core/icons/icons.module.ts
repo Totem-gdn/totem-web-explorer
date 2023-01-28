@@ -15,6 +15,7 @@ export class IconsModule
     {
         // Register icon sets
         this._matIconRegistry.addSvgIconSet(this._domSanitizer.bypassSecurityTrustResourceUrl('assets/totem-icons/material-twotone.svg'));
+        this._matIconRegistry.addSvgIconSetInNamespace('line', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/totem-icons/line.svg'));
         this._matIconRegistry.addSvgIconSetInNamespace('mat_outline', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/totem-icons/material-outline.svg'));
         this._matIconRegistry.addSvgIconSetInNamespace('mat_solid', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/totem-icons/material-solid.svg'));
         this._matIconRegistry.addSvgIconSetInNamespace('feather', this._domSanitizer.bypassSecurityTrustResourceUrl('assets/totem-icons/feather.svg'));

@@ -19,7 +19,6 @@ import { VersionDialogModule } from './core/dialogs/version-dialog/version-dialo
 import { IconsModule } from './core/icons/icons.module';
 import { TotemLayoutModule } from './layout/totem-layout/totem-layout.module';
 
-
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,
   // scrollPositionRestoration: 'enabled',

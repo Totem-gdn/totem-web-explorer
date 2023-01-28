@@ -10,6 +10,7 @@ import { TotemEntitySliderModule } from '@app/modules/totem-entity-slider/totem-
 import { TotemEventCounterModule } from '@app/modules/landing/totem-home-page/components/home-components/totem-event-counter/totem-event-counter.module';
 import { TotemPromoGameModule } from '@app/modules/landing/totem-home-page/components/home-components/totem-promo-game/totem-promo-game.module';
 import { TotemExplorerVideoModule } from '@app/modules/totem-explorer-video/totem-explorer-video.module';
+import { SliderWireframeModule } from '@app/modules/demo/slider-wireframe/slider-wireframe.module';
 
 @NgModule({
   declarations: [TotemHomepageComponent],
@@ -23,7 +24,9 @@ import { TotemExplorerVideoModule } from '@app/modules/totem-explorer-video/tote
     TotemEntitySliderModule,
     TotemEventCounterModule,
     TotemPromoGameModule,
-    TotemExplorerVideoModule
+    TotemExplorerVideoModule,
+
+    SliderWireframeModule
   ],
   exports: [],
   providers: [],

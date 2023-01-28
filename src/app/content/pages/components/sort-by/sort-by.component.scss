@@ -1,0 +1,66 @@
+@import "styles/scss/totem-variables";
+
+
+
+.menu-filter {
+    width: auto !important;
+}
+.dropdown {
+    min-width: 90px;
+}
+.dropdown-menu {
+    width: 100%;
+}
+
+.line-arrow_down {
+    color: $totem-light-grey;
+    font-size: 9px;
+    transition: transform .3s, color .3s, background-color .3s;
+}
+.menu-filter {
+    background-color: transparent;
+    border-radius: 40px;
+    &:hover {
+        // background-color: $totem-violet;
+        
+    }
+    p {
+        transition: color .3s;
+        font-weight: 400 !important;
+        color: $totem-light-grey;
+    }
+    &:hover p {
+
+
+        color: white !important;
+    }
+
+    &::before {
+        border-radius: 40px;
+    }
+}
+.menu-filter:hover .line-arrow_down {
+    color: white;
+    // color: $black !important; 
+}
+
+.dropdown-menu {
+    min-width: 120px;
+    // padding: 5px;
+    padding: 6px 6px;
+    border-radius: 12px;
+    background-color: $totem-black;
+
+    .menu-items {
+        padding: 0;
+        .menu-item {
+            border-radius: 12px;
+            &:hover {
+                background-color: $totem-violet;
+            }
+        }
+    }
+    &::before {
+        border-radius: 12px;
+    }
+}

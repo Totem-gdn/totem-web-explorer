@@ -12,6 +12,8 @@ import { AssetsStoreService } from '@app/core/store/assets-store.service';
 import { GamesStoreService } from '@app/core/store/games-store.service';
 import { StoreService } from '@app/core/store/store.service';
 import { environment } from '@env/environment';
+import { AssetsService } from '@app/core/services/assets/assets.service';
+import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 
 @Component({
   selector: 'totem-entity-slider',
@@ -26,18 +28,28 @@ export class TotemEntitySliderComponent {
   items$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
   avatars$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
 
-  @Input() assetTypeSelected: 'item' | 'avatar' | 'game' = 'item';
+  @Input() assetTypeSelected: 'item' | 'avatar' | 'game' | 'legacy' = 'item';
   @Input() searchType: 'latest' | 'popular' = 'latest';
   @Input() caption: string = '';
   @Input() withGameSelector: boolean = false;
+  
+  @Input() set list(list: ASSET_PARAM_LIST) {
+    this.fetchMyAssets(this.ownerAddress, list);
+  }
+  @Input() ownerAddress?: string;
 
   constructor(
-              private storeService: StoreService,
-              ) {}
+    private storeService: StoreService,
+    private assetsService: AssetsService
+  ) { }
 
   ngOnInit(): void {
+    console.log('rebaerberdb type', this.assetTypeSelected)
     this.listenSelectedGameAndAsset();
     this.listenGames();
+
+    if (this.ownerAddress) return;
+
     if (this.assetTypeSelected === 'item') {
       this.listenItems();
     }
@@ -77,6 +89,25 @@ export class TotemEntitySliderComponent {
     });
   }
 
+  fetchMyAssets(wallet?: string, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
+    console.log('type', this.assetTypeSelected)
+    if (this.assetTypeSelected == 'avatar') {
+      this.assetsService.fetchAssets('avatar', 1, list, wallet)
+        .subscribe(avatars => {
+          this.avatars$.next(avatars.data);
+          this.setRendererUrlForAll();
+
+        })
+    }
+    if (this.assetTypeSelected == 'item') {
+      this.assetsService.fetchAssets('item', 1, list, wallet)
+        .subscribe(items => {
+          this.items$.next(items.data);
+        this.setRendererUrlForAll();    
+        })
+    }
+  }
+
   // utils
 
   setGame(game: GameDetail) {
@@ -94,12 +125,12 @@ export class TotemEntitySliderComponent {
     const items = this.assetTypeSelected === 'item' ? this.items$.getValue() : this.avatars$.getValue();
 
     const assets: AssetInfo[] = items.map((asset: AssetInfo) => {
-        const rendererUrlChecked = this.componeRendererUrl(selectedGame);
-        return {
-          ...asset,
-          rendererUrl: `${rendererUrlChecked}/${this.assetTypeSelected}/${asset?.tokenId}?width=400&height=400`,
-          rarity: asset?.tokenId! % 100
-        }
+      const rendererUrlChecked = this.componeRendererUrl(selectedGame);
+      return {
+        ...asset,
+        rendererUrl: `${rendererUrlChecked}/${this.assetTypeSelected}/${asset?.tokenId}?width=400&height=400`,
+        rarity: asset?.tokenId! % 100
+      }
     });
 
     if (this.assetTypeSelected === 'item') {

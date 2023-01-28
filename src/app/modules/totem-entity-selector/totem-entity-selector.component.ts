@@ -25,6 +25,7 @@ export class TotemEntitySelectorComponent {
 
   constructor() {}
 
+  // @Input() caption
   @Input() type: 'asset' | 'game' = 'asset';
   @Input() activeAsset: AssetInfo | null = null;
   @Input() assets: AssetInfo[] = [];
