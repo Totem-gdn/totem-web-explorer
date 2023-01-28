@@ -1,21 +1,37 @@
-
 <div class="w-full flex flex-col items-start justify-start mt-12">
   <div class="flex flex-row items-center">
     <p class="text-[32px] font-medium leading-[35px]">{{caption}}</p>
-    <totem-entity-selector *ngIf="withGameSelector && (games$ | async)" [type]="'game'" [games]="(games$ | async)!" [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
+    <totem-entity-selector *ngIf="withGameSelector && (games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+      [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
   </div>
-  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6" *ngIf="(items$ | async)?.length && assetTypeSelected === 'item'">
-   <slider-wireframe [assets]="items$ | async"></slider-wireframe>
+  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6"
+    *ngIf="(items$ | async)?.length && assetTypeSelected === 'item'">
+
+    <slider-wireframe 
+        [assets]="(items$ | async)">
+    </slider-wireframe>
+
   </div>
-  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6" *ngIf="(avatars$ | async)?.length && assetTypeSelected === 'avatar'">
-    <ng-container *ngFor="let avatar of (avatars$ | async) | slice: 0:6">
+  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6"
+    *ngIf="(avatars$ | async)?.length && assetTypeSelected === 'avatar'">
+
+    <slider-wireframe 
+        [assets]="(avatars$ | async)">
+    </slider-wireframe>
+    <!-- <ng-container *ngFor="let avatar of (avatars$ | async) | slice: 0:6">
       <totem-asset-card [asset]="avatar"></totem-asset-card>
-    </ng-container>
+    </ng-container> -->
   </div>
-  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6" *ngIf="(games$ | async)?.length && assetTypeSelected === 'game'">
-    <ng-container *ngFor="let game of (games$ | async) | slice: 0:4">
+  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6"
+    *ngIf="(games$ | async)?.length && assetTypeSelected === 'game'">
+    <!-- <ng-container *ngFor="let game of (games$ | async) | slice: 0:4">
       <totem-game-card [game]="game"></totem-game-card>
-    </ng-container>
+    </ng-container> -->
+    <slider-wireframe 
+        [type]="'game'" 
+        [itemsOnScreen]="4" 
+        [assets]="(games$ | async) | slice: 0:7">
+    </slider-wireframe>
+
   </div>
 </div>
-

@@ -17,6 +17,9 @@ interface Rate {
     selector: 'game-review',
     templateUrl: './game-review.component.html',
     styleUrls: ['./game-review.component.scss'],
+    host: {
+        class: 'w-full'
+    }
 })
 
 export class GameReviewComponent {

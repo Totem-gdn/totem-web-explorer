@@ -1,0 +1,19 @@
+.wrapper {
+    padding: 40px 0;
+    width: 100%;
+    max-width: 1520px;
+    margin: auto;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        .title {
+            font-size: 32px;
+            font-weight: 500;
+        }
+
+        .menus {
+            display: flex;
+        }
+        margin-bottom: 30px;
+    }
+}

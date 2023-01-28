@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Animations } from '@app/core/animations/animations';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 
 @Component({
   selector: 'slider-wireframe',
@@ -7,7 +9,10 @@ import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
   styleUrls: ['./slider-wireframe.component.scss'],
   host: {
     class: 'w-full'
-  }
+  },
+  animations: [
+    Animations.animations
+  ]
 })
 export class SliderWireframeComponent {
   
@@ -15,16 +20,17 @@ export class SliderWireframeComponent {
   @ViewChild('slider', {static: true}) slider!: ElementRef;
   @ViewChild('wrapper', {static: true}) wrapper!: ElementRef;
 
-  @Input() set assets(assets: AssetInfo[] | null) {
+  @Input() itemsOnScreen: number = 6;
+  @Input() type: 'game' | 'asset' = 'asset';
+  @Input() set assets(assets: any[] | null) {
     this.cards = assets;
     setTimeout(() => {
       this.calculateSliderWidth();
     }, 10)
   };
-  @Input() itemsOnScreen: number = 6;
 
 
-  cards!: AssetInfo[] | null;
+  cards!: any[] | null;
 
   slideIndex: number = 0;
   slideWidth: number = 240;

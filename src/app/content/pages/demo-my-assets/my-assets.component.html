@@ -1,0 +1,16 @@
+<div class="wrapper">
+    <div class="header">
+        <div class="title">Explore {{title}}</div>
+
+        <div class="menus">
+            <sort-by (sort)="onSort($event)"></sort-by>
+        </div>
+    </div>
+
+
+
+    <ng-container *ngIf="ownerAddress">
+        <totem-entity-slider [assetTypeSelected]="'avatar'" [list]="list" class="mb-[30px]" [caption]="avatarsTitle" [ownerAddress]="ownerAddress"></totem-entity-slider>
+        <totem-entity-slider [assetTypeSelected]="'item'" [list]="list" [caption]="itemsTitle" [ownerAddress]="ownerAddress"></totem-entity-slider>
+    </ng-container>
+</div>

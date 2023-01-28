@@ -5,12 +5,14 @@
     <div #wrapper class="slider">
         <div class="slider-track" #slider>
             <div class="card-wrapper" *ngFor="let card of cards">
-                <totem-asset-card [asset]="card"></totem-asset-card>
+                <totem-asset-card *ngIf="type != 'game'" [asset]="card"></totem-asset-card>
+                <totem-game-card *ngIf="type == 'game'" [game]="card"></totem-game-card>
+
             </div>
         </div>
     </div>
 
-    <slider-arrow [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
+    <slider-arrow @fade-in-out *ngIf="slideIndex != 0" [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
     <slider-arrow (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>
 
 </div>
