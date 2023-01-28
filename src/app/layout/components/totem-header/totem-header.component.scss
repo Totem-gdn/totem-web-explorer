@@ -16,23 +16,12 @@
 .totem-navigation-items {
   a {
     position: relative;
-    margin-left: 50px;
+    margin-left: 42px;
     z-index: 2;
+    border-radius: 37px;
+    transition: background 0.22s ease-out;
   }
   a.active-route {
-    &::after {
-      z-index: 1;
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: calc(100% + 12px);
-      height: calc(100% + 8px);
-      background-color: $totem-violet;
-      border-radius: 12px;
-    }
-    /* background-color: $totem-violet;
-    padding: 8px 12px; */
-
+    background-color: $totem-violet;
   }
 }
