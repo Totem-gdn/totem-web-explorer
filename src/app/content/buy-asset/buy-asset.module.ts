@@ -11,6 +11,7 @@ import { TotemEventCounterModule } from '@app/modules/landing/totem-home-page/co
 import { TotemPromoGameModule } from '@app/modules/landing/totem-home-page/components/home-components/totem-promo-game/totem-promo-game.module';
 import { TotemExplorerVideoModule } from '@app/modules/totem-explorer-video/totem-explorer-video.module';
 import { MatRippleModule } from '@angular/material/core';
+import { BackgroundCircleModule } from '@app/components/utils/bg-circle/bg-circle.module';
 
 @NgModule({
   declarations: [TotemBuyAssetComponent],
@@ -25,7 +26,9 @@ import { MatRippleModule } from '@angular/material/core';
     TotemEntitySliderModule,
     TotemEventCounterModule,
     TotemPromoGameModule,
-    TotemExplorerVideoModule
+    TotemExplorerVideoModule,
+
+    BackgroundCircleModule
   ],
   exports: [],
   providers: [],

@@ -49,9 +49,11 @@ export class ItemDescComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(games => {
         this.games = games.data;
+        this.gamesOnScreen = games.data;
         this.selectedGameCheck();
       })
     this.selectedGame$();
+
   }
 
   selectedGame$() {
@@ -100,8 +102,8 @@ export class ItemDescComponent implements OnInit, OnDestroy {
       });
   }
 
-  onClickBuy() {
-
+  redirectToBuy() {
+    this.router.navigate(['/buy'])
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { BLOCK_TYPE } from '@app/core/models/enums/block-types.enum';
@@ -48,6 +48,7 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
 
   ngOnInit(): void {
     this.updateAssets();
+    this.playAnimation();
   }
 
   async onBuyItem(paymentInfo: PaymentInfo) {
@@ -70,6 +71,82 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
     }
 
     this.popupService.showAssetTransaction('payment', paymentInfo);
+  }
+
+  // paymentInfo(assets: any[]) {
+  //   assets.forEach(asset => {
+  //     this.buyAssetService.getPaymentInfo(asset).subscribe(info => {
+  //       if (asset == 'item') this.assets[0].paymentInfo = info;
+  //       if (asset == 'avatar') this.assets[1].paymentInfo = info;
+  //       if (asset == 'gem') this.assets[2].paymentInfo = info;
+  //       if (this.assets.length == 3) {
+  //         this.playAnimation();
+  //       }
+  //     })
+  //   })
+  // }
+
+  @ViewChild('item1') item1!: ElementRef;
+  @ViewChild('item2') item2!: ElementRef;
+
+  @ViewChild('movingCircle') movingCircle!: any;
+  disableLoop = { disable: false, immutable: false };
+  loop: any;
+
+  playAnimation() {
+    let currentItemIndex = 0;
+    let reverse = false;
+
+    this.loop = setInterval(() => {
+      if (this.disableLoop.disable === true) {
+        return;
+      }
+      console.log('loop')
+      this.animateItem(currentItemIndex == 0 ? 1 : 0, false);
+      currentItemIndex = currentItemIndex == 0 ? 1 : 0;
+
+    }, 2500);
+
+  }
+
+  animateItem(index: number, disableLoop: boolean) {
+    console.log('animate', index)
+    let item = index == 0 ? this.item1.nativeElement : this.item2.nativeElement;
+    if (disableLoop && this.disableLoop.immutable == false) {
+      this.disableLoop.disable = true;
+    }
+    const circles = item.getElementsByClassName('circle-wrapper')[0];
+    const icon = item.getElementsByClassName('icon')[0];
+    item.style.color = 'white';
+    item.style.transform = 'translateY(-6px)';
+    circles.style.opacity = '0.5';
+    icon.style.color = 'white';
+    this.resetWithExeption(index, false);
+    this.moveCircle(item);
+    
+
+  }
+  resetWithExeption(index: number, userLeave: boolean) {
+    let item = index == 1 ? this.item1.nativeElement : this.item2.nativeElement;
+
+    if (userLeave && this.disableLoop.immutable == false) {
+      this.disableLoop.disable = false;
+    }
+    const circles = item.getElementsByClassName('circle-wrapper')[0];
+    const icon = item.getElementsByClassName('icon')[0];
+    item.style.color = '#353840';
+    item.style.transform = 'translateY(0px)';
+    circles.style.opacity = '0';
+    icon.style.color = '#353840';
+  }
+
+  moveCircle(item: any) {
+    const itemX = item.offsetLeft + (item.offsetWidth / 2) - 150;
+    const itemY = item.offsetTop + (item.offsetHeight / 2) - 200;
+    // console.log('item x', itemX, 'item y', itemY)
+    this.movingCircle.nativeElement.style.transform = `translate(${itemX}px,${itemY}px)`;
+    this.movingCircle.nativeElement.style.transition = 'transform .8s ease-in-out, opacity 1s .5s';
+    this.movingCircle.nativeElement.style.opacity = `1`;
   }
 
   updateAssets() {
