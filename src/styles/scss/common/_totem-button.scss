@@ -2,7 +2,7 @@
 .totem-primary-button,
 .totem-default-button,
 .totem-secondary-button {
-  background: $totem-violet;
+  background: $totem-violet !important;
   color: inherit;
   border: none;
   padding: 0px 24px;
@@ -11,9 +11,27 @@
   outline: inherit;
   border-radius: 40px;
   font-style: normal;
+
+  transition: color 0.1s ease-out, background 0.1s ease-out;
+
+  &:disabled,
+  &[disabled]{
+    background-color: $totem-light-grey !important;
+    color: $totem-divider-grey;
+  }
 }
 
 .totem-secondary-button {
   border: 1px solid $totem-white;
-  background: transparent;
+  background: transparent !important;
+  transition: color 0.1s ease-out, border 0.1s ease-out;
+  &:hover {
+    color: $totem-violet;
+    border: 1px solid $totem-violet;
+  }
+  &:disabled,
+  &[disabled]{
+    color: $totem-light-grey;
+    border: 1px solid $totem-light-grey;
+  }
 }

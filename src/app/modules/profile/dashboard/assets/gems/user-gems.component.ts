@@ -20,7 +20,7 @@ export class UserGemsComponent implements OnInit {
   constructor(private assetsService: AssetsService,
               private web3Service: Web3AuthService) { }
 
-  sortMethod = ASSET_PARAM_LIST.MY;
+  sortMethod = ASSET_PARAM_LIST.LATEST;
   type = ASSET_TYPE.GEM;
 
   assets!: AssetInfo[] | null;
@@ -42,7 +42,7 @@ export class UserGemsComponent implements OnInit {
       }
     });
   }
-  
+
   onSort(sortMethod: any) {
     this.sortMethod = sortMethod;
     this.loadMoreAssets(1, this.sortMethod, true);

@@ -6,11 +6,13 @@ import { BLOCK_TYPE } from '@app/core/models/enums/block-types.enum';
 import { COLOR_POPUP_TYPE } from '@app/core/models/enums/popup.enum';
 import { PaymentInfo } from '@app/core/models/interfaces/asset-info.model';
 import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
+import { CardPaymentResponse } from '@app/core/models/interfaces/payment.interface';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { BuyAssetService } from '@app/core/services/assets/buy-asset.service';
 import { UserStateService } from '@app/core/services/auth.service';
 import { HomepageBlocksService } from '@app/core/services/blocks/homepage-blocks.service';
 import { CryptoUtilsService } from '@app/core/services/crypto/crypto-utils.service';
+import { TransactionsService } from '@app/core/services/crypto/transactions.service';
 import { PopupService } from '@app/core/services/states/popup-state.service';
 import { GamesStoreService } from '@app/core/store/games-store.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
@@ -27,7 +29,7 @@ import { BehaviorSubject, catchError, of } from 'rxjs';
 export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, OnDestroy {
 
   games$: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
-  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   assets: PaymentInfo[] = [{ type: ASSET_TYPE.ITEM }, { type: ASSET_TYPE.AVATAR }];
 
   constructor(
@@ -37,6 +39,7 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
     private cryptoUtilsService: CryptoUtilsService,
     private userStateService: UserStateService,
     private snackService: SnackNotifierService,
+    private transactionsService: TransactionsService,
     private gtag: Gtag
   ) {
     super();
@@ -98,6 +101,27 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
           }
       })
     })
+  }
+
+  buyWithCard(type: string) {
+    this.loading$.next(true);
+    this.transactionsService.buyAssetWithCard(type).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackService.open(err.error.message || err.message);
+        this.loading$.next(false);
+        return of();
+      }))
+      .subscribe((data: CardPaymentResponse) => {
+        if (data && data.url) {
+          this.openInNewWindow(data.url);
+        }
+        console.log(data);
+        this.loading$.next(false);
+      });
+  }
+
+  openInNewWindow(url: string) {
+    window.open(url, '_self');
   }
 
 }

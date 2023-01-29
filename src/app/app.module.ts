@@ -18,6 +18,7 @@ import { ServiceWorkerService } from './service-worker.service';
 import { VersionDialogModule } from './core/dialogs/version-dialog/version-dialog.module';
 import { IconsModule } from './core/icons/icons.module';
 import { TotemLayoutModule } from './layout/totem-layout/totem-layout.module';
+import { PaymentSuccessDialogModule } from './core/dialogs/payment-success-dialog/payment-success-dialog.module';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,
@@ -37,6 +38,7 @@ const routerConfig: ExtraOptions = {
     GtagModule.forRoot({ trackingId: environment.TRACKING_G_ID, trackPageviews: true }),
     WelcomeDialogModule,
     VersionDialogModule,
+    PaymentSuccessDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
