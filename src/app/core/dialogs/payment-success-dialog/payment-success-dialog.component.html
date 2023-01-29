@@ -1,0 +1,16 @@
+<div class="purchase py-6 px-8 flex flex-col items-center justify-center w-full">
+  <div #circlesRef class="circle-wrapper blur-70 z-1">
+      <bg-circle class="bottom-[20%] left-[20%] z-1" [background]="'#3A23C9'" [width]="'220px'"></bg-circle>
+      <bg-circle class="bottom-[20%] left-[28%] z-3" [background]="'#8023C9'" [width]="'290px'"></bg-circle>
+      <bg-circle class="bottom-[10%] left-[28%] z-1" [background]="'#FFD011'" [width]="'177px'"></bg-circle>
+      <bg-circle class="bottom-[9%] left-[24%] z-2" [background]="'#FF8540'" [width]="'284px'"></bg-circle>
+  </div>
+  <div class="content w-full flex flex-col items-center justify-center max-h-[358px] h-full rounded z-2">
+      <h3 class="font-semibold text-[48px] leading-[52px] max-w-[520px] w-full text-white text-center">You successfully generated new {{assetName}}!</h3>
+      <p class="text-light-grey text-[20px] leading-[22px] text-center max-w-[496px] w-full mt-6">It will appear on your assets page in a couple of minutes after the payment gets processed.</p>
+  </div>
+  <div class="mt-6 z-2 text-white w-full flex flex-row items-center justify-center">
+    <button class="totem-secondary-button !px-6 h-12 text-white text-[20px] leading-[22px] font-medium min-w-[134px]" [mat-dialog-close]="false">Close ({{secondsToClose}})</button>
+    <button matRipple class="totem-primary-button !px-6 h-12 text-white text-[20px] leading-[22px] font-medium !ml-8" [mat-dialog-close]="true">Go to My Assets</button>
+  </div>
+</div>

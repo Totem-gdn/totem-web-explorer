@@ -32,7 +32,7 @@ export class TotemEntitySliderComponent {
   @Input() searchType: 'latest' | 'popular' = 'latest';
   @Input() caption: string = '';
   @Input() withGameSelector: boolean = false;
-  
+
   @Input() set list(list: ASSET_PARAM_LIST) {
     this.fetchMyAssets(this.ownerAddress, list);
   }
@@ -60,14 +60,12 @@ export class TotemEntitySliderComponent {
 
   listenGames() {
     this.storeService.games$.subscribe((games: GameDetail[]) => {
-      console.log('GAMES FROM STORAGE: ', games);
       this.games$.next(games);
     });
   }
 
   listenAvatars() {
     this.storeService.avatars$.subscribe((avatars: AssetInfo[]) => {
-      console.log('avatars FROM STORAGE: ', avatars);
       this.avatars$.next(avatars);
       this.setRendererUrlForAll();
     });
@@ -75,7 +73,6 @@ export class TotemEntitySliderComponent {
 
   listenItems() {
     this.storeService.items$.subscribe((items: AssetInfo[]) => {
-      console.log('items FROM STORAGE: ', items);
       this.items$.next(items);
       this.setRendererUrlForAll();
     });
@@ -90,20 +87,18 @@ export class TotemEntitySliderComponent {
   }
 
   fetchMyAssets(wallet?: string, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
-    console.log('type', this.assetTypeSelected)
     if (this.assetTypeSelected == 'avatar') {
       this.assetsService.fetchAssets('avatar', 1, list, wallet)
         .subscribe(avatars => {
           this.avatars$.next(avatars.data);
           this.setRendererUrlForAll();
-
         })
     }
     if (this.assetTypeSelected == 'item') {
       this.assetsService.fetchAssets('item', 1, list, wallet)
         .subscribe(items => {
           this.items$.next(items.data);
-        this.setRendererUrlForAll();    
+          this.setRendererUrlForAll();
         })
     }
   }

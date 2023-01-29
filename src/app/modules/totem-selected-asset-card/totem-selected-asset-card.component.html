@@ -1,4 +1,4 @@
-<div class="flex flex-col selected-asset-card w-[360px] h-[432px] flex-auto overflow-hidden rounded-[24px]">
+<div class="flex flex-col selected-asset-card w-[360px] h-[432px] flex-auto overflow-hidden rounded-[24px] cursor-pointer" (click)="goToAsset(asset!)">
 
     <div *ngIf="asset?.rendererUrl" class="img-wrapper h-[289px]">
         <img class="object-cover h-full" loading="lazy" [src]="asset?.rendererUrl" alt="Not found">

@@ -1,11 +1,44 @@
 <div class="search-filter">
-  <div class="close-icon line-close" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" (click)="eraseInput()"></div>
+
+  <button mat-icon-button class="rounded-full" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" (click)="eraseInput()"><mat-icon [svgIcon]="'mat_outline:close'"></mat-icon></button>
+  <!-- <div class="close-icon line-close" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" (click)="eraseInput()"></div> -->
 
   <input autocomplete="off" class="search-filter-input" #searchInput type="text" id="filterInput" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search...">
 
   <div class="totem-dropdown" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" *ngIf="dropdownOpened">
-    <!-- Navigation -->
-    <div class="tabs" fxLayout="row" fxLayoutAlign="start center">
+
+    <div class="flex flex-col w-full" *ngIf="((itemsArray | async)?.length || (avatarsArray | async)?.length || (gamesArray | async)?.length); else noItems">
+      <div class="flex flex-col w-full" *ngIf="(itemsArray | async)?.length && (itemsArray | async) as items">
+        <p>Items</p>
+        <ng-container *ngFor="let item of items | arrSlice: 4">
+          <div class="w-full">
+            {{item.tokenId}}
+          </div>
+        </ng-container>
+      </div>
+      <div class="flex flex-col w-full" *ngIf="(avatarsArray | async)?.length && (avatarsArray | async) as items">
+        <p>Avatars</p>
+        <ng-container *ngFor="let item of items | arrSlice: 4">
+          <div class="w-full">
+            {{item.tokenId}}
+          </div>
+        </ng-container>
+      </div>
+      <div class="flex flex-col w-full" *ngIf="(gamesArray | async)?.length && (gamesArray | async) as items">
+        <p>Games</p>
+        <ng-container *ngFor="let item of items | arrSlice: 4">
+          <div class="w-full">
+            {{item.id}}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <ng-template #noItems>
+      <div *ngIf="!(loading$ | async)" class="w-full loader">
+        No items found
+      </div>
+    </ng-template>
+    <!-- <div class="tabs" fxLayout="row" fxLayoutAlign="start center">
       <div class="dropdown-tab" fxLayout="column" fxLayoutAlign="space-between center">
         <div [ngClass]="{'active-tab': activeTab === tabType.ITEMS_TAB}" class="items-tab" (click)="changeTab(tabType.ITEMS_TAB)">{{'nav.items' | translate}}</div>
         <div class="active-border" *ngIf="activeTab === tabType.ITEMS_TAB"></div>
@@ -22,7 +55,7 @@
         <div *ngIf="activeTab !== tabType.GAMES_TAB && (gamesArray | async)?.length" class="items-badge">{{(gamesArray | async)?.length}}</div>
       </div>
     </div>
-    <!-- Tabs content -->
+
     <div *ngIf="!(loading$ | async)" class="content">
 
       <div *ngIf="activeTab === tabType.ITEMS_TAB" class="content-items">
@@ -41,7 +74,6 @@
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
               <div class="item-name">ID: {{item.tokenId}}</div>
-              <!-- <div class="item-type">{{item.type}}</div> -->
             </div>
           </div>
         </div>
@@ -55,7 +87,6 @@
       <div *ngIf="activeTab === tabType.AVATARS_TAB" class="content-avatars">
         <div *ngIf="avatarsArray | async as items; else noItems" class="items-wrapper">
           <div *ngFor="let item of items | arrSlice: 4" class="item-card" fxLayout="row" fxLayoutAlign="start center" (click)="goToAvatar(item.id)">
-            <!-- <div class="item-prev-icon" [ngStyle]="{'background': item.gradient}"> delete after 31.12.2022 -->
             <div class="item-prev-icon">
               <img
                 loading="lazy"
@@ -70,7 +101,6 @@
             </div>
             <div fxLayout="column" fxLayoutAlign="center start">
               <div class="item-name">ID: {{item.tokenId}}</div>
-              <!-- <div class="item-type">{{item.type}}</div> -->
             </div>
           </div>
         </div>
@@ -107,7 +137,7 @@
           </div>
         </ng-template>
       </div>
-    </div>
+    </div> -->
     <!-- Loader -->
     <div *ngIf="(loading$ | async)" class="loader" fxLayout="row" fxLayoutAlign="center center">
       <!-- Example: [size]="'44'" -->

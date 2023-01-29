@@ -10,7 +10,7 @@
         </div>
         <div class="w-full flex flex-row items-center justify-between mt-6">
           <p class="text-[24px] leading-[26px] font-medium">{{assets[0].paymentInfo?.price}} USDC</p>
-          <button class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer" matRipple>Purchase</button>
+          <button [disabled]="(loading$ | async)" class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer" (click)="buyWithCard('item')" matRipple>Purchase</button>
         </div>
       </div>
       <div class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
@@ -22,7 +22,7 @@
         </div>
         <div class="w-full flex flex-row items-center justify-between mt-6">
           <p class="text-[24px] leading-[26px] font-medium">{{assets[1].paymentInfo?.price}} USDC</p>
-          <button class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer" matRipple>Purchase</button>
+          <button [disabled]="(loading$ | async)" class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer" (click)="buyWithCard('avatar')" matRipple>Purchase</button>
         </div>
       </div>
     </div>

@@ -15,11 +15,38 @@
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/games">Games</a>
     </nav>
-    <div class="ml-[72px]">
+
+    <div class="ml-[72px]" *ngIf="!(currUser$ | async)">
       <button (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
     </div>
-    <div class="ml-[12px]">
+
+    <div class="ml-[12px]" *ngIf="!(currUser$ | async)">
       <button (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
     </div>
+
+    <div class="ml-[72px] flex flex-row" *ngIf="currUser$ | async">
+      <div><button (click)="navigateToBuy()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button></div>
+      <div class="flex flex-col items-start justify-center ml-8">
+        <p class="text-[16px] font-medium leading-[17px]">
+          $ {{usdcBalance}}
+        </p>
+        <p class="text-[14px] font-normal leading-[15px] mt-1">
+          Balance
+        </p>
+      </div>
+      <div class="ml-6 h-12 w-12 rounded-full overflow-hidden" (click)="navigateToProfile()">
+        <img loading="lazy" *ngIf="(currUser$ | async)?.profileImage && !(loading$ | async)"
+        [src]="(currUser$ | async)?.profileImage" alt="profile-icon" class="w-full h-full rounded-full object-cover cursor-pointer">
+      </div>
+      <div class="flex flex-col items-start justify-center ml-2">
+        <p class="text-[16px] font-medium leading-[17px] whitespace-nowrap mb-1 pt-[4px]" *ngIf="(currUser$ | async)?.name">
+          {{(currUser$ | async)?.slicedName ? (currUser$ | async)?.slicedName : (currUser$ | async)?.name}}
+        </p>
+        <p class="wallet-caption text-[14px] font-normal leading-[15px] flex flex-row cursor-pointer pb-[3px]" [cdkCopyToClipboard]="(currUser$ | async)?.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
+          {{(currUser$ | async)?.slicedWallet}} <mat-icon class="!h-[15px] !w-[15px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon>
+        </p>
+      </div>
+    </div>
+
   </div>
 </div>

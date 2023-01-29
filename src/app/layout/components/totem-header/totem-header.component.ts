@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { TokenBalance } from '@app/core/models/interfaces/token-balance.modle';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
-import { SidenavStateService } from '@app/core/services/states/sidenav-state.service';
-import { SideProfileStateService } from '@app/core/services/states/sideprofile-state.service';
+import { CryptoUtilsService } from '@app/core/services/crypto/crypto-utils.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
@@ -14,31 +15,40 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  allowNavigation: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currUser: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
+  currUser$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
   isLoggedIn: boolean = false;
+  usdcBalance: string | undefined = undefined;
   subs: Subscription = new Subscription();
 
   constructor(
     private router: Router,
     private userStateService: UserStateService,
+    private cryptoUtilsService: CryptoUtilsService,
+    private snackNotifierService: SnackNotifierService,
     ) {}
 
   ngOnInit(): void {
     this.initUserAndLoadingListener();
+    this.initBalanceListener();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
+  initBalanceListener() {
+    this.cryptoUtilsService.tokenBalance$.subscribe((balance: TokenBalance) => {
+      console.log(balance);
+
+      this.usdcBalance = balance.usdc;
+    })
+  }
+
   initUserAndLoadingListener() {
 
     this.subs.add(
       this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
-        this.currUser.next(user);
-        this.isLoggedIn = !!user;
-        this.allowNavigation.next(true);
+        this.prepeareUserData(user);
       })
     )
 
@@ -48,6 +58,34 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
       })
     )
 
+  }
+
+  prepeareUserData(user: UserEntity | null) {
+    if (!user) {
+      this.currUser$.next(user);
+      return;
+    };
+
+    const userData = user;
+    let slicedName: string = '';
+
+    if (userData?.name?.length! > 10) {
+      slicedName = userData!.name?.slice(0, 10) + '...';
+    }
+    const slicedWallet: string = userData.wallet?.slice(0, 6) + '...' + userData.wallet?.slice(-4);
+
+    const userToUse: UserEntity = {
+      ...userData,
+      slicedName: slicedName,
+      slicedWallet: slicedWallet
+    }
+
+    this.currUser$.next(userToUse);
+    this.updateBalance();
+  }
+
+  updateBalance() {
+    this.cryptoUtilsService.updateBalance();
   }
 
   logIn() {
@@ -60,6 +98,14 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   navigateToBuy() {
     this.router.navigate(['/buy']);
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  copied() {
+    this.snackNotifierService.open('Copied to the clipboard');
   }
 
 }

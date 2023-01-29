@@ -13,6 +13,14 @@
   border-bottom: 1px solid #353840;
 }
 
+.wallet-caption {
+  border-bottom: 1px solid transparent;
+  transition: border 0.22s ease-out;
+  &:hover {
+    border-bottom: 1px solid $totem-violet;
+  }
+}
+
 .totem-navigation-items {
   a {
     position: relative;

@@ -26,11 +26,11 @@ export class CryptoUtilsService
             tokenBalance.usdc = usdcBalance;
             this._tokenBalance.next(tokenBalance);
         });
-        this.getMaticBalance().then(maticBalance => {
+        /* this.getMaticBalance().then(maticBalance => {
             let tokenBalance = this._tokenBalance.getValue();
             tokenBalance.matic = maticBalance;
             this._tokenBalance.next(tokenBalance);
-        });
+        }); */
     }
 
     async checkAddressValidity(address: string | undefined | null) {
