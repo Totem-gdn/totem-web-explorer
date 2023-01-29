@@ -37,15 +37,23 @@ export class AssetsService {
 
         return this.http.get<ApiResponse<AssetInfo[]>>(url)
             .pipe(tap(assets => {
+                this.handleAssets(type, assets.data);
 
                 const totalAssets = this.totalAssets;
-                if (type == ASSET_TYPE.AVATAR) totalAssets.avatars = assets.meta;
+                if (type == ASSET_TYPE.AVATAR) {
+                    totalAssets.avatars = assets.meta;
+                }
                 if (type == ASSET_TYPE.ITEM) totalAssets.items = assets.meta;
                 this.totalAssets = totalAssets;
 
             }));
     }
 
+    handleAssets(type: AssetTypes,assets: AssetInfo[]) {
+        for(let asset of assets) {
+            asset.assetType = type;
+        }
+    }
     getAssetsByFilter(type: ASSET_TYPE, filter: string, page: number = 1, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
         return this.http.get<any>(`${this.baseUrl}/assets/${type}s?page=${page}&list=${list}&search=${filter}`)
         .pipe(map(assets => assets.data));
