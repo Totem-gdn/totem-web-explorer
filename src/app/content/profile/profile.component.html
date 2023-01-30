@@ -1,0 +1,9 @@
+<div class="w-full flex flex-col items-center px-8 pb-12">
+  <div class="w-full max-w-[1520px]">
+    <profile-information [user]="currentUser$ | async"></profile-information>
+  </div>
+
+  <div class="w-full max-w-[1520px] mt-12" *ngIf="currentUser$ | async">
+    <router-outlet></router-outlet>
+  </div>
+</div>

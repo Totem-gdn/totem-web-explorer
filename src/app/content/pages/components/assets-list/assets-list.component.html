@@ -2,7 +2,7 @@
     <div class="header">
         <div class="flex flex-row items-center">
             <p class="text-[32px] font-medium leading-[35px]">{{title}}</p>
-            <totem-entity-selector *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
+            <totem-entity-selector class="text-[32px] font-medium leading-[35px] px-3" *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
                 [activeGame]="selectedGame | async" (gameSelected)="setGame($event)"></totem-entity-selector>
         </div>
     </div>

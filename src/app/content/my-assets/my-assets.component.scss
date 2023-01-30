@@ -1,0 +1,13 @@
+@import 'styles/scss/totem-variables';
+
+.address, .mat-icon {
+  color: $totem-light-grey;
+  transition: color .3s;
+  cursor: pointer;
+  &:hover {
+    color: $totem-white;
+    .mat-icon {
+      color: $totem-white;
+    }
+  }
+}

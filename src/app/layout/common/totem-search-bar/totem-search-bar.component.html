@@ -2,39 +2,63 @@
 
   <button mat-icon-button class="rounded-full" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" (click)="eraseInput()"><mat-icon [svgIcon]="'mat_outline:close'"></mat-icon></button>
   <!-- <div class="close-icon line-close" [ngStyle]="{'opacity': searchInfo.value ? 1 : 0}" (click)="eraseInput()"></div> -->
-
+  <mat-icon [ngStyle]="dropdownOpened ? {'color': 'white'} : {}" class="absolute left-3 top-[9px] !w-[22px] !h-[22px] z-2 t-col-light-grey" [svgIcon]="'mat_outline:search'"></mat-icon>
   <input autocomplete="off" class="search-filter-input" #searchInput type="text" id="filterInput" (focus)="onFocus()" (blur)="onBlur()" [formControl]="searchInfo" placeholder="Search...">
 
   <div class="totem-dropdown" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" *ngIf="dropdownOpened">
 
-    <div class="flex flex-col w-full" *ngIf="((itemsArray | async)?.length || (avatarsArray | async)?.length || (gamesArray | async)?.length); else noItems">
-      <div class="flex flex-col w-full" *ngIf="(itemsArray | async)?.length && (itemsArray | async) as items">
-        <p>Items</p>
+    <div class="flex flex-col w-full px-4 pb-4 pt-2" *ngIf="((itemsArray | async)?.length || (avatarsArray | async)?.length || (gamesArray | async)?.length); else noItems">
+
+      <div class="flex flex-col w-full mt-2" *ngIf="(itemsArray | async)?.length && (itemsArray | async) as items">
+        <p class="text-[14px] leading-[15px] font-semibold w-full asset-title">Items</p>
         <ng-container *ngFor="let item of items | arrSlice: 4">
-          <div class="w-full">
-            {{item.tokenId}}
+          <div class="dropdown-item w-full h-12 px-2 py-1 flex flex-row items-center justify-start mt-1" (click)="goToItem(item.tokenId)">
+            <div class="h-10 w-10 shrink-0 relative mr-2 rounded-[12px] overflow-hidden">
+              <img class="h-full w-full object-cover" [src]="assetRendererUrl + '/' + 'item' + '/' + item?.tokenId + '?width=50&height=50'" alt="icon">
+            </div>
+            <div>
+              ID: {{item.tokenId}}
+            </div>
           </div>
         </ng-container>
       </div>
-      <div class="flex flex-col w-full" *ngIf="(avatarsArray | async)?.length && (avatarsArray | async) as items">
-        <p>Avatars</p>
+
+      <div class="flex flex-col w-full mt-2" *ngIf="(avatarsArray | async)?.length && (avatarsArray | async) as items">
+        <p class="text-[14px] leading-[15px] font-semibold w-full asset-title">Avatars</p>
         <ng-container *ngFor="let item of items | arrSlice: 4">
-          <div class="w-full">
-            {{item.tokenId}}
+          <div class="dropdown-item w-full h-12 px-2 py-1 flex flex-row items-center justify-start mt-1" (click)="goToAvatar(item.id)">
+            <div class="h-10 w-10 shrink-0 relative mr-2 rounded-[12px] overflow-hidden">
+              <img class="h-full w-full object-cover" [src]="assetRendererUrl + '/' + 'avatar' + '/' + item?.tokenId + '?width=50&height=50'" alt="icon">
+            </div>
+            <div>
+              ID: {{item.tokenId}}
+            </div>
           </div>
         </ng-container>
       </div>
-      <div class="flex flex-col w-full" *ngIf="(gamesArray | async)?.length && (gamesArray | async) as items">
-        <p>Games</p>
+
+      <div class="flex flex-col w-full mt-2" *ngIf="(gamesArray | async)?.length && (gamesArray | async) as items">
+        <p class="text-[14px] leading-[15px] font-semibold w-full asset-title">Games</p>
         <ng-container *ngFor="let item of items | arrSlice: 4">
-          <div class="w-full">
-            {{item.id}}
+          <div class="dropdown-item w-full h-12 px-2 py-1 flex flex-row items-center justify-start mt-1" (click)="goToGame(item.id)">
+            <div class="h-10 w-10 shrink-0 relative mr-2 rounded-[12px] overflow-hidden">
+              <img
+                loading="lazy"
+                [src]="item?.images?.smallThumbnail"
+                alt="icon">
+            </div>
+            <div class="flex flex-col items-start justify-center">
+              <div class="item-name text-[16px] leading-[16px] font-normal">{{item?.general?.name}}</div>
+              <div class="item-type text-[14px] leading-[15px] font-medium t-col-light-grey mt-1">{{item?.general?.genre ? item?.general.genre[0] : 'Action'}}</div>
+            </div>
           </div>
         </ng-container>
       </div>
+
     </div>
+
     <ng-template #noItems>
-      <div *ngIf="!(loading$ | async)" class="w-full loader">
+      <div *ngIf="!(loading$ | async)" class="w-full loader text-[14px] leading-[16px] font-normal text-center t-bg-grey t-col-light-grey">
         No items found
       </div>
     </ng-template>
@@ -139,7 +163,7 @@
       </div>
     </div> -->
     <!-- Loader -->
-    <div *ngIf="(loading$ | async)" class="loader" fxLayout="row" fxLayoutAlign="center center">
+    <div *ngIf="(loading$ | async)" class="loader t-bg-grey" fxLayout="row" fxLayoutAlign="center center">
       <!-- Example: [size]="'44'" -->
       <totem-spinner></totem-spinner>
     </div>

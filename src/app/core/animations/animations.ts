@@ -3,6 +3,23 @@ import { animate, group, style, transition, trigger } from '@angular/animations'
 export const Animations = {
   animations: [
     trigger(
+      'showBanner',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translateY(-20px)', opacity: 0 }),
+            group([
+              animate('0.33s ease-in-out',
+                style({ transform: 'translateY(0px)' })),
+              animate('0.33s ease-in-out',
+                style({ opacity: 1 }))
+            ])
+          ]
+        ),
+      ]
+    ),
+    trigger(
       'showMessage',
       [
         transition(

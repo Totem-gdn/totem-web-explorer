@@ -1,0 +1,48 @@
+<div class="my-assets flex flex-col items-center w-full"
+  [ngStyle]="(routeValue$ | async) == '/my-assets' ? {'padding-left': '48px', 'padding-right': '48px', 'padding-bottom': '48px', 'margin-top':'48px'} : {}"
+  >
+  <div class="flex flex-col items-start justify-start max-w-[1520px] w-full">
+    <div class="flex flex-row items-center" *ngIf="currentUser$ | async as user">
+      <p class="text-[32px] leading-[35px] font-medium">Assets for User: &nbsp;</p>
+      <p class="text-[32px] leading-[35px] font-medium flex flex-row items-center address" [cdkCopyToClipboard]="user.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
+        {{user.slicedWallet}} <mat-icon class="!h-[30px] !w-[30px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
+    </div>
+    <div class="flex flex-col items-start" *ngIf="assetTotal">
+
+      <ng-container *ngIf="assetTotal?.avatars?.all">
+        <div class="flex flex-row items-center mt-12">
+          <p class="text-[24px] leading-[26px] font-medium">You have {{assetTotal.avatars.all || 0}} Avatars showing in &nbsp;</p>
+          <totem-entity-selector class="text-[24px] leading-[26px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+          [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
+        </div>
+        <div class="flex flex-wrap items-start justify-start gap-4 mt-4">
+          <ng-container *ngIf="avatars$ | async as avatars">
+            <ng-container *ngFor="let avatar of avatars">
+              <totem-asset-card [asset]="avatar"></totem-asset-card>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="assetTotal?.items?.all">
+        <div class="flex flex-row items-center mt-12">
+          <p class="text-[24px] leading-[26px] font-medium">You have {{assetTotal.items.all || 0}} Items showing in &nbsp;</p>
+          <totem-entity-selector class="text-[24px] leading-[26px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+          [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
+        </div>
+        <div class="flex flex-wrap items-start justify-start gap-4 mt-4">
+          <ng-container *ngIf="items$ | async as items">
+            <ng-container *ngFor="let item of items">
+              <totem-asset-card [asset]="item"></totem-asset-card>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!assetTotal?.avatars?.all && !assetTotal?.items?.all">
+        You have no assets
+      </ng-container>
+
+    </div>
+  </div>
+</div>

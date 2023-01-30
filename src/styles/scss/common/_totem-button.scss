@@ -35,3 +35,14 @@
     border: 1px solid $totem-light-grey;
   }
 }
+
+.totem-tab-button {
+  background-color: $totem-divider-grey;
+  border-radius: 40px;
+  padding: 0px 24px;
+  cursor: pointer;
+  transition: background 0.22s ease-out;
+  &:hover {
+    background-color: $totem-dark-grey;
+  }
+}
