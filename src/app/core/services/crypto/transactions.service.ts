@@ -12,6 +12,7 @@ export class TransactionsService {
 
   faucetUrl: string = environment.TOTEM_FAUCET_API_URL;
   baseUrl: string = environment.TOTEM_BASE_API_URL;
+  applicationUrl: string = environment.TOTEM_WEB_EXPLORER_URL;
 
   constructor(private http: HttpClient) { }
 
@@ -26,7 +27,7 @@ export class TransactionsService {
   }
 
   buyAssetWithCard(type: string): Observable<CardPaymentResponse> {
-    return this.http.post<CardPaymentResponse>(`${this.baseUrl}/assets/${type}`, {});
+    return this.http.post<CardPaymentResponse>(`${this.baseUrl}/assets/${type}`, {successUrl: this.applicationUrl});
   }
 
 }
