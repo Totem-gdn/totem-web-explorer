@@ -38,6 +38,7 @@ export class AssetsStoreService {
 
   getAssets(type: AssetTypes, page: number = 1) {
     this.assetsService.fetchAssets(type, page).subscribe((assets: ApiResponse<AssetInfo[]>) => {
+      this.handleAssets(type, assets.data)
       if (type === ASSET_TYPE.AVATAR) {
         this.avatars.next(assets.data);
       }
@@ -46,5 +47,11 @@ export class AssetsStoreService {
       }
     })
   }
+
+  handleAssets(type: AssetTypes,assets: AssetInfo[]) {
+    for(let asset of assets) {
+        asset.assetType = type;
+    }
+}
 
 }

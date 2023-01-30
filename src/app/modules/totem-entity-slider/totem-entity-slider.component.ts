@@ -44,7 +44,6 @@ export class TotemEntitySliderComponent {
   ) { }
 
   ngOnInit(): void {
-    console.log('rebaerberdb type', this.assetTypeSelected)
     this.listenSelectedGameAndAsset();
     this.listenGames();
 

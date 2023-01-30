@@ -7,6 +7,7 @@ import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/s
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 
 @Component({
   selector: 'totem-asset-card',
@@ -23,12 +24,14 @@ export class TotemAssetCardComponent {
 
   @Input() width = 'full';
   @Input() asset: AssetInfo | null = null;
+  @Input() type!: ASSET_TYPE;
 
   ngOnInit() {
   }
 
   goToAsset(asset: AssetInfo) {
-    this.router.navigate([asset.assetType, asset.id]);
+    console.log('asset', asset)
+    this.router.navigate([`/${asset.assetType}`, asset.id]);
   }
 
   /* onClickLike() {

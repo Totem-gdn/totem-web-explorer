@@ -28,7 +28,7 @@ export class AssetsListComponent implements OnInit, OnDestroy {
 
   setAssets(assets: AssetInfo[] | null, action: 'set' | 'push' = 'push') {
     if(this.type == 'game' || !assets) return;
-    const _assets = this.storeService.setRenderer(this.type, assets);
+    const _assets = this.storeService.setRenderers(this.type, assets);
 
     if(action == 'push') {
       if(!this._assets) this._assets = [];
@@ -68,7 +68,7 @@ export class AssetsListComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.subs))
       .subscribe(game => {
         this.selectedGame.next(game)
-        if(this.type != 'game' && this._assets) this._assets = this.storeService.setRenderer(this.type, this._assets);
+        if(this.type != 'game' && this._assets) this._assets = this.storeService.setRenderers(this.type, this._assets);
 
         console.log('selected game', game)
       })

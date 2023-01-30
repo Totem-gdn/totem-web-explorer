@@ -42,16 +42,22 @@ export class StoreService {
     this._selectedGame.next(game);
   }
 
-  setRenderer(type: ASSET_TYPE, oldAssets: AssetInfo[]) {
+  setRenderers(type: ASSET_TYPE, oldAssets: AssetInfo[]) {
     const assets = [...oldAssets];
-    const rendererUrl = this.selectedGame?.connections?.assetRenderer;
-    let url = rendererUrl ? rendererUrl : environment.ASSET_RENDERER_URL;
 
-    for(let asset of assets) 
-      asset.rendererUrl = `${url}/${type}/${asset.tokenId}?width=400&height=400`;
-    console.log('set assets', assets)
+    for(let asset of assets) {
+      asset = this.setRenderer(type, asset);
+    }
+      
     return assets;
   }
+  setRenderer(type: ASSET_TYPE, asset: AssetInfo) {
+    const rendererUrl = this.selectedGame?.connections?.assetRenderer;
+    let url = rendererUrl ? rendererUrl : environment.ASSET_RENDERER_URL;
+    asset.rendererUrl = `${url}/${type}/${asset?.tokenId}?width=400&height=400`;
+    return asset;
+  }
+
 
   getAssetsAndGames(page: number = 1) {
     combineLatest([
