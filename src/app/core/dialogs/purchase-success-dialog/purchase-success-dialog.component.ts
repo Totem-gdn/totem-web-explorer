@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'purchase-success-dialog',
@@ -14,8 +15,8 @@ export class PurchaseSuccessDialogComponent implements OnInit, AfterViewInit {
   status: string = '';
   assetName: string = '';
   assetNameMultiple: string = '';
-  closeInterval: any;
-  secondsToClose: number = 5;
+  counterSub: Subscription = new Subscription();
+  secondsToClose: number = 15;
 
   constructor(
     public dialogRef: MatDialogRef<PurchaseSuccessDialogComponent>,
@@ -45,13 +46,13 @@ export class PurchaseSuccessDialogComponent implements OnInit, AfterViewInit {
   }
 
   startCounter() {
-    this.closeInterval = setInterval(()=>{
+    this.counterSub = timer(1000, 1000).subscribe(() => {
       this.secondsToClose -= 1;
       if (this.secondsToClose == 0) {
         this.dialogRef.close(false);
-        clearInterval(this.closeInterval);
+        this.counterSub.unsubscribe();
       }
-    }, 1000);
+    })
   }
 
 }
