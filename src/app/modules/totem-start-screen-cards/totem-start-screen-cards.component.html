@@ -9,7 +9,7 @@
 
     <div class="flex flex-row items-center justify-start">
       <p class="text-[40px] font-medium leading-[44px]">Showing</p>
-      <totem-entity-selector [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
+      <totem-entity-selector class="text-[48px] font-semibold leading-[52px] px-5" [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
       <p class="text-[40px] font-medium leading-[44px]">on several games</p>
     </div>
 

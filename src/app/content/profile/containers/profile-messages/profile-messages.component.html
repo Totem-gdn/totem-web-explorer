@@ -1,5 +1,4 @@
 <div class="table-wrapper">
-  <totem-profile-back-button [routeName]="'Messages'"></totem-profile-back-button>
   <div class="table-wrapper-content">
     <div class="table-head" fxLayout="row" fxLayoutAlign="space-between center">
       <div  fxLayout="row" fxLayoutAlign="start center">
@@ -46,7 +45,7 @@
 
     </div>
 
-    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px] mb-[100px]" *ngIf="loading$ | async">
+    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px]" *ngIf="loading$ | async">
       <totem-spinner class="flex items-center h-full"></totem-spinner>
     </div>
 
