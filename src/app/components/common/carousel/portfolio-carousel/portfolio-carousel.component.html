@@ -3,8 +3,8 @@
         <ng-container  *ngFor="let slide of _slides">
 
             <!-- Video -->
-            <div class="slide video-slide" *ngIf="slide.type == 'video'">
-                <img loading="lazy" class="sm:h-[175px]" [src]="slide.url | youtubeThumbnail" alt="slide" (click)="onClickSlide(slide)">
+            <div class="slide video-slide" *ngIf="slide.type == 'video'" (click)="onClickSlide(slide)">
+                <img loading="lazy" class="sm:h-[175px]" [src]="slide.url | youtubeThumbnail" alt="slide">
                 <mat-icon class="absolute_center" [svgIcon]="'line:video'"></mat-icon>
             </div>
 
