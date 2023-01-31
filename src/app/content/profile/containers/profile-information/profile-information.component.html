@@ -10,7 +10,7 @@
           {{user.slicedWallet || user.wallet}} <mat-icon class="!h-[20px] !w-[20px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
       </div>
       <div class="flex flex-row items-center justify-center">
-        <p class="text-[20px] leading-[22px] font-semibold t-col-light-grey hover:text-white cursor-pointer" (click)="logOut()">Log out</p>
+        <p class="log-out-button text-[20px] leading-[22px] font-semibold t-col-light-grey hover:text-white cursor-pointer" (click)="logOut()">Log out</p>
         <div matRipple class="text-[20px] leading-[22px] font-medium flex items-center justify-center totem-tab-button h-12 ml-6" (click)="goToMessages()"><mat-icon class="!h-[22px] !w-[22px] mr-2" [svgIcon]="'mat_outline:drafts'"></mat-icon> Messages</div>
         <button class="text-[20px] leading-[22px] font-semibold !px-6 totem-secondary-button h-12 !ml-6" (click)="goToSubmitPage()">Add game</button>
       </div>

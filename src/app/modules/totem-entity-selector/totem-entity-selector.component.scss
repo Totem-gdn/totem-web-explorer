@@ -14,6 +14,18 @@
 
 }
 
+.asset-selector {
+  .custom-border {
+    transition: width 0.26s ease-out, background 0.26s ease-out;
+  }
+  &:hover {
+    .custom-border {
+      background-color: #7C4EDE;
+      width: calc(100% + 40px);
+    }
+  }
+}
+
 .asset-selector-menu-wrapper {
   border: 1px solid $totem-violet;
   .asset-selector-item {
@@ -24,8 +36,18 @@
   }
 }
 
+.mat-icon {
+  transition: transform 0.26s ease-out;
+}
+
 .title {
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
+}
+
+.game-arrow {
+  width: 20px !important;
+  height: 20px !important;
+  margin-left: 12px !important;
 }
