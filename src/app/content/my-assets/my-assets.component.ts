@@ -83,7 +83,7 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
       this.myAssetsStoreService.avatars$,
       this.myAssetsStoreService.items$
     ]).pipe(
-      map(([items, avatars]) => { return { items, avatars } })).subscribe((data) => {
+      map(([avatars, items]) => { return { avatars, items } })).subscribe((data) => {
         this.avatars$.next(data.avatars);
         this.items$.next(data.items);
         this.setRendererUrlForAll();

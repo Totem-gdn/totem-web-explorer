@@ -7,9 +7,9 @@
       <p class="text-[32px] leading-[35px] font-medium flex flex-row items-center address" [cdkCopyToClipboard]="user.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
         {{user.slicedWallet}} <mat-icon class="!h-[30px] !w-[30px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
     </div>
-    <div class="flex flex-col items-start" *ngIf="assetTotal">
+    <div class="flex flex-col items-start w-full" *ngIf="assetTotal">
 
-      <ng-container *ngIf="assetTotal?.avatars?.all">
+      <ng-container *ngIf="assetTotal?.avatars?.all; else noItems">
         <div class="flex flex-row items-center mt-12">
           <p class="text-[24px] leading-[26px] font-medium">You have {{assetTotal.avatars.all || 0}} Avatars showing in &nbsp;</p>
           <totem-entity-selector class="text-[24px] leading-[26px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
@@ -24,7 +24,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="assetTotal?.items?.all">
+      <ng-container *ngIf="assetTotal?.items?.all; else noAvatars">
         <div class="flex flex-row items-center mt-12">
           <p class="text-[24px] leading-[26px] font-medium">You have {{assetTotal.items.all || 0}} Items showing in &nbsp;</p>
           <totem-entity-selector class="text-[24px] leading-[26px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
@@ -39,10 +39,28 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="!assetTotal?.avatars?.all && !assetTotal?.items?.all">
+      <!-- <ng-container *ngIf="!assetTotal?.avatars?.all && !assetTotal?.items?.all">
         You have no assets
-      </ng-container>
+      </ng-container> -->
 
     </div>
   </div>
 </div>
+
+<ng-template #noItems>
+  <ng-container *ngTemplateOutlet="noAssets, context: {type: 'Item'}"></ng-container>
+</ng-template>
+<ng-template #noAvatars>
+  <ng-container *ngTemplateOutlet="noAssets, context: {type: 'Avatar'}"></ng-container>
+</ng-template>
+
+<ng-template #noAssets let-type="type">
+  <p class="text-[24px] leading-[26px] font-medium mt-12">You own no assets type "{{type}}"</p>
+  <div class="no-assets-block h-[288px] w-full flex flex-col shrink-0 items-center justify-center rounded-[24px] mt-4">
+    <div class="asset-image">
+      <div *ngIf="type === 'Item'" class="!text-[90px] icon solid-buy-item flex t-col-light-grey"></div>
+      <div *ngIf="type === 'Avatar'" class="!text-[90px] icon solid-buy-avatar flex t-col-light-grey"></div>
+    </div>
+    <p class="t-col-light-grey text-[20px] leading-[22px] font-medium mt-6">Purchase an asset that you can use across all Totem Games!</p>
+  </div>
+</ng-template>

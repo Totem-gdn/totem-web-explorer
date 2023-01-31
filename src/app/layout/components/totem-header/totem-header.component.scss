@@ -28,6 +28,10 @@
     z-index: 2;
     border-radius: 37px;
     transition: background 0.22s ease-out;
+
+    &:hover {
+      background-color: $totem-divider-grey;
+    }
   }
   a.active-route {
     background-color: $totem-violet;

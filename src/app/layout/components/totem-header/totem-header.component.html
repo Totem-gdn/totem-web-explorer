@@ -17,15 +17,15 @@
     </nav>
 
     <div class="ml-[72px]" *ngIf="!(currUser$ | async)">
-      <button (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
+      <button matRipple (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
     </div>
 
     <div class="ml-[12px]" *ngIf="!(currUser$ | async)">
-      <button (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
+      <button matRipple (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
     </div>
 
     <div class="ml-[72px] flex flex-row" *ngIf="currUser$ | async">
-      <div><button (click)="navigateToBuy()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button></div>
+      <div><button matRipple (click)="navigateToBuy()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button></div>
       <div class="flex flex-col items-start justify-center ml-8">
         <p class="text-[16px] font-medium leading-[17px]">
           $ {{usdcBalance}}
