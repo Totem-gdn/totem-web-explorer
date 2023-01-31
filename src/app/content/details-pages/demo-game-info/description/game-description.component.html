@@ -7,7 +7,9 @@
             <img *ngIf="hlSlide.type == 'image'" loading="lazy" class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
                 [src]="hlSlide.url" [alt]="_game?.general?.name">
             <!-- <video *ngIf="hlSlide.type == 'video'" class="h-full hl-image relative z-2" [src]="hlSlide.url"> -->
-            <iframe *ngIf="hlSlide.type == 'video'"
+            <iframe 
+                allow="fullscreen;"
+                *ngIf="hlSlide.type == 'video'"
                 class="w-full h-full" 
                 [src]="hlSlide.url | unsafeUrl" frameborder="0"></iframe>
 

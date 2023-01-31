@@ -19,6 +19,7 @@ export class GameDescriptionComponent {
     toggleDropdown = false;
     @Input() set game(game: any) {
         //
+        game.connections.promoVideo = 'https://www.youtube.com/embed/gu7bzir1uFI';
         //
         this._game = game;
         const slides: GameSlide[] = [];
