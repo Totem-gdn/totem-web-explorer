@@ -167,6 +167,10 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
     this.avatars$.next(avatarsToSet);
   }
 
+  goToBuy() {
+    this.router.navigate(['buy']);
+  }
+
   //
 
   ngOnDestroy(): void {
