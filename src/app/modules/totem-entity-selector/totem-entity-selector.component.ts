@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewC
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { Animations } from '@app/core/animations/animations';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { StoreService } from '@app/core/store/store.service';
 
 @Component({
   selector: 'totem-entity-selector',
@@ -23,7 +24,7 @@ export class TotemEntitySelectorComponent {
  }
   @ViewChild('toggleButton') toggleButton!: ElementRef<HTMLInputElement>;
 
-  constructor() {}
+  constructor(private storeService: StoreService,) {}
 
   // @Input() caption
   @Input() type: 'asset' | 'game' = 'asset';
@@ -36,6 +37,9 @@ export class TotemEntitySelectorComponent {
   @Output() gameSelected: EventEmitter<GameDetail> = new EventEmitter();
 
   ngOnInit() {
+    this.storeService.games$.subscribe((games: GameDetail[]) => {
+      this.games = games;
+    })
   }
 
   closeMenu(event: any) {

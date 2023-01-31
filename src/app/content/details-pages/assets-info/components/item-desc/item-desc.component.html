@@ -73,7 +73,7 @@
                 </div>
         </div>
     </div>
-<!-- 
+<!--
     <div class="cards-preview">
         <h3 classs="title">Look in other games:</h3>
     </div> -->
@@ -81,7 +81,7 @@
         <h3 class="title">Look in other games:</h3>
 
         <div class="cards">
-            <div @fade-in class="card" *ngFor="let game of gamesOnScreen | slice:0:3">
+            <div @fade-in class="card cursor-pointer" *ngFor="let game of gamesOnScreen | slice:0:3" (click)="setNewSelectedGame(game)">
                 <div class="img-wrapper">
                     <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/' + type + '/' + item?.tokenId : defaultRenderer + '/' + type + '/' + item?.tokenId" alt="">
                     
