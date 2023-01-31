@@ -56,6 +56,10 @@ export class ItemDescComponent implements OnInit, OnDestroy {
 
   }
 
+  setNewSelectedGame(game: GameDetail) {
+    this.storeService.selectGame(game);
+  }
+
   selectedGame$() {
     this.storeService.selectedGame$
       .pipe(takeUntil(this.subs))
