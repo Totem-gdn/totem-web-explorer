@@ -107,7 +107,10 @@ export interface ImageEvents {
   searchEvent?: any | null;
 }
 
-
+export interface GameSlide {
+  type?: 'image' | 'video';
+  url?: string;
+}
 export interface GameDetail extends CustomCheckboxField {
   [index: string]: any;
   general?: GeneralInfo;

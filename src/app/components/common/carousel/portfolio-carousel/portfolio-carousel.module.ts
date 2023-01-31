@@ -12,7 +12,9 @@ import { PortfolioCarouselComponent } from "./portfolio-carousel.component";
     imports: [
         SharedModule,
         MatIconModule,
-        LayoutModule
+        LayoutModule,
+
+        MatIconModule
     ],
     exports: [
         PortfolioCarouselComponent
