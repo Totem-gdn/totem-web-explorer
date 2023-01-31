@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
@@ -9,6 +10,7 @@ import { GamesService } from '@app/core/services/assets/games.service';
 import { StoreService } from '@app/core/store/store.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
+import { environment } from '@env/environment';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Subject, take, takeUntil } from 'rxjs';
 
@@ -18,9 +20,13 @@ import { Subject, take, takeUntil } from 'rxjs';
   styleUrls: ['./item-desc.component.scss'],
   host: {
     class: 'flex grow'
-  }
+  },
+  animations: [
+    Animations.animations
+  ]
 })
 export class ItemDescComponent implements OnInit, OnDestroy {
+  get defaultRenderer() { return environment.ASSET_RENDERER_URL;}
 
   constructor(
     private assetsService: AssetsService,
@@ -49,7 +55,16 @@ export class ItemDescComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(games => {
         this.games = games.data;
-        this.gamesOnScreen = games.data;
+
+        // const tempArr = [...this.games];
+
+        // for(let i = 0; i < 3; i++) {
+        //   const index = Math.floor(Math.random() * tempArr.length);
+          
+        //   this.gamesOnScreen.push(tempArr[index]);
+        // }
+        // // this.gamesOnScreen = games.data;
+        // console.log('games on screen', this.gamesOnScreen)
         this.selectedGameCheck();
       })
     this.selectedGame$();

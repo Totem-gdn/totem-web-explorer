@@ -33,6 +33,7 @@ export class ItemHistoryComponent extends OnDestroyMixin {
     this.historyService.getHistory(this.type, id).pipe(
       untilComponentDestroyed(this),
     ).subscribe(history => {
+      console.log('history', history)
       this.history = history;
     })
   }

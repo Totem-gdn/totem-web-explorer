@@ -159,8 +159,8 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
     }
 
     const tagHeight = (+grid.getElementsByClassName('item-tag')[0].offsetHeight) * maxRows;
-    const gap = 12 * (maxRows - 1);
-    const padding = 15;
+    const gap = 8 * (maxRows - 1);
+    const padding = 12;
     grid.style.maxHeight = `${gap + tagHeight + padding}px`;
   }
 
@@ -174,7 +174,7 @@ export class ItemPropertiesComponent implements AfterViewInit, OnDestroy {
         tag.children[1].style.display = 'block'
       } else {
         if (!tag.children[1]) return;
-        tag.children[1].style.display = 'none'
+        // tag.children[1].style.display = 'none'
       }
     }
   }

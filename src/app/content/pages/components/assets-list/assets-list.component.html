@@ -16,6 +16,6 @@
 
     <div *ngIf="(_assets?.length && _assets != null || games?.length && games != null) && loadMoreActive"
         class="flex justify-center mt-[30px]">
-        <button class="totem-primary-button" (click)="loadMore()">Load More</button>
+        <button @fade-in-out class="totem-primary-button" (click)="loadMore()">Load More</button>
     </div>
 </div>

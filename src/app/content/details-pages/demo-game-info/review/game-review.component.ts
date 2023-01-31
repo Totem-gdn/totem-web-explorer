@@ -7,6 +7,7 @@ import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.mo
 import { GamesService } from "@app/core/services/assets/games.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
+import { environment } from "@env/environment";
 import { take } from "rxjs";
 
 interface Rate {
@@ -23,12 +24,15 @@ interface Rate {
 })
 
 export class GameReviewComponent {
+    get defaultRenderer() {return environment.ASSET_RENDERER_URL}
+    randomId = 100;
 
     constructor(private favouritesService: FavouritesService,
         private messageService: SnackNotifierService,
         private web3Service: Web3AuthService,
         private gamesService: GamesService,
-        private router: Router,) { }
+        private router: Router,
+        private msgService: SnackNotifierService) { }
 
     @ViewChild('dropdown') dropdown!: ElementRef;
     @Input() game!: SubmitGame | any;
@@ -37,6 +41,9 @@ export class GameReviewComponent {
 
     rating: Rate[] = [{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false},{isHovered: false, selected: false}]
 
+    ngOnInit() {
+        this.randomId = Math.floor(Math.random() * (100 - 13) + 13);
+    }
     onClickLike() {
         if (!this.web3Service.isLoggedIn()) {
             this.web3Service.login();
@@ -89,4 +96,13 @@ export class GameReviewComponent {
             this.rating[i].selected = false;
         }
     }
+
+    copyMessage() {
+        this.msgService.open('Copied to clipboard')
+    }
+
+    // loadDefaultRenderer(type: string) {
+    //     // if(!this.asset) return;
+    //     this.asset.rendererUrl = `${environment.ASSET_RENDERER_URL}/${type}/${this.randomId}?width=400&height=400`;
+    //   }
 }

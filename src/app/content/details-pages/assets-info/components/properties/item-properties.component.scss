@@ -7,8 +7,10 @@
 
 .placeholder {
     background-color: $dark-grey;
+    display: flex;
+    justify-content: center;
     .line-item_placeholder {
-        color: $grey;
+        color: $totem-black;
     }
 }
 .lh-1 {
@@ -21,14 +23,14 @@
     position: relative;
     // margin: auto;
     border: 1px solid $totem-divider-grey;
-    border-radius: 4px;
+    border-radius: 12px;
 
     .grid-container {
         overflow: hidden;
         display: grid;
         padding: 8px;
         gap: 12px;
-        min-height: 104px;
+        min-height: 88px;
         transition: max-height 0.3s ease-in-out;
         width: 100%;
         grid-template-columns: repeat(2, minmax(100px,1fr));

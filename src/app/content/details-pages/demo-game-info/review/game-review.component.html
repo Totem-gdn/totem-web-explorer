@@ -3,10 +3,21 @@
     <h2 *ngIf="game?.general?.name" class="mb-[25px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
     <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
-        <h4 class="flex whitespace-nowrap lh-unset">
-            <p class="text-light-grey pr-[10px] lh-33">{{'modules.author' | translate}}:</p>{{game?.general?.author
-            ? game?.general?.author : 'Triple Troping'}}
-        </h4>
+        <div class="flex whitespace-nowrap lh-unset justify-between w-full">
+            <div class="flex items-center cursor-pointer" (click)="copyMessage()" *ngIf="game?.gameAddress">
+                <p [cdkCopyToClipboard]="game?.gameAddress ? game?.gameAddress: game?.id"
+                    [cdkCopyToClipboardAttempts]="2" class="text-light-grey lh-3">Game ID:
+                </p>
+                <h4 class="ml-[5px]">{{game?.gameAddress ?
+                    game?.gameAddress.slice(0,6) + '...' + game?.gameAddress.slice(-4) : game?.id.slice(0,6) + '...' +
+                    game?.id.slice(-4)}}</h4>
+                <mat-icon class="mb-[6px] ml-[5px]" [svgIcon]="'line:copy'"></mat-icon>
+            </div>
+            <div class="flex items-center">
+                <p class="text-light-grey pr-[10px] lh-33">{{'modules.author' | translate}}:</p>
+                <h4>{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
+            </div>
+        </div>
 
         <!-- Stars -->
         <!-- <div #stars class="stars">
@@ -18,14 +29,14 @@
     </div>
     <!-- Icons -->
     <div class="icon-wrapper">
-        <div class="icon-set">
-            <div class="icon !pl-0">
+        <div class="icon-set items-center">
+            <!-- <div class="icon !pl-0">
                 <div *ngIf="game?.isLiked === false" class="line-like !w-[18px]"
                     (click)="$event.stopPropagation(); onClickLike()"></div>
                 <div *ngIf="game?.isLiked === true" class="text-yellow solid-like cursor-pointer !w-[18px]"
                     (click)="$event.stopPropagation(); onClickLike()"></div>
                 <p class="select-none">{{game?.likes ? game?. likes : '0'}}</p>
-            </div>
+            </div> -->
             <div class="icon select-none">
                 <div class="!w-[20px] line-eye"></div>
                 <p>{{game?.views ? game?.views : '0'}}</p>
@@ -87,16 +98,20 @@
         <div class="cards">
             <div class="card">
                 <div class="img-wrapper">
-                    <img [src]="game?.connections?.assetRenderer + '/avatar/100'" alt="">
+                    <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/avatar/' + randomId : defaultRenderer + '/avatar/' + randomId" alt="">
                 </div>
-                <div class="bottom"><p>Avatar example</p></div>
-                
+                <div class="bottom">
+                    <p>Avatar example</p>
+                </div>
+
             </div>
             <div class="card">
                 <div class="img-wrapper">
-                    <img [src]="game?.connections?.assetRenderer + '/item/100'" alt="">
+                    <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/item/' + randomId : defaultRenderer + '/item/' + randomId" alt="">
                 </div>
-                <div class="bottom"><p>Item example</p></div>
+                <div class="bottom">
+                    <p>Item example</p>
+                </div>
             </div>
 
         </div>

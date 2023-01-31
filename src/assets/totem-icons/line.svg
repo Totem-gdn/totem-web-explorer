@@ -7,6 +7,13 @@
                 fill="white" />
         </svg>
 
+        <svg id="video" width="110" height="100" viewBox="0 0 110 100" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M54.7727 0C24.5802 0 0.0761719 22.4 0.0761719 50C0.0761719 77.6 24.5802 100 54.7727 100C84.9652 100 109.469 77.6 109.469 50C109.469 22.4 84.9652 0 54.7727 0ZM43.8334 72.5V27.5L76.6514 50L43.8334 72.5Z"
+                fill="currentColor" />
+        </svg>
+
         <svg id="copy" width="24" height="24" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <mask id="mask0_5656_96762" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
