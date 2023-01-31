@@ -41,12 +41,12 @@ export class TotemStartScreenCardsComponent {
     this.listenSelectedGameAndAsset();
 
     this.storeService.games$.subscribe((games: GameDetail[]) => {
-      console.log('GAMES FROM STORAGE: ', games);
+      //console.log('GAMES FROM STORAGE: ', games);
       this.games$.next(games);
     });
 
     this.storeService.avatars$.subscribe((avatars: AssetInfo[]) => {
-      console.log('avatars FROM STORAGE: ', avatars);
+      //console.log('avatars FROM STORAGE: ', avatars);
       this.avatars$.next(avatars);
       if (this.assetTypeSelected === ASSET_TYPE.AVATAR) {
         this.setAsset(avatars[0]);
@@ -54,7 +54,7 @@ export class TotemStartScreenCardsComponent {
     });
 
     this.storeService.items$.subscribe((items: AssetInfo[]) => {
-      console.log('items FROM STORAGE: ', items);
+      //console.log('items FROM STORAGE: ', items);
       this.items$.next(items);
       if (this.assetTypeSelected === ASSET_TYPE.ITEM) {
         this.setAsset(items[0]);

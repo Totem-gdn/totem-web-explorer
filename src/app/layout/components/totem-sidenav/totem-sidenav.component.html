@@ -1,25 +1,27 @@
-<div class="totem-sidenav w-[256px] h-full flex flex-col items-center justify-start px-2 py-8">
+<div class="totem-sidenav w-[256px] h-full flex flex-col relative items-center justify-start px-2 py-8">
   <div class="totem-sidenav-content w-full h-full flex flex-col items-start justify-start">
     <p class="pl-2 text-[20px] font-semibold leading-[22px]">Selected Game</p>
     <ng-container *ngTemplateOutlet="selectedGameTemplate; context: { selectedGame: selectedGame$ | async }"></ng-container>
     <p class="mt-4 mb-5 text-[16px] font-medium leading-[17px] t-col-light-grey">Games</p>
-    <ng-container *ngIf="(games$ | async)!.length else gamesLoading">
-      <ng-container *ngFor="let game of games$ | async; trackBy: trackByFn">
-        <div
-          class="game-card h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer"
-          [ngClass]="{'t-bg-black game-card-selected': game.checked}"
-          (click)="selectGame(game)"
-          >
-          <div class="w-[40px] h-[40px] rounded-12 overflow-hidden shrink-0">
-            <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
+    <div class="items-wrapper w-full max-h-full h-full overflow-auto flex flex-col items-start justify-start">
+      <ng-container *ngIf="(games$ | async)!.length else gamesLoading">
+        <ng-container *ngFor="let game of games$ | async; trackBy: trackByFn">
+          <div
+            class="game-card h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer"
+            [ngClass]="{'t-bg-black game-card-selected': game.checked}"
+            (click)="selectGame(game)"
+            >
+            <div class="w-[40px] h-[40px] rounded-12 overflow-hidden shrink-0">
+              <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
+            </div>
+            <div class="flex flex-col h-full items-start justify-center ml-2">
+              <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
+              <p class="text-[14px] font-medium leading-[15px] t-col-light-grey">{{game.general?.genre![0]}}</p>
+            </div>
           </div>
-          <div class="flex flex-col h-full items-start justify-center ml-2">
-            <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
-            <p class="text-[14px] font-medium leading-[15px] t-col-light-grey">{{game.general?.genre![0]}}</p>
-          </div>
-        </div>
+        </ng-container>
       </ng-container>
-    </ng-container>
+    </div>
   </div>
 </div>
 

@@ -51,41 +51,6 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
     this.playAnimation();
   }
 
-  async onBuyItem(paymentInfo: PaymentInfo) {
-
-    if(!paymentInfo?.paymentInfo?.address || !paymentInfo?.paymentInfo?.price) return;
-
-    if (!this.web3Service.isLoggedIn()) {
-      await this.userStateService.login();
-      this.gtag.event(`${paymentInfo?.type}_purchase`, {
-        'event_label': 'Generate item when user is not login',
-      });
-      return;
-    }
-
-    const usdcBalance = await this.cryptoUtilsService.getUSDCBalance();
-
-    if (+usdcBalance < +paymentInfo?.paymentInfo?.price) {
-      this.popupService.showColorPopup(COLOR_POPUP_TYPE.INSUFFICIENT_FUNDS);
-      return;
-    }
-
-    this.popupService.showAssetTransaction('payment', paymentInfo);
-  }
-
-  // paymentInfo(assets: any[]) {
-  //   assets.forEach(asset => {
-  //     this.buyAssetService.getPaymentInfo(asset).subscribe(info => {
-  //       if (asset == 'item') this.assets[0].paymentInfo = info;
-  //       if (asset == 'avatar') this.assets[1].paymentInfo = info;
-  //       if (asset == 'gem') this.assets[2].paymentInfo = info;
-  //       if (this.assets.length == 3) {
-  //         this.playAnimation();
-  //       }
-  //     })
-  //   })
-  // }
-
   @ViewChild('item1') item1!: ElementRef;
   @ViewChild('item2') item2!: ElementRef;
 
@@ -101,7 +66,7 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
       if (this.disableLoop.disable === true) {
         return;
       }
-      console.log('loop')
+      //console.log('loop')
       this.animateItem(currentItemIndex == 0 ? 1 : 0, false);
       currentItemIndex = currentItemIndex == 0 ? 1 : 0;
 
@@ -110,7 +75,7 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
   }
 
   animateItem(index: number, disableLoop: boolean) {
-    console.log('animate', index)
+    //console.log('animate', index)
     let item = index == 0 ? this.item1.nativeElement : this.item2.nativeElement;
     if (disableLoop && this.disableLoop.immutable == false) {
       this.disableLoop.disable = true;
@@ -123,7 +88,7 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
     icon.style.color = 'white';
     this.resetWithExeption(index, false);
     this.moveCircle(item);
-    
+
 
   }
   resetWithExeption(index: number, userLeave: boolean) {
@@ -181,6 +146,13 @@ export class TotemBuyAssetComponent extends OnDestroyMixin implements OnInit, On
   }
 
   buyWithCard(type: string) {
+    if (!this.web3Service.isLoggedIn()) {
+      this.userStateService.login();
+      this.gtag.event(`${type}_purchase`, {
+        'event_label': 'Generate item when user is not login',
+      });
+      return;
+    }
     this.loading$.next(true);
     this.transactionsService.buyAssetWithCard(type).pipe(
       catchError((err: HttpErrorResponse) => {

@@ -11,7 +11,7 @@ import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
   selector: 'avatar-info',
   templateUrl: './avatar-info.component.html',
   host: {
-    class: 'ml-auto mr-auto'
+    class: 'ml-auto mr-auto w-full'
   }
 })
 

@@ -10,6 +10,19 @@
 .totem-sidenav {
   background-color: $totem-dark-grey;
   border-right: 1px solid $totem-divider-grey;
+  &-content {
+    height: auto;
+    overflow: hidden;
+    position: sticky;
+    top: 112px;
+    max-height: calc(100vh - 136px);
+
+    .items-wrapper {
+      padding-right: 8px;
+      border-radius: 0 0 24px 24px;
+      overflow: auto;
+    }
+  }
 }
 
 .selected-game-card {
