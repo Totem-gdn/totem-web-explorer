@@ -29,6 +29,8 @@ export class TotemAssetCardComponent {
   showSpinner: boolean = false;
 
   ngOnInit() {
+    if(!this.asset) return;
+    this.asset.rarity = this.asset.tokenId % 100;
   }
 
   goToAsset(asset: AssetInfo) {
