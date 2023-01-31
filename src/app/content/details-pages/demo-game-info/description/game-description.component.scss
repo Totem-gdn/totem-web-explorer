@@ -1,8 +1,10 @@
 @import 'styles/scss/variables';
+@import 'styles/scss/totem-variables';
 
 img {
     border-radius: 4px;
     object-fit: contain;
+    position:absolute;
 }
 
 .description {
@@ -13,8 +15,9 @@ img {
 }
 
 .image-wrapper {
-  border: 1px solid $light-grey;
-  transition: opacity .2s;
+  border: 1px solid $totem-divider-grey;
+  background-color: transparent;
+  transition: filter .4s;
 }
 
 .hl-image-blurred {

@@ -1,5 +1,6 @@
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
+import { GameSlide } from "@app/core/models/interfaces/submit-game-interface.model";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -13,15 +14,16 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
     constructor(private breakpointObserver: BreakpointObserver) { }
     subs = new Subject<void>();
 
-    @Input() set images(images: string[]) {
-        if (!images || !images?.length) return;
-        this._images = images;
+    @Input() set slides(slides: GameSlide[] | undefined) {
+        if (!slides || !slides?.length) return;
+        this._slides = slides;
     }
-    _images!: string[];
+
+    _slides!: GameSlide[];
 
     @ViewChild('slider') slider!: ElementRef;
 
-    @Output() changeImg = new EventEmitter<string>();
+    @Output() changeSlide = new EventEmitter<GameSlide>();
 
     screenObserver$() {
         this.breakpointObserver
@@ -53,8 +55,8 @@ export class PortfolioCarouselComponent implements AfterViewInit, OnDestroy {
         this.scroll('left');
     }
 
-    onClickImg(img: string) {
-        this.changeImg.emit(img);
+    onClickSlide(slide: GameSlide) {
+        this.changeSlide.emit(slide);
     }
 
     scroll(direction: string) {

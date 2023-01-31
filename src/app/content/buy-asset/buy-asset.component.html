@@ -8,69 +8,67 @@
         </div>
       </div>
 
-      <div 
-      #item1 
-      (mouseenter)="animateItem(0, true)"
-      (mouseleave)="resetWithExeption(0, true)"
-        class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6 mr-6">
-        <div #circlesRef class="circle-wrapper">
-          <bg-circle class="top-[100px] left-[-100px]"
+      <div #item1 class="asset-card-wrapper">
+        <div #circlesRef class="circle-wrapper select-none ">
+          <bg-circle class="top-[100px] left-[-100px] select-none"
             [background]="assets[0].type === 'avatar' ? '#3A23C9' : assets[0].type === 'item' ? '#8023C9' : assets[0].type === 'gem' ? '#FFD011': ''"
             [width]="'350px'"></bg-circle>
-          <bg-circle class="top-[30px] left-[0px]"
+          <bg-circle class="top-[30px] left-[0px select-none]"
             [background]="assets[0].type === 'avatar' ? '#3A23C9' : assets[0].type === 'item' ? '#8023C9' : assets[0].type === 'gem' ? '#00BC6D': ''"
             [width]="'350px'"></bg-circle>
-          <bg-circle class="right-[0px] bottom-[0px]"
+          <bg-circle class="right-[0px] bottom-[0px] select-none"
             [background]="assets[0].type === 'avatar' ? '#8811FF' : assets[0].type === 'item' ? '#FB5A35' : assets[0].type === 'gem' ? '#FED01C': ''"
             [width]="'350px'"></bg-circle>
         </div>
 
-        <div 
-          class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
-          <div class="flex flex-col items-center mt-9">
-            <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[0].type}}</h2>
+        <div (mouseenter)="animateItem(0, true)" (mouseleave)="resetWithExeption(0, true)"
+          class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6 mr-6">
+          <div class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
+            <div class="flex flex-col items-center mt-9">
+              <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[0].type}}</h2>
+            </div>
+            <div *ngIf="assets[0].type === 'item'" class="!text-[200px] icon solid-buy-item flex"></div>
           </div>
-          <div *ngIf="assets[0].type === 'item'" class="!text-[200px] icon solid-buy-item flex"></div>
-        </div>
-        <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
-          <p class="text-[24px] leading-[26px] font-medium">{{assets[0].paymentInfo?.price}} USDC</p>
-          <button [disabled]="(loading$ | async)"
-            class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer"
-            (click)="buyWithCard('item')" matRipple>Purchase</button>
+          <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
+            <p class="text-[24px] leading-[26px] font-medium">{{assets[0].paymentInfo?.price}} USDC</p>
+            <button [disabled]="(loading$ | async)"
+              class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer"
+              (click)="buyWithCard('item')" matRipple>Purchase</button>
+          </div>
         </div>
       </div>
 
-      <div
-      #item2
-      (mouseenter)="animateItem(1, true)"
-      (mouseleave)="resetWithExeption(1, true)"
-         class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
-        <div #circlesRef class="circle-wrapper">
-          <bg-circle class="top-[100px] left-[-100px]"
+      <div #item2 class="asset-card-wrapper">
+        <div #circlesRef class="circle-wrapper select-none">
+          <bg-circle class="top-[100px] left-[-100px] select-none"
             [background]="assets[1].type === 'avatar' ? '#3A23C9' : assets[1].type === 'item' ? '#8023C9' : assets[1].type === 'gem' ? '#FFD011': ''"
             [width]="'350px'"></bg-circle>
-          <bg-circle class="top-[30px] left-[0px]"
+          <bg-circle class="top-[30px] left-[0px] select-none"
             [background]="assets[1].type === 'avatar' ? '#3A23C9' : assets[1].type === 'item' ? '#8023C9' : assets[1].type === 'gem' ? '#00BC6D': ''"
             [width]="'350px'"></bg-circle>
-          <bg-circle class="right-[0px] bottom-[0px]"
+          <bg-circle class="right-[0px] bottom-[0px] select-none"
             [background]="assets[1].type === 'avatar' ? '#8811FF' : assets[1].type === 'item' ? '#FB5A35' : assets[1].type === 'gem' ? '#FED01C': ''"
             [width]="'350px'"></bg-circle>
         </div>
+        <div (mouseenter)="animateItem(1, true)" (mouseleave)="resetWithExeption(1, true)"
+          class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
 
-        <div class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
-          <div class="flex flex-col items-center mt-9">
-            <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[1].type}}</h2>
+          <div class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
+            <div class="flex flex-col items-center mt-9">
+              <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[1].type}}</h2>
+            </div>
+            <div *ngIf="assets[1].type === 'avatar'" class="!text-[200px] icon solid-buy-avatar flex"></div>
           </div>
-          <div *ngIf="assets[1].type === 'avatar'" class="!text-[200px] icon solid-buy-avatar flex"></div>
-        </div>
-        <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
-          <p class="text-[24px] leading-[26px] font-medium">{{assets[1].paymentInfo?.price}} USDC</p>
-          <button [disabled]="(loading$ | async)"
-            class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer"
-            (click)="buyWithCard('avatar')" matRipple>Purchase</button>
+          <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
+            <p class="text-[24px] leading-[26px] font-medium">{{assets[1].paymentInfo?.price}} USDC</p>
+            <button [disabled]="(loading$ | async)"
+              class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer"
+              (click)="buyWithCard('avatar')" matRipple>Purchase</button>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="buy-asset-text flex flex-col items-start justify-center max-w-[624px] w-full">
       <p class="text-[64px] leading-[68px] font-semibold">Create the Unique Totem Item!</p>
       <p class="text-[24px] leading-[26px] font-medium mt-10">Choose the item type to mint</p>

@@ -53,6 +53,7 @@ export class AssetInfoComponent implements AfterViewInit {
         if (asset === undefined) return;
 
         this.processItem(asset?.tokenId)
+        // this.setItemRenderer();
     }
 
     @Input() set selectedGame(game: GameDetail | null | undefined) {
@@ -71,10 +72,6 @@ export class AssetInfoComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         this.selectedGame$();
-
-        const sessionGame = this.gamesService.gameInSession;
-        if (!sessionGame?.general?.name) return;
-        this.changeDetector.detectChanges();
     }
 
     selectedGame$() {
@@ -83,7 +80,7 @@ export class AssetInfoComponent implements AfterViewInit {
             .subscribe(selectedGame => {
                 if(!selectedGame) return;
                 this._selectedGame = selectedGame;
-                this.changeDetector.markForCheck();
+                // this.changeDetector.markForCheck();
                 console.log('selected game asset' , this._selectedGame)
                 this.processItem(this._item?.tokenId, selectedGame);
             })
@@ -91,8 +88,10 @@ export class AssetInfoComponent implements AfterViewInit {
 
     async processItem(id: number, game: GameDetail | null = null) {
         this.properties = [];
+        
         const json = await this.dnaService.getJSONByGame(game, this.type)
         const properties = await this.dnaService.processJSON(json, this.type, id);
+        console.log('json', json)
         this.setItemRenderer();
         this.properties = properties;
     }
@@ -118,6 +117,9 @@ export class AssetInfoComponent implements AfterViewInit {
 
     // change assetUrl to Default if url for game getted error
     updateUrl() {
-        this._item.rendererUrl = `${environment.ASSET_RENDERER_URL}/${this.type}/${this._item?.tokenId}?width=400&height=400`
+            this._item.rendererUrl = `${environment.ASSET_RENDERER_URL}/${this.type}/${this._item?.tokenId}?width=400&height=400`
+        // setInterval(() => {
+        //     this._item.rendererUrl = `${environment.ASSET_RENDERER_URL}/${this.type}/${this._item?.tokenId}?width=400&height=400`
+        // }, 100)
     }
 }
