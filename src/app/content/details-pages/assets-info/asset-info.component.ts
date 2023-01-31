@@ -52,7 +52,7 @@ export class AssetInfoComponent implements AfterViewInit {
         if (asset === null) this.notFound = true;
         if (asset === undefined) return;
 
-        this.processItem(asset?.tokenId)
+        // this.processItem(asset?.tokenId)
         // this.setItemRenderer();
     }
 
@@ -78,7 +78,7 @@ export class AssetInfoComponent implements AfterViewInit {
         this.storeService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
-                if(!selectedGame) return;
+                // if(!selectedGame) return;
                 this._selectedGame = selectedGame;
                 // this.changeDetector.markForCheck();
                 console.log('selected game asset' , this._selectedGame)

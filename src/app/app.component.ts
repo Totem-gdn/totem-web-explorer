@@ -50,8 +50,10 @@ export class AppComponent {
           this.viewportScroller.scrollToAnchor(e.anchor);
         } else {
           const url = e.routerEvent.url;
-          if (url === '/profile/user-items' || url === '/profile/user-games' || url === '/profile/user-avatars' || url === '/profile/user-gems') return;
-          this.viewportScroller.scrollToPosition([0, 0]);
+
+          setTimeout(() => {
+            this.viewportScroller.scrollToPosition([0, 0]);
+          },100)
         }
       });
 
