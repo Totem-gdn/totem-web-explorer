@@ -1,4 +1,3 @@
-
 <h2 class="text-[32px] font-medium mb-[25px]">Ownership History</h2>
 
 <div class="wrapper">
@@ -16,21 +15,28 @@
             <div class="mr-[10px]"><img loading="lazy"
                     [src]="story.avatar_url ? story.avatar_url : 'assets/icons/nav/account_circle.svg'" alt=""></div>
             <!-- <span class="truncate mr-[60px]">{{story.to == '0' ? 'NULL' : story.to}}</span> -->
-            <div [cdkCopyToClipboard]="story.to" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="onCopy()"
+            <!-- <div [cdkCopyToClipboard]="story.to" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="onCopy()"
                 class="wallet">
                 <span fxHide.lt-lg>{{story.to == '0' ? 'NULL': story.to}}</span>
                 <span fxHide.gt-md>{{story.to == '0' ? 'NULL': (story.to.slice(0, 9) + '...' + story.to.slice(-9))}}</span>
+            </div> -->
+            <div 
+                class="wallet">
+                <a href="{{'https://mumbai.polygonscan.com/address/' + story.to}}" target="_blank">{{story.to == '0' ? 'NULL': story.to}}</a>
+                <!-- <span fxHide.lt-lg>{{story.to == '0' ? 'NULL': story.to}}</span> -->
+                <span fxHide.gt-md></span>
             </div>
-    
-            <span class="truncate">{{story.createdAt | date: 'MM.dd.yy hh:mm'}} </span>
+
+            <span class="truncate">{{story.createdAt | creationTime}} </span>
             <span>{{story.price}}</span>
             <span>{{'--'}}</span>
             <div class="ml-auto w-[40px] text-center flex justify-center">
-                <a class="line-open_new" href="{{'https://mumbai.polygonscan.com/tx/' + story.hash}}" target="_blank"></a>
+                <a class="line-open_new" href="{{'https://mumbai.polygonscan.com/tx/' + story.hash}}"
+                    target="_blank"></a>
             </div>
         </div>
     </div>
-    
+
     <div *ngIf="history?.length == 0" class="flex h-[120px] justify-center items-center">
         <h1 class="text-2xl sm:text-1xl">{{'modules.history_empty' | translate}}</h1>
     </div>

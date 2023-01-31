@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
@@ -11,7 +12,10 @@ import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'assets-list',
   templateUrl: './assets-list.component.html',
-  styleUrls: ['./assets-list.component.scss']
+  styleUrls: ['./assets-list.component.scss'],
+  animations: [
+    Animations.animations
+  ]
 })
 
 export class AssetsListComponent implements OnInit, OnDestroy {
@@ -51,10 +55,19 @@ export class AssetsListComponent implements OnInit, OnDestroy {
   page = 1;
 
   ngOnInit(): void {
-    this.loadGames(1, this.list);
+    // this.loadGames(1, this.list);
 
     if(this.type != 'game') {
-      this.loadAssets(this.type, 1);
+      this.page = 3;
+      this.loadMoreActive = false;
+      this.assetsService.fetchMultiplePages(this.type, this.page, this.list)
+      .subscribe(assetsArr => {
+        for(let assets of assetsArr) {
+          this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
+          this.setAssets(assets.data)
+          this.loadMoreActive = true;
+        }
+      });
     }
     if(this.type == 'game') {
       this.loadGames(1, this.list);

@@ -1,5 +1,5 @@
 <div *ngIf="_item && notFound == false"
-    class="relative pt-[40px] lg:pt-[50px] flex flex-col relative max-w-[1520px] m-auto">
+    class="relative py-[40px] lg:pt-[50px] flex flex-col relative max-w-[1520px] m-auto">
 
     <div class="flex flex-col m-auto w-full">
 
@@ -9,7 +9,7 @@
                 <!-- Main Image -->
                 <div class=" w-[50%] h-[587px] img-wrapper-overflow">
                     <div class="img-wrapper m-auto lg:m-0">
-                        <div class="flex relative h-[588px]">
+                        <div class="flex relative h-[588px]" *ngIf="_item?.rendererUrl">
                             <img loading="lazy" *ngIf="_item?.tokenId" (changeSrc)="showSpinner = $event"
                                 [src]="_item.rendererUrl"
                                 alt="" (error)="updateUrl(); showSpinner = false">
@@ -22,7 +22,7 @@
                                     [src]="_selectedGame?.images?.smallThumbnail" alt="">
                                 <div class="flex flex-col">
                                     <p>{{_selectedGame?.general?.name}}</p>
-                                    <span class="text-light-grey">{{_selectedGame?.general?.genre![0]}}</span>
+                                    <span class="text-light-grey">{{_selectedGame?.general?.genre?.length ? _selectedGame?.general?.genre![0] : ''}}</span>
                                 </div>
                             </div>
                         </div>
@@ -52,8 +52,15 @@
                         {{'modules.ownership_history' | translate}}</div>
                 </div>
             </div> -->
-
+            <item-properties 
+            class="pt-[60px]"
+            [properties]="properties"
+            @fade-in
+            >
+            </item-properties>
         </div>
+
+
 
 
         <totem-entity-slider class="mb-[60px]" [caption]="'Legacy Events'" [assetTypeSelected]="'legacy'"></totem-entity-slider>

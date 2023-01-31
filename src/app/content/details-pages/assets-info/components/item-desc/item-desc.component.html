@@ -32,7 +32,7 @@
                     (click)="$event.stopPropagation(); onClickLike()"></div>
                 <p class="select-none">{{item?.likes ? item?.likes : '0'}}</p>
             </div> -->
-            <div class="icon select-none">
+            <div class="icon select-none items-center">
                 <div class="line-eye"></div>
                 <p>{{item?.views ? item?.views : '0'}}</p>
             </div>
@@ -81,9 +81,10 @@
         <h3 class="title">Look in other games:</h3>
 
         <div class="cards">
-            <div class="card" *ngFor="let game of gamesOnScreen | slice:0:3">
+            <div @fade-in class="card" *ngFor="let game of gamesOnScreen | slice:0:3">
                 <div class="img-wrapper">
-                    <img [src]="game?.connections?.assetRenderer + '/' + type + '/' + item?.tokenId" alt="">
+                    <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/' + type + '/' + item?.tokenId : defaultRenderer + '/' + type + '/' + item?.tokenId" alt="">
+                    
                 </div>
                 <div class="bottom"><p class="capitalize">{{game?.general?.name}}</p></div>
             </div>

@@ -32,7 +32,7 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
 
     ownerAddress?: string;
 
-    async ngOnInit() {
+    ngOnInit() {
 
         this.authService.currentUser
         .pipe(takeUntil(this.subs))
@@ -50,10 +50,6 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
                     })
             }
     })
-    }
-
-    onSort(param: ASSET_PARAM_LIST) {
-        this.list = param;
     }
 
     ngOnDestroy(): void {

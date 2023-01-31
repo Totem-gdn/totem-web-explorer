@@ -1,4 +1,6 @@
+import { ClipboardModule } from "@angular/cdk/clipboard";
 import { NgModule } from "@angular/core";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { CarouselModule } from "@app/components/common/carousel/carousel.module";
 import { ShareButtonModule } from "@app/components/utils/share-button/share-button.module";
@@ -22,7 +24,9 @@ import { GameReviewComponent } from "./review/game-review.component";
 
         CarouselModule,
         NotFoundModule,
-        ShareButtonModule
+        ShareButtonModule,
+        ClipboardModule,
+        MatIconModule
     ],
     exports: [
         DemoGameInfoComponent
