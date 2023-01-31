@@ -8,6 +8,22 @@ import { GameDetail } from "../models/interfaces/submit-game-interface.model";
 import { AssetsService } from "../services/assets/assets.service";
 import { GamesService } from "../services/assets/games.service";
 
+const preselectedAsset: AssetInfo = {
+  id: "63c49897ac5fe6da0869bdc4",
+  owner: "0x6c1CCF9Ba75ec1c2BDdA695250d96a9D88caA102",
+  owners: [
+    "0x6c1CCF9Ba75ec1c2BDdA695250d96a9D88caA102"
+  ],
+  tokenId: 474,
+  views: '4',
+  createdAt: "2023-01-16T00:21:43.297Z",
+  updatedAt: "2023-01-31T15:40:10.498Z",
+  isLiked: false,
+  likes: 0,
+  games: 0,
+  lastUsed: "",
+  assetType: 'avatar'
+}
 
 @Injectable({ providedIn: 'root' })
 
@@ -48,7 +64,7 @@ export class StoreService {
     for(let asset of assets) {
       asset = this.setRenderer(type, asset);
     }
-      
+
     return assets;
   }
   setRenderer(type: ASSET_TYPE, asset: AssetInfo) {
@@ -86,7 +102,7 @@ export class StoreService {
     ).subscribe((data) => {
       this.games.next(data.games.data);
       this.items.next(data.items.data);
-      this.avatars.next(data.avatars.data);
+      this.avatars.next([preselectedAsset, ...data.avatars.data]);
     });
   }
 

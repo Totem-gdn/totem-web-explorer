@@ -59,28 +59,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     this.playAnimation();
   }
 
-  async onBuyItem(paymentInfo: PaymentInfo) {
-
-    if(!paymentInfo?.paymentInfo?.address || !paymentInfo?.paymentInfo?.price) return;
-
-    if (!this.web3Service.isLoggedIn()) {
-      await this.userStateService.login();
-      this.gtag.event(`${paymentInfo?.type}_purchase`, {
-        'event_label': 'Generate item when user is not login',
-      });
-      return;
-    }
-
-    const usdcBalance = await this.cryptoUtilsService.getUSDCBalance();
-
-    if (+usdcBalance < +paymentInfo?.paymentInfo?.price) {
-      this.popupService.showColorPopup(COLOR_POPUP_TYPE.INSUFFICIENT_FUNDS);
-      return;
-    }
-
-    this.popupService.showAssetTransaction('payment', paymentInfo);
-  }
-
   updateAssets() {
     this.loading$.next(true);
     this.buyAssetService.getAssets().pipe(
@@ -145,7 +123,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       if (this.disableLoop.disable === true) {
         return;
       }
-      console.log('loop')
+      //console.log('loop')
       this.animateItem(currentItemIndex == 0 ? 1 : 0, false);
       currentItemIndex = currentItemIndex == 0 ? 1 : 0;
 
@@ -158,7 +136,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
 
 
     let item = index == 0 ? this.item1.nativeElement : this.item2.nativeElement as HTMLElement;
-
     if (disableLoop && this.disableLoop.immutable == false) {
       this.disableLoop.disable = true;
     }
@@ -170,7 +147,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     icon.style.color = 'white';
     this.resetWithExeption(index, false);
     this.moveCircle(item);
-    
+
 
   }
   resetWithExeption(index: number, userLeave: boolean) {

@@ -10,7 +10,7 @@
   </div>
   <div class="totem-header-right flex flex-row items-center justify-end h-full">
     <nav class="totem-navigation-items whitespace-nowrap text-[16px] leading-[17px] font-medium">
-      <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/my-assets">My Assets</a>
+      <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/my-assets">My Assets</a>
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/items">Items</a>
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/games">Games</a>
@@ -28,10 +28,10 @@
       <div><button matRipple (click)="navigateToBuy()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button></div>
       <div class="flex flex-col items-start justify-center ml-8">
         <p class="text-[16px] font-medium leading-[17px]">
-          $ {{usdcBalance}}
+          Balance:
         </p>
-        <p class="text-[14px] font-normal leading-[15px] mt-1">
-          Balance
+        <p class="text-[16px] font-medium leading-[17px] mt-1">
+          $ {{usdcBalance}}
         </p>
       </div>
       <div class="ml-6 h-12 w-12 rounded-full overflow-hidden" (click)="navigateToProfile()">

@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
+import { UserStateService } from '@app/core/services/auth.service';
+import { AssetsListenerService } from '@app/core/web3auth/abi/assets-transaction.service';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -18,10 +21,13 @@ export class PaymentSuccessDialogComponent implements OnInit, AfterViewInit {
   assetNameMultiple: string = '';
   secondsToClose: number = 5;
   counterSub: Subscription = new Subscription();
+  txFinished: null | 'success' | 'error' = null;
 
   constructor(
     public dialogRef: MatDialogRef<PaymentSuccessDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {status: string, type: string},
+    private assetsListenerService: AssetsListenerService,
+    private userStateService: UserStateService,
   ) {
     this.asset = data.type;
     this.status = data.status;
@@ -40,10 +46,29 @@ export class PaymentSuccessDialogComponent implements OnInit, AfterViewInit {
       this.assetName = 'Gem';
       this.assetNameMultiple = 'Gems';
     }
+    this.getUserAndListenAssetTx();
   }
 
   ngAfterViewInit() {
-    this.startCounter();
+    //this.startCounter();
+  }
+
+  getUserAndListenAssetTx() {
+    this.assetsListenerService.assetTxState.subscribe((state: string | null) => {
+      if (state == 'success') {
+        this.txFinished = 'success';
+        this.dialogRef.close(true);
+      }
+      if (state == 'error') {
+        this.txFinished = 'error';
+        this.dialogRef.close(false);
+      }
+    })
+    this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
+      if (user) {
+        this.assetsListenerService.listenTx(user.wallet!, this.asset);
+      }
+    })
   }
 
   startCounter() {

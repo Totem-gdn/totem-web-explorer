@@ -25,7 +25,7 @@ export class TotemGameCardComponent {
   @Input() game: GameDetail | null = null;
 
   ngOnInit() {
-    // console.log('game', this.game)
+    //console.log('game', this.game)
   }
 
   goToGame(game: GameDetail) {
@@ -55,6 +55,6 @@ export class TotemGameCardComponent {
   onNavigate() {
     const id = this.game?.id;
     this.router.navigate(['/game', id]);
-  } 
+  }
 
 }

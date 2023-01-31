@@ -15,7 +15,7 @@ import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.mo
   ]
 })
 export class SliderWireframeComponent {
-  
+
 
   @ViewChild('slider', {static: true}) slider!: ElementRef;
   @ViewChild('wrapper', {static: true}) wrapper!: ElementRef;
@@ -26,7 +26,7 @@ export class SliderWireframeComponent {
   @Input() set assets(assets: any[] | null) {
     // console.log('set assets')
     if(this.type == 'legacy') console.log('set legacy', assets)
-    console.log('type', this.type)
+    //console.log('type', this.type)
     this.cards = assets;
     setTimeout(() => {
       this.calculateSliderWidth();
@@ -41,7 +41,7 @@ export class SliderWireframeComponent {
 
 
   toggleSlides(direction: 'next' | 'prev' | 'index') {
-    
+
     if(direction != 'index') {
       if(direction == 'next') {
         if(this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
