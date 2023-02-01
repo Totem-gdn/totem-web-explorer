@@ -21,7 +21,8 @@ const preselectedAsset: AssetInfo = {
   isLiked: false,
   likes: 0,
   games: 0,
-  lastUsed: ""
+  lastUsed: "",
+  assetType: "avatar"
 }
 
 @Injectable({ providedIn: 'root' })
