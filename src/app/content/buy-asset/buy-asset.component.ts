@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { BLOCK_TYPE } from '@app/core/models/enums/block-types.enum';
 import { COLOR_POPUP_TYPE } from '@app/core/models/enums/popup.enum';
@@ -25,6 +26,9 @@ import { BehaviorSubject, catchError, of, Subscription } from 'rxjs';
   selector: 'buy-asset',
   templateUrl: './buy-asset.component.html',
   styleUrls: ['./buy-asset.component.scss'],
+  animations: [
+    Animations.animations
+  ]
 })
 export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
 
