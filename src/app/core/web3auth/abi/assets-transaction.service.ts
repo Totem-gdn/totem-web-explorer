@@ -34,7 +34,7 @@ export class AssetsListenerService {
         .on('data', (event: any) => {
             //console.log('DATA: ', event);
             if (!event) return;
-            this.processEvent(event);
+            this.processEvent(event, type);
         })
         .on('changed', (event: any) => {
 
@@ -45,25 +45,25 @@ export class AssetsListenerService {
         });
   }
 
-  processEvent(response: any) {
+  processEvent(response: any, type: string) {
     const mintEvent: any = response;
 
     const currentTokenId: string = mintEvent?.returnValues?.tokenId || mintEvent?.returnValues?.['2'];
     console.log(currentTokenId, mintEvent?.returnValues?.tokenId, mintEvent?.returnValues?.['2']);
 
-    if (this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN)) {
-      console.log(this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN));
-      const recentMintedToken: string = this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN)!;
+    if (this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type)) {
+      console.log(this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type));
+      const recentMintedToken: string = this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type)!;
       if (Number(currentTokenId) > Number(recentMintedToken)) {
         this.assetTxState.next('success');
-        this.baseStorage.setItem(StorageKey.RECENT_MINTED_TOKEN, currentTokenId);
+        this.baseStorage.setItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type, currentTokenId);
       }
       return;
     }
 
     if (currentTokenId) {
       this.assetTxState.next('success');
-      this.baseStorage.setItem(StorageKey.RECENT_MINTED_TOKEN, currentTokenId);
+      this.baseStorage.setItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type, currentTokenId);
     }
   }
 
