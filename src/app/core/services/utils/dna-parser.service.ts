@@ -44,7 +44,7 @@ export class DNAParserService {
                 jsonUrl = game?.connections?.dnaFilters?.gemFilter;
             }
         }
-
+        console.log('def filter', DNAFilter.avatarFilterJson)
         if (!jsonUrl) {
             if (type == ASSET_TYPE.AVATAR) {
                 json = DNAFilter.avatarFilterJson;
