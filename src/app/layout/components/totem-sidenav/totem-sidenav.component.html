@@ -8,7 +8,7 @@
         <ng-container *ngFor="let game of games$ | async; trackBy: trackByFn">
           <div
             class="game-card h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer"
-            [ngClass]="{'t-bg-black game-card-selected': game.checked}"
+            [ngClass]="{'t-bg-black game-card-selected': game.checked, 'no-renderer-game': !game.connections?.assetRenderer}"
             (click)="selectGame(game)"
             >
             <div class="w-[40px] h-[40px] rounded-12 overflow-hidden shrink-0">

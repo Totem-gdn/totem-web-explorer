@@ -33,7 +33,7 @@ export class GamesService {
 
   get selectedGame$() { return this._selectedGame.asObservable() }
   set selectedGame(value: GameDetail) {
-    
+
     if (value) {
       this._selectedGame.next(value);
     }
@@ -46,11 +46,19 @@ export class GamesService {
 
   fetchGames(page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
     const url = owner ? `${this.baseUrl}/games?page=${page}&list=${list}&owner=${owner}` : `${this.baseUrl}/games?page=${page}&list=${list}`;
-  
+
 
     return this.http.get<ApiResponse<GameDetail[]>>(url)
       .pipe(map(games => {
         this._totalGames.next(games.meta.total);
+        games.data.map((game: GameDetail) => {
+          if (game.connections && game.connections?.assetRenderer) {
+            let rendererFromGame: string = game.connections.assetRenderer;
+            const rendererUrlChecked = rendererFromGame.slice(-1) === '/' ? rendererFromGame.slice(0, -1) : rendererFromGame;
+            game.connections.assetRenderer = rendererUrlChecked;
+          }
+          return game;
+        });
         return games;
       }));
   }
