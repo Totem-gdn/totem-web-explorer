@@ -17,7 +17,8 @@
         (cdkCopyToClipboardCopied)="walletCopied()"
         class="user-id"
         >
-        <p class="user-id">{{item?.owner?.slice(0, 6) + '...' + item?.owner?.slice(-4)}}</p>
+        <p class="user-id hidden xl:flex">{{item?.owner}}</p>
+        <p class="user-id flex xl:hidden">{{item?.owner?.slice(0, 6) + '...' + item?.owner?.slice(-4)}}</p>
         <div class="line-copy_small !ml-[7px] !mb-[6px]"></div>
       </div>
     </div>
@@ -84,7 +85,7 @@
             <div @fade-in class="card cursor-pointer" *ngFor="let game of gamesOnScreen | slice:0:3" (click)="setNewSelectedGame(game)">
                 <div class="img-wrapper">
                     <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/' + type + '/' + item?.tokenId : defaultRenderer + '/' + type + '/' + item?.tokenId" alt="">
-                    
+
                 </div>
                 <div class="bottom"><p class="capitalize">{{game?.general?.name}}</p></div>
             </div>

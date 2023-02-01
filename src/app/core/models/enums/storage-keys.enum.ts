@@ -6,5 +6,6 @@ export enum StorageKey {
   TOTEM_REDIRECT = 'totem_redirect',
   ADAPTER = 'Web3Auth-cachedAdapter',
   USER_INFO = 'user-info',
-  SELECTED_GAME = 'selected-game'
+  SELECTED_GAME = 'selected-game',
+  RECENT_MINTED_TOKEN = 'Totem_RecentTokenMinted'
 }

@@ -53,15 +53,9 @@ export class AppComponent {
           if (url === '/profile/user-items' || url === '/profile/user-games' || url === '/profile/user-avatars' || url === '/profile/user-gems') return;
           this.viewportScroller.scrollToPosition([0, 0]);
         }
-      });
+    });
 
     this.gtag.event('page_view');
-
-    // this.userStateService.currentUser.subscribe(user => {
-    //   if(user) {
-    //     this.sellAsset.transferNft()
-    //   }
-    // })
   }
 
   getQueryParamsAfterPayment() {

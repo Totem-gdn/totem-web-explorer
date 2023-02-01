@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Animations } from '@app/core/animations/animations';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { AssetsListenerService } from '@app/core/web3auth/abi/assets-transaction.service';
@@ -12,14 +13,15 @@ import { Subscription, timer } from 'rxjs';
   host: {
         class: 'flex flex-auto w-full h-full'
   },
+  animations: Animations.animations
 })
-export class PaymentSuccessDialogComponent implements OnInit, AfterViewInit {
+export class PaymentSuccessDialogComponent implements OnInit {
 
   asset: string = '';
   status: string = '';
   assetName: string = '';
   assetNameMultiple: string = '';
-  secondsToClose: number = 5;
+  secondsToClose: number = 15;
   counterSub: Subscription = new Subscription();
   txFinished: null | 'success' | 'error' = null;
 
@@ -47,21 +49,21 @@ export class PaymentSuccessDialogComponent implements OnInit, AfterViewInit {
       this.assetNameMultiple = 'Gems';
     }
     this.getUserAndListenAssetTx();
-  }
-
-  ngAfterViewInit() {
-    //this.startCounter();
+    /* setTimeout(() => {
+      this.txFinished = 'error';
+      this.startCounter(true);
+    }, 5000) */
   }
 
   getUserAndListenAssetTx() {
     this.assetsListenerService.assetTxState.subscribe((state: string | null) => {
       if (state == 'success') {
         this.txFinished = 'success';
-        this.dialogRef.close(true);
+        this.startCounter(true);
       }
       if (state == 'error') {
         this.txFinished = 'error';
-        this.dialogRef.close(false);
+        this.startCounter(false);
       }
     })
     this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
@@ -71,11 +73,11 @@ export class PaymentSuccessDialogComponent implements OnInit, AfterViewInit {
     })
   }
 
-  startCounter() {
+  startCounter(flag: boolean) {
     this.counterSub = timer(1000, 1000).subscribe(() => {
       this.secondsToClose -= 1;
       if (this.secondsToClose == 0) {
-        this.dialogRef.close(false);
+        this.dialogRef.close(flag);
         this.counterSub.unsubscribe();
       }
     })
