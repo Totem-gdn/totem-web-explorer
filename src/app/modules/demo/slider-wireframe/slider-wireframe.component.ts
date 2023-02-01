@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Animations } from '@app/core/animations/animations';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { fromEvent, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'slider-wireframe',
@@ -14,11 +15,12 @@ import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.mo
     Animations.animations
   ]
 })
-export class SliderWireframeComponent {
+export class SliderWireframeComponent implements OnInit, OnDestroy {
 
 
   @ViewChild('slider', {static: true}) slider!: ElementRef;
   @ViewChild('wrapper', {static: true}) wrapper!: ElementRef;
+  subs = new Subject<void>();
 
   @Input() itemsOnScreen: number = 6;
   @Input() type: 'game' | 'asset' | 'legacy' = 'asset';
@@ -38,6 +40,18 @@ export class SliderWireframeComponent {
 
   slideIndex: number = 0;
   slideWidth: number = 240;
+
+  ngOnInit() {
+    this.resize$();
+  }
+
+  resize$() {
+    fromEvent(window, 'resize')
+      .pipe(takeUntil(this.subs))
+      .subscribe(() => {
+        console.log('resize')
+      })
+  }
 
 
   toggleSlides(direction: 'next' | 'prev' | 'index') {
@@ -70,4 +84,8 @@ export class SliderWireframeComponent {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subs.next();
+    this.subs.complete();
+  }
 }
