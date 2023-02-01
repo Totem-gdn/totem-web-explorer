@@ -11,7 +11,7 @@
 
       <ng-container *ngIf="assetTotal?.avatars?.all; else noAvatars">
         <div class="flex flex-row items-center mt-12">
-          <p class="text-[24px] leading-[26px] font-medium">You have {{assetTotal.avatars.all || 0}} Avatars showing in &nbsp;</p>
+          <p class="text-[24px] leading-[26px] font-medium">You own {{assetTotal.avatars.all || 0}} Avatars showing in &nbsp;</p>
           <totem-entity-selector class="text-[24px] leading-[26px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
           [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
         </div>
@@ -26,7 +26,7 @@
 
       <ng-container *ngIf="assetTotal?.items?.all; else noItems">
         <div class="flex flex-row items-center mt-12">
-          <p class="text-[24px] leading-[26px] font-medium">You have {{assetTotal.items.all || 0}} Items showing in &nbsp;</p>
+          <p class="text-[24px] leading-[26px] font-medium">You own {{assetTotal.items.all || 0}} Items showing in &nbsp;</p>
           <totem-entity-selector class="text-[24px] leading-[26px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
           [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
         </div>
@@ -58,7 +58,7 @@
 </ng-template>
 
 <ng-template #noAssets let-type="type">
-  <p class="text-[24px] leading-[26px] font-medium mt-12">You do not own any {{type}}s</p>
+  <p class="text-[24px] leading-[26px] font-medium mt-12">You don't have any {{type}}s</p>
   <div class="no-assets-block h-[288px] w-full flex flex-col shrink-0 items-center justify-center rounded-[24px] mt-4">
     <div class="asset-image">
       <div *ngIf="type === 'Item'" class="!text-[90px] icon solid-buy-item flex t-col-light-grey"></div>
