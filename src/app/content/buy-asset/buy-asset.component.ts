@@ -158,7 +158,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     }
     const circles = item.getElementsByClassName('circle-wrapper')[0];
     const icon = item.getElementsByClassName('icon')[0];
-    item.style.color = '#353840';
+    // item.style.color = '#353840';
     item.style.transform = 'translateY(0px)';
     circles.style.opacity = '0';
     icon.style.color = '#353840';
