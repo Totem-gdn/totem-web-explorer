@@ -9,7 +9,8 @@
             <totem-email-sub></totem-email-sub>
           </div>
           <!-- <button class="submit-button" mat-raised-button>Submit</button> -->
-          <totem-button class="submit-button-block" [customId]="'emailButton'" [width]="'102px'" [height]="'40px'" [caption]="'Subscribe'"></totem-button>
+          <!-- <totem-button class="submit-button-block" [customId]="'emailButton'" [width]="'102px'" [height]="'40px'" [caption]="'Subscribe'"></totem-button> -->
+          <button class="!ml-3 h-10 totem-primary-button text-[20px] leading-[22px] font-medium">Subscribe</button>
         </div>
       </div>
 
@@ -47,9 +48,15 @@
     <div class="footer-info-block" fxLayout="row wrap" fxLayoutAlign="space-between start">
 
       <div fxFlex="32%" fxFlex.lt-md="32%" fxFlex.lt-sm="100%" class="totem-company-info" fxLayout="column" fxLayoutAlign="start">
-        <div>
-          <a aria-label="Totem logo" href="/" routerLink="/"><img loading="lazy" src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
+        <div class="text-white h-full flex flex-row items-center cursor-pointer" aria-label="Totem logo" href="/" routerLink="/">
+          <mat-icon class="shrink-0 !w-[129px] !h-auto" [svgIcon]="'feather:totem'"></mat-icon>
+          <div class="shrink-0 ml-[6px] min-h-[0px] h-[22px] w-[22px] pb-[1px]">
+            <img class="rounded min-h-[0px] h-full w-full" src="assets/favicons/logo-192.png" alt="logo">
+          </div>
         </div>
+        <!-- <div>
+          <a aria-label="Totem logo" href="/" routerLink="/"><img loading="lazy" src="assets/icons/nav/totem-logo.svg" alt="TOTEM"></a>
+        </div> -->
         <div class="company-description">
           {{'footer.about_totem' | translate}}
         </div>

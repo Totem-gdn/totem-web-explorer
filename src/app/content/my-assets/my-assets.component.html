@@ -5,7 +5,7 @@
     <div class="flex flex-row items-center" *ngIf="currentUser$ | async as user">
       <p class="text-[32px] leading-[35px] font-medium">Assets for User: &nbsp;</p>
       <p class="text-[32px] leading-[35px] font-medium flex flex-row items-center address" [cdkCopyToClipboard]="user.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
-        {{user.slicedWallet}} <mat-icon class="!h-[30px] !w-[30px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
+        {{user.slicedWallet}} <mat-icon class="!h-[24px] !w-[24px] mb-[1px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
     </div>
     <div class="flex flex-col items-start w-full" *ngIf="assetTotal">
 
@@ -24,6 +24,10 @@
         </div>
       </ng-container>
 
+      <div class="w-full flex items-center justify-center mt-11">
+        <button class="totem-primary-button h-12 text-[20px] leading-[22px] font-semibold !px-7" (click)="goToBuy()">Purchase an Avatar</button>
+      </div>
+
       <ng-container *ngIf="assetTotal?.items?.all; else noItems">
         <div class="flex flex-row items-center mt-12">
           <p class="text-[24px] leading-[26px] font-medium">You own {{assetTotal.items.all || 0}} Items showing in &nbsp;</p>
@@ -39,8 +43,8 @@
         </div>
       </ng-container>
 
-      <div class="w-full flex items-center justify-center mt-13">
-        <button class="totem-primary-button h-12 text-[20px] leading-[22px] font-semibold !px-7" (click)="goToBuy()">Purchase an Asset</button>
+      <div class="w-full flex items-center justify-center mt-11">
+        <button class="totem-primary-button h-12 text-[20px] leading-[22px] font-semibold !px-7" (click)="goToBuy()">Purchase an Item</button>
       </div>
       <!-- <ng-container *ngIf="!assetTotal?.avatars?.all && !assetTotal?.items?.all">
         You have no assets
