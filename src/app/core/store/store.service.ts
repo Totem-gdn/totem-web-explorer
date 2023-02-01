@@ -9,7 +9,7 @@ import { AssetsService } from "../services/assets/assets.service";
 import { GamesService } from "../services/assets/games.service";
 
 const preselectedAsset: AssetInfo = {
-  id: "63d980c6fe96d4ee1d05b948",
+  id: "63d980c42bb655b3e997ad76",
   owner: "0x31aFfe2bD3E2BAB4296869bb0dD6f7fa5c4Ed66F",
   owners: [
       "0x31aFfe2bD3E2BAB4296869bb0dD6f7fa5c4Ed66F"
