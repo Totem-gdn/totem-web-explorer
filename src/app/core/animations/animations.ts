@@ -78,6 +78,35 @@ export const Animations = {
       ]
     ),
     trigger(
+      'swapText',
+      [
+        transition(
+          ':enter',
+          [
+            style({ height: 0, opacity: 0 }),
+            group([
+              animate('0.22s 0.33s ease-in',
+                style({ height: 22 })),
+              animate('0.22s 0.33s ease-in',
+                style({ opacity: 1 }))
+            ])
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ height: 22, opacity: 1 }),
+            group([
+              animate('0.22s ease-out',
+                style({ height: 0 })),
+              animate('0.22s ease-out',
+                style({ opacity: 0 }))
+            ])
+          ]
+        )
+      ]
+    ),
+    trigger(
       'showGas',
       [
         transition(

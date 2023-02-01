@@ -55,15 +55,9 @@ export class AppComponent {
             this.viewportScroller.scrollToPosition([0, 0]);
           },100)
         }
-      });
+    });
 
     this.gtag.event('page_view');
-
-    // this.userStateService.currentUser.subscribe(user => {
-    //   if(user) {
-    //     this.sellAsset.transferNft()
-    //   }
-    // })
   }
 
   getQueryParamsAfterPayment() {

@@ -13,17 +13,16 @@
   font-style: normal;
 
   transition: color 0.1s ease-out, background 0.22s ease-out;
-
-  &:disabled,
-  &[disabled]{
-    background-color: $totem-light-grey !important;
-    color: $totem-divider-grey;
-  }
 }
 
 .totem-primary-button {
   &:hover {
     background-color: #7C4EDE !important;
+  }
+  &:disabled,
+  &[disabled]{
+    background-color: $totem-light-grey !important;
+    color: $totem-divider-grey;
   }
 }
 
@@ -35,16 +34,19 @@
     color: $totem-violet;
     border: 1px solid $totem-violet;
   } */
-  &:disabled,
-  &[disabled]{
-    color: $totem-light-grey;
-    border: 1px solid $totem-light-grey;
-  }
 
   &:hover {
     box-shadow: inset 0 -60px 0 0 white;
     color: $totem-black;
   }
+
+  &:disabled,
+  &[disabled]{
+    color: $totem-light-grey;
+    border: 1px solid $totem-light-grey;
+    background-color: transparent !important;
+  }
+
 }
 
 .totem-tab-button {

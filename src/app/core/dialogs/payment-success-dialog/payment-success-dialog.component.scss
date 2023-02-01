@@ -1,4 +1,4 @@
-@import 'styles/scss/variables';
+@import 'styles/scss/totem-variables';
 
 .mtop-20px {
   margin-top: 20px;
@@ -19,26 +19,25 @@
   }
 }
 
+mat-progress-bar {
+  color: $totem-pink;
+}
+
 .content {
   background: rgba(35, 37, 47, 0.8);
   backdrop-filter: blur(10px);
 }
 
-  .circle-wrapper {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  }
+.circle-wrapper {
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+}
 
-  .totem-primary-button {
-    &[disabled="true"]{
-      color: red;
-    }
-  }
-  button {
-    &[disabled="true"]{
-      color: red;
-    }
-  }
+.totem-primary-button {
+  width: auto;
+  transition: width 0.33s ease-out;
+  white-space: nowrap;
+}
