@@ -57,10 +57,9 @@ export class AppComponent {
         }
     });
 
-    // this.gtag.event('page_view');
-    // console.log(window.screen.width)
-    // const body = document.body;
-    // body.style.zoom = '50%';
+    this.gtag.event('page_view');
+    
+    if(window.screen.width < 1500) document.body.classList.add('zoom');
   }
 
   getQueryParamsAfterPayment() {
