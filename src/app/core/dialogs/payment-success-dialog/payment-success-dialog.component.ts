@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Animations } from '@app/core/animations/animations';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
@@ -15,13 +15,13 @@ import { Subscription, timer } from 'rxjs';
   },
   animations: Animations.animations
 })
-export class PaymentSuccessDialogComponent implements OnInit {
+export class PaymentSuccessDialogComponent implements OnInit, OnDestroy {
 
   asset: string = '';
   status: string = '';
   assetName: string = '';
   assetNameMultiple: string = '';
-  secondsToClose: number = 15;
+  secondsToClose: number = 30;
   counterSub: Subscription = new Subscription();
   txFinished: null | 'success' | 'error' = null;
 
@@ -59,28 +59,32 @@ export class PaymentSuccessDialogComponent implements OnInit {
     this.assetsListenerService.assetTxState.subscribe((state: string | null) => {
       if (state == 'success') {
         this.txFinished = 'success';
-        this.startCounter(true);
+        this.dialogRef.close(true);
       }
       if (state == 'error') {
         this.txFinished = 'error';
-        this.startCounter(false);
       }
     })
     this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
       if (user) {
         this.assetsListenerService.listenTx(user.wallet!, this.asset);
+        this.startCounter();
       }
     })
   }
 
-  startCounter(flag: boolean) {
+  startCounter() {
     this.counterSub = timer(1000, 1000).subscribe(() => {
       this.secondsToClose -= 1;
       if (this.secondsToClose == 0) {
-        this.dialogRef.close(flag);
         this.counterSub.unsubscribe();
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.counterSub.unsubscribe();
+    this.secondsToClose = 30;
   }
 
 }
