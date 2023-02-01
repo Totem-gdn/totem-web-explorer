@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular
 
 @Component({
     selector: 'bg-circle',
-    template: 
+    template:
     `
     <div #circle class="circle"></div>
     `,
@@ -16,6 +16,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular
 export class BackgroundCircleComponent implements AfterViewInit {
 
     @Input() width: string | null = null;
+    @Input() height: string | null = null;
     @Input() background: string | null = 'green';
     @Input() move: string | null = null;
     @Input() delay = '0';
@@ -26,7 +27,7 @@ export class BackgroundCircleComponent implements AfterViewInit {
 
         if(this.width) {
             circle.width = this.width;
-            circle.height = this.width;
+            circle.height = this.height ? this.height : this.width;
         }
         if(this.background) circle.background = this.background;
 

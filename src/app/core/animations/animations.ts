@@ -186,6 +186,27 @@ export const Animations = {
       ]
     ),
     trigger(
+      'buttonBlockAppear',
+      [
+        transition(
+          ':enter',
+          [
+            style({ opacity: 0, height: 0 }),
+            animate('0.4s ease-in-out',
+              style({ opacity: 1, height: 48 }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ opacity: 1, height: 48 }),
+            animate('0.4s ease-in-out',
+              style({ opacity: 0, height: 0 }))
+          ]
+        )
+      ]
+    ),
+    trigger(
       'tagAnimation',
       [
         transition(
