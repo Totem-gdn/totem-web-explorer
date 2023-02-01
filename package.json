@@ -49,6 +49,7 @@
     "react-dom": "^18.2.0",
     "rxjs": "~7.5.0",
     "swiper": "^8.3.2",
+    "totem-common-files": "github:Totem-gdn/totem-common-files",
     "totem-dna-parser": "github:Totem-gdn/totem-dna-parser",
     "tslib": "^2.3.0",
     "tsparticles": "^2.0.4",
