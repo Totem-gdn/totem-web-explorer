@@ -58,16 +58,9 @@ export class AssetsListComponent implements OnInit, OnDestroy {
     // this.loadGames(1, this.list);
 
     if(this.type != 'game') {
-      this.page = 3;
+      // this.page = 3;
       this.loadMoreActive = false;
-      this.assetsService.fetchMultiplePages(this.type, this.page, this.list)
-      .subscribe(assetsArr => {
-        for(let assets of assetsArr) {
-          this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
-          this.setAssets(assets.data)
-          this.loadMoreActive = true;
-        }
-      });
+      this.loadMultipleAssets(this.type, this.page, this.page + 3, this.list)
     }
     if(this.type == 'game') {
       this.loadGames(1, this.list);
@@ -87,16 +80,16 @@ export class AssetsListComponent implements OnInit, OnDestroy {
       })
   }
 
-  loadAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
-    this.assetsService.fetchAssets(type, page, list)
-      .subscribe(assets => {
-        this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
-        this.setAssets(assets.data, action);
-        if(assets.data.length < 10) this.loadMoreActive = false;
-
-        
-        console.log('assets', assets.data)
+  loadMultipleAssets(type: ASSET_TYPE, fromPage: number, toPage: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
+    this.assetsService.fetchMultiplePages(type, fromPage, toPage, list)
+      .subscribe(assetsArr => {
+        for(let assets of assetsArr) {
+          this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
+          this.setAssets(assets.data)
+          this.loadMoreActive = true;
+        }
       })
+    this.page = toPage;
   }
 
   setGame(game: GameDetail) {
@@ -120,25 +113,25 @@ export class AssetsListComponent implements OnInit, OnDestroy {
   }
 
   loadMore() {
-    this.page++;
+    // this.page++;
     if(this.type == 'game') {
       this.loadGames(this.page, this.list);
       return;
     }
-    this.loadAssets(this.type, this.page, this.list);
+    this.loadMultipleAssets(this.type, this.page, this.page + 3, this.list);
   }
 
-  onSort(list: ASSET_PARAM_LIST) {
-    this.loadMoreActive = true;
-    this.list = list;
-    this.page = 1;
-    if(this.type == 'game') {
-      this.loadGames(this.page, this.list, 'set');
-      return;
-    }
+  // onSort(list: ASSET_PARAM_LIST) {
+  //   this.loadMoreActive = true;
+  //   this.list = list;
+  //   this.page = 1;
+  //   if(this.type == 'game') {
+  //     this.loadGames(this.page, this.list, 'set');
+  //     return;
+  //   }
 
-    this.loadAssets(this.type, this.page, this.list, 'set');
-  }
+  //   this.loadAssets(this.type, this.page, this.list, 'set');
+  // }
 
   ngOnDestroy(): void {
     this.subs.next();

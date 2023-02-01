@@ -48,10 +48,10 @@ export class AssetsService {
             }));
     }
 
-    fetchMultiplePages(type: AssetTypes, toPage: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
-        if(toPage < 1) return of ();
+    fetchMultiplePages(type: AssetTypes,fromPage: number, toPage: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+        if(fromPage < 1 && fromPage > toPage) return of ();
         const obsArray = [];
-        for(let i = 1; i <= toPage; i++) {
+        for(let i = fromPage; i < toPage; i++) {
             obsArray.push(this.fetchAssets(type, i, list).pipe(tap(assets => {
                 this.handleAssets(type, assets.data);
                 console.log(assets.meta)
