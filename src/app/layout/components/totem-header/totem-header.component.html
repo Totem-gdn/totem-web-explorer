@@ -43,7 +43,7 @@
           {{(currUser$ | async)?.slicedName ? (currUser$ | async)?.slicedName : (currUser$ | async)?.name}}
         </p>
         <p class="wallet-caption text-[14px] font-normal leading-[15px] flex flex-row cursor-pointer pb-[3px]" [cdkCopyToClipboard]="(currUser$ | async)?.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
-          {{(currUser$ | async)?.slicedWallet}} <mat-icon class="!h-[15px] !w-[15px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon>
+          {{(currUser$ | async)?.slicedWallet}} <mat-icon class="!h-[12px] !w-[12px] mt-[1px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon>
         </p>
       </div>
     </div>
