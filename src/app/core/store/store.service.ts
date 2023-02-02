@@ -45,6 +45,9 @@ export class StoreService {
   private games: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
   games$: Observable<GameDetail[]> = this.games.asObservable();
 
+  private appLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  appLoading$: Observable<boolean> = this.appLoading.asObservable();
+
   constructor(
     private assetsService: AssetsService,
     private gamesService: GamesService,
@@ -76,6 +79,7 @@ export class StoreService {
 
 
   getAssetsAndGames(page: number = 1) {
+    this.appLoading.next(true);
     combineLatest([
       this.gamesService.fetchGames(page),
       this.assetsService.fetchAssets(ASSET_TYPE.ITEM, page).pipe(
@@ -103,6 +107,7 @@ export class StoreService {
       this.games.next(data.games.data);
       this.items.next(data.items.data);
       this.avatars.next([preselectedAsset, ...data.avatars.data.slice(1)]);
+      this.appLoading.next(false);
     });
   }
 

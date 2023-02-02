@@ -1,10 +1,12 @@
 <div class="totem-sidenav w-[256px] h-full flex flex-col relative items-center justify-start px-2 py-8">
   <div class="totem-sidenav-content w-full h-full flex flex-col items-start justify-start">
-    <p class="pl-2 text-[20px] font-semibold leading-[22px]">Selected Game</p>
-    <ng-container *ngTemplateOutlet="selectedGameTemplate; context: { selectedGame: selectedGame$ | async }"></ng-container>
-    <p class="mt-4 mb-5 text-[16px] font-medium leading-[17px] t-col-light-grey">Games</p>
-    <div class="items-wrapper w-full max-h-full h-full overflow-auto flex flex-col items-start justify-start">
-      <ng-container *ngIf="(games$ | async)!.length else gamesLoading">
+    <ng-container *ngIf="selectedGame$ | async; else selectedGameLoading">
+      <p class="pl-2 text-[20px] font-semibold leading-[22px]">Selected Game</p>
+      <ng-container *ngTemplateOutlet="selectedGameTemplate; context: { selectedGame: selectedGame$ | async }"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="(games$ | async)!.length else gamesLoading">
+      <p class="mt-4 mb-5 text-[16px] font-medium leading-[17px] t-col-light-grey">Games</p>
+      <div class="items-wrapper w-full max-h-full h-full overflow-auto flex flex-col items-start justify-start">
         <ng-container *ngFor="let game of games$ | async; trackBy: trackByFn">
           <div
             class="game-card h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer"
@@ -20,13 +22,13 @@
             </div>
           </div>
         </ng-container>
-      </ng-container>
-    </div>
+      </div>
+    </ng-container>
   </div>
 </div>
 
 <ng-template #selectedGameTemplate let-game="selectedGame">
-  <div *ngIf="game else selectedGameLoading" class="selected-game-card h-[91px] w-full p-2 flex flex-row items-center justify-start rounded-12 mt-4">
+  <div class="selected-game-card h-[91px] w-full p-2 flex flex-row items-center justify-start rounded-12 mt-4">
     <div class="w-[75px] h-[75px] rounded-12 overflow-hidden shrink-0">
       <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
     </div>
@@ -39,13 +41,16 @@
 </ng-template>
 
 <ng-template #selectedGameLoading>
-  <div class="h-[91px] w-full p-2 flex flex-row items-center justify-start rounded-12 mt-4 sceleton-loader"></div>
+  <span class="ml-2 min-h-[22px] w-[60%] totem-skeleton"></span>
+  <span class="min-h-[91px] w-full mt-4 totem-skeleton"></span>
 </ng-template>
 
 <ng-template #gamesLoading>
-  <div class="mt-2 h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer sceleton-loader"></div>
-  <div class="mt-2 h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer sceleton-loader"></div>
-  <div class="mt-2 h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer sceleton-loader"></div>
-  <div class="mt-2 h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer sceleton-loader"></div>
-  <div class="mt-2 h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer sceleton-loader"></div>
+  <span class="mt-4 mb-5 min-h-[17px] w-[30%] totem-skeleton"></span>
+  <span class="mt-2 min-h-[h-[56px] w-full totem-skeleton"></span>
+  <span class="mt-2 min-h-[h-[56px] w-full totem-skeleton"></span>
+  <span class="mt-2 min-h-[h-[56px] w-full totem-skeleton"></span>
+  <span class="mt-2 min-h-[h-[56px] w-full totem-skeleton"></span>
+  <span class="mt-2 min-h-[h-[56px] w-full totem-skeleton"></span>
+  <span class="mt-2 min-h-[h-[56px] w-full totem-skeleton"></span>
 </ng-template>
