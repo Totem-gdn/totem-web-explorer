@@ -84,6 +84,14 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
     this.updateBalance();
   }
 
+  updateProfileImage() {
+    let user: UserEntity | null = this.currUser$.getValue();
+    if (user) {
+      user.profileImage = 'assets/icons/nav/account_circle.svg'
+      this.currUser$.next(user);
+    }
+  }
+
   updateBalance() {
     this.cryptoUtilsService.updateBalance();
   }
