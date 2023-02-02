@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
@@ -18,12 +18,12 @@ import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
   ]
 })
 
-export class AssetsListComponent implements OnInit, OnDestroy {
-  // get title() { 
+export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
+  // get title() {
   //   let str = this.type;
   //   return 'Showing' + this.type.toLowerCase().charAt(0).toUpperCase() + str.slice(1) + 's';
   // }
-
+  //@ViewChild('grid') grid!: ElementRef;
   @Input() type!: ASSET_TYPE | 'game' ;
 
   constructor(private gamesService: GamesService,
@@ -56,17 +56,21 @@ export class AssetsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // this.loadGames(1, this.list);
-
+    this.loadMoreActive = false;
     if(this.type != 'game') {
       // this.page = 3;
-      this.loadMoreActive = false;
-      this.loadMultipleAssets(this.type, this.page, this.page + 3, this.list)
+      // this.loadMoreActive = false;
+      this.loadAssets(this.type, this.page, this.list)
     }
     if(this.type == 'game') {
       this.loadGames(1, this.list);
     }
 
     this.selectedGame$();
+  }
+
+  ngAfterViewInit() {
+    //this.grid.nativeElement.style.gridTemplateColumns = this.type == 'game' ? 'repeat(4, 370px)': 'repeat(5, 240px)';
   }
 
   selectedGame$() {
@@ -77,6 +81,20 @@ export class AssetsListComponent implements OnInit, OnDestroy {
         if(this.type != 'game' && this._assets) this._assets = this.storeService.setRenderers(this.type, this._assets);
 
         console.log('selected game', game)
+      })
+  }
+
+  loadAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
+    this.assetsService.fetchAssets(type, page, list)
+      .subscribe(assets => {
+        this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
+        this.setAssets(assets.data)
+        console.log('assets', assets.meta)
+        if (assets.meta.perPage * page >= assets.meta.total) {
+          this.loadMoreActive = false;
+        } else {
+          this.loadMoreActive = true;
+        }
       })
   }
 
@@ -108,17 +126,23 @@ export class AssetsListComponent implements OnInit, OnDestroy {
         } else if(action == 'set') {
           this.games = games.data;
         }
-        if(games.data.length < 10) this.loadMoreActive = false;
+        console.log('meta', games.meta)
+        if (games.meta.perPage * page >= games.meta.total) {
+          this.loadMoreActive = false;
+        } else {
+          this.loadMoreActive = true;
+        }
       })
   }
 
   loadMore() {
-    // this.page++;
+    this.page++;
     if(this.type == 'game') {
       this.loadGames(this.page, this.list);
       return;
     }
-    this.loadMultipleAssets(this.type, this.page, this.page + 3, this.list);
+    this.loadAssets(this.type, this.page, this.list)
+
   }
 
   // onSort(list: ASSET_PARAM_LIST) {

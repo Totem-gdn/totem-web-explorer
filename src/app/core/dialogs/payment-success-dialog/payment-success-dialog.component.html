@@ -10,7 +10,7 @@
       <p class="text-light-grey text-[18px] leading-[22px] text-center max-w-[536px] w-full mt-6">Please wait while we are processing your payment and generating your new unique {{assetName}}. This may take several seconds.</p>
       <div class="w-full flex flex-col items-center justify-center mt-7">
         <p [@swapText] *ngIf="txFinished == 'error'" class="t-col-error text-[20px] leading-[22px] text-center max-w-[496px] w-full h-[0px]">Error occured while generating your asset</p>
-        <div [@swapText] *ngIf="!txFinished" class="px-6 w-full h-[10]">
+        <div *ngIf="!txFinished" class="px-6 w-full h-[10]">
           <mat-progress-bar class="payment-progress-bar w-full h-[22px]" mode="indeterminate"></mat-progress-bar>
         </div>
       </div>

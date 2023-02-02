@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="(_assets?.length || games?.length); else loader">
     <div class="header">
         <div class="flex flex-row items-center">
             <p class="text-[32px] font-medium leading-[35px]">{{title}}</p>
@@ -19,3 +19,25 @@
         <button @fade-in-out class="totem-primary-button" (click)="loadMore()">Load More</button>
     </div>
 </div>
+
+<ng-template #loader>
+  <div class="wrapper flex flex-col">
+    <div class="flex flex-row w-full mb-[30px]">
+      <span class="h-[35px] w-[40%] totem-skeleton"></span>
+    </div>
+    <div class="w-full list" *ngIf="type != 'game'">
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+    </div>
+    <div class="w-full list" *ngIf="type == 'game'">
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+    </div>
+  </div>
+</ng-template>
