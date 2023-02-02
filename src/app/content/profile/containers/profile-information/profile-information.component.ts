@@ -47,6 +47,12 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
     )
   }
 
+  updateProfileImage() {
+    if (this.user) {
+      this.user.profileImage = 'assets/icons/nav/account_circle.svg'
+    }
+  }
+
   getAccountMeta() {
     this.subs.add(
       this.profileService.getUserAssetsCount().subscribe()
