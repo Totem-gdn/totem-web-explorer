@@ -20,12 +20,16 @@ export class MyAssetsStoreService {
   private items: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
   items$: Observable<AssetInfo[]> = this.items.asObservable();
 
+  private assetsLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  assetsLoading$: Observable<boolean> = this.assetsLoading.asObservable();
+
   constructor(
     private assetsService: AssetsService,
   ) {}
 
 
   fetchMyAssets(wallet: string, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, page: number = 1) {
+    this.assetsLoading.next(true);
     combineLatest([
       this.assetsService.fetchAssets('item', page, list, wallet).pipe(
         map((assets: ApiResponse<AssetInfo[]>) => {
@@ -51,6 +55,7 @@ export class MyAssetsStoreService {
     ).subscribe((data) => {
       this.items.next(data.items.data);
       this.avatars.next(data.avatars.data);
+      this.assetsLoading.next(false);
     });
   }
 

@@ -11,10 +11,11 @@
   background-color: $totem-dark-grey;
   border-right: 1px solid $totem-divider-grey;
   &-content {
-    height: auto;
     overflow: hidden;
     position: sticky;
     top: 112px;
+    min-height: calc(100vh - 136px);
+    height: 100%;
     max-height: calc(100vh - 136px);
 
     .items-wrapper {

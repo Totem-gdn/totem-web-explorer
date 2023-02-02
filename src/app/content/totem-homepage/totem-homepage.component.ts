@@ -5,6 +5,7 @@ import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.mo
 import { GamesService } from '@app/core/services/assets/games.service';
 import { HomepageBlocksService } from '@app/core/services/blocks/homepage-blocks.service';
 import { GamesStoreService } from '@app/core/store/games-store.service';
+import { StoreService } from '@app/core/store/store.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, take } from 'rxjs';
 
@@ -21,9 +22,11 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
   promoVideo: HomepageBlock | undefined = undefined;
   eventBanner: HomepageBlock | undefined = undefined;
 
+  loading$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private gamesStoreService: GamesStoreService,
-    private gamesService: GamesService,
+    private storeService: StoreService,
     private homepageBlocksService: HomepageBlocksService,
   ) {
     super();
@@ -31,7 +34,11 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
   }
 
   ngOnInit(): void {
-    this.fetchGames();
+
+    this.storeService.appLoading$.subscribe((state: boolean) => {
+      this.loading$.next(state);
+    })
+    //this.fetchGames();
     /* this.gamesStoreService.games$.subscribe((data: GameDetail[]) => {
       this.games$.next(data);
     }); */
@@ -39,13 +46,13 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
     this.getHomepageBlocks();
   }
 
-  fetchGames() {
+  /* fetchGames() {
     this.gamesService.fetchGames(1)
       .pipe(take(1))
       .subscribe(games => {
         this.games$.next(games.data);
       })
-  }
+  } */
 
   getHomepageBlocks() {
     this.homepageBlocksService

@@ -32,6 +32,8 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
   avatars$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
 
   currentUser$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
+  assetsLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
 
   assetTotal: UserAssetCountEntity | undefined = undefined;
 
@@ -54,6 +56,11 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.initAssetListeners();
     this.initGamesListener();
+
+    this.myAssetsStoreService.assetsLoading$.subscribe((state: boolean) => {
+      this.assetsLoading$.next(state);
+    });
+    this.assetsLoading$.next(true);
 
     this.authService.currentUser
       .pipe(

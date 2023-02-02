@@ -3,7 +3,7 @@
     <profile-information [user]="currentUser$ | async"></profile-information>
   </div>
 
-  <div class="w-full max-w-[1520px] mt-12" *ngIf="currentUser$ | async">
+  <div class="w-full max-w-[1520px] mt-12">
     <router-outlet></router-outlet>
   </div>
 </div>
