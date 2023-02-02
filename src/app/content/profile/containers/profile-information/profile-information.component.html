@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="flex items-center justify-center w-[180px] h-[180px] p-3 rounded-full overflow-hidden absolute bottom-5 left-8 t-bg-black">
-      <img class="rounded-full w-full h-full object-cover" [src]="user.profileImage" alt="profile-image">
+      <img class="rounded-full w-full h-full object-cover" [src]="user.profileImage" alt="profile-image" (error)="updateProfileImage()">
     </div>
   </div>
 </ng-container>
