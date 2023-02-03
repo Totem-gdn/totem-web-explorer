@@ -1,11 +1,11 @@
 export enum ASSET_PARAM_LIST {
     LATEST  = 'latest',
     POPULAR = 'popular',
-    MY = 'my'
+    // MY = 'my'
 }
 
 export enum GAME_PARAM_LIST {
     LATEST  = 'latest',
     POPULAR = 'popular',
-    RANDOM = 'random'
+    // RANDOM = 'random'
 }

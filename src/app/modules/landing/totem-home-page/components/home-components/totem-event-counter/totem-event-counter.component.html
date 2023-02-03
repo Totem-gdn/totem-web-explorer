@@ -154,7 +154,8 @@
         </div>
       </div>
       <div class="description">{{eventBanner.data?.description || ('home.totem_is_joining_as' | translate)}}</div>
-      <div class="join-cta-block"><totem-button (clicked)="goToEventPage($event)" [customId]="'eventButton'" [caption]="'home.join_the_event' | translate"></totem-button></div>
+      <!-- <div class="join-cta-block"><totem-button (clicked)="goToEventPage($event)" [customId]="'eventButton'" [caption]="'home.join_the_event' | translate"></totem-button></div> -->
+      <div class="join-cta-block"><button class="totem-primary-button h-[48px] text-[20px] leading-[22px] font-medium !px-7" (click)="goToEventPage($event)">Join the event</button></div>
     </div>
   </div>
 </div>

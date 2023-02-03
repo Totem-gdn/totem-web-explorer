@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CardPaymentResponse } from "@app/core/models/interfaces/asset-info.model";
+import { CardPaymentResponse } from "@app/core/models/interfaces/payment.interface";
 import { environment } from "@env/environment";
 import { Observable } from "rxjs";
 

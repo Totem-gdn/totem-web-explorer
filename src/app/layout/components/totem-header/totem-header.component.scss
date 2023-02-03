@@ -1,0 +1,47 @@
+@import "styles/scss/totem-variables";
+
+:host {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.totem-header {
+  background-color: $totem-black;
+  position: relative;
+  border-bottom: 1px solid #353840;
+}
+
+.wallet-caption {
+  border-bottom: 1px solid transparent;
+  transition: border 0.22s ease-out;
+  &:hover {
+    border-bottom: 1px solid $totem-violet;
+  }
+}
+
+.totem-navigation-items {
+  a {
+    position: relative;
+    margin-left: 42px;
+    z-index: 2;
+    border-radius: 37px;
+    transition: background 0.22s ease-out, color 0.22s ease-out;
+
+    &:hover {
+      background-color: $totem-divider-grey;
+    }
+  }
+  a.active-route {
+    background-color: $totem-violet;
+  }
+  a.disabled-route {
+    pointer-events: none;
+    color: $totem-light-grey;
+  }
+}
+.active-route {
+  border-radius: 37px;
+  background-color: $totem-violet !important;
+}

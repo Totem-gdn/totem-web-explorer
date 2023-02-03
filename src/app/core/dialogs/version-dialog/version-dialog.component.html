@@ -1,18 +1,19 @@
-<div class="popup gradient-border-solid">
-    <div #circlesRef class="circle-wrapper blur-70">
-        <bg-circle class="top-[-100px] left-[0]" [background]="'#00BC58'" [width]="'150px'"></bg-circle>
-        <bg-circle class="top-[0] left-[-120px]" [background]="'#FFD011'" [width]="'150px'"></bg-circle>
-        <bg-circle class="top-[100px] left-[-75px]" [background]="'#5823C9'" [width]="'100px'"></bg-circle>
-    </div>
-    <div class="content">
-        <div class="img-wrapper">
-            <img src="assets/images/popup/version-mamoth.webp" alt="">
+<div class="version-dialog w-full h-full flex flex-col items-center justify-start p-6">
+    <div class="content flex flex-col items-center justify-start relative z-2 text-center max-h-[320px] h-full">
+        <div class="img-wrapper max-w-[241px] w-full mt-8">
+            <img class="w-full h-full" src="assets/images/popup/version-mamoth.webp" alt="">
         </div>
-        <h3 class="font-medium text-white">{{'version.improved_explorer' | translate}}</h3>
-        <span class="text-light-grey leading-tight">{{'version.version_caption' | translate}}</span>
+        <h3 class="font-medium text-white text-[32px] leading-[35px]">{{'version.improved_explorer' | translate}}</h3>
+        <span class="font-medium text-[16px] leading-[17px] text-light-grey mt-3">{{'version.version_caption' | translate}}</span>
     </div>
-    <div class="buttons">
-        <button mat-ripple class="button-1" [mat-dialog-close]="false">{{'nav.cancel' | translate}}</button>
-        <button mat-ripple class="button-2" [mat-dialog-close]="true">{{'modules.refresh' | translate}}</button>
+    <div class="buttons relative z-2 text-white mt-6 w-full flex flex-row justify-between px-2">
+        <button class="totem-secondary-button h-12 text-[20px] leading-[22px] font-semibold" [mat-dialog-close]="false">{{'nav.cancel' | translate}}</button>
+        <button class="totem-primary-button h-12 text-[20px] leading-[22px] font-semibold" [mat-dialog-close]="true">{{'modules.refresh' | translate}}</button>
+    </div>
+    <div #circlesRef class="circle-wrapper z-1 overflow-hidden">
+        <bg-circle class="absolute bottom-[20%] blur-70 left-[20%] z-2" [background]="'#3A23C9'" [height]="'239px'" [width]="'113px'"></bg-circle>
+        <bg-circle class="absolute bottom-[20%] blur-70 left-[25%] z-3" [background]="'#8023C9'" [height]="'324px'" [width]="'150px'"></bg-circle>
+        <bg-circle class="absolute bottom-[10%] blur-70 left-[38%] z-4" [background]="'#FFD011'" [height]="'188px'" [width]="'95px'"></bg-circle>
+        <bg-circle class="absolute tranform-circle-1 blur-100 bottom-[10%] left-[24%] z-1" [background]="'#FF8540'" [height]="'302px'" [width]="'151px'"></bg-circle>
     </div>
 </div>

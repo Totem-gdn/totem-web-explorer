@@ -1,0 +1,49 @@
+@import 'styles/scss/totem-variables';
+.wrapper {
+    padding: 40px 0;
+    width: 100%;
+    max-width: 1520px;
+    margin: auto;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        .title {
+            font-size: 32px;
+            font-weight: 500;
+        }
+
+        .menus {
+            display: flex;
+        }
+        margin-bottom: 30px;
+    }
+
+
+}
+
+.wallet {
+    cursor: pointer;
+    &:hover {
+        color: $totem-white;
+    }
+
+    &:hover .address, &:hover .mat-icon {
+        color: $totem-white;
+    }
+}
+
+.address, .mat-icon {
+    transition: color .3s;
+}
+.mat-icon {
+    margin: auto;
+    margin-left: 7px;
+    color: $totem-light-grey;
+
+    &:hover {
+        color: white;
+    }
+    &:hover .wallet {
+        color: white;
+    }
+}

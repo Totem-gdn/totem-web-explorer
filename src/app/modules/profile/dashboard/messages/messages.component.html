@@ -46,11 +46,11 @@
 
     </div>
 
-    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px]" *ngIf="loading$ | async">
+    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px] mb-[100px]" *ngIf="loading$ | async">
       <totem-spinner class="flex items-center h-full"></totem-spinner>
     </div>
 
-    <div class="w-full h-full flex flex-col items-center justify-center mt-[100px]" *ngIf="!(loading$ | async) && !(messageList | async)?.length">
+    <div class="w-full h-full flex flex-col items-center justify-center my-[100px]" *ngIf="!(loading$ | async) && !(messageList | async)?.length">
       <span>No messages found</span>
     </div>
 

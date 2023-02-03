@@ -1,0 +1,37 @@
+<div class="w-full flex flex-col items-start justify-start mt-12">
+  <div class="flex flex-row items-center">
+    <p class="text-[32px] font-medium leading-[35px]">{{caption}}</p>
+    <totem-entity-selector class="text-[32px] font-medium leading-[35px] px-5" *ngIf="withGameSelector && (games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+      [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
+  </div>
+
+  <div class="w-full h-auto flex flex-row items-end justify-between relative mt-6">
+
+    <slider-wireframe
+      *ngIf="(items$ | async)?.length && assetTypeSelected === 'item'"
+      [assets]="(items$ | async)">
+    </slider-wireframe>
+
+    <slider-wireframe
+      *ngIf="(games$ | async)?.length && assetTypeSelected === 'legacy'"
+      [mode]="'dots'"
+      [type]="'legacy'"
+      [itemsOnScreen]="3"
+      [assets]="(games$ | async)">
+    </slider-wireframe>
+
+
+    <slider-wireframe
+      *ngIf="(avatars$ | async)?.length && assetTypeSelected === 'avatar'"
+      [assets]="(avatars$ | async)">
+    </slider-wireframe>
+
+    <slider-wireframe
+      *ngIf="(games$ | async)?.length && assetTypeSelected === 'game'"
+      [type]="'game'"
+      [itemsOnScreen]="4"
+      [assets]="(games$ | async)">
+    </slider-wireframe>
+
+  </div>
+</div>

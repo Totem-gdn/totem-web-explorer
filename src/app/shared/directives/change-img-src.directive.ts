@@ -1,4 +1,5 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, OnDestroy, OnInit, Output } from "@angular/core";
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, OnDestroy, OnInit, Output, Sanitizer } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Directive({
   selector: 'img[changeSrc]'
@@ -10,11 +11,14 @@ export class ChangeSrcDirective implements OnDestroy {
 
   timeout!: any;
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef,
+              private sanitizer: DomSanitizer) {
     this.changes = new MutationObserver((mutations: MutationRecord[]) => {
       mutations.filter(m => m.attributeName === 'src').forEach(() => {
         this.opacity = 0;
+        
         clearTimeout(this.timeout);
+
         this.timeout = setTimeout(() => {
           this.changeSrc.emit(true);
         }, 700);
@@ -35,8 +39,10 @@ export class ChangeSrcDirective implements OnDestroy {
   ngOnDestroy(): void {
     this.changes.disconnect();
   }
-
   @HostBinding('style.opacity') opacity = 0;
+  @HostBinding('style') style = this.sanitizer.bypassSecurityTrustStyle("transition: color .3s");
+ 
+  // @HostBinding('style.transition') transition = 'color .3s ease-in-out'
   
   @HostListener('load')
   onLoad(): void {

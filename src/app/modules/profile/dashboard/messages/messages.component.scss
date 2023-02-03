@@ -1,5 +1,6 @@
 
 @import 'styles/scss/variables';
+@import 'styles/scss/totem-variables';
 
 * {
   transition: color 0.33s ease-out, background-color 0.33s ease-out;
@@ -21,7 +22,7 @@
   &-content {
     margin-top: 20px;
     width: 100%;
-    min-height: 732px;
+    //min-height: 732px;
     padding: 16px;
     border: 1px solid rgba(95, 99, 105, 0.5);
     border-radius: 4px;
@@ -211,7 +212,7 @@
         margin-left: 22px;
       }
       .date-caption {
-        max-width: 302px;
+        max-width: 316px;
         width: 100%;
         margin-left: 0px;
         margin-right: 0px;
@@ -234,7 +235,7 @@
         min-height: 50px;
         max-height: 50px;
         width: 100%;
-        background-color: $grey;
+        background-color: $totem-grey;
         border-radius: 4px;
         overflow: hidden;
         transition: max-height 0.33s cubic-bezier(0.4, 0, 0.2, 1), padding-top 0.33s ease-out;
@@ -400,6 +401,7 @@
               }
             }
             .date-col {
+              width: 154px;
               margin-left: 20px;
               height: 50px;
               font-weight: 400;

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from "@app/core/models/enums/params.enum";
+import { ASSET_PARAM_LIST } from "@app/core/models/enums/params.enum";
 import { ApiResponse, APIResponseMeta } from "@app/core/models/interfaces/api-response.interface";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { environment } from "@env/environment";
@@ -33,7 +33,7 @@ export class GamesService {
 
   get selectedGame$() { return this._selectedGame.asObservable() }
   set selectedGame(value: GameDetail) {
-    
+
     if (value) {
       this._selectedGame.next(value);
     }
@@ -44,18 +44,26 @@ export class GamesService {
     return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`);
   }
 
-  fetchGames(page: number, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+  fetchGames(page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
     const url = owner ? `${this.baseUrl}/games?page=${page}&list=${list}&owner=${owner}` : `${this.baseUrl}/games?page=${page}&list=${list}`;
-  
+
 
     return this.http.get<ApiResponse<GameDetail[]>>(url)
       .pipe(map(games => {
         this._totalGames.next(games.meta.total);
+        games.data.map((game: GameDetail) => {
+          if (game.connections && game.connections?.assetRenderer) {
+            let rendererFromGame: string = game.connections.assetRenderer;
+            const rendererUrlChecked = rendererFromGame.slice(-1) === '/' ? rendererFromGame.slice(0, -1) : rendererFromGame;
+            game.connections.assetRenderer = rendererUrlChecked;
+          }
+          return game;
+        });
         return games;
       }));
   }
 
-  gamesByFilter(filter: string, page: number = 1, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST): Observable<any> {
+  gamesByFilter(filter: string, page: number = 1, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST): Observable<any> {
 
     let url = '';
     if (filter) {
@@ -81,7 +89,7 @@ export class GamesService {
     );
   }
 
-  getGamesByFilter(filter: string, page: number = 1, list: GAME_PARAM_LIST = GAME_PARAM_LIST.LATEST) {
+  getGamesByFilter(filter: string, page: number = 1, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
     const url = `${this.baseUrl}/games?search=${filter}&page=${page}&list=${list}`;
 
     return this.http.get<ApiResponse<GameDetail[]>>(url)

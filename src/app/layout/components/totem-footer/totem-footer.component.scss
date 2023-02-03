@@ -7,6 +7,7 @@
   position: relative;
   height: auto;
   width: 100%;
+  border-top: 1px solid $dark-grey;
   &-wrapper {
     max-width: 1440px;
     width: 100%;
@@ -15,7 +16,7 @@
 
     .footer-contact-block {
       width: 100%;
-      border-top: 1px solid $dark-grey;
+      /* border-top: 1px solid $dark-grey; */
       padding-top: 40px;
       padding-bottom: 32px;
       .subscribe-block {
@@ -124,10 +125,10 @@
       }
       .totem-company-info {
         width: 32%;
-        div img {
+        /* div img {
           width: 129px;
           height: 30px;
-        }
+        } */
         .company-description {
           margin-top: 25px;
           font-weight: 500;

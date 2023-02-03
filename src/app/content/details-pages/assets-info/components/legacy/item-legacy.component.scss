@@ -1,0 +1,64 @@
+@import "styles/scss/variables";
+@import "assets/fonts/icon-fonts/line/line.scss";
+
+.wrapper {
+    padding: 10px;
+    border: 1px solid $light-grey;
+    // overflow-x: scroll;
+    width: 100%;
+    border-radius: 4px;
+    position: relative;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: minmax(130px, 150px) minmax(200px, 280px) minmax(340px, 1fr) 130px;
+    min-width: 850px;
+}
+
+span {
+    font-weight: 400;
+}
+
+.transaction {
+    margin: 5px 0;
+    padding: 20px;
+    background-color: $grey;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 55px;
+    color: white;
+    align-items: center;
+
+    img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .icon {
+        line-height: 0.9;
+        // padding: 20px;
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.tooltip-wrapper {
+    width: 200px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding: 4px;
+    max-height: 400px;
+    background: rgba(8, 9, 10, 0.5);
+    backdrop-filter: blur(10px);
+
+    .tooltip {
+        overflow-y: scroll;
+        padding: 6px;
+        color: $white;
+        text-align: center;
+    }
+}

@@ -61,6 +61,7 @@
         width: 100%;
         object-fit: cover;
         transition: opacity 0.4s ease-in-out;
+        will-change: opacity;
       }
 
     }
@@ -138,6 +139,7 @@
             height: auto;
             width: 100%;
             transition: opacity 0.4s ease-in-out;
+            will-change: opacity;
           }
         }
 
@@ -225,4 +227,93 @@
     }
 
   }
+}
+
+.content-block-body-progress {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  //max-width: 630px;
+  width: 100%;
+  flex-shrink: 0;
+  z-index: 4;
+
+  &-bar {
+    max-width: 548px;
+    width: 100%;
+    //padding: 0px 60px;
+    @media (max-width: 600px) {
+      padding: 0px 24px;
+    }
+    .progress-bar {
+      max-width: 199px;
+      width: 100%;
+      color: $dark-grey;
+      transition: color 0.3s ease-out;
+    }
+    .allow-progress-color {
+      color: $yellow;
+    }
+
+    .circles-wrapper {
+      position: relative;
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+
+      .totem-spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+      }
+
+      .warning-icon {
+        color: #FF5252;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 14px;
+        height: 14px;
+      }
+
+      .disabled-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        background-color: $dark-grey;
+        flex-shrink: 0;
+        transition: background-color 0.33s ease-out;
+      }
+    }
+  }
+
+  .caption-block {
+    width: 100%;
+    @media (max-width: 800px) {
+      width: 99%;
+      .caption-section {
+        width: 33%;
+      }
+    }
+    .caption-section {
+      width: 33.3%;
+      text-align: center;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #FFFFFF;
+      transition: color 0.33s ease-out;
+      @media (max-height: 400px) {
+        font-size: 13px;
+        line-height: 15px;
+      }
+    }
+  }
+
 }

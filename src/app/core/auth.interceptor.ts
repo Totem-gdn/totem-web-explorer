@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let creds: any = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
 
     if(this.web3.isLoggedIn() && !creds) {
-      console.log('CALLED INSIDE THE INTERCEPOTR');
+      console.log('LOGGED OUT FROM INTERCEPTOR');
       this.popupService.showColorPopup(COLOR_POPUP_TYPE.LOGOUT);
       this.userService.logoutWithoutRedirect();
     }

@@ -3,7 +3,8 @@
     <div class="game-name">{{game.data!.title}}</div>
     <div class="game-description">{{game.data!.description}}</div>
     <div class="game-cta">
-      <totem-button [customId]="'promoButton'" [caption]="'home.play_now' | translate" (click)="goToGame()"></totem-button>
+      <!-- <totem-button [customId]="'promoButton'" [caption]="'home.play_now' | translate" (click)="goToGame()"></totem-button> -->
+      <button class="totem-primary-button h-[48px] text-[20px] leading-[22px] font-medium !px-10" (click)="goToGame()">Play now</button>
     </div>
   </div>
   <div class="img-wrapper">

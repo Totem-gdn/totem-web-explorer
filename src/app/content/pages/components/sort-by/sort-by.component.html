@@ -1,0 +1,23 @@
+
+<div class="dropdown" (clickOutside)="onClick($event)">
+    <div class="menu-filter bg-grey" (click)="onClickMenu()" 
+    [ngClass]="menuActive ? 'gradient-border-solid': ''">
+        <p class="whitespace-nowrap">{{title | translate}}</p>
+        <div class="line-arrow_down" [ngClass]="menuActive ? 'rotate-x-180': ''"></div>
+    </div>
+
+    <div #dropdown class="dropdown-menu backdrop-blur-xl gradient-border-solid" [ngClass]="menuActive ? 'appear': ''"
+    >
+        <div class="menu-items">
+            <div class="menu-item" (click)="onSort(paramType.LATEST)">
+                <span class="">{{'items.newest' | translate}}</span>
+            </div>
+            <div class="menu-item" (click)="onSort(paramType.POPULAR)">
+                <span class="">{{'items.most_popular' | translate}}</span>
+            </div>
+            <!-- <div *ngIf="type == 'game'" class="menu-item" (click)="onSort('random')">
+                <span class="">{{'items.random' | translate}}</span>
+            </div> -->
+        </div>
+    </div>
+</div>

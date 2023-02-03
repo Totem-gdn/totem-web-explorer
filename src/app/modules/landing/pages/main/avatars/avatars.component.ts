@@ -5,7 +5,7 @@ import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { Gtag } from 'angular-gtag';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-avatars',
