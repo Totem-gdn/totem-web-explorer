@@ -32,6 +32,11 @@ export interface PaymentInfo {
     }
 }
 
+export interface CardPaymentResponse {
+    url?: string;
+    order?: string;
+}
+
 export function IsPaymentInfo(obj: any): obj is PaymentInfo {
     return 'type' in obj && 'paymentInfo' in obj;
 }

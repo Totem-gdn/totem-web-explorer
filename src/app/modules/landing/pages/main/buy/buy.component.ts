@@ -6,6 +6,7 @@ import { COLOR_POPUP_TYPE } from '@app/core/models/enums/popup.enum';
 import { AssetInfo, PaymentInfo } from '@app/core/models/interfaces/asset-info.model';
 
 import { BuyAssetService } from '@app/core/services/assets/buy-asset.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { CryptoUtilsService } from '@app/core/services/crypto/crypto-utils.service';
 import { TransferService } from '@app/core/services/crypto/transfer.service';
 import { PopupService } from '@app/core/services/states/popup-state.service';
@@ -30,7 +31,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private popupService: PopupService,
     private cryptoUtilsService: CryptoUtilsService,
-    private snackService: SnackNotifierService,
+    private authService: UserStateService,
     private gtag: Gtag
   ) {
     this.gtag.event('page_view');
@@ -85,11 +86,11 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (!this.web3Service.isLoggedIn()) {
       // this.snackService.open('PLEASE Login');
-      this.web3Service.login();
+      await this.authService.login();
       this.gtag.event(`${paymentInfo?.type}_purchase`, {
         'event_label': 'Generate item when user is not login',
       });
-      return;
+      // return;
     }
 
     const usdcBalance = await this.cryptoUtilsService.getUSDCBalance();
@@ -115,6 +116,7 @@ export class BuyComponent implements OnInit, AfterViewInit, OnDestroy {
         if (asset == 'item') this.assets[0].paymentInfo = info;
         if (asset == 'avatar') this.assets[1].paymentInfo = info;
         if (asset == 'gem') this.assets[2].paymentInfo = info;
+        console.log(this.assets)
         if (this.assets.length == 3) {
           this.playAnimation();
         }

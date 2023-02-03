@@ -4,6 +4,7 @@ import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/s
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
@@ -23,6 +24,7 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
     private assetsService: AssetsService,
     private web3Service: Web3AuthService,
     private favouritesService: FavouritesService,
+    private authService: UserStateService,
     private messageService: SnackNotifierService,
     public router: Router
   ) {
@@ -40,9 +42,9 @@ export class ItemDescComponent extends OnDestroyMixin implements OnInit {
 
   }
 
-  onClickLike() {
+  async onClickLike() {
     if (!this.web3Service.isLoggedIn()) {
-      this.web3Service.login();
+      await this.authService.login();
       return;
     }
     if(!this.item) return;

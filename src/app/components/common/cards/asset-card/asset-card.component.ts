@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { UserStateService } from "@app/core/services/auth.service";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { FavouritesService } from "@app/modules/profile/dashboard/favourites/favourites.service";
 import { environment } from "@env/environment";
@@ -21,7 +22,8 @@ export class AssetCardComponent implements AfterViewInit {
     private messageService: SnackNotifierService,
     private favService: FavouritesService,
     private gtag: Gtag,
-    private changeDetector: ChangeDetectorRef) { }
+    private changeDetector: ChangeDetectorRef,
+    private authService: UserStateService) { }
 
   @Input() type: string = 'item';
   @Input() set asset(asset: AssetInfo) {
@@ -49,13 +51,13 @@ export class AssetCardComponent implements AfterViewInit {
     this.changeDetector.detectChanges();
   }
 
-  onLike() {
+  async onLike() {
     if (!this.web3Service.isLoggedIn()) {
-      this.web3Service.login();
+      await this.authService.login();
       return;
     }
     if (!this.type) return;
-    
+
     if (!this._asset.isLiked) {
       this.favService.addLike(this.type, this._asset.id).subscribe({
         next: () => {
@@ -87,7 +89,8 @@ export class AssetCardComponent implements AfterViewInit {
 
   setRendererUrl(rendererUrl: string) {
     if (!rendererUrl && !this._asset) return;
-    this._asset.rendererUrl = `${rendererUrl}/${this.type}/${this._asset?.tokenId}?width=400&height=400`;
+    const rendererUrlChecked = rendererUrl.slice(-1) === '/' ? rendererUrl.slice(0, -1) : rendererUrl;
+    this._asset.rendererUrl = `${rendererUrlChecked}/${this.type}/${this._asset?.tokenId}?width=400&height=400`;
   }
 
   onNavigate() {

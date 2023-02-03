@@ -3,10 +3,10 @@
     <p class="mb-[15px] text-light-grey">Complete your purchase by providing your payment information.</p>
 
     <div class="payment-methods">
-        <label class="payment-method disabled">
+        <label class="payment-method">
             <div class="flex">
-                <div [ngClass]="{'text-yellow': paymentMethod == paymentType.CARD}" class="icon line-creditcard"></div>
-                <p class="text-dark-grey">Credit or debit card</p>
+                <div [ngClass]="{'!text-yellow': paymentMethod == paymentType.CARD}" class="icon line-creditcard"></div>
+                <p>Credit or debit card</p>
             </div>
             <input (change)="onChangeInput($event)" name="payment-method" [value]="paymentType.CARD"
                     class="w-6 h-6 bg-transparent" type="radio">

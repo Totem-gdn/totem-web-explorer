@@ -42,7 +42,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     if(this.web3.isLoggedIn() && !creds) {
       console.log('LOGGED OUT FROM INTERCEPTOR');
-
       this.popupService.showColorPopup(COLOR_POPUP_TYPE.LOGOUT);
       this.userService.logoutWithoutRedirect();
     }

@@ -1,15 +1,15 @@
 <div class="dropdown-skeleton" (clickOutside)="onClick($event)">
     <!-- Title -->
-    <div class="dropdown-toggle" 
-        (click)="menuActive = !menuActive" 
+    <div class="dropdown-toggle"
+        (click)="menuActive = !menuActive"
         [ngClass]="{'appear': menuActive,'!w-[250px] sm:!w-[200px]': widgetMode }">
 
-        <span>{{selectedItem?.title || 'Game Name'}}</span>
+        <span class="max-w-[80%] w-full truncate">{{selectedItem?.title || 'Game Name'}}</span>
         <div class="line-arrow_down" [ngClass]="menuActive || widgetMode ? 'rotate-x-180': ''"></div>
     </div>
 
 
-    <div #dropdown class="menu lg:w-[300px]" 
+    <div #dropdown class="menu lg:w-[300px]"
         [ngClass]="{'appear': menuActive || widgetMode, 'w-[250px] sm:!w-[300px]': widgetMode}">
 
         <!-- Search -->
@@ -27,7 +27,7 @@
                     <img [src]="item.img" alt="">
                 </div>
 
-                <div class="flex flex-col justify-center gap-[5px]">
+                <div class="flex flex-col justify-center gap-[5px] truncate">
                     <p class="truncate w-full">{{item.title}}</p>
                     <span class="truncate w-full">{{item.subTitle}}</span>
                 </div>
