@@ -2,25 +2,24 @@
 
     <div class="pb-[40px] flex justify-between">
         <h2 class="capitalize font-medium whitespace-nowrap lh-unset">{{type}} ID: {{item?.tokenId}}</h2>
-        <button (click)="redirectToBuy()" class="text-[20px] leading-[22px] totem-primary-button w-[240px] h-[50px] font-semibold">Buy {{type}}</button>
+        <button (click)="redirectToBuy()"
+            class="text-[20px] leading-[22px] totem-primary-button w-[240px] h-[50px] font-semibold">Buy
+            {{type}}</button>
     </div>
 
-    <div class="flex pb-[10px] items-center">
+    <div class="flex pb-[10px] items-center h-[50px]">
         <p class="text-light-grey">{{'modules.current_owner' | translate}}: </p>
         <!-- <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet}}</a> -->
         <!-- <p class="text-white pl-[10px] text-xl truncate w-[200px]">{{item?.owner}}</p> -->
-        <div
-        fxLayout="row"
-        fxLayoutAlign="center center"
-        [cdkCopyToClipboard]="item?.owner || ''"
-        [cdkCopyToClipboardAttempts]="2"
-        (cdkCopyToClipboardCopied)="walletCopied()"
-        class="user-id"
-        >
-        <p class="user-id hidden xl:flex">{{item?.owner}}</p>
-        <p class="user-id flex xl:hidden">{{item?.owner?.slice(0, 6) + '...' + item?.owner?.slice(-4)}}</p>
-        <div class="line-copy_small !ml-[7px] !mb-[6px]"></div>
-      </div>
+        <img class="user-img rounded-full" *ngIf="item?.owner == user?.wallet" [src]="user?.profileImage" alt="">
+        <div fxLayout="row" fxLayoutAlign="center center" [cdkCopyToClipboard]="item?.owner || ''"
+            [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="walletCopied()" class="user-id">
+            <div class="flex ml-[5px]">
+                <p class="user-id hidden xl:flex">{{item?.owner}}</p>
+                <p class="user-id flex xl:hidden">{{item?.owner?.slice(0, 6) + '...' + item?.owner?.slice(-4)}}</p>
+            </div>
+            <div class="line-copy_small !ml-[7px] !mb-[6px]"></div>
+        </div>
     </div>
 
     <!-- Icons -->
@@ -51,30 +50,30 @@
             refresh.offsetHeight;
             refresh.style.animation = 'rotate 0.5s'">
                 <div #refresh class="line-refresh">
-            </div>
+                </div>
                 <p class="select-none">{{'modules.refresh' | translate}}</p>
             </div>
         </div>
     </div>
 
     <div class="play" #playContainer>
-            <div class="flex gap-[8px]">
-                <div class="item-tag">
-                    <!-- <h4 *ngIf="item?.lastUsed || item?.lastUsed == 0">{{item?.lastUsed}}</h4> -->
-                    <h4 *ngIf="!item?.lastUsed">--</h4>
-                    <p>{{'asset_card.last_used' | translate}}</p>
-                </div>
-                <div class="item-tag">
-                    <h4>{{item?.rarity ? item?.rarity : '--'}}</h4>
-                    <p>{{'nav.rarity' | translate}}</p>
-                </div>
-                <div class="item-tag">
-                    <h4>{{item?.games || item?.games == 0 ? item?.games : '--'}}</h4>
-                    <p>{{'asset_card.games_used' | translate}}</p>
-                </div>
+        <div class="flex gap-[8px]">
+            <div class="item-tag">
+                <!-- <h4 *ngIf="item?.lastUsed || item?.lastUsed == 0">{{item?.lastUsed}}</h4> -->
+                <h4 *ngIf="!item?.lastUsed">--</h4>
+                <p>{{'asset_card.last_used' | translate}}</p>
+            </div>
+            <div class="item-tag">
+                <h4>{{item?.rarity ? item?.rarity : '--'}}</h4>
+                <p>{{'nav.rarity' | translate}}</p>
+            </div>
+            <div class="item-tag">
+                <h4>{{item?.games || item?.games == 0 ? item?.games : '--'}}</h4>
+                <p>{{'asset_card.games_used' | translate}}</p>
+            </div>
         </div>
     </div>
-<!--
+    <!--
     <div class="cards-preview">
         <h3 classs="title">Look in other games:</h3>
     </div> -->
@@ -82,12 +81,16 @@
         <h3 class="title">Look in other games:</h3>
 
         <div class="cards">
-            <div @fade-in class="card cursor-pointer" *ngFor="let game of gamesOnScreen | slice:0:3" (click)="setNewSelectedGame(game)">
+            <div @fade-in class="card cursor-pointer" *ngFor="let game of gamesOnScreen | slice:0:3"
+                (click)="setNewSelectedGame(game)">
                 <div class="img-wrapper">
-                    <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/' + type + '/' + item?.tokenId : defaultRenderer + '/' + type + '/' + item?.tokenId" alt="">
+                    <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/' + type + '/' + item?.tokenId : defaultRenderer + '/' + type + '/' + item?.tokenId"
+                        alt="">
 
                 </div>
-                <div class="bottom"><p class="capitalize">{{game?.general?.name}}</p></div>
+                <div class="bottom">
+                    <p class="capitalize">{{game?.general?.name}}</p>
+                </div>
             </div>
         </div>
     </div>

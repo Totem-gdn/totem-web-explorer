@@ -1,6 +1,13 @@
 @import 'styles/scss/variables';
 @import 'styles/scss/totem-variables';
 
+.user-img {
+    width: 40px !important;
+    height: 40px !important;
+    // margin-right: 5px;
+    margin-left: 5px;
+}
+
 .wrapper {
     width: 100%;
     display: flex;
@@ -83,7 +90,7 @@
 }
 
 .user-id {
-    margin-left: 5px;
+    // margin-left: 5px;
     cursor: pointer;
 }
 .copy-icon {

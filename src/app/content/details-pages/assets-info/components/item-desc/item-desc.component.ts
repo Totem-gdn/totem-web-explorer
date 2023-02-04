@@ -5,14 +5,16 @@ import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { GamesService } from '@app/core/services/assets/games.service';
+import { UserStateService } from '@app/core/services/auth.service';
 import { StoreService } from '@app/core/store/store.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { environment } from '@env/environment';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, Subscription, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'item-desc',
@@ -35,7 +37,8 @@ export class ItemDescComponent implements OnInit, OnDestroy {
     private messageService: SnackNotifierService,
     public router: Router,
     private gamesService: GamesService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private authService: UserStateService
   ) {
   }
 
@@ -49,26 +52,20 @@ export class ItemDescComponent implements OnInit, OnDestroy {
   games: GameDetail[] = [];
   gamesOnScreen: GameDetail[] = [];
   subs = new Subject<void>();
+  userSub?: Subscription;
+  user?: UserEntity;
 
   ngOnInit() {
+    console.log('item upa')
     this.gamesService.fetchGames(1)
       .pipe(take(1))
       .subscribe(games => {
         this.games = games.data;
-
-        // const tempArr = [...this.games];
-
-        // for(let i = 0; i < 3; i++) {
-        //   const index = Math.floor(Math.random() * tempArr.length);
-          
-        //   this.gamesOnScreen.push(tempArr[index]);
-        // }
-        // // this.gamesOnScreen = games.data;
-        // console.log('games on screen', this.gamesOnScreen)
         this.selectedGameCheck();
       })
-    this.selectedGame$();
 
+    this.selectedGame$();
+    this.user$();
   }
 
   setNewSelectedGame(game: GameDetail) {
@@ -82,31 +79,10 @@ export class ItemDescComponent implements OnInit, OnDestroy {
         this.selectedGameCheck();
       })
   }
+
   selectedGameCheck() {
     const selectedGame = this.storeService.selectedGame;
     this.gamesOnScreen = this.games.filter(game => game?.general?.name != selectedGame?.general?.name)
-  }
-
-  onClickLike() {
-    if (!this.web3Service.isLoggedIn()) {
-      this.web3Service.login();
-      return;
-    }
-    if (!this.item) return;
-    if (!this.item.isLiked) {
-      this.favouritesService.addLike(this.type, this.item.id).pipe(
-        takeUntil(this.subs)
-      ).subscribe(() => {
-        this.updateAsset();
-      });
-    } else {
-      this.favouritesService.removeLike(this.type, this.item.id).pipe(
-        takeUntil(this.subs)
-      ).subscribe(() => {
-        this.updateAsset();
-      });
-    }
-
   }
 
   walletCopied() {
@@ -121,11 +97,24 @@ export class ItemDescComponent implements OnInit, OnDestroy {
       });
   }
 
+  user$() {
+    console.log('update asset')
+    // this.userSub?.unsubscribe();
+    this.userSub = this.authService.currentUser
+      .subscribe(user => {
+        if(user) {
+          console.log(this.item, user)
+          this.user = user;
+        }
+      })
+  }
+
   redirectToBuy() {
     this.router.navigate(['/buy'])
   }
 
   ngOnDestroy(): void {
+    this.userSub?.unsubscribe();
     this.subs.next();
     this.subs.complete();
   }
