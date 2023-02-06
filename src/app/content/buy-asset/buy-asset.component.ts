@@ -50,6 +50,8 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('movingCircle') movingCircle!: any;
 
+  paymentPopup: Window | null = null;
+
   games$: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   assets: PaymentInfo[] = [{ type: ASSET_TYPE.ITEM }, { type: ASSET_TYPE.AVATAR }];
@@ -118,21 +120,28 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   }
 
   openInNewWindow(url: string) {
-    let paymentPopup = window.open(url, 'paymentPopup', 'toolbar=0,menubar=0,location=0,popup=1');
-
-    if (paymentPopup) {
-      if (paymentPopup.focus) {
-        paymentPopup.focus()
+    this.paymentPopup = window.open(url, 'paymentPopup', 'toolbar=0,menubar=0,location=0,popup=1');
+    console.log(this.paymentPopup);
+    if (this.paymentPopup) {
+      console.log('calling the onload event');
+      this.paymentPopup.onload = (event: any) => {
+        console.log('PAYMENT POPUP LOADED: ', event);
+        this.listenUnloadAndMessages();
       }
-      /* timer(1000, 1000).subscribe((tick: number) => {
-        console.log(paymentPopup);
+    }
+  }
 
-      }) */
-      paymentPopup.addEventListener("beforeunload", function (event) {
-          console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
-          console.log(paymentPopup?.location);
+  listenUnloadAndMessages() {
+    if (this.paymentPopup) {
+      this.paymentPopup.onbeforeunload = (event: any) => {
+        console.log('PAYMENT POPUP CLOSED');
+        console.log(event);
+      }
+      window.addEventListener("message", (event) => {
+        console.log('LISTER ONNNNN');
+        console.log('GET SOME EVENT: ', event);
 
-      });
+      }, false);
     }
   }
 

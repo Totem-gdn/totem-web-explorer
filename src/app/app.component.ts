@@ -40,6 +40,7 @@ export class AppComponent {
     this.sWService.listenNewVersion();
     this.storeService.getAssetsAndGames();
     this.getQueryParamsAfterPayment();
+    this.listenWindow();
     this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))
       .pipe(delay(1))
@@ -58,7 +59,7 @@ export class AppComponent {
     });
 
     this.gtag.event('page_view');
-    
+
     if(window.screen.width < 1500) document.body.classList.add('zoom');
   }
 
@@ -68,6 +69,7 @@ export class AppComponent {
         const paramSnapshot = this.route.snapshot;
         const paymentResult: string = paramSnapshot.queryParams['payment_result'];
         const assetType: string = paramSnapshot.queryParams['type'];
+        console.log(paramSnapshot);
         if (paymentResult === 'success' && assetType) {
           this.paymentSuccessDialogService.openPaymentSuccessDialog(paymentResult, assetType).subscribe((data: boolean) => {
             if (data == true) {
@@ -80,6 +82,29 @@ export class AppComponent {
         }
       }
     });
+  }
+
+
+  listenWindow() {
+    console.log('ITS OUR OPENER: ', window.opener);
+    if (window.opener) {
+      let targetWindow = window.opener;
+      let responseParams: string = this.getQueryParams();
+      targetWindow.postMessage(responseParams);
+    }
+  }
+
+  getQueryParams(): string {
+    const paramSnapshot = this.route.snapshot;
+    const paymentResult: string = paramSnapshot.queryParams['payment_result'];
+    const assetType: string = paramSnapshot.queryParams['type'];
+    if (paymentResult === 'success' && assetType) {
+      return this.router.url;
+    }
+    if (paymentResult === 'error' && assetType) {
+      return this.router.url;
+    }
+    return this.router.url;
   }
 
 }
