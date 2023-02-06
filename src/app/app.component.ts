@@ -31,10 +31,12 @@ export class AppComponent {
     private viewportScroller: ViewportScroller,
     private gtag: Gtag,
     private totemEListenerService: TotemEventListenerService,
+    private sWService: ServiceWorkerService,
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
     this.userStateService.initAccount();
+    this.sWService.listenNewVersion();
     this.totemEListenerService.initListeners();
     this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))

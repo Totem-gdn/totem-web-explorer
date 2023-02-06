@@ -127,9 +127,9 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     this.paymentPopup = window.open(url, 'paymentPopup', 'toolbar=0,menubar=0,location=0,popup=1');
     if (this.paymentPopup) {
       this.listenUnloadAndMessages();
-      /* this.paymentPopup.onload = (event: any) => {
+      this.paymentPopup.onload = (event: any) => {
         this.listenUnloadAndMessages();
-      } */
+      }
     }
   }
 
