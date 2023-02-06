@@ -21,7 +21,7 @@ export class PaymentSuccessDialogComponent implements OnInit, OnDestroy {
   status: string = '';
   assetName: string = '';
   assetNameMultiple: string = '';
-  secondsToClose: number = 35;
+  secondsToClose: number = 37;
   counterToCloseSub: Subscription = new Subscription();
   counterSub: Subscription = new Subscription();
   txFinished: null | 'success' | 'error' = null;
@@ -61,7 +61,7 @@ export class PaymentSuccessDialogComponent implements OnInit, OnDestroy {
       if (state == 'success') {
         /* this.txFinished = 'success';
         this.dialogRef.close(true); */
-        console.log('ASSET MINTED, WAIT 5 SEC TO REDIRECT');
+        console.log('ASSET MINTED, WAIT 7 SEC TO REDIRECT');
         this.startCounterToSuccessClose();
       }
       if (state == 'error') {
@@ -86,7 +86,7 @@ export class PaymentSuccessDialogComponent implements OnInit, OnDestroy {
   }
 
   startCounterToSuccessClose() {
-    let count: number = 5;
+    let count: number = 7;
     this.counterToCloseSub = timer(1000, 1000).subscribe(() => {
       count -= 1;
       if (count == 0) {
@@ -99,7 +99,7 @@ export class PaymentSuccessDialogComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.counterToCloseSub.unsubscribe();
     this.counterSub.unsubscribe();
-    this.secondsToClose = 35;
+    this.secondsToClose = 37;
   }
 
 }
