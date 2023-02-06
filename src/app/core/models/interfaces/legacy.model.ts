@@ -20,6 +20,6 @@ export interface LegacyResponse<T> {
 export interface LegacyEvent {
   playerAddress: string;
   assetId: string;
-  gameId: string;
+  gameAddress: string;
   data: string;
 }

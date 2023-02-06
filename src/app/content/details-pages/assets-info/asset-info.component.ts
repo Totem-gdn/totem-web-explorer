@@ -1,9 +1,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
+import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { Achievement, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
+import { LegacyService } from "@app/core/services/crypto/legacy.service";
 import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { StoreService } from "@app/core/store/store.service";
 import { environment } from "@env/environment";
@@ -30,7 +34,9 @@ export class AssetInfoComponent implements AfterViewInit {
         private dnaService: DNAParserService,
         private gamesService: GamesService,
         private assetsService: AssetsService,
-        private storeService: StoreService
+        private storeService: StoreService,
+        private legacyService: LegacyService,
+        private snackbarService: SnackNotifierService,
     ) { }
 
     assetRendererUrl = environment.ASSET_RENDERER_URL;
@@ -51,6 +57,7 @@ export class AssetInfoComponent implements AfterViewInit {
         this._item = asset;
         if (asset === null) this.notFound = true;
         if (asset === undefined) return;
+        this.getAssetLegacy();
 
         // this.processItem(asset?.tokenId)
         // this.setItemRenderer();
@@ -71,6 +78,7 @@ export class AssetInfoComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+      //this.createLegacy()
         this.selectedGame$();
     }
 
@@ -88,7 +96,7 @@ export class AssetInfoComponent implements AfterViewInit {
 
     async processItem(id: number, game: GameDetail | null = null) {
         this.properties = [];
-        
+
         const json = await this.dnaService.getJSONByGame(game, this.type)
         const properties = await this.dnaService.processJSON(json, this.type, id);
         console.log('json', json)
@@ -104,6 +112,31 @@ export class AssetInfoComponent implements AfterViewInit {
         if(!this._item) return;
         this._item = this.storeService.setRenderer(this.type, this._item);
         // console.log('this item after', this._item)
+    }
+
+    createLegacy() {
+      const data: LegacyEvent = {
+        assetId: this._item.tokenId.toString(),
+        gameAddress: '0x64F90CC5554b7C5C43ad6F4a8488c2b6715f4381',
+        playerAddress: '0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae',
+        data: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='
+      }
+      this.legacyService.createLegacyEvent(this.type, data).subscribe((res) => console.log(res));
+    }
+
+    getAssetLegacy(query?: string, asset?: AssetInfo) {
+      let params: string = '&offset=0&limit=10';
+      this.legacyService.fetchLegacies(this.type, this._item?.tokenId!, params).subscribe((data: LegacyResponse<Achievement[]>) => {
+        console.log(data);
+
+      })
+    }
+
+    paginationEvent(event: any) {
+      let queryParam: string = '';
+      queryParam += '&offset=' + (event.currentPage * event.size).toString();
+      queryParam += '&limit=' + event.size;
+      this.getAssetLegacy(queryParam);
     }
 
     setContentHeight() {

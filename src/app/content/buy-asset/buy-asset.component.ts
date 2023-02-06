@@ -19,7 +19,7 @@ import { GamesStoreService } from '@app/core/store/games-store.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Gtag } from 'angular-gtag';
-import { BehaviorSubject, catchError, of, Subscription } from 'rxjs';
+import { BehaviorSubject, catchError, of, Subscription, timer } from 'rxjs';
 
 
 @Component({
@@ -96,6 +96,12 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
 
   buyWithCard(type: string) {
     this.loading$.next(true);
+    if (!this.web3Service.isLoggedIn()) {
+      // this.snackService.open('PLEASE Login');
+      this.userStateService.login();
+      this.loading$.next(false);
+      return;
+    }
     this.transactionsService.buyAssetWithCard(type).pipe(
       catchError((err: HttpErrorResponse) => {
         this.snackService.open(err.error.message || err.message);
@@ -112,7 +118,22 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   }
 
   openInNewWindow(url: string) {
-    window.open(url, '_self');
+    let paymentPopup = window.open(url, 'paymentPopup', 'toolbar=0,menubar=0,location=0,popup=1');
+
+    if (paymentPopup) {
+      if (paymentPopup.focus) {
+        paymentPopup.focus()
+      }
+      /* timer(1000, 1000).subscribe((tick: number) => {
+        console.log(paymentPopup);
+
+      }) */
+      paymentPopup.addEventListener("beforeunload", function (event) {
+          console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
+          console.log(paymentPopup?.location);
+
+      });
+    }
   }
 
   playAnimation() {
