@@ -18,6 +18,7 @@ import { PopupService } from '@app/core/services/states/popup-state.service';
 import { TotemEventListenerService } from '@app/core/services/utils/global-event-listeners.service';
 import { GamesStoreService } from '@app/core/store/games-store.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
+import { environment } from '@env/environment';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, catchError, of, Subscription, timer } from 'rxjs';
@@ -137,7 +138,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       this.subs.add(
         window.addEventListener("message", (event) => {
           console.log('GET SOME EVENT: ', event);
-          if (event.data.target.includes('local')) {
+          if (event.data.target.includes(environment.TOTEM_WEB_EXPLORER_URL)) {
             this.totemEListenerService.processParams(event.data);
             this.paymentPopup?.close();
           }
