@@ -15,7 +15,6 @@ export class TotemEventListenerService {
     private userStateService: UserStateService,
     private router: Router,
     private route: ActivatedRoute,
-    private sWService: ServiceWorkerService,
     private storeService: StoreService,
     private paymentSuccessDialogService: PaymentSuccessDialogService
   ) {
@@ -24,7 +23,6 @@ export class TotemEventListenerService {
   }
 
   initListeners() {
-    this.sWService.listenNewVersion();
     this.storeService.getAssetsAndGames();
     //this.getQueryParamsAfterPayment();
     this.listenWindow();
