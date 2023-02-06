@@ -6,6 +6,7 @@ import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, delay, filter } from 'rxjs';
 import { PaymentSuccessDialogService } from './core/dialogs/payment-success-dialog/services/payment-success-dialog.service';
 import { UserStateService } from './core/services/auth.service';
+import { TotemEventListenerService } from './core/services/utils/global-event-listeners.service';
 import { StoreService } from './core/store/store.service';
 import { ServiceWorkerService } from './service-worker.service';
 
@@ -27,20 +28,14 @@ export class AppComponent {
     private userStateService: UserStateService,
     @Inject(PLATFORM_ID) private platformId: any,
     private router: Router,
-    private route: ActivatedRoute,
     private viewportScroller: ViewportScroller,
     private gtag: Gtag,
-    private sWService: ServiceWorkerService,
-    private storeService: StoreService,
-    private paymentSuccessDialogService: PaymentSuccessDialogService,
+    private totemEListenerService: TotemEventListenerService,
   ) {
 
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
     this.userStateService.initAccount();
-    this.sWService.listenNewVersion();
-    this.storeService.getAssetsAndGames();
-    this.getQueryParamsAfterPayment();
-    this.listenWindow();
+    this.totemEListenerService.initListeners();
     this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))
       .pipe(delay(1))
@@ -61,50 +56,6 @@ export class AppComponent {
     this.gtag.event('page_view');
 
     if(window.screen.width < 1500) document.body.classList.add('zoom');
-  }
-
-  getQueryParamsAfterPayment() {
-    this.userStateService.currentUser.subscribe(user => {
-      if(user) {
-        const paramSnapshot = this.route.snapshot;
-        const paymentResult: string = paramSnapshot.queryParams['payment_result'];
-        const assetType: string = paramSnapshot.queryParams['type'];
-        console.log(paramSnapshot);
-        if (paymentResult === 'success' && assetType) {
-          this.paymentSuccessDialogService.openPaymentSuccessDialog(paymentResult, assetType).subscribe((data: boolean) => {
-            if (data == true) {
-              this.router.navigate(['my-assets']);
-            }
-            if (data == false) {
-              this.router.navigate(['/']);
-            }
-          });
-        }
-      }
-    });
-  }
-
-
-  listenWindow() {
-    console.log('ITS OUR OPENER: ', window.opener);
-    if (window.opener) {
-      let targetWindow = window.opener;
-      let responseParams: string = this.getQueryParams();
-      targetWindow.postMessage(responseParams);
-    }
-  }
-
-  getQueryParams(): string {
-    const paramSnapshot = this.route.snapshot;
-    const paymentResult: string = paramSnapshot.queryParams['payment_result'];
-    const assetType: string = paramSnapshot.queryParams['type'];
-    if (paymentResult === 'success' && assetType) {
-      return this.router.url;
-    }
-    if (paymentResult === 'error' && assetType) {
-      return this.router.url;
-    }
-    return this.router.url;
   }
 
 }
