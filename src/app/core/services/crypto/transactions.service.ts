@@ -26,8 +26,8 @@ export class TransactionsService {
     return this.http.get<any>(`${this.faucetUrl}/gas/balance`);
   }
 
-  buyAssetWithCard(type: string): Observable<CardPaymentResponse> {
-    return this.http.post<CardPaymentResponse>(`${this.baseUrl}/assets/${type}`, {successUrl: this.applicationUrl});
+  buyAssetWithCard(assetType: string, paymentSystem: 'withpaper' | 'stripe' = 'stripe'): Observable<CardPaymentResponse> {
+    return this.http.post<CardPaymentResponse>(`${this.baseUrl}/payment/link/${paymentSystem}/${assetType}`, {successUrl: this.applicationUrl});
   }
 
 }

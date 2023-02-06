@@ -36,7 +36,7 @@
           </p>
         </div>
         <div class="ml-6 h-12 w-12 rounded-full overflow-hidden" (click)="navigateToProfile()">
-          <img loading="lazy" *ngIf="(currUser$ | async)?.profileImage && !(loading$ | async)"
+          <img loading="lazy"
           [src]="(currUser$ | async)?.profileImage" alt="profile-icon" (error)="updateProfileImage()" class="w-full h-full rounded-full object-cover cursor-pointer">
         </div>
         <div class="flex flex-col items-start justify-center ml-2">

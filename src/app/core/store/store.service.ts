@@ -106,7 +106,7 @@ export class StoreService {
     ).subscribe((data) => {
       this.games.next(data.games.data);
       this.items.next(data.items.data);
-      this.avatars.next([preselectedAsset, ...data.avatars.data.slice(1)]);
+      this.avatars.next(data.avatars.data);
       this.appLoading.next(false);
     });
   }
