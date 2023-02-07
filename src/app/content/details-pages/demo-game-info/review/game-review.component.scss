@@ -80,32 +80,39 @@
 .lh-33 {
     line-height: 33px;
 }
-.graphic {
-    border: 1px solid $totem-divider-grey;
-    border-radius: 16px;
-    padding: 15px;
-
-    .title {
-        margin-bottom: 15px;
-    }
-    .cards {
-        display: flex;
-        gap: 15px;
-        .card {
-            
-            width: 50%;
-            overflow: hidden;
-            border-radius: 24px;
-            background-color: $totem-grey;
+.graphic-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    .graphic {
+        flex-grow: 1;
+        max-width: 600px;
+        border: 1px solid $totem-divider-grey;
+        border-radius: 16px;
+        padding: 15px;
+    
+        .title {
+            margin-bottom: 15px;
+        }
+        .cards {
             display: flex;
-            flex-direction: column;
-            img {
-                height: 185px;
-            }
-            .bottom {
-                background-color: $totem-dark-grey;
-                height: 55px;
-                padding: 15px;
+            gap: 15px;
+            .card {
+                
+                width: 50%;
+                overflow: hidden;
+                border-radius: 24px;
+                background-color: $totem-grey;
+                display: flex;
+                flex-direction: column;
+                img {
+                    height: 185px;
+                }
+                .bottom {
+                    background-color: $totem-dark-grey;
+                    height: 55px;
+                    padding: 15px;
+                }
             }
         }
     }
