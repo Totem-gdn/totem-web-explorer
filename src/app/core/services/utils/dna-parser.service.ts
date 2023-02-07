@@ -2,7 +2,10 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
+import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
 import { catchError, firstValueFrom, throwError } from "rxjs";
+import Web3 from "web3";
 // const { itemFilterJson} = require('totem-common-files');
 const DNAFilter = require('totem-common-files');
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
@@ -15,7 +18,8 @@ enum DNA_FILTER {
 
 export class DNAParserService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+                private web3: Web3AuthService) { }
 
     rgba2hex(str: any) {
         if (str.match(/^#[a-f0-9]{6}$/i)) return;
@@ -40,7 +44,7 @@ export class DNAParserService {
                 jsonUrl = game?.connections?.dnaFilters?.gemFilter;
             }
         }
-
+        console.log('def filter', DNAFilter.avatarFilterJson)
         if (!jsonUrl) {
             if (type == ASSET_TYPE.AVATAR) {
                 json = DNAFilter.avatarFilterJson;
@@ -50,14 +54,9 @@ export class DNAParserService {
                 return json;
             }
         }
-        // const headers = new HttpHeaders().set('Content-Type', 'text/plain');
-        // json = await fetch(jsonUrl, {
-        //     mode: "no-cors",
-        //     method: "GET",
-        //     headers: {
-        //         "Accept": "application/json"
-        //     }
-        // })
+        
+        
+
         console.log('json reques')
         json = await firstValueFrom(this.http.get<any>(jsonUrl))
 
@@ -76,6 +75,9 @@ export class DNAParserService {
         }
         const contractHandler = new ContractHandler(url, contract);
 
+        // const web3 = new Web3(this.web3.provider as any);
+        // const con = new web3.eth.Contract(AssetsABI, contract);
+        // console.log('contract', con)
         let DNA = ''
         if (id) DNA = await contractHandler.getDNA(id);
 

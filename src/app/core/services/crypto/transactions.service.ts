@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CardPaymentResponse } from "@app/core/models/interfaces/asset-info.model";
+import { CardPaymentResponse } from "@app/core/models/interfaces/payment.interface";
 import { environment } from "@env/environment";
 import { Observable } from "rxjs";
 
@@ -26,8 +26,8 @@ export class TransactionsService {
     return this.http.get<any>(`${this.faucetUrl}/gas/balance`);
   }
 
-  buyAssetWithCard(type: string): Observable<CardPaymentResponse> {
-    return this.http.post<CardPaymentResponse>(`${this.baseUrl}/assets/${type}`, {successUrl: this.applicationUrl});
+  buyAssetWithCard(assetType: string, paymentSystem: 'withpaper' | 'stripe' = 'stripe'): Observable<CardPaymentResponse> {
+    return this.http.post<CardPaymentResponse>(`${this.baseUrl}/payment/link/${paymentSystem}/${assetType}`, {successUrl: this.applicationUrl});
   }
 
 }

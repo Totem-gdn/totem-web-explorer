@@ -1,4 +1,4 @@
-@import 'styles/scss/variables';
+@import 'styles/scss/totem-variables';
 
 .snack-bar {
   height: 100%;
@@ -11,11 +11,11 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
-    color: $dark;
+    color: $totem-white;
   }
 
   .line-close {
-    color: $black;
+    color: $totem-white;
     font-size: 14px;
   }
 

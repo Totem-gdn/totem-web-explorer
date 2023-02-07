@@ -1,0 +1,24 @@
+@import 'styles/scss/totem-variables';
+
+
+.img-wrapper {
+  flex: 1 0 auto;
+}
+
+.selected-game-card {
+  background-color: $totem-dark-grey;
+
+  .game-card-content {
+    background-color: $totem-grey;
+  }
+
+}
+
+.max-2-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+          line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

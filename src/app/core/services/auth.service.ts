@@ -40,7 +40,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     this.loading$.next(true);
     await this.web3AuthService.init();
     const isLoggedIn = this.web3AuthService.isLoggedIn();
-    this.loading$.next(false);
+    //this.loading$.next(false);
     if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
     }
@@ -68,7 +68,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
       token = userInfo?.idToken;
       publicKey = this.parseJwt(token).wallets[0].public_key;
       localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey }));
-      this.getUsersTokenGiveawayState();
+      //this.getUsersTokenGiveawayState();
     } else {
       // External Wallets
       token = await this.web3AuthService.walletJWTToken();
@@ -77,7 +77,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
         idToken: token
       }
       localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey }));
-      this.getUsersTokenGiveawayState();
+      //this.getUsersTokenGiveawayState();
     }
 
     const userToUse: UserEntity = {
@@ -110,7 +110,6 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
         this.gtag.event('welcome_dialog_accept', {
           event_label: 'Welcome dialog accept',
         });
-        this.openTxDialog();
       }
       if (data && data.status == GIVEAWAY_STATUS.REJECTED) {
         // do nothing (to delete)

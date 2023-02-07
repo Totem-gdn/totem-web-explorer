@@ -89,7 +89,20 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "assets": [
+                "src/assets/favicons/favicon.ico",
+                "src/assets",
+                "src/robots.txt",
+                "src/sitemap.xml",
+                "src/manifest.json",
+                "src/version.json",
+                {
+                  "input": "src/assets/favicons/",
+                  "output": "/",
+                  "glob": "favicon.ico"
+                }
+              ]
             },
             "local": {
               "fileReplacements": [
@@ -98,14 +111,27 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ],
-              "serviceWorker": true,
+              "serviceWorker": false,
               "ngswConfigPath": "ngsw-config.json",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "assets": [
+                "src/assets/favicons/favicon.ico",
+                "src/assets",
+                "src/robots.txt",
+                "src/sitemap.xml",
+                "src/manifest.json",
+                "src/version.json",
+                {
+                  "input": "src/assets/favicons/",
+                  "output": "/",
+                  "glob": "favicon.ico"
+                }
+              ]
             }
           },
           "defaultConfiguration": "development"

@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { ASSET_PARAM_LIST, GAME_PARAM_LIST } from '@app/core/models/enums/params.enum';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { GamesService } from '@app/core/services/assets/games.service';
 import { Gtag } from 'angular-gtag';
@@ -25,7 +25,7 @@ export class GamesComponent implements OnDestroy {
   setGames: GameDetail[] | undefined | null;
 
   subs = new Subject<void>();
-  sortMethod = GAME_PARAM_LIST.LATEST;
+  sortMethod = ASSET_PARAM_LIST.LATEST;
   filter?: string;
 
   // loadMore(page: number, list = this.sortMethod, reset: boolean = false) {

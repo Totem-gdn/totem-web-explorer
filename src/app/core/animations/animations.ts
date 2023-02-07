@@ -3,6 +3,23 @@ import { animate, group, style, transition, trigger } from '@angular/animations'
 export const Animations = {
   animations: [
     trigger(
+      'showBanner',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translateY(-20px)', opacity: 0 }),
+            group([
+              animate('0.33s ease-in-out',
+                style({ transform: 'translateY(0px)' })),
+              animate('0.33s ease-in-out',
+                style({ opacity: 1 }))
+            ])
+          ]
+        ),
+      ]
+    ),
+    trigger(
       'showMessage',
       [
         transition(
@@ -25,6 +42,64 @@ export const Animations = {
               animate('0.3s 0.1s ease-in-out',
                 style({ height: 0 })),
               animate('0.3s ease-in-out',
+                style({ opacity: 0 }))
+            ])
+          ]
+        )
+      ]
+    ),
+    trigger(
+      'toggleSelector',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translateY(-10px)', opacity: 0 }),
+            group([
+              animate('0.22s ease-in-out',
+                style({ transform: 'translateY(0px)' })),
+              animate('0.22s ease-in-out',
+                style({ opacity: 1 }))
+            ])
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ transform: 'translateY(0px)', opacity: 1 }),
+            group([
+              animate('0.22s ease-in-out',
+                style({ transform: 'translateY(-10px)' })),
+              animate('0.22s ease-in-out',
+                style({ opacity: 0 }))
+            ])
+          ]
+        )
+      ]
+    ),
+    trigger(
+      'swapText',
+      [
+        transition(
+          ':enter',
+          [
+            style({ height: 0, opacity: 0 }),
+            group([
+              animate('0.22s 0.33s ease-in',
+                style({ height: 22 })),
+              animate('0.22s 0.33s ease-in',
+                style({ opacity: 1 }))
+            ])
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ height: 22, opacity: 1 }),
+            group([
+              animate('0.22s ease-out',
+                style({ height: 0 })),
+              animate('0.22s ease-out',
                 style({ opacity: 0 }))
             ])
           ]
@@ -106,6 +181,27 @@ export const Animations = {
             style({ height: 40, opacity: 1 }),
             animate('0.4s ease-in-out',
               style({ height: 0, opacity: 0 }))
+          ]
+        )
+      ]
+    ),
+    trigger(
+      'buttonBlockAppear',
+      [
+        transition(
+          ':enter',
+          [
+            style({ opacity: 0, height: 0 }),
+            animate('0.4s ease-in-out',
+              style({ opacity: 1, height: 48 }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ opacity: 1, height: 48 }),
+            animate('0.4s ease-in-out',
+              style({ opacity: 0, height: 0 }))
           ]
         )
       ]

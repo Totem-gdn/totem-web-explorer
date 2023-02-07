@@ -1,0 +1,120 @@
+@import 'styles/scss/variables';
+@import 'styles/scss/totem-variables';
+
+.user-img {
+    width: 40px !important;
+    height: 40px !important;
+    // margin-right: 5px;
+    margin-left: 5px;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+
+    img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .play {
+        // margin-bottom: 15px;
+        border-radius: 12px;
+        margin: 20px 0 15px 0;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $totem-divider-grey;
+
+        .item-tag {
+            background-color: $totem-dark-grey;
+            border-radius: 12px;
+            width: 33%;
+        }
+    }
+}
+
+.lh-unset {
+    line-height: unset;
+
+}
+
+.cards-preview {
+
+    .title {
+        margin-bottom: 15px;
+    }
+    .cards {
+        display: flex;
+        gap: 15px;
+        .card {
+            
+            width: 50%;
+            overflow: hidden;
+            border-radius: 24px;
+            background-color: $totem-grey;
+            display: flex;
+            flex-direction: column;
+            img {
+                height: 185px;
+                width: 100%;
+            }
+            .bottom {
+                background-color: $totem-dark-grey;
+                height: 55px;
+                padding: 15px;
+            }
+        }
+    }
+}
+
+.icon-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid $light-grey;
+    color: $light-grey;
+    padding-top: 10px;
+    padding-bottom:15px;
+    gap: 20px;
+
+    .icon-set {
+        display: flex;
+        gap: 20px;
+        .icon {
+            gap: 10px;
+            display: flex;         
+        }
+    }
+}
+
+.user-id {
+    // margin-left: 5px;
+    cursor: pointer;
+}
+.copy-icon {
+    margin-left: 4px;
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+    line-height: 18px;
+    margin-bottom: 4px;
+}
+
+.item-tag {
+    flex-grow: 1;
+    max-width: unset;
+}
+
+@keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    99% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+  }

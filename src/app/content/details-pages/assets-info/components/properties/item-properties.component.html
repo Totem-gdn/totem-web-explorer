@@ -1,0 +1,55 @@
+<div class="flex flex-col wrapper" (onResize)="onResize()">
+    <h2 class="font-medium mb-[30px]">Properties</h2>
+    <div class="grid-wrapper">
+        <div #grid class="grid-container relative">
+            <ng-container *ngIf="_properties?.length">
+                <div @fade-in-out #tag *ngFor="let propertie of _properties" 
+                    class="item-tag" 
+                    [ngClass]="{'justify-center': !isValueColor(propertie?.value)}"
+                    (mouseover)="onOver(tag, propertie)" 
+                    (mouseleave)="onLeave()">
+                    <div *ngIf="isValueColor(propertie?.value)" class="w-[46px] my-auto min-w-[46px] h-[46px] rounded mr-[4px] mb-[2px]"
+                    [style.background-color]="propertie.value"></div>
+
+
+                    <!-- <div class="circle-wrapper">
+                        <div class="circle"></div>
+                    </div> -->
+
+                    <div class="flex flex-col mt-[2px] min-w-[0px]">
+                        <h4 
+                            [ngClass]="{'!text-center': !isValueColor(propertie?.value)}"
+                            class="text-start lh-1 title truncate !text-white">{{propertie.description}}</h4>
+                        <p
+                            [ngClass]="{'!text-center': !isValueColor(propertie?.value)}"
+                             class="text-start truncate !text-light-grey">{{propertie.value}}</p>
+                    </div>
+                </div>
+
+                <div @fade-in-out class="" *ngFor="let placeholder of placeholders" class="item-tag placeholder">
+                    <div class="line-item_placeholder"></div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!_properties?.length">
+                <totem-spinner @fade-in-out class="absolute_center"></totem-spinner>
+            </ng-container>
+        </div>
+
+        <!-- Tolltip -->
+        <div #tooltip class="tooltip">
+            <span class="whitespace-nowrap">{{tooltipData?.title}}</span>
+            <div class="flex justify-center items-center mt-[2px]">
+                <div *ngIf="isValueColor(tooltipData?.value)" class="w-[14px] min-w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
+                    [style.background-color]="tooltipData?.value"></div>
+                    <span class="whitespace-nowrap">{{tooltipData?.value}}</span>
+            </div>
+        </div>
+
+        <!-- View All -->
+        <div *ngIf="showViewAll" class="view-all" (click)="onClickViewAll()">
+            <span class="text-center bottom-rectangle">{{toggle ? 'View less': 'View all'}}</span>
+        </div>
+    </div>
+
+
+</div>

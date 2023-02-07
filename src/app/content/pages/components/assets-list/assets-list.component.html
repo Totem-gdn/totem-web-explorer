@@ -1,0 +1,43 @@
+<div class="wrapper" *ngIf="(_assets?.length || games?.length); else loader">
+    <div class="header">
+        <div class="flex flex-row items-center">
+            <p class="text-[32px] font-medium leading-[35px]">{{title}}</p>
+            <totem-entity-selector class="text-[32px] font-medium leading-[35px] px-3" *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
+                [activeGame]="selectedGame | async" (gameSelected)="setGame($event)"></totem-entity-selector>
+        </div>
+    </div>
+
+    <div class="list" *ngIf="type != 'game'">
+        <totem-asset-card *ngFor="let asset of _assets" [asset]="asset"></totem-asset-card>
+    </div>
+    <div class="list" *ngIf="type == 'game'">
+        <totem-game-card *ngFor="let game of games" [game]="game"></totem-game-card>
+    </div>
+
+    <div *ngIf="(_assets?.length && _assets != null || games?.length && games != null) && loadMoreActive"
+        class="flex justify-center mt-[30px]">
+        <button @fade-in-out class="totem-primary-button" (click)="loadMore()">Load More</button>
+    </div>
+</div>
+
+<ng-template #loader>
+  <div class="wrapper flex flex-col">
+    <div class="flex flex-row w-full mb-[30px]">
+      <span class="h-[35px] w-[40%] totem-skeleton"></span>
+    </div>
+    <div class="w-full list" *ngIf="type != 'game'">
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+    </div>
+    <div class="w-full list" *ngIf="type == 'game'">
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+    </div>
+  </div>
+</ng-template>

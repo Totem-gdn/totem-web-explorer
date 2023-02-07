@@ -15,15 +15,15 @@ export class TimeCreationPipe implements PipeTransform {
         delta -= minutes * 60;
         const seconds = Math.floor(delta % 60);
         if(days > 0) {
-            return `${days} days ago`;
+            return `${days} d ago`;
         }
         if(hours > 0) {
-            return `${hours} hours ago`;
+            return `${hours} h ago`;
         }
         if(minutes > 0) {
-            return `${minutes} minutes ago`;
+            return `${minutes} min ago`;
         }
 
-        return `${seconds} seconds ago`;
+        return `${seconds} sec ago`;
     }
 }

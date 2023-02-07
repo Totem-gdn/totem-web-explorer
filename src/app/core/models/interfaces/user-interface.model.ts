@@ -3,6 +3,8 @@ export interface UserEntity {
   name?: string;
   profileImage?: string;
   wallet?: string;
+  slicedName?: string;
+  slicedWallet?: string;
 }
 
 export interface AccountEntity {

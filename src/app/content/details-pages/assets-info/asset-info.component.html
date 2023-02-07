@@ -1,0 +1,80 @@
+<div *ngIf="_item && notFound == false"
+    class="relative py-[40px] lg:pt-[50px] flex flex-col relative max-w-[1520px] m-auto">
+
+    <div class="flex flex-col m-auto w-full">
+
+
+        <div class="flex flex-col justify-center pb-[20px]">
+            <div class="flex flex-col lg:flex-row lg:flex-nowrap justify-center gap-[40px]">
+                <!-- Main Image -->
+                <div class=" w-[50%] h-[587px] img-wrapper-overflow">
+                    <div class="img-wrapper m-auto lg:m-0">
+                        <div class="flex relative h-[588px]" *ngIf="_item?.rendererUrl">
+                            <img loading="lazy" *ngIf="_item?.tokenId" (changeSrc)="showSpinner = $event"
+                                [src]="_item.rendererUrl"
+                                alt="" (error)="updateUrl(); showSpinner = false">
+
+                            <totem-spinner *ngIf="showSpinner" class="z-1 absolute_center m-auto"></totem-spinner>
+
+                            <div class="w-[100%] mt-[100%]"></div>
+                            <div class="selected-game flex mt-auto absolute bottom-0">
+                                <img class="!static w-[40px] !h-[40px] rounded mr-[8px]"
+                                    [src]="_selectedGame?.images?.smallThumbnail" alt="">
+                                <div class="flex flex-col">
+                                    <p>{{_selectedGame?.general?.name}}</p>
+                                    <span class="text-light-grey">{{_selectedGame?.general?.genre?.length ? _selectedGame?.general?.genre![0] : ''}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <item-desc class=" w-[50%] max-w-[50%] mt-[60px] lg:mt-0 min-w[unset] lg:min-w-[400px]" [type]="type"
+                    [item]="_item"></item-desc>
+            </div>
+
+            <!-- Tabs -->
+            <!-- <div class="flex w-full justify-center max-w-[500px] m-auto lg:m-0">
+                <div class="flex tabs-wrapper">
+                    <div class="tab sm:!text-base sm:!p-[10px]"
+                        [ngClass]="activeTab === 'properties' ? 'bg-black !text-white': ''"
+                        (click)="activeTab = 'properties'">{{'modules.properties' | translate}}</div>
+
+                    <div class="tab sm:!text-base sm:!px-[10px]"
+                        [ngClass]="activeTab === 'legacy' ? 'bg-black !text-white': ''"
+                        (click)="activeTab = 'legacy'">
+                        {{'modules.legacy' | translate}}</div>
+
+                    <div class="tab sm:!text-base sm:!px-[10px]"
+                        [ngClass]="activeTab === 'history' ? 'bg-black !text-white': ''"
+                        (click)="activeTab = 'history'">
+                        {{'modules.ownership_history' | translate}}</div>
+                </div>
+            </div> -->
+            <item-properties 
+            class="pt-[60px]"
+            [properties]="properties"
+            @fade-in
+            >
+            </item-properties>
+        </div>
+
+
+
+
+        <totem-entity-slider class="mb-[60px]" [caption]="'Legacy Events'" [assetTypeSelected]="'legacy'"></totem-entity-slider>
+
+        <item-history @fade-in [type]="type" [asset]="_item">
+        </item-history>
+    </div>
+
+
+
+</div>
+
+<div class="flex w-full min-h-screen h-[calc(100vh-70px)]" *ngIf="!_item && notFound == false">
+    <totem-spinner class="m-auto"></totem-spinner>
+</div>
+
+<not-found class="h-[calc(100vh-70px)]" *ngIf="notFound == true"></not-found>

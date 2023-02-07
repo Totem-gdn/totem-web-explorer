@@ -36,6 +36,7 @@ export class AssetCardComponent implements AfterViewInit {
   @Input() customBackground: string | null = null;
   @Input() set selectedGame(game: GameDetail | null) {
     if (!game) return;
+    
     if (game?.connections?.assetRenderer && this._asset && (this.type == 'avatar' || this.type == 'item')) {
       this.setRendererUrl(game?.connections.assetRenderer);
     } else if (this._asset) {

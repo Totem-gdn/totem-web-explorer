@@ -1,0 +1,13 @@
+@import 'styles/scss/variables';
+
+.totem-video-block {
+  position: relative;
+  width: 100%;
+  height: 568px;
+  max-width: 1007px;
+}
+
+.totem-video-block iframe {
+  width: 100%;
+  height: 100%;
+}

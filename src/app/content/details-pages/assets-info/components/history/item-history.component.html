@@ -1,0 +1,46 @@
+<h2 class="text-[32px] font-medium mb-[25px]">Ownership History</h2>
+
+<div class="wrapper">
+
+    <div *ngIf="history?.length" class="history">
+        <div class="py-[18px] px-[5px] history-grid mb-[20px]">
+            <p></p>
+            <p>{{'modules.owner_address' | translate}}</p>
+            <p>{{'modules.date_purchase' | translate}}</p>
+            <p>{{'modules.price' | translate}}</p>
+            <p>{{'modules.game_played' | translate}}</p>
+            <p class="ml-auto w-[40px] text-center">{{'modules.tx' | translate}}</p>
+        </div>
+        <div *ngFor="let story of history" class="transaction history-grid">
+            <div class="mr-[10px]"><img loading="lazy"
+                    [src]="story.avatar_url ? story.avatar_url : 'assets/icons/nav/account_circle.svg'" alt=""></div>
+            <!-- <span class="truncate mr-[60px]">{{story.to == '0' ? 'NULL' : story.to}}</span> -->
+            <!-- <div [cdkCopyToClipboard]="story.to" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="onCopy()"
+                class="wallet">
+                <span fxHide.lt-lg>{{story.to == '0' ? 'NULL': story.to}}</span>
+                <span fxHide.gt-md>{{story.to == '0' ? 'NULL': (story.to.slice(0, 9) + '...' + story.to.slice(-9))}}</span>
+            </div> -->
+            <div 
+                class="wallet">
+                <a href="{{'https://mumbai.polygonscan.com/address/' + story.to}}" target="_blank">{{story.to == '0' ? 'NULL': story.to}}</a>
+                <!-- <span fxHide.lt-lg>{{story.to == '0' ? 'NULL': story.to}}</span> -->
+                <span fxHide.gt-md></span>
+            </div>
+
+            <span class="truncate">{{story.createdAt | creationTime}} </span>
+            <span>{{story.price}}</span>
+            <span>{{'--'}}</span>
+            <div class="ml-auto w-[40px] text-center flex justify-center">
+                <a class="line-open_new" href="{{'https://mumbai.polygonscan.com/tx/' + story.hash}}"
+                    target="_blank"></a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="history?.length == 0" class="flex h-[120px] justify-center items-center">
+        <h1 class="text-2xl sm:text-1xl">{{'modules.history_empty' | translate}}</h1>
+    </div>
+    <div *ngIf="!history?.length && !history" class="flex h-[120px] justify-center items-center">
+        <totem-spinner></totem-spinner>
+    </div>
+</div>
