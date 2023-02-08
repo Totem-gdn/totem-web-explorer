@@ -165,6 +165,27 @@ export const Animations = {
       ]
     ),
     trigger(
+      'toggleSearchBar',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translate3d(0, -100%, 0)' }),
+            animate('0.33s ease-in-out',
+              style({ transform: 'translate3d(0, 0, 0)' }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ transform: 'translate3d(0, 0, 0)' }),
+            animate('0.33s ease-in-out',
+              style({ transform: 'translate3d(0, -100%, 0)', opacity: 0 }))
+          ]
+        )
+      ]
+    ),
+    trigger(
       'showInput',
       [
         transition(

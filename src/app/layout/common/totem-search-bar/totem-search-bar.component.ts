@@ -59,17 +59,11 @@ export class TotemSearchBarComponent extends OnDestroyMixin implements OnInit, O
 
   ngOnInit(): void {
     this.initFormListener();
-    this.sidenavStateService.sidenavStatus.pipe(
-      untilComponentDestroyed(this),
-    ).subscribe((data: SidebarState) => {
-      if (data.isOpen) {
-        setTimeout(() => {
-          if (this.focusState === 'true') {
-            this.searchInput.nativeElement.focus();
-          }
-        });
-      }
-    });
+    /* if (this.focusState === 'true') {
+      setTimeout(() => {
+          this.searchInput.nativeElement.focus();
+      });
+    } */
   }
 
   initFormListener() {
@@ -171,9 +165,7 @@ export class TotemSearchBarComponent extends OnDestroyMixin implements OnInit, O
       /* router */
       this.router.navigate(['../games'], { queryParams: { query: this.searchInfo.value } });
     }
-    if (this.focusState === 'true') {
-      this.routingEvent.next('closed');
-    }
+    this.routingEvent.next('closed');
     this.dropdownOpened = false;
   }
 

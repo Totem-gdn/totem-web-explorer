@@ -1,6 +1,7 @@
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
@@ -36,7 +37,8 @@ import { TotemSidenavModule } from "./totem-sidenav/totem-sidenav.module";
         TotemProfSidebarModule,
         TotemSearchBarModule,
         ClipboardModule,
-        MatRippleModule
+        MatRippleModule,
+        MatButtonModule
     ],
     exports: [
         TotemNavigationComponent,
