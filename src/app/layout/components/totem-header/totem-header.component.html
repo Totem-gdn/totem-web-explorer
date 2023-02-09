@@ -44,7 +44,7 @@
     <ng-container *ngIf="!(loading$ | async); else userLoader">
 
 
-      <mat-icon class="!w-[48px] !h-[48px] t-col-white menu-icon" [svgIcon]="'mat_outline:menu'"></mat-icon>
+      <mat-icon (click)="logIn()" class="!w-[48px] !h-[48px] t-col-white menu-icon" [svgIcon]="'mat_outline:menu'"></mat-icon>
 
       <div class="hidden md:flex">
         <button matRipple (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
