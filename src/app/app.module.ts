@@ -43,7 +43,7 @@ const routerConfig: ExtraOptions = {
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
     }),
-    IconsModule
+    IconsModule,
   ],
   providers: [
     UserStateService,

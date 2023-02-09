@@ -69,6 +69,8 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
       publicKey = this.parseJwt(token).wallets[0].public_key;
       localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey }));
       //this.getUsersTokenGiveawayState();
+      console.log('open welcom dialog')
+      this.openWelcomeDialog();
     } else {
       // External Wallets
       token = await this.web3AuthService.walletJWTToken();
@@ -78,6 +80,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
       }
       localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey }));
       //this.getUsersTokenGiveawayState();
+
     }
 
     const userToUse: UserEntity = {
