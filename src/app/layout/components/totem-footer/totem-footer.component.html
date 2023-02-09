@@ -184,13 +184,15 @@
     </div>
 
   </div>
-  <div class="footer-copyright-block max-w-[1440px] py-8 w-full flex flex-row flex-wrap-reverse items-center justify-center sm:justify-between px-5 md:px-7 lg:px-[34px]">
-    <div class="inc-info t-col-light-grey mr-6 text-center">
-      <span>{{'footer.copyright' | translate}}. </span><span class="reserved-caption">{{'footer.all_rights_reserved' | translate}}</span>
-    </div>
-    <div class="co-links t-col-light-grey">
-      <a routerLinkActive="active-route" routerLink="/terms-and-policy" class="privacy-link">{{'footer.privacy_policy' | translate}}</a>
-      <a routerLinkActive="active-route" routerLink="/terms-and-policy" class="terms-link ml-12">{{'footer.terms_of_service' | translate}}</a>
+  <div class="footer-copyright-block-wrapper py-8 w-full flex items-center justify-center">
+    <div class="footer-copyright-block w-full max-w-[1440px] flex flex-row flex-wrap-reverse items-center justify-center sm:justify-between px-5 md:px-7 lg:px-[34px]">
+      <div class="inc-info t-col-light-grey mr-6 text-center">
+        <span>{{'footer.copyright' | translate}}. </span><span class="reserved-caption">{{'footer.all_rights_reserved' | translate}}</span>
+      </div>
+      <div class="co-links t-col-light-grey">
+        <a routerLinkActive="active-route" routerLink="/terms-and-policy" class="privacy-link">{{'footer.privacy_policy' | translate}}</a>
+        <a routerLinkActive="active-route" routerLink="/terms-and-policy" class="terms-link ml-12">{{'footer.terms_of_service' | translate}}</a>
+      </div>
     </div>
   </div>
 </div>
