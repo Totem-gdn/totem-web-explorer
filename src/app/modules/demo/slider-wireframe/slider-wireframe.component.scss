@@ -1,20 +1,16 @@
 @import 'styles/scss/totem-variables';
-.wrapper {
+.container_ {
     position: relative;
 
-    .slider {
-        // overflow: scroll;
-        width: 100%;
+    .wrapper {
         position: relative;
-        overflow: hidden;
+        // overflow: hidden;
         padding-top: 6px;
-        .slider-track {
-            // width: 100%;
+        margin:auto;
+        .slider {
+            display: flex;
             transition: transform .3s;
-            display: inline-flex;
-
             gap: 15px;
-            // height: 240px;
 
             .card-wrapper {
                 width: 240px;
@@ -39,6 +35,9 @@
     }
 
     .dots-wrapper {
+        position: relative;
+        left: 0;
+        right: 0;
         justify-content: center;
         margin-top: 25px;
         display: flex;

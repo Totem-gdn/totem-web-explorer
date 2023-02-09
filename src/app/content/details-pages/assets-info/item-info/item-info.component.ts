@@ -10,7 +10,7 @@ import { Subject, takeUntil } from "rxjs";
     selector: 'item-info',
     templateUrl: './item-info.component.html',
     host: {
-        class:'ml-auto mr-auto w-full'
+        // class:'ml-auto mr-auto'
     }
 })
 

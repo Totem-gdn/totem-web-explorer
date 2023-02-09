@@ -8,7 +8,9 @@
 
     <div class="flex flex-row flex-auto w-full h-fit">
       <totem-sidenav @toggleSelectBar *ngIf="toggleSideselector"></totem-sidenav>
-      <router-outlet *ngIf="true"></router-outlet>
+      <div class="flex-grow min-w-[0px]">
+        <router-outlet *ngIf="true"></router-outlet>
+      </div>
     </div>
 
     <div
