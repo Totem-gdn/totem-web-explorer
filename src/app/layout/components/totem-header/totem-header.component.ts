@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { Animations } from '@app/core/animations/animations';
 import { TokenBalance } from '@app/core/models/interfaces/token-balance.modle';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
@@ -11,6 +12,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   selector: 'totem-header',
   templateUrl: './totem-header.component.html',
   styleUrls: ['./totem-header.component.scss'],
+  animations: Animations.animations
 })
 export class TotemHeaderComponent implements OnInit, OnDestroy {
 
@@ -19,6 +21,8 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   usdcBalance: string | undefined = undefined;
   subs: Subscription = new Subscription();
+
+  searchOpened: boolean = false;
 
   constructor(
     private router: Router,
@@ -90,6 +94,10 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
       user.profileImage = 'assets/icons/nav/account_circle.svg'
       this.currUser$.next(user);
     }
+  }
+
+  toggleSearchBar(flag: boolean) {
+    this.searchOpened = flag;
   }
 
   updateBalance() {

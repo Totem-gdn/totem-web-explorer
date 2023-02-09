@@ -78,6 +78,27 @@ export const Animations = {
       ]
     ),
     trigger(
+      'toggleGameSelector',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translateX(100%)' }),
+              animate('0.4s ease-in-out',
+                style({ transform: 'translateX(0px)' })),
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ transform: 'translateX(0px)' }),
+              animate('0.4s ease-in-out',
+                style({ transform: 'translateX(100%)' })),
+          ]
+        )
+      ]
+    ),
+    trigger(
       'swapText',
       [
         transition(
@@ -160,6 +181,48 @@ export const Animations = {
               animate('0.3s ease-in-out',
                 style({ opacity: 0 }))
             ])
+          ]
+        )
+      ]
+    ),
+    trigger(
+      'toggleSearchBar',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translate3d(0, -100%, 0)' }),
+            animate('0.33s ease-in-out',
+              style({ transform: 'translate3d(0, 0, 0)' }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ transform: 'translate3d(0, 0, 0)' }),
+            animate('0.33s ease-in-out',
+              style({ transform: 'translate3d(0, -100%, 0)', opacity: 0 }))
+          ]
+        )
+      ]
+    ),
+    trigger(
+      'toggleSelectBar',
+      [
+        transition(
+          ':enter',
+          [
+            style({ opacity: 0 }),
+            animate('0.33s ease-in-out',
+              style({ opacity: 1 }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ opacity: 0 }),
+            animate('0.33s ease-in-out',
+              style({ opacity: 1 }))
           ]
         )
       ]

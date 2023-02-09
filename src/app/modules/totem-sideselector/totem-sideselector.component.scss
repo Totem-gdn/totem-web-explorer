@@ -1,28 +1,31 @@
 @import "styles/scss/totem-variables";
 
 :host {
-  display: flex;
-  position: relative;
-  flex: 0;
-  min-height: calc(100vh - 80px);
+  position: fixed;
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  z-index: 100;
 }
 
-.totem-sidenav {
+.totem-sideselector {
   background-color: $totem-dark-grey;
   border-right: 1px solid $totem-divider-grey;
-  &-content {
-    overflow: hidden;
-    position: sticky;
-    top: 112px;
-    min-height: calc(100vh - 136px);
-    height: 100%;
-    max-height: calc(100vh - 136px);
+  min-width: 360px;
+  width: 360px;
 
+  &-content {
     .items-wrapper {
       padding-right: 8px;
-      border-radius: 0 0 24px 24px;
+      border-radius: 0 0 0 24px;
       overflow: auto;
     }
+  }
+
+  @media (max-width: 361px) {
+    width: 100%;
+    min-width: 100%;
   }
 }
 
@@ -48,7 +51,7 @@
 
 .game-card {
   position: relative;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   transition: border 0.22s ease-out, background-color 0.22s ease-out;
   &:before {
     content: '';
@@ -60,8 +63,6 @@
     background: $totem-select-gradient;
     opacity: 0;
     z-index: -1;
-    transition: opacity 0.22s ease-out;
-    will-change: opacity;
   }
   &:hover {
     background-color: $totem-black;
@@ -69,7 +70,7 @@
 }
 
 .game-card-selected {
-  border: 1px solid $totem-light-violet;
+  border: 2px solid $totem-light-violet;
   &:before {
     opacity: 1;
   }

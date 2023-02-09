@@ -21,10 +21,36 @@
   }
 }
 
+.search-button {
+  display: none;
+  @media (max-width: 999px) {
+    display: flex;
+  }
+}
+
+.menu-icon {
+  display: none;
+  @media (max-width: 767px) {
+    display: flex;
+  }
+}
+
+.user-icon, .user-cash {
+  border: 1px solid $totem-purple;
+}
+
+.exit-button {
+  background-color: transparent;
+  transition: background 0.22s ease-out;
+  &:hover {
+    background-color: $totem-divider-grey;
+  }
+}
+
 .totem-navigation-items {
   a {
     position: relative;
-    margin-left: 42px;
+    margin-left: 16px;
     z-index: 2;
     border-radius: 37px;
     transition: background 0.22s ease-out, color 0.22s ease-out;
