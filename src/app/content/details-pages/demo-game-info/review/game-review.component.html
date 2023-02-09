@@ -93,27 +93,29 @@
         </a>
     </div>
 
-    <div class="graphic">
-        <h3 class="title">{{game?.general?.name}} assets graphic:</h3>
-        <div class="cards">
-            <div class="card">
-                <div class="img-wrapper">
-                    <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/avatar/' + randomId : defaultRenderer + '/avatar/' + randomId" alt="">
+    <div class="graphic-wrapper">
+        <div class="graphic">
+            <h3 class="title">{{game?.general?.name}} assets graphic:</h3>
+            <div class="cards">
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/avatar/' + randomId : defaultRenderer + '/avatar/' + randomId" alt="">
+                    </div>
+                    <div class="bottom">
+                        <p>Avatar example</p>
+                    </div>
+    
                 </div>
-                <div class="bottom">
-                    <p>Avatar example</p>
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/item/' + randomId : defaultRenderer + '/item/' + randomId" alt="">
+                    </div>
+                    <div class="bottom">
+                        <p>Item example</p>
+                    </div>
                 </div>
-
+    
             </div>
-            <div class="card">
-                <div class="img-wrapper">
-                    <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/item/' + randomId : defaultRenderer + '/item/' + randomId" alt="">
-                </div>
-                <div class="bottom">
-                    <p>Item example</p>
-                </div>
-            </div>
-
         </div>
     </div>
 

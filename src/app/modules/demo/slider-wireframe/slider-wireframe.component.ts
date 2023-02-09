@@ -17,18 +17,17 @@ import { fromEvent, Subject, takeUntil } from 'rxjs';
 })
 export class SliderWireframeComponent implements OnInit, OnDestroy {
 
-
+  @ViewChild('container', {static: true}) container!: ElementRef;
   @ViewChild('slider', {static: true}) slider!: ElementRef;
   @ViewChild('wrapper', {static: true}) wrapper!: ElementRef;
+
   subs = new Subject<void>();
 
-  @Input() itemsOnScreen: number = 6;
   @Input() type: 'game' | 'asset' | 'legacy' = 'asset';
   @Input() mode: 'arrows' | 'dots' = 'arrows';
+
   @Input() set assets(assets: any[] | null) {
-    // console.log('set assets')
-    if(this.type == 'legacy') console.log('set legacy', assets)
-    //console.log('type', this.type)
+    this.slideWidth = this.type == 'game' ? 370 : this.type == 'asset' ? 240 : 497;
     this.cards = assets;
     setTimeout(() => {
       this.calculateSliderWidth();
@@ -38,6 +37,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   cards!: any[] | null;
 
+  itemsOnScreen: number = 0;
   slideIndex: number = 0;
   slideWidth: number = 240;
 
@@ -49,7 +49,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     fromEvent(window, 'resize')
       .pipe(takeUntil(this.subs))
       .subscribe(() => {
-        console.log('resize')
+        this.calculateSliderWidth();
       })
   }
 
@@ -75,13 +75,17 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   }
 
   calculateSliderWidth() {
-    const slider = this.wrapper.nativeElement;
+    const containerWidth = this.container.nativeElement.offsetWidth;
+    this.itemsOnScreen = Math.floor(containerWidth / this.slideWidth);
     const gap = 15;
-    this.slideWidth = ((slider.offsetWidth - ((this.itemsOnScreen - 1) * gap)) / this.itemsOnScreen);
-    const cards = slider.getElementsByClassName('card-wrapper');
-    for(let card of cards) {
-      card.style.width = `${this.slideWidth}px`
-    }
+    console.log(this.itemsOnScreen, containerWidth)
+    const wrapperWidth = (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * gap) - gap;
+    this.wrapper.nativeElement.style.width = `${wrapperWidth}px`;
+
+    // const cards = slider.getElementsByClassName('card-wrapper');
+    // for(let card of cards) {
+    //   card.style.width = `${this.slideWidth}px`
+    // }
   }
 
   ngOnDestroy(): void {
