@@ -1,115 +1,30 @@
 @import 'styles/scss/variables';
+@import 'styles/scss/totem-variables';
 
+.slider-wrapper {
+  // max-width: 68%;
+  // min-width: 68%;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+}
 
 .totem-event {
+  display: flex;
+  padding: 48px;
+  border-radius: 40px;
+  background-color: $totem-dark-grey;
   width: 100%;
-  height: 438px;
   @media (max-width: 960px) {
     height: auto;
   }
   &-wrapper {
+    justify-content: center;
+    align-items: center;
+    display: flex;
     width: 100%;
-    height: inherit;
-    .image-container {
-      max-width: 828px;
-      width: 100%;
-      min-width: 400px;
-      flex-shrink: 1;
-      height: inherit;
-      overflow: hidden;
-      border-radius: 30px;
-      margin-right: 40px;
-      position: relative;
-      .floating-border {
-        z-index: 3;
-        padding: 26px;
-        &-wrapper {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          .face-border, .blured-border {
-            width: 100%;
-            height: 100%;
-            border-radius: 40px;
-            border: 2px solid #fff;
-          }
-          .blured-border {
-            filter: blur(5px);
-          }
-          .deco-border-1, .deco-border-2 {
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 40px;
-          }
-          .deco-border-1 {
-            animation: rotateInfinite1 10s 3s ease-in-out infinite;
-          }
-          .deco-border-2 {
-            animation: rotateInfinite1 10s ease-in-out infinite;
-          }
-        }
+    height: 100%;
 
-        @keyframes rotateInfinite1 {
-          0% { transform: rotate(-2.85deg); }
-          50% { transform: rotate(2.85deg); }
-          100% { transform: rotate(-2.85deg); }
-        }
-
-      }
-      .jam-info {
-        z-index: 2;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        &-title {
-          &-face, &-blured {
-            font-weight: 400;
-            font-size: 64px;
-            line-height: 64px;
-            text-transform: uppercase;
-            color: #FFFFFF;
-            @media (max-width: 1080px) {
-              font-size: 48px;
-              line-height: 48px;
-              img {
-                width: 207px;
-                height: auto;
-              }
-            }
-          }
-          position: relative;
-          &-blured {
-            position: absolute;
-            top: 0;
-            left: 0;
-            filter: blur(3.5px);
-          }
-        }
-
-        &-caption {
-          font-weight: 400;
-          font-size: 20px;
-          line-height: 20px;
-          text-transform: uppercase;
-          color: #FFFFFF;
-          @media (max-width: 1080px) {
-            font-size: 18px;
-            line-height: 18px;
-          }
-        }
-      }
-      .gradient-face {
-        z-index: 1;
-        background: linear-gradient(28deg, #202225 30.6%, rgba(0, 0, 0, 0) 52.36%);
-      }
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
-      @media (max-width: 960px) {
-        display: none;
-      }
-    }
     .timer-container {
       flex-direction: column;
       box-sizing: border-box;
@@ -143,7 +58,7 @@
           font-weight: 400;
           font-size: 48px;
           line-height: 48px;
-          color: $yellow;
+          color: $light-violet;
           @media (max-width: 490px) {
             font-size: 32px;
             line-height: 32px;
@@ -169,7 +84,7 @@
           }
         }
         .timer-caption {
-          margin-top: 16px;
+          margin-top: 9px;
           font-weight: 500;
           font-size: 16px;
           line-height: 19px;

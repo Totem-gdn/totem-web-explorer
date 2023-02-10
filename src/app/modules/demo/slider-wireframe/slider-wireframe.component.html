@@ -3,12 +3,14 @@
 <div #container class="container_">
 
     <div #wrapper class="wrapper">
-        <div class="overflow-hidden">
-            <div class="slider" #slider>
-                <div class="card-wrapper" *ngFor="let card of cards" [style.width]="slideWidth + 'px'">
+        <div class="overflow-hidden" [style.padding]="padding + 'px'">
+            <div class="slider" #slider [style.gap]="gap + 'px'" 
+                [ngClass]="{'pt-[10px]': type == 'asset' || type == 'game'}">
+                <div class="card-wrapper" *ngFor="let card of cards; let i = index;" [style.width]="slideWidth + 'px'">
                     <totem-asset-card *ngIf="type == 'asset'" [asset]="card"></totem-asset-card>
                     <totem-game-card *ngIf="type == 'game'" [game]="card"></totem-game-card>
                     <totem-legacy-card [game]="card" *ngIf="type == 'legacy'"></totem-legacy-card>
+                    <event-card [label]="i == 0 ? 'live' : 'comming'" [eventBanner]="card" *ngIf="type == 'event'"></event-card>
                 </div>
             </div>
         </div>

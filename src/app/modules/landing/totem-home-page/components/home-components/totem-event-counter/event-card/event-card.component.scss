@@ -1,0 +1,103 @@
+@import "styles/scss/totem-variables";
+
+.description {
+    position: absolute;
+    height: 125px;
+    inset: auto 0 0 0;
+    background-color: $blur-black;
+}
+.glow {
+    box-shadow: 0px 0px 18px 0px #9A7ED7;
+}
+.image-container {
+    position: relative;
+    max-width: 384px;
+    min-width: 384px;
+
+
+
+    // width: 100%;
+    flex-shrink: 1;
+    max-height: 360px;
+    min-height: 360px;
+    overflow: hidden;
+    border-radius: 18px;
+    margin-right: 40px;
+    position: relative;
+    display: flex;
+
+    .label {
+        position: absolute;
+        padding: 2.5px 8px;
+        inset: 16px auto auto 16px;
+        gap: 4px;
+        background-color: $blur-black;
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+
+        .dot {
+            background-color: $totem-error;
+            border-radius: 9999px;
+            width: 10px;
+            height: 10px;
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+            transform: scale(1);
+            animation: pulse 2s infinite;
+        }
+    }
+
+    .jam-info-title {
+        width: 100%;
+        padding: 15px;
+        .title {
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+        .sub-title {
+            line-height: 1.4;
+        }
+
+        &-caption {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 20px;
+            text-transform: uppercase;
+            color: #ffffff;
+            @media (max-width: 1080px) {
+                font-size: 18px;
+                line-height: 18px;
+            }
+        }
+    }
+    // .gradient-face {
+    //   z-index: 1;
+    //   background: linear-gradient(28deg, #202225 30.6%, rgba(0, 0, 0, 0) 52.36%);
+    // }
+    img {
+        //   height: 100%;
+        height: auto;
+        //   width: 100%;
+        //   object-fit: cover;
+    }
+    // @media (max-width: 960px) {
+    //     display: none;
+    // }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.5);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}

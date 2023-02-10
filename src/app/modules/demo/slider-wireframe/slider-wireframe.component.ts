@@ -23,11 +23,13 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   subs = new Subject<void>();
 
-  @Input() type: 'game' | 'asset' | 'legacy' = 'asset';
+  @Input() type: 'game' | 'asset' | 'legacy' | 'event' = 'asset';
   @Input() mode: 'arrows' | 'dots' = 'arrows';
+  @Input() gap: number = 15;
+  @Input() padding: number = 0;
 
   @Input() set assets(assets: any[] | null) {
-    this.slideWidth = this.type == 'game' ? 370 : this.type == 'asset' ? 240 : 497;
+    this.slideWidth = this.type == 'game' ? 240 : this.type == 'asset' ? 240 : this.type == 'event' ? 384 : 497;
     this.cards = assets;
     setTimeout(() => {
       this.calculateSliderWidth();
@@ -69,17 +71,16 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
       }
     }
 
-    const gap = 15;
-    const transformWidth = (this.slideWidth + gap) * this.slideIndex;
+    const transformWidth = (this.slideWidth + this.gap) * this.slideIndex;
     this.slider.nativeElement.style.transform = `translateX(-${transformWidth}px)`
   }
 
   calculateSliderWidth() {
     const containerWidth = this.container.nativeElement.offsetWidth;
     this.itemsOnScreen = Math.floor(containerWidth / this.slideWidth);
-    const gap = 15;
+
     console.log(this.itemsOnScreen, containerWidth)
-    const wrapperWidth = (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * gap) - gap;
+    const wrapperWidth = (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * this.gap) - this.gap + (this.padding * 2);
     this.wrapper.nativeElement.style.width = `${wrapperWidth}px`;
 
     // const cards = slider.getElementsByClassName('card-wrapper');

@@ -1,8 +1,8 @@
 <div class="description m-auto lg:m-0">
-    <div class="images-block pb-[35px]">
+    <div class="images-block pb-[35px] flex flex-col">
         <!-- <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt=""> -->
         <!-- <div class=""></div> -->
-        <div #image *ngIf="hlSlide" class="rounded sm:h-[430px] image-wrapper relative overflow-hidden">
+        <div #image *ngIf="hlSlide" class="relative rounded h-full max-h-[430px] image-wrapper relative overflow-hidden">
             <img *ngIf="hlSlide.type == 'image'" loading="lazy" class="h-full hl-image relative z-2" [src]="hlSlide.url" [alt]="_game?.general?.name">
             <img *ngIf="hlSlide.type == 'image'" loading="lazy" class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
                 [src]="hlSlide.url" [alt]="_game?.general?.name">
@@ -13,6 +13,7 @@
                 class="w-full h-full" 
                 [src]="hlSlide.url | unsafeUrl" frameborder="0"></iframe>
 
+            <!-- <div class="w-full mt-[100%]"></div> -->
             <!-- <img loading="lazy" class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
                 [src]="hlImage" [alt]="_game?.general?.name"> -->
             <!-- <div class="image-bg absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
