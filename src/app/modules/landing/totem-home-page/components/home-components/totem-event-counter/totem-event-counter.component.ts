@@ -9,10 +9,10 @@ import { Subscription, timer } from 'rxjs';
 })
 export class TotemEventCounterComponent implements OnInit, OnDestroy {
   //
-  get eventArr() { 
-    if(this.eventBanner) return [this.eventBanner, this.eventBanner, this.eventBanner];
-    else return null;
-  }
+  // get eventArr() { 
+  //   if(this.eventBanner) return [this.eventBanner, this.eventBanner, this.eventBanner];
+  //   else return null;
+  // }
   //
 
   subscribe!: Subscription;

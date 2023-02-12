@@ -1,5 +1,5 @@
-<div class="totem-event" *ngIf="eventBanner">
-  <div class="totem-event-wrapper flex-wrap lg:flex-nowrap">
+<div class="totem-event pl-[0px] lg:pl-[48px]" *ngIf="eventBanner">
+  <div class="totem-event-wrapper flex-wrap lg:flex-nowrap gap-[48px] lg:gap-[100px]">
     <div class="timer-container">
       <div class="title font-totem"
       [ngStyle]="{
@@ -8,25 +8,29 @@
       }"
       >{{eventBanner.data?.title || 'GameJam+'}}</div>
 
-      <div class="timer-block" fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{days | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.day' | translate}}</div>
-        </div>
-        <span class="font-totem totem-color timer-dots">:</span>
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{hours | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.hrs' | translate}}</div>
-        </div>
-        <span class="font-totem totem-color timer-dots">:</span>
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{minutes | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.mins' | translate}}</div>
-        </div>
-        <span class="font-totem totem-color timer-dots">:</span>
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{seconds | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.sec' | translate}}</div>
+      <div class="timer-block gap-[15px]">
+        <h4>Event is going on:</h4>
+
+        <div class="flex justify-between items-center">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{days | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.day' | translate}}</div>
+          </div>
+          <span class="font-totem totem-color timer-dots">:</span>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{hours | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.hrs' | translate}}</div>
+          </div>
+          <span class="font-totem totem-color timer-dots">:</span>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{minutes | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.mins' | translate}}</div>
+          </div>
+          <span class="font-totem totem-color timer-dots">:</span>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{seconds | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.sec' | translate}}</div>
+          </div>
         </div>
       </div>
       <!-- <div class="description">{{eventBanner.data?.description || ('home.totem_is_joining_as' | translate)}}</div> -->
@@ -37,7 +41,14 @@
 
     <div class="slider-wrapper">
       <!-- <div class=""></div> -->
-      <slider-wireframe [padding]="18" [gap]="32" [type]="'event'" [assets]="eventArr"></slider-wireframe>
+      <slider-wireframe 
+        class="ml-auto" 
+        [padding]="18" 
+        [overflow]="'nowrap'"
+        [gap]="35" 
+        [type]="'event'" 
+        [assets]="[eventBanner, eventBanner, eventBanner]"
+        [direction]="'right'"></slider-wireframe>
     </div>
   </div>
 </div>

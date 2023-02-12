@@ -1,10 +1,10 @@
-<div class="flex flex-col selected-game-card w-[240px] h-[336px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToGame(game!)">
+<div class="flex flex-col selected-game-card w-[240px] h-[335px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToGame(game!)">
     <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper h-[195px]">
         <img class="object-cover h-full" loading="lazy" [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>
     <div class="game-card-content py-3 px-4 flex flex-col items-start justify-between h-full w-full">
         <div class="flex flex-col items-start justify-start w-full">
-          <p class="font-medium text-[20px] leading-[22px]">{{game?.general?.name}}</p>
+          <p class="font-medium text-[20px] leading-[22px] truncate">{{game?.general?.name}}</p>
           <p class="text-light-grey font-normal text-[16px] leading-[17px] text-ellipsis max-2-lines max-w-[360px] mt-2">{{game?.general?.description}}</p>
         </div>
         <div class="flex flex-row items-center justify-between mt-3 w-full">

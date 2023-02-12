@@ -71,8 +71,11 @@ export class StoreService {
     return assets;
   }
   setRenderer(type: ASSET_TYPE, asset: AssetInfo) {
+
     const rendererUrl = this.selectedGame?.connections?.assetRenderer;
+
     let url = rendererUrl ? rendererUrl : environment.ASSET_RENDERER_URL;
+    url = url.slice(-1) === '/' ? url.slice(0, -1) : url;
     asset.rendererUrl = `${url}/${type}/${asset?.tokenId}?width=400&height=400`;
     return asset;
   }

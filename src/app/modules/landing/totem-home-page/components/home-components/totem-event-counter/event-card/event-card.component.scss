@@ -7,7 +7,7 @@
     background-color: $blur-black;
 }
 .glow {
-    box-shadow: 0px 0px 18px 0px #9A7ED7;
+    box-shadow: 0px 0px 15px 0px #9A7ED7;
 }
 .image-container {
     position: relative;
@@ -83,6 +83,13 @@
     // @media (max-width: 960px) {
     //     display: none;
     // }
+}
+
+.b-transparent {
+    border: 1px solid transparent;
+}
+.b-light-grey {
+    border: 1px solid $totem-light-grey;
 }
 
 @keyframes pulse {

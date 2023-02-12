@@ -1,24 +1,25 @@
 <div class="wrapper">
-    <div class="img-desc">
-        <img [src]="game.images?.cardThumbnail" alt="">
-        <div class="img-bottom">
-            <p class="truncate">{{game.updatedAt | creationTime}}</p>
-            <span>by </span>
-            <p class="truncate">{{game.owner}}</p>
+    <div class="img-wrapper">
+        <img [src]="renderer" alt="">
+        <div class="timestamp">
+            <p>{{game.updatedAt | creationTime}}</p>
         </div>
     </div>
 
     <div class="in-game flex flex-col">
-        <div class="flex flex-col">
-            <p class="mb-[10px] pt-[8px]">Build The Most Fancy Incredible castle city!</p>
-            <span class="max-3-lines text-light-grey">Longer Legacy event description Ultricies risus ipsum viverra quisque at maecenas. Vivamus tempus neque nec massa lectus consectetur imperdiet mattis facilisis. Id facilisis sed ac ornare turpis. Nunc erat</span>
-        </div>
-        <div class="flex mt-auto">
-            <img class="w-[40px] h-[40px] rounded mr-[8px]" [src]="game.images?.smallThumbnail" alt="">
-            <div class="flex flex-col">
-                <p>{{game.general?.name}}</p>
-                <span class="text-light-grey">{{game.general?.genre![0]}}</span>
+        <div class="flex">
+            <img class="w-[64px] h-[64px] rounded-xl mr-[12px]" [src]="game.images?.smallThumbnail" alt="">
+            <div class="flex flex-col justify-center min-w-[0px]">
+                <p class="truncate">{{game?.general?.name}} </p>
+                <span class="text-light-grey truncate">{{game.general?.genre![0]}}</span>
             </div>
+        </div>
+
+        <div class="flex flex-col">
+            <p class="pt-[15px] text-light-violet">Description: </p>
+            <span class="max-4-lines text-light-grey">Longer Legacy event description Ultricies risus ipsum viverra
+                quisque at maecenas. Vivamus tempus neque nec massa lectus consectetur imperdiet mattis facilisis. Id
+                facilisis sed ac ornare turpis. Nunc erat</span>
         </div>
     </div>
 </div>
