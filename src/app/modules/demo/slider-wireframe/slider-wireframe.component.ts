@@ -26,7 +26,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   @Input() type: 'game' | 'asset' | 'legacy' | 'event' = 'asset';
   @Input() mode: 'arrows' | 'dots' = 'arrows';
   @Input() overflow: 'wrap-content' | 'nowrap' = 'wrap-content';
-  @Input() direction: 'left' | 'right' | 'center' = 'center';
+  @Input() position: 'left' | 'right' | 'center' = 'center';
   @Input() gap: number = 15;
   @Input() padding: number = 0;
 
@@ -52,9 +52,9 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   config() {
     const wrapper = this.wrapper.nativeElement;
-    if(this.direction == 'right') wrapper.style.marginLeft = 'auto';
-    if(this.direction == 'left') wrapper.style.marginRight = 'auto';
-    if(this.direction == 'center') wrapper.style.margin = 'auto';
+    if(this.position == 'right') wrapper.style.marginLeft = 'auto';
+    if(this.position == 'left') wrapper.style.marginRight = 'auto';
+    if(this.position == 'center') wrapper.style.margin = 'auto';
     this.wrapper.nativeElement.style.minWidth = `${this.slideWidth}px`;
   }
 

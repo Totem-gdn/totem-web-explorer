@@ -12,6 +12,7 @@ import { TotemSearchBarModule } from "../common/totem-search-bar/totem-search-ba
 import { TotemNavSidebarModule } from "./popups/totem-nav-sidebar/totem-nav-sidebar.module";
 import { TotemProfSidebarModule } from "./popups/totem-profile-dropdown/totem-profile-dropdown.module";
 import { TotemFooterComponent } from "./totem-footer/totem-footer.component";
+import { ExploreDropdownModule } from "./totem-header/explore-dropdown/explore-dropdown.module";
 import { TotemHeaderComponent } from "./totem-header/totem-header.component";
 import { TotemNavigationComponent } from "./totem-navigation/totem-navigation.component";
 import { TotemSearchFilterModule } from "./totem-navigation/totem-search-filter/totem-search-filter.module";
@@ -38,7 +39,9 @@ import { TotemSidenavModule } from "./totem-sidenav/totem-sidenav.module";
         TotemSearchBarModule,
         ClipboardModule,
         MatRippleModule,
-        MatButtonModule
+        MatButtonModule,
+
+        ExploreDropdownModule
     ],
     exports: [
         TotemNavigationComponent,

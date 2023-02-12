@@ -1,5 +1,5 @@
 <div class="totem-event pl-[0px] lg:pl-[48px]" *ngIf="eventBanner">
-  <div class="totem-event-wrapper flex-wrap lg:flex-nowrap gap-[48px] lg:gap-[100px]">
+  <div class="totem-event-wrapper flex-wrap lg:flex-nowrap gap-[48px] justify-between">
     <div class="timer-container">
       <div class="title font-totem"
       [ngStyle]="{
@@ -48,7 +48,7 @@
         [gap]="35" 
         [type]="'event'" 
         [assets]="[eventBanner, eventBanner, eventBanner]"
-        [direction]="'right'"></slider-wireframe>
+        [position]="'right'"></slider-wireframe>
     </div>
   </div>
 </div>

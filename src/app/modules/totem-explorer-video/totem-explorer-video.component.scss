@@ -10,6 +10,7 @@
 
   .video-block {
     flex-grow: 1;
+    display: flex;
 
     .video {
       width: 100%;
@@ -21,6 +22,7 @@
   .desc-block {
     display: flex;
     gap: 50px;
+    margin: auto;
 
     .text {
       margin: auto;

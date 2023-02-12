@@ -34,7 +34,7 @@ export class TotemExplorerVideoComponent implements OnDestroy, OnInit {
   @ViewChild('track', {static: true}) track!: ElementRef;
   @ViewChild('thumb', {static: true}) thumb!: ElementRef;
 
-  // Thumb
+
   offset = 12;
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class TotemExplorerVideoComponent implements OnDestroy, OnInit {
 
   resize$() {
     this.sub = fromEvent(window, 'resize').subscribe(() => {
-      this.calculateHeight();
+      this.calculateThumbPosition();
     })
   }
 
@@ -55,10 +55,10 @@ export class TotemExplorerVideoComponent implements OnDestroy, OnInit {
       this.selectedEvent = this.events[index + 1];
     }
 
-    this.calculateHeight();
+    this.calculateThumbPosition();
   }
 
-  calculateHeight() {
+  calculateThumbPosition() {
     if(!this.selectedEvent) return;
 
     const thumb = this.thumb.nativeElement;

@@ -7,6 +7,9 @@
   left: 0px;
   right: 0px;
 }
+// .explore-tab {
+//   // cursor: poitner;
+// }
 .totem-header {
   background-color: $totem-black;
   position: relative;
@@ -48,9 +51,14 @@
 }
 
 .totem-navigation-items {
+  margin-left: 16px;
+  margin-right: 16px;
+
   a {
+    display: flex;
+    align-items: center;
     position: relative;
-    margin-left: 16px;
+    gap: 16px;
     z-index: 2;
     border-radius: 37px;
     transition: background 0.22s ease-out, color 0.22s ease-out;
