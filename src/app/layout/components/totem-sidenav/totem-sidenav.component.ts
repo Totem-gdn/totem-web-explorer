@@ -63,9 +63,8 @@ export class TotemSidenavComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   contentHeight() {
     const offsetTop = 112;
-    const offsetBottom = 32;
-    const itemHeight = 56;
-    this.content.nativeElement.style.height = `${(document.body.offsetHeight - offsetTop - offsetBottom) - ((document.body.offsetHeight - 165) % itemHeight)}px`
+    const offsetBottom = 20;
+    this.content.nativeElement.style.height = `${(document.body.offsetHeight - offsetTop - offsetBottom)}px`
   }
 
   selectGameLocally(gameToCheck: GameDetail) {
