@@ -21,6 +21,7 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   usdcBalance: string | undefined = undefined;
   subs: Subscription = new Subscription();
+  showDropdown: boolean = false;
 
   searchOpened: boolean = false;
 

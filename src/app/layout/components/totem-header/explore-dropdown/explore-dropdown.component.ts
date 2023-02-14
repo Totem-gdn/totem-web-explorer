@@ -1,14 +1,19 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef } from "@angular/core";
 
 @Component({
     selector: 'explore-dropdown',
     templateUrl: './explore-dropdown.component.html',
     styleUrls: ['./explore-dropdown.component.scss'],
-    host: {
-        class: 'absolute top-0 left-0'
-    }
+
 })
 
 export class ExploreDropdownComponent {
+    constructor(private elRef: ElementRef) {}
+    // items = ['items', 'avatars', 'games'];
 
+
+    // close() {
+    //     console.log('close')
+    //     this.elRef.nativeElement.style.display = 'none';
+    // }
 }

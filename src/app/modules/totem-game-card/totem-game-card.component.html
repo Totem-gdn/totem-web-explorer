@@ -1,4 +1,4 @@
-<div class="flex flex-col selected-game-card w-[240px] h-[335px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToGame(game!)">
+<div class="flex flex-col selected-game-card min-w-[240px] h-[335px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToGame(game!)">
     <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper h-[195px]">
         <img class="object-cover h-full" loading="lazy" [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>

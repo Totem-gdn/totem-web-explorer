@@ -14,6 +14,9 @@ import { environment } from '@env/environment';
   selector: 'totem-asset-card',
   templateUrl: './totem-asset-card.component.html',
   styleUrls: ['./totem-asset-card.component.scss'],
+  host: {
+    class: 'shrink-0'
+  }
 })
 export class TotemAssetCardComponent {
 

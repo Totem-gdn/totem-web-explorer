@@ -31,8 +31,11 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   @Input() padding: number = 0;
 
   @Input() set assets(assets: any[] | null) {
-    this.slideWidth = this.type == 'game' ? 240 : this.type == 'asset' ? 240 : this.type == 'event' ? 384 : 496;
+    // this.slideWidth = this.type == 'game' ? 240 : this.type == 'asset' ? 240 : this.type == 'event' ? 384 : 496;
     this.cards = assets;
+    if(this.type == 'legacy') this.maxWidth = 496;
+    if(this.type == 'legacy') this.minWidth = 496;
+
     setTimeout(() => {
       this.calculateSliderWidth();
     }, 10)
@@ -43,7 +46,9 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   itemsOnScreen: number = 0;
   slideIndex: number = 0;
+  minWidth: number = 240;
   slideWidth: number = 240;
+  maxWidth?: number;
 
   ngOnInit() {
     this.resize$();
@@ -55,7 +60,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     if(this.position == 'right') wrapper.style.marginLeft = 'auto';
     if(this.position == 'left') wrapper.style.marginRight = 'auto';
     if(this.position == 'center') wrapper.style.margin = 'auto';
-    this.wrapper.nativeElement.style.minWidth = `${this.slideWidth}px`;
+    this.wrapper.nativeElement.style.minWidth = `${this.minWidth}px`;
   }
 
   resize$() {
@@ -93,10 +98,16 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   calculateSliderWidth() {
     const containerWidth = this.container.nativeElement.offsetWidth;
-    this.itemsOnScreen = Math.floor((containerWidth + this.gap) / (this.slideWidth + this.gap));
+    this.itemsOnScreen = this.type != 'legacy' ? 
+    Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
+    Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
 
-    const wrapperWidth = this.overflow == 'wrap-content' ? (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * this.gap) - this.gap + (this.padding * 2) : containerWidth;
-    this.wrapper.nativeElement.style.width = `${wrapperWidth}px`;
+    // if(this.type == 'event' && this.itemsOnScreen != 0) this.itemsOnScreen -= 1;
+
+    this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;
+
+    // const wrapperWidth = this.overflow == 'wrap-content' ? (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * this.gap) - this.gap + (this.padding * 2) : containerWidth;
+    // this.wrapper.nativeElement.style.width = `${wrapperWidth}px`;
 
     // const cards = slider.getElementsByClassName('card-wrapper');
     // for(let card of cards) {

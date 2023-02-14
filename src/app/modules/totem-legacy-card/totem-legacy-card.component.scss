@@ -1,18 +1,43 @@
 @import "styles/scss/totem-variables";
+@import "styles/scss/variables";
+
+.gradient {
+    background: $violet-light-gradient;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    position: absolute;
+    inset: 0;
+}
+
 .wrapper {
+    overflow: hidden;
+    position: relative;
     display: flex;
-    width: 496px;
+    // width: 496px;
+    width: 100%;
+    max-width: 496px;
     border-radius: 24px;
     gap: 15px;
     padding: 12px;
     height: 215px;
     background-color: $totem-grey;
+    background: $totem-grey;
+    cursor: pointer;
+
+    &:hover .gradient {
+        opacity: 1;
+    }
+    &:hover .in-game .description span {
+        color: $white;
+    }
 
     .img-wrapper {
+        z-index: 1;
         position: relative;
         width: 50%;
         height: 100%;
         img {
+            background-color: $totem-dark-grey;
             position: absolute;
             inset: 0 auto auto 0;
             width: 100%;
@@ -32,9 +57,17 @@
     }
 
     .in-game {
+        z-index: 1;
         width: 50%;
+
         span {
             color: $totem-light-grey;
+        }
+        .description {
+            span {
+                transition: color 0.3s ease-in-out;
+                color: $totem-light-grey;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetsABI } from "@app/core/web3auth/abi/assetsABI";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { environment } from "@env/environment";
 import { catchError, firstValueFrom, throwError } from "rxjs";
 import Web3 from "web3";
 // const { itemFilterJson} = require('totem-common-files');
@@ -67,11 +68,11 @@ export class DNAParserService {
         const url = 'https://matic-mumbai.chainstacklabs.com'
         let contract = ''
         if (type == ASSET_TYPE.ITEM) {
-            contract = '0xfC5654489b23379ebE98BaF37ae7017130B45086'
+            contract = environment.ITEM_ETH_ADDRESS
         } else if (type == ASSET_TYPE.GEM) {
-            contract = '0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5'
+            contract = environment.GEM_ETH_ADDRESS
         } else if (type == ASSET_TYPE.AVATAR) {
-            contract = '0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35'
+            contract = environment.AVATAR_ETH_ADDRESS
         }
         const contractHandler = new ContractHandler(url, contract);
 

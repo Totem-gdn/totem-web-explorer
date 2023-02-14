@@ -49,7 +49,10 @@
     background-color: $totem-divider-grey;
   }
 }
-
+.dropdown-wrapper {
+  user-select: none;
+  outline: none;
+}
 .totem-navigation-items {
   margin-left: 16px;
   margin-right: 16px;

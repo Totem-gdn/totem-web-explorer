@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared/shared.module";
 import { ExploreDropdownComponent } from "./explore-dropdown.component";
 
@@ -7,7 +8,8 @@ import { ExploreDropdownComponent } from "./explore-dropdown.component";
         ExploreDropdownComponent
     ],
     imports: [
-        SharedModule
+        SharedModule,
+        RouterModule
     ],
     exports: [
         ExploreDropdownComponent
