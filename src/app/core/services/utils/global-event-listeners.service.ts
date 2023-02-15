@@ -24,6 +24,8 @@ export class TotemEventListenerService {
 
   initListeners() {
     this.storeService.getAssetsAndGames();
+    console.log('get legacies')
+    this.storeService.getLegacies();
     //this.getQueryParamsAfterPayment();
     this.listenWindow();
   }

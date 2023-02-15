@@ -24,7 +24,7 @@
     </button>
 
 
-    <nav class="totem-navigation-items whitespace-nowrap text-[16px] leading-[17px] font-medium hidden md:flex">
+    <nav class="totem-navigation-items whitespace-nowrap gap-[30px] text-[16px] leading-[17px] font-medium hidden md:flex">
       <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/my-assets">My Assets</a>
       <div 
         class="dropdown-wrapper px-2 py-1 cursor-pointer relative flex items-center" 
@@ -35,7 +35,7 @@
         <explore-dropdown @fade-in-out *ngIf="showDropdown"></explore-dropdown>
       </div>
 
-      <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/games">Games</a>
+      <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/games">Help</a>
     </nav>
 
   </div>

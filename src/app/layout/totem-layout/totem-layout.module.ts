@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { TotemSideselectorModule } from '@app/modules/totem-sideselector/totem-sideselector.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { LayoutComponentsModule } from '../components/layout-components.module';
-import { ExploreDropdownModule } from '../components/totem-header/explore-dropdown/explore-dropdown.module';
 import { TotemSidenavModule } from '../components/totem-sidenav/totem-sidenav.module';
 import { TotemLayoutComponent } from './totem-layout.component';
 
@@ -21,7 +20,6 @@ import { TotemLayoutComponent } from './totem-layout.component';
     MatRippleModule,
 
 
-    ExploreDropdownModule
   ],
   exports: [TotemLayoutComponent],
 })

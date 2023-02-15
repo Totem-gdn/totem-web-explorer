@@ -22,6 +22,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   @ViewChild('wrapper', {static: true}) wrapper!: ElementRef;
 
   subs = new Subject<void>();
+  hover = false;
 
   @Input() type: 'game' | 'asset' | 'legacy' | 'event' = 'asset';
   @Input() mode: 'arrows' | 'dots' = 'arrows';
@@ -33,9 +34,14 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   @Input() set assets(assets: any[] | null) {
     // this.slideWidth = this.type == 'game' ? 240 : this.type == 'asset' ? 240 : this.type == 'event' ? 384 : 496;
     this.cards = assets;
-    if(this.type == 'legacy') this.maxWidth = 496;
-    if(this.type == 'legacy') this.minWidth = 496;
-
+    if(this.type == 'legacy') {
+      this.minWidth = 496;
+      console.log('legacies', assets)
+    }
+    if(this.type == 'event') {
+      this.minWidth = 384;
+    }
+    
     setTimeout(() => {
       this.calculateSliderWidth();
     }, 10)
@@ -53,6 +59,14 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.resize$();
     this.config();
+  }
+
+  onHover() {
+    this.hover = true;
+
+  }
+  onLeave() {
+    this.hover = false;
   }
 
   config() {
@@ -105,6 +119,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     // if(this.type == 'event' && this.itemsOnScreen != 0) this.itemsOnScreen -= 1;
 
     this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;
+    if(this.type == 'event') this.slideWidth = 384;
 
     // const wrapperWidth = this.overflow == 'wrap-content' ? (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * this.gap) - this.gap + (this.padding * 2) : containerWidth;
     // this.wrapper.nativeElement.style.width = `${wrapperWidth}px`;

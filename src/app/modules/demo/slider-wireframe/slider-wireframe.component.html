@@ -1,6 +1,6 @@
 
 
-<div #container class="container_">
+<div #container class="container_" (mouseover)="onHover()" (mouseleave)="onLeave()">
 
     <div #wrapper class="wrapper">
         <div class="overflow-hidden" [style.padding]="padding + 'px'">
@@ -16,8 +16,8 @@
         </div>
 
         <ng-container *ngIf="mode == 'arrows'">
-            <slider-arrow @fade-in-out *ngIf="slideIndex != 0" [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
-            <slider-arrow (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>    
+            <slider-arrow *ngIf="hover == true && slideIndex != 0" @fade-in-out [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
+            <slider-arrow *ngIf="hover == true" @fade-in-out (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>    
         </ng-container>
     
         <ng-container *ngIf="mode == 'dots'">

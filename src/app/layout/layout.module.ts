@@ -17,7 +17,6 @@ import { LayoutComponent } from './layout.component';
         SharedModule,
         RouterModule,
         LayoutComponentsModule,
-
         TransactionPoputModule,
         ColorPopupModule
     ],
