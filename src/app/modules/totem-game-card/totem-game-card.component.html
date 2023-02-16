@@ -1,15 +1,15 @@
-<div class="flex flex-col selected-game-card min-w-[240px] h-[335px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToGame(game!)">
-    <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper h-[195px]">
+<div class="flex flex-col selected-game-card min-w-[220px] max-w-[392px] w-full h-[278px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToGame(game!)">
+    <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper h-[180px]">
         <img class="object-cover h-full" loading="lazy" [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>
     <div class="game-card-content py-3 px-4 flex flex-col items-start justify-between h-full w-full">
         <div class="flex flex-col items-start justify-start w-full">
-          <p class="font-medium text-[20px] leading-[22px] truncate">{{game?.general?.name}}</p>
-          <p class="text-light-grey font-normal text-[16px] leading-[17px] text-ellipsis max-2-lines max-w-[360px] mt-2">{{game?.general?.description}}</p>
+          <p class="font-medium max-w-[220px] w-full text-[20px] leading-[22px] truncate">{{game?.general?.name}}</p>
+          <!-- <p class="text-light-grey font-normal text-[16px] leading-[17px] text-ellipsis max-2-lines max-w-[360px] mt-2">{{game?.general?.description}}</p> -->
         </div>
-        <div class="flex flex-row items-center justify-between mt-3 w-full">
+        <div class="flex flex-row items-center justify-between mt-2 w-full">
           <div class="flex flex-col items-start justify-start">
-            <p class="font-medium text-[16px] leading-[17px]">{{game?.updatedAt | date:'dd.MM.yy'}}</p>
+            <p class="font-medium text-[16px] leading-[17px]">{{game?.players}}</p>
             <p class="mt-1 font-medium text-[14px] leading-[15px] text-[#8A939B]">Players</p>
           </div>
           <div class="flex flex-col items-start justify-start">
