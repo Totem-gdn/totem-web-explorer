@@ -1,0 +1,67 @@
+@import 'styles/scss/totem-variables';
+
+.search-filter {
+  position: relative;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  width: 100%;
+  height: 40px;
+
+  &-input {
+    width: 100%;
+    height: 100%;
+    padding-left: 16px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    color: #fff;
+    outline: none;
+
+    border-radius: 100px;
+    border: 1px solid white;
+    background: $totem-dark-grey;
+
+    transition: all 0.33s ease-out;
+
+    &:hover {
+      border: 1px solid $totem-divider-grey;
+    }
+
+    &:focus {
+      background-color: $totem-grey;
+      border: 1px solid $totem-white;
+    }
+
+    &::placeholder {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      color: $totem-light-grey;
+    }
+  }
+
+  button {
+    z-index: 4;
+    opacity: 0;
+    position: absolute;
+    top: 11px;
+    right: 16px;
+    width: 17px;
+    height: 17px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.1s ease-out;
+    mat-icon {
+      height: inherit;
+      width: inherit;
+      color: $totem-black;
+      background-color: $totem-white;
+      border-radius: 50%;
+    }
+  }
+}

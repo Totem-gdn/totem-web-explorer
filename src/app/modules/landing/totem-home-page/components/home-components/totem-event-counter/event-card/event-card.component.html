@@ -1,0 +1,70 @@
+<div class="image-container"
+    [ngClass]="{'glow b-transparent': label == 'live', 'b-light-grey': label == 'comming'}">
+
+    <div class="jam-info flex flex-col items-start justify-end">
+        <div class="label">
+            <p class="capitalize">{{label}}</p>
+            <div *ngIf="label == 'live'" class="dot"></div>
+        </div>
+
+        <div class="description">
+            <div class="jam-info-title whitespace-pre-line">
+                <p class="title font-totem uppercase text-white" [ngStyle]="{
+                  'font-weight': eventBanner?.data?.eventDate?.fontWeight,
+                  'text-shadow':
+                  eventBanner?.data?.eventDate?.blured && eventBanner?.data?.eventDate?.shadowed ?
+                    '0px 0px 4px #fff, #161616 0px 6px 22px' :
+                    !eventBanner?.data?.eventDate?.blured && eventBanner?.data?.eventDate?.shadowed ?
+                    '#161616 0px 6px 22px' :
+                    eventBanner?.data?.eventDate?.blured && !eventBanner?.data?.eventDate?.shadowed ?
+                    '0px 0px 4px #fff' : ''
+                }">
+                    {{eventBanner?.data?.eventDate?.date | date: 'MMMM M'}}th, {{eventBanner?.data?.eventDate?.date |
+                    date | date: 'ha z'}}
+                </p>
+                <p class="sub-title max-3-lines text-light-grey">
+                    {{eventBanner?.data?.description || ('home.totem_is_joining_as' | translate)}}
+                </p>
+                <!-- <p
+                *ngFor="let line of eventBanner?.data?.titleLines; let i = index"
+                [ngStyle]="{
+                  'color': line.color,
+                  'font-size': eventBanner?.data?.titleFonts![i].size![fontSizeNumber] + 'px',
+                  'font-weight': line.fontWeight,
+                  'line-height': eventBanner?.data?.titleFonts![i].height![fontSizeNumber] + 'px',
+                  'text-shadow':
+                    line.blured && line.shadowed ?
+                    '0px 0px 4px #fff, #161616 0px 6px 22px' :
+                    !line.blured && line.shadowed ?
+                    '#161616 0px 6px 22px' :
+                    line.blured && !line.shadowed ?
+                    '0px 0px 4px #fff' : ''
+                }"
+                >
+                {{line.text}}
+              </p>
+              <p class="font-totem"
+                [ngStyle]="{
+                  'color': eventBanner?.data?.eventDate?.color,
+                  'font-size': eventBanner?.data?.eventFonts?.size![fontSizeNumber] + 'px',
+                  'font-weight': eventBanner?.data?.eventDate?.fontWeight,
+                  'line-height': eventBanner?.data?.eventFonts?.height![fontSizeNumber] + 'px',
+                  'text-shadow':
+                  eventBanner?.data?.eventDate?.blured && eventBanner?.data?.eventDate?.shadowed ?
+                    '0px 0px 4px #fff, #161616 0px 6px 22px' :
+                    !eventBanner?.data?.eventDate?.blured && eventBanner?.data?.eventDate?.shadowed ?
+                    '#161616 0px 6px 22px' :
+                    eventBanner?.data?.eventDate?.blured && !eventBanner?.data?.eventDate?.shadowed ?
+                    '0px 0px 4px #fff' : ''
+                }"
+                >
+                {{eventBanner?.data?.eventDate?.date | date: eventBanner?.data?.eventDate?.format}}
+              </p> -->
+            </div>
+        </div>
+    </div>
+    <!-- <div class="gradient-face abs-full"></div> -->
+    <img loading="lazy"
+        [src]="eventBanner?.data?.image?.length ? (eventBanner?.data?.image! | safe) : 'assets/images/gamejam.webp'"
+        alt="jam" width="100%" [height]="heightForBanner">
+</div>

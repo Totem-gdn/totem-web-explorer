@@ -1,40 +1,44 @@
 
 
-<div class="wrapper">
+<div #container class="container_" (mouseover)="onHover()" (mouseleave)="onLeave()">
 
-    <div #wrapper class="slider">
-        <div class="slider-track" #slider>
-            <div class="card-wrapper" *ngFor="let card of cards">
-                <totem-asset-card *ngIf="type == 'asset'" [asset]="card"></totem-asset-card>
-                <totem-game-card *ngIf="type == 'game'" [game]="card"></totem-game-card>
-                <totem-legacy-card [game]="card" *ngIf="type == 'legacy'"></totem-legacy-card>
+    <div #wrapper class="wrapper">
+        <div class="overflow-hidden" [style.padding]="padding + 'px'">
+            <div class="slider" #slider [style.gap]="gap + 'px'" 
+                [ngClass]="{'pt-[10px]': type == 'asset' || type == 'game'}">
+                <div class="card-wrapper" *ngFor="let card of cards; let i = index;" [style.width]="slideWidth + 'px'">
+                    <totem-asset-card *ngIf="type == 'asset'" [asset]="card"></totem-asset-card>
+                    <totem-game-card *ngIf="type == 'game'" [game]="card"></totem-game-card>
+                    <totem-legacy-card [game]="card" *ngIf="type == 'legacy'"></totem-legacy-card>
+                    <event-card [label]="i == 0 ? 'live' : 'comming'" [eventBanner]="card" *ngIf="type == 'event'"></event-card>
+                </div>
             </div>
         </div>
+
+        <ng-container *ngIf="mode == 'arrows'">
+            <slider-arrow *ngIf="hover == true && slideIndex != 0" @fade-in-out [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
+            <slider-arrow *ngIf="hover == true" @fade-in-out (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>    
+        </ng-container>
+    
+        <ng-container *ngIf="mode == 'dots'">
+            <div class="dots-wrapper">
+                <div 
+                    class="dot"
+                    [ngClass]="{'!bg-violet': slideIndex == 0}"
+                    (click)="slideIndex = 0; toggleSlides('index')">
+                </div>
+                <div 
+                    class="dot" 
+                    [ngClass]="{'!bg-violet': slideIndex == 1}"
+                    (click)="slideIndex = 1; toggleSlides('index')">
+                </div>
+                <div 
+                    class="dot" 
+                    [ngClass]="{'!bg-violet': slideIndex == 2}"
+                    (click)="slideIndex = 2; toggleSlides('index')">
+                </div>
+    
+            </div>
+        </ng-container>
     </div>
-
-    <ng-container *ngIf="mode == 'arrows'">
-        <slider-arrow @fade-in-out *ngIf="slideIndex != 0" [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
-        <slider-arrow (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>    
-    </ng-container>
-
-    <ng-container *ngIf="mode == 'dots'">
-        <div class="dots-wrapper">
-            <div 
-                class="dot"
-                [ngClass]="{'!bg-violet': slideIndex == 0}"
-                (click)="slideIndex = 0; toggleSlides('index')">
-            </div>
-            <div 
-                class="dot" 
-                [ngClass]="{'!bg-violet': slideIndex == 1}"
-                (click)="slideIndex = 1; toggleSlides('index')">
-            </div>
-            <div 
-                class="dot" 
-                [ngClass]="{'!bg-violet': slideIndex == 2}"
-                (click)="slideIndex = 2; toggleSlides('index')">
-            </div>
-
-        </div>
-    </ng-container>
 </div>

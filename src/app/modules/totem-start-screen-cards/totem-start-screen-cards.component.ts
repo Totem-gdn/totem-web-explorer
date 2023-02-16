@@ -12,13 +12,17 @@ import { AssetsStoreService } from '@app/core/store/assets-store.service';
 import { GamesStoreService } from '@app/core/store/games-store.service';
 import { StoreService } from '@app/core/store/store.service';
 import { environment } from '@env/environment';
+import { TotemEventListenerService } from '@app/core/services/utils/global-event-listeners.service';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { Animations } from '@app/core/animations/animations';
 
 @Component({
   selector: 'totem-start-screen-cards',
   templateUrl: './totem-start-screen-cards.component.html',
   styleUrls: ['./totem-start-screen-cards.component.scss'],
+  animations: Animations.animations
 })
-export class TotemStartScreenCardsComponent {
+export class TotemStartScreenCardsComponent extends OnDestroyMixin {
 
   selectedGame$: BehaviorSubject<GameDetail | null> = new BehaviorSubject<GameDetail | null>(null);
   selectedAsset$: BehaviorSubject<AssetInfo | null> = new BehaviorSubject<AssetInfo | null>(null);
@@ -30,19 +34,25 @@ export class TotemStartScreenCardsComponent {
   items$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
 
   assetTypeSelected: 'item' | 'avatar' = 'avatar';
+  currentBreakpoint: string = '';
+  numberOfDisplayedCards: number = 4;
+  selectedGameIndex: number = 0;
+  gamesListLength: number = 0;
 
   constructor(private router: Router,
               private storeService: StoreService,
-              private web3Service: Web3AuthService,
-              private messageService: SnackNotifierService,
-              private gameService: GamesService) {}
+              private totemEventListenerService: TotemEventListenerService,
+              ) {
+                super();
+              }
 
   ngOnInit(): void {
     this.listenSelectedGameAndAsset();
-
+    this.initBreakpointListener();
     this.storeService.games$.subscribe((games: GameDetail[]) => {
       //console.log('GAMES FROM STORAGE: ', games);
       this.games$.next(games);
+      this.gamesListLength = games.length || 0;
     });
 
     this.storeService.avatars$.subscribe((avatars: AssetInfo[]) => {
@@ -60,6 +70,41 @@ export class TotemStartScreenCardsComponent {
         this.setAsset(items[0]);
       }
     });
+  }
+
+  initBreakpointListener() {
+    this.totemEventListenerService.currentBreakpoint$.pipe(untilComponentDestroyed(this)).subscribe((breakpoint: string) => {
+      this.currentBreakpoint = breakpoint;
+      if (breakpoint === 'XSmall') {
+        this.numberOfDisplayedCards = 0;
+        return;
+      }
+      if (breakpoint === 'XMSmall') {
+        this.numberOfDisplayedCards = 1;
+        return;
+      }
+      if (breakpoint === 'Small' || breakpoint === 'MSmall') {
+        this.numberOfDisplayedCards = 2;
+        return;
+      }
+      if (breakpoint === 'Medium') {
+        this.numberOfDisplayedCards = 1;
+        return;
+      }
+      if (breakpoint === 'Large') {
+        this.numberOfDisplayedCards = 2;
+        return;
+      }
+      if (breakpoint === 'XLarge') {
+        this.numberOfDisplayedCards = 3;
+        return;
+      }
+      if (breakpoint === 'XXLarge') {
+        this.numberOfDisplayedCards = 4;
+        return;
+      }
+      this.numberOfDisplayedCards = 4;
+    })
   }
 
   listenSelectedGameAndAsset() {
@@ -88,6 +133,24 @@ export class TotemStartScreenCardsComponent {
   } */
 
   // utils
+
+  selectPrevGame() {
+    this.selectedGameIndex -= 1;
+    const games: GameDetail[] = this.games$.getValue();
+    this.storeService.selectGame(games[this.selectedGameIndex]);
+  }
+
+  selectNextGame() {
+    if (this.selectedGameIndex < this.gamesListLength - 1) {
+      this.selectedGameIndex += 1;
+      const games: GameDetail[] = this.games$.getValue();
+      this.storeService.selectGame(games[this.selectedGameIndex]);
+    } else {
+      this.selectedGameIndex = 0;
+      const games: GameDetail[] = this.games$.getValue();
+      this.storeService.selectGame(games[this.selectedGameIndex]);
+    }
+  }
 
   goToGame(game: GameDetail) {
     this.router.navigate(['game', game.id]);

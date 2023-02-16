@@ -1,15 +1,29 @@
 
 
-<div #layout class="w-full h-full totem-layout flex flex-col relative">
+<div id="layout" #layout class="w-full h-full totem-layout flex flex-col relative" (scroll)="onScroll($event)">
     <!-- Header -->
     <div class="totem-nav-wrapper h-20 min-h-[5rem] w-full z-90">
         <totem-header></totem-header>
     </div>
 
     <div class="flex flex-row flex-auto w-full h-fit">
-      <totem-sidenav></totem-sidenav>
-      <router-outlet *ngIf="true"></router-outlet>
+      <totem-sidenav @toggleSelectBar *ngIf="toggleSideselector"></totem-sidenav>
+      <div class="flex-grow min-w-[0px]">
+        <router-outlet *ngIf="true"></router-outlet>
+      </div>
     </div>
+
+    <div
+      *ngIf="!toggleSideselector"
+      matRipple
+      [ngStyle]="!isScrolling ? {'width': '154px'} : {}"
+      class="cursor-pointer h-14 w-14 game-select-button t-col-white fixed right-4 bottom-4 t-bg-violet flex rounded-[16px] items-center justify-start px-4"
+      (click)="toggleSelector(true)"
+      >
+      <mat-icon class="shrink-0 !w-[24px] !h-[24px]" [svgIcon]="'mat_solid:edit'"></mat-icon>
+      <p [ngStyle]="!isScrolling ? {'opacity': '1'} : {'opacity': '0'}" class="text-[14px] leading-[15px] font-medium ml-3">Select Game</p>
+    </div>
+    <totem-sideselector *ngIf="!toggleSideselector" [toggleState]="toggleMobileSideselector" (closeState)="toggleSelector($event)"></totem-sideselector>
 
     <!-- Footer -->
     <div class="footer">

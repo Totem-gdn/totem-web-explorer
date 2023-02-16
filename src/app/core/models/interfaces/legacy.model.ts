@@ -10,6 +10,20 @@ export interface Achievement {
     timestamp: string;
 }
 
+export interface ItemLegacy {
+  limit?: number;
+  offset?: number;
+  results?: LegacyData[];
+}
+export interface LegacyData {
+  assetId?: number;
+  data?: string;
+  gameAddress?: string;
+  playerAddress?: string;
+  recordId?: number;
+  timestamp?: number;
+}
+
 export interface LegacyResponse<T> {
   limit: number;
   offset: number;

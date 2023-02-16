@@ -1,0 +1,15 @@
+@import 'styles/scss/totem-variables';
+
+
+.img-wrapper {
+  flex: 1 0 auto;
+}
+
+.selected-asset-card {
+  background: rgba(35, 37, 47, 0.8);
+
+  .img-wrapper {
+    background-color: $totem-black;
+  }
+
+}

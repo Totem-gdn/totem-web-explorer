@@ -8,6 +8,12 @@ import { Subscription, timer } from 'rxjs';
   styleUrls: ['./totem-event-counter.component.scss']
 })
 export class TotemEventCounterComponent implements OnInit, OnDestroy {
+  //
+  // get eventArr() { 
+  //   if(this.eventBanner) return [this.eventBanner, this.eventBanner, this.eventBanner];
+  //   else return null;
+  // }
+  //
 
   subscribe!: Subscription;
   eventDate!: Date;
@@ -17,11 +23,12 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
   seconds: number = 0;
 
   @Input() eventBanner: HomepageBlock | undefined = undefined;
+
   fontSizeNumber: number = 0;
+  heightForBanner!: number;
 
   eventDateTime: number = 0;
 
-  heightForBanner!: number;
 
   constructor(){}
 

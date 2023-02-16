@@ -1,24 +1,24 @@
-<div class="flex flex-col selected-asset-card w-[360px] h-[432px] flex-auto overflow-hidden rounded-[24px] cursor-pointer" (click)="goToAsset(asset!)">
+<div class="flex flex-col selected-asset-card w-full h-[302px] md:h-[360px] xxml:h-[432px] flex-auto overflow-hidden rounded-[24px] cursor-pointer" (click)="goToAsset(asset!)">
 
-    <div *ngIf="asset?.rendererUrl" class="img-wrapper h-[289px]">
+    <div *ngIf="asset?.rendererUrl" class="img-wrapper h-[200px] md:h-[238px] xxml:h-[289px]">
         <img class="object-cover h-full" loading="lazy" [src]="asset?.rendererUrl" alt="Not found">
     </div>
-    <div class="asset-card-content flex flex-col h-full px-5 py-4">
+    <div class="asset-card-content flex flex-col h-full px-5 py-3 lg:py-4">
         <div class="flex flex-row items-center justify-start">
-          <p class="font-medium text-[32px] leading-[32px]">ID: {{asset?.tokenId}}</p>
+          <p class="font-medium text-[24px] xxml:text-[32px] leading-[26px] xxml:leading-[32px]">ID: {{asset?.tokenId}}</p>
         </div>
-        <div class="flex flex-row items-center justify-between mt-4">
+        <div class="flex flex-row items-center justify-between mt-3 xxml:mt-4">
           <div class="flex flex-col items-start justify-start">
-            <p class="font-medium text-[26px] leading-[27px]">{{asset?.updatedAt | date:'dd.MM.yy'}}</p>
-            <p class="mt-1 font-medium text-[20px] leading-[22px] text-[#8A939B]">Last used</p>
+            <p class="font-medium text-[16px] lg:text-[20px] xxml:text-[26px] leading-[17px] lg:leading-[22px] xxml:leading-[27px]">{{asset?.updatedAt | date:'dd.MM.yy'}}</p>
+            <p class="mt-1 font-medium text-[14px] lg:text-[18px] xxml:text-[20px] leading-[15px] lg:leading-[20px] xxml:leading-[22px] text-[#8A939B]">Last used</p>
           </div>
           <div class="flex flex-col items-start justify-start">
-            <p class="font-medium text-[26px] leading-[27px]">{{asset?.rarity}}</p>
-            <p class="mt-1 font-medium text-[20px] leading-[22px] text-[#8A939B]">Rarity</p>
+            <p class="font-medium text-[16px] lg:text-[20px] xxml:text-[26px] leading-[17px] lg:leading-[22px] xxml:leading-[27px]">{{asset?.rarity}}</p>
+            <p class="mt-1 font-medium text-[14px] lg:text-[18px] xxml:text-[20px] leading-[15px] lg:leading-[20px] xxml:leading-[22px] text-[#8A939B]">Rarity</p>
           </div>
           <div class="flex flex-col items-start justify-start">
-            <p class="font-medium text-[26px] leading-[27px]">{{asset?.games}}</p>
-            <p class="mt-1 font-medium text-[20px] leading-[22px] text-[#8A939B]">Games used</p>
+            <p class="font-medium text-[16px] lg:text-[20px] xxml:text-[26px] leading-[17px] lg:leading-[22px] xxml:leading-[27px]">{{asset?.games}}</p>
+            <p class="mt-1 font-medium text-[14px] lg:text-[18px] xxml:text-[20px] leading-[15px] lg:leading-[20px] xxml:leading-[22px] text-[#8A939B]">Games used</p>
           </div>
         </div>
     </div>

@@ -14,6 +14,7 @@ import { StoreService } from '@app/core/store/store.service';
 import { environment } from '@env/environment';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { ASSET_PARAM_LIST } from '@app/core/models/enums/params.enum';
+import { ItemLegacy, LegacyData } from '@app/core/models/interfaces/legacy.model';
 
 @Component({
   selector: 'totem-entity-slider',
@@ -27,6 +28,8 @@ export class TotemEntitySliderComponent {
   games$: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
   items$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
   avatars$: BehaviorSubject<AssetInfo[]> = new BehaviorSubject<AssetInfo[]>([]);
+  legacies$: BehaviorSubject<LegacyData[]> = new BehaviorSubject<LegacyData[]>([]);
+
 
   @Input() assetTypeSelected: 'item' | 'avatar' | 'game' | 'legacy' = 'item';
   @Input() searchType: 'latest' | 'popular' = 'latest';
@@ -55,6 +58,9 @@ export class TotemEntitySliderComponent {
     if (this.assetTypeSelected === 'avatar') {
       this.listenAvatars();
     }
+    if (this.assetTypeSelected === 'legacy') {
+      this.listenLegacies();
+    }
   }
 
   listenGames() {
@@ -75,6 +81,15 @@ export class TotemEntitySliderComponent {
       this.items$.next(items);
       this.setRendererUrlForAll();
     });
+  }
+
+  listenLegacies() {
+    this.storeService.legacy$.subscribe((legacy: LegacyData[]) => {
+      console.log('data', legacy)
+      if(!legacy) return;
+      this.legacies$.next(legacy);
+      console.log(this.legacies$.getValue())
+    })
   }
 
   listenSelectedGameAndAsset() {

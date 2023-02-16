@@ -25,6 +25,22 @@
   overflow-y: auto;
   overflow-x: hidden;
 
+  totem-sidenav {
+    display: flex;
+    flex-shrink: 0;
+    width: 256px;
+    min-width: 256px;
+    max-width: 256px;
+    transition: 0.33s ease-in-out;
+    transition-property: min-width, width, max-width, transform;
+    @media (max-width: 999px) {
+      transform: translateX(-256px);
+      width: 0px;
+      min-width: 0px;
+      max-width: 0px;
+    }
+  }
+
   .totem-nav-wrapper {
     position: sticky;
     top: 0;

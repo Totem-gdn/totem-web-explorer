@@ -18,7 +18,7 @@ export class AssetsListenerService {
   async listenTx(address: string, type: string) {
     console.log('LISTENING CONTRACT');
     const assetContract = AssetsABI;
-    const contractAddress = type === 'item' ? '0xfc5654489b23379ebe98baf37ae7017130b45086' : '0xee7ff88e92f2207dbc19d89c1c9ed3f385513b35';
+    const contractAddress = type === 'item' ? environment.ITEM_ETH_ADDRESS : environment.AVATAR_ETH_ADDRESS;
     const contract = new this.web3.eth.Contract(assetContract, contractAddress);
 
     const blockNumber = await this.web3.eth.getBlockNumber();

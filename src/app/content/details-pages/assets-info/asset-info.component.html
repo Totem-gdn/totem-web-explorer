@@ -1,13 +1,13 @@
 <div *ngIf="_item && notFound == false"
-    class="relative py-[40px] lg:pt-[50px] flex flex-col relative max-w-[1520px] m-auto">
+    class="relative py-[40px] px-[20px] lg:pt-[50px] flex flex-col relative max-w-[1560px] m-auto">
 
     <div class="flex flex-col m-auto w-full">
 
 
         <div class="flex flex-col justify-center pb-[20px]">
-            <div class="flex flex-col lg:flex-row lg:flex-nowrap justify-center gap-[40px]">
+            <div class="flex flex-col lg:flex-row lg:flex-nowrap justify-center gap-[0px] lg:gap-[40px]">
                 <!-- Main Image -->
-                <div class=" w-[50%] h-[587px] img-wrapper-overflow">
+                <div class="w-full lg:w-[50%] h-[587px] img-wrapper-overflow">
                     <div class="img-wrapper m-auto lg:m-0">
                         <div class="flex relative h-[588px]" *ngIf="_item?.rendererUrl">
                             <img loading="lazy" *ngIf="_item?.tokenId" (changeSrc)="showSpinner = $event"
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <item-desc class=" w-[50%] max-w-[50%] mt-[60px] lg:mt-0 min-w[unset] lg:min-w-[400px]" [type]="type"
+                <item-desc class="w-full max-w-full lg:w-[50%] lg:max-w-[50%] mt-[60px] lg:mt-0 min-w[unset] lg:min-w-[400px]" [type]="type"
                     [item]="_item"></item-desc>
             </div>
 

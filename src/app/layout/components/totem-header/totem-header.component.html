@@ -1,34 +1,78 @@
-<div class="totem-header w-full h-20 px-[35px] flex flex-row items-center justify-between">
-  <div class="totem-header-left flex flex-row items-center justify-start h-full w-full mr-[35px]">
-    <div class="mr-[10%] text-white h-full flex flex-row items-center cursor-pointer" aria-label="Totem logo" href="/" routerLink="/">
-      <mat-icon class="shrink-0 !w-[167px] !h-auto" [svgIcon]="'feather:totem'"></mat-icon>
-      <div class="shrink-0 ml-[10px] h-[29px] w-[29px] pb-[1px]">
-        <img class="rounded h-full w-full" src="assets/favicons/logo-192.png" alt="logo">
+<div class="totem-header w-full h-20 px-5 md:px-7 lg:px-[34px] flex flex-row items-center justify-between">
+  <div class="totem-header-left flex flex-row items-center justify-start h-full w-full mr-6">
+
+    <div class="mr-[24px] text-white h-full flex flex-row items-center cursor-pointer xl:hidden flex" aria-label="Totem logo" href="/" routerLink="/">
+      <div class="shrink-0 h-[40px] w-[40px]">
+        <img class="rounded h-full w-full" src="assets/icons/nav/medium-totem-logo.webp" alt="logo">
       </div>
     </div>
-    <totem-search-bar class="w-full"></totem-search-bar>
+    <div class="mr-[26px] text-white h-full flex flex-row items-center cursor-pointer xl:flex hidden" aria-label="Totem logo" href="/" routerLink="/">
+      <mat-icon class="shrink-0 !w-[167px] !h-auto" [svgIcon]="'feather:totem'"></mat-icon>
+      <div class="shrink-0 ml-[10px] h-[29px] w-[29px] pb-[1px]">
+        <img class="rounded h-full w-full" src="assets/icons/nav/small-totem-logo.webp" alt="logo">
+      </div>
+    </div>
+
+    <div *ngIf="searchOpened" @toggleSearchBar class="absolute inset-0 w-full t-bg-black z-99 flex flex-row items-center justify-between px-5 md:px-8">
+      <totem-search-bar (routingEvent)="toggleSearchBar(false)" class="w-full"></totem-search-bar>
+      <p class="exit-button rounded-[24px] px-3 cursor-pointer flex items-center h-10 wtext-[16px] leading-[17px] font-medium ml-7" (click)="toggleSearchBar(false)">Exit</p>
+    </div>
+
+    <totem-search-bar class="w-[30%] xl:w-[24%] hidden lg:flex"></totem-search-bar>
+    <button class="!w-[38px] !h-[38px] t-col-white search-button flex items-center justify-center" mat-icon-button (click)="toggleSearchBar(true)">
+      <mat-icon class="!w-[32px] !h-[32px]" [svgIcon]="'mat_outline:search'"></mat-icon>
+    </button>
+
+
+    <nav class="totem-navigation-items whitespace-nowrap gap-[30px] text-[16px] leading-[17px] font-medium">
+      <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/my-assets">My Assets</a>
+      <div
+        class="dropdown-wrapper px-2 py-1 cursor-pointer relative flex items-center"
+        (focus)="showDropdown = true" (blur)="closeWithTimeout()" tabindex="0"
+        >
+        <p>Explore</p>
+        <mat-icon [svgIcon]="'line:arrow_bottom'"></mat-icon>
+        <explore-dropdown @fade-in-out *ngIf="showDropdown"></explore-dropdown>
+      </div>
+
+      <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/games">Help</a>
+    </nav>
+
   </div>
-  <div class="totem-header-right flex flex-row items-center justify-end h-full">
-    <nav class="totem-navigation-items whitespace-nowrap text-[16px] leading-[17px] font-medium">
+  <div class="totem-header-right flex flex-row items-center justify-end h-full max-w-[320px] w-full">
+
+    <!-- <nav class="totem-navigation-items whitespace-nowrap text-[16px] leading-[17px] font-medium">
       <a class="px-2 py-1" routerLinkActive="active-route" [routerLinkActiveOptions]="{exact: true}" routerLink="/">Home</a>
       <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/my-assets">My Assets</a>
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/items">Items</a>
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/avatars">Avatars</a>
       <a class="px-2 py-1" routerLinkActive="active-route" routerLink="/games">Games</a>
-    </nav>
+    </nav> -->
 
     <ng-container *ngIf="!(loading$ | async); else userLoader">
-      <div class="ml-[72px]" *ngIf="!(currUser$ | async)">
+
+
+      <mat-icon (click)="logIn()" class="!w-[48px] !h-[48px] t-col-white menu-icon" [svgIcon]="'mat_outline:menu'"></mat-icon>
+
+      <div class="hidden xmd:flex">
         <button matRipple (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
       </div>
 
-      <div class="ml-[12px]" *ngIf="!(currUser$ | async)">
+      <div class="ml-[12px] hidden xmd:flex" *ngIf="!(currUser$ | async)">
         <button matRipple (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
       </div>
 
-      <div class="ml-[72px] flex flex-row" *ngIf="currUser$ | async">
-        <div><button matRipple (click)="navigateToBuy()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button></div>
-        <div class="flex flex-col items-start justify-center ml-8">
+      <div class="ml-[12px] flex flex-row t-bg-violet rounded-[100px] hidden xmd:flex" *ngIf="currUser$ | async">
+        <div class="user-cash flex flex-row items-center justify-center px-6 t-bg-black rounded-[30px]">
+          <p class="flex flex-row items-center justify-center text-[20px] font-medium leading-[22px] whitespace-nowrap">
+            $ {{usdcBalance}}
+          </p>
+        </div>
+        <div class="ml-2 h-12 w-12 rounded-full overflow-hidden user-icon" (click)="navigateToProfile()">
+          <img loading="lazy"
+          [src]="(currUser$ | async)?.profileImage" alt="profile-icon" (error)="updateProfileImage()" class="w-full h-full rounded-full object-cover cursor-pointer">
+        </div>
+        <!-- <div class="flex flex-col items-start justify-center ml-8">
           <p class="text-[16px] font-medium leading-[17px]">
             Balance:
           </p>
@@ -47,7 +91,7 @@
           <p class="wallet-caption text-[14px] font-normal leading-[15px] flex flex-row cursor-pointer pb-[3px]" [cdkCopyToClipboard]="(currUser$ | async)?.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
             {{(currUser$ | async)?.slicedWallet}} <mat-icon class="!h-[12px] !w-[12px] mt-[1px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon>
           </p>
-        </div>
+        </div> -->
       </div>
     </ng-container>
 

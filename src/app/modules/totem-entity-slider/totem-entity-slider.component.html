@@ -16,7 +16,6 @@
       *ngIf="(games$ | async)?.length && assetTypeSelected === 'legacy'"
       [mode]="'dots'"
       [type]="'legacy'"
-      [itemsOnScreen]="3"
       [assets]="(games$ | async)">
     </slider-wireframe>
 
@@ -29,7 +28,6 @@
     <slider-wireframe
       *ngIf="(games$ | async)?.length && assetTypeSelected === 'game'"
       [type]="'game'"
-      [itemsOnScreen]="4"
       [assets]="(games$ | async)">
     </slider-wireframe>
 

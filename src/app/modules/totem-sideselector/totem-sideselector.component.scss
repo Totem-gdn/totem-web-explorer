@@ -1,0 +1,81 @@
+@import "styles/scss/totem-variables";
+
+:host {
+  position: fixed;
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  z-index: 100;
+}
+
+.totem-sideselector {
+  background-color: $totem-dark-grey;
+  border-right: 1px solid $totem-divider-grey;
+  min-width: 360px;
+  width: 360px;
+
+  &-content {
+    .items-wrapper {
+      padding-right: 8px;
+      border-radius: 0 0 0 24px;
+      overflow: auto;
+    }
+  }
+
+  @media (max-width: 361px) {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+.selected-game-card {
+  position: relative;
+  border: 1px solid $totem-light-violet;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    inset: 0;
+    background: $totem-select-gradient;
+    z-index: -1;
+  }
+  //background: $totem-main-gradient;
+}
+
+.rounded-12 {
+  border-radius: 12px;
+}
+
+.game-card {
+  position: relative;
+  border: 2px solid transparent;
+  transition: border 0.22s ease-out, background-color 0.22s ease-out;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    inset: 0;
+    background: $totem-select-gradient;
+    opacity: 0;
+    z-index: -1;
+  }
+  &:hover {
+    background-color: $totem-black;
+  }
+}
+
+.game-card-selected {
+  border: 2px solid $totem-light-violet;
+  &:before {
+    opacity: 1;
+  }
+}
+
+.no-renderer-game {
+  opacity: 0.75;
+}

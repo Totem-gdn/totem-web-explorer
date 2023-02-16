@@ -1,161 +1,54 @@
-<div class="totem-event" *ngIf="eventBanner">
-  <div class="totem-event-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex.lt-md="32%" fxFlex.lt-sm="100%" class="image-container">
-      <div class="floating-border abs-full">
-        <div class="floating-border-wrapper">
-          <div class="face-border"></div>
-          <div class="blured-border abs-full"></div>
-          <div class="deco-border-1 abs-full"></div>
-          <div class="deco-border-2 abs-full"></div>
-        </div>
-      </div>
-      <div class="jam-info px-[60px] py-[63px] flex flex-col items-start justify-end">
-        <div class="jam-info-title mb-[10px]">
-          <!-- <div class="jam-info-title-face">
-            <img width="207" height="97" loading="lazy" src="assets/icons/gj-logo.svg" alt="">
-          </div>
-          <div class="jam-info-title-blured">
-            <img width="207" height="97" loading="lazy" src="assets/icons/gj-logo.svg" alt="">
-          </div> -->
-          <div class="jam-info-title-face font-totem whitespace-pre-line">
-            <p
-              *ngFor="let line of eventBanner.data?.titleLines; let i = index"
-              [ngStyle]="{
-                'color': line.color,
-                'font-size': eventBanner.data?.titleFonts![i].size![fontSizeNumber] + 'px',
-                'font-weight': line.fontWeight,
-                'line-height': eventBanner.data?.titleFonts![i].height![fontSizeNumber] + 'px',
-                'text-shadow':
-                  line.blured && line.shadowed ?
-                  '0px 0px 4px #fff, #161616 0px 6px 22px' :
-                  !line.blured && line.shadowed ?
-                  '#161616 0px 6px 22px' :
-                  line.blured && !line.shadowed ?
-                  '0px 0px 4px #fff' : ''
-              }"
-              >
-              {{line.text}}
-            </p>
-            <p class="font-totem"
-              [ngStyle]="{
-                'color': eventBanner.data?.eventDate?.color,
-                'font-size': eventBanner.data?.eventFonts?.size![fontSizeNumber] + 'px',
-                'font-weight': eventBanner.data?.eventDate?.fontWeight,
-                'line-height': eventBanner.data?.eventFonts?.height![fontSizeNumber] + 'px',
-                'text-shadow':
-                eventBanner.data?.eventDate?.blured && eventBanner.data?.eventDate?.shadowed ?
-                  '0px 0px 4px #fff, #161616 0px 6px 22px' :
-                  !eventBanner.data?.eventDate?.blured && eventBanner.data?.eventDate?.shadowed ?
-                  '#161616 0px 6px 22px' :
-                  eventBanner.data?.eventDate?.blured && !eventBanner.data?.eventDate?.shadowed ?
-                  '0px 0px 4px #fff' : ''
-              }"
-              >
-              {{eventBanner.data?.eventDate?.date | date: eventBanner.data?.eventDate?.format}}
-            </p>
-          </div>
-        </div>
-        <!-- <p class="jam-info-caption font-totem mt-[10px]">October 14th, 18PM GMT+8</p> -->
-      </div>
-      <!-- <div class="gradient-face abs-full"></div> -->
-      <img loading="lazy" [src]="eventBanner.data?.image?.length ? (eventBanner.data?.image! | safe) : 'assets/images/gamejam.webp'" alt="jam" width="100%" [height]="heightForBanner">
-    </div>
-    <div fxFlex="32%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" class="timer-container">
+<div class="totem-event pl-[0px] lg:pl-[48px]" *ngIf="eventBanner">
+  <div class="totem-event-wrapper flex-wrap lg:flex-nowrap gap-[48px] justify-between">
+    <div class="timer-container">
       <div class="title font-totem"
       [ngStyle]="{
         'font-size': eventBanner.data?.titleSizes![fontSizeNumber] + 'px',
         'line-height': eventBanner.data?.titleSizes![fontSizeNumber] + 'px'
       }"
       >{{eventBanner.data?.title || 'GameJam+'}}</div>
-      <div class="image-container-tablet">
-        <div class="floating-border abs-full">
-          <div class="floating-border-wrapper">
-            <div class="face-border"></div>
-            <div class="blured-border abs-full"></div>
-            <div class="deco-border-1 abs-full"></div>
-            <div class="deco-border-2 abs-full"></div>
+
+      <div class="timer-block gap-[15px]">
+        <h4>Event is going on:</h4>
+
+        <div class="flex justify-between items-center">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{days | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.day' | translate}}</div>
           </div>
-        </div>
-        <!-- <div class="jam-info" fxLayout="column" fxLayoutAlign="flex-end flex-start">
-          <div class="jam-info-title">
-            <div class="jam-info-title-face">
-              <img width="207" height="97" loading="lazy" src="assets/icons/gj-logo.svg" alt="">
-            </div>
-            <div class="jam-info-title-blured">
-              <img width="207" height="97" loading="lazy" src="assets/icons/gj-logo.svg" alt="">
-            </div>
+          <span class="font-totem totem-color timer-dots">:</span>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{hours | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.hrs' | translate}}</div>
           </div>
-          <p class="jam-info-caption font-totem mt-[10px]">October 14th, 18PM GMT+8</p>
-        </div> -->
-        <div class="jam-info flex flex-col items-start justify-end">
-          <div class="jam-info-title">
-            <div class="jam-info-title-face font-totem whitespace-pre-line">
-              <p
-              *ngFor="let line of eventBanner.data?.titleLines; let i = index"
-              [ngStyle]="{
-                'color': line.color,
-                'font-size': eventBanner.data?.titleFonts![i].size![fontSizeNumber] + 'px',
-                'font-weight': line.fontWeight,
-                'line-height': eventBanner.data?.titleFonts![i].height![fontSizeNumber] + 'px',
-                'text-shadow':
-                  line.blured && line.shadowed ?
-                  '0px 0px 4px #fff, #161616 0px 6px 22px' :
-                  !line.blured && line.shadowed ?
-                  '#161616 0px 6px 22px' :
-                  line.blured && !line.shadowed ?
-                  '0px 0px 4px #fff' : ''
-              }"
-              >
-              {{line.text}}
-            </p>
-            <p class="font-totem"
-              [ngStyle]="{
-                'color': eventBanner.data?.eventDate?.color,
-                'font-size': eventBanner.data?.eventFonts?.size![fontSizeNumber] + 'px',
-                'font-weight': eventBanner.data?.eventDate?.fontWeight,
-                'line-height': eventBanner.data?.eventFonts?.height![fontSizeNumber] + 'px',
-                'text-shadow':
-                eventBanner.data?.eventDate?.blured && eventBanner.data?.eventDate?.shadowed ?
-                  '0px 0px 4px #fff, #161616 0px 6px 22px' :
-                  !eventBanner.data?.eventDate?.blured && eventBanner.data?.eventDate?.shadowed ?
-                  '#161616 0px 6px 22px' :
-                  eventBanner.data?.eventDate?.blured && !eventBanner.data?.eventDate?.shadowed ?
-                  '0px 0px 4px #fff' : ''
-              }"
-              >
-              {{eventBanner.data?.eventDate?.date | date: eventBanner.data?.eventDate?.format}}
-            </p>
-            </div>
+          <span class="font-totem totem-color timer-dots">:</span>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{minutes | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.mins' | translate}}</div>
           </div>
-          <!-- <p class="jam-info-caption font-totem mt-[10px]">{{event.data.eventDate.date | date:event.data.eventDate.format}}</p> -->
-        </div>
-        <!-- <div class="gradient-face abs-full"></div> -->
-        <img loading="lazy" [src]="eventBanner.data?.image?.length ? (eventBanner.data?.image! | safe) : 'assets/images/gamejam.webp'" alt="jam">
-      </div>
-      <div class="timer-block" fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{days | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.day' | translate}}</div>
-        </div>
-        <span class="font-totem totem-color timer-dots">:</span>
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{hours | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.hrs' | translate}}</div>
-        </div>
-        <span class="font-totem totem-color timer-dots">:</span>
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{minutes | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.mins' | translate}}</div>
-        </div>
-        <span class="font-totem totem-color timer-dots">:</span>
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <span class="grey-back font-totem totem-color">{{seconds | number: '2.0-0'}}</span>
-          <div class="timer-caption">{{'home.sec' | translate}}</div>
+          <span class="font-totem totem-color timer-dots">:</span>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="grey-back font-totem totem-color">{{seconds | number: '2.0-0'}}</span>
+            <div class="timer-caption">{{'home.sec' | translate}}</div>
+          </div>
         </div>
       </div>
-      <div class="description">{{eventBanner.data?.description || ('home.totem_is_joining_as' | translate)}}</div>
+      <!-- <div class="description">{{eventBanner.data?.description || ('home.totem_is_joining_as' | translate)}}</div> -->
       <!-- <div class="join-cta-block"><totem-button (clicked)="goToEventPage($event)" [customId]="'eventButton'" [caption]="'home.join_the_event' | translate"></totem-button></div> -->
       <div class="join-cta-block"><button class="totem-primary-button h-[48px] text-[20px] leading-[22px] font-medium !px-7" (click)="goToEventPage($event)">Join the event</button></div>
+    </div>
+
+
+    <div class="slider-wrapper">
+      <!-- <div class=""></div> -->
+      <slider-wireframe 
+        class="ml-auto" 
+        [padding]="18" 
+        [overflow]="'nowrap'"
+        [gap]="35" 
+        [type]="'event'" 
+        [assets]="[eventBanner, eventBanner, eventBanner]"
+        [position]="'right'"></slider-wireframe>
     </div>
   </div>
 </div>

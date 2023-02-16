@@ -4,9 +4,11 @@ import { BehaviorSubject, combineLatest, map, Observable, take } from "rxjs";
 import { ASSET_TYPE } from "../models/enums/asset-types.enum";
 import { ApiResponse } from "../models/interfaces/api-response.interface";
 import { AssetInfo, AssetTypes } from "../models/interfaces/asset-info.model";
+import { ItemLegacy, LegacyData } from "../models/interfaces/legacy.model";
 import { GameDetail } from "../models/interfaces/submit-game-interface.model";
 import { AssetsService } from "../services/assets/assets.service";
 import { GamesService } from "../services/assets/games.service";
+import { LegacyService } from "../services/crypto/legacy.service";
 
 const preselectedAsset: AssetInfo = {
   id: "63d980c42bb655b3e997ad76",
@@ -45,12 +47,16 @@ export class StoreService {
   private games: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
   games$: Observable<GameDetail[]> = this.games.asObservable();
 
+  private legacy: BehaviorSubject<LegacyData[]> = new BehaviorSubject<LegacyData[]>([]);
+  legacy$: Observable<LegacyData[]> = this.legacy.asObservable();
+
   private appLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   appLoading$: Observable<boolean> = this.appLoading.asObservable();
 
   constructor(
     private assetsService: AssetsService,
     private gamesService: GamesService,
+    private legacyService: LegacyService
   ) {}
 
   selectAsset(asset: AssetInfo) {
@@ -71,10 +77,23 @@ export class StoreService {
     return assets;
   }
   setRenderer(type: ASSET_TYPE, asset: AssetInfo) {
+
     const rendererUrl = this.selectedGame?.connections?.assetRenderer;
+
     let url = rendererUrl ? rendererUrl : environment.ASSET_RENDERER_URL;
+    url = url.slice(-1) === '/' ? url.slice(0, -1) : url;
     asset.rendererUrl = `${url}/${type}/${asset?.tokenId}?width=400&height=400`;
     return asset;
+  }
+
+  getLegacies() {
+    this.legacyService.fetchAssetLegacies(ASSET_TYPE.ITEM)
+      .subscribe(legacy => {
+        console.log('legacy', legacy)
+        if(!legacy.results) return;
+        this.legacy.next(legacy.results);
+      })
+
   }
 
 

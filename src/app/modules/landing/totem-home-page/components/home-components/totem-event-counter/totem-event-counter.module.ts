@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { TotemButtonModule } from '../../../../../../components/utils/totem-button/totem-button.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { EventCardModule } from './event-card/event-card.module';
+import { SliderWireframeModule } from '@app/modules/demo/slider-wireframe/slider-wireframe.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,9 @@ import { SharedModule } from '@app/shared/shared.module';
     TotemButtonModule,
     SharedModule,
     CommonModule,
+
+    EventCardModule,
+    SliderWireframeModule
   ],
   exports: [
     TotemEventCounterComponent

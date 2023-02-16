@@ -1,27 +1,28 @@
-<div class="w-full h-auto flex flex-row items-end justify-between relative px-10 pb-6 mt-12" *ngIf="(selectedGame$ | async) && (selectedAsset$ | async)">
 
-  <div class="flex flex-col items-start justify-between z-1 mr-6">
-    <totem-selected-asset-card *ngIf="selectedAsset$ | async" [asset]="selectedAsset$ | async"></totem-selected-asset-card>
+<div class="w-full h-auto flex flex-col items-start justify-center relative mt-12">
+<div class="flex md:hidden flex-wrap xl:flex-nowrap flex-row items-center justify-start px-6">
+  <p class="whitespace-nowrap w-full xl:w-min text-[16px] md:text-[20px] lg:text-[24px] font-medium leading-[17px] md:leading-[35px]">Showing on several games </p>
+  <totem-entity-selector class="whitespace-nowrap mb-6 mt-2 text-[32px] sm:text-[28px] font-semibold leading-[35px]" [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
+</div>
+<div class="w-full h-auto flex flex-row items-end justify-between relative px-6 xmd:px-10 pb-6" *ngIf="(selectedGame$ | async) && (selectedAsset$ | async)">
+
+  <div class="selected-card-wrapper flex flex-col items-end justify-between z-1 min-w-[236px] lg:min-w-[290px] xxml:max-w-[360px] md:max-w-[328px] max-w-full w-full">
+    <totem-selected-asset-card class="w-full" *ngIf="selectedAsset$ | async" [asset]="selectedAsset$ | async"></totem-selected-asset-card>
     <ng-container *ngTemplateOutlet="largeGameBar, context: {selectedGame: selectedGame$ | async}"></ng-container>
   </div>
 
-  <div class="flex flex-col items-start justify-start w-full max-w-[1032px] z-1">
+  <div class="flex flex-col items-start justify-start w-full max-w-[1032px] z-1" *ngIf="numberOfDisplayedCards != 0">
 
-    <div class="flex flex-row items-center justify-start">
-      <p class="text-[40px] font-medium leading-[44px]">Showing</p>
-      <totem-entity-selector class="text-[48px] font-semibold leading-[52px] px-5" [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
-      <p class="text-[40px] font-medium leading-[44px]">on multiple games</p>
-    </div>
-
-    <div class="w-full mt-6">
-      <p class="text-[20px] font-medium leading-[22px] t-col-light-grey">{{'Totem Assets may look differently in different games, depending on how game developers interpret their DNA. This is an example of how the avatar looks in several popular games which use Totem platform for in-game items.' }}</p>
+    <div class="hidden md:flex flex-wrap xl:flex-nowrap flex-row items-center justify-start">
+      <p class="whitespace-nowrap w-full xl:w-min text-[32px] sm:text-[20px] lg:text-[24px] xxml:text-[40px] font-medium leading-[35px] lg:leading-[26px] xxml:leading-[44px]">Showing on several games </p>
+      <totem-entity-selector class="whitespace-nowrap text-[32px] sm:text-[28px] xxml:text-[40px] font-semibold leading-[35px] sm:leading-[30px] xxml:leading-[44px] xl:px-5" [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
     </div>
 
     <ng-container *ngIf="(selectedGames$ | async)?.length && (selectedAssets$ | async)?.length">
-      <div class="w-full flex flex-row items-end justify-between mt-6">
-        <ng-container *ngFor="let asset of (selectedAssets$ | async) | slice: 0:4; let i = index">
-          <div class="flex flex-col items-start justify-start">
-            <totem-asset-card *ngIf="selectedAsset$ | async" [asset]="asset"></totem-asset-card>
+      <div class="w-full flex flex-row items-end justify-between mt-[22px] xxl:mt-[26px] xxml:mt-[34px] gap-4">
+        <ng-container *ngFor="let asset of (selectedAssets$ | async) | slice: 0:numberOfDisplayedCards; let i = index">
+          <div class="flex flex-col items-start justify-start min-w-[204px] max-w-[324px] w-full">
+            <totem-start-screen-asset-card class="w-full" *ngIf="selectedAsset$ | async" [asset]="asset"></totem-start-screen-asset-card>
             <ng-container *ngTemplateOutlet="smallGameBar, context: {game: (selectedGames$ | async)![i]}"></ng-container>
           </div>
         </ng-container>
@@ -32,18 +33,26 @@
 
   <div class="absolute z-0 bg-block h-[280px] w-full bottom-0 left-0 right-0"></div>
 </div>
+</div>
+
 
 
 
 <ng-template #largeGameBar let-game="selectedGame">
   <ng-container *ngIf="game">
-    <div class="mt-6 w-[360px] h-[56px] px-6 large-game-bar t-bg-black flex flex-row items-center justify-start cursor-pointer" (click)="goToGame(game)">
-      <div class="w-[40px] h-[40px] rounded-[8px] overflow-hidden shrink-0">
+    <div class="mt-4 xxml:mt-6 w-full h-[66px] px-2 large-game-bar flex flex-row items-center justify-start cursor-pointer relative" [ngStyle]="selectedGameIndex != 0 ? {'width': 'calc(100% - 48px)'} : {}" (click)="goToGame(game)">
+      <div class="w-[50px] h-[50px] rounded-[12px] overflow-hidden shrink-0">
         <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
       </div>
       <div class="flex flex-col h-full items-start justify-center ml-2">
         <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
-        <p class="text-[14px] font-medium leading-[15px] t-col-light-grey">{{game.general?.genre![0]}}</p>
+        <p class="text-[14px] font-medium leading-[15px] mt-1 t-col-light-grey">{{game.general?.genre![0]}}</p>
+      </div>
+      <div *ngIf="numberOfDisplayedCards == 0 && selectedGameIndex != 0" @toggleSmallGameSelector (click)="selectPrevGame(); $event.stopPropagation()" class="absolute -left-[48px] top-[10] change-game-button rounded-full flex items-center justify-center cursor-pointer z-2">
+        <mat-icon class="transform !h-8 !w-8" [svgIcon]="'line:arrow_right'"></mat-icon>
+      </div>
+      <div *ngIf="numberOfDisplayedCards == 0" @toggleSmallGameSelector (click)="selectNextGame(); $event.stopPropagation()" class="absolute -right-[14px] top-[10] change-game-button rounded-full flex items-center justify-center cursor-pointer z-2">
+        <mat-icon class="!h-8 !w-8" [svgIcon]="'line:arrow_right'"></mat-icon>
       </div>
     </div>
   </ng-container>
@@ -51,13 +60,13 @@
 
 <ng-template #smallGameBar let-game="game">
   <ng-container *ngIf="game">
-    <div class="mt-6 w-[240px] h-[56px] px-2 small-game-bar t-bg-grey flex flex-row items-center justify-start cursor-pointer" (click)="goToGame(game)">
-      <div class="w-[40px] h-[40px] rounded-[8px] overflow-hidden shrink-0">
+    <div class="mt-4 xxml:mt-6 max-w-[324px] w-full h-[66px] px-2 small-game-bar flex flex-row items-center justify-start cursor-pointer" (click)="goToGame(game)">
+      <div class="w-[50px] h-[50px] rounded-[12px] overflow-hidden shrink-0">
         <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
       </div>
       <div class="flex flex-col h-full items-start justify-center ml-2">
         <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
-        <p class="text-[14px] font-medium leading-[15px] t-col-light-grey">{{game.general?.genre![0]}}</p>
+        <p class="text-[14px] font-medium leading-[15px] mt-1 t-col-light-grey">{{game.general?.genre![0]}}</p>
       </div>
     </div>
   </ng-container>

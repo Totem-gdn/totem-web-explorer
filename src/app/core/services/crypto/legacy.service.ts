@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
-import { Achievement, Legacy, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
+import { Achievement, ItemLegacy, Legacy, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { environment } from "@env/environment";
 import { catchError, map, Observable, of } from "rxjs";
 
@@ -33,7 +33,7 @@ export class LegacyService {
     }
 
     fetchAssetLegacies(type: ASSET_TYPE) {
-        return this.http.get(`${this.baseUrl}/asset-legacy/${type}`);
+        return this.http.get<ItemLegacy>(`${this.gdnApiUrl}/asset-legacy/${type}?limit=10&offset=0`);
     }
     fetchAssetLegacyById(type: ASSET_TYPE, id: string | number) {
         return this.http.get(`${this.baseUrl}/asset-legacy/${type}/${id}`).pipe(map(legacy => {

@@ -1,13 +1,16 @@
-@import 'styles/scss/variables';
+@import 'styles/scss/totem-variables';
 
 
 .totem-footer {
-  background: rgba(53, 56, 64, 0.37);
+  background: $totem-black;
   //border-bottom: 1px solid $dark-grey;
   position: relative;
   height: auto;
-  width: 100%;
-  border-top: 1px solid $dark-grey;
+  border-top: 1px solid $totem-divider-grey;
+
+
+
+
   &-wrapper {
     max-width: 1440px;
     width: 100%;
@@ -31,26 +34,6 @@
           .submit-button-block {
             margin-left: 12px;
           }
-          .submit-button {
-            width: 102px;
-            height: 40px;
-            margin-left: 8px;
-            border-radius: 4px !important;
-            background: $yellow;
-            color: #111;
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 19px;
-            outline: 1px solid transparent;
-            transition: all 0.33s ease-in-out;
-            &:hover {
-              background: $grey;
-              color: $yellow;
-            }
-            &:focus {
-              outline: 1px solid $yellow;
-            }
-          }
         }
       }
       .contact-block {
@@ -69,12 +52,12 @@
             width: 46px;
             height: 46px;
             flex-shrink: 0;
-            background-color: $dark;
+            background-color: $totem-grey;
             border-radius: 50%;
             transition: background-color 0.33s ease-out;
             cursor: pointer;
             &:hover {
-              background-color: $dark-grey;
+              background-color: $totem-light-violet;
             }
             &:not(:last-child) {
               margin-right: 22px;
@@ -119,7 +102,7 @@
       width: 100%;
       padding-top: 60px;
       padding-bottom: 80px;
-      border-top: 1px solid $dark-grey;
+      border-top: 1px solid $totem-divider-grey;
       @media (max-width: 960px) {
         padding-bottom: 30px;
       }
@@ -158,13 +141,13 @@
               width: 46px;
               height: 46px;
               flex-shrink: 0;
-              background-color: $dark;
+              background-color: $totem-grey;
               border-radius: 50%;
               margin-top: 8px;
               transition: background-color 0.33s ease-out;
               cursor: pointer;
               &:hover {
-                background-color: $dark-grey;
+                background-color: $totem-light-grey;
               }
               &:not(:last-child) {
                 margin-right: 22px;
@@ -212,7 +195,7 @@
           font-weight: 400;
           font-size: 16px;
           line-height: 19px;
-          color: $light-grey;
+          color: $totem-light-grey;
           margin-top: 26px;
           transition: color 0.33s ease-out;
           cursor: pointer;
@@ -229,7 +212,7 @@
     .footer-copyright-block {
       width: 100%;
       height: 70px;
-      border-top: 1px solid $dark-grey;
+      border-top: 1px solid $totem-divider-grey;
       font-weight: 400;
       font-size: 14px;
       line-height: 16px;
@@ -274,13 +257,84 @@
   }
 }
 
-.title {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
-  color: #FFFFFF;
-}
+
 
 .marb-10 {
   margin-bottom: 10px;
+}
+
+
+.join-icon-links {
+  margin-top: 32px;
+  .contact-link {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    background-color: $totem-grey;
+    border-radius: 50%;
+    transition: background-color 0.33s ease-out;
+    cursor: pointer;
+    &:hover {
+      background-color: $totem-light-violet;
+    }
+    &:not(:last-child) {
+      margin-right: 22px;
+    }
+    img {
+      padding: 11px;
+      width: 100%;
+      height: auto;
+    }
+    a {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      place-content: center;
+      align-items: center;
+      .icon-font-discord,
+      .icon-font-facebook,
+      .icon-font-twitter,
+      .icon-font-instagram {
+        color: #fff;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        font-size: 24px;
+        display: flex;
+        place-content: center;
+        align-items: center;
+        &::before {
+          width: inherit;
+          height: inherit;
+        }
+      }
+    }
+  }
+}
+
+.footer-copyright-block-wrapper {
+  border-top: 1px solid $totem-divider-grey;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  color: #FFFFFF;
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}
+
+.totem-pages {
+  a {
+    font-size: 16px;
+    line-height: 17px;
+    font-weight: 500;
+  }
+  a.active-route {
+    color: #fff;
+  }
 }
