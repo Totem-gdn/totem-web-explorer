@@ -135,8 +135,19 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   }
 
   openInNewWindow(url: string) {
-    this.paymentPopup = window.open(url, 'paymentPopup', 'toolbar=0,menubar=0,location=0,popup=1');
+    // Fixes dual-screen position                             Most browsers      Firefox
+    const h: number = 700;
+    const w: number = 900;
+    const dualScreenLeft = window.screenLeft !==  undefined ? window.screenLeft : window.screenX;
+    const dualScreenTop = window.screenTop !==  undefined   ? window.screenTop  : window.screenY;
+    const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+    const systemZoom = width / window.screen.availWidth;
+    const left = (width - w) / 2 / systemZoom + dualScreenLeft;
+    const top = (height - h) / 2 / systemZoom + dualScreenTop;
+    this.paymentPopup = window.open(url, 'paymentPopup', `toolbar=0, menubar=0, location=0, popup=1, top=${top}, left=${left}, width=${w / systemZoom}, height=${h / systemZoom}`);
     if (this.paymentPopup) {
+      this.paymentPopup.focus();
       this.listenUnloadAndMessages();
       this.paymentPopup.onload = (event: any) => {
         this.listenUnloadAndMessages();
