@@ -35,6 +35,7 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initUserAndLoadingListener();
     this.initBalanceListener();
+  
   }
 
   ngOnDestroy(): void {

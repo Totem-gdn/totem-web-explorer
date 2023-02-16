@@ -2,9 +2,9 @@
 
 <div #container class="container_" (mouseover)="onHover()" (mouseleave)="onLeave()">
 
-    <div #wrapper class="wrapper">
+    <div #wrapper class="wrapper" (mousedown)="onDrag($event)" (mousemove)="onMove($event)" (mouseup)="onUp($event)">
         <div class="overflow-hidden" [style.padding]="padding + 'px'">
-            <div class="slider" #slider [style.gap]="gap + 'px'" 
+            <div (onDrag)="onDrag($event)" class="slider" #slider [style.gap]="gap + 'px'" 
                 [ngClass]="{'pt-[10px]': type == 'asset' || type == 'game'}">
                 <div class="card-wrapper" *ngFor="let card of cards; let i = index;" [style.width]="slideWidth + 'px'">
                     <totem-asset-card *ngIf="type == 'asset'" [asset]="card"></totem-asset-card>
@@ -25,17 +25,17 @@
                 <div 
                     class="dot"
                     [ngClass]="{'!bg-violet': slideIndex == 0}"
-                    (click)="slideIndex = 0; toggleSlides('index')">
+                    (click)="slideIndex = 0; toggleSlides('to')">
                 </div>
                 <div 
                     class="dot" 
                     [ngClass]="{'!bg-violet': slideIndex == 1}"
-                    (click)="slideIndex = 1; toggleSlides('index')">
+                    (click)="slideIndex = 1; toggleSlides('to')">
                 </div>
                 <div 
                     class="dot" 
                     [ngClass]="{'!bg-violet': slideIndex == 2}"
-                    (click)="slideIndex = 2; toggleSlides('index')">
+                    (click)="slideIndex = 2; toggleSlides('to')">
                 </div>
     
             </div>

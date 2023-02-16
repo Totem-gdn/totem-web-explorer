@@ -85,11 +85,24 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
       })
   }
 
+  onDrag(e: any) {
 
-  toggleSlides(direction: 'next' | 'prev' | 'index') {
+  }
+
+  onMove(e: any) {
+
+  }
+
+  onUp(e: any) {
+    
+  }
+
+
+
+  toggleSlides(direction: 'next' | 'prev' | 'to') {
     if(!this.cards?.length) return;
-    // console.log('index',this.slideIndex, this.cards?.length)
-    if(direction != 'index') {
+    // console.log('to',this.slideto, this.cards?.length)
+    if(direction != 'to') {
       if(direction == 'next') {
         if(this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
           this.slideIndex = 0;
