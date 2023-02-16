@@ -33,7 +33,7 @@
     max-width: 256px;
     transition: 0.33s ease-in-out;
     transition-property: min-width, width, max-width, transform;
-    @media (max-width: 767px) {
+    @media (max-width: 999px) {
       transform: translateX(-256px);
       width: 0px;
       min-width: 0px;

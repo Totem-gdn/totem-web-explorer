@@ -97,7 +97,7 @@ export class SendAssetComponent implements OnInit, OnDestroy {
 
     buyWithCard() {
       this.loading = true;
-      this.transactionsService.buyAssetWithCard(this.paymentInfo?.type!).pipe(
+      /* this.transactionsService.buyAssetWithCard(this.paymentInfo?.type!).pipe(
         catchError((err: HttpErrorResponse) => {
           this.snackService.open(err.error.message || err.message);
           this.loading = false;
@@ -109,7 +109,7 @@ export class SendAssetComponent implements OnInit, OnDestroy {
           }
           console.log(data);
           this.loading = false;
-        });
+        }); */
     }
 
     openInNewWindow(url: string) {

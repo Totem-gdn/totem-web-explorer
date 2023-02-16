@@ -9,6 +9,7 @@ import { PaymentInfo } from '@app/core/models/interfaces/asset-info.model';
 import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 import { CardPaymentResponse } from '@app/core/models/interfaces/payment.interface';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { BuyAssetService } from '@app/core/services/assets/buy-asset.service';
 import { UserStateService } from '@app/core/services/auth.service';
 import { HomepageBlocksService } from '@app/core/services/blocks/homepage-blocks.service';
@@ -55,6 +56,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
 
   paymentPopup: Window | null = null;
 
+  currentUser$: BehaviorSubject<UserEntity | null> = new BehaviorSubject<UserEntity | null>(null);
   games$: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   assets: PaymentInfo[] = [{ type: ASSET_TYPE.ITEM }, { type: ASSET_TYPE.AVATAR }];
@@ -65,6 +67,9 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   loop: any;
 
   ngAfterViewInit(): void {
+    this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
+      this.currentUser$.next(user);
+    })
     this.updateAssets();
     this.playAnimation();
   }
@@ -108,7 +113,13 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       this.loading$.next(false);
       return;
     }
-    this.transactionsService.buyAssetWithCard(type).pipe(
+    const user = this.currentUser$.getValue();
+    if (!user) {
+      this.userStateService.login();
+      this.loading$.next(false);
+      return;
+    }
+    this.transactionsService.buyAssetWithCard(type, user.wallet!).pipe(
       catchError((err: HttpErrorResponse) => {
         this.snackService.open(err.error.message || err.message);
         this.loading$.next(false);

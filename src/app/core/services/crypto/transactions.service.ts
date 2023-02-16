@@ -12,6 +12,7 @@ export class TransactionsService {
 
   faucetUrl: string = environment.TOTEM_FAUCET_API_URL;
   baseUrl: string = environment.TOTEM_BASE_API_URL;
+  coreUrl: string = environment.TOTEM_API_GDN_URL;
   applicationUrl: string = environment.TOTEM_WEB_EXPLORER_URL;
 
   constructor(private http: HttpClient) { }
@@ -26,8 +27,8 @@ export class TransactionsService {
     return this.http.get<any>(`${this.faucetUrl}/gas/balance`);
   }
 
-  buyAssetWithCard(assetType: string, paymentSystem: 'withpaper' | 'stripe' = 'stripe'): Observable<CardPaymentResponse> {
-    return this.http.post<CardPaymentResponse>(`${this.baseUrl}/payment/link/${paymentSystem}/${assetType}`, {successUrl: this.applicationUrl});
+  buyAssetWithCard(assetType: string, owner: string, paymentSystem: 'withpaper' | 'stripe' = 'withpaper'): Observable<CardPaymentResponse> {
+    return this.http.post<CardPaymentResponse>(`${this.coreUrl}/payments/${paymentSystem}/${assetType}/link`, {successUrl: this.applicationUrl, ownerAddress: owner});
   }
 
 }

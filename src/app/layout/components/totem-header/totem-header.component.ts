@@ -121,6 +121,14 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/profile']);
   }
 
+  // utils
+
+  closeWithTimeout() {
+    setTimeout(() => {
+      this.showDropdown = false;
+    }, 100)
+  }
+
   copied() {
     this.snackNotifierService.open('Copied to the clipboard');
   }

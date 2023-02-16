@@ -50,7 +50,7 @@ export class TotemLayoutComponent implements OnInit, OnDestroy {
   observeTheScreen() {
     this.subs.add(
       this.breakpointObserver
-        .observe(['(min-width: 768px)'])
+        .observe(['(min-width: 1000px)'])
         .subscribe((state: BreakpointState) => {
             if (state.matches) {
               this.toggleSideselector = true;
