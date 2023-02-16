@@ -1,6 +1,11 @@
 @import 'styles/scss/totem-variables';
 
 
+:host {
+  max-width: 240px;
+  width: 100%;
+}
+
 .img-wrapper {
   flex: 1 0 auto;
 }
