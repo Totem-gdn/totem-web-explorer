@@ -24,11 +24,11 @@
     </button>
 
 
-    <nav class="totem-navigation-items whitespace-nowrap gap-[30px] text-[16px] leading-[17px] font-medium hidden md:flex">
+    <nav class="totem-navigation-items whitespace-nowrap gap-[30px] text-[16px] leading-[17px] font-medium">
       <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/my-assets">My Assets</a>
-      <div 
-        class="dropdown-wrapper px-2 py-1 cursor-pointer relative flex items-center" 
-        (focus)="showDropdown = true" (blur)="showDropdown = false" tabindex="0"
+      <div
+        class="dropdown-wrapper px-2 py-1 cursor-pointer relative flex items-center"
+        (focus)="showDropdown = true" (blur)="closeWithTimeout()" tabindex="0"
         >
         <p>Explore</p>
         <mat-icon [svgIcon]="'line:arrow_bottom'"></mat-icon>
@@ -54,15 +54,15 @@
 
       <mat-icon (click)="logIn()" class="!w-[48px] !h-[48px] t-col-white menu-icon" [svgIcon]="'mat_outline:menu'"></mat-icon>
 
-      <div class="hidden md:flex">
+      <div class="hidden xmd:flex">
         <button matRipple (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
       </div>
 
-      <div class="ml-[12px] hidden md:flex" *ngIf="!(currUser$ | async)">
+      <div class="ml-[12px] hidden xmd:flex" *ngIf="!(currUser$ | async)">
         <button matRipple (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
       </div>
 
-      <div class="ml-[12px] flex flex-row t-bg-violet rounded-[100px] hidden md:flex" *ngIf="currUser$ | async">
+      <div class="ml-[12px] flex flex-row t-bg-violet rounded-[100px] hidden xmd:flex" *ngIf="currUser$ | async">
         <div class="user-cash flex flex-row items-center justify-center px-6 t-bg-black rounded-[30px]">
           <p class="flex flex-row items-center justify-center text-[20px] font-medium leading-[22px] whitespace-nowrap">
             $ {{usdcBalance}}

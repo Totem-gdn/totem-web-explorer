@@ -5,9 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      
+
     },
-    
+
     maxWidth: {
       '50px': '50px',
       '340px': '340px',
@@ -26,7 +26,7 @@ module.exports = {
     maxHeight: {
       '50px': '50px',
     },
-    
+
     minWidth: {
       '4': '1rem',
     },
@@ -41,18 +41,20 @@ module.exports = {
       'violet': '#5823C9',
       'light-violet': '#9A7ED7',
     },
-    
+
     screens : {
       xs: '320px',
       sm: '480px',
       md: '768px',
+      xmd: '862px',
       lg: '1000px',
       xl: '1280px',
       xxl: '1440px',
+      xxml: '1680px',
       xxxl: '1980px',
       'maxlg': {'max': '1000px'},
 
-      // 'media-bullets': 
+      // 'media-bullets':
     },
     extend : {
       zIndex                  : {

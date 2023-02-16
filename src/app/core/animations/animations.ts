@@ -99,6 +99,27 @@ export const Animations = {
       ]
     ),
     trigger(
+      'toggleSmallGameSelector',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translateX(-100%)', opacity: 0 }),
+              animate('0.22s ease-in-out',
+                style({ transform: 'translateX(0px)', opacity: 1 })),
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ transform: 'translateX(0px)', opacity: 1 }),
+              animate('0.22s ease-in-out',
+                style({ transform: 'translateX(-100%)', opacity: 0 })),
+          ]
+        )
+      ]
+    ),
+    trigger(
       'swapText',
       [
         transition(
