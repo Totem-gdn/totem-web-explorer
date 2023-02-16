@@ -136,8 +136,8 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
 
   openInNewWindow(url: string) {
     // Fixes dual-screen position                             Most browsers      Firefox
-    const h: number = 600;
-    const w: number = 700;
+    const h: number = 700;
+    const w: number = 900;
     const dualScreenLeft = window.screenLeft !==  undefined ? window.screenLeft : window.screenX;
     const dualScreenTop = window.screenTop !==  undefined   ? window.screenTop  : window.screenY;
     const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
