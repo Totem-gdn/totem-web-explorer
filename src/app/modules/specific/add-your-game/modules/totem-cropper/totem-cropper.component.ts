@@ -93,18 +93,14 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
 
   /* initCropper() {
     this.imageReader.onload = (event: any) => {
-      console.log(event.target.result);
       this.imageBase64 = event.target.result;
       this.icropper();
     };
-    console.log(this.data.file.target.files[0]);
 
     this.imageReader.readAsDataURL(this.data.file.target.files[0]);
-    console.log('INIT?');
   } */
 
   /* icropper() {
-    console.log('called?');
     this.loading$.next(false);
     const image = document.getElementById('imgSrc') as HTMLImageElement;
     this.cropper = new Cropper(image, {
@@ -128,17 +124,14 @@ export class TotemCropperComponent implements OnInit, OnDestroy {
   } */
 
   cropImageAndSave() {
-    console.log('called');
     const canvas = this.cropper.getCroppedCanvas();
     const image64 = canvas.toDataURL('image/webp', 0.8);
-    //console.log(image64);
 
     const fileToReturn = this.base64ToFile(
       image64,
       this.imageChangedEvent.target.files[0].name,
     )
     this.croppedImage = fileToReturn;
-    //console.log(this.croppedImage);
 
   }
 

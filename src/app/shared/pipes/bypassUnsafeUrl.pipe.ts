@@ -13,7 +13,6 @@ export class BypassUnsafeUrlPipe implements PipeTransform {
     const match = url.match(regExp);
     if(!match) return url;
     const youtubeId = match[2];
-    console.log(youtubeId)
     // return (match && match[2].length === 11)
     //   ? match[2]
     //   : null;

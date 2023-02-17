@@ -52,14 +52,37 @@
             border-radius: 100px;
             position: absolute;
             padding: 2.5px 8px;
-            inset: auto 12px 12px auto;
+            inset: 12px auto auto 12px;
         }
     }
 
+    .lh-1_2 {
+        line-height: 1.2;
+    }
+
     .in-game {
+        justify-content: center;
         z-index: 1;
         width: 50%;
+        gap: 13px;
 
+        .link {
+            display: flex;
+            border-bottom: 1px solid $totem-divider-grey;
+            height: 32px;
+            min-height: 32px;
+            width: 100%;
+            color: $totem-light-grey;
+            justify-content: space-between;
+            mat-icon {
+
+            }
+            p {
+                font-size: 18px;
+
+                font-weight: 500;
+            }
+        }
         span {
             color: $totem-light-grey;
         }

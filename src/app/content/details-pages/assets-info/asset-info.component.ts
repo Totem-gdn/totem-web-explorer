@@ -53,7 +53,6 @@ export class AssetInfoComponent implements AfterViewInit {
 
     @Input() type!: ASSET_TYPE;
     @Input() set item(asset: any) {
-        console.log('asset', asset)
         this._item = asset;
         if (asset === null) this.notFound = true;
         if (asset === undefined) return;
@@ -89,7 +88,6 @@ export class AssetInfoComponent implements AfterViewInit {
                 // if(!selectedGame) return;
                 this._selectedGame = selectedGame;
                 // this.changeDetector.markForCheck();
-                console.log('selected game asset' , this._selectedGame)
                 this.processItem(this._item?.tokenId, selectedGame);
             })
     }
@@ -99,19 +97,15 @@ export class AssetInfoComponent implements AfterViewInit {
 
         const json = await this.dnaService.getJSONByGame(game, this.type)
         const properties = await this.dnaService.processJSON(json, this.type, id);
-        console.log('json', json)
         this.setItemRenderer();
         this.properties = properties;
     }
 
     setItemRenderer() {
-        // console.log('selected game')
         const rendererUrl = this.selectedGame?.connections?.assetRenderer;
         let url = rendererUrl ? rendererUrl : environment.ASSET_RENDERER_URL;
-        // console.log('this item', this._item)
         if(!this._item) return;
         this._item = this.storeService.setRenderer(this.type, this._item);
-        // console.log('this item after', this._item)
     }
 
     createLegacy() {
@@ -121,13 +115,11 @@ export class AssetInfoComponent implements AfterViewInit {
         playerAddress: '0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae',
         data: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='
       }
-      this.legacyService.createLegacyEvent(this.type, data).subscribe((res) => console.log(res));
     }
 
     getAssetLegacy(query?: string, asset?: AssetInfo) {
       let params: string = '&offset=0&limit=10';
       this.legacyService.fetchLegacies(this.type, this._item?.tokenId!, params).subscribe((data: LegacyResponse<Achievement[]>) => {
-        console.log(data);
 
       })
     }

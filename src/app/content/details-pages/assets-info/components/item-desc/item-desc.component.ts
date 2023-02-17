@@ -56,7 +56,6 @@ export class ItemDescComponent implements OnInit, OnDestroy {
   user?: UserEntity;
 
   ngOnInit() {
-    console.log('item upa')
     this.gamesService.fetchGames(1)
       .pipe(take(1))
       .subscribe(games => {
@@ -98,12 +97,10 @@ export class ItemDescComponent implements OnInit, OnDestroy {
   }
 
   user$() {
-    console.log('update asset')
     // this.userSub?.unsubscribe();
     this.userSub = this.authService.currentUser
       .subscribe(user => {
         if(user) {
-          console.log(this.item, user)
           this.user = user;
         }
       })

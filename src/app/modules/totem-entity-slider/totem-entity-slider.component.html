@@ -14,6 +14,7 @@
 
     <slider-wireframe
       *ngIf="(games$ | async)?.length && assetTypeSelected === 'legacy'"
+      [gap]="17"
       [mode]="'dots'"
       [type]="'legacy'"
       [assets]="(games$ | async)">

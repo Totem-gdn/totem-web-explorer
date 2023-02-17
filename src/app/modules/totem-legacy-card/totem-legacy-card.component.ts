@@ -35,7 +35,6 @@ export class TotemLegacyCardComponent implements OnInit {
     // if(!this.legacy?.gameAddress) return;
     // const type = 'item';
     // const id = 100;
-    // console.log(this.legacy?.gameAddress)
   }
 
 }

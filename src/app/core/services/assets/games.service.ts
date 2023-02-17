@@ -101,7 +101,6 @@ export class GamesService {
 
   set gameInSession(game: GameDetail | null) {
     if(!game) return;
-    console.log('set game', game)
     this.baseStorageService.setItem(this.uniqSessionKey, JSON.stringify(game), 'local');
     this.selectedGame = game;
   }

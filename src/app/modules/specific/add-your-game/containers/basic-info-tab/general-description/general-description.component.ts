@@ -142,7 +142,6 @@ export class GeneralDescription implements OnInit, OnDestroy, AfterViewInit {
     }
 
     setError(error: DropzoneError, type: string) {
-      console.log(error, type);
 
       this.dnaFilterError = {...error, type: type};
     }

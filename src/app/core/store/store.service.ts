@@ -89,7 +89,6 @@ export class StoreService {
   getLegacies() {
     this.legacyService.fetchAssetLegacies(ASSET_TYPE.ITEM)
       .subscribe(legacy => {
-        console.log('legacy', legacy)
         if(!legacy.results) return;
         this.legacy.next(legacy.results);
       })

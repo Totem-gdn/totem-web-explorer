@@ -48,7 +48,6 @@ export class LegacyService {
     }
     fetchGameLegacyById( id: string | number) {
         return this.http.get(`${this.baseUrl}/game-legacy/${id}`).pipe(map(legacy => {
-            console.log(legacy)
         }))
     }
 

@@ -15,7 +15,6 @@ export class ExploreDropdownComponent {
 
 
     // close() {
-    //     console.log('close')
     //     this.elRef.nativeElement.style.display = 'none';
     // }
     navigate(){
