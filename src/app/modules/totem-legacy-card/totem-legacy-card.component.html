@@ -7,18 +7,22 @@
         </div>
     </div>
 
-    <div class="in-game flex flex-col">
+    <div class="in-game flex flex-col px-[8px]">
+        <div class="link">
+            <p class="leading-none">Link to source</p>
+            <mat-icon [svgIcon]="'line:share_link'"></mat-icon>
+        </div>
         <div class="flex">
             <img class="w-[64px] h-[64px] rounded-xl mr-[12px]" [src]="game?.images?.smallThumbnail" alt="">
             <div class="flex flex-col justify-center min-w-[0px]">
-                <p class="truncate">{{game?.general?.name}} </p>
+                <p class="max-2-lines lh-1_2 ">{{game?.general?.name}} </p>
                 <span class="text-light-grey truncate">{{game?.general?.genre?.length ? game?.general?.genre![0] : ''}}</span>
             </div>
         </div>
 
         <div class="flex flex-col">
-            <p class="pt-[15px] text-light-violet">Description: </p>
-            <span class="max-4-lines text-light-grey">Longer Legacy event description Ultricies risus ipsum viverra
+            <!-- <p class="text-light-violet">Description: </p> -->
+            <span class="max-3-lines text-light-grey">Longer Legacy event description Ultricies risus ipsum viverra
                 quisque at maecenas. Vivamus tempus neque nec massa lectus consectetur imperdiet mattis facilisis. Id
                 facilisis sed ac ornare turpis. Nunc erat</span>
         </div>

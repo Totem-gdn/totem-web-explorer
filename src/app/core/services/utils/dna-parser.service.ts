@@ -45,7 +45,6 @@ export class DNAParserService {
                 jsonUrl = game?.connections?.dnaFilters?.gemFilter;
             }
         }
-        console.log('def filter', DNAFilter.avatarFilterJson)
         if (!jsonUrl) {
             if (type == ASSET_TYPE.AVATAR) {
                 json = DNAFilter.avatarFilterJson;
@@ -58,7 +57,6 @@ export class DNAParserService {
         
         
 
-        console.log('json reques')
         json = await firstValueFrom(this.http.get<any>(jsonUrl))
 
         return json;
@@ -78,7 +76,6 @@ export class DNAParserService {
 
         // const web3 = new Web3(this.web3.provider as any);
         // const con = new web3.eth.Contract(AssetsABI, contract);
-        // console.log('contract', con)
         let DNA = ''
         if (id) DNA = await contractHandler.getDNA(id);
 

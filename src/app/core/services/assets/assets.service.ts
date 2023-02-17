@@ -54,7 +54,6 @@ export class AssetsService {
         for(let i = fromPage; i < toPage; i++) {
             obsArray.push(this.fetchAssets(type, i, list).pipe(tap(assets => {
                 this.handleAssets(type, assets.data);
-                console.log(assets.meta)
             })))
         }
 

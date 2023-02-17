@@ -255,7 +255,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
-    console.log(galleryFilesToUpload, event.imageBase64);
 
     this.cropMultipleGallery(galleryFilesToUpload, event.imageBase64, 'gallery');
   }
@@ -300,7 +299,6 @@ export class DetailsTabComponent implements OnInit, OnDestroy, AfterViewInit {
     const dialogType: string = type == 'cover' || 'gallery' ? 'large-dialog' : 'small-dialog';
     const aspectRation: number = type == 'cover' ? 3.5/1 : type == 'search' ? 1/1 : type == 'gallery' ? 1.78/1 : 1.33/1;
     const widthToResize: number = type == 'cover' ? 1400 : type == 'search' ? 100 : type == 'gallery' ? 1920 : 400;
-    console.log(image);
 
     const options: MatDialogConfig = {
         disableClose: false,

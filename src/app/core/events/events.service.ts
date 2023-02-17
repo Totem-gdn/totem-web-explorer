@@ -21,7 +21,6 @@ export class EventsService {
                     if (state.breakpoints[ScreenQueries.md] == true) return 'md';
                     if (state.breakpoints[ScreenQueries.sm] == true) return 'sm';
                     if (state.breakpoints[ScreenQueries.xs] == true) return 'xs';
-                    console.log(state.breakpoints)
                     return '';
                 }))
     }

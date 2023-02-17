@@ -18,11 +18,14 @@ import { fromEvent, Subject, takeUntil } from 'rxjs';
 })
 export class SliderWireframeComponent implements OnInit, OnDestroy {
 
-  constructor(private eventsService: EventsService) {}
+  constructor(private eventsService: EventsService) { }
 
   @ViewChild('container', { static: true }) container!: ElementRef;
   @ViewChild('slider', { static: true }) slider!: ElementRef;
   @ViewChild('wrapper', { static: true }) wrapper!: ElementRef;
+
+  @ViewChild('handleTrack') handleTrack!: ElementRef;
+  @ViewChild('handle') handle!: ElementRef;
 
   subs = new Subject<void>();
   hover = false;
@@ -39,7 +42,6 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     this.cards = assets;
     if (this.type == 'legacy') {
       this.minWidth = 496;
-      console.log('legacies', assets)
     }
     if (this.type == 'event') {
       this.minWidth = 384;
@@ -47,6 +49,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.calculateSliderWidth();
+      this.calculateHandleWidth();
     }, 10)
   };
 
@@ -60,10 +63,38 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   maxWidth?: number;
   currentTransform: number = 0;
 
+  handleTrackWidth: number = 220;
+  handleWidth: number = 100;
+  handlePosition: number = 0;
+
   ngOnInit() {
     this.resize$();
     this.config();
     this.media$();
+  }
+
+  onDragHandle(e: any, action: 'slider-transition' | 'event' = 'event') {
+    // if (action == 'event') {
+    //   const moveTo = this.handlePosition + e.movementX;
+    //   console.log('moveTo: ', moveTo);
+    //   this.handle.nativeElement.style.left = `${moveTo}px`;
+    //   this.handlePosition = moveTo;
+    // }
+
+    // if (action == 'slider-transition') {
+    //   // console.log(sliderShift)
+    //   const moveTo = this.handlePosition + e.movementX;
+    //   console.log(this.currentTransform)
+    //   console.log('difference: ', ( this.slider.nativeElement.scrollWidth / this.currentTransform * 100 ) - 100);
+    //   this.handle.nativeElement.style.left = `${moveTo}px`;
+    //   this.handlePosition = moveTo;
+    // }
+  }
+
+  calculateHandleWidth() {
+    if (!this.cards?.length) return;
+    this.handleWidth = this.handleTrackWidth / this.cards?.length;
+    if (this.handleWidth < 50) this.handleWidth = 50;
   }
 
   onHover() {
@@ -93,46 +124,47 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   media$() {
     this.eventsService.screenObserver$
       .subscribe(media => {
-        if(media == 'xs' || media == 'sm') {
+        if (media == 'xs' || media == 'sm') {
           this.mode = 'dots';
         } else {
           this.mode = 'arrows';
         }
       })
-      
+
   }
 
   startDrag(e: any) {
-    this.slider.nativeElement.style.transition = 'none';
+    // this.slider.nativeElement.style.transition = 'none';
   }
+
   onDrag(e: any) {
     const transform = this.currentTransform - e.movementX;
     if (transform < 0) return;
 
     this.currentTransform = transform;
     this.slider.nativeElement.style.transform = `translateX(-${transform}px)`;
+    this.onDragHandle(this.currentTransform, 'slider-transition');
   }
 
   endDrag(e: any) {
     this.slider.nativeElement.style.transition = 'transform .3s';
     let index = Math.floor(this.currentTransform / (this.slideWidth + this.gap));
-    if (this.currentTransform / (this.slideWidth + this.gap) - index > 0.5) index++;
+    if (this.currentTransform / (this.slideWidth + this.gap) - index > 0.5 && this.cards?.length && index < this.cards?.length - 1) index++;
     this.toggleSlides('to', index);
   }
 
   toggleSlides(direction: 'next' | 'prev' | 'to', index?: number) {
     if (!this.cards?.length) return;
     if (index != undefined) this.slideIndex = index;
-
-    if (direction != 'to') {
+    
+    if(direction != 'to') {
       if (direction == 'next') {
         if (this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
           this.slideIndex = 0;
         } else {
           this.slideIndex++;
         }
-      }
-      else if (this.slideIndex >= 1) {
+      } else if (this.slideIndex >= 1) {
         this.slideIndex--;
       }
     }
@@ -140,10 +172,12 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     let transformWidth = (this.slideWidth + this.gap) * this.slideIndex;
 
     if (this.type == 'event' && this.slideIndex == this.cards?.length - 1) {
-      transformWidth = transformWidth - ((this.wrapper.nativeElement.offsetWidth - this.slideWidth) / 2)
+      // transformWidth = transformWidth - ((this.wrapper.nativeElement.offsetWidth - this.slideWidth) / 2)
+      transformWidth = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth;
     }
     this.currentTransform = transformWidth;
     this.slider.nativeElement.style.transform = `translateX(-${transformWidth}px)`
+    // this.onDragHandle(this.currentTransform, 'slider-transition');
   }
 
   calculateSliderWidth() {
@@ -151,7 +185,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     this.itemsOnScreen = this.type != 'legacy' ?
       Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
       Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
-
+    console.log('items on screen: ', this.itemsOnScreen)
     // if(this.type == 'event' && this.itemsOnScreen != 0) this.itemsOnScreen -= 1;
 
     this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;

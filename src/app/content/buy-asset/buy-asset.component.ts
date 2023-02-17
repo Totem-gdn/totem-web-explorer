@@ -129,7 +129,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
         if (data && data.url) {
           this.openInNewWindow(data.url);
         }
-        console.log(data);
         this.loading$.next(false);
       });
   }
@@ -159,7 +158,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     if (this.paymentPopup) {
       this.subs.add(
         window.addEventListener("message", (event) => {
-          console.log('GET SOME EVENT: ', event);
           if (event.data.target.includes(environment.TOTEM_WEB_EXPLORER_URL)) {
             this.totemEListenerService.processParams(event.data);
             this.paymentPopup?.close();
@@ -181,7 +179,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       if (this.disableLoop.disable === true) {
         return;
       }
-      //console.log('loop')
       this.animateItem(currentItemIndex == 0 ? 1 : 0, false);
       currentItemIndex = currentItemIndex == 0 ? 1 : 0;
 
@@ -190,7 +187,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   }
 
   animateItem(index: number, disableLoop: boolean) {
-    console.log('animate')
 
 
     let item = index == 0 ? this.item1.nativeElement : this.item2.nativeElement as HTMLElement;
@@ -225,7 +221,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   moveCircle(item: any) {
     const itemX = item.offsetLeft + (item.offsetWidth / 2) - 150;
     const itemY = item.offsetTop + (item.offsetHeight / 2) - 200;
-    // console.log('item x', itemX, 'item y', itemY)
     this.movingCircle.nativeElement.style.transform = `translate(${itemX}px,${itemY}px)`;
     this.movingCircle.nativeElement.style.transition = 'transform .8s ease-in-out, opacity 1s .5s';
     this.movingCircle.nativeElement.style.opacity = `1`;

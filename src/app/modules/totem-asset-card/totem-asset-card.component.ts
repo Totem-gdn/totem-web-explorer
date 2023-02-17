@@ -37,7 +37,6 @@ export class TotemAssetCardComponent {
   }
 
   goToAsset(asset: AssetInfo) {
-    console.log('asset', asset)
     this.router.navigate([`/${asset.assetType}`, asset.id]);
   }
 

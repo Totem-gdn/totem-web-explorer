@@ -164,10 +164,8 @@ export class DNASchemeValidator {
   validateJson(json: any): string {
 
     if (this.validate(json)) {
-      console.log('VALID');
       return 'OK';
     } else {
-      console.log('NOT VALID', this.validate.errors as DefinedError);
       const errors: DefinedError[] = this.validate.errors;
       DNAResponseCompose.composeError(errors[0]);
       return 'ERROR';

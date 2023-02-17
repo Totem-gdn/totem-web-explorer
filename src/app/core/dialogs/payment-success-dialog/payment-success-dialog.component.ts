@@ -61,7 +61,6 @@ export class PaymentSuccessDialogComponent implements OnInit, OnDestroy {
       if (state == 'success') {
         /* this.txFinished = 'success';
         this.dialogRef.close(true); */
-        console.log('ASSET MINTED, WAIT 7 SEC TO REDIRECT');
         this.startCounterToSuccessClose();
       }
       if (state == 'error') {

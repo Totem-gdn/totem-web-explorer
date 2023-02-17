@@ -80,7 +80,6 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selectedGame.next(game)
         if(this.type != 'game' && this._assets) this._assets = this.storeService.setRenderers(this.type, this._assets);
 
-        console.log('selected game', game)
       })
   }
 
@@ -89,7 +88,6 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(assets => {
         this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
         this.setAssets(assets.data)
-        console.log('assets', assets.meta)
         if (assets.meta.perPage * page >= assets.meta.total) {
           this.loadMoreActive = false;
         } else {
@@ -126,7 +124,6 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if(action == 'set') {
           this.games = games.data;
         }
-        console.log('meta', games.meta)
         if (games.meta.perPage * page >= games.meta.total) {
           this.loadMoreActive = false;
         } else {

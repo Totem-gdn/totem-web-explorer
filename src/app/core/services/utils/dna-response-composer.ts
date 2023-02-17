@@ -11,12 +11,10 @@ export class DNAResponseCompose {
 
   public static composeError(error: DefinedError) {
     if (!error.instancePath.length) {
-      console.log(CONST_VALIDATION_TEXT.FILE_OBJECT + ' must be an ' + this.msgCompose(error.message));
       return CONST_VALIDATION_TEXT.FILE_OBJECT + ' must be an ' + this.msgCompose(error.message);
     }
     let errorMessage: string = '';
     errorMessage += `${CONST_VALIDATION_TEXT.FIELD} ${this.checkPath(error.instancePath)} must be ${this.msgCompose(error.message)}`;
-    console.log(errorMessage);
 
     return errorMessage;
   }

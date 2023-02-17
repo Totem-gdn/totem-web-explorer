@@ -63,7 +63,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     getGames(page: number = 1) {
       this.loading$.next(true);
       this.adminService.getGames(page).pipe(take(1)).subscribe((games: any) => {
-        console.log(games);
         if (!(games && games.data && games.data.length)) {
           this.games = [];
           this.loading$.next(false);

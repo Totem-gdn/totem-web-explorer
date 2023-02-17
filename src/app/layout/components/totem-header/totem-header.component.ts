@@ -44,7 +44,6 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   initBalanceListener() {
     this.cryptoUtilsService.tokenBalance$.subscribe((balance: TokenBalance) => {
-      console.log(balance);
 
       this.usdcBalance = balance.usdc;
     })

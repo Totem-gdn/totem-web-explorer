@@ -225,7 +225,6 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
       try {
         JSON.parse(event.target.result);
       } catch (err: any) {
-        console.log(err.message);
         this.snackNotifierService.open('Error: ' + err.message);
         return;
       }
@@ -246,13 +245,11 @@ export class TotemImageDropzoneComponent implements OnInit, OnDestroy {
         return validity == 'OK' ? true : false;
       });
 
-      console.log(validationResult);
       if (!validationResult) {
         this.setInputError('Something went wrong when validating your DNA filter. Please make sure if everything is correct');
         return;
       }
 
-      console.log('FILE PASSES ALL VALIDATIONS AND PUSHED TO FILES TO SEND');
       this.finalizedFile.next(inputEvent);
 
     }

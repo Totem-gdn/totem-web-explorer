@@ -13,65 +13,104 @@ export class OnDragDirective implements OnDestroy {
     @Output() startDrag = new EventEmitter<any>();
 
     pressed: boolean = false;
-    startX!: number;
-    x!: number;
+    mouseX?: number;
     subs = new Subject<void>();
 
+    // movementX
+
+    start(e: any) {
+        if (this.pressed != false) return;
+        this.element.nativeElement.style.cursor = 'grabbing';
+
+        this.startDrag.emit(e);
+        this.pressed = true;
+    }
+
+    move(e: any) {
+        if (!this.pressed) return;
+        const children = this.element.nativeElement.children;
+        for (let i = 0; i < children.length; i++) {
+            children[i].style.pointerEvents = 'none';
+            children[i].style.userSelect = 'none';
+        }
+        this.onDrag.emit(e);
+        // this.pressed = false;
+    }
+
+    end(e: any) {
+        if (this.pressed != true) return;
+        this.element.nativeElement.style.cursor = 'auto';
+        const children = this.element.nativeElement.children;
+        for (let i = 0; i < children.length; i++) {
+            children[i].style.pointerEvents = 'all';
+            children[i].style.userSelect = 'all';
+        }
+        this.endDrag.emit(e);
+        this.pressed = false;
+    }
+
+    leave(e: any) {
+        if (this.pressed != true) return;
+
+        this.element.nativeElement.style.cursor = 'auto';
+        const children = this.element.nativeElement.children;
+        for (let i = 0; i < children.length; i++) {
+            children[i].style.pointerEvents = 'all';
+            children[i].style.userSelect = 'all';
+        }
+        this.endDrag.emit(e);
+        this.pressed = false;
+    }
+
     constructor(public element: ElementRef, @Inject(DOCUMENT) private document: Document) {
+        // window.isMobi
         fromEvent(this.element.nativeElement, 'mousedown')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
-                if (this.pressed != false) return;
-                // console.log('start drag')
-                this.element.nativeElement.style.cursor = 'grabbing';
+                this.start(e);
+            });
 
-                this.startDrag.emit(e);
-                this.pressed = true;
+        fromEvent(this.element.nativeElement, 'touchstart')
+            .pipe(takeUntil(this.subs))
+            .subscribe((e: any) => {
+                
+                this.start(e);
             });
 
         fromEvent(this.element.nativeElement, 'mouseup')
             .pipe(takeUntil(this.subs))
             .subscribe(e => {
-                if (this.pressed != true) return;
+                this.end(e);
+            });
+        fromEvent(this.element.nativeElement, 'touchend')
+            .pipe(takeUntil(this.subs))
+            .subscribe((e: any) => {
+                
 
-
-                this.element.nativeElement.style.cursor = 'auto';
-                const children = this.element.nativeElement.children;
-                for (let i = 0; i < children.length; i++) {
-                    children[i].style.pointerEvents = 'all';
-                    children[i].style.userSelect = 'all';
-                }
-                this.endDrag.emit(e);
-                this.pressed = false;
+                this.end(e);
             });
 
         fromEvent(this.element.nativeElement, 'mouseleave')
             .pipe(takeUntil(this.subs))
             .subscribe(e => {
-                console.log('drag event')
-                if (this.pressed != true) return;
-
-                this.element.nativeElement.style.cursor = 'auto';
-                const children = this.element.nativeElement.children;
-                for (let i = 0; i < children.length; i++) {
-                    children[i].style.pointerEvents = 'all';
-                    children[i].style.userSelect = 'all';
-                }
-                this.endDrag.emit(e);
-                this.pressed = false;
+                this.leave(e)
             });
 
         fromEvent(this.element.nativeElement, 'mousemove')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
-                console.log('mouse move', this.pressed)
-                if (!this.pressed) return;
-                const children = this.element.nativeElement.children;
-                for (let i = 0; i < children.length; i++) {
-                    children[i].style.pointerEvents = 'none';
-                    children[i].style.userSelect = 'none';
-                }
-                this.onDrag.emit(e);
+                this.move(e);
+            });
+
+        fromEvent(this.element.nativeElement, 'touchmove')
+            .pipe(takeUntil(this.subs))
+            .subscribe((e: any) => {
+                if(!this.mouseX) this.mouseX = e.targetTouches[0].clientX;
+                const difference = this.mouseX! - e.targetTouches[0].clientX;
+                this.move({movementX: difference * -1});
+                e.preventDefault();
+                e.stopPropagation();
+                this.mouseX = e.targetTouches[0].clientX;
             });
     }
 
@@ -84,7 +123,6 @@ export class OnDragDirective implements OnDestroy {
     //         exhaustMap(() => touchMove$.pipe(
     //             takeUntil(touchEnd$)
     //         ).subscribe(e => {
-    //             console.log('events')
     //         })
     //         )
     //     )

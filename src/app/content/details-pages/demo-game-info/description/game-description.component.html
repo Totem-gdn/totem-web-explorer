@@ -1,17 +1,21 @@
-<div class="description m-auto lg:m-0">
-    <div class="images-block pb-[35px] flex flex-col">
+<div class="description m-auto lg:m-0 h-full">
+    <div class="images-block pb-[35px] h-full">
         <!-- <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt=""> -->
         <!-- <div class=""></div> -->
-        <div #image *ngIf="hlSlide" class="relative rounded h-full max-h-[430px] image-wrapper relative overflow-hidden">
-            <img *ngIf="hlSlide.type == 'image'" loading="lazy" class="h-full hl-image relative z-2" [src]="hlSlide.url" [alt]="_game?.general?.name">
-            <img *ngIf="hlSlide.type == 'image'" loading="lazy" class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
-                [src]="hlSlide.url" [alt]="_game?.general?.name">
+        <div #image *ngIf="hlSlide"
+            class="relative rounded h-full max-h-[430px] image-wrapper relative overflow-hidden">
+            <img *ngIf="hlSlide.type == 'image'" loading="lazy" class="h-full hl-image relative z-2" [src]="hlSlide.url"
+                [alt]="_game?.general?.name">
+            <img *ngIf="hlSlide.type == 'image'" loading="lazy"
+                class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1" [src]="hlSlide.url"
+                [alt]="_game?.general?.name">
             <!-- <video *ngIf="hlSlide.type == 'video'" class="h-full hl-image relative z-2" [src]="hlSlide.url"> -->
-            <iframe 
-                allow="fullscreen;"
-                *ngIf="hlSlide.type == 'video'"
-                class="w-full h-full" 
+            <!-- <div class="w-full h-full max-h-[430px]" > -->
+            <iframe class="w-full h-full h-[430px]" allow="fullscreen;" *ngIf="hlSlide.type == 'video'"
                 [src]="hlSlide.url | unsafeUrl" frameborder="0"></iframe>
+            <!-- <div class="mt-full w-full bottom-0 absolute"></div> -->
+            <!-- </div> -->
+
 
             <!-- <div class="w-full mt-[100%]"></div> -->
             <!-- <img loading="lazy" class="hl-image-blurred absolute h-full w-full top-0 left-0 right-o bottom-0 z-1"
@@ -21,9 +25,7 @@
           </div> -->
         </div>
         <!-- <img loading="lazy" #image class="sm:h-[430px] hl-image" *ngIf="!_game?.images?.galley" [src]="hlImage" [alt]="_game?.general?.name"> -->
-        <portfolio-carousel 
-            (changeSlide)="onChangeSlide($event)" 
-            [slides]="slides">
+        <portfolio-carousel (changeSlide)="onChangeSlide($event)" [slides]="slides">
         </portfolio-carousel>
     </div>
 

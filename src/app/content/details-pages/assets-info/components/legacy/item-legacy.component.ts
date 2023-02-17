@@ -70,7 +70,6 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
       playerAddress: '0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae',
       data: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='
     }
-    this.legacyService.createLegacyEvent(this.type, data).subscribe((res) => console.log(res));
   }
 
   onCopy() {

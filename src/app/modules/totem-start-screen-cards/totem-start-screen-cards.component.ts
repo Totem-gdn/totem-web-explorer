@@ -50,13 +50,11 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
     this.listenSelectedGameAndAsset();
     this.initBreakpointListener();
     this.storeService.games$.subscribe((games: GameDetail[]) => {
-      //console.log('GAMES FROM STORAGE: ', games);
       this.games$.next(games);
       this.gamesListLength = games.length || 0;
     });
 
     this.storeService.avatars$.subscribe((avatars: AssetInfo[]) => {
-      //console.log('avatars FROM STORAGE: ', avatars);
       this.avatars$.next(avatars);
       if (this.assetTypeSelected === ASSET_TYPE.AVATAR) {
         this.setAsset(avatars[0]);
@@ -64,7 +62,6 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
     });
 
     this.storeService.items$.subscribe((items: AssetInfo[]) => {
-      //console.log('items FROM STORAGE: ', items);
       this.items$.next(items);
       if (this.assetTypeSelected === ASSET_TYPE.ITEM) {
         this.setAsset(items[0]);

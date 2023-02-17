@@ -85,10 +85,8 @@ export class TotemEntitySliderComponent {
 
   listenLegacies() {
     this.storeService.legacy$.subscribe((legacy: LegacyData[]) => {
-      console.log('data', legacy)
       if(!legacy) return;
       this.legacies$.next(legacy);
-      console.log(this.legacies$.getValue())
     })
   }
 
