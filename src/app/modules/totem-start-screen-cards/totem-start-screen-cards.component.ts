@@ -35,6 +35,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
 
   assetTypeSelected: 'item' | 'avatar' = 'avatar';
   currentBreakpoint: string = '';
+  currentPixelRatio: number = 0;
   numberOfDisplayedCards: number = 4;
   selectedGameIndex: number = 0;
   gamesListLength: number = 0;
@@ -72,24 +73,42 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
   initBreakpointListener() {
     this.totemEventListenerService.currentBreakpoint$.pipe(untilComponentDestroyed(this)).subscribe((breakpoint: string) => {
       this.currentBreakpoint = breakpoint;
+      console.log(window.devicePixelRatio, 'screen: ', screen.width, breakpoint);
+      this.currentPixelRatio = window.devicePixelRatio;
       if (breakpoint === 'XSmall') {
         this.numberOfDisplayedCards = 0;
         return;
       }
       if (breakpoint === 'XMSmall') {
-        this.numberOfDisplayedCards = 1;
+        if (this.currentPixelRatio > 1) {
+          this.numberOfDisplayedCards = 2;
+        } else {
+          this.numberOfDisplayedCards = 1;
+        }
         return;
       }
       if (breakpoint === 'Small' || breakpoint === 'MSmall') {
-        this.numberOfDisplayedCards = 2;
+        if (this.currentPixelRatio > 1) {
+          this.numberOfDisplayedCards = 3;
+        } else {
+          this.numberOfDisplayedCards = 2;
+        }
         return;
       }
       if (breakpoint === 'Medium') {
-        this.numberOfDisplayedCards = 1;
+        if (this.currentPixelRatio > 1) {
+          this.numberOfDisplayedCards = 2;
+        } else {
+          this.numberOfDisplayedCards = 1;
+        }
         return;
       }
       if (breakpoint === 'Large') {
-        this.numberOfDisplayedCards = 2;
+        if (this.currentPixelRatio > 1) {
+          this.numberOfDisplayedCards = 3;
+        } else {
+          this.numberOfDisplayedCards = 2;
+        }
         return;
       }
       if (breakpoint === 'XLarge') {
@@ -101,6 +120,8 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
         return;
       }
       this.numberOfDisplayedCards = 4;
+      console.log('CALLED CALLED CALLED');
+
     })
   }
 

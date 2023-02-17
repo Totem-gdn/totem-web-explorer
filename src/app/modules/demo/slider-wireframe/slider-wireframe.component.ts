@@ -156,7 +156,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   toggleSlides(direction: 'next' | 'prev' | 'to', index?: number) {
     if (!this.cards?.length) return;
     if (index != undefined) this.slideIndex = index;
-    
+
     if(direction != 'to') {
       if (direction == 'next') {
         if (this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
@@ -185,7 +185,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     this.itemsOnScreen = this.type != 'legacy' ?
       Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
       Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
-    console.log('items on screen: ', this.itemsOnScreen)
+    //console.log('items on screen: ', this.itemsOnScreen)
     // if(this.type == 'event' && this.itemsOnScreen != 0) this.itemsOnScreen -= 1;
 
     this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;
