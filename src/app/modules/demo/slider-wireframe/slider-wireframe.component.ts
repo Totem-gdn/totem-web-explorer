@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Animations } from '@app/core/animations/animations';
+import { EventsService } from '@app/core/events/events.service';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { fromEvent, Subject, takeUntil } from 'rxjs';
@@ -17,9 +18,11 @@ import { fromEvent, Subject, takeUntil } from 'rxjs';
 })
 export class SliderWireframeComponent implements OnInit, OnDestroy {
 
-  @ViewChild('container', {static: true}) container!: ElementRef;
-  @ViewChild('slider', {static: true}) slider!: ElementRef;
-  @ViewChild('wrapper', {static: true}) wrapper!: ElementRef;
+  constructor(private eventsService: EventsService) {}
+
+  @ViewChild('container', { static: true }) container!: ElementRef;
+  @ViewChild('slider', { static: true }) slider!: ElementRef;
+  @ViewChild('wrapper', { static: true }) wrapper!: ElementRef;
 
   subs = new Subject<void>();
   hover = false;
@@ -34,14 +37,14 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   @Input() set assets(assets: any[] | null) {
     // this.slideWidth = this.type == 'game' ? 240 : this.type == 'asset' ? 240 : this.type == 'event' ? 384 : 496;
     this.cards = assets;
-    if(this.type == 'legacy') {
+    if (this.type == 'legacy') {
       this.minWidth = 496;
       console.log('legacies', assets)
     }
-    if(this.type == 'event') {
+    if (this.type == 'event') {
       this.minWidth = 384;
     }
-    
+
     setTimeout(() => {
       this.calculateSliderWidth();
     }, 10)
@@ -55,10 +58,12 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   minWidth: number = 240;
   slideWidth: number = 240;
   maxWidth?: number;
+  currentTransform: number = 0;
 
   ngOnInit() {
     this.resize$();
     this.config();
+    this.media$();
   }
 
   onHover() {
@@ -71,9 +76,9 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   config() {
     const wrapper = this.wrapper.nativeElement;
-    if(this.position == 'right') wrapper.style.marginLeft = 'auto';
-    if(this.position == 'left') wrapper.style.marginRight = 'auto';
-    if(this.position == 'center') wrapper.style.margin = 'auto';
+    if (this.position == 'right') wrapper.style.marginLeft = 'auto';
+    if (this.position == 'left') wrapper.style.marginRight = 'auto';
+    if (this.position == 'center') wrapper.style.margin = 'auto';
     this.wrapper.nativeElement.style.minWidth = `${this.minWidth}px`;
   }
 
@@ -85,54 +90,72 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
       })
   }
 
+  media$() {
+    this.eventsService.screenObserver$
+      .subscribe(media => {
+        if(media == 'xs' || media == 'sm') {
+          this.mode = 'dots';
+        } else {
+          this.mode = 'arrows';
+        }
+      })
+      
+  }
+
+  startDrag(e: any) {
+    this.slider.nativeElement.style.transition = 'none';
+  }
   onDrag(e: any) {
+    const transform = this.currentTransform - e.movementX;
+    if (transform < 0) return;
 
+    this.currentTransform = transform;
+    this.slider.nativeElement.style.transform = `translateX(-${transform}px)`;
   }
 
-  onMove(e: any) {
-
+  endDrag(e: any) {
+    this.slider.nativeElement.style.transition = 'transform .3s';
+    let index = Math.floor(this.currentTransform / (this.slideWidth + this.gap));
+    if (this.currentTransform / (this.slideWidth + this.gap) - index > 0.5) index++;
+    this.toggleSlides('to', index);
   }
 
-  onUp(e: any) {
-    
-  }
+  toggleSlides(direction: 'next' | 'prev' | 'to', index?: number) {
+    if (!this.cards?.length) return;
+    if (index != undefined) this.slideIndex = index;
 
-
-
-  toggleSlides(direction: 'next' | 'prev' | 'to') {
-    if(!this.cards?.length) return;
-    // console.log('to',this.slideto, this.cards?.length)
-    if(direction != 'to') {
-      if(direction == 'next') {
-        if(this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
+    if (direction != 'to') {
+      if (direction == 'next') {
+        if (this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
           this.slideIndex = 0;
         } else {
           this.slideIndex++;
         }
       }
-      else if(this.slideIndex >= 1)  {
+      else if (this.slideIndex >= 1) {
         this.slideIndex--;
       }
     }
 
     let transformWidth = (this.slideWidth + this.gap) * this.slideIndex;
-    console.log('transform', transformWidth, this.slideIndex)
-    if(this.type == 'event' && this.slideIndex == this.cards?.length - 1) {
+
+    if (this.type == 'event' && this.slideIndex == this.cards?.length - 1) {
       transformWidth = transformWidth - ((this.wrapper.nativeElement.offsetWidth - this.slideWidth) / 2)
     }
+    this.currentTransform = transformWidth;
     this.slider.nativeElement.style.transform = `translateX(-${transformWidth}px)`
   }
 
   calculateSliderWidth() {
     const containerWidth = this.container.nativeElement.offsetWidth;
-    this.itemsOnScreen = this.type != 'legacy' ? 
-    Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
-    Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
+    this.itemsOnScreen = this.type != 'legacy' ?
+      Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
+      Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
 
     // if(this.type == 'event' && this.itemsOnScreen != 0) this.itemsOnScreen -= 1;
 
     this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;
-    if(this.type == 'event') this.slideWidth = 384;
+    if (this.type == 'event') this.slideWidth = 384;
 
     // const wrapperWidth = this.overflow == 'wrap-content' ? (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * this.gap) - this.gap + (this.padding * 2) : containerWidth;
     // this.wrapper.nativeElement.style.width = `${wrapperWidth}px`;
