@@ -41,7 +41,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     if(this.type == 'event') {
       this.minWidth = 384;
     }
-    
+
     setTimeout(() => {
       this.calculateSliderWidth();
     }, 10)
@@ -112,7 +112,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   calculateSliderWidth() {
     const containerWidth = this.container.nativeElement.offsetWidth;
-    this.itemsOnScreen = this.type != 'legacy' ? 
+    this.itemsOnScreen = this.type != 'legacy' ?
     Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
     Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
 
