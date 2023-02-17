@@ -80,7 +80,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
         return;
       }
       if (breakpoint === 'XMSmall') {
-        if (this.currentPixelRatio > 1) {
+        if (this.currentPixelRatio > 1.25) {
           this.numberOfDisplayedCards = 2;
         } else {
           this.numberOfDisplayedCards = 1;
@@ -88,7 +88,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
         return;
       }
       if (breakpoint === 'Small' || breakpoint === 'MSmall') {
-        if (this.currentPixelRatio > 1) {
+        if (this.currentPixelRatio > 1.25) {
           this.numberOfDisplayedCards = 3;
         } else {
           this.numberOfDisplayedCards = 2;
@@ -96,7 +96,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
         return;
       }
       if (breakpoint === 'Medium') {
-        if (this.currentPixelRatio > 1) {
+        if (this.currentPixelRatio > 1.25) {
           this.numberOfDisplayedCards = 2;
         } else {
           this.numberOfDisplayedCards = 1;
@@ -104,7 +104,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
         return;
       }
       if (breakpoint === 'Large') {
-        if (this.currentPixelRatio > 1) {
+        if (this.currentPixelRatio > 1.25) {
           this.numberOfDisplayedCards = 3;
         } else {
           this.numberOfDisplayedCards = 2;
@@ -120,8 +120,6 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
         return;
       }
       this.numberOfDisplayedCards = 4;
-      console.log('CALLED CALLED CALLED');
-
     })
   }
 
