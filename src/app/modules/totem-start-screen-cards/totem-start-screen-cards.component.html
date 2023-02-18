@@ -8,7 +8,9 @@
 
   <div class="selected-card-wrapper flex flex-col items-end justify-between z-1 min-w-[236px] lg:min-w-[290px] xxml:max-w-[360px] md:max-w-[328px] max-w-full w-full">
     <totem-selected-asset-card class="w-full" *ngIf="selectedAsset$ | async" [asset]="selectedAsset$ | async"></totem-selected-asset-card>
-    <ng-container *ngTemplateOutlet="largeGameBar, context: {selectedGame: selectedGame$ | async}"></ng-container>
+    <div class="w-full" [ngStyle]="numberOfDisplayedCards == 0 ? {'padding-left': '40px', 'padding-right': '40px'} : {}">
+      <ng-container *ngTemplateOutlet="largeGameBar, context: {selectedGame: selectedGame$ | async}"></ng-container>
+    </div>
   </div>
 
   <div class="flex flex-col items-start justify-start w-full max-w-[1032px] z-1" *ngIf="numberOfDisplayedCards != 0">
@@ -21,7 +23,7 @@
     <ng-container *ngIf="(selectedGames$ | async)?.length && (selectedAssets$ | async)?.length">
       <div class="w-full flex flex-row items-end justify-between mt-[22px] xxl:mt-[26px] xxml:mt-[34px] gap-4">
         <ng-container *ngFor="let asset of (selectedAssets$ | async) | slice: 0:numberOfDisplayedCards; let i = index">
-          <div class="flex flex-col items-start justify-start min-w-[204px] max-w-[324px] w-full">
+          <div class="flex flex-col items-start justify-start min-w-[208px] max-w-[324px] w-full">
             <totem-start-screen-asset-card class="w-full" *ngIf="selectedAsset$ | async" [asset]="asset"></totem-start-screen-asset-card>
             <ng-container *ngTemplateOutlet="smallGameBar, context: {game: (selectedGames$ | async)![i]}"></ng-container>
           </div>
@@ -40,7 +42,9 @@
 
 <ng-template #largeGameBar let-game="selectedGame">
   <ng-container *ngIf="game">
-    <div class="mt-4 xxml:mt-6 w-full h-[66px] px-2 large-game-bar flex flex-row items-center justify-start cursor-pointer relative" [ngStyle]="selectedGameIndex != 0 ? {'width': 'calc(100% - 48px)'} : {}" (click)="goToGame(game)">
+    <div
+      class="mt-4 xxml:mt-6 w-full h-[66px] px-2 large-game-bar flex flex-row items-center justify-start cursor-pointer relative"
+      (click)="goToGame(game)">
       <div class="w-[50px] h-[50px] rounded-[12px] overflow-hidden shrink-0">
         <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
       </div>
@@ -48,10 +52,10 @@
         <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
         <p class="text-[14px] font-medium leading-[15px] mt-1 t-col-light-grey">{{game.general?.genre![0]}}</p>
       </div>
-      <div *ngIf="numberOfDisplayedCards == 0 && selectedGameIndex != 0" @toggleSmallGameSelector (click)="selectPrevGame(); $event.stopPropagation()" class="absolute -left-[48px] top-[10] change-game-button rounded-full flex items-center justify-center cursor-pointer z-2">
+      <div *ngIf="numberOfDisplayedCards == 0" @toggleSmallGameSelector (click)="selectPrevGame(); $event.stopPropagation()" class="absolute -left-[52px] top-[10] change-game-button rounded-full flex items-center justify-center cursor-pointer z-2">
         <mat-icon class="transform !h-8 !w-8" [svgIcon]="'line:arrow_right'"></mat-icon>
       </div>
-      <div *ngIf="numberOfDisplayedCards == 0" @toggleSmallGameSelector (click)="selectNextGame(); $event.stopPropagation()" class="absolute -right-[14px] top-[10] change-game-button rounded-full flex items-center justify-center cursor-pointer z-2">
+      <div *ngIf="numberOfDisplayedCards == 0" @toggleSmallGameSelector (click)="selectNextGame(); $event.stopPropagation()" class="absolute -right-[52px] top-[10] change-game-button rounded-full flex items-center justify-center cursor-pointer z-2">
         <mat-icon class="!h-8 !w-8" [svgIcon]="'line:arrow_right'"></mat-icon>
       </div>
     </div>

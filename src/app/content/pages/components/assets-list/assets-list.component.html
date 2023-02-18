@@ -1,8 +1,8 @@
 <div class="wrapper" *ngIf="(_assets?.length || games?.length); else loader">
     <div class="header">
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center flex-wrap w-full">
             <p class="text-[32px] font-medium leading-[35px]">{{title}}</p>
-            <totem-entity-selector class="text-[32px] font-medium leading-[35px] px-3" *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
+            <totem-entity-selector class="w-full md:w-min text-[32px] font-medium leading-[35px] md:px-3" *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
                 [activeGame]="selectedGame | async" (gameSelected)="setGame($event)"></totem-entity-selector>
         </div>
     </div>

@@ -151,6 +151,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
   // utils
 
   selectPrevGame() {
+    if (this.selectedGameIndex == 0) return;
     this.selectedGameIndex -= 1;
     const games: GameDetail[] = this.games$.getValue();
     this.storeService.selectGame(games[this.selectedGameIndex]);
