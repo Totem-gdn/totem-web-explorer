@@ -38,8 +38,9 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   @Input() padding: number = 0;
 
   @Input() set assets(assets: any[] | null) {
+    if(assets == null) return;
     // this.slideWidth = this.type == 'game' ? 240 : this.type == 'asset' ? 240 : this.type == 'event' ? 384 : 496;
-    this.cards = assets;
+    this.cards = assets?.slice(0, 10);
     if (this.type == 'legacy') {
       this.minWidth = 496;
     }
@@ -73,22 +74,26 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     this.media$();
   }
 
-  onDragHandle(e: any, action: 'slider-transition' | 'event' = 'event') {
-    // if (action == 'event') {
-    //   const moveTo = this.handlePosition + e.movementX;
-    //   console.log('moveTo: ', moveTo);
-    //   this.handle.nativeElement.style.left = `${moveTo}px`;
-    //   this.handlePosition = moveTo;
-    // }
+  onDragHandle(e: any, action: 'slider-transform' | 'set-transform' | 'event' = 'event') {
+    if(!this.handleTrack) return;
+    if (action == 'event') {
+      const moveTo = this.handlePosition + e.movementX;
+      this.handle.nativeElement.style.left = `${moveTo}px`;
+      this.handlePosition = moveTo;
+    }
 
-    // if (action == 'slider-transition') {
-    //   // console.log(sliderShift)
-    //   const moveTo = this.handlePosition + e.movementX;
-    //   console.log(this.currentTransform)
-    //   console.log('difference: ', ( this.slider.nativeElement.scrollWidth / this.currentTransform * 100 ) - 100);
-    //   this.handle.nativeElement.style.left = `${moveTo}px`;
-    //   this.handlePosition = moveTo;
-    // }
+    if (action == 'slider-transform' || action == 'set-transform') {
+      this.handle.nativeElement.style.transition = 'none';
+      if(action == 'set-transform') this.handle.nativeElement.style.transition = 'left .3s';
+      const lastItems = this.slider.nativeElement.scrollWidth - ((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap)
+      const sliderShiftInPercent = 1 - -(this.currentTransform - lastItems) / lastItems;
+      // console.log(1 - Math.abs((((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap) - (this.slider.nativeElement.scrollWidth)) / ((this.slider.nativeElement.scrollWidth))))
+      console.log('sliderShiftInPercent', (this.currentTransform - lastItems) / lastItems)
+      const moveTo = (this.handleTrack.nativeElement.offsetWidth - this.handleWidth) * sliderShiftInPercent;
+
+      this.handle.nativeElement.style.left = `${moveTo}px`;
+      this.handlePosition = moveTo;
+    }
   }
 
   calculateHandleWidth() {
@@ -138,19 +143,23 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   }
 
   onDrag(e: any) {
+    this.slider.nativeElement.style.transition = 'none';
     const transform = this.currentTransform - e.movementX;
-    if (transform < 0) return;
+    if (!this.cards?.length) return;
 
     this.currentTransform = transform;
-    this.slider.nativeElement.style.transform = `translateX(-${transform}px)`;
-    this.onDragHandle(this.currentTransform, 'slider-transition');
+    this.slider.nativeElement.style.transform = `translateX(${-transform}px)`;
+    this.onDragHandle(this.currentTransform, 'slider-transform');
   }
 
   endDrag(e: any) {
     this.slider.nativeElement.style.transition = 'transform .3s';
     let index = Math.floor(this.currentTransform / (this.slideWidth + this.gap));
     if (this.currentTransform / (this.slideWidth + this.gap) - index > 0.5 && this.cards?.length && index < this.cards?.length - 1) index++;
+    if(index < 0) index = 0;
+    if(this.cards?.length && index > this.cards.length - 1 - this.itemsOnScreen) index = this.cards.length - this.itemsOnScreen;
     this.toggleSlides('to', index);
+    this.onDragHandle(this.currentTransform, 'set-transform');
   }
 
   toggleSlides(direction: 'next' | 'prev' | 'to', index?: number) {
@@ -177,7 +186,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     }
     this.currentTransform = transformWidth;
     this.slider.nativeElement.style.transform = `translateX(-${transformWidth}px)`
-    // this.onDragHandle(this.currentTransform, 'slider-transition');
+    // this.calculateHandleWidth();
   }
 
   calculateSliderWidth() {
@@ -185,19 +194,9 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     this.itemsOnScreen = this.type != 'legacy' ?
       Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
       Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
-    //console.log('items on screen: ', this.itemsOnScreen)
-    // if(this.type == 'event' && this.itemsOnScreen != 0) this.itemsOnScreen -= 1;
 
     this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;
     if (this.type == 'event') this.slideWidth = 384;
-
-    // const wrapperWidth = this.overflow == 'wrap-content' ? (this.itemsOnScreen * this.slideWidth) + (this.itemsOnScreen * this.gap) - this.gap + (this.padding * 2) : containerWidth;
-    // this.wrapper.nativeElement.style.width = `${wrapperWidth}px`;
-
-    // const cards = slider.getElementsByClassName('card-wrapper');
-    // for(let card of cards) {
-    //   card.style.width = `${this.slideWidth}px`
-    // }
   }
 
   ngOnDestroy(): void {

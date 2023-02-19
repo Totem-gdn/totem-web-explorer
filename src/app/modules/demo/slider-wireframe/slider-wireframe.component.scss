@@ -54,6 +54,7 @@
             position: absolute;
             cursor: pointer;
             border-radius: 100px;
+            transition: left .3s;
             width: 100px;  
             height: 4px;
             background-color: $totem-violet;

@@ -73,7 +73,6 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
   initBreakpointListener() {
     this.totemEventListenerService.currentBreakpoint$.pipe(untilComponentDestroyed(this)).subscribe((breakpoint: string) => {
       this.currentBreakpoint = breakpoint;
-      console.log(window.devicePixelRatio, 'screen: ', screen.width, breakpoint);
       this.currentPixelRatio = window.devicePixelRatio;
       if (breakpoint === 'XSmall') {
         this.numberOfDisplayedCards = 0;

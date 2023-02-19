@@ -16,7 +16,7 @@
                 </div>
             </div>
     
-            <ng-container *ngIf="mode == 'arrows' || mode == 'dots'">
+            <ng-container *ngIf="mode == 'arrows'">
                 <slider-arrow *ngIf="hover == true && slideIndex != 0" @fade-in-out [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
                 <slider-arrow *ngIf="hover == true" @fade-in-out (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>    
             </ng-container>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <ng-container *ngIf="false">
+    <ng-container *ngIf="mode == 'dots'">
         <div class="handle-container">
             <div #handleTrack class="handle-track">
                 <div (onDrag)="onDragHandle($event)" #handle class="handle" [style.width]="handleWidth + 'px'"></div>
