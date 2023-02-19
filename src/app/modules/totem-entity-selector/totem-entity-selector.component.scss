@@ -1,5 +1,8 @@
 @import 'styles/scss/totem-variables';
 
+:host {
+  width: max-content;
+}
 
 .img-wrapper {
   flex: 1 0 auto;
@@ -14,14 +17,18 @@
 
 }
 
-.asset-selector {
-  .custom-border {
-    transition: width 0.26s ease-out, background 0.26s ease-out;
+.asset-selector-wrapper {
+  .asset-selector {
+    .custom-border {
+      transition: width 0.26s ease-out, background 0.26s ease-out;
+    }
   }
   &:hover {
-    .custom-border {
-      background-color: #7C4EDE;
-      width: calc(100% + 40px);
+    .asset-selector {
+      .custom-border {
+        background-color: #7C4EDE;
+        width: calc(100% + 40px);
+      }
     }
   }
 }
