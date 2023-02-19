@@ -85,10 +85,9 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     if (action == 'slider-transform' || action == 'set-transform') {
       this.handle.nativeElement.style.transition = 'none';
       if(action == 'set-transform') this.handle.nativeElement.style.transition = 'left .3s';
-      const lastItems = this.slider.nativeElement.scrollWidth - ((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap)
+      let lastItems = this.slider.nativeElement.scrollWidth - ((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap)
+      if(this.type == 'event') lastItems = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth;
       const sliderShiftInPercent = 1 - -(this.currentTransform - lastItems) / lastItems;
-      // console.log(1 - Math.abs((((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap) - (this.slider.nativeElement.scrollWidth)) / ((this.slider.nativeElement.scrollWidth))))
-      console.log('sliderShiftInPercent', (this.currentTransform - lastItems) / lastItems)
       const moveTo = (this.handleTrack.nativeElement.offsetWidth - this.handleWidth) * sliderShiftInPercent;
 
       this.handle.nativeElement.style.left = `${moveTo}px`;
@@ -179,9 +178,12 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     }
 
     let transformWidth = (this.slideWidth + this.gap) * this.slideIndex;
-
+    if(this.type == 'event') {
+      if(transformWidth >= this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth) {
+        transformWidth = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth
+      }
+    }
     if (this.type == 'event' && this.slideIndex == this.cards?.length - 1) {
-      // transformWidth = transformWidth - ((this.wrapper.nativeElement.offsetWidth - this.slideWidth) / 2)
       transformWidth = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth;
     }
     this.currentTransform = transformWidth;
@@ -191,9 +193,15 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   calculateSliderWidth() {
     const containerWidth = this.container.nativeElement.offsetWidth;
-    this.itemsOnScreen = this.type != 'legacy' ?
-      Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap)) :
-      Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap));
+    this.itemsOnScreen = 
+    this.type == 'legacy' ?
+    Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap)) :
+    this.type ==  'event' ?
+    Math.floor((containerWidth + this.gap) / (384 + this.gap)) :
+    Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap));
+
+    if((this.type != 'event' && this.type != 'legacy') && this.itemsOnScreen < 2) this.itemsOnScreen = 2;
+
 
     this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;
     if (this.type == 'event') this.slideWidth = 384;

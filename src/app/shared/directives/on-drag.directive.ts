@@ -21,7 +21,11 @@ export class OnDragDirective implements OnDestroy {
     start(e: any) {
         if (this.pressed != false) return;
         this.element.nativeElement.style.cursor = 'grabbing';
-
+        const children = this.element.nativeElement.children;
+        for (let i = 0; i < children.length; i++) {
+            // children[i].style.pointerEvents = 'none';
+            children[i].style.userSelect = 'none';
+        }
         this.startDrag.emit(e);
         this.pressed = true;
     }
@@ -31,14 +35,14 @@ export class OnDragDirective implements OnDestroy {
         const children = this.element.nativeElement.children;
         for (let i = 0; i < children.length; i++) {
             children[i].style.pointerEvents = 'none';
-            children[i].style.userSelect = 'none';
+            // children[i].style.userSelect = 'none';
         }
         this.onDrag.emit(e);
         // this.pressed = false;
     }
 
     end(e: any) {
-        if (this.pressed != true) return;
+        // if (this.pressed != true) return;
         this.element.nativeElement.style.cursor = 'auto';
         const children = this.element.nativeElement.children;
         for (let i = 0; i < children.length; i++) {
@@ -50,16 +54,16 @@ export class OnDragDirective implements OnDestroy {
     }
 
     leave(e: any) {
-        if (this.pressed != true) return;
+        // if (this.pressed != true) return;
 
-        this.element.nativeElement.style.cursor = 'auto';
-        const children = this.element.nativeElement.children;
-        for (let i = 0; i < children.length; i++) {
-            children[i].style.pointerEvents = 'all';
-            children[i].style.userSelect = 'all';
-        }
-        this.endDrag.emit(e);
-        this.pressed = false;
+        // this.element.nativeElement.style.cursor = 'auto';
+        // const children = this.element.nativeElement.children;
+        // for (let i = 0; i < children.length; i++) {
+        //     children[i].style.pointerEvents = 'all';
+        //     children[i].style.userSelect = 'all';
+        // }
+        // this.endDrag.emit(e);
+        // this.pressed = false;
     }
 
     constructor(public element: ElementRef, @Inject(DOCUMENT) private document: Document) {
@@ -67,25 +71,30 @@ export class OnDragDirective implements OnDestroy {
         fromEvent(this.element.nativeElement, 'mousedown')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
+                
                 this.start(e);
             });
 
         fromEvent(this.element.nativeElement, 'touchstart')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
+                e.stopPropagation();
+                e.preventDefault();
                 
                 this.start(e);
             });
 
-        fromEvent(this.element.nativeElement, 'mouseup')
+        fromEvent(window, 'mouseup')
             .pipe(takeUntil(this.subs))
             .subscribe(e => {
                 this.end(e);
             });
-        fromEvent(this.element.nativeElement, 'touchend')
+        fromEvent(window, 'touchend')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
-                
+                e.stopPropagation();
+                e.preventDefault();
+                this.mouseX = undefined;
 
                 this.end(e);
             });
@@ -99,18 +108,21 @@ export class OnDragDirective implements OnDestroy {
         fromEvent(this.element.nativeElement, 'mousemove')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
+
                 this.move(e);
             });
 
         fromEvent(this.element.nativeElement, 'touchmove')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
-                if(!this.mouseX) this.mouseX = e.targetTouches[0].clientX;
-                const difference = this.mouseX! - e.targetTouches[0].clientX;
-                this.move({movementX: difference * -1});
-                e.preventDefault();
                 e.stopPropagation();
-                this.mouseX = e.targetTouches[0].clientX;
+                e.preventDefault();
+                if(!this.mouseX) this.mouseX = e.targetTouches[0].pageX;
+                const difference = this.mouseX! - e.targetTouches[0].pageX;
+
+                this.move({movementX: difference * -1});
+
+                this.mouseX = e.targetTouches[0].pageX;
             });
     }
 
