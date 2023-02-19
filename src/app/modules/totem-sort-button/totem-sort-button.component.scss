@@ -1,8 +1,5 @@
 @import 'styles/scss/totem-variables';
 
-:host {
-  width: max-content;
-}
 
 .img-wrapper {
   flex: 1 0 auto;
@@ -17,18 +14,14 @@
 
 }
 
-.asset-selector-wrapper {
-  .asset-selector {
-    .custom-border {
-      transition: width 0.26s ease-out, background 0.26s ease-out;
-    }
+.asset-selector {
+  .custom-border {
+    transition: width 0.26s ease-out, background 0.26s ease-out;
   }
   &:hover {
-    .asset-selector {
-      .custom-border {
-        background-color: #7C4EDE;
-        width: calc(100% + 40px);
-      }
+    .custom-border {
+      background-color: #7C4EDE;
+      width: calc(100% + 40px);
     }
   }
 }
@@ -47,14 +40,36 @@
   transition: transform 0.26s ease-out;
 }
 
-.title {
+/* .title {
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
-}
+} */
 
-.game-arrow {
+/* .game-arrow {
   width: 20px !important;
   height: 20px !important;
   margin-left: 12px !important;
+} */
+
+.sort-button {
+  border: 1px solid transparent;
+  transition: all 0.22s ease-out;
+  &:hover {
+    background-color: $totem-grey;
+    color: white;
+  }
+}
+
+.sort-wrapper {
+  border: 1px solid $totem-divider-grey;
+  background-color: $blur-black;
+}
+
+.sort-item {
+  background-color: $blur-black;
+  transition: background 0.22s ease-out;
+  &:hover {
+    background-color: $totem-black;
+  }
 }

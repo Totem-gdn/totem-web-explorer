@@ -5,6 +5,12 @@
             <totem-entity-selector class="w-full md:w-min text-[32px] font-medium leading-[35px] md:px-3" *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
                 [activeGame]="selectedGame | async" (gameSelected)="setGame($event)"></totem-entity-selector>
         </div>
+        <ng-container *ngIf="type != 'game'">
+          <totem-sort-button (sortSelected)="loadAssets(type, page, $event, 'set')"></totem-sort-button>
+        </ng-container>
+        <ng-container *ngIf="type == 'game'">
+          <totem-sort-button (sortSelected)="loadGames(page, $event, 'set')"></totem-sort-button>
+        </ng-container>
     </div>
 
     <div class="list" *ngIf="type != 'game'">
