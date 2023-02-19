@@ -78,8 +78,8 @@ export class OnDragDirective implements OnDestroy {
         fromEvent(this.element.nativeElement, 'touchstart')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
-                e.stopPropagation();
-                e.preventDefault();
+                // e.stopPropagation();
+                // e.preventDefault();
                 
                 this.start(e);
             });
@@ -92,8 +92,8 @@ export class OnDragDirective implements OnDestroy {
         fromEvent(window, 'touchend')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
-                e.stopPropagation();
-                e.preventDefault();
+                // e.stopPropagation();
+                // e.preventDefault();
                 this.mouseX = undefined;
 
                 this.end(e);
