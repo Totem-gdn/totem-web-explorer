@@ -1,0 +1,75 @@
+@import 'styles/scss/totem-variables';
+
+
+.img-wrapper {
+  flex: 1 0 auto;
+}
+
+.selected-asset-card {
+  background-color: $totem-dark-grey;
+
+  .asset-card-content {
+    background-color: $totem-grey;
+  }
+
+}
+
+.asset-selector {
+  .custom-border {
+    transition: width 0.26s ease-out, background 0.26s ease-out;
+  }
+  &:hover {
+    .custom-border {
+      background-color: #7C4EDE;
+      width: calc(100% + 40px);
+    }
+  }
+}
+
+.asset-selector-menu-wrapper {
+  border: 1px solid $totem-violet;
+  .asset-selector-item {
+    transition: background-color 0.22s ease-out;
+    &:hover {
+      background-color: $totem-black;
+    }
+  }
+}
+
+.mat-icon {
+  transition: transform 0.26s ease-out;
+}
+
+/* .title {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+} */
+
+/* .game-arrow {
+  width: 20px !important;
+  height: 20px !important;
+  margin-left: 12px !important;
+} */
+
+.sort-button {
+  border: 1px solid transparent;
+  transition: all 0.22s ease-out;
+  &:hover {
+    background-color: $totem-grey;
+    color: white;
+  }
+}
+
+.sort-wrapper {
+  border: 1px solid $totem-divider-grey;
+  background-color: $blur-black;
+}
+
+.sort-item {
+  background-color: $blur-black;
+  transition: background 0.22s ease-out;
+  &:hover {
+    background-color: $totem-black;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="totem-sort-button flex flex-row items-center justify-start cursor-pointer relative">
+  <div
+    class="h-12 whitespace-nowrap sort-button relative flex flex-row items-center justify-center t-col-light-grey t-bg-dark-grey rounded-[12px] px-4"
+    #toggleButton (click)="menuActive = !menuActive"
+    [ngStyle]="menuActive ? {'border' : '1px solid white', 'color': 'white'} : {}"
+    >
+    <p class="text-[16px] font-medium leading-[17px] title relative z-2">Sort By</p>
+    <mat-icon [ngStyle]="menuActive ? {'transform':'rotate(180deg)'} : {}" class="ml-3 leading-[17px] !w-[17px] !h-[17px]" [svgIcon]="'feather:expand_down'"></mat-icon>
+  </div>
+
+  <div
+    *ngIf="menuActive"
+    [@toggleSelector]
+    #dropdown
+    class="w-full sort-wrapper absolute t-bg-violet top-[calc(100%+10px)] left-0 right-0 rounded-[12px] overflow-hidden z-2"
+    >
+    <div class="sort-inner-wrapper w-full h-full overflow-x-hidden overflow-y-auto flex flex-col items-center justify-start p-2 rounded-[12px]">
+      <div
+        class="w-full h-12 shrink-0 rounded-[12px] sort-item flex flex-row items-center justify-start px-4 text-[16px] font-normal leading-[17px]"
+        (click)="selectSortingType('latest')">
+        Latest
+      </div>
+      <div
+        class="w-full h-12 shrink-0 rounded-[12px] sort-item flex flex-row items-center justify-start px-4 text-[16px] font-normal leading-[17px]"
+        (click)="selectSortingType('popular')">
+        Popular
+      </div>
+    </div>
+
+  </div>
+</div>
