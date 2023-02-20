@@ -53,7 +53,7 @@
         <div (mouseenter)="animateItem(1, true)" (mouseleave)="resetWithExeption(1, true)"
           class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
 
-          
+
           <div class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
             <div class="flex flex-col items-center mt-9">
               <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[1].type}}</h2>
@@ -78,6 +78,12 @@
         confirmation of your transaction Totem mints the Totem Asset on the smart contract. Confirmation of this
         transaction also may take several seconds. Overall process may take up to a minute. Please ensure that you have
         enough USDC on your account and have enough MATIC to transfer USDC.</p>
+      <div class="mt-6 w-full p-4 t-bg-violet rounded-[18px]">
+        <p>*Please use the test card “<b>4242 4242 4242 4242</b>” with any valid
+          <b>Expiration Date</b>, <b>CVV</b> and <b>Cardholder's name</b> to pay for assets.
+          We are in the process of developing the site and are still testing
+          our payment system.</p>
+      </div>
     </div>
   </div>
 </div>

@@ -66,7 +66,7 @@ export class SendAssetComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.balance$();
-        const gasFee = await this.cryptoUtilsService.estimateUSDCGasFee(this.paymentInfo?.paymentInfo?.address, this.paymentInfo?.paymentInfo?.price);
+        const gasFee = await this.cryptoUtilsService.estimateUSDCGasFee(this.paymentInfo?.paymentInfo?.contractAddress, this.paymentInfo?.paymentInfo?.price);
         this.gasFee = gasFee;
     }
 

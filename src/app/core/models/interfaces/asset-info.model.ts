@@ -24,17 +24,22 @@ export type AssetTypes = 'item' | 'avatar' | 'gem';
 //     type:
 // }
 export interface PaymentInfo {
-    type?: ASSET_TYPE;
-    paymentInfo?: {
-        address?: string;
-        price?: string;
-        token?: string;
-    }
+  type?: ASSET_TYPE;
+  paymentInfo?: {
+    contractAddress?: string;
+    price?: string;
+    token?: string;
+  }
 }
 
 export interface CardPaymentResponse {
     url?: string;
     order?: string;
+}
+
+export interface AssetTypeInfo {
+    contractAddress: string;
+    price: string;
 }
 
 export function IsPaymentInfo(obj: any): obj is PaymentInfo {
