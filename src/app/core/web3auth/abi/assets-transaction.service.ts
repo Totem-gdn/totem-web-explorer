@@ -32,8 +32,8 @@ export class AssetsListenerService {
     const blockNumber = await this.web3.eth.getBlockNumber();
 
     contract.events.Transfer(
-      {fromBlock: (blockNumber - 100), toBlock: 'latest', filter: {to: address}},
-      (error: any, event: any) => { })
+      {fromBlock: (blockNumber - 100), filter: {to: address}},
+      (error: any, event: any) => {console.log(event)})
         .on("connected", (subscriptionId: any) => {
         })
         .on('data', (event: any) => {
