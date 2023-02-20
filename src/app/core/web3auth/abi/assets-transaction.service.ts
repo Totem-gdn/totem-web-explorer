@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { AssetsABI } from './assets-abi'
 import Web3 from "web3";
 import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
+import { BuyAssetService } from "@app/core/services/assets/buy-asset.service";
+import { AssetTypeInfo } from "@app/core/models/interfaces/asset-info.model";
 
 @Injectable({ providedIn: 'root' })
 
@@ -12,12 +14,19 @@ export class AssetsListenerService {
 
   public assetTxState: BehaviorSubject<null | 'error' | 'success'> = new BehaviorSubject<null | 'error' | 'success'>(null);
   private web3 = new Web3('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx');
+  itemEthAddress: string = '';
+  avatarEthAddress: string = '';
 
-  constructor(private baseStorage: BaseStorageService) {}
+  constructor(
+    private baseStorage: BaseStorageService,
+    private buyAssetService: BuyAssetService,
+    ) {}
 
   async listenTx(address: string, type: string) {
     const assetContract = AssetsABI;
-    const contractAddress = type === 'item' ? environment.ITEM_ETH_ADDRESS : environment.AVATAR_ETH_ADDRESS;
+    console.log('item: ', this.itemEthAddress, '\n', 'avatar: ', this.avatarEthAddress);
+
+    const contractAddress = type === 'item' ? this.itemEthAddress || environment.ITEM_ETH_ADDRESS : this.avatarEthAddress || environment.AVATAR_ETH_ADDRESS;
     const contract = new this.web3.eth.Contract(assetContract, contractAddress);
 
     const blockNumber = await this.web3.eth.getBlockNumber();
@@ -57,6 +66,19 @@ export class AssetsListenerService {
       this.assetTxState.next('success');
       this.baseStorage.setItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type, currentTokenId);
     }
+  }
+
+  getPriceAndContractAddress(type: 'item' | 'avatar' | 'gem'): Observable<AssetTypeInfo> {
+    return this.buyAssetService.getAssetPriceAndContractAddress(type).pipe(tap((response: AssetTypeInfo) => {
+      if (type === 'item') {
+        this.itemEthAddress = response.contractAddress;
+        console.log('item: ', this.itemEthAddress);
+      }
+      if (type === 'avatar') {
+        this.avatarEthAddress = response.contractAddress;
+        console.log('avatar: ', this.avatarEthAddress);
+      }
+    }))
   }
 
 }
