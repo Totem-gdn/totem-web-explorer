@@ -12,7 +12,7 @@
                 <p class="text-light-grey mb-[10px]">{{'nav.your_balance' | translate}}: </p>
                 <div class="flex flex-col">
 
-                    
+
                     <div class="token-wrapper pb-[15px]">
                         <div class="icon icon-font-USDC"></div>
                         <div class="flex flex-col overflow-hidden">
@@ -56,7 +56,7 @@
     <ng-container *ngIf="!choosePaymentMethod">
         <button matRipple (click)="onClose()">{{'nav.cancel' | translate}}</button>
         <button matRipple class="button-2"
-            (click)="onBuy(paymentInfo?.type, paymentInfo?.paymentInfo?.address, paymentInfo?.paymentInfo?.price)">{{'nav.confirm'
+            (click)="onBuy(paymentInfo?.type, paymentInfo?.paymentInfo?.contractAddress, paymentInfo?.paymentInfo?.price)">{{'nav.confirm'
             | translate}}</button>
     </ng-container>
 

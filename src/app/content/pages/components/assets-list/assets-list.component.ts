@@ -80,16 +80,14 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selectedGame.next(game)
         if(this.type != 'game' && this._assets) this._assets = this.storeService.setRenderers(this.type, this._assets);
 
-        console.log('selected game', game)
       })
   }
 
-  loadAssets(type: ASSET_TYPE, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
+  loadAssets(type: ASSET_TYPE, page: number, list: 'latest' | 'popular' = 'latest', action: 'set' | 'push' = 'push') {
     this.assetsService.fetchAssets(type, page, list)
       .subscribe(assets => {
         this.title = `Showing ${assets.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'} in`
-        this.setAssets(assets.data)
-        console.log('assets', assets.meta)
+        this.setAssets(assets.data, action)
         if (assets.meta.perPage * page >= assets.meta.total) {
           this.loadMoreActive = false;
         } else {
@@ -98,7 +96,7 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
       })
   }
 
-  loadMultipleAssets(type: ASSET_TYPE, fromPage: number, toPage: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
+  loadMultipleAssets(type: ASSET_TYPE, fromPage: number, toPage: number, list: 'latest' | 'popular' = 'latest', action: 'set' | 'push' = 'push') {
     this.assetsService.fetchMultiplePages(type, fromPage, toPage, list)
       .subscribe(assetsArr => {
         for(let assets of assetsArr) {
@@ -114,7 +112,7 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.storeService.selectGame(game);
   }
 
-  loadGames(page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, action: 'set' | 'push' = 'push') {
+  loadGames(page: number, list: 'latest' | 'popular' = 'latest', action: 'set' | 'push' = 'push') {
     this.gamesService.fetchGames(page, list)
       .subscribe(games => {
         if(this.type == 'game') this.title = `Showing ${games.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'}`
@@ -126,7 +124,6 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if(action == 'set') {
           this.games = games.data;
         }
-        console.log('meta', games.meta)
         if (games.meta.perPage * page >= games.meta.total) {
           this.loadMoreActive = false;
         } else {

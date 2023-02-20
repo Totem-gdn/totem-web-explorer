@@ -49,7 +49,6 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
     private storeService: StoreService,
     private snackNotifierService: SnackNotifierService,
     ) {
-      console.log(this.router.url);
       this.routeValue$.next(this.router.url);
     }
 

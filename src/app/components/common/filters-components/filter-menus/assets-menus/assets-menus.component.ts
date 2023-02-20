@@ -46,8 +46,6 @@ export class AssetsMenusComponent implements OnInit, OnDestroy {
         const properties = await this.dnaService.processJSON(json, this.menuType);
         const filtered = properties.filter(prop => { return prop.type != 'Color' });
         this.items = filtered;
-        // console.log('json1', this.items)
-        // console.log('processed')
 
     }
 

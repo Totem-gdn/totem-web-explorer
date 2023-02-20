@@ -35,6 +35,7 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initUserAndLoadingListener();
     this.initBalanceListener();
+  
   }
 
   ngOnDestroy(): void {
@@ -43,7 +44,6 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   initBalanceListener() {
     this.cryptoUtilsService.tokenBalance$.subscribe((balance: TokenBalance) => {
-      console.log(balance);
 
       this.usdcBalance = balance.usdc;
     })

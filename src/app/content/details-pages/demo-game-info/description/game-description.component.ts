@@ -33,7 +33,6 @@ export class GameDescriptionComponent {
 
         if (slides) this.hlSlide = slides[0];
         if (slides?.length) this.slides = slides;
-        console.log('slides', slides)
     };
     @ViewChild('dropdown') dropdown!: ElementRef;
     @ViewChild('image') image!: ElementRef;

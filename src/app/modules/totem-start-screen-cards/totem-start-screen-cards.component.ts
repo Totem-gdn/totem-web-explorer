@@ -35,6 +35,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
 
   assetTypeSelected: 'item' | 'avatar' = 'avatar';
   currentBreakpoint: string = '';
+  currentPixelRatio: number = 0;
   numberOfDisplayedCards: number = 4;
   selectedGameIndex: number = 0;
   gamesListLength: number = 0;
@@ -50,13 +51,11 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
     this.listenSelectedGameAndAsset();
     this.initBreakpointListener();
     this.storeService.games$.subscribe((games: GameDetail[]) => {
-      //console.log('GAMES FROM STORAGE: ', games);
       this.games$.next(games);
       this.gamesListLength = games.length || 0;
     });
 
     this.storeService.avatars$.subscribe((avatars: AssetInfo[]) => {
-      //console.log('avatars FROM STORAGE: ', avatars);
       this.avatars$.next(avatars);
       if (this.assetTypeSelected === ASSET_TYPE.AVATAR) {
         this.setAsset(avatars[0]);
@@ -64,7 +63,6 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
     });
 
     this.storeService.items$.subscribe((items: AssetInfo[]) => {
-      //console.log('items FROM STORAGE: ', items);
       this.items$.next(items);
       if (this.assetTypeSelected === ASSET_TYPE.ITEM) {
         this.setAsset(items[0]);
@@ -75,24 +73,41 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
   initBreakpointListener() {
     this.totemEventListenerService.currentBreakpoint$.pipe(untilComponentDestroyed(this)).subscribe((breakpoint: string) => {
       this.currentBreakpoint = breakpoint;
+      this.currentPixelRatio = window.devicePixelRatio;
       if (breakpoint === 'XSmall') {
         this.numberOfDisplayedCards = 0;
         return;
       }
       if (breakpoint === 'XMSmall') {
-        this.numberOfDisplayedCards = 1;
+        if (this.currentPixelRatio > 1.25) {
+          this.numberOfDisplayedCards = 2;
+        } else {
+          this.numberOfDisplayedCards = 1;
+        }
         return;
       }
       if (breakpoint === 'Small' || breakpoint === 'MSmall') {
-        this.numberOfDisplayedCards = 2;
+        if (this.currentPixelRatio > 1.25) {
+          this.numberOfDisplayedCards = 3;
+        } else {
+          this.numberOfDisplayedCards = 2;
+        }
         return;
       }
       if (breakpoint === 'Medium') {
-        this.numberOfDisplayedCards = 1;
+        if (this.currentPixelRatio > 1.25) {
+          this.numberOfDisplayedCards = 2;
+        } else {
+          this.numberOfDisplayedCards = 1;
+        }
         return;
       }
       if (breakpoint === 'Large') {
-        this.numberOfDisplayedCards = 2;
+        if (this.currentPixelRatio > 1.25) {
+          this.numberOfDisplayedCards = 3;
+        } else {
+          this.numberOfDisplayedCards = 2;
+        }
         return;
       }
       if (breakpoint === 'XLarge') {
@@ -135,6 +150,7 @@ export class TotemStartScreenCardsComponent extends OnDestroyMixin {
   // utils
 
   selectPrevGame() {
+    if (this.selectedGameIndex == 0) return;
     this.selectedGameIndex -= 1;
     const games: GameDetail[] = this.games$.getValue();
     this.storeService.selectGame(games[this.selectedGameIndex]);

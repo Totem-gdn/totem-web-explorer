@@ -66,12 +66,10 @@ export class TotemLayoutComponent implements OnInit, OnDestroy {
 
     if (!this.isScrolling) {
       this.isScrolling = true;
-      console.log('Scrolling');
     }
 
     this.scrollSubscription = timer(4000).subscribe(() => {
       this.isScrolling = false;
-      console.log('Not scrolling');
       this.scrollSubscription.unsubscribe();
     })
   }

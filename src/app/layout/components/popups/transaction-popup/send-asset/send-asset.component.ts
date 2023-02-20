@@ -66,7 +66,7 @@ export class SendAssetComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.balance$();
-        const gasFee = await this.cryptoUtilsService.estimateUSDCGasFee(this.paymentInfo?.paymentInfo?.address, this.paymentInfo?.paymentInfo?.price);
+        const gasFee = await this.cryptoUtilsService.estimateUSDCGasFee(this.paymentInfo?.paymentInfo?.contractAddress, this.paymentInfo?.paymentInfo?.price);
         this.gasFee = gasFee;
     }
 
@@ -85,12 +85,10 @@ export class SendAssetComponent implements OnInit, OnDestroy {
 
     onContinue() {
         if (this.paymentMethod === 'card') {
-          console.log(this.paymentMethod);
           this.buyWithCard();
           return;
         }
         if (this.paymentMethod === 'wallet') {
-          console.log(this.paymentMethod);
         }
         this.choosePaymentMethod = false;
     }
@@ -107,7 +105,6 @@ export class SendAssetComponent implements OnInit, OnDestroy {
           if (data && data.url) {
             this.openInNewWindow(data.url);
           }
-          console.log(data);
           this.loading = false;
         }); */
     }

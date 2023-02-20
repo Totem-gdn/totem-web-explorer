@@ -43,7 +43,6 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
     this.selectedGame$();
 
     const gameInSession = this.gamesService.gameInSession;
-    console.log('game is session', gameInSession)
     if (gameInSession) this.selectedGame = this.formatGame(gameInSession);
   }
 
@@ -69,7 +68,6 @@ export class GameDropdownComponent implements OnDestroy, OnInit {
   formatGames(games: GameDetail[], filter: string) {
 
     const gameInSession = this.gamesService.gameInSession;
-    console.log('game IS', gameInSession)
 
     const dropdownGames: DropdownItem[] = [];
 

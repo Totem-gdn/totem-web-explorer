@@ -3,7 +3,7 @@
     <div *ngIf="asset?.rendererUrl" class="img-wrapper h-[132px] sm:h-[180px] md:h-[154px] lg:h-[180px] relative">
         <img
           (changeSrc)="showSpinner = $event"
-          class="object-cover h-full" loading="lazy"
+          class="object-fill h-full" loading="lazy"
           [src]="asset?.rendererUrl" alt="Not found"
           (error)="loadDefaultRenderer()">
 

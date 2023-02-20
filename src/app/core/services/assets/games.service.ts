@@ -44,7 +44,7 @@ export class GamesService {
     return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`);
   }
 
-  fetchGames(page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+  fetchGames(page: number, list: 'latest' | 'popular' = 'latest', owner: string | undefined = undefined) {
     const url = owner ? `${this.baseUrl}/games?page=${page}&list=${list}&owner=${owner}` : `${this.baseUrl}/games?page=${page}&list=${list}`;
 
 
@@ -63,7 +63,7 @@ export class GamesService {
       }));
   }
 
-  gamesByFilter(filter: string, page: number = 1, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST): Observable<any> {
+  gamesByFilter(filter: string, page: number = 1, list: 'latest' | 'popular' = 'latest'): Observable<any> {
 
     let url = '';
     if (filter) {
@@ -89,7 +89,7 @@ export class GamesService {
     );
   }
 
-  getGamesByFilter(filter: string, page: number = 1, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
+  getGamesByFilter(filter: string, page: number = 1, list: 'latest' | 'popular' = 'latest') {
     const url = `${this.baseUrl}/games?search=${filter}&page=${page}&list=${list}`;
 
     return this.http.get<ApiResponse<GameDetail[]>>(url)
@@ -101,7 +101,6 @@ export class GamesService {
 
   set gameInSession(game: GameDetail | null) {
     if(!game) return;
-    console.log('set game', game)
     this.baseStorageService.setItem(this.uniqSessionKey, JSON.stringify(game), 'local');
     this.selectedGame = game;
   }

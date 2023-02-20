@@ -1,5 +1,9 @@
 @import 'styles/scss/totem-variables';
 .container_ {
+    display: flex;
+    flex-direction: column;
+}
+.slider-container_ {
     position: relative;
 
     .wrapper {
@@ -29,30 +33,44 @@
         transform: translateX(50%) translateY(-50%);
     }
 
-    .dots-wrapper {
+    
+}
+
+.handle-container {
+    position: relative;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    margin-top: 25px;
+    display: flex;
+    gap: 20px;
+    .handle-track {
         position: relative;
-        left: 0;
-        right: 0;
-        justify-content: center;
-        margin-top: 25px;
-        display: flex;
-        gap: 20px;
-        .dot {
-            position: relative;
+        width: 220px;
+        height: 4px;
+        background-color: $totem-dark-grey;
+        border-radius:  100px;
+        .handle {
+            position: absolute;
             cursor: pointer;
-            border-radius: 20px;
-            transition: backgroun-color .3s;
-            background-color: $totem-grey;
-            height: 8px;
-            width: 115px;
-            &::after {
-                content: '';
-                position: absolute;
-                 top: -50%;
-                // left: -50%;
-                //  width: 200%;
-                height: 200%;
-            }
+            border-radius: 100px;
+            transition: left .3s;
+            width: 100px;  
+            height: 4px;
+            background-color: $totem-violet;
+            left: 0;
+            // &::after {
+            //     content: '';
+            //     position: absolute;
+            //      top: -50%;
+            //     // left: -50%;
+            //     //  width: 200%;
+            //     height: 200%;
+            // }
         }
     }
+}
+
+.bg-divider {
+    background-color: #323741 !important;
 }

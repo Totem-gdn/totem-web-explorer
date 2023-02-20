@@ -5,7 +5,7 @@ import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { BLOCK_TYPE } from '@app/core/models/enums/block-types.enum';
 import { COLOR_POPUP_TYPE } from '@app/core/models/enums/popup.enum';
-import { PaymentInfo } from '@app/core/models/interfaces/asset-info.model';
+import { AssetTypeInfo, PaymentInfo } from '@app/core/models/interfaces/asset-info.model';
 import { HomepageBlock } from '@app/core/models/interfaces/homepage-blocks.interface';
 import { CardPaymentResponse } from '@app/core/models/interfaces/payment.interface';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
@@ -18,11 +18,12 @@ import { TransactionsService } from '@app/core/services/crypto/transactions.serv
 import { PopupService } from '@app/core/services/states/popup-state.service';
 import { TotemEventListenerService } from '@app/core/services/utils/global-event-listeners.service';
 import { GamesStoreService } from '@app/core/store/games-store.service';
+import { AssetsListenerService } from '@app/core/web3auth/abi/assets-transaction.service';
 import { Web3AuthService } from '@app/core/web3auth/web3auth.service';
 import { environment } from '@env/environment';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Gtag } from 'angular-gtag';
-import { BehaviorSubject, catchError, of, Subscription, timer } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, of, Subscription, timer } from 'rxjs';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     private userStateService: UserStateService,
     private snackService: SnackNotifierService,
     private transactionsService: TransactionsService,
+    private assetsListenerService: AssetsListenerService,
     private gtag: Gtag
   ) {
     this.gtag.event('page_view');
@@ -76,7 +78,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
 
   updateAssets() {
     this.loading$.next(true);
-    this.buyAssetService.getAssets().pipe(
+    /* this.buyAssetService.getAssets().pipe(
       catchError((err: HttpErrorResponse) => {
         this.snackService.open(err?.error?.message || err.message);
         this.loading$.next(false);
@@ -84,10 +86,26 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       })
       ).subscribe(assets => {
         this.paymentInfo(assets);
+    }) */
+    combineLatest([
+      this.assetsListenerService.getPriceAndContractAddress('item'),
+      this.assetsListenerService.getPriceAndContractAddress('avatar')
+    ]).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackService.open(err?.error?.message || err.message);
+        this.loading$.next(false);
+        return of();
+      }),
+      map(([item, avatar]) => {return {item, avatar}})
+    ).subscribe((response: {item: AssetTypeInfo, avatar: AssetTypeInfo}) => {
+      if (response?.item) this.assets[0].paymentInfo = response.item;
+      if (response?.avatar) this.assets[1].paymentInfo = response.avatar;
+      this.loading$.next(false);
+      console.log('ITEM AND AVATAR DATA FETCHED');
     })
   }
 
-  paymentInfo(assets: any[]) {
+  /* paymentInfo(assets: any[]) {
     assets.forEach(asset => {
       this.buyAssetService.getPaymentInfo(asset).pipe(
         catchError((err: HttpErrorResponse) => {
@@ -103,7 +121,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
           }
       })
     })
-  }
+  } */
 
   buyWithCard(type: string) {
     this.loading$.next(true);
@@ -129,7 +147,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
         if (data && data.url) {
           this.openInNewWindow(data.url);
         }
-        console.log(data);
         this.loading$.next(false);
       });
   }
@@ -159,7 +176,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     if (this.paymentPopup) {
       this.subs.add(
         window.addEventListener("message", (event) => {
-          console.log('GET SOME EVENT: ', event);
           if (event.data.target.includes(environment.TOTEM_WEB_EXPLORER_URL)) {
             this.totemEListenerService.processParams(event.data);
             this.paymentPopup?.close();
@@ -181,7 +197,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       if (this.disableLoop.disable === true) {
         return;
       }
-      //console.log('loop')
       this.animateItem(currentItemIndex == 0 ? 1 : 0, false);
       currentItemIndex = currentItemIndex == 0 ? 1 : 0;
 
@@ -190,7 +205,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   }
 
   animateItem(index: number, disableLoop: boolean) {
-    console.log('animate')
 
 
     let item = index == 0 ? this.item1.nativeElement : this.item2.nativeElement as HTMLElement;
@@ -225,7 +239,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   moveCircle(item: any) {
     const itemX = item.offsetLeft + (item.offsetWidth / 2) - 150;
     const itemY = item.offsetTop + (item.offsetHeight / 2) - 200;
-    // console.log('item x', itemX, 'item y', itemY)
     this.movingCircle.nativeElement.style.transform = `translate(${itemX}px,${itemY}px)`;
     this.movingCircle.nativeElement.style.transition = 'transform .8s ease-in-out, opacity 1s .5s';
     this.movingCircle.nativeElement.style.opacity = `1`;

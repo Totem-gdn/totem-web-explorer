@@ -1,4 +1,4 @@
-<div class="min-w-[240px] flex flex-col selected-asset-card h-[288px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToAsset(asset!)">
+<div class="min-w-[150px] sm:min-w-[240px] flex flex-col selected-asset-card h-[288px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToAsset(asset!)">
 
     <div *ngIf="asset?.rendererUrl" class="img-wrapper h-[190px] relative">
         <img
@@ -13,18 +13,18 @@
         <div class="flex flex-row items-center justify-start">
           <p class="font-medium text-[20px] leading-[22px]">ID: {{asset?.tokenId}}</p>
         </div>
-        <div class="flex flex-row items-center justify-between mt-3">
+        <div class="flex flex-row items-center justify-start sm:justify-between mt-3 gap-[15px] sm:gap-[0px]">
           <div class="flex flex-col items-start justify-start">
             <p class="font-medium text-[16px] leading-[17px]">{{asset?.updatedAt | date:'dd.MM.yy'}}</p>
-            <p class="mt-1 font-medium text-[14px] leading-[15px] text-[#8A939B]">Last used</p>
+            <p class="mt-1 font-medium text-[14px] leading-[15px] text-[#8A939B] truncate">Last used</p>
           </div>
           <div class="flex flex-col items-start justify-start">
             <p class="font-medium text-[16px] leading-[17px]">{{asset?.rarity}}</p>
-            <p class="mt-1 font-medium text-[14px] leading-[15px] text-[#8A939B]">Rarity</p>
+            <p class="mt-1 font-medium text-[14px] leading-[15px] text-[#8A939B] truncate">Rarity</p>
           </div>
-          <div class="flex flex-col items-start justify-start">
+          <div class="sm:flex hidden flex-col items-start justify-start">
             <p class="font-medium text-[16px] leading-[17px]">{{asset?.games}}</p>
-            <p class="mt-1 font-medium text-[14px] leading-[15px] text-[#8A939B]">Games used</p>
+            <p class="mt-1 font-medium text-[14px] leading-[15px] text-[#8A939B] truncate">Games used</p>
           </div>
         </div>
     </div>

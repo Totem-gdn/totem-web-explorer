@@ -67,7 +67,6 @@ export class AssetCardComponent implements AfterViewInit {
           this._asset.isLiked = true;
         },
         error: error => {
-          console.log(error)
           this.messageService.open('Error');
         }
       });
@@ -80,7 +79,6 @@ export class AssetCardComponent implements AfterViewInit {
           this._asset.isLiked = false;
         },
         error: error => {
-          console.log(error)
           this.messageService.open('Error')
         }
       });

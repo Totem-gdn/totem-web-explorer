@@ -119,7 +119,6 @@ export class GameFilterMenuComponent implements OnInit {
     //     if(!this.items) return;
     //     const items = this.menuRef.nativeElement.getElementsByClassName('menu-item');
     //     const matchedItems = this.items.filter(item => item.value.includes(filter));
-    //     console.log(matchedItems, matchedItems.length)
 
     //     for(let i = 0; i < items.length; i++) {
     //         if(this.items[i].value.includes(filter)) {

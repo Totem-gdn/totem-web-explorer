@@ -38,7 +38,7 @@ export class TotemExplorerVideoComponent implements OnDestroy, OnInit {
   offset = 12;
 
   ngOnInit() {
-    this.resize$();
+    // this.resize$();
   }
 
   resize$() {

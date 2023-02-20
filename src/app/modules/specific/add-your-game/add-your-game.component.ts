@@ -179,7 +179,6 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.submitGameService.postGame(formData)
         .pipe(catchError((error: HttpErrorResponse) => {
-          console.log(error);
           this.snackNotifierService.open(error?.error?.message || error?.message);
           return of();
         }))
@@ -194,7 +193,6 @@ export class AddYourGameComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.submitGameService.updateGame(formData, this.gameToEdit.id)
         .pipe(catchError((error: HttpErrorResponse) => {
-          console.log(error);
           this.snackNotifierService.open(error?.error?.message || error?.message);
           return of();
         }))

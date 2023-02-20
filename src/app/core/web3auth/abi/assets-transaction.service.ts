@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { AssetsABI } from './assets-abi'
 import Web3 from "web3";
 import { BaseStorageService } from "@app/core/services/utils/base-storage.service";
 import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
+import { BuyAssetService } from "@app/core/services/assets/buy-asset.service";
+import { AssetTypeInfo } from "@app/core/models/interfaces/asset-info.model";
 
 @Injectable({ providedIn: 'root' })
 
@@ -12,27 +14,29 @@ export class AssetsListenerService {
 
   public assetTxState: BehaviorSubject<null | 'error' | 'success'> = new BehaviorSubject<null | 'error' | 'success'>(null);
   private web3 = new Web3('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx');
+  itemEthAddress: string = '';
+  avatarEthAddress: string = '';
 
-  constructor(private baseStorage: BaseStorageService) {}
+  constructor(
+    private baseStorage: BaseStorageService,
+    private buyAssetService: BuyAssetService,
+    ) {}
 
   async listenTx(address: string, type: string) {
-    console.log('LISTENING CONTRACT');
     const assetContract = AssetsABI;
-    const contractAddress = type === 'item' ? environment.ITEM_ETH_ADDRESS : environment.AVATAR_ETH_ADDRESS;
+    console.log('item: ', this.itemEthAddress, '\n', 'avatar: ', this.avatarEthAddress);
+
+    const contractAddress = type === 'item' ? this.itemEthAddress || environment.ITEM_ETH_ADDRESS : this.avatarEthAddress || environment.AVATAR_ETH_ADDRESS;
     const contract = new this.web3.eth.Contract(assetContract, contractAddress);
 
     const blockNumber = await this.web3.eth.getBlockNumber();
-    console.log('This is the recent block num: ', blockNumber);
-    console.log('We listen the following block num: ', blockNumber - 100);
 
     contract.events.Transfer(
       {fromBlock: (blockNumber - 100), toBlock: 'latest', filter: {to: address}},
-      (error: any, event: any) => { console.log(event); })
+      (error: any, event: any) => { })
         .on("connected", (subscriptionId: any) => {
-            console.log(subscriptionId);
         })
         .on('data', (event: any) => {
-            //console.log('DATA: ', event);
             if (!event) return;
             this.processEvent(event, type);
         })
@@ -40,7 +44,6 @@ export class AssetsListenerService {
 
         })
         .on('error', (error: any, receipt: any) => {
-            console.log(error, receipt);
             this.assetTxState.next('error');
         });
   }
@@ -49,10 +52,8 @@ export class AssetsListenerService {
     const mintEvent: any = response;
 
     const currentTokenId: string = mintEvent?.returnValues?.tokenId || mintEvent?.returnValues?.['2'];
-    console.log(currentTokenId, mintEvent?.returnValues?.tokenId, mintEvent?.returnValues?.['2']);
 
     if (this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type)) {
-      console.log(this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type));
       const recentMintedToken: string = this.baseStorage.getItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type)!;
       if (Number(currentTokenId) > Number(recentMintedToken)) {
         this.assetTxState.next('success');
@@ -65,6 +66,19 @@ export class AssetsListenerService {
       this.assetTxState.next('success');
       this.baseStorage.setItem(StorageKey.RECENT_MINTED_TOKEN + '-' + type, currentTokenId);
     }
+  }
+
+  getPriceAndContractAddress(type: 'item' | 'avatar' | 'gem'): Observable<AssetTypeInfo> {
+    return this.buyAssetService.getAssetPriceAndContractAddress(type).pipe(tap((response: AssetTypeInfo) => {
+      if (type === 'item') {
+        this.itemEthAddress = response.contractAddress;
+        console.log('item: ', this.itemEthAddress);
+      }
+      if (type === 'avatar') {
+        this.avatarEthAddress = response.contractAddress;
+        console.log('avatar: ', this.avatarEthAddress);
+      }
+    }))
   }
 
 }

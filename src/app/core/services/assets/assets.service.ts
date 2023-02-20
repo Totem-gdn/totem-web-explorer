@@ -30,7 +30,7 @@ export class AssetsService {
     get totalAssets() { return this._totalAssets.getValue() }
     get totalAssets$() { return this._totalAssets.asObservable() }
 
-    fetchAssets(type: AssetTypes, page: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+    fetchAssets(type: AssetTypes, page: number, list: 'latest' | 'popular' = 'latest', owner: string | undefined = undefined) {
 
         const url = owner ? `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}&owner=${owner}` : `${this.baseUrl}/assets/${type}s?list=${list}&page=${page}`
 
@@ -48,13 +48,12 @@ export class AssetsService {
             }));
     }
 
-    fetchMultiplePages(type: AssetTypes,fromPage: number, toPage: number, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, owner: string | undefined = undefined) {
+    fetchMultiplePages(type: AssetTypes,fromPage: number, toPage: number, list: 'latest' | 'popular' = 'latest', owner: string | undefined = undefined) {
         if(fromPage < 1 && fromPage > toPage) return of ();
         const obsArray = [];
         for(let i = fromPage; i < toPage; i++) {
             obsArray.push(this.fetchAssets(type, i, list).pipe(tap(assets => {
                 this.handleAssets(type, assets.data);
-                console.log(assets.meta)
             })))
         }
 
@@ -67,7 +66,7 @@ export class AssetsService {
             asset.assetType = type;
         }
     }
-    getAssetsByFilter(type: ASSET_TYPE, filter: string, page: number = 1, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST) {
+    getAssetsByFilter(type: ASSET_TYPE, filter: string, page: number = 1, list: 'latest' | 'popular' = 'latest') {
         return this.http.get<any>(`${this.baseUrl}/assets/${type}s?page=${page}&list=${list}&search=${filter}`)
             .pipe(map(assets => assets.data));
 

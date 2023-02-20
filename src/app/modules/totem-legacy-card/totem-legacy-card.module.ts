@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "@app/shared/shared.module";
 import { TotemLegacyCardComponent } from "./totem-legacy-card.component";
 
@@ -7,7 +8,8 @@ import { TotemLegacyCardComponent } from "./totem-legacy-card.component";
         TotemLegacyCardComponent
     ],
     imports: [
-        SharedModule
+        SharedModule,
+        MatIconModule
     ],
     exports: [
         TotemLegacyCardComponent

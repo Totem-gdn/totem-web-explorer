@@ -35,7 +35,6 @@ export class TotemEventListenerService {
     private paymentSuccessDialogService: PaymentSuccessDialogService,
     private breakpointObserver: BreakpointObserver
   ) {
-    console.log(window.location);
 
   }
 
@@ -55,7 +54,6 @@ export class TotemEventListenerService {
       .subscribe((state: BreakpointState) => {
         for (const query of Object.keys(state.breakpoints)) {
           if (state.breakpoints[query]) {
-            console.log(this.displayNameMap.get(query));
 
             this.currentBreakpoint.next(this.displayNameMap.get(query) ?? 'Unknown');
           }
@@ -66,7 +64,6 @@ export class TotemEventListenerService {
   initListeners() {
     this.observeTheScreen();
     this.storeService.getAssetsAndGames();
-    console.log('get legacies')
     this.storeService.getLegacies();
     //this.getQueryParamsAfterPayment();
     this.listenWindow();
@@ -78,7 +75,6 @@ export class TotemEventListenerService {
         const paramSnapshot = this.route.snapshot;
         const paymentResult: string = paramSnapshot.queryParams['payment_result'];
         const assetType: string = paramSnapshot.queryParams['type'];
-        console.log(paramSnapshot);
         if (paymentResult === 'success' && assetType) {
           this.paymentSuccessDialogService.openPaymentSuccessDialog(paymentResult, assetType).subscribe((data: boolean) => {
             if (data == true) {
@@ -120,11 +116,9 @@ export class TotemEventListenerService {
   }
 
   listenWindow() {
-    console.log('ITS OUR OPENER: ', window.opener);
     if (window.opener) {
       this.route.queryParams.subscribe(params => {
         if (params && params["type"] && params["payment_result"]) {
-          console.log(params);
           this.processQueryParamsAndRedirect();
         }
       });
@@ -146,7 +140,6 @@ export class TotemEventListenerService {
       target: origin
     }
 
-    console.log(message);
     if (paymentResult && assetType) {
       targetWindow.postMessage(message);
     }
