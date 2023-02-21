@@ -20,6 +20,10 @@ export interface AssetInfo {
 
 export type AssetTypes = 'item' | 'avatar' | 'gem';
 
+export interface RendererAvailableTypes {
+  supported_asset_types: string[];
+}
+
 // export interface AssetTransationType {
 //     type:
 // }
