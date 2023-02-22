@@ -21,6 +21,7 @@ export class TotemSortButtonComponent {
     }
   }
   @ViewChild('toggleButton') toggleButton!: ElementRef<HTMLInputElement>;
+  @ViewChild('smallToggleButton') smallToggleButton!: ElementRef<HTMLInputElement>;
 
   @Output() sortSelected: EventEmitter<'latest' | 'popular'> = new EventEmitter();
 
@@ -30,6 +31,7 @@ export class TotemSortButtonComponent {
 
   closeMenu(event: any) {
     if (
+      !this.smallToggleButton.nativeElement.contains(event.target) &&
       !this.toggleButton.nativeElement.contains(event.target) &&
       !this.dropdown?.nativeElement.contains(event.target)
       ) {

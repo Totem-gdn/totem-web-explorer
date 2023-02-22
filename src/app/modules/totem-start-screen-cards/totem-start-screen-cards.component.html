@@ -6,11 +6,12 @@
 </div>
 <div class="w-full h-auto flex flex-row items-end justify-between relative px-6 xmd:px-10 pb-6" *ngIf="(selectedGame$ | async) && (selectedAsset$ | async)">
 
-  <div class="selected-card-wrapper flex flex-col items-end justify-between z-1 min-w-[236px] lg:min-w-[290px] xxml:max-w-[360px] md:max-w-[328px] max-w-full w-full">
+  <div class="selected-card-wrapper relative flex flex-col items-end justify-between z-1 min-w-[236px] lg:min-w-[290px] xxml:max-w-[360px] md:max-w-[328px] max-w-full w-full">
     <totem-selected-asset-card class="w-full" *ngIf="selectedAsset$ | async" [asset]="selectedAsset$ | async"></totem-selected-asset-card>
     <div class="w-full" [ngStyle]="numberOfDisplayedCards == 0 ? {'padding-left': '40px', 'padding-right': '40px'} : {}">
       <ng-container *ngTemplateOutlet="largeGameBar, context: {selectedGame: selectedGame$ | async}"></ng-container>
     </div>
+    <div class="rounded-full card-bg-glow absolute -top-[10px] -left-[10px] -right-[10px] w-full h-[313px] lg:h-[390px] xxml:h-[472px] -z-1"></div>
   </div>
 
   <div class="flex flex-col items-start justify-start w-full max-w-[1032px] z-1" *ngIf="numberOfDisplayedCards != 0">

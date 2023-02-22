@@ -111,6 +111,17 @@ export class MyAssetsComponent implements OnDestroy, OnInit {
     this.myAssetsStoreService.fetchMyAssets(user.wallet || '');
   }
 
+  sortAssets(type: string, page: number, sort: 'latest' | 'popular') {
+    const user = this.currentUser$.getValue();
+    if (!user) return;
+    if (type === 'avatar') {
+      this.myAssetsStoreService.fetchMyAvatarsOnly(user.wallet || '', sort, page);
+    }
+    if (type === 'item') {
+      this.myAssetsStoreService.fetchMyItemsOnly(user.wallet || '', sort, page);
+    }
+  }
+
   // utils
 
   copied() {

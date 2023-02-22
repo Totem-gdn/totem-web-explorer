@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { TotemAssetCardModule } from "@app/modules/totem-asset-card/totem-asset-card.module";
 import { TotemEntitySelectorModule } from "@app/modules/totem-entity-selector/totem-entity-selector.module";
 import { TotemEntitySliderModule } from "@app/modules/totem-entity-slider/totem-entity-slider.module";
+import { TotemSortButtonModule } from "@app/modules/totem-sort-button/totem-sort-button.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { SortByComponent } from "../pages/components/sort-by/sort-by.component";
 import { SortByModule } from "../pages/components/sort-by/sort-by.module";
@@ -25,7 +26,8 @@ import { MyAssetsRoutes } from "./my-assets.routing";
         ClipboardModule,
         MatIconModule,
         TotemEntitySelectorModule,
-        TotemAssetCardModule
+        TotemAssetCardModule,
+        TotemSortButtonModule
     ],
     exports: [
         MyAssetsComponent

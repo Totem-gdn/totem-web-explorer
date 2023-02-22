@@ -27,6 +27,36 @@ export class MyAssetsStoreService {
     private assetsService: AssetsService,
   ) {}
 
+  fetchMyItemsOnly(wallet: string, list: 'latest' | 'popular' = 'latest', page: number = 1) {
+    this.assetsLoading.next(true);
+    this.assetsService.fetchAssets('item', page, list, wallet).pipe(
+      map((assets: ApiResponse<AssetInfo[]>) => {
+        assets.data.map((asset: AssetInfo) => {
+          asset.assetType = ASSET_TYPE.ITEM;
+          return asset;
+        });
+        return assets;
+      }
+      )).subscribe((data: ApiResponse<AssetInfo[]>) => {
+        this.items.next(data.data);
+        this.assetsLoading.next(false);
+      });
+  }
+  fetchMyAvatarsOnly(wallet: string, list: 'latest' | 'popular' = 'latest', page: number = 1) {
+    this.assetsLoading.next(true);
+    this.assetsService.fetchAssets('avatar', page, list, wallet).pipe(
+      map((assets: ApiResponse<AssetInfo[]>) => {
+        assets.data.map((asset: AssetInfo) => {
+          asset.assetType = ASSET_TYPE.AVATAR;
+          return asset;
+        });
+        return assets;
+      }
+      )).subscribe((data: ApiResponse<AssetInfo[]>) => {
+        this.avatars.next(data.data);
+        this.assetsLoading.next(false);
+      });
+  }
 
   fetchMyAssets(wallet: string, list: ASSET_PARAM_LIST = ASSET_PARAM_LIST.LATEST, page: number = 1) {
     this.assetsLoading.next(true);
