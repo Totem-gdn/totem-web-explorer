@@ -48,3 +48,7 @@
 .transform {
   transform: rotate(180deg);
 }
+.card-bg-glow {
+  background: radial-gradient(242.25% 242.23% at 48.94% 3.44%, #5823C9 20.04%, #FF66F9 96.86%);
+  filter: blur(50px);
+}

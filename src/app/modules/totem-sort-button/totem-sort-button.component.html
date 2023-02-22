@@ -1,6 +1,6 @@
 <div class="totem-sort-button flex flex-row items-center justify-start cursor-pointer relative">
   <div
-    class="h-12 whitespace-nowrap sort-button relative flex flex-row items-center justify-center t-col-light-grey t-bg-dark-grey rounded-[12px] px-4"
+    class="hidden md:flex h-12 whitespace-nowrap sort-button relative flex-row items-center justify-center t-col-light-grey t-bg-dark-grey rounded-[12px] px-4"
     #toggleButton (click)="menuActive = !menuActive"
     [ngStyle]="menuActive ? {'border' : '1px solid white', 'color': 'white'} : {}"
     >
@@ -8,11 +8,15 @@
     <mat-icon [ngStyle]="menuActive ? {'transform':'rotate(180deg)'} : {}" class="ml-3 leading-[17px] !w-[17px] !h-[17px]" [svgIcon]="'feather:expand_down'"></mat-icon>
   </div>
 
+  <div [ngStyle]="menuActive ? {'border' : '1px solid white', 'color': 'white'} : {}" #smallToggleButton (click)="menuActive = !menuActive" class="sort-button flex md:hidden t-bg-dark-grey h-12 w-12 rounded-[12px] flex items-center justify-center t-col-light-grey">
+    <mat-icon [svgIcon]="'mat_outline:filter_list'"></mat-icon>
+  </div>
+
   <div
     *ngIf="menuActive"
     [@toggleSelector]
     #dropdown
-    class="w-full sort-wrapper absolute t-bg-violet top-[calc(100%+10px)] left-0 right-0 rounded-[12px] overflow-hidden z-2"
+    class="w-[160px] md:w-full sort-wrapper absolute t-bg-violet top-[calc(100%+10px)] md:left-0 right-0 rounded-[12px] overflow-hidden z-2"
     >
     <div class="sort-inner-wrapper w-full h-full overflow-x-hidden overflow-y-auto flex flex-col items-center justify-start p-2 rounded-[12px]">
       <div

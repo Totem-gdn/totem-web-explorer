@@ -1,4 +1,4 @@
-<div class="my-assets flex flex-col items-center w-full"
+<!-- <div class="my-assets flex flex-col items-center w-full"
   [ngStyle]="(routeValue$ | async) == '/my-assets' ? {'padding-left': '48px', 'padding-right': '48px', 'padding-bottom': '48px', 'margin-top':'48px'} : {}"
   >
   <div class="flex flex-col items-start justify-start max-w-[1520px] w-full">
@@ -59,6 +59,64 @@
 
     </div>
   </div>
+</div> -->
+<div class="my-assets flex flex-col items-center w-full"
+  [ngStyle]="(routeValue$ | async) == '/my-assets' ? {'padding-left': '48px', 'padding-right': '48px', 'padding-bottom': '48px', 'margin-top':'48px'} : {}"
+  >
+  <div class="flex flex-col items-start justify-start max-w-[1520px] w-full">
+    <div class="flex flex-col items-start w-full">
+
+      <ng-container *ngIf="!(assetsLoading$ | async) && assetTotal; else assetLoader">
+        <ng-container *ngIf="assetTotal && assetTotal?.avatars?.all; else noAvatars">
+          <p class="text-[18px] leading-[20px] font-medium mt-10">You have <span class="text-[18px] leading-[20px] font-medium t-col-light-violet">{{assetTotal.avatars.all || 0}}</span> avatars</p>
+          <div class="flex flex-row flex-wrap xs:flex-nowrap items-end justify-between w-full">
+            <div class="flex flex-row items-center flex-wrap md:flex-nowrap mt-1">
+              <p class="text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium w-full sm:w-max">Showing assets in: &nbsp;</p>
+              <totem-entity-selector class="mt-7 sm:mt-0 pb-3 sm:pb-0 text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+              [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
+            </div>
+            <totem-sort-button (sortSelected)="sortAssets('avatar', 1, $event)"></totem-sort-button>
+          </div>
+          <div class="flex flex-wrap items-start justify-start gap-4 mt-6">
+            <ng-container *ngIf="avatars$ | async as avatars">
+              <ng-container *ngFor="let avatar of avatars">
+                <totem-asset-card class="w-full sm:w-min" [asset]="avatar"></totem-asset-card>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+        <!-- <div class="w-full flex items-center justify-center mt-11">
+          <button class="totem-primary-button h-12 text-[20px] leading-[22px] font-semibold !px-7" (click)="goToBuy()">Purchase an Avatar</button>
+        </div> -->
+      </ng-container>
+      <div class="w-full h-[1px] my-11 t-bg-divider-grey"></div>
+      <ng-container *ngIf="!(assetsLoading$ | async) && assetTotal; else assetLoader">
+        <ng-container *ngIf="assetTotal && assetTotal?.items?.all; else noItems">
+          <p class="text-[18px] leading-[20px] font-medium">You have <span class="text-[18px] leading-[20px] font-medium t-col-light-violet">{{assetTotal.items.all || 0}}</span> items</p>
+          <div class="flex flex-row flex-wrap xs:flex-nowrap items-end justify-between w-full">
+            <div class="flex flex-row items-center flex-wrap md:flex-nowrap mt-1">
+              <p class="text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium w-full sm:w-max">Showing assets in: &nbsp;</p>
+              <totem-entity-selector class="mt-7 sm:mt-0 pb-3 sm:pb-0 text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+              [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
+            </div>
+            <totem-sort-button (sortSelected)="sortAssets('item', 1, $event)"></totem-sort-button>
+          </div>
+
+          <div class="flex flex-wrap items-start justify-start gap-4 mt-6">
+            <ng-container *ngIf="items$ | async as items">
+              <ng-container *ngFor="let item of items">
+                <totem-asset-card class="w-full sm:w-min" [asset]="item"></totem-asset-card>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+        <!-- <div class="w-full flex items-center justify-center mt-11">
+          <button class="totem-primary-button h-12 text-[20px] leading-[22px] font-semibold !px-7" (click)="goToBuy()">Purchase an Item</button>
+        </div> -->
+      </ng-container>
+
+    </div>
+  </div>
 </div>
 
 <ng-template #noItems>
@@ -69,6 +127,19 @@
 </ng-template>
 
 <ng-template #noAssets let-type="type">
+  <p class="text-[32px] leading-[35px] font-medium">You don't have any {{type}}s</p>
+  <!-- <p class="text-[24px] leading-[26px] font-medium mt-12">You have 0 {{type == 'Avatar' ? 'avatar' : 'item'}}s</p> -->
+  <div class="no-assets-block h-[278px] w-[240px] flex flex-col shrink-0 items-start justify-start rounded-[24px] mt-6 rounded-[18px] overflow-hidden">
+    <div class="asset-image h-full w-full flex items-center justify-center t-bg-dark-grey">
+      <div *ngIf="type === 'Item'" class="!text-[120px] icon solid-buy-item flex t-col-divider-grey"></div>
+      <div *ngIf="type === 'Avatar'" class="!text-[120px] icon solid-buy-avatar flex t-col-divider-grey"></div>
+    </div>
+    <div class="h-[76px] w-full t-bg-grey flex items-center px-4 py-4">
+      <button class="totem-primary-button !rounded-[12px] w-full h-12 text-[20px] leading-[22px] font-semibold !px-7" (click)="goToBuy()">Purchase</button>
+    </div>
+  </div>
+</ng-template>
+<!-- <ng-template #noAssets let-type="type">
   <p class="text-[24px] leading-[26px] font-medium mt-12">You don't have any {{type}}s</p>
   <div class="no-assets-block h-[288px] w-full flex flex-col shrink-0 items-center justify-center rounded-[24px] mt-4">
     <div class="asset-image">
@@ -77,7 +148,7 @@
     </div>
     <p class="t-col-light-grey text-[20px] leading-[22px] font-medium mt-6">Purchase an asset that you can use across all Totem Games!</p>
   </div>
-</ng-template>
+</ng-template> -->
 
 <ng-template #userLoader>
   <span class="h-[35px] w-[60%] totem-skeleton"></span>

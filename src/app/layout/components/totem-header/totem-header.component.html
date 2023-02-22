@@ -25,7 +25,7 @@
 
 
     <nav class="totem-navigation-items whitespace-nowrap gap-[30px] text-[16px] leading-[17px] font-medium">
-      <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/my-assets">My Assets</a>
+      <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/profile/my-assets">My Assets</a>
       <div
         class="flex xl:hidden dropdown-wrapper px-2 py-1 cursor-pointer relative items-center"
         (focus)="showDropdown = true" (blur)="closeWithTimeout()" tabindex="0"
@@ -67,15 +67,15 @@
         <button matRipple (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
       </div>
 
-      <div class="ml-[12px] flex flex-row t-bg-violet rounded-[100px] hidden xmd:flex" *ngIf="currUser$ | async">
+      <div class="ml-[12px] flex flex-row t-bg-violet rounded-[100px] hidden xmd:flex cursor-pointer" *ngIf="currUser$ | async" (click)="navigateToProfile()">
         <div class="user-cash flex flex-row items-center justify-center px-6 t-bg-black rounded-[30px]">
           <p class="flex flex-row items-center justify-center text-[20px] font-medium leading-[22px] whitespace-nowrap">
             $ {{usdcBalance}}
           </p>
         </div>
-        <div class="ml-2 h-12 w-12 rounded-full overflow-hidden user-icon" (click)="navigateToProfile()">
+        <div class="ml-2 h-12 w-12 rounded-full overflow-hidden user-icon">
           <img loading="lazy"
-          [src]="(currUser$ | async)?.profileImage" alt="profile-icon" (error)="updateProfileImage()" class="w-full h-full rounded-full object-cover cursor-pointer">
+          [src]="(currUser$ | async)?.profileImage" alt="profile-icon" (error)="updateProfileImage()" class="w-full h-full rounded-full object-cover">
         </div>
         <!-- <div class="flex flex-col items-start justify-center ml-8">
           <p class="text-[16px] font-medium leading-[17px]">

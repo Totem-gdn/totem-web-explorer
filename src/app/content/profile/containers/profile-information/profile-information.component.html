@@ -1,23 +1,41 @@
 <ng-container *ngIf="user; else loader">
-  <div class="h-[281px] w-full relative overflow-hidden flex flex-col rounded-[24px] items-center justify-between t-bg-grey mt-12">
-    <div class="w-full h-[160px] rounded-[24px] overflow-hidden">
-      <img *ngIf="user.profileImage" [@showBanner] class="w-full h-full object-cover relative" src="assets/images/banner.png" alt="banner">
+  <div class="h-[349px] shrink-0 md:h-[322px] w-full relative overflow-hidden flex flex-col items-center justify-between t-bg-profile-gradient">
+    <div class="w-full min-h-[168px] h-[168px] overflow-hidden t-bg-favicon-gradient">
+      <!-- <img *ngIf="user.profileImage" [@showBanner] class="w-full h-full object-cover relative" src="assets/images/banner.png" alt="banner"> -->
     </div>
-    <div class="user-info w-full flex flex-row items-start justify-between pr-4 pl-64 pt-6 pb-8">
-      <div class="flex flex-col items-start justify-center">
-        <p *ngIf="user.name" class="text-[32px] leading-[35px] font-medium mb-2">{{user.name}}</p>
-        <p *ngIf="user.name" class="text-[20px] leading-[22px] font-normal flex flex-row items-center cursor-pointer flex xl:hidden" [cdkCopyToClipboard]="user.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
+    <div class="user-info w-full h-full flex-wrap md:flex-nowrap flex flex-row items-center md:items-start justify-between pr-4 md:pr-16 pl-4 md:pl-64 md:pt-6 md:pb-8">
+      <div class="flex flex-col items-center md:items-start justify-center md:justify-start justify-center w-full md:w-min text-center mt-11 md:mt-0">
+
+        <p *ngIf="user.name" class="text-[32px] leading-[35px] font-medium mb-2 w-full md:w-max">{{user.name}}</p>
+
+        <p *ngIf="user.name" class="text-[20px] leading-[22px] font-normal flex flex-row items-center justify-center md:justify-start cursor-pointer flex xxl:hidden w-full md:w-max"
+          [cdkCopyToClipboard]="user.wallet || ''"
+          [cdkCopyToClipboardAttempts]="2"
+          (cdkCopyToClipboardCopied)="copied()">
           {{user.slicedWallet || user.wallet}} <mat-icon class="!h-[16px] !w-[16px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
-        <p *ngIf="user.name" class="text-[20px] leading-[22px] font-normal flex flex-row items-center cursor-pointer hidden xl:flex" [cdkCopyToClipboard]="user.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
+
+        <p *ngIf="user.name" class="text-[20px] leading-[22px] font-normal flex flex-row items-center justify-center md:justify-start cursor-pointer hidden xxl:flex w-full md:w-max"
+          [cdkCopyToClipboard]="user.wallet || ''"
+          [cdkCopyToClipboardAttempts]="2"
+          (cdkCopyToClipboardCopied)="copied()">
           {{ user.wallet || user.slicedWallet}} <mat-icon class="!h-[16px] !w-[16px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
+
       </div>
-      <div class="flex flex-row items-center justify-center">
-        <p class="log-out-button text-[20px] leading-[22px] font-semibold t-col-light-grey hover:text-white cursor-pointer" (click)="logOut()">Log out</p>
-        <div matRipple class="text-[20px] leading-[22px] font-medium flex items-center justify-center totem-tab-button h-12 ml-6" (click)="goToMessages()"><mat-icon class="!h-[22px] !w-[22px] mr-2" [svgIcon]="'mat_outline:drafts'"></mat-icon> Messages</div>
-        <button class="text-[20px] leading-[22px] font-semibold !px-6 totem-secondary-button h-12 !ml-6" (click)="goToSubmitPage()">Add game</button>
+      <div class="flex flex-row items-center justify-center w-full md:w-max mt-6 md:mt-0">
+        <!-- <p class="log-out-button text-[20px] leading-[22px] font-semibold t-col-light-grey hover:text-white cursor-pointer" (click)="logOut()">Log out</p> -->
+        <div class="h-12 w-12 flex items-center justify-center rounded-full mr-4 cursor-pointer hover:text-white t-col-light-grey" matRipple>
+          <mat-icon [svgIcon]="'mat_outline:logout'" (click)="logOut()"></mat-icon>
+        </div>
+        <!-- <div matRipple class="text-[20px] leading-[22px] font-medium flex items-center justify-center totem-tab-button h-12 ml-6" (click)="goToMessages()"><mat-icon class="!h-[22px] !w-[22px] mr-2" [svgIcon]="'mat_outline:drafts'"></mat-icon> Messages</div> -->
+        <button class="text-[20px] leading-[22px] font-medium !px-6 totem-secondary-button h-12 flex flex-row items-center shrink-0" (click)="goToMessages()">
+          <mat-icon class="xl:mr-2" [svgIcon]="'mat_solid:mail'"></mat-icon> <p class="hidden xl:flex">Messages</p>
+        </button>
+        <button class="text-[20px] leading-[22px] font-medium !px-6 totem-secondary-button h-12 !ml-4 md:!ml-6 flex flex-row items-center shrink-0" (click)="goToSubmitPage()">
+          <mat-icon class="xl:mr-2" [svgIcon]="'mat_outline:add'"></mat-icon> <p class="hidden xl:flex">Add game</p>
+        </button>
       </div>
     </div>
-    <div class="flex items-center justify-center w-[180px] h-[180px] p-3 rounded-full overflow-hidden absolute bottom-5 left-8 t-bg-black">
+    <div class="flex items-center justify-center w-[161px] h-[161px] p-1 rounded-full overflow-hidden absolute bottom-[148px] md:bottom-11 left-[calc(50%-80.5px)] md:left-18 t-bg-black">
       <img class="rounded-full w-full h-full object-cover" [src]="user.profileImage" alt="profile-image" (error)="updateProfileImage()">
     </div>
   </div>
