@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
+import { UserStateService } from '@app/core/services/auth.service';
 
 @Component({
   selector: 'totem-user-profile-dropdown',
@@ -13,6 +14,7 @@ export class TotemProfileDropdownComponent {
   constructor(
     private router: Router,
     private snackNotifierService: SnackNotifierService,
+    private userStateService: UserStateService,
   ) {}
 
   @Input() balance: string | undefined = undefined;
@@ -42,6 +44,11 @@ export class TotemProfileDropdownComponent {
 
   copied() {
     this.snackNotifierService.open('Copied to the clipboard');
+  }
+
+  async logOut() {
+    await this.userStateService.logout();
+    this.closedEvent.emit(false);
   }
 
 }
