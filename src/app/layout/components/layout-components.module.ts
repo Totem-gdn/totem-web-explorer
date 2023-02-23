@@ -7,6 +7,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { TotemButtonModule } from "@app/components/utils/totem-button/totem-button.module";
 import { TotemEmailSubModule } from "@app/modules/landing/totem-home-page/components/home-components/totem-email-sub/totem-email-sub.module";
+import { TotemProfileDropdownModule } from "@app/layout/components/totem-header/totem-profile-dropdown/totem-profile-dropdown.module";
 import { SharedModule } from "@app/shared/shared.module";
 import { TotemSearchBarModule } from "../common/totem-search-bar/totem-search-bar.module";
 import { TotemNavSidebarModule } from "./popups/totem-nav-sidebar/totem-nav-sidebar.module";
@@ -41,7 +42,7 @@ import { TotemSidenavModule } from "./totem-sidenav/totem-sidenav.module";
         ClipboardModule,
         MatRippleModule,
         MatButtonModule,
-
+        TotemProfileDropdownModule
 
     ],
     exports: [
