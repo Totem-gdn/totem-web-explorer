@@ -57,7 +57,8 @@
     <ng-container *ngIf="!(loading$ | async); else userLoader">
 
 
-      <mat-icon (click)="logIn()" class="!w-[48px] !h-[48px] t-col-white menu-icon" [svgIcon]="'mat_outline:menu'"></mat-icon>
+      <mat-icon *ngIf="!profileCoverOpened" (click)="toggleCover(!profileCoverOpened)" class="!w-[48px] !h-[48px] t-col-white menu-icon cursor-pointer" [svgIcon]="'mat_outline:menu'"></mat-icon>
+      <mat-icon *ngIf="profileCoverOpened" (click)="toggleCover(!profileCoverOpened)" class="!w-[48px] !h-[48px] t-col-white menu-icon cursor-pointer" [svgIcon]="'mat_outline:close'"></mat-icon>
 
       <div class="hidden xmd:flex">
         <button matRipple (click)="navigateToBuy()" class="totem-primary-button h-12 text-[20px] font-semibold leading-[22px]">Purchase</button>
@@ -67,16 +68,19 @@
         <button matRipple (click)="logIn()" class="totem-secondary-button h-12 text-[20px] font-semibold leading-[22px]">Login</button>
       </div>
 
-      <div class="ml-[12px] flex flex-row t-bg-violet rounded-[100px] hidden xmd:flex cursor-pointer" *ngIf="currUser$ | async" (click)="navigateToProfile()">
-        <div class="user-cash flex flex-row items-center justify-center px-6 t-bg-black rounded-[30px]">
-          <p class="flex flex-row items-center justify-center text-[20px] font-medium leading-[22px] whitespace-nowrap">
-            $ {{usdcBalance}}
-          </p>
+      <div class="ml-[12px] flex flex-row t-bg-violet rounded-[100px] hidden xmd:flex relative" *ngIf="currUser$ | async">
+        <div #toggleButton class="w-max flex cursor-pointer" (click)="toggleDropdown(!profileDropdownOpened)">
+          <div class="user-cash flex flex-row items-center justify-center px-6 t-bg-black rounded-[30px]">
+            <p class="flex flex-row items-center justify-center text-[20px] font-medium leading-[22px] whitespace-nowrap">
+              $ {{usdcBalance}}
+            </p>
+          </div>
+          <div class="ml-2 h-12 w-12 rounded-full overflow-hidden user-icon">
+            <img loading="lazy"
+            [src]="(currUser$ | async)?.profileImage" alt="profile-icon" (error)="updateProfileImage()" class="w-full h-full rounded-full object-cover">
+          </div>
         </div>
-        <div class="ml-2 h-12 w-12 rounded-full overflow-hidden user-icon">
-          <img loading="lazy"
-          [src]="(currUser$ | async)?.profileImage" alt="profile-icon" (error)="updateProfileImage()" class="w-full h-full rounded-full object-cover">
-        </div>
+
         <!-- <div class="flex flex-col items-start justify-center ml-8">
           <p class="text-[16px] font-medium leading-[17px]">
             Balance:
@@ -97,6 +101,19 @@
             {{(currUser$ | async)?.slicedWallet}} <mat-icon class="!h-[12px] !w-[12px] mt-[1px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon>
           </p>
         </div> -->
+        <div
+          #dropdown
+          @toggleSelector
+          *ngIf="profileDropdownOpened"
+          class="absolute !w-[328px] !h-[321px] right-0 top-[63px]">
+            <totem-user-profile-dropdown
+              class="w-full h-full relative"
+              [balance]="usdcBalance"
+              [user]="currUser$ | async"
+              (closedEvent)="toggleDropdown($event)">
+            </totem-user-profile-dropdown>
+        </div>
+
       </div>
     </ng-container>
 
