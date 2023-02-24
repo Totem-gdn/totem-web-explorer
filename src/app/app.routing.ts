@@ -14,7 +14,7 @@ export const AppRoutes: Route[] = [
       /* { path: '', loadChildren: () => import('app/modules/landing/totem-home-page/totem-home-page.module').then(m => m.TotemHomePageModule) }, */
       { path: '', loadChildren: () => import('app/content/totem-homepage/totem-homepage.module').then(m => m.TotemHomepageModule) },
 
-      
+
       { path: 'buy', loadChildren: () => import('@app/content/buy-asset/buy-asset.module').then(m => m.TotemBuyAssetModule) },
       { path: 'avatars', loadChildren: () => import('@app/content/pages/demo-avatars/demo-avatars.module').then(m => m.DemoAvatarsModule) },
       { path: 'items', loadChildren: () => import('@app/content/pages/demo-items/demo-items.module').then(m => m.DemoItemsModule) },
@@ -23,7 +23,8 @@ export const AppRoutes: Route[] = [
       { path: 'my-assets', loadChildren: () => import('@app/content/my-assets/my-assets.module').then(m => m.MyAssetsModule ), canActivate: [AuthGuard]},
       { path: 'avatar/:id', loadChildren: () => import('@app/content/details-pages/assets-info/avatar-info/avatar-info.module').then(m => m.AvatarInfoModule) },
       { path: 'gem/:id', loadChildren: () => import('@app/content/details-pages/assets-info/gem-info/gem-info.module').then(m => m.GemInfoModule) },
-      { path: 'item/:id', loadChildren: () => import('@app/content/details-pages/assets-info/item-info/item-info.module').then(m => m.ItemInfoModule) },
+      /* { path: 'item/:id', loadChildren: () => import('@app/content/details-pages/assets-info/item-info/item-info.module').then(m => m.ItemInfoModule) }, */
+      { path: 'item/:id', loadChildren: () => import('@app/content/details-pages/asset-details/asset-details.module').then(m => m.AssetDetailsModule) },
 
       // { path: 'avatars', loadChildren: () => import('@app/modules/landing/pages/main/avatars/avatars.module').then(m => m.AvatarsModule) },
       // { path: 'items', loadChildren: () => import('@app/modules/landing/pages/main/items/items.module').then(m => m.ItemsModule) },

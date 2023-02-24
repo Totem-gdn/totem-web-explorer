@@ -1,0 +1,97 @@
+<div class="asset-information xmd:max-h-[518px] lg:max-h-[480px] xl:max-h-[518px] xxl:max-h-[572px] h-full w-full flex flex-row flex-wrap xmd:flex-nowrap items-start justify-between">
+
+<!-- left side -->
+
+  <div class="flex flex-row flex-wrap smd:flex-nowrap gap-4 min-h-[0px] max-h-full smd:max-h-[428px] xmd:max-h-[572px] smd:h-full w-full">
+
+    <div class="asset-image smd:max-h-[572px] sm:min-w-[340px] xl:min-w-[472px] smd:max-w-[696px] w-full h-[291px] sm:h-[428px] smd:h-full flex flex-col xmd:mr-4 rounded-[18px] t-bg-grey overflow-hidden">
+      <ng-container *ngTemplateOutlet="assetCard, context: {selectedGame: {}}"></ng-container>
+    </div>
+
+    <div class="flex xmd:hidden flex-row smd:flex-col h-[198px] smd:h-full gap-4 min-h-[0px] w-full smd:w-max">
+      <ng-container *ngFor="let game of [1, 2, 4, 5] | slice:0:2">
+        <div class="h-full w-full max-w-[280px] min-w-[140px] smd:min-w-[210px] rounded-[18px] t-bg-grey overflow-hidden">
+          <ng-container *ngTemplateOutlet="assetCard, context: {selectedGame: game}"></ng-container>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+
+<!-- right side -->
+
+  <div class="h-full w-full sm:min-w-[400px] lg:min-w-[360px] xl:min-w-[472px] max-w-full xmd:max-w-[752px] flex flex-col justify-start xmd:justify-between gap-6 lg:gap-4 xl:gap-6 mt-8 xmd:mt-0">
+
+    <div class="flex flex-row flex-wrap md:flex-nowrap w-full items-center justify-between">
+      <p class="main-title">Avatar ID: {{23}}</p>
+      <button class="hidden smd:block totem-primary-button h-13 text-[20px] w-full smd:w-[210px] xmd:w-max leading-[22px] font-semibold xl:!px-13">Buy item</button>
+    </div>
+
+    <div class="w-full flex flex-col gap-4">
+      <p class="text-with-props w-full">Current owner: <span>{{'Joan Roulang'}}</span></p>
+
+      <span class="border-line"></span>
+
+      <div class="flex flex-row w-full items-center justify-start gap-4">
+        <div class="flex flex-row items-center asset-cta-items">
+          <mat-icon class="!h-5 !w-5 mr-2" [svgIcon]="'mat_outline:visibility'"></mat-icon>
+          <p class="small-subcaption">{{4245}}</p>
+        </div>
+        <div class="flex flex-row items-center asset-cta-items">
+          <mat-icon class="!h-5 !w-5 mr-2" [svgIcon]="'mat_outline:ios_share'"></mat-icon>
+          <p class="small-subcaption">Share</p>
+        </div>
+        <div class="flex flex-row items-center asset-cta-items">
+          <mat-icon class="!h-5 !w-5 mr-2" [svgIcon]="'mat_outline:refresh'"></mat-icon>
+          <p class="small-subcaption">Refresh</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="block smd:hidden totem-primary-button h-13 text-[20px] w-full leading-[22px] font-semibold">Buy item</button>
+
+    <div class="activity-information w-full grid grid-cols-2 sm:grid-cols-3 p-2 gap-2 rounded-[12px]">
+      <div class="mini-card py-3 px-2">
+        <p class="title">Last used</p>
+        <p class="caption">3 days ago</p>
+      </div>
+      <div class="mini-card py-3 px-2">
+        <p class="title">Rarity</p>
+        <p class="caption">42</p>
+      </div>
+      <div class="mini-card py-3 px-2 col-span-2 sm:col-span-1">
+        <p class="title">Games used</p>
+        <p class="caption">4362</p>
+      </div>
+    </div>
+
+    <div class="hidden xmd:flex example-asset-cards gap-4 flex-row items-start max-h-[278px] min-h-[0px] h-full w-full">
+      <ng-container *ngFor="let game of [1, 2, 4, 5] | slice:0:numberOfDisplayedCards">
+        <div class="h-full w-full max-w-[280px] min-w-[120px] rounded-[18px] t-bg-grey overflow-hidden">
+          <ng-container *ngTemplateOutlet="assetCard, context: {selectedGame: game}"></ng-container>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- templates -->
+
+<ng-template #assetCard let-game="selectedGame">
+  <div class="w-full h-[calc(100%-74px)]">
+    <img class="h-full w-full object-cover" src="assets/images/game.png" alt="">
+  </div>
+  <div class="h-[74px] flex flex-row items-center justify-start p-3">
+    <div class="h-[50px] w-[50px] rounded-[12px] overflow-hidden">
+      <img class="h-full w-full object-cover" src="assets/images/game.png" alt="">
+    </div>
+    <div class="flex flex-col items-start justify-center ml-2">
+      <p>Oupost</p>
+      <p class="subcaption">Canonical</p>
+    </div>
+  </div>
+</ng-template>
