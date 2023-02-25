@@ -85,19 +85,20 @@ export class AssetDetailsComponent implements AfterViewInit {
         this.storeService.selectedGame$
             .pipe(takeUntil(this.subs))
             .subscribe(selectedGame => {
-                // if(!selectedGame) return;
+                if(!selectedGame) return;
+                if (this._selectedGame == selectedGame) return;
                 this._selectedGame = selectedGame;
                 // this.changeDetector.markForCheck();
-                this.processItem(this._item?.tokenId, selectedGame);
+                this.processItem(1023, selectedGame);
             })
     }
 
     async processItem(id: number, game: GameDetail | null = null) {
         this.properties = [];
 
-        const json = await this.dnaService.getJSONByGame(game, this.type)
-        const properties = await this.dnaService.processJSON(json, this.type, id);
-        this.setItemRenderer();
+        const json = await this.dnaService.getJSONByGame(game, ASSET_TYPE.ITEM)
+        const properties = await this.dnaService.processJSON(json, ASSET_TYPE.ITEM, id);
+        //this.setItemRenderer();
         this.properties = properties;
     }
 

@@ -1,0 +1,13 @@
+<div class="flex flex-col items-start w-full relative">
+  <p class="title">Legacy events</p>
+  <div [ngStyle]="!showAll && showViewAll ? {'max-height':'324px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative">
+    <div #grid class="relative h-full w-full p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xxl:grid-cols-3 gap-2">
+      <totem-legacy-card class="w-full" *ngFor="let prop of properties" [game]="_selectedGame!"></totem-legacy-card>
+    </div>
+    <div @toggleShadow *ngIf="!showAll && showViewAll" class="shadow-box absolute bottom-0 z-1"></div>
+  </div>
+
+  <div class="w-full h-0 flex items-center justify-center absolute bottom-0">
+    <div *ngIf="showViewAll" (click)="showMore(!showAll)" class="totem-show-more-button z-2">{{showAll ? 'Show less' : 'Show all'}}</div>
+  </div>
+</div>

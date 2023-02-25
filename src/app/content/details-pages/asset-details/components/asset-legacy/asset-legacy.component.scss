@@ -1,0 +1,147 @@
+@import 'styles/scss/totem-variables';
+
+.subcaption {
+  color: $totem-light-grey;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.small-subcaption {
+  color: $totem-light-grey;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.caption {
+  color: $totem-white;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.main-title {
+  color: $totem-white;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 52px;
+
+  @media (max-width: 1280px) {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 39px;
+  }
+}
+
+.text-with-props {
+  color: $totem-light-grey;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+  span {
+    font-size: inherit;
+    font-weight: inherit;
+    font-weight: inherit;
+    color: $totem-light-violet;
+  }
+}
+
+.border-line {
+  width: 100%;
+  height: 1px;
+  background-color: $totem-divider-grey;
+}
+
+.asset-cta-items {
+  color: $totem-light-grey;
+}
+
+.activity-information {
+  border: 1px solid $totem-divider-grey;
+}
+
+.mini-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: $totem-dark-grey;
+  border-radius: 12px;
+  cursor: default;
+
+  .title {
+    height: 23px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
+    color: $totem-white;
+    //@media (min-width: 862px) and (max-width: 1280px) {
+    //  font-weight: 500;
+    //  font-size: 15px;
+    //  line-height: 16px;
+    //}
+  }
+  .caption {
+    height: 19px;
+    margin-top: 4px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+    text-align: center;
+    color: $totem-light-grey;
+    //@media (min-width: 862px) and (max-width: 1280px) {
+    //  font-weight: 400;
+    //  font-size: 14px;
+    //  line-height: 16px;
+    //}
+  }
+}
+
+.title {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 35px;
+  color: $totem-white;
+}
+
+.properties-wrapper {
+  border: 1px solid $totem-divider-grey;
+  overflow: hidden;
+  transition: max-height 0.33s ease-out;
+}
+
+.placeholder {
+  background-color: $totem-dark-grey;
+  display: flex;
+  justify-content: center;
+  .line-item_placeholder {
+      color: $totem-black;
+  }
+}
+
+.shadow-box {
+  height: 76px;
+  width: 100%;
+  background: linear-gradient(90deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
+  transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.tooltip {
+  // top: 0;
+  // left: 0;
+  pointer-events:none;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.33s ease-out, visibility 0.33s ease-out;
+  z-index: 1;
+  position: absolute;
+  padding: 14px;
+  background: $blur-black;
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  color: $totem-light-grey;
+}

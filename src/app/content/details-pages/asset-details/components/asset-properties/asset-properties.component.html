@@ -1,0 +1,40 @@
+<div #wrapper class="flex flex-col items-start w-full relative">
+  <p class="title">Properties</p>
+  <div [ngStyle]="!showAll && showViewAll ? {'max-height':'243px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative">
+    <div #grid class="relative h-full w-full p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
+
+      <div *ngFor="let prop of properties" [ngStyle]="{'justify-content' : prop?.type == 'Color' ? 'start' : 'center'}" class="mini-card p-3"
+        (mouseover)="onOver(prop)"
+        (mouseleave)="onLeave()"
+        (mousemove)="onMove($event)"
+      >
+        <div *ngIf="prop?.type == 'Color'" [ngStyle]="{'background-color':prop?.value}" class="h-[46px] w-[46px] min-w-[46px] min-h-[46px] rounded mr-2"></div>
+        <div [ngStyle]="{'align-items' : prop.type == 'Color' ? 'start' : 'center'}" class="flex flex-col max-w-[100%] truncate">
+          <p class="title max-w-[100%] truncate">{{prop?.description || 'asf'}}</p>
+          <p class="caption max-w-[100%] truncate">{{prop?.value || 'asf'}}</p>
+        </div>
+      </div>
+
+      <div *ngFor="let placeholder of placeholders" class="mini-card placeholder py-3 px-2">
+        <div class="line-item_placeholder"></div>
+      </div>
+
+    </div>
+    <div @toggleShadow *ngIf="!showAll && showViewAll" class="shadow-box absolute bottom-0"></div>
+  </div>
+
+  <div #tooltip class="tooltip">
+    <span class="whitespace-nowrap">{{tooltipData?.title}}</span>
+    <div class="flex justify-center items-center mt-[2px]">
+      <div *ngIf="tooltipData?.type == 'Color'" class="w-[14px] min-w-[14px] h-[14px] rounded mr-[4px] mb-[2px]"
+        [style.background-color]="tooltipData?.value">
+      </div>
+      <span class="whitespace-nowrap">{{tooltipData?.value}}</span>
+    </div>
+  </div>
+
+  <div class="w-full h-0 flex items-center justify-center absolute bottom-0">
+    <div *ngIf="showViewAll" (click)="showMore(!showAll)" class="totem-show-more-button">{{showAll ? 'Show less' : 'Show all'}}</div>
+  </div>
+
+</div>

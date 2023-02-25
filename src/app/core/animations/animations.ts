@@ -120,6 +120,27 @@ export const Animations = {
       ]
     ),
     trigger(
+      'toggleShadow',
+      [
+        transition(
+          ':enter',
+          [
+            style({ transform: 'translateY(100%)', opacity: 0 }),
+              animate('0.22s ease-out',
+                style({ transform: 'translateY(0px)', opacity: 1 })),
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ transform: 'translateY(0px)', opacity: 1 }),
+              animate('0.22s ease-out',
+                style({ transform: 'translateY(100%)', opacity: 0 })),
+          ]
+        )
+      ]
+    ),
+    trigger(
       'swapText',
       [
         transition(
@@ -425,6 +446,19 @@ export const Animations = {
             style({ opacity: 0 }),
             animate('0.4s ease-in-out',
               style({ opacity: 1 }))
+          ]
+        ),
+      ]
+    ),
+    trigger(
+      'fade-out',
+      [
+        transition(
+          ':enter',
+          [
+            style({ opacity: 1 }),
+            animate('0.4s ease-in-out',
+              style({ opacity: 0 }))
           ]
         ),
       ]
