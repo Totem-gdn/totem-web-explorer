@@ -3,19 +3,19 @@
     <h2 *ngIf="game?.general?.name" class="mb-[25px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
 
     <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
-        <div class="flex whitespace-nowrap lh-unset justify-between w-full">
+        <div class="waller-wrapper">
             <div class="flex items-center cursor-pointer" (click)="copyMessage()" *ngIf="game?.gameAddress">
-                <p [cdkCopyToClipboard]="game?.gameAddress ? game?.gameAddress: game?.id"
+                <h4 [cdkCopyToClipboard]="game?.gameAddress ? game?.gameAddress: game?.id"
                     [cdkCopyToClipboardAttempts]="2" class="text-light-grey lh-3">Game ID:
-                </p>
-                <h4 class="ml-[5px]">{{game?.gameAddress ?
+            </h4>
+                <h4 class="ml-[5px] text-light-violet">{{game?.gameAddress ?
                     game?.gameAddress.slice(0,6) + '...' + game?.gameAddress.slice(-4) : game?.id.slice(0,6) + '...' +
                     game?.id.slice(-4)}}</h4>
-                <mat-icon class="mb-[6px] ml-[5px]" [svgIcon]="'line:copy'"></mat-icon>
+                <mat-icon class="mb-[6px] ml-[5px] text-light-violet" [svgIcon]="'line:copy'"></mat-icon>
             </div>
             <div class="flex items-center">
-                <p class="text-light-grey pr-[10px] lh-33">{{'modules.author' | translate}}:</p>
-                <h4>{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
+                <h4 class="text-light-grey pr-[10px] lh-33">{{'modules.author' | translate}}:</h4>
+                <h4 class="text-light-violet">{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
             </div>
         </div>
 
@@ -73,7 +73,7 @@
 
 
     <div class="play">
-        <div class="flex flex-wrap gap-[13px]">
+        <!-- <div class="flex flex-wrap gap-[13px]">
             <div class="item-tag">
                 <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
                 <p>{{'nav.players' | translate}}</p>
@@ -86,16 +86,16 @@
                 <h4>{{game?.assets?.avatars || game?.assets?.avatars == 0 ? game?.assets?.avatars : '24.05.22'}}</h4>
                 <p>{{'nav.avatars' | translate}}</p>
             </div>
-        </div>
+        </div> -->
 
-        <a class="w-full p-[0px] m-[0px] mt-[20px]" href="{{game.connections.webpage}}" target="_blank">
+        <a class="w-full p-[0px] m-[0px]" href="{{game.connections.webpage}}" target="_blank">
             <button class="totem-primary-button">Play</button>
         </a>
     </div>
 
     <div class="graphic-wrapper">
         <div class="graphic">
-            <h3 class="title">{{game?.general?.name}} assets graphic:</h3>
+            <h4 class="title">{{game?.general?.name}} assets graphic:</h4>
             <div class="cards">
                 <div class="card">
                     <div class="img-wrapper">

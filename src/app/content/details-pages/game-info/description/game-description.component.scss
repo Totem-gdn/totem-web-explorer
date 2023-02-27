@@ -14,6 +14,22 @@ img {
     max-width: 880px;
 }
 
+.total {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid $totem-divider-grey;
+    border-radius: 12px;
+
+    .item-tag {
+        border-radius: 12px;
+        background-color: $totem-dark-grey;
+        flex-grow: 1;
+        max-width: unset;
+    }
+}
+
 .image-wrapper {
   border: 1px solid $totem-divider-grey;
   background-color: transparent;
