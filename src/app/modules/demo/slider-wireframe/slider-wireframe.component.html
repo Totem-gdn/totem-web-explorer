@@ -27,9 +27,10 @@
     <ng-container *ngIf="mode == 'dots'">
         <div class="handle-container">
             <div #handleTrack class="handle-track"
+            (onDrag)="moveHandle('handle', $event)"
             [ngClass]="{'bg-divider': type == 'event'}"
             >
-                <div (onDrag)="onDragHandle($event)" #handle class="handle" [style.width]="handleWidth + 'px'"></div>
+                <div #handle class="handle" [style.width]="handleWidth + 'px'"></div>
                 <!-- <div 
                     class="dot"
                     [ngClass]="{'!bg-violet': slideIndex == 0}"

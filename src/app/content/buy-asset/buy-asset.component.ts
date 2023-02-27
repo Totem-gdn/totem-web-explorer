@@ -101,7 +101,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       if (response?.item) this.assets[0].paymentInfo = response.item;
       if (response?.avatar) this.assets[1].paymentInfo = response.avatar;
       this.loading$.next(false);
-      console.log('ITEM AND AVATAR DATA FETCHED');
     })
   }
 
