@@ -1,10 +1,13 @@
-<div *ngIf="game && !pageNotFound" class="wrapper pb-[60px] pt-[50px] sm:py-[60px] lg:py-[40px] relative">
+<div *ngIf="game && !pageNotFound" class="wrapper pb-[60px] pt-[50px] sm:py-[60px] lg:py-[40px] px-[30px] xxl:px-0 relative">
 
-    <div class="z-1 flex gap-[40px] justify-center lg:justify-between flex-wrap-reverse lg:flex-nowrap">
-        <game-description class="w-full lg:w-[60%]" [game]="game"></game-description>
+    <div class="z-1 flex gap-[15px] justify-center lg:justify-between flex-wrap-reverse lg:flex-nowrap">
+        <game-description [editInfo]="editInfo" class="w-full lg:w-[60%] max-w-fit lg:max-w-[880px]" [game]="game"></game-description>
 
-        <game-review class="min-w-fit lg:min-w-[550px] w-full lg:w-[40%]" [editInfo]="editInfo" [game]="game"></game-review>
+        <game-review class="min-w-fit max-w-[600px] w-full lg:w-[40%] hidden lg:flex" [editInfo]="editInfo" [game]="game"></game-review>
     </div>
+
+    <totem-entity-slider [caption]="'Showing assets in: '" [withGameSelector]="true" [assetTypeSelected]="'item'"></totem-entity-slider>
+    <totem-entity-slider [caption]="'The most popular Games'" [assetTypeSelected]="'game'"></totem-entity-slider>
 </div>
 
 

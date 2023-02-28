@@ -1,5 +1,5 @@
-@import 'styles/scss/variables';
-@import 'styles/scss/totem-variables';
+@import "styles/scss/variables";
+@import "styles/scss/totem-variables";
 
 img {
     border-radius: 4px;
@@ -11,7 +11,7 @@ img {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 880px;
+    // max-width: 880px;
 }
 
 .total {
@@ -30,20 +30,37 @@ img {
     }
 }
 
+.slider {
+    //   border: 1px solid $totem-divider-grey;
+    img, iframe {
+        border-radius: 12px;
+        border: 1px solid $totem-divider-grey;
+    }
+    background-color: transparent;
+    transition: filter 0.4s;
+}
+
 .image-wrapper {
-  border: 1px solid $totem-divider-grey;
-  background-color: transparent;
-  transition: filter .4s;
+    width: 100%;
+    position: relative;
+    transition: filter .2s;
+    // margin-top: 100%;
+    aspect-ratio: 16/9;
 }
 
 .hl-image-blurred {
-  filter: blur(10px) brightness(80%);
-  transform: scale(1.1);
-  object-fit: cover;
+    filter: blur(10px) brightness(80%);
+    // transform: scale(1.1);
+    object-fit: cover;
+    position: absolute; 
+    inset: 0;
+    z-index: 1;
+
 }
 
 .dropdown-wrapper {
-    padding-bottom: 35px;
+    padding-bottom: 30px;
+    padding-top: 30px;
 
     .dropdown-button {
         display: flex;
@@ -53,17 +70,17 @@ img {
         cursor: pointer;
 
         .line-arrow_down {
-            transition: transform .5s ease-in-out;
+            transition: transform 0.5s ease-in-out;
             transform: rotateX(0deg);
         }
     }
     .dropdown-table-wrapper {
         overflow: hidden;
-        transition: max-height .5s ease-in-out;
+        transition: max-height 0.5s ease-in-out;
         max-height: 1px;
         .dropdown-table {
             // border-radius: 4px;
-            transition: border-radius .5s ease-in-out;
+            transition: border-radius 0.5s ease-in-out;
             border: 1px solid $light-grey;
             padding: 12px;
 
@@ -154,5 +171,3 @@ p {
         font-size: 24px;
     }
 }
-
-

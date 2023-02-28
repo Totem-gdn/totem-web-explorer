@@ -1,9 +1,9 @@
 <div class="rewiew">
     <h2 *ngIf="!game?.general?.name" class="mb-[25px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
-    <h2 *ngIf="game?.general?.name" class="mb-[25px] text-2xl lg:text-4xl">{{game?.general?.name}}</h2>
+    <h2 *ngIf="game?.general?.name" class="mb-[25px] text-3xl sm:text-4xl">{{game?.general?.name}}</h2>
 
     <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
-        <div class="waller-wrapper">
+        <div class="waller-wrapper flex flex-wrap justify-between w-full">
             <div class="flex items-center cursor-pointer" (click)="copyMessage()" *ngIf="game?.gameAddress">
                 <h4 [cdkCopyToClipboard]="game?.gameAddress ? game?.gameAddress: game?.id"
                     [cdkCopyToClipboardAttempts]="2" class="text-light-grey lh-3">Game ID:
@@ -18,25 +18,10 @@
                 <h4 class="text-light-violet">{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
             </div>
         </div>
-
-        <!-- Stars -->
-        <!-- <div #stars class="stars">
-            <div #star *ngFor="let rate of rating; let i = index"
-                (click)="starsAction('save', i)" (mouseenter)="starsAction('hover', i)" (mouseleave)="starsAction('leave', i)"
-                class="star" [ngClass]="rate.isHovered || rate.selected == true ? 'solid-star': 'line-star'"></div>
-            <p class="ml-[8px] my-auto">(--)</p>
-        </div> -->
     </div>
     <!-- Icons -->
     <div class="icon-wrapper">
         <div class="icon-set items-center">
-            <!-- <div class="icon !pl-0">
-                <div *ngIf="game?.isLiked === false" class="line-like !w-[18px]"
-                    (click)="$event.stopPropagation(); onClickLike()"></div>
-                <div *ngIf="game?.isLiked === true" class="text-yellow solid-like cursor-pointer !w-[18px]"
-                    (click)="$event.stopPropagation(); onClickLike()"></div>
-                <p class="select-none">{{game?.likes ? game?. likes : '0'}}</p>
-            </div> -->
             <div class="icon select-none">
                 <div class="!w-[20px] line-eye"></div>
                 <p>{{game?.views ? game?.views : '0'}}</p>

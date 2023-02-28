@@ -8,7 +8,7 @@ import { GameDetail, GameSlide } from "@app/core/models/interfaces/submit-game-i
     templateUrl: './game-description.component.html',
     styleUrls: ['./game-description.component.scss'],
     host: {
-        class: 'max-w-[880px]'
+        // class: 'max-w-[880px]'
     },
     animations: [
         Animations.animations
@@ -17,6 +17,7 @@ import { GameDetail, GameSlide } from "@app/core/models/interfaces/submit-game-i
 
 export class GameDescriptionComponent {
     toggleDropdown = false;
+    @Input() editInfo: { edit: boolean; gameId: string } = { edit: false, gameId: '' };
     @Input() set game(game: any) {
         //
         // game.connections.promoVideo = 'https://www.youtube.com/embed/gu7bzir1uFI';
