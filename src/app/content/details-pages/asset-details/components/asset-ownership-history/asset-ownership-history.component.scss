@@ -122,9 +122,9 @@
 }
 
 .shadow-box {
-  height: 76px;
+  height: 96px;
   width: 100%;
-  background: linear-gradient(90deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
+  background: linear-gradient(180deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
   transform: matrix(1, 0, 0, -1, 0, 0);
 }
 
@@ -144,4 +144,42 @@
   backdrop-filter: blur(10px);
   border-radius: 16px;
   color: $totem-light-grey;
+}
+
+.ownership-row, .ownership-header {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(min-content, max-content);
+}
+
+.ownership-header {
+  border-bottom: 1px solid $totem-divider-grey;
+  p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.ownership-table-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.ownership-table-wrapper {
+  transform: rotateX(180deg);
+}
+
+.ownership-table {
+  transform: rotateX(180deg);
+}
+
+.tx-table-column {
+  width: 24px;
 }

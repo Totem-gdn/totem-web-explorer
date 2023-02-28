@@ -1,13 +1,35 @@
 <div class="flex flex-col items-start w-full relative">
   <p class="title">Legacy events</p>
   <div [ngStyle]="!showAll && showViewAll ? {'max-height':'324px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative">
-    <div #grid class="relative h-full w-full p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xxl:grid-cols-3 gap-2">
-      <totem-legacy-card class="w-full" *ngFor="let prop of properties" [game]="_selectedGame!"></totem-legacy-card>
+    <div *ngIf="legacy.length; else noLegacy" #grid class="relative h-full w-full p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xxl:grid-cols-3 gap-2" [ngClass]="{'pb-8' : showViewAll}">
+      <totem-legacy-card class="w-full" *ngFor="let prop of legacy" [game]="_selectedGame!"></totem-legacy-card>
+      <div *ngFor="let placeholder of placeholders" class="legacy-placeholder-card w-full rounded-[24px]">
+        <div class="line-item_placeholder"></div>
+      </div>
     </div>
     <div @toggleShadow *ngIf="!showAll && showViewAll" class="shadow-box absolute bottom-0 z-1"></div>
   </div>
 
   <div class="w-full h-0 flex items-center justify-center absolute bottom-0">
-    <div *ngIf="showViewAll" (click)="showMore(!showAll)" class="totem-show-more-button z-2">{{showAll ? 'Show less' : 'Show all'}}</div>
+    <div *ngIf="showViewAll && (!showAll || !showLoadMore)" (click)="showMore(!showAll)" class="totem-show-more-button z-2">{{showAll ? 'Show less' : 'Show all'}}</div>
+    <div *ngIf="showAll && showLoadMore && !(loading$ | async); else buttonLoading" (click)="loadMore()" class="totem-show-more-button z-2">Load more</div>
   </div>
 </div>
+
+<ng-template #noLegacy>
+  <div *ngIf="!(loading$ | async); else loading" class="flex justify-center items-center w-full py-[38px]">
+    <p class="flex flex-rowtext-[18px] items-center leading-[20px] font-medium"><mat-icon class="mr-2" [svgIcon]="'mat_outline:local_activity'"></mat-icon>Legacy empty</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="w-full h-full p-4">
+    <div class="flex w-full h-full min-h-[215px] totem-skeleton"></div>
+  </div>
+</ng-template>
+
+<ng-template #buttonLoading>
+  <div *ngIf="showAll && showLoadMore" class="z-2 totem-skeleton h-10 w-[121px]"></div>
+</ng-template>
+
+

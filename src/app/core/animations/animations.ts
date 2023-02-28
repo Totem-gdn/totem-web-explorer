@@ -125,17 +125,17 @@ export const Animations = {
         transition(
           ':enter',
           [
-            style({ transform: 'translateY(100%)', opacity: 0 }),
+            style({ opacity: 0 }),
               animate('0.22s ease-out',
-                style({ transform: 'translateY(0px)', opacity: 1 })),
+                style({ opacity: 1 })),
           ]
         ),
         transition(
           ':leave',
           [
-            style({ transform: 'translateY(0px)', opacity: 1 }),
+            style({ opacity: 1 }),
               animate('0.22s ease-out',
-                style({ transform: 'translateY(100%)', opacity: 0 })),
+                style({ opacity: 0 })),
           ]
         )
       ]
@@ -454,7 +454,7 @@ export const Animations = {
       'fade-out',
       [
         transition(
-          ':enter',
+          ':leave',
           [
             style({ opacity: 1 }),
             animate('0.4s ease-in-out',

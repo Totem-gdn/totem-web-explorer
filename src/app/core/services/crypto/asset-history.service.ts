@@ -9,8 +9,8 @@ export class AssetHistoryService {
 
     constructor(private http: HttpClient) {}
     baseUrl: string = environment.TOTEM_BASE_API_URL;
-    
+
     getHistory(type: string, id: string) {
-        return this.http.get<OwnershipHistory[]>(`https://dev-api.totem-explorer.com/assets/${type}/${id}/ownership-history`)
+        return this.http.get<OwnershipHistory[]>(`${this.baseUrl}/assets/${type}/${id}/ownership-history`)
     }
 }

@@ -122,9 +122,9 @@
 }
 
 .shadow-box {
-  height: 76px;
+  height: 96px;
   width: 100%;
-  background: linear-gradient(90deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
+  background: linear-gradient(180deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
   transform: matrix(1, 0, 0, -1, 0, 0);
 }
 
@@ -144,4 +144,15 @@
   backdrop-filter: blur(10px);
   border-radius: 16px;
   color: $totem-light-grey;
+}
+
+.legacy-placeholder-card {
+  //border: 1px solid $totem-light-grey;
+  height: 215px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: $totem-dark-grey;
+  color: $totem-black;
 }

@@ -120,7 +120,7 @@ export class AssetDetailsComponent implements AfterViewInit {
 
     getAssetLegacy(query?: string, asset?: AssetInfo) {
       let params: string = '&offset=0&limit=10';
-      this.legacyService.fetchLegacies(this.type, this._item?.tokenId!, params).subscribe((data: LegacyResponse<Achievement[]>) => {
+      this.legacyService.fetchLegacies(this.type, '1023', params).subscribe((data: LegacyResponse<Achievement[]>) => {
 
       })
     }
