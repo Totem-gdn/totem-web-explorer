@@ -2,156 +2,170 @@
     <div class="images-block pb-[35px] h-full">
         <!-- <img *ngIf="_game?.images?.galley" src="assets/images/game-info/game_slide_top.png" alt=""> -->
         <!-- <div class=""></div> -->
-        <div *ngIf="hlSlide" class="relative rounded slider relative overflow-hidden mb-[30px]">
+        <div class="relative rounded slider relative overflow-hidden mb-[30px]">
 
             <div #image class="image-wrapper">
+                <ng-container *ngIf="hlSlide">
+                    <img class="main-image" *ngIf="hlSlide.type == 'image'" loading="lazy" [src]="hlSlide.url"
+                        [alt]="_game?.general?.name">
 
-                <img class="main-image" *ngIf="hlSlide.type == 'image'" loading="lazy" [src]="hlSlide.url"
-                    [alt]="_game?.general?.name">
+                    <img class="main-image-placeholder" *ngIf="hlSlide.type == 'image'" loading="lazy"
+                        [src]="hlSlide.url" [alt]="_game?.general?.name">
 
-                <img 
-                    class="main-image-placeholder"
-                    *ngIf="hlSlide.type == 'image'" 
-                    loading="lazy"
-                    
-                    [src]="hlSlide.url" [alt]="_game?.general?.name">
+                    <iframe class="w-full h-full" allow="fullscreen;" *ngIf="hlSlide.type == 'video'"
+                        [src]="hlSlide.url | unsafeUrl" frameborder="0"></iframe>
+                </ng-container>
 
-                <iframe class="w-full h-full" allow="fullscreen;" *ngIf="hlSlide.type == 'video'"
-                    [src]="hlSlide.url | unsafeUrl" frameborder="0"></iframe>
 
-                    <!-- <div class="w-full mt-full"></div> -->
+                <div class="totem-skeleton-absolute" *ngIf="!hlSlide"></div>
             </div>
 
             <portfolio-carousel (changeSlide)="onChangeSlide($event)" [slides]="slides">
             </portfolio-carousel>
         </div>
 
-        <game-review class="min-w-fit w-full lg:w-[40%] mb-[32px] flex lg:hidden" [editInfo]="editInfo"
-            [game]="_game"></game-review>
+        <ng-container *ngIf="_game">
+            <game-review class="min-w-fit w-full lg:w-[40%] mb-[32px] flex lg:hidden" [editInfo]="editInfo"
+                [game]="_game"></game-review>
 
-        <div class="total">
-            <div class="item-tag">
-                <h4>{{_game?.assets?.items || _game?.assets?.items == 0 ? _game?.assets?.items : '24.05.22'}}</h4>
-                <p>{{'nav.players' | translate}}</p>
-            </div>
-            <div class="item-tag">
-                <h4>{{_game?.assets?.items || _game?.assets?.items == 0 ? _game?.assets?.items : '24.05.22'}}</h4>
-                <p>{{'nav.items' | translate}}</p>
-            </div>
-            <div class="item-tag">
-                <h4>{{_game?.assets?.avatars || _game?.assets?.avatars == 0 ? _game?.assets?.avatars : '24.05.22'}}</h4>
-                <p>{{'nav.avatars' | translate}}</p>
-            </div>
-        </div>
-
-
-        <div *ngIf="_game?.general?.fullDescription" class="flex flex-col mt-[30px]">
-            <h4 class="mb-[15px]">{{'modules.description' | translate}}</h4>
-            <p class="overflow-hidden" *ngIf="_game?.general?.fullDescription">{{_game?.general?.fullDescription}}</p>
-        </div>
-
-        <!-- Details -->
-        <div class="dropdown-wrapper">
-            <div class="dropdown-button" (click)="onToggle()">
-                <h4>{{'nav.details' | translate}}</h4>
-                <div class="text-light-grey !w-[14px] mr-[5px] line-arrow_down"
-                    [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></div>
+            <div class="total">
+                <div class="item-tag">
+                    <h4>{{_game?.assets?.items || _game?.assets?.items == 0 ? _game?.assets?.items : '24.05.22'}}</h4>
+                    <p>{{'nav.players' | translate}}</p>
+                </div>
+                <div class="item-tag">
+                    <h4>{{_game?.assets?.items || _game?.assets?.items == 0 ? _game?.assets?.items : '24.05.22'}}</h4>
+                    <p>{{'nav.items' | translate}}</p>
+                </div>
+                <div class="item-tag">
+                    <h4>{{_game?.assets?.avatars || _game?.assets?.avatars == 0 ? _game?.assets?.avatars : '24.05.22'}}
+                    </h4>
+                    <p>{{'nav.avatars' | translate}}</p>
+                </div>
             </div>
 
-            <div #dropdown class="dropdown-table-wrapper">
-                <div class="dropdown-table" [ngClass]="toggleDropdown ? 'rounded': 'rounded-none'">
-                    <div *ngIf="_game?.updatedAt" class="row">
-                        <div>
-                            <p>{{'nav.updated' | translate}}</p>
+
+            <div *ngIf="_game?.general?.fullDescription" class="flex flex-col mt-[30px]">
+                <h4 class="mb-[15px]">{{'modules.description' | translate}}</h4>
+                <p class="overflow-hidden" *ngIf="_game?.general?.fullDescription">{{_game?.general?.fullDescription}}
+                </p>
+            </div>
+
+            <!-- Details -->
+            <div class="dropdown-wrapper">
+                <div class="dropdown-button" (click)="onToggle()">
+                    <h4>{{'nav.details' | translate}}</h4>
+                    <div class="text-light-grey !w-[14px] mr-[5px] line-arrow_down"
+                        [ngClass]="toggleDropdown ? 'rotate-x-180': ''"></div>
+                </div>
+
+                <div #dropdown class="dropdown-table-wrapper">
+                    <div class="dropdown-table" [ngClass]="toggleDropdown ? 'rounded': 'rounded-none'">
+                        <div *ngIf="_game?.updatedAt" class="row">
+                            <div>
+                                <p>{{'nav.updated' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.updatedAt | date: 'M.dd.yy h:mm'}}</span></div>
                         </div>
-                        <div><span>{{_game?.updatedAt | date: 'M.dd.yy h:mm'}}</span></div>
-                    </div>
-                    <div *ngIf="_game?.updatedAt" class="row">
-                        <div>
-                            <p>{{'nav.published' | translate}}</p>
+                        <div *ngIf="_game?.updatedAt" class="row">
+                            <div>
+                                <p>{{'nav.published' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.createdAt | creationTime }}</span></div>
                         </div>
-                        <div><span>{{_game?.createdAt | creationTime }}</span></div>
-                    </div>
-                    <div *ngIf="_game?.details?.status" class="row">
-                        <div>
-                            <p>{{'nav.status' | translate}}</p>
+                        <div *ngIf="_game?.details?.status" class="row">
+                            <div>
+                                <p>{{'nav.status' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.details?.status}}</span></div>
                         </div>
-                        <div><span>{{_game?.details?.status}}</span></div>
-                    </div>
-                    <div *ngIf="_game?.details?.platforms" class="row">
-                        <div>
-                            <p>{{'nav.platforms' | translate}}</p>
+                        <div *ngIf="_game?.details?.platforms" class="row">
+                            <div>
+                                <p>{{'nav.platforms' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.details?.platforms?.join(', ')}}</span></div>
                         </div>
-                        <div><span>{{_game?.details?.platforms?.join(', ')}}</span></div>
-                    </div>
-                    <div *ngIf="_game?.details?.madeWith" class="row">
-                        <div>
-                            <p>{{'nav.made_with' | translate}}</p>
+                        <div *ngIf="_game?.details?.madeWith" class="row">
+                            <div>
+                                <p>{{'nav.made_with' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.details?.madeWith}}</span></div>
                         </div>
-                        <div><span>{{_game?.details?.madeWith}}</span></div>
-                    </div>
-                    <div *ngIf="_game?.details?.session" class="row">
-                        <div>
-                            <p>{{'nav.session' | translate}}</p>
+                        <div *ngIf="_game?.details?.session" class="row">
+                            <div>
+                                <p>{{'nav.session' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.details?.session}}</span></div>
                         </div>
-                        <div><span>{{_game?.details?.session}}</span></div>
-                    </div>
-                    <div *ngIf="_game?.details?.languages" class="row">
-                        <div>
-                            <p>{{'nav.languages' | translate}}</p>
+                        <div *ngIf="_game?.details?.languages" class="row">
+                            <div>
+                                <p>{{'nav.languages' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.details?.languages}}</span></div>
                         </div>
-                        <div><span>{{_game?.details?.languages}}</span></div>
-                    </div>
-                    <div *ngIf="_game?.details?.inputs" class="row">
-                        <div>
-                            <p>{{'nav.inputs' | translate}}</p>
+                        <div *ngIf="_game?.details?.inputs" class="row">
+                            <div>
+                                <p>{{'nav.inputs' | translate}}</p>
+                            </div>
+                            <div><span>{{_game?.details?.inputs}}</span></div>
                         </div>
-                        <div><span>{{_game?.details?.inputs}}</span></div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="flex gap-[40px] sm:gap-[60px] justify-between flex-col">
-            <div class="flex min-w-[250px] w-full justify-between flex-wrap gap-[30px]">
-                <div class="flex flex-col">
-                    <h4 class="mb-[15px]">{{'modules.genre' | translate}}</h4>
-                    <div *ngIf="_game?.general?.genre" class="tags">
-                        <div class="tag" *ngFor="let genre of _game?.general?.genre">
-                            <span>{{genre}}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col">
-                    <div *ngIf="!_game?.general?.genre && !_game?.general?.genre?.length" class="tags">
-                        <div class="tag" *ngFor="let _ of [].constructor(8)">
-                            <span>{{'modules.meaningful_choices' | translate}}</span>
+            <div class="flex gap-[40px] sm:gap-[60px] justify-between flex-col">
+                <div class="flex min-w-[250px] w-full justify-between flex-wrap gap-[30px]">
+                    <div class="flex flex-col">
+                        <h4 class="mb-[15px]">{{'modules.genre' | translate}}</h4>
+                        <div *ngIf="_game?.general?.genre" class="tags">
+                            <div class="tag" *ngFor="let genre of _game?.general?.genre">
+                                <span>{{genre}}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <ng-container
-                        *ngIf="_game?.connections?.socialLinks && _game?.connections?.socialLinks?.length != 0">
-                        <h4 class="mb-[15px]">{{'profile.links' | translate}}</h4>
-
-                        <div class="links">
-                            <ng-container *ngFor="let link of _game?.connections?.socialLinks">
-                                <a *ngIf="link.type == 'Discord'" class="link" [href]="link.url" target="_blank">
-                                    <div class="line-discord"></div>
-                                </a>
-                                <a *ngIf="link.type == 'Facebook'" class="link" [href]="link.url" target="_blank">
-                                    <div class="line-facebook"></div>
-                                </a>
-                                <a *ngIf="link.type == 'Twitter'" class="link" [href]="link.url" target="_blank">
-                                    <div class="line-twitter"></div>
-                                </a>
-                                <a *ngIf="link.type == 'Instagram'" class="link" [href]="link.url" target="_blank">
-                                    <div class="line-instagram"></div>
-                                </a>
-                            </ng-container>
+                    <div class="flex flex-col">
+                        <div *ngIf="!_game?.general?.genre && !_game?.general?.genre?.length" class="tags">
+                            <div class="tag" *ngFor="let _ of [].constructor(8)">
+                                <span>{{'modules.meaningful_choices' | translate}}</span>
+                            </div>
                         </div>
-                    </ng-container>
+
+                        <ng-container
+                            *ngIf="_game?.connections?.socialLinks && _game?.connections?.socialLinks?.length != 0">
+                            <h4 class="mb-[15px]">{{'profile.links' | translate}}</h4>
+
+                            <div class="links">
+                                <ng-container *ngFor="let link of _game?.connections?.socialLinks">
+                                    <a *ngIf="link.type == 'Discord'" class="link" [href]="link.url" target="_blank">
+                                        <div class="line-discord"></div>
+                                    </a>
+                                    <a *ngIf="link.type == 'Facebook'" class="link" [href]="link.url" target="_blank">
+                                        <div class="line-facebook"></div>
+                                    </a>
+                                    <a *ngIf="link.type == 'Twitter'" class="link" [href]="link.url" target="_blank">
+                                        <div class="line-twitter"></div>
+                                    </a>
+                                    <a *ngIf="link.type == 'Instagram'" class="link" [href]="link.url" target="_blank">
+                                        <div class="line-instagram"></div>
+                                    </a>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
+        </ng-container>
+
+        <!-- Placeholders -->
+        <div class="flex flex-col gap-[30px]" *ngIf="!_game">
+            <div class="totem-skeleton w-full h-[90px]"></div>
+            <div class="totem-skeleton w-full h-[150px]"></div>
+            <div class="flex justify-between gap-[50px]">
+                <div class="totem-skeleton w-[100%] max-w-[350px] h-[50px]"></div>
+                <div class="totem-skeleton w-[100%] max-w-[200px] h-[50px]"></div>
+            </div>
         </div>
+
+
     </div>

@@ -17,6 +17,15 @@
         }
     }
 }
+.images-placeholders {
+    display: flex;
+    gap: 15px;
+    .totem-skeleton {
+        aspect-ratio: 4/3;
+        width: 50%;
+        // gap: 15;
+    }
+}
 .wallet-wrapper {
     display: flex;
     flex-wrap: wrap;

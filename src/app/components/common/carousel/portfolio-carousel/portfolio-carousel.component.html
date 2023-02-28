@@ -1,21 +1,30 @@
 <div class="wrapper">
     <div #slider class="slider">
-        <ng-container  *ngFor="let slide of _slides">
+        <ng-container *ngIf="_slides?.length">
+            <ng-container  *ngFor="let slide of _slides">
 
-            <!-- Video -->
-            <div class="slide video-slide" *ngIf="slide.type == 'video'" (click)="onClickSlide(slide)">
-                <img loading="lazy" class="image" [src]="slide.url | youtubeThumbnail" alt="slide">
-                <mat-icon class="absolute_center" [svgIcon]="'line:video'"></mat-icon>
-            </div>
-
-            <!-- Images -->
-            <div class="slide" *ngIf="slide.type == 'image'">
-                <img loading="lazy" class="image" [src]="slide.url" alt="slide" (click)="onClickSlide(slide)">
-            </div>
+                <div class="slide video-slide" *ngIf="slide.type == 'video'" (click)="onClickSlide(slide)">
+                    <img loading="lazy" class="image" [src]="slide.url | youtubeThumbnail" alt="slide">
+                    <mat-icon class="absolute_center" [svgIcon]="'line:video'"></mat-icon>
+                </div>
+    
+                <div class="slide" *ngIf="slide.type == 'image'">
+                    <img loading="lazy" class="image" [src]="slide.url" alt="slide" (click)="onClickSlide(slide)">
+                </div>
+            </ng-container>
         </ng-container>
+        
+        <ng-container *ngIf="!_slides?.length">
+            <div class="slide totem-skeleton" *ngFor="let _ of [].constructor(3)"></div>
+        </ng-container>
+        
     </div>
 
-    <div class="arrows-wrapper">
+    <ng-container *ngIf="!_slides?.length">
+        <div class="totem-skeleton !aspect-auto mx-[40px] my-[16px] h-[6px]"></div>
+    </ng-container>
+
+    <div *ngIf="_slides?.length" class="arrows-wrapper">
         <div class="w-[24px] justify-center flex absolute h-[24px] bottom-0 left-0 cursor-pointer"
             (click)="onClickPrev()">
             <div class="left-arrow text-light-grey line-arrow_left"></div>

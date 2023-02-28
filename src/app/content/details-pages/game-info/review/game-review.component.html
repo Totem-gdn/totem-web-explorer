@@ -1,4 +1,4 @@
-<div class="rewiew">
+<div class="rewiew" *ngIf="game">
     <h2 *ngIf="!game?.general?.name" class="mb-[25px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
     <h2 *ngIf="game?.general?.name" class="mb-[25px] text-3xl sm:text-4xl">{{game?.general?.name}}</h2>
 
@@ -102,6 +102,20 @@
     
             </div>
         </div>
+    </div>
+</div>
+
+<div class="rewiew gap-[25px]" *ngIf="!game">
+    <div class="totem-skeleton w-[60%] h-[50px]"></div>
+
+    <div class="totem-skeleton w-[100%] h-[50px]"></div>
+    <div class="totem-skeleton w-[100%] h-[200px]"></div>
+    <div class="totem-skeleton w-[100%] h-[50px]"></div>
+
+    <div class="images-placeholders">
+        <div class="totem-skeleton"></div>
+        <div class="totem-skeleton"></div>
+
     </div>
 
 </div>
