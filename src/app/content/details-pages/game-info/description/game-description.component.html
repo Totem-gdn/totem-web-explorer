@@ -6,11 +6,14 @@
 
             <div #image class="image-wrapper">
 
-                <img class="z-2 relative" *ngIf="hlSlide.type == 'image'" loading="lazy" [src]="hlSlide.url"
+                <img class="main-image" *ngIf="hlSlide.type == 'image'" loading="lazy" [src]="hlSlide.url"
                     [alt]="_game?.general?.name">
 
-                <img *ngIf="hlSlide.type == 'image'" loading="lazy"
-                    class="hl-image-blurred"
+                <img 
+                    class="main-image-placeholder"
+                    *ngIf="hlSlide.type == 'image'" 
+                    loading="lazy"
+                    
                     [src]="hlSlide.url" [alt]="_game?.general?.name">
 
                 <iframe class="w-full h-full" allow="fullscreen;" *ngIf="hlSlide.type == 'video'"

@@ -17,6 +17,7 @@ import { fromEvent, Subject, takeUntil } from 'rxjs';
   ]
 })
 export class SliderWireframeComponent implements OnInit, OnDestroy {
+  get maxTransform() { return  this.slider.nativeElement.scrollWidth - ((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap) }
 
   constructor(private eventsService: EventsService) { }
 
@@ -67,6 +68,8 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   handleTrackWidth: number = 220;
   handleWidth: number = 100;
   handlePosition: number = 0;
+
+  showArrows = {left: true, right: true};
 
   ngOnInit() {
     this.resize$();
@@ -129,15 +132,19 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     slider.style.transition = action == 'drag' ? slider.style.transition = 'none' : slider.style.transition = 'transform .3s';
 
     if (action == 'drag') {
+      if(transform < 0) this.showArrows.left = false; else this.showArrows.left = true;
+      if(transform > this.maxTransform) this.showArrows.right = false; else this.showArrows.right = true;
+
+      if(transform > this.maxTransform + this.minWidth || transform < -this.minWidth) return;
+
       this.moveSlider(transform);
       this.moveHandle('slider');
 
     } else if (action == 'end') {
+      if(transform < 0) this.showArrows.left = false; else this.showArrows.left = true;
+      if(transform > this.maxTransform) this.showArrows.right = false; else this.showArrows.right = true;
       if (!this.currentTransform) return;
-      console.log('end', this.currentTransform)
-      // If half of the last slide is visible, then move slider to next slider
-      // console.log('end', this.currentTransform)
-      // if(this.currentTransform == 0) return;
+
       const sliderItems = this.currentTransform / (this.slideWidth + this.gap);
       let index = Math.floor(sliderItems);
       if (sliderItems - index > 0.5 && this.cards?.length && index < this.cards?.length - 1) index++;
@@ -168,7 +175,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
       this.handle.nativeElement.style.transition = 'none';
       if (action == 'set-slider') this.handle.nativeElement.style.transition = 'left .3s';
 
-      let lastItems = this.slider.nativeElement.scrollWidth - ((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap)
+      let lastItems = this.maxTransform;
       if (this.type == 'event') lastItems = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth;
       const sliderShiftInPercent = 1 - -(this.currentTransform - lastItems) / lastItems;
       const moveTo = (this.handleTrack.nativeElement.offsetWidth - this.handleWidth) * sliderShiftInPercent;
