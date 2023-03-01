@@ -41,11 +41,12 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.userStateService.currentUser.subscribe(user => {
         if (user) {
-          this.getAccountMeta();
+          this.getAccountMeta(user.wallet);
         }
       })
     )
   }
+
 
   updateProfileImage() {
     if (this.user) {
@@ -53,9 +54,9 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAccountMeta() {
+  getAccountMeta(wallet?: string) {
     this.subs.add(
-      this.profileService.getUserAssetsCount().subscribe()
+      this.profileService.getUserAssetsCount(wallet ? wallet: '').subscribe()
     );
   }
 

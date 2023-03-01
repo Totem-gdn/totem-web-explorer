@@ -67,6 +67,10 @@ export class ItemDescComponent implements OnInit, OnDestroy {
     this.user$();
   }
 
+  goToProfile() {
+    this.router.navigate([`/profile/${this.item?.owner}`]);
+  }
+
   setNewSelectedGame(game: GameDetail) {
     this.storeService.selectGame(game);
   }

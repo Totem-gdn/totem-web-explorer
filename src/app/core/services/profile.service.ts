@@ -17,8 +17,8 @@ export class ProfileService {
 
     constructor(private http: HttpClient) {}
 
-    getUserAssetsCount(): Observable<AccountMetaBody> {
-        return this.getMyAccountInfo().pipe(
+    getUserAssetsCount(wallet: string): Observable<AccountMetaBody> {
+        return this.getMyAccountInfo(wallet).pipe(
             map<AccountEntity, AccountMetaBody>((accountData: AccountEntity) => {
                 this.totalAssets.next(accountData.meta);
                 return accountData.meta;
@@ -26,8 +26,10 @@ export class ProfileService {
         );
     }
 
-    getMyAccountInfo(): Observable<AccountEntity> {
+    getMyAccountInfo(wallet: string): Observable<AccountEntity> {
+        // return this.http.get<AccountEntity>(`${this.baseUrl}/auth/me`);
         return this.http.get<AccountEntity>(`${this.baseUrl}/auth/me`);
+
     }
 
     getMessages(page: number): Observable<any> {
