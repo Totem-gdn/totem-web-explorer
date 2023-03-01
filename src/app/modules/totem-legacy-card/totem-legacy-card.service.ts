@@ -15,4 +15,8 @@ export class TotemLegacyCardService {
     return this.http.get<RendererAvailableTypes>(`${url}/info`);
   }
 
+  getDataFromLegacy(data: string) {
+
+  }
+
 }

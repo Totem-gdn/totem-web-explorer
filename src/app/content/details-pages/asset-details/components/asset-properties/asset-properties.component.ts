@@ -121,7 +121,7 @@ export class AssetPropertiesComponent implements OnInit {
           if(!selectedGame) return;
           if (this._selectedGame == selectedGame) return;
           this._selectedGame = selectedGame;
-          console.log(selectedGame);
+          //console.log(selectedGame);
           this.processItem(1023, selectedGame);
       })
   }
@@ -129,10 +129,10 @@ export class AssetPropertiesComponent implements OnInit {
   async processItem(id: number, game: GameDetail | null = null) {
     this.properties = [];
     console.log('STARTED GETTING PROPS');
-    const json = await this.dnaService.getJSONByGame(game, ASSET_TYPE.ITEM)
-    const properties = await this.dnaService.processJSON(json, ASSET_TYPE.ITEM, id);
+    //const json = await this.dnaService.getJSONByGame(game, ASSET_TYPE.ITEM)
+    //const properties = await this.dnaService.processJSON(json, ASSET_TYPE.ITEM, id);
     //this.setItemRenderer();
-    this.properties = properties;
+    this.properties = [];
     console.log(this.properties);
     this.propLength = this.properties.length;
     this.checkMedia(this.currentBpState);

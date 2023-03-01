@@ -1,30 +1,49 @@
 <div class="wrapper">
     <div class="gradient"></div>
-    <div class="img-wrapper">
-        <img [src]="renderer" alt="">
+    <!-- <div class="img-wrapper relative" *ngIf="game && renderer; else assetLoader"> -->
+    <div class="img-wrapper relative">
+        <img class="object-fill" [src]="renderer" alt="">
         <div class="timestamp">
             <p>{{game?.updatedAt | creationTime}}</p>
         </div>
+        <div class="absolute bottom-0 left-0 w-9 lg:w-12 h-9 lg:h-12 flex items-center justify-center">
+          <mat-icon class="!w-6 !h-6" [svgIcon]="'line:share_link'"></mat-icon>
+        </div>
     </div>
 
-    <div class="in-game flex flex-col px-[8px]">
-        <div class="link">
-            <p class="leading-none">Link to source</p>
-            <mat-icon [svgIcon]="'line:share_link'"></mat-icon>
-        </div>
+    <div class="in-game flex flex-col lg:px-[8px] py-3 lg:py-0">
+        <!-- <div class="flex" *ngIf="game; else gameLoader"> -->
         <div class="flex">
-            <img class="w-[64px] h-[64px] rounded-xl mr-[12px]" [src]="game?.images?.smallThumbnail" alt="">
+            <img class="w-[50px] lg:w-[64px] h-[50px] lg:h-[64px] rounded-xl mr-[12px]" [src]="game?.images?.smallThumbnail" alt="">
             <div class="flex flex-col justify-center min-w-[0px]">
-                <p class="max-2-lines lh-1_2 ">{{game?.general?.name}} </p>
-                <span class="text-light-grey truncate">{{game?.general?.genre?.length ? game?.general?.genre![0] : ''}}</span>
+                <p class="max-2-lines lh-1_2 game-name">{{game?.general?.name || 'GAME NAME'}} </p>
+                <span class="text-light-grey truncate">{{game?.general?.genre?.length ? game?.general?.genre![0] : 'Action'}}</span>
             </div>
         </div>
 
-        <div class="flex flex-col">
+        <!-- <div class="flex flex-col" *ngIf="decodedDataToDisplay; else displayDataLoader"> -->
+        <div class="flex flex-col description">
             <!-- <p class="text-light-violet">Description: </p> -->
-            <span class="max-3-lines text-light-grey">Longer Legacy event description Ultricies risus ipsum viverra
-                quisque at maecenas. Vivamus tempus neque nec massa lectus consectetur imperdiet mattis facilisis. Id
-                facilisis sed ac ornare turpis. Nunc erat</span>
+            <span class="max-3-lines text-light-grey">{{decodedDataToDisplay || 'desarsafa af asf ar axfas sffafasfafs'}}</span>
         </div>
     </div>
 </div>
+
+<ng-template #gameLoader>
+  <div class="flex">
+    <div class="w-[64px] h-[64px] rounded-xl mr-[12px] totem-skeleton shrink-0"></div>
+    <div class="flex flex-col justify-center items-start w-full min-w-[0px]">
+        <div class="max-2-lines lh-1_2 h-5 w-full totem-skeleton"></div>
+        <div class="w-3/4 h-5 mt-1 totem-skeleton"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #assetLoader>
+  <div class="img-wrapper totem-skeleton"></div>
+</ng-template>
+
+<ng-template #displayDataLoader>
+  <div class="h-5 w-full totem-skeleton"></div>
+  <div class="h-5 w-1/2 totem-skeleton"></div>
+</ng-template>

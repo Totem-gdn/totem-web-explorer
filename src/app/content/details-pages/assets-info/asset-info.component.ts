@@ -79,6 +79,8 @@ export class AssetInfoComponent implements AfterViewInit {
     ngAfterViewInit(): void {
       //this.createLegacy()
         this.selectedGame$();
+        console.log('OLD ASSET INFO');
+
     }
 
     selectedGame$() {

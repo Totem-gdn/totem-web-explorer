@@ -18,14 +18,29 @@ export class TotemLegacyCardComponent implements OnInit, OnDestroy {
 
   subject = new Subject();
 
-  constructor(private storeService: StoreService,
-              private totemLegacyCardService: TotemLegacyCardService) { }
-  // @Input() legacy!: LegacyData;
+  constructor(
+    private storeService: StoreService,
+    private gamesService: GamesService,
+    private totemLegacyCardService: TotemLegacyCardService
+  ) { }
+
+  @Input() legacy!: LegacyData;
   @Input() game?: GameDetail;
   renderer?: string;
+  @Input() type?: string;
+
+  decodedDataToDisplay: string = '';
 
   ngOnInit(): void {
     this.setRenderer();
+    this.getGame(this.legacy?.gameAddress);
+  }
+
+  getGame(id?: string) {
+    if (!id) return;
+    this.gamesService.fetchGame(id).subscribe((game: GameDetail) => {
+      this.game = game;
+    })
   }
 
   setRenderer() {

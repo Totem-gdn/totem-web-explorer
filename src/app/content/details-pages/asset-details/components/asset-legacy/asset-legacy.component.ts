@@ -10,6 +10,7 @@ import { BehaviorSubject, Subscription, timer } from "rxjs";
 enum queries {
   sm = '(min-width: 480px)',
   md = '(min-width: 768px)',
+  smd = '(min-width: 610px)',
   lg = '(min-width: 1000px)',
   xxl = '(min-width: 1440px)',
 }
@@ -38,6 +39,7 @@ export class AssetLegacyComponent implements OnInit {
 
   tableSize: number = 5;
   currentPage: number = 0;
+  tabletViewCards: boolean = false;
 
   @ViewChild('grid', { static: false }) set gridWrapper(content: ElementRef) {
     if(content) {
@@ -59,17 +61,22 @@ export class AssetLegacyComponent implements OnInit {
   checkMedia(state: BreakpointState | null) {
     //const currentPixelRatio = window.devicePixelRatio;
     if (state?.breakpoints[queries.xxl] == true) {
+      this.tabletViewCards = false;
       this.gridPlaceholders(3);
     } else
     if (state?.breakpoints[queries.lg] == true) {
+      this.tabletViewCards = false;
       this.gridPlaceholders(2);
     } else
     if (state?.breakpoints[queries.md] == true) {
+      this.tabletViewCards = true;
       this.gridPlaceholders(2);
     } else
-    if (state?.breakpoints[queries.sm] == true) {
+    if (state?.breakpoints[queries.smd] == true) {
+      this.tabletViewCards = true;
       this.gridPlaceholders(2);
     } else {
+      this.tabletViewCards = true;
       this.gridPlaceholders(1);
     }
     console.log('VIEW CHECKED');
@@ -77,8 +84,10 @@ export class AssetLegacyComponent implements OnInit {
   }
 
   getLegacyOfAsset(query?: string) {
-    this.loading$.next(true);
-    this.legacyService.fetchLegacies('item', '1023', query).pipe(
+    this.legacy = [1,1,1];
+    this.checkMedia(this.currentBpState);
+    //this.loading$.next(true);
+    /* this.legacyService.fetchLegacies('item', '1023', query).pipe(
       ).subscribe((response: LegacyResponse<Achievement[]>) => {
           console.log(response);
           this.legacy = [...this.legacy, ...response.results];
@@ -91,7 +100,7 @@ export class AssetLegacyComponent implements OnInit {
           }
           this.loading$.next(false);
 
-      });
+      }); */
   }
 
   paginateToNextPage() {
@@ -116,7 +125,7 @@ export class AssetLegacyComponent implements OnInit {
 
   listenScreenChanges() {
     this.media
-      .observe(['(min-width: 480px)', '(min-width: 768px)', '(min-width: 1000px)', '(min-width: 1280px)', '(min-width: 1440px)'])
+      .observe(['(min-width: 480px)', '(min-width: 610px)', '(min-width: 768px)', '(min-width: 1000px)', '(min-width: 1280px)', '(min-width: 1440px)'])
       .subscribe((state: BreakpointState) => {
         this.currentBpState = state;
         this.checkMedia(this.currentBpState);
@@ -124,6 +133,8 @@ export class AssetLegacyComponent implements OnInit {
   }
 
   gridPlaceholders(length: number) {
+    console.log(length);
+
     if (!this.legacy) return;
     if (this.legacy.length < length) {
       this.placeholders = [].constructor(length - this.legacy.length)
@@ -135,7 +146,13 @@ export class AssetLegacyComponent implements OnInit {
     } else {
       this.placeholders = [].constructor(placeholders);
     }
-    if (this.legacy.length / length > 1) {
+
+    let maxLength: number = 0;
+    if (this.tabletViewCards) {
+      maxLength = length === 1 ? 2 : 3;
+    }
+
+    if ((this.legacy.length / length) > (maxLength === 0 ? 1 : maxLength)) {
       this.showViewAll = true;
     } else {
       this.showViewAll = false;

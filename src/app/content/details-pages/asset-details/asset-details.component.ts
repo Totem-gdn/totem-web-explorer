@@ -1,151 +1,112 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input } from "@angular/core";
-import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
-import { Animations } from "@app/core/animations/animations";
-import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
-import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
-import { Achievement, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
-import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
-import { AssetsService } from "@app/core/services/assets/assets.service";
-import { GamesService } from "@app/core/services/assets/games.service";
-import { LegacyService } from "@app/core/services/crypto/legacy.service";
-import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
-import { StoreService } from "@app/core/store/store.service";
-import { environment } from "@env/environment";
-import { pipe, Subject, take, takeUntil } from "rxjs";
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
+import { Animations } from '@app/core/animations/animations';
+import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
+import {
+  Achievement,
+  LegacyEvent,
+  LegacyResponse,
+} from '@app/core/models/interfaces/legacy.model';
+import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
+import { AssetsService } from '@app/core/services/assets/assets.service';
+import { GamesService } from '@app/core/services/assets/games.service';
+import { LegacyService } from '@app/core/services/crypto/legacy.service';
+import { DNAParserService } from '@app/core/services/utils/dna-parser.service';
+import { StoreService } from '@app/core/store/store.service';
+import { environment } from '@env/environment';
+import { pipe, Subject, take, takeUntil } from 'rxjs';
 const { DNAParser, ContractHandler } = require('totem-dna-parser');
 
-
 @Component({
-    selector: 'asset-details',
-    templateUrl: './asset-details.component.html',
-    styleUrls: ['./asset-details.component.scss'],
-    host: {
-        class: 'relative m-auto'
-    },
-    animations: [
-        Animations.animations
-    ]
+  selector: 'asset-details',
+  templateUrl: './asset-details.component.html',
+  styleUrls: ['./asset-details.component.scss'],
+  host: {
+    class: 'relative m-auto',
+  },
+  animations: [Animations.animations],
 })
+export class AssetDetailsComponent implements OnInit {
+  assetRendererUrl = environment.ASSET_RENDERER_URL;
 
-export class AssetDetailsComponent implements AfterViewInit {
+  asset!: any;
+  properties!: any[];
+  loading: boolean = false;
 
-    constructor(
-        private changeDetector: ChangeDetectorRef,
-        private dnaService: DNAParserService,
-        private gamesService: GamesService,
-        private assetsService: AssetsService,
-        private storeService: StoreService,
-        private legacyService: LegacyService,
-        private snackbarService: SnackNotifierService,
-    ) { }
+  notFound: boolean = false;
+  subs = new Subject<void>();
+  showSpinner: boolean = false;
+  _selectedGame?: GameDetail | null;
 
-    assetRendererUrl = environment.ASSET_RENDERER_URL;
+  @Input() type!: ASSET_TYPE;
+  @Input() set item(asset: any) {
+    console.log(asset);
 
-    _item!: any;
-    properties!: any[];
-    loading: boolean = false;
+    this.asset = asset;
+    if (asset === null) this.notFound = true;
+    if (asset === undefined) return;
+    // this.getAssetLegacy();
+  }
 
-    notFound: boolean = false;
-    subs = new Subject<void>();
-    activeTab = 'properties';
-    showSpinner: boolean = false;
-    _selectedGame?: GameDetail | null;
-
-    @Input() type!: ASSET_TYPE;
-    @Input() set item(asset: any) {
-        this._item = asset;
-        if (asset === null) this.notFound = true;
-        if (asset === undefined) return;
-        this.getAssetLegacy();
-
-        // this.processItem(asset?.tokenId)
-        // this.setItemRenderer();
+  @Input() set selectedGame(game: GameDetail | null | undefined) {
+    // this._selectedGame = game;
+    if (!game) return;
+    if (game?.connections?.assetRenderer) {
+      this.assetRendererUrl = game?.connections.assetRenderer;
+    } else {
+      this.assetRendererUrl = environment.ASSET_RENDERER_URL;
     }
+  }
+  constructor(
+    private dnaService: DNAParserService,
+    private gamesService: GamesService,
+    private assetsService: AssetsService,
+    private storeService: StoreService,
+    private legacyService: LegacyService,
+    private snackbarService: SnackNotifierService
+  ) {}
 
-    @Input() set selectedGame(game: GameDetail | null | undefined) {
-        // this._selectedGame = game;
-        if (!game) return;
-        if (game?.connections?.assetRenderer) {
-            this.assetRendererUrl = game?.connections.assetRenderer;
-        } else {
-            this.assetRendererUrl = environment.ASSET_RENDERER_URL;
-        }
-    }
+  ngOnInit(): void {
+    //this.createLegacy()
+    console.log('ASSET DETAILS');
 
-    onChangeTab(tab: string) {
-        this.activeTab = tab;
-    }
+    this.selectedGame$();
+  }
 
-    ngAfterViewInit(): void {
-      //this.createLegacy()
-        this.selectedGame$();
-    }
+  selectedGame$() {
+    this.storeService.selectedGame$
+      .pipe(takeUntil(this.subs))
+      .subscribe((selectedGame) => {
+        if (!selectedGame) return;
+        if (this._selectedGame == selectedGame) return;
+        this._selectedGame = selectedGame;
+        this.processItem(this.asset?.tokenId, selectedGame);
+      });
+  }
 
-    selectedGame$() {
-        this.storeService.selectedGame$
-            .pipe(takeUntil(this.subs))
-            .subscribe(selectedGame => {
-                if(!selectedGame) return;
-                if (this._selectedGame == selectedGame) return;
-                this._selectedGame = selectedGame;
-                // this.changeDetector.markForCheck();
-                this.processItem(1023, selectedGame);
-            })
-    }
+  async processItem(id: number, game: GameDetail | null = null) {
+    this.properties = [];
 
-    async processItem(id: number, game: GameDetail | null = null) {
-        this.properties = [];
+    const json = await this.dnaService.getJSONByGame(game, this.type);
+    const properties = await this.dnaService.processJSON(json, this.type, id);
+    this.setItemRenderer();
+    this.properties = properties;
+  }
 
-        const json = await this.dnaService.getJSONByGame(game, ASSET_TYPE.ITEM)
-        const properties = await this.dnaService.processJSON(json, ASSET_TYPE.ITEM, id);
-        //this.setItemRenderer();
-        this.properties = properties;
-    }
+  setItemRenderer() {
+    if (!this.asset) return;
+    this.asset = this.storeService.setRenderer(this.type, this.asset);
+  }
 
-    setItemRenderer() {
-        const rendererUrl = this.selectedGame?.connections?.assetRenderer;
-        let url = rendererUrl ? rendererUrl : environment.ASSET_RENDERER_URL;
-        if(!this._item) return;
-        this._item = this.storeService.setRenderer(this.type, this._item);
-    }
+  ngOnDestroy() {
+    this.subs.next();
+    this.subs.complete();
+  }
 
-    createLegacy() {
-      const data: LegacyEvent = {
-        assetId: this._item.tokenId.toString(),
-        gameAddress: '0x64F90CC5554b7C5C43ad6F4a8488c2b6715f4381',
-        playerAddress: '0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae',
-        data: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='
-      }
-    }
-
-    getAssetLegacy(query?: string, asset?: AssetInfo) {
-      let params: string = '&offset=0&limit=10';
-      this.legacyService.fetchLegacies(this.type, '1023', params).subscribe((data: LegacyResponse<Achievement[]>) => {
-
-      })
-    }
-
-    paginationEvent(event: any) {
-      let queryParam: string = '';
-      queryParam += '&offset=' + (event.currentPage * event.size).toString();
-      queryParam += '&limit=' + event.size;
-      this.getAssetLegacy(queryParam);
-    }
-
-    setContentHeight() {
-
-    }
-
-    ngOnDestroy() {
-        this.subs.next();
-        this.subs.complete();
-    }
-
-    // change assetUrl to Default if url for game getted error
-    updateUrl() {
-            this._item.rendererUrl = `${environment.ASSET_RENDERER_URL}/${this.type}/${this._item?.tokenId}?width=400&height=400`
-        // setInterval(() => {
-        //     this._item.rendererUrl = `${environment.ASSET_RENDERER_URL}/${this.type}/${this._item?.tokenId}?width=400&height=400`
-        // }, 100)
-    }
+  // change assetUrl to Default if url for game getted error
+  updateUrl() {
+    this.asset.rendererUrl = `${environment.ASSET_RENDERER_URL}/${this.type}/${this.asset?.tokenId}?width=400&height=400`;
+  }
 }

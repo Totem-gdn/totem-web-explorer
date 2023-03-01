@@ -1,3 +1,4 @@
+import { ClipboardModule } from "@angular/cdk/clipboard";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatIconModule } from "@angular/material/icon";
@@ -20,7 +21,8 @@ import { AssetInformationComponent } from "./asset-information.component";
       FlexLayoutModule,
       NotFoundModule,
       TotemEntitySliderModule,
-      MatIconModule
+      MatIconModule,
+      ClipboardModule
     ],
     exports: [
       AssetInformationComponent

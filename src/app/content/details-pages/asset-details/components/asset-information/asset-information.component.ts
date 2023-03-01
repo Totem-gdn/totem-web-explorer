@@ -1,13 +1,18 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
+import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
+import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
+import { UserEntity } from "@app/core/models/interfaces/user-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
+import { UserStateService } from "@app/core/services/auth.service";
 import { LegacyService } from "@app/core/services/crypto/legacy.service";
 import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { TotemEventListenerService } from "@app/core/services/utils/global-event-listeners.service";
 import { StoreService } from "@app/core/store/store.service";
 import { environment } from "@env/environment";
+import { Observable } from "rxjs";
 
 @Component({
     selector: 'asset-information',
@@ -22,10 +27,17 @@ export class AssetInformationComponent implements OnInit {
 
   assetRendererUrl = environment.ASSET_RENDERER_URL;
   numberOfDisplayedCards: number = 3;
+  user: Observable<UserEntity | null> = this.authService.currentUser;
+  gamesToShowInCards: GameDetail[] = [];
+  games: GameDetail[] = [];
+  selectedGame: GameDetail | null = null;
+  @Input() asset: AssetInfo | null = null;
+  @Input() type: string = '';
 
   constructor(
     private changeDetector: ChangeDetectorRef,
     private dnaService: DNAParserService,
+    private authService: UserStateService,
     private gamesService: GamesService,
     private assetsService: AssetsService,
     private storeService: StoreService,
@@ -35,6 +47,7 @@ export class AssetInformationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.listenGames();
     this.listenScreenChanges();
   }
 
@@ -95,6 +108,46 @@ export class AssetInformationComponent implements OnInit {
       }
       this.numberOfDisplayedCards = 3;
     })
+  }
+
+  listenSelectedGame() {
+    this.storeService.selectedGame$
+      .subscribe((game: GameDetail | null) => {
+        if (!game) return;
+        if (this.selectedGame == game) return;
+        this.selectedGame = game;
+        this.selectedGameCheck(this.selectedGame);
+      })
+  }
+
+  listenGames() {
+    this.storeService.games$.subscribe((games: GameDetail[]) => {
+      if (!games.length) return;
+      this.games = games;
+      this.listenSelectedGame();
+    });
+  }
+
+  selectedGameCheck(selectedGame: GameDetail) {
+    this.gamesToShowInCards = this.games.filter(game => game?.general?.name != selectedGame?.general?.name);
+    console.log(this.gamesToShowInCards);
+
+  }
+
+  updateSrc(gameToUpdate: GameDetail) {
+    let index: number = this.gamesToShowInCards.findIndex((game: GameDetail) => game.id == gameToUpdate.id);
+    if (this.gamesToShowInCards[index]) {
+      this.gamesToShowInCards[index].connections!.assetRenderer = this.assetRendererUrl;
+      return;
+    }
+    if (this.selectedGame) {
+        this.selectedGame.connections!.assetRenderer = this.assetRendererUrl;
+    }
+
+  }
+
+  walletCopied() {
+    this.snackbarService.open('Copied to the clipboard');
   }
 
 }
