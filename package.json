@@ -6,6 +6,8 @@
     "start": "node server.js",
     "build:development": "cross-env-shell NODE_ENV=development \"npm run generate-sitemap && node build-version.js\" && ng build && gulp purifyCSS",
     "build:production": "cross-env-shell NODE_ENV=production \"npm run generate-sitemap && node build-version.js\" && ng build --configuration=production && gulp purifyCSS",
+    "build:dev": "cross-env-shell NODE_ENV=development \"npm run generate-sitemap && node build-version.js\" && ng build && gulp purifyCSS",
+    "build:prod": "cross-env-shell NODE_ENV=production \"npm run generate-sitemap && node build-version.js\" && ng build --configuration=production && gulp purifyCSS",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "generate-sitemap": "ts-node -O {\\\"module\\\":\\\"commonjs\\\"} sitemap.ts"
