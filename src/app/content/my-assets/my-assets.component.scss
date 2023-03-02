@@ -1,17 +1,1 @@
-@import 'styles/scss/totem-variables';
 
-.address, .mat-icon {
-  color: $totem-light-grey;
-  transition: color .3s;
-  cursor: pointer;
-  &:hover {
-    color: $totem-white;
-    .mat-icon {
-      color: $totem-white;
-    }
-  }
-}
-
-.no-assets-block {
-  //border: 1px solid #323741;
-}

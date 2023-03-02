@@ -33,7 +33,9 @@ export class AssetsListenerService {
 
     contract.events.Transfer(
       {fromBlock: (blockNumber - 100), filter: {to: address}},
-      (error: any, event: any) => {console.log(event)})
+      (error: any, event: any) => {
+        console.log(event)
+      })
         .on("connected", (subscriptionId: any) => {
         })
         .on('data', (event: any) => {

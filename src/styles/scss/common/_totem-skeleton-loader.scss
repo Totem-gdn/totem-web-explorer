@@ -3,7 +3,7 @@
 $shine-width: 50%;
 $box-width: 400px;
 
-.totem-skeleton {
+%totem-skeleton {
   border-radius: 24px;
   overflow: hidden;
   &:empty {
@@ -21,6 +21,16 @@ $box-width: 400px;
       animation: shine 2s infinite;
     }
   }
+}
+
+.totem-skeleton {
+  @extend %totem-skeleton;
+}
+
+.totem-skeleton-absolute {
+  @extend %totem-skeleton;
+  position: absolute !important;
+  inset: 0;
 }
 
 @keyframes shine {

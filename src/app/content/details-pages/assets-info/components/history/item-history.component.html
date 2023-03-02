@@ -22,7 +22,7 @@
             </div> -->
             <div 
                 class="wallet">
-                <a href="{{'https://mumbai.polygonscan.com/address/' + story.to}}" target="_blank">{{story.to == '0' ? 'NULL': story.to}}</a>
+                <a (click)="goToProfile(story.to)">{{story.to == '0' ? 'NULL': story.to}}</a>
                 <!-- <span fxHide.lt-lg>{{story.to == '0' ? 'NULL': story.to}}</span> -->
                 <span fxHide.gt-md></span>
             </div>

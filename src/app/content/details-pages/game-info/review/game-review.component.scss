@@ -8,13 +8,7 @@
     width: 100%;
 
     .play {
-        border-radius: 12px;
-        margin: 25px 0;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid $totem-divider-grey;
-
+        padding: 24px 0;
         .item-tag {
             border-radius: 12px;
             background-color: $totem-dark-grey;
@@ -22,6 +16,25 @@
             max-width: unset;
         }
     }
+}
+.images-placeholders {
+    display: flex;
+    gap: 15px;
+    .totem-skeleton {
+        aspect-ratio: 4/3;
+        width: 50%;
+        // gap: 15;
+    }
+}
+.wallet-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    column-gap: 5px;
+    white-space: nowrap;
+    line-height: unset;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .totem-primary-button {
@@ -36,8 +49,8 @@
     flex-wrap: wrap;
     border-top: 1px solid $light-grey;
     color: $light-grey;
-    padding-top: 20px;
-    padding-bottom: 40px;
+    padding-top: 12px;
+    padding-bottom: 24px;
     gap: 20px;
 
     .icon-set {
@@ -86,7 +99,7 @@
     justify-content: center;
     .graphic {
         flex-grow: 1;
-        max-width: 600px;
+        // max-width: 600px;
         border: 1px solid $totem-divider-grey;
         border-radius: 16px;
         padding: 15px;
@@ -98,7 +111,6 @@
             display: flex;
             gap: 15px;
             .card {
-                
                 width: 50%;
                 overflow: hidden;
                 border-radius: 24px;
@@ -106,7 +118,9 @@
                 display: flex;
                 flex-direction: column;
                 img {
-                    height: 185px;
+                    // height: 185px;
+                    max-height: 330px;
+                    aspect-ratio: 4/3;
                 }
                 .bottom {
                     background-color: $totem-dark-grey;

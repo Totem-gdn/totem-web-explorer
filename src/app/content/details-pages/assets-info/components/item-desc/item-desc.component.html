@@ -12,13 +12,12 @@
         <!-- <a class="text-white pl-[10px] text-xl" href="https://mumbai.polygonscan.com/address/0x9a4A58D9C4bB6999C93fdb330bEAF32b1BfECbA3" target=”_blank”>{{wallet}}</a> -->
         <!-- <p class="text-white pl-[10px] text-xl truncate w-[200px]">{{item?.owner}}</p> -->
         <img class="user-img rounded-full" *ngIf="item?.owner == user?.wallet" [src]="user?.profileImage" alt="">
-        <div fxLayout="row" fxLayoutAlign="center center" [cdkCopyToClipboard]="item?.owner || ''"
-            [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="walletCopied()" class="user-id">
+        <div fxLayout="row" fxLayoutAlign="center center" (click)="goToProfile()" class="user-id">
             <div class="flex ml-[5px]">
                 <p class="user-id hidden xl:flex">{{item?.owner}}</p>
                 <p class="user-id flex xl:hidden">{{item?.owner?.slice(0, 6) + '...' + item?.owner?.slice(-4)}}</p>
             </div>
-            <div class="line-copy_small !ml-[7px] !mb-[6px]"></div>
+            <!-- <div class="line-copy_small !ml-[7px] !mb-[6px]"></div> -->
         </div>
     </div>
 

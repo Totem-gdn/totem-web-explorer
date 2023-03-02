@@ -12,13 +12,14 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { MatRippleModule } from "@angular/material/core";
+import { ProfileInformationModule } from "./containers/profile-information/profile.information.module";
 
 
 @NgModule({
     declarations: [
         ProfileComponent,
         ProfileMessagesComponent,
-        ProfileInformationComponent
+        // ProfileInformationComponent
     ],
     imports: [
         SharedModule,
@@ -29,7 +30,9 @@ import { MatRippleModule } from "@angular/material/core";
         MatButtonModule,
         MatIconModule,
         ClipboardModule,
-        MatRippleModule
+        MatRippleModule,
+
+        ProfileInformationModule
     ],
     exports: [
         ProfileComponent

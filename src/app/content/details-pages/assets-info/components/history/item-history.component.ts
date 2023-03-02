@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { OwnershipHistory } from '@app/core/models/interfaces/ownership-history.modle';
 import { AssetHistoryService } from '@app/core/services/crypto/asset-history.service';
@@ -16,7 +17,8 @@ export class ItemHistoryComponent extends OnDestroyMixin {
 
   constructor(
     private historyService: AssetHistoryService,
-    private notifierService: SnackNotifierService
+    private notifierService: SnackNotifierService,
+    private router: Router
   ) {
     super();
   }
@@ -41,5 +43,8 @@ export class ItemHistoryComponent extends OnDestroyMixin {
     this.notifierService.open('Copied to the clipboard')
   }
 
+  goToProfile(address: string) {
+    this.router.navigate([`/profile/${address}`])
+  }
 
 }

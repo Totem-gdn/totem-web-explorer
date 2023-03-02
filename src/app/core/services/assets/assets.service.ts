@@ -61,6 +61,10 @@ export class AssetsService {
         return forkJoin([...obsArray]);
     }
 
+    totalAssetsByWallet(wallet: string, type: AssetTypes) {
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?owner=${wallet}`)
+    }
+
     handleAssets(type: AssetTypes, assets: AssetInfo[]) {
         for (let asset of assets) {
             asset.assetType = type;
