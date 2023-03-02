@@ -32,6 +32,10 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
   assetTotal: UserAssetCountEntity | undefined = undefined;
 
   @Input() customUser: UserEntity | null = null;
+  @Input() set setTotal(total: UserAssetCountEntity | undefined) {
+    if(!total) return;
+    this.assetTotal = total;
+  }
 
   routeValue$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
@@ -58,14 +62,13 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
     this.assetsLoading$.next(true);
 
     if(this.customUser) {
-      this.currentUser$.next(this.customUser);
-      this.getAssetCount(this.customUser);
+      this.getUserAssets(this.customUser);
       this.prepeareUserData(this.customUser);
+
     } else {
+      // console.log('not custorm')
       this.authService.currentUser
-      .pipe(
-        takeUntil(this.subs)
-        )
+      .pipe(takeUntil(this.subs))
       .subscribe((user: UserEntity | null) => {
         if(user) {
           this.getAssetCount(user);
@@ -108,9 +111,11 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
           this.getUserAssets(user);
         }
     })
+    this.getUserAssets(user);
   }
 
   getUserAssets(user: UserEntity) {
+    console.log('user', user)
     this.myAssetsStoreService.fetchMyAssets(user.wallet || '');
   }
 

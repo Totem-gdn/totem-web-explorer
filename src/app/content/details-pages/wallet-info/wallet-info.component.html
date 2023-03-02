@@ -1,11 +1,11 @@
 <div *ngIf="!notFound" class="w-full flex flex-col items-center pb-12">
     <div class="w-full">
-      <profile-information [user]="user"></profile-information>
+      <profile-information [ownerMode]="false" [user]="user"></profile-information>
     </div>
   
     <div class="w-full pr-4 md:pr-16 pl-4 md:pl-16">
       <!-- <router-outlet></router-outlet> -->
-      <user-assets *ngIf="user" [customUser]="user"></user-assets>
+      <user-assets [setTotal]="total" *ngIf="user" [customUser]="user"></user-assets>
     </div>
 </div>
 

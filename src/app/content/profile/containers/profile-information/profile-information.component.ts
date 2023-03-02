@@ -22,6 +22,7 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   @Input() user: UserEntity | null = null;
+  @Input() ownerMode: boolean = true;
 
   constructor(private router: Router,
     private userStateService: UserStateService,
