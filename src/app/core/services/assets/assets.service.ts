@@ -76,7 +76,7 @@ export class AssetsService {
 
     }
 
-    fetchAsset(id: string, type: ASSET_TYPE) {
+    fetchAsset(id: number, type: ASSET_TYPE) {
         return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(map(asset => {
             asset.rarity = asset.tokenId % 100;
             return asset;

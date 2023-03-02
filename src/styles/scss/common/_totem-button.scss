@@ -102,3 +102,19 @@
     transition: opacity 0.33s ease-in-out;
   }
 }
+
+.totem-show-more-button {
+  padding: 12px 24px;
+  border-radius: 40px;
+  border: 1px solid $totem-divider-grey;
+  background: $totem-black;
+  color: $totem-light-grey;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 15px;
+  cursor: pointer;
+  transition: background 0.33s ease-in-out;
+  &:hover {
+    background: $totem-dark-grey;;
+  }
+}

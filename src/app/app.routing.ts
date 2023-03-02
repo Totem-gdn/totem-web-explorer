@@ -24,6 +24,7 @@ export const AppRoutes: Route[] = [
       { path: 'avatar/:id', loadChildren: () => import('@app/content/details-pages/assets-info/avatar-info/avatar-info.module').then(m => m.AvatarInfoModule) },
       { path: 'gem/:id', loadChildren: () => import('@app/content/details-pages/assets-info/gem-info/gem-info.module').then(m => m.GemInfoModule) },
       { path: 'item/:id', loadChildren: () => import('@app/content/details-pages/assets-info/item-info/item-info.module').then(m => m.ItemInfoModule) },
+      /* { path: 'item/:id', loadChildren: () => import('@app/content/details-pages/asset-details/asset-details.module').then(m => m.AssetDetailsModule) }, */
 
 
       { path: 'profile', loadChildren: () => import('@app/content/profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },

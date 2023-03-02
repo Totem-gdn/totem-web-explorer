@@ -31,7 +31,7 @@ export class ItemHistoryComponent extends OnDestroyMixin {
   history!: OwnershipHistory[];
   owner!: string;
 
-  getHistory(id: string) {
+  getHistory(id: number) {
     this.historyService.getHistory(this.type, id).pipe(
       untilComponentDestroyed(this),
     ).subscribe(history => {

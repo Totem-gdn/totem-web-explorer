@@ -1,0 +1,103 @@
+@import 'styles/scss/totem-variables';
+
+.subcaption {
+  color: $totem-light-grey;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.small-subcaption {
+  color: $totem-light-grey;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.caption {
+  color: $totem-white;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.main-title {
+  color: $totem-white;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 52px;
+
+  @media (max-width: 1440px) {
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 45px;
+  }
+
+  @media (max-width: 1280px) {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 39px;
+  }
+}
+
+.text-with-props {
+  color: $totem-light-grey;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+  span {
+    font-size: inherit;
+    font-weight: inherit;
+    font-weight: inherit;
+    color: $totem-light-violet;
+  }
+}
+
+.border-line {
+  width: 100%;
+  height: 1px;
+  background-color: $totem-divider-grey;
+}
+
+.asset-cta-items {
+  color: $totem-light-grey;
+}
+
+.activity-information {
+  border: 1px solid $totem-divider-grey;
+}
+
+.mini-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $totem-dark-grey;
+  border-radius: 12px;
+
+  .title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
+    color: $totem-white;
+    @media (min-width: 862px) and (max-width: 1280px) {
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 16px;
+    }
+  }
+  .caption {
+    margin-top: 4px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+    text-align: center;
+    color: $totem-light-grey;
+    @media (min-width: 862px) and (max-width: 1280px) {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+}

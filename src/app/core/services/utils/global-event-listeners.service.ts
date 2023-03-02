@@ -61,6 +61,11 @@ export class TotemEventListenerService {
       })
   }
 
+  listenAssetsPageScreenChanges(): Observable<BreakpointState> {
+    return this.breakpointObserver
+      .observe(['(min-width: 480px)', '(min-width: 768px)', '(min-width: 1000px)', '(min-width: 1280px)', '(min-width: 1440px)']);
+  }
+
   initListeners() {
     this.observeTheScreen();
     this.storeService.getAssetsAndGames();

@@ -36,7 +36,7 @@ export class GemInfoComponent implements OnInit, OnDestroy {
                 if (!id) return;
 
                 this.gem = undefined;
-                this.assetsService.fetchAsset(id, ASSET_TYPE.GEM).subscribe({
+                this.assetsService.fetchAsset(Number(id), ASSET_TYPE.GEM).subscribe({
                     next: gem => {
                         this.gem = gem;
                     },

@@ -15,7 +15,7 @@ export class LegacyService {
 
     fetchLegacies(type: string, id: string | number, query?: string): Observable<LegacyResponse<Achievement[]>> {
 
-        return this.http.get<LegacyResponse<Achievement[]>>(`${this.gdnApiUrl}/asset-legacy/${type}?assetId=${id}${query}`).pipe(
+        return this.http.get<LegacyResponse<Achievement[]>>(`${this.gdnApiUrl}/asset-legacy/${type}?assetId=${id}${query || ''}`).pipe(
           catchError((error: any) => of())
         );
 

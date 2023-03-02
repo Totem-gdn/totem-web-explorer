@@ -32,7 +32,7 @@ export class DNAParserService {
     }
 
 
-    async getJSONByGame(game: GameDetail | null, type: ASSET_TYPE) {
+    async getJSONByGame(game: GameDetail | null, type: string) {
         let json: any = '';
         let jsonUrl: string | undefined = '';
 
@@ -54,15 +54,15 @@ export class DNAParserService {
                 return json;
             }
         }
-        
-        
+
+
 
         json = await firstValueFrom(this.http.get<any>(jsonUrl))
 
         return json;
     }
 
-    async processJSON(json: any[], type: ASSET_TYPE, id: number | null = null) {
+    async processJSON(json: any[], type: string, id: number | null = null) {
         const url = 'https://matic-mumbai.chainstacklabs.com'
         let contract = ''
         if (type == ASSET_TYPE.ITEM) {
