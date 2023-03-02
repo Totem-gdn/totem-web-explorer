@@ -1,5 +1,5 @@
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
@@ -29,15 +29,18 @@ export class AssetPropertiesComponent implements OnInit {
   assetRendererUrl = environment.ASSET_RENDERER_URL;
   _selectedGame: GameDetail | null = null;
   properties: any[] = [];
-  propLength: number = 0;
   placeholders: any[] = [];
   currentBpState: BreakpointState | null = null;
   showViewAll: boolean = false;
   showAll: boolean = false;
   maxHeightOfGrid: number = 0;
   grid: ElementRef | undefined = undefined;
+  loading: boolean = false;
 
   tooltipData!: any;
+
+  @Input() tokenId: number = 0;
+  @Input() type: string = '';
 
   @ViewChild('wrapper') wrapper!: ElementRef;
   @ViewChild('tooltip') tooltip!: ElementRef;
@@ -122,20 +125,20 @@ export class AssetPropertiesComponent implements OnInit {
           if (this._selectedGame == selectedGame) return;
           this._selectedGame = selectedGame;
           //console.log(selectedGame);
-          this.processItem(1023, selectedGame);
+          this.processItem(this.tokenId, selectedGame);
       })
   }
 
   async processItem(id: number, game: GameDetail | null = null) {
+    this.loading = true;
     this.properties = [];
     console.log('STARTED GETTING PROPS');
-    //const json = await this.dnaService.getJSONByGame(game, ASSET_TYPE.ITEM)
-    //const properties = await this.dnaService.processJSON(json, ASSET_TYPE.ITEM, id);
-    //this.setItemRenderer();
-    this.properties = [];
+    const json = await this.dnaService.getJSONByGame(game, this.type)
+    const properties = await this.dnaService.processJSON(json, this.type, id);
+    this.properties = properties;
     console.log(this.properties);
-    this.propLength = this.properties.length;
     this.checkMedia(this.currentBpState);
+    this.loading = false;
   }
 
   gridPlaceholders(length: number) {

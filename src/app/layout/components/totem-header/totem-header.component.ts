@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
 import { Animations } from '@app/core/animations/animations';
 import { TokenBalance } from '@app/core/models/interfaces/token-balance.modle';
@@ -34,6 +34,8 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   searchOpened: boolean = false;
 
+  currentRoute: string = '';
+
   @ViewChild('dropdown', { static: false }) set drop(content: ElementRef) {
     if(content) {
         this.dropdown = content;
@@ -57,6 +59,13 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
     this.initUserAndLoadingListener();
     this.initBalanceListener();
     this.initCoverListener();
+    this.currentRoute = this.router.url;
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        console.log(event);
+        this.currentRoute = event.url;
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -144,6 +153,14 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   navigateToBuy() {
     this.router.navigate(['/buy']);
+  }
+
+  navigateToMyAssets() {
+    if (!this.currUser$.getValue()) {
+      this.logIn();
+    } else {
+      this.router.navigate(['/profile/my-assets']);
+    }
   }
 
   /* navigateToProfile() {

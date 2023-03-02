@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper relative">
     <div class="gradient"></div>
     <!-- <div class="img-wrapper relative" *ngIf="game && renderer; else assetLoader"> -->
     <div class="img-wrapper relative">
@@ -6,7 +6,7 @@
         <div class="timestamp">
             <p>{{game?.updatedAt | creationTime}}</p>
         </div>
-        <div class="absolute bottom-0 left-0 w-9 lg:w-12 h-9 lg:h-12 flex items-center justify-center">
+        <div class="absolute bottom-0 left-0 w-9 lg:w-12 h-9 lg:h-12 flex items-center justify-center" (click)="toggleCover()">
           <mat-icon class="!w-6 !h-6" [svgIcon]="'line:share_link'"></mat-icon>
         </div>
     </div>
@@ -24,7 +24,19 @@
         <!-- <div class="flex flex-col" *ngIf="decodedDataToDisplay; else displayDataLoader"> -->
         <div class="flex flex-col description">
             <!-- <p class="text-light-violet">Description: </p> -->
-            <span class="max-3-lines text-light-grey">{{decodedDataToDisplay || 'desarsafa af asf ar axfas sffafasfafs'}}</span>
+            <span class="max-2-lines lg:max-3-lines text-light-grey">
+              {{decodedDescriptionToDisplay || 'The ' + type + ' with ID ' + legacy.assetId + ' was used in the game for the first time.'}}
+            </span>
+        </div>
+    </div>
+    <div inputEvents class="data-cover inset-0 absolute w-full h-full z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
+        <div @toggleSelector *ngIf="coverActive" class="tooltip-wrapper w-full h-full max-h-full overflow-y-auto flex flex-col py-4 px-5 items-start relative">
+            <p class="text-[16px] lg:text-[20px] leading-[17px] lg:leading-[22px] font-medium">Event data</p>
+            <p class="text-[14px] lg:text-[16px] leading-[16px] lg:leading-[20px] max-w-[90%] font-normal t-col-light-violet mt-2">
+              {{decodedDataToDisplay || decodedDescriptionToDisplay || 'The ' + type + ' with ID ' + legacy.assetId + ' was used in the game for the first time.'}}</p>
+            <div class="w-14 h-14 absolute right-0 top-0 flex items-center justify-center" (click)="coverActive = false">
+              <mat-icon class="t-col-white" [svgIcon]="'mat_outline:close'"></mat-icon>
+            </div>
         </div>
     </div>
 </div>

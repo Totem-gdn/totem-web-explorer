@@ -3,10 +3,10 @@
   class="relative py-[24px] pb-[40px] px-[20px] lg:pt-[50px] flex flex-col items-center justify-start w-full h-full"
   >
   <div class="flex flex-col items-center justify-start w-full h-full max-w-[1560px]">
-    <asset-information [asset]="asset" [type]="type" class="w-full"></asset-information>
-    <asset-properties class="mt-10 w-full"></asset-properties>
-    <asset-legacy class="mt-10 w-full"></asset-legacy>
-    <asset-ownership-history class="mt-10 w-full"></asset-ownership-history>
+    <asset-information [asset]="asset" [type]="type" (refreshEvent)="refreshAsset()" class="w-full"></asset-information>
+    <asset-properties [tokenId]="asset.tokenId" [type]="type" class="mt-10 w-full"></asset-properties>
+    <asset-legacy [tokenId]="asset.tokenId" [type]="type" class="mt-10 w-full"></asset-legacy>
+    <asset-ownership-history [tokenId]="asset.tokenId" [type]="type" class="mt-10 w-full"></asset-ownership-history>
     <!-- <item-properties
             class="pt-[60px] w-full"
             [properties]="properties"

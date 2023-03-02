@@ -25,7 +25,7 @@
 
 
     <nav class="totem-navigation-items whitespace-nowrap gap-[30px] text-[16px] leading-[17px] font-medium">
-      <a [ngClass]="!(currUser$ | async) ? 'disabled-route' : ''" class="px-2 py-1" routerLinkActive="active-route" routerLink="/profile/my-assets">My Assets</a>
+      <a class="px-2 py-1 cursor-pointer" [ngClass]="{'active-route':currentRoute === '/profile/my-assets'}" (click)="navigateToMyAssets()">My Assets</a>
       <div
         class="flex xl:hidden dropdown-wrapper px-2 py-1 cursor-pointer relative items-center"
         (focus)="showDropdown = true" (blur)="closeWithTimeout()" tabindex="0"

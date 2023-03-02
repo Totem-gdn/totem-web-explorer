@@ -24,7 +24,7 @@
 
     <div class="flex flex-row flex-wrap md:flex-nowrap w-full items-center justify-between">
       <p class="main-title">Avatar ID: {{asset?.tokenId}}</p>
-      <button class="hidden smd:block totem-primary-button h-13 text-[20px] w-full smd:w-[210px] xmd:w-max leading-[22px] font-semibold xl:!px-13">Buy item</button>
+      <button class="hidden smd:block totem-primary-button h-13 text-[20px] w-full smd:w-[210px] xmd:w-max leading-[22px] font-semibold xl:!px-13" (click)="navigateToBuy()">Buy item</button>
     </div>
 
     <div class="w-full flex flex-col gap-4">
@@ -48,22 +48,23 @@
       <span class="border-line"></span>
 
       <div class="flex flex-row w-full items-center justify-start gap-4">
-        <div class="flex flex-row items-center asset-cta-items">
+        <div class="flex flex-row items-center asset-cta-items cursor-pointer">
           <mat-icon class="!h-5 !w-5 mr-2" [svgIcon]="'mat_outline:visibility'"></mat-icon>
-          <p class="small-subcaption">{{4245}}</p>
+          <p class="small-subcaption">{{asset?.views}}</p>
         </div>
-        <div class="flex flex-row items-center asset-cta-items">
+        <div class="flex flex-row items-center asset-cta-items cursor-pointer" (click)="share.share('Сheck out this asset')">
+          <share-button class="absolute" #share></share-button>
           <mat-icon class="!h-5 !w-5 mr-2" [svgIcon]="'mat_outline:ios_share'"></mat-icon>
           <p class="small-subcaption">Share</p>
         </div>
-        <div class="flex flex-row items-center asset-cta-items">
+        <div class="flex flex-row items-center asset-cta-items cursor-pointer" (click)="refreshAsset()">
           <mat-icon class="!h-5 !w-5 mr-2" [svgIcon]="'mat_outline:refresh'"></mat-icon>
           <p class="small-subcaption">Refresh</p>
         </div>
       </div>
     </div>
 
-    <button class="block smd:hidden totem-primary-button h-13 text-[20px] w-full leading-[22px] font-semibold">Buy item</button>
+    <button class="block smd:hidden totem-primary-button h-13 text-[20px] w-full leading-[22px] font-semibold" (click)="navigateToBuy()">Buy item</button>
 
     <div class="activity-information w-full grid grid-cols-2 sm:grid-cols-3 p-2 gap-2 rounded-[12px]">
       <div class="mini-card py-3 px-2">

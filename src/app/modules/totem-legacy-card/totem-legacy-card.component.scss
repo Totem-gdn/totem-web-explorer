@@ -132,3 +132,11 @@
   font-size: 14px;
   line-height: 15px;
 }
+
+.tooltip-wrapper {
+  background-color: $blur-black-darker;
+  border-radius: 24px;
+  @media (max-width: 1000px) {
+    border-radius: 18px;
+  }
+}

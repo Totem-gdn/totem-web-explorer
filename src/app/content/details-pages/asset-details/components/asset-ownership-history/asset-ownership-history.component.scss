@@ -127,6 +127,7 @@
   width: 100%;
   background: linear-gradient(180deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
   transform: matrix(1, 0, 0, -1, 0, 0);
+  pointer-events: none;
 }
 
 .tooltip {
@@ -183,4 +184,17 @@
 
 .tx-table-column {
   width: 24px;
+}
+
+.owner-wallet {
+  display: flex;
+  @media (max-width: 1460px) {
+    display: none;
+  }
+}
+.sliced-owner-wallet {
+  display: none;
+  @media (max-width: 1460px) {
+    display: flex;
+  }
 }

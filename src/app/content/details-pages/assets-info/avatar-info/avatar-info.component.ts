@@ -42,7 +42,7 @@ export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
         const id = params.get('id');
         if (!id) return;
         this.avatar = undefined;
-        this.assetsService.fetchAsset(id, ASSET_TYPE.AVATAR).subscribe({
+        this.assetsService.fetchAsset(Number(id), ASSET_TYPE.AVATAR).subscribe({
           next: avatar => {
             this.avatar = avatar;
           },

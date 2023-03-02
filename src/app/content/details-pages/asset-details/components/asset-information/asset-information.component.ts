@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Router } from "@angular/router";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
 import { Animations } from "@app/core/animations/animations";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
@@ -33,15 +34,12 @@ export class AssetInformationComponent implements OnInit {
   selectedGame: GameDetail | null = null;
   @Input() asset: AssetInfo | null = null;
   @Input() type: string = '';
+  @Output() refreshEvent: EventEmitter<string> = new EventEmitter();
 
   constructor(
-    private changeDetector: ChangeDetectorRef,
-    private dnaService: DNAParserService,
     private authService: UserStateService,
-    private gamesService: GamesService,
-    private assetsService: AssetsService,
+    private router: Router,
     private storeService: StoreService,
-    private legacyService: LegacyService,
     private snackbarService: SnackNotifierService,
     private totemEventListenerService: TotemEventListenerService,
   ) { }
@@ -146,8 +144,16 @@ export class AssetInformationComponent implements OnInit {
 
   }
 
+  refreshAsset() {
+    this.refreshEvent.emit('refresh');
+  }
+
   walletCopied() {
     this.snackbarService.open('Copied to the clipboard');
+  }
+
+  navigateToBuy() {
+    this.router.navigate(['/buy']);
   }
 
 }

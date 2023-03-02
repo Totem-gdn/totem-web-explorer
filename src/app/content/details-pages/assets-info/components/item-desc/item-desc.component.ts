@@ -90,7 +90,7 @@ export class ItemDescComponent implements OnInit, OnDestroy {
 
   updateAsset() {
     if (!this.item?.id) return;
-    this.assetsService.fetchAsset(this.item.id, this.type)
+    this.assetsService.fetchAsset(this.item.tokenId, this.type)
       .subscribe(asset => {
         this.item = asset;
       });

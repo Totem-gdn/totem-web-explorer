@@ -1,11 +1,12 @@
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
 import { Achievement, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { LegacyService } from "@app/core/services/crypto/legacy.service";
 import { TotemEventListenerService } from "@app/core/services/utils/global-event-listeners.service";
-import { BehaviorSubject, Subscription, timer } from "rxjs";
+import { BehaviorSubject, catchError, of, Subscription, timer } from "rxjs";
 
 enum queries {
   sm = '(min-width: 480px)',
@@ -13,6 +14,12 @@ enum queries {
   smd = '(min-width: 610px)',
   lg = '(min-width: 1000px)',
   xxl = '(min-width: 1440px)',
+}
+
+interface Tooltip {
+  data?: string;
+  active: boolean;
+  decodedData?: string;
 }
 
 @Component({
@@ -41,6 +48,11 @@ export class AssetLegacyComponent implements OnInit {
   currentPage: number = 0;
   tabletViewCards: boolean = false;
 
+  @Input() tokenId: number = 0;
+  @Input() type: string = '';
+
+  tooltip!: Tooltip;
+  @ViewChild('tooltipRef') tooltipRef!: ElementRef;
   @ViewChild('grid', { static: false }) set gridWrapper(content: ElementRef) {
     if(content) {
         this.grid = content;
@@ -84,13 +96,17 @@ export class AssetLegacyComponent implements OnInit {
   }
 
   getLegacyOfAsset(query?: string) {
-    this.legacy = [1,1,1];
-    this.checkMedia(this.currentBpState);
-    //this.loading$.next(true);
-    /* this.legacyService.fetchLegacies('item', '1023', query).pipe(
+    //this.legacy = [1,1,1];
+    //this.checkMedia(this.currentBpState);
+    this.loading$.next(true);
+    this.legacyService.fetchLegacies(this.type, this.tokenId, query).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return of();
+      })
       ).subscribe((response: LegacyResponse<Achievement[]>) => {
           console.log(response);
-          this.legacy = [...this.legacy, ...response.results];
+          if (!response) return;
+          this.legacy = [...this.legacy, ...response?.results];
           this.checkMedia(this.currentBpState);
 
           if ((this.tableSize + (this.tableSize * this.currentPage)) >= response.total) {
@@ -100,7 +116,7 @@ export class AssetLegacyComponent implements OnInit {
           }
           this.loading$.next(false);
 
-      }); */
+      });
   }
 
   paginateToNextPage() {
@@ -112,13 +128,14 @@ export class AssetLegacyComponent implements OnInit {
   }
 
   createLegacy() {
+    let desc = JSON.stringify({description: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='})
     const data: LegacyEvent = {
-      assetId: '1023',
-      gameAddress: '0x797A0c9afAD07A5b30FA33dCD75FE81D3551C559',
-      playerAddress: '0xc20Dd951b5756b2aBD7d30158e2d3beCd8eBB15e',
-      data: 'NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU='
+      assetId: this.tokenId.toString(),
+      gameAddress: '0x90B20911d81e213451308D1BB3F472880D61499B',
+      playerAddress: '0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae',
+      data: window.btoa(desc)
     }
-    this.legacyService.createLegacyEvent('item', data).subscribe(() => {
+    this.legacyService.createLegacyEvent(this.type, data).subscribe(() => {
       this.getLegacyOfAsset(`&offset=0&limit=${this.tableSize}`);
     });
   }
@@ -158,6 +175,31 @@ export class AssetLegacyComponent implements OnInit {
       this.showViewAll = false;
     }
     this.updateMaxHeight();
+  }
+
+  async openTooltip(e: any, data: string) {
+    // Tooltip data
+    this.tooltipRef.nativeElement.focus();
+
+    this.tooltip = { data: data, active: true };
+    let decodedData: string | undefined = data;
+/*
+    const base64regExp: RegExp = /^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{4}|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{2}={2})$/gm;
+    if (base64regExp.test(data)) decodedData = Buffer.from(data, 'base64').toString('binary');
+ */
+    this.tooltip.decodedData = decodedData;
+
+    // Tooltip position
+    const tooltipStyle = this.tooltipRef.nativeElement.style;
+    const tooltipRect = e.target.getBoundingClientRect();
+
+    if (window.innerWidth - 150 < tooltipRect.x + e.target.offsetWidth) {
+      tooltipStyle.left = `${e.target.offsetLeft - (e.target.offsetWidth / 2)}px`;
+      tooltipStyle.top = `${e.target.offsetTop + e.target.offsetHeight}px`;
+    } else {
+      tooltipStyle.left = `${e.target.offsetLeft + (e.target.offsetWidth / 2)}px`;
+      tooltipStyle.top = `${e.target.offsetTop + e.target.offsetHeight}px`;
+    }
   }
 
   updateMaxHeight() {

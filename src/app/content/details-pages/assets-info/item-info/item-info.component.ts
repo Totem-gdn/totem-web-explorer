@@ -43,7 +43,7 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
         const id = params.get('id');
         if (!id) return;
         this.item = undefined;
-        this.assetsService.fetchAsset(id, ASSET_TYPE.ITEM).subscribe({
+        this.assetsService.fetchAsset(Number(id), ASSET_TYPE.ITEM).subscribe({
           next: (item) => {
             this.item = item;
             console.log(this.item);

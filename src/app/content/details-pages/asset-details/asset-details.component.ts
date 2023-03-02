@@ -31,7 +31,7 @@ const { DNAParser, ContractHandler } = require('totem-dna-parser');
 export class AssetDetailsComponent implements OnInit {
   assetRendererUrl = environment.ASSET_RENDERER_URL;
 
-  asset!: any;
+  asset!: AssetInfo;
   properties!: any[];
   loading: boolean = false;
 
@@ -103,6 +103,13 @@ export class AssetDetailsComponent implements OnInit {
   ngOnDestroy() {
     this.subs.next();
     this.subs.complete();
+  }
+
+  refreshAsset() {
+    if (!this.asset) return;
+    this.assetsService.fetchAsset(this.asset.tokenId, this.type).subscribe((item: AssetInfo) => {
+      this.asset = item;
+    })
   }
 
   // change assetUrl to Default if url for game getted error

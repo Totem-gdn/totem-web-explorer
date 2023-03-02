@@ -235,7 +235,7 @@
         min-height: 50px;
         max-height: 50px;
         width: 100%;
-        background-color: $totem-grey;
+        background-color: $totem-dark-grey;
         border-radius: 4px;
         overflow: hidden;
         transition: max-height 0.33s cubic-bezier(0.4, 0, 0.2, 1), padding-top 0.33s ease-out;
@@ -320,7 +320,7 @@
               height: 40px;
               width: 40px;
               border-radius: 50%;
-              background-color: $yellow;
+              background-color: $totem-violet;
               display: flex;
               place-content: center;
               align-items: center;
@@ -333,7 +333,7 @@
               .icon-font-settings,
               .icon-font-check
               {
-                color: #111111;
+                color: $totem-light-violet;
                 width: 24px;
                 height: 24px;
                 cursor: pointer;

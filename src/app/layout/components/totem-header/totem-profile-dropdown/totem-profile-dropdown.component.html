@@ -5,7 +5,7 @@
         <img class="w-full h-full object-cover" [src]="user?.profileImage || 'assets/icons/nav/account_circle.svg'" alt="profile-icon" (error)="updateProfileImage()">
       </div>
       <div class="user-name flex flex-col items-start justify-center ml-3">
-        <p class="text-[20px] leading-[22px] font-semibold">{{user?.slicedName ? user?.slicedName : user?.name}}</p>
+        <p class="text-[20px] leading-[22px] font-semibold">{{user?.slicedName ? user?.slicedName : user?.name || user?.slicedWallet}}</p>
         <p class="text-[16px] leading-[17px] font-normal mt-1 t-col-light-grey">View profile</p>
       </div>
     </div>

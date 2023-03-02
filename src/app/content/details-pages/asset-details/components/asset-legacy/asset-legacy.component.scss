@@ -127,6 +127,7 @@
   width: 100%;
   background: linear-gradient(180deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
   transform: matrix(1, 0, 0, -1, 0, 0);
+  pointer-events: none;
 }
 
 .tooltip {
@@ -156,7 +157,32 @@
   justify-content: center;
   background-color: $totem-dark-grey;
   color: $totem-black;
+  .line-item_placeholder {
+    font-size: 70px;
+  }
   @media (max-width: 1000px) {
     height: 132px;
+    .line-item_placeholder {
+      font-size: 40px;
+    }
+  }
+}
+
+.tooltip-wrapper {
+  width: 200px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 4px;
+  max-height: 400px;
+  background: rgba(8, 9, 10, 0.5);
+  backdrop-filter: blur(10px);
+
+  .tooltip {
+      overflow-y: scroll;
+      padding: 6px;
+      color: $totem-white;
+      text-align: center;
   }
 }
