@@ -1,15 +1,17 @@
 <div class="totem-buy-asset w-full flex flex-row items-center h-fit justify-between px-16 items-center justify-between">
-  <div class="flex flex-row w-full max-w-[1520px] justify-between mx-auto">
-    <div class="buy-asset-cards flex flex-row items-center justify-between max-w-[784px] w-full mr-6">
+  <div class="flex flex-row w-full max-w-[1520px] justify-center xxml:justify-between mx-auto flex-wrap xxml:flex-nowrap py-12">
+    <p class="flex xxml:hidden text-[48px] leading-[52px] font-semibold mb-12">Create the Unique Totem Item!</p>
+    <div class="buy-asset-cards flex flex-row items-center justify-between max-w-[816px] xxml:max-w-[784px] w-full mr-6">
 
-      <div class="moving-circle-wrapper w-0 h-0">
+      <!-- <div class="moving-circle-wrapper w-0 h-0">
         <div #movingCircle class="moving-circle">
           <bg-circle [background]="'green'" [width]="'300px'"></bg-circle>
         </div>
-      </div>
+      </div> -->
 
-      <div #item1 class="asset-card-wrapper">
-        <div #circlesRef class="circle-wrapper select-none ">
+      <div #item1 class="asset-card-wrapper relative mr-6">
+        <ng-container *ngTemplateOutlet="items"></ng-container>
+        <!-- <div #circlesRef class="circle-wrapper select-none ">
           <bg-circle class="top-[100px] left-[-100px] select-none"
             [background]="assets[0].type === 'avatar' ? '#3A23C9' : assets[0].type === 'item' ? '#8023C9' : assets[0].type === 'gem' ? '#FFD011': ''"
             [width]="'350px'"></bg-circle>
@@ -19,15 +21,16 @@
           <bg-circle class="right-[0px] bottom-[0px] select-none"
             [background]="assets[0].type === 'avatar' ? '#8811FF' : assets[0].type === 'item' ? '#FB5A35' : assets[0].type === 'gem' ? '#FED01C': ''"
             [width]="'350px'"></bg-circle>
-        </div>
+        </div> -->
 
-        <div (mouseenter)="animateItem(0, true)" (mouseleave)="resetWithExeption(0, true)"
-          class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6 mr-6">
+        <!-- <div (mouseenter)="animateItem(0, true)" (mouseleave)="resetWithExeption(0, true)" -->
+        <div
+          class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
           <div class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
             <div class="flex flex-col items-center mt-9">
               <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[0].type}}</h2>
             </div>
-            <div *ngIf="assets[0].type === 'item'" class="!text-[200px] icon solid-buy-item flex"></div>
+            <!-- <div *ngIf="assets[0].type === 'item'" class="!text-[200px] icon solid-buy-item flex"></div> -->
           </div>
           <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
             <div class=""><p @fade-in *ngIf="assets[0].paymentInfo?.price" class="text-[24px] leading-[26px] font-medium">$ {{assets[0].paymentInfo?.price}}</p></div>
@@ -38,8 +41,9 @@
         </div>
       </div>
 
-      <div #item2 class="asset-card-wrapper">
-        <div #circlesRef class="circle-wrapper select-none">
+      <div #item2 class="asset-card-wrapper relative">
+        <ng-container *ngTemplateOutlet="avatars"></ng-container>
+        <!-- <div #circlesRef class="circle-wrapper select-none">
           <bg-circle class="top-[100px] left-[-100px] select-none"
             [background]="assets[1].type === 'avatar' ? '#3A23C9' : assets[1].type === 'item' ? '#8023C9' : assets[1].type === 'gem' ? '#FFD011': ''"
             [width]="'350px'"></bg-circle>
@@ -49,8 +53,9 @@
           <bg-circle class="right-[0px] bottom-[0px] select-none"
             [background]="assets[1].type === 'avatar' ? '#8811FF' : assets[1].type === 'item' ? '#FB5A35' : assets[1].type === 'gem' ? '#FED01C': ''"
             [width]="'350px'"></bg-circle>
-        </div>
-        <div (mouseenter)="animateItem(1, true)" (mouseleave)="resetWithExeption(1, true)"
+        </div> -->
+        <!-- <div (mouseenter)="animateItem(1, true)" (mouseleave)="resetWithExeption(1, true)" -->
+        <div
           class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
 
 
@@ -58,7 +63,7 @@
             <div class="flex flex-col items-center mt-9">
               <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[1].type}}</h2>
             </div>
-            <div *ngIf="assets[1].type === 'avatar'" class="!text-[200px] icon solid-buy-avatar flex"></div>
+            <!-- <div *ngIf="assets[1].type === 'avatar'" class="!text-[200px] icon solid-buy-avatar flex"></div> -->
           </div>
           <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
             <div class=""><p @fade-in *ngIf="assets[1].paymentInfo?.price" class="text-[24px] leading-[26px] font-medium">$ {{assets[1].paymentInfo?.price}}</p></div>
@@ -70,8 +75,8 @@
       </div>
     </div>
 
-    <div class="buy-asset-text flex flex-col items-start justify-center max-w-[624px] w-full">
-      <p class="text-[64px] leading-[68px] font-semibold">Create the Unique Totem Item!</p>
+    <div class="buy-asset-text flex flex-col items-start justify-center xxml:max-w-[624px] w-full">
+      <p class="hidden xxml:flex text-[64px] leading-[68px] font-semibold">Create the Unique Totem Item!</p>
       <p class="text-[24px] leading-[26px] font-medium mt-10">Choose the item type to mint</p>
       <p class="text-[16px] leading-[20px] font-normal mt-6">Minting of Totem Items may take time. After you transfer
         the USDC to the Totem's address, your transaction needs to get confirmed. It may take several seconds. After
@@ -87,3 +92,29 @@
     </div>
   </div>
 </div>
+
+<ng-template #items>
+  <div class="assets-images absolute inset-0 w-full h-full z-2">
+    <img class="absolute img-1" src="assets/images/purchase/totem-spear.svg" alt="">
+    <img class="absolute img-2" src="assets/images/purchase/mvr-spear.svg" alt="">
+    <img class="absolute img-3" src="assets/images/purchase/ammo.svg" alt="">
+    <img class="absolute img-4" src="assets/images/purchase/dino-tool.svg" alt="">
+  </div>
+</ng-template>
+
+<ng-template #avatars>
+  <div class="assets-images absolute inset-0 w-full h-full z-2 flex items-center justify-center">
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative avatar-1" src="assets/images/purchase/tt-avatar.svg" alt="">
+    </div>
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative avatar-2" src="assets/images/purchase/mr-avatar.svg" alt="">
+    </div>
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative avatar-3" src="assets/images/purchase/ns-avatar.svg" alt="">
+    </div>
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative avatar-4" src="assets/images/purchase/outpost-avatar.svg" alt="">
+    </div>
+  </div>
+</ng-template>

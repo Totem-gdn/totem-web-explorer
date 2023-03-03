@@ -14,7 +14,7 @@
                             <totem-asset-card *ngIf="type == 'asset'" [asset]="card"></totem-asset-card>
                             <totem-game-card *ngIf="type == 'game'" [game]="card"></totem-game-card>
                             <totem-legacy-card [legacy]="card" [type]="'item'" *ngIf="type == 'legacy'"></totem-legacy-card>
-                            <event-card [label]="i == 0 ? 'live' : 'comming'" [eventBanner]="card" *ngIf="type == 'event'"></event-card>
+                            <event-card [label]="i == 0 ? 'live' : 'coming'" [eventBanner]="card" *ngIf="type == 'event'"></event-card>
                         </div>
                     </ng-container>
 
@@ -22,13 +22,13 @@
                     <ng-container *ngIf="!cards?.length">
                         <div class="totem-skeleton" *ngFor="let _ of [].constructor(5)"></div>
                     </ng-container>
-                    
+
                 </div>
             </div>
 
             <ng-container *ngIf="mode == 'arrows'">
                 <slider-arrow *ngIf="(hover == true && slideIndex != 0) && showArrows.left" @fade-in-out [direction]="'left'" (click)="toggleSlides('prev')" class="left-arrow"></slider-arrow>
-                <slider-arrow *ngIf="hover == true && showArrows.right" @fade-in-out (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>    
+                <slider-arrow *ngIf="hover == true && showArrows.right" @fade-in-out (click)="toggleSlides('next')" class="right-arrow"></slider-arrow>
             </ng-container>
 
         </div>
