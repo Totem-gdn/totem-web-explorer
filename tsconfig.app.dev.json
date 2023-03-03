@@ -2,7 +2,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl" : "/dev.totem-explorer.com/",
+    "baseUrl" : "./dev.totem-explorer.com/src",
     "outDir": "./out-tsc/app",
     "types": []
   },

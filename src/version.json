@@ -1,10 +1,11 @@
 {
-  "shortSHA": "8907283d",
-  "SHA": "8907283d37e7c4c6e57308b5a5afaa0df8d1281c",
-  "branch": "versioning",
-  "lastCommitAuthor": "'Maxx Tiyechko'",
-  "lastCommitTime": "'Wed Jan 18 12:18:17 2023 +0200'",
-  "lastCommitMessage": "changed pyment method, widget fix",
-  "lastCommitNumber": "1059",
-  "environment": "production"
+  "shortSHA": "dc75b2d5",
+  "SHA": "dc75b2d57926f43b99c0ff09a6270b837196efeb",
+  "branch": "layout-responsivness",
+  "lastCommitAuthor": "'timoshchuk-web'",
+  "lastCommitTime": "'Fri Mar 3 15:15:22 2023 +0200'",
+  "lastCommitMessage": "changed build spec",
+  "lastCommitNumber": "1330",
+  "environment": "development",
+  "lastBuildTime": "2023-03-03T13:24:29.624Z"
 }
