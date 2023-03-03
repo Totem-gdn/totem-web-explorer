@@ -73,7 +73,7 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       this.currentUser$.next(user);
     })
     this.updateAssets();
-    this.playAnimation();
+    //this.playAnimation();
   }
 
   updateAssets() {

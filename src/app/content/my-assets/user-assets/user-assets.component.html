@@ -123,19 +123,48 @@
   <ng-container *ngTemplateOutlet="noAssets, context: {type: 'Item'}"></ng-container>
 </ng-template>
 <ng-template #noAvatars>
+  <div class="flex md:hidden w-full mt-8"></div>
   <ng-container *ngTemplateOutlet="noAssets, context: {type: 'Avatar'}"></ng-container>
 </ng-template>
 
 <ng-template #noAssets let-type="type">
-  <p class="text-[32px] leading-[35px] font-medium">You don't have any {{type}}s</p>
+  <!-- <p class="text-[32px] leading-[35px] font-medium">You don't have any {{type}}s</p> -->
   <!-- <p class="text-[24px] leading-[26px] font-medium mt-12">You have 0 {{type == 'Avatar' ? 'avatar' : 'item'}}s</p> -->
-  <div class="no-assets-block h-[278px] w-[240px] flex flex-col shrink-0 items-start justify-start rounded-[24px] mt-6 rounded-[18px] overflow-hidden">
+  <!-- <div class="no-assets-block h-[278px] w-[240px] flex flex-col shrink-0 items-start justify-start rounded-[24px] mt-6 rounded-[18px] overflow-hidden">
     <div class="asset-image h-full w-full flex items-center justify-center t-bg-dark-grey">
       <div *ngIf="type === 'Item'" class="!text-[120px] icon solid-buy-item flex t-col-divider-grey"></div>
       <div *ngIf="type === 'Avatar'" class="!text-[120px] icon solid-buy-avatar flex t-col-divider-grey"></div>
     </div>
     <div class="h-[76px] w-full t-bg-grey flex items-center px-4 py-4">
       <button class="totem-primary-button !rounded-[12px] w-full h-12 text-[20px] leading-[22px] font-semibold !px-7" (click)="goToBuy()">Purchase</button>
+    </div>
+  </div> -->
+  <div class="w-full flex flex-row gap-3 relative">
+    <div class="w-full sm:max-w-[280px]">
+      <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+    </div>
+    <div class="hidden sm:flex w-full sm:max-w-[280px]">
+      <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+    </div>
+    <div class="hidden smd:flex w-full sm:max-w-[280px]">
+      <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+    </div>
+    <div class="hidden xl:flex w-full sm:max-w-[280px]">
+      <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+    </div>
+    <div class="hidden xxl:flex w-full sm:max-w-[280px]">
+      <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+    </div>
+    <div class="hidden xxml:flex w-full sm:max-w-[280px]">
+      <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+    </div>
+    <div class="dark-cover w-full h-full inset-0 absolute z-2"></div>
+    <div class="w-full h-full inset-0 absolute z-3 flex items-center justify-center">
+      <div class="flex flex-col items-center justify-center">
+        <p class="text-[24px] leading-[27px] md:text-[32px] md:leading-[35px] font-medium text-center px-4">You don't have any {{type}}s</p>
+        <p class="text-[14px] leading-[19px] md:text-[16px] md:leading-[21px] font-normal max-w-[255px] md:max-w-[295px] w-full mt-2 t-col-light-grey text-center">You can purchase unique created assets by following this link</p>
+        <button class="totem-primary-button !rounded-[12px] w-[208px] h-12 text-[20px] leading-[22px] font-semibold !px-7 !mt-4" (click)="goToBuy()">Purchase</button>
+      </div>
     </div>
   </div>
 </ng-template>
@@ -167,6 +196,16 @@
     </div>
     <div class="w-full flex items-center justify-center mt-11">
       <span class="w-[234px] h-12 totem-skeleton"></span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #placeholderCard>
+  <div class="w-full h-[278px] flex flex-col placeholder-card">
+    <div class="h-[180px] w-full placeholder-img"></div>
+    <div class="h-[98px] w-full flex flex-col pt-3 pb-4 px-4">
+      <div class="w-1/2 h-[22px] bg-[#31333D] rounded-[12px]"></div>
+      <div class="w-full h-[36px] mt-3 bg-[#31333D] rounded-[12px]"></div>
     </div>
   </div>
 </ng-template>

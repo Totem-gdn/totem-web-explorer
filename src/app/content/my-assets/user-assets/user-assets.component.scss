@@ -15,3 +15,17 @@
 .no-assets-block {
   //border: 1px solid #323741;
 }
+
+.placeholder-card {
+  background: linear-gradient(218.03deg, rgba(255, 255, 255, 0) 2.64%, rgba(255, 255, 255, 0.05) 53.81%, rgba(255, 255, 255, 0) 100%), #23252F;
+  border-radius: 18px;
+  overflow: hidden;
+  .placeholder-img {
+    background: linear-gradient(218.03deg, rgba(255, 255, 255, 0) 2.64%, rgba(255, 255, 255, 0.05) 53.81%, rgba(255, 255, 255, 0) 100%), #23252F;
+  }
+}
+
+.dark-cover {
+  background: linear-gradient(180deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
+  transform: rotate(-180deg);
+}

@@ -21,7 +21,7 @@
           {{ user.wallet || user.slicedWallet}} <mat-icon class="!h-[16px] !w-[16px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
 
       </div>
-      <div 
+      <div
       *ngIf="ownerMode"
       class="flex flex-row items-center justify-center w-full md:w-max mt-6 md:mt-0">
         <!-- <p class="log-out-button text-[20px] leading-[22px] font-semibold t-col-light-grey hover:text-white cursor-pointer" (click)="logOut()">Log out</p> -->
@@ -43,7 +43,7 @@
   </div>
 </ng-container>
 <ng-template #loader>
-  <div class="h-[281px] w-full relative overflow-hidden flex flex-col items-center justify-between mt-12">
-    <span class="w-full h-full totem-skeleton"></span>
+  <div class="h-[349px] md:h-[322px] w-full relative overflow-hidden flex flex-col items-center justify-between">
+    <span class="w-full h-full !rounded-[0px] totem-skeleton"></span>
   </div>
 </ng-template>
