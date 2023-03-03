@@ -1,12 +1,7 @@
 User-agent: *
 Disallow: /profile/
-Disallow: /game/
-Disallow: /item/
-Disallow: /gem/
-Disallow: /avatar/
 Disallow: /approve-game/
 Disallow: /submit-game/
-Disallow: /approve-game/
 Allow: /
 
-Sitemap: https://totem-explorer.com/sitemap.xml
+Sitemap: https://dev.totem-explorer.com/sitemap.xml
