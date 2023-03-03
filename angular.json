@@ -82,6 +82,7 @@
               "buildOptimizer": true
             },
             "development": {
+              "tsConfig": "tsconfig.app.json",
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json",
               "buildOptimizer": false,
