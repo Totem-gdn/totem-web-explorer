@@ -100,6 +100,7 @@
   }
 
   .assets-images {
+    pointer-events: none;
     overflow: hidden;
     .avatar-1, .avatar-2, .avatar-3, .avatar-4 {
       transition: transform 0.44s ease-out, opacity 0.44s ease-out;

@@ -28,7 +28,7 @@ export class SelectedAssetCardComponent {
   }
 
   goToAsset(asset: AssetInfo) {
-    this.router.navigate([asset.assetType, asset.id]);
+    this.router.navigate([asset.assetType, asset.tokenId]);
   }
   /* onClickLike() {
     if(!this.web3Service.isLoggedIn()) {
