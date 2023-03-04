@@ -17,8 +17,8 @@
   <div class="flex flex-col items-start justify-start w-full max-w-[1032px] z-1" *ngIf="numberOfDisplayedCards != 0">
 
     <div class="hidden md:flex flex-wrap xl:flex-nowrap flex-row items-center justify-start">
-      <p class="whitespace-nowrap w-full xl:w-min text-[32px] sm:text-[20px] lg:text-[24px] xxml:text-[40px] font-medium leading-[35px] lg:leading-[26px] xxml:leading-[44px]">Showing on several games </p>
-      <totem-entity-selector class="whitespace-nowrap text-[32px] sm:text-[28px] xxml:text-[40px] font-semibold leading-[35px] sm:leading-[30px] xxml:leading-[44px] xl:px-5" [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
+      <p class="whitespace-nowrap w-full xl:w-min text-[32px] sm:text-[20px] lg:text-[24px] xxml:text-[40px] font-medium leading-[35px] lg:leading-[26px] xxml:leading-[44px] xl:mr-5">Showing on several games </p>
+      <totem-entity-selector class="whitespace-nowrap text-[32px] sm:text-[28px] xxml:text-[40px] font-semibold leading-[35px] sm:leading-[30px] xxml:leading-[44px]" [assets]="(avatars$ | async)!" [activeAsset]="selectedAsset$ | async" (assetSelected)="setAsset($event)"></totem-entity-selector>
     </div>
 
     <ng-container *ngIf="(selectedGames$ | async)?.length && (selectedAssets$ | async)?.length">

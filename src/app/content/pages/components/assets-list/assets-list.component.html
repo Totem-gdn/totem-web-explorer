@@ -1,8 +1,8 @@
 <div class="wrapper" *ngIf="(_assets?.length || games?.length); else loader">
     <div class="header">
         <div class="flex flex-row items-center flex-wrap w-full">
-            <p class="text-[32px] font-medium leading-[35px]">{{title}}</p>
-            <totem-entity-selector class="w-full md:w-min text-[32px] font-medium leading-[35px] md:px-3" *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
+            <p class="text-[26px] leading-[28px] md:text-[32px] font-medium md:leading-[35px] w-full md:w-max md:mr-3">{{title}}</p>
+            <totem-entity-selector class="w-full md:w-min text-[26px] leading-[28px] md:text-[32px] font-medium md:leading-[35px]" *ngIf="type != 'game' && _assets?.length" [type]="'game'" [games]="games"
                 [activeGame]="selectedGame | async" (gameSelected)="setGame($event)"></totem-entity-selector>
         </div>
         <ng-container *ngIf="type != 'game'">
@@ -13,10 +13,10 @@
         </ng-container>
     </div>
 
-    <div class="list" *ngIf="type != 'game'">
+    <div class="list grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 xxml:grid-cols-6 gap-4" *ngIf="type != 'game'">
         <totem-asset-card *ngFor="let asset of _assets" [asset]="asset"></totem-asset-card>
     </div>
-    <div class="list" *ngIf="type == 'game'">
+    <div class="list grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 xxml:grid-cols-6 gap-4 justify-items-center" *ngIf="type == 'game'">
         <totem-game-card *ngFor="let game of games" [game]="game"></totem-game-card>
     </div>
 
