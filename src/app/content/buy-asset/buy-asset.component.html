@@ -1,7 +1,7 @@
-<div class="totem-buy-asset w-full flex flex-row items-center h-fit justify-between px-16 items-center justify-between">
+<div class="totem-buy-asset w-full flex flex-row items-center h-fit justify-between px-4 md:px-16 items-center justify-between">
   <div class="flex flex-row w-full max-w-[1520px] justify-center xxml:justify-between mx-auto flex-wrap xxml:flex-nowrap py-12">
-    <p class="flex xxml:hidden text-[48px] leading-[52px] font-semibold mb-12">Create the Unique Totem Item!</p>
-    <div class="buy-asset-cards flex flex-row items-center justify-between max-w-[816px] xxml:max-w-[784px] w-full mr-6">
+    <p class="flex xxml:hidden text-[40px] leading-[44px] lg:text-[44px] lg:leading-[48px] font-semibold mb-12 text-center">Create the Unique Totem Item!</p>
+    <div class="buy-asset-cards flex flex-row items-center justify-between max-w-[816px] xxml:max-w-[784px] w-full md:mr-6">
 
       <!-- <div class="moving-circle-wrapper w-0 h-0">
         <div #movingCircle class="moving-circle">
@@ -9,7 +9,7 @@
         </div>
       </div> -->
 
-      <div #item1 class="asset-card-wrapper relative mr-6">
+      <div #item1 [ngClass]="{'active-state':activeState === 'item'}" class="asset-card-wrapper relative mr-3 smd:mr-6 h-[240px] sm:h-[360px] md:h-[418px] lg:h-[518px] min-w-[120px] xmd:min-w-[320px] w-full max-w-[368px]" (mouseenter)="stopScript()" (mouseleave)="startScript()">
         <ng-container *ngTemplateOutlet="items"></ng-container>
         <!-- <div #circlesRef class="circle-wrapper select-none ">
           <bg-circle class="top-[100px] left-[-100px] select-none"
@@ -25,23 +25,25 @@
 
         <!-- <div (mouseenter)="animateItem(0, true)" (mouseleave)="resetWithExeption(0, true)" -->
         <div
-          class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
-          <div class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
-            <div class="flex flex-col items-center mt-9">
-              <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[0].type}}</h2>
+          class="asset-card w-full h-full rounded-[24px] flex flex-col items-center justify-start p-3 md:p-6 z-1">
+          <div class="z-10 image-wrapper h-full max-h-[398px] w-full flex flex-col items-center justify-center p-2 md:p-5">
+            <div class="flex flex-col items-center sm:mt-9">
+              <h2 class="font-totem uppercase text-[20px] smd:text-3xl md:text-4xl xl:text-5xl text-white">{{assets[0].type}}</h2>
             </div>
             <!-- <div *ngIf="assets[0].type === 'item'" class="!text-[200px] icon solid-buy-item flex"></div> -->
           </div>
-          <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
-            <div class=""><p @fade-in *ngIf="assets[0].paymentInfo?.price" class="text-[24px] leading-[26px] font-medium">$ {{assets[0].paymentInfo?.price}}</p></div>
+          <div class="z-10 w-full flex flex-row items-center justify-between mt-3 md:mt-6 flex-wrap md:flex-nowrap">
+            <div class="flex w-full md:w-max justify-center md:justify-start mb-3 md:mb-0">
+              <p @fade-in *ngIf="assets[0].paymentInfo?.price" class="text-[24px] leading-[26px] font-medium">$ {{assets[0].paymentInfo?.price}}</p>
+            </div>
             <button [disabled]="(loading$ | async)"
-              class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer"
+              class="h-12 !px-5 !md:px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer w-full md:w-max"
               (click)="buyWithCard('item')" matRipple>Purchase</button>
           </div>
         </div>
       </div>
 
-      <div #item2 class="asset-card-wrapper relative">
+      <div #item2 [ngClass]="{'active-state':activeState === 'avatar'}" class="asset-card-wrapper relative h-[240px] sm:h-[360px] md:h-[418px] lg:h-[518px] min-w-[120px] xmd:min-w-[320px] w-full max-w-[368px]"  (mouseenter)="stopScript()" (mouseleave)="startScript()">
         <ng-container *ngTemplateOutlet="avatars"></ng-container>
         <!-- <div #circlesRef class="circle-wrapper select-none">
           <bg-circle class="top-[100px] left-[-100px] select-none"
@@ -56,19 +58,21 @@
         </div> -->
         <!-- <div (mouseenter)="animateItem(1, true)" (mouseleave)="resetWithExeption(1, true)" -->
         <div
-          class="asset-card h-[518px] w-[368px] rounded-[24px] flex flex-col items-center justify-start p-6">
+          class="asset-card w-full h-full rounded-[24px] flex flex-col items-center justify-start p-3 md:p-6 z-1">
 
 
-          <div class="z-10 image-wrapper h-[398px] w-full flex flex-col items-center justify-center p-5">
-            <div class="flex flex-col items-center mt-9">
-              <h2 class="font-totem uppercase text-3xl sm:text-4xl xl:text-5xl text-white">{{assets[1].type}}</h2>
+          <div class="z-10 image-wrapper h-full max-h-[398px] w-full flex flex-col items-center justify-center p-2 md:p-5">
+            <div class="flex flex-col items-center sm:mt-9">
+              <h2 class="font-totem uppercase text-[20px] smd:text-3xl md:text-4xl xl:text-5xl text-white">{{assets[1].type}}</h2>
             </div>
             <!-- <div *ngIf="assets[1].type === 'avatar'" class="!text-[200px] icon solid-buy-avatar flex"></div> -->
           </div>
-          <div class="z-10 w-full flex flex-row items-center justify-between mt-6">
-            <div class=""><p @fade-in *ngIf="assets[1].paymentInfo?.price" class="text-[24px] leading-[26px] font-medium">$ {{assets[1].paymentInfo?.price}}</p></div>
+          <div class="z-10 w-full flex flex-row items-center justify-between mt-3 md:mt-6 flex-wrap md:flex-nowrap">
+            <div class="flex w-full md:w-max justify-center md:justify-start mb-3 md:mb-0">
+              <p @fade-in *ngIf="assets[1].paymentInfo?.price" class="text-[24px] leading-[26px] font-medium">$ {{assets[1].paymentInfo?.price}}</p>
+            </div>
             <button [disabled]="(loading$ | async)"
-              class="h-12 !px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer"
+              class="h-12 !px-5 !md:px-9 totem-primary-button text-[20px] leading-[22px] font-semibold cursor-pointer w-full md:w-max"
               (click)="buyWithCard('avatar')" matRipple>Purchase</button>
           </div>
         </div>
@@ -94,12 +98,21 @@
 </div>
 
 <ng-template #items>
-  <div class="assets-images absolute inset-0 w-full h-full z-2">
-    <img class="absolute img-1" src="assets/images/purchase/totem-spear.svg" alt="">
-    <img class="absolute img-2" src="assets/images/purchase/mvr-spear.svg" alt="">
-    <img class="absolute img-3" src="assets/images/purchase/ammo.svg" alt="">
-    <img class="absolute img-4" src="assets/images/purchase/dino-tool.svg" alt="">
+  <div class="assets-images absolute inset-0 w-full h-full z-3 flex items-center justify-center">
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative img-1" src="assets/images/purchase/totem-spear.svg" alt="">
+    </div>
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative img-2" src="assets/images/purchase/mvr-spear.svg" alt="">
+    </div>
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative img-3" src="assets/images/purchase/ammo.svg" alt="">
+    </div>
+    <div class="absolute w-full h-full inset-0 flex items-center justify-center">
+      <img class="relative img-4" src="assets/images/purchase/dino-tool.svg" alt="">
+    </div>
   </div>
+  <div class="rounded-full card-bg-glow absolute inset-0 -left-[15%] top-[10%] w-[130%] h-[160px] sm:h-[313px] lg:h-[390px] xxml:h-[472px] z-1"></div>
 </ng-template>
 
 <ng-template #avatars>
@@ -117,4 +130,5 @@
       <img class="relative avatar-4" src="assets/images/purchase/outpost-avatar.svg" alt="">
     </div>
   </div>
+  <div class="rounded-full card-bg-glow absolute inset-0 -left-[15%] top-[10%] w-[130%] h-[160px] sm:h-[313px] lg:h-[390px] xxml:h-[472px] z-1"></div>
 </ng-template>

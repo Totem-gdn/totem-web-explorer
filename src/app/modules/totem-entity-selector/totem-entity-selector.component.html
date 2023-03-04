@@ -15,7 +15,7 @@
     *ngIf="menuActive"
     [@toggleSelector]
     #dropdown
-    class="w-full md:w-[310px] max-w-[310px] absolute h-[200px] t-bg-violet top-[calc(100%+10px)] left-0 right-0 rounded-[8px] t-bg-grey overflow-hidden z-2"
+    class="w-full min-w-[270px] md:w-[310px] max-w-[310px] absolute h-[200px] t-bg-violet top-[calc(100%+10px)] left-0 sm:left-auto smd:left-0 right-0 rounded-[8px] t-bg-grey overflow-hidden z-2"
     >
     <div *ngIf="type === 'asset'" class="asset-selector-menu-wrapper w-full h-full overflow-x-hidden overflow-y-auto flex flex-col items-center justify-start p-2 rounded-[8px]">
       <ng-container *ngFor="let asset of assets">
