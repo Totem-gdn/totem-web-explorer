@@ -23,6 +23,7 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
   assetType: typeof ASSET_TYPE = ASSET_TYPE;
   item: any;
   subs = new Subject<void>();
+  notFound: boolean = false;
 
   constructor(
     private assetsService: AssetsService,
@@ -47,9 +48,13 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
           next: (item) => {
             this.item = item;
             console.log(this.item);
+            if (!item) {
+              this.notFound = true;
+            }
           },
           error: () => {
             this.item = null;
+            this.notFound = true;
           },
         });
       });

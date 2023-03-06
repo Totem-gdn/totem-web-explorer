@@ -29,6 +29,7 @@ export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
   }
 
   avatar: any;
+  notFound: boolean = false;
   subs = new Subject<void>();
 
   ngAfterViewInit() {
@@ -45,9 +46,13 @@ export class AvatarInfoComponent implements AfterViewInit, OnDestroy {
         this.assetsService.fetchAsset(Number(id), ASSET_TYPE.AVATAR).subscribe({
           next: avatar => {
             this.avatar = avatar;
+            if (!avatar) {
+              this.notFound = true;
+            }
           },
           error: error => {
             this.avatar = null;
+            this.notFound = true;
           }
         });
       });

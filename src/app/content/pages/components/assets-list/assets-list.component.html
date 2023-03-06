@@ -28,22 +28,32 @@
 
 <ng-template #loader>
   <div class="wrapper flex flex-col">
-    <div class="flex flex-row w-full mb-[30px]">
-      <span class="h-[35px] w-[40%] totem-skeleton"></span>
+    <div class="flex flex-row w-full mb-[30px] mt-4">
+      <span class="h-[36px] w-[40%] totem-skeleton"></span>
     </div>
-    <div class="w-full list" *ngIf="type != 'game'">
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-    </div>
-    <div class="w-full list" *ngIf="type == 'game'">
-      <span class="w-[368px] h-[336px] totem-skeleton"></span>
-      <span class="w-[368px] h-[336px] totem-skeleton"></span>
-      <span class="w-[368px] h-[336px] totem-skeleton"></span>
-      <span class="w-[368px] h-[336px] totem-skeleton"></span>
+    <div class="w-full flex flex-row gap-4 relative">
+      <div class="w-full sm:max-w-[280px] h-[288px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden sm:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden smd:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden xl:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden xxl:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden xxml:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
     </div>
   </div>
+</ng-template>
+
+<ng-template #placeholderCard>
+  <div class="w-full h-full totem-skeleton"></div>
 </ng-template>
