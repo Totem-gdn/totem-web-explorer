@@ -3,15 +3,17 @@
   <div [ngStyle]="!showAll && showViewAll ? {'max-height':'243px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative">
     <div #grid class="relative h-full min-h-[102px] w-full p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
       <ng-container *ngIf="!loading; else loader">
-        <div *ngFor="let prop of properties" [ngStyle]="{'justify-content' : prop?.type == 'Color' ? 'start' : 'center'}" class="mini-card p-3"
+        <div *ngFor="let prop of properties" class="mini-card justify-center p-3"
           (mouseover)="onOver(prop)"
           (mouseleave)="onLeave()"
           (mousemove)="onMove($event)"
         >
-          <div *ngIf="prop?.type == 'Color'" [ngStyle]="{'background-color':prop?.value}" class="h-[46px] w-[46px] min-w-[46px] min-h-[46px] rounded mr-2"></div>
-          <div [ngStyle]="{'align-items' : prop.type == 'Color' ? 'start' : 'center'}" class="flex flex-col max-w-[100%] truncate">
-            <p class="title max-w-[100%] truncate">{{prop?.description || 'Propertie'}}</p>
-            <p class="caption max-w-[100%] truncate">{{prop?.value || 'Value'}}</p>
+          <div class="flex max-w-[100%] truncate" [ngStyle]="{'justify-content' : prop?.type == 'Color' ? 'start' : 'center'}">
+            <div *ngIf="prop?.type == 'Color'" [ngStyle]="{'background-color':prop?.value}" class="h-[46px] w-[46px] min-w-[46px] min-h-[46px] rounded mr-2"></div>
+            <div [ngStyle]="{'align-items' : prop.type == 'Color' ? 'start' : 'center'}" class="flex flex-col max-w-[100%] truncate">
+              <p class="title max-w-[100%] truncate">{{prop?.description || 'Propertie'}}</p>
+              <p class="caption max-w-[100%] truncate">{{prop?.value || 'Value'}}</p>
+            </div>
           </div>
         </div>
 

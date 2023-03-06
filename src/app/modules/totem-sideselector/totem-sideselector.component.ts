@@ -62,6 +62,7 @@ export class TotemSideselectorComponent implements OnInit {
     });
     game.checked = true;
     this.storeService.selectGame(game);
+    this.toggleSideselector(false);
   }
 
   trackByFn(index: number, item: any): any
