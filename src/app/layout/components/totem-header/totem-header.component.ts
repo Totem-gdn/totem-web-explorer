@@ -62,7 +62,7 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
     this.currentRoute = this.router.url;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log(event);
+        //console.log(event);
         this.currentRoute = event.url;
       }
     })

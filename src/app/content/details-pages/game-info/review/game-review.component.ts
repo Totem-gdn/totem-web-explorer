@@ -120,15 +120,12 @@ export class GameReviewComponent {
       this.totemLegacyCardService.checkAssetRendererInfo(url).pipe().subscribe((res: RendererAvailableTypes) => {
         if (!res) {
           this.setDefaultRenderer(type, this.randomId);
-          console.log('SETTING DEFAULT');
         }
-        console.log(res);
 
         if (res.supported_asset_types && res.supported_asset_types.length) {
           const availableTypes: string[] = res.supported_asset_types;
           if (!availableTypes.length) {
             this.setDefaultRenderer(type, this.randomId);
-            console.log('SETTING DEFAULT');
             return;
           }
           if (availableTypes.length == 1) {
@@ -137,14 +134,12 @@ export class GameReviewComponent {
               this.setCustomRenderer(url, type, this.randomId);
             } else {
               this.setDefaultRenderer(type, this.randomId);
-              console.log('SETTING DEFAULT');
             }
             return;
           }
           this.setCustomRenderer(url, type, this.randomId);
         } else {
           this.setDefaultRenderer(type, this.randomId);
-          console.log('SETTING DEFAULT');
 
         }
       });

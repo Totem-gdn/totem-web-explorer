@@ -36,7 +36,7 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('PARAMMMMMS');
+    //console.log('PARAMMMMMS');
 
     this.route.paramMap
       .pipe(takeUntil(this.subs))
@@ -47,7 +47,7 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
         this.assetsService.fetchAsset(Number(id), ASSET_TYPE.ITEM).subscribe({
           next: (item) => {
             this.item = item;
-            console.log(this.item);
+            //console.log(this.item);
             if (!item) {
               this.notFound = true;
             }
@@ -58,10 +58,10 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
           },
         });
       });
-    console.log('PARAMMMMMS');
+    //console.log('PARAMMMMMS');
   }
   ngAfterViewInit() {
-    console.log('IT WORKS');
+    //console.log('IT WORKS');
   }
 
   ngOnDestroy(): void {

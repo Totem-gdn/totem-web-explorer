@@ -67,7 +67,7 @@ export class AssetOwnershipHistoryComponent extends OnDestroyMixin implements On
     this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
       if (!user) return;
       if (!user.profileImage) {
-        console.log('CALLED');
+        //console.log('CALLED');
         this.userIcon = 'assets/icons/nav/account_circle.svg';
         return;
       }

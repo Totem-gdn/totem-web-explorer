@@ -128,7 +128,7 @@ export class AssetInformationComponent implements OnInit {
 
   selectedGameCheck(selectedGame: GameDetail) {
     this.gamesToShowInCards = this.games.filter(game => game?.general?.name != selectedGame?.general?.name);
-    console.log(this.gamesToShowInCards);
+    //console.log(this.gamesToShowInCards);
 
   }
 

@@ -75,7 +75,7 @@ export class AssetPropertiesComponent implements OnInit {
     } else {
       this.gridPlaceholders(1);
     }
-    console.log('VIEW CHECKED');
+    //console.log('VIEW CHECKED');
 
   }
 
@@ -132,11 +132,11 @@ export class AssetPropertiesComponent implements OnInit {
   async processItem(id: number, game: GameDetail | null = null) {
     this.loading = true;
     this.properties = [];
-    console.log('STARTED GETTING PROPS');
+    //console.log('STARTED GETTING PROPS');
     const json = await this.dnaService.getJSONByGame(game, this.type)
     const properties = await this.dnaService.processJSON(json, this.type, id);
     this.properties = properties;
-    console.log(this.properties);
+    //console.log(this.properties);
     this.checkMedia(this.currentBpState);
     this.loading = false;
   }
