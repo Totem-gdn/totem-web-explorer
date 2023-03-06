@@ -2,7 +2,7 @@
     <div class="flex flex-col sticky top-[100px]">
         <h2 *ngIf="!game?.general?.name" class="mb-[25px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
         <h2 *ngIf="game?.general?.name" class="mb-[25px] text-3xl sm:text-4xl">{{game?.general?.name}}</h2>
-    
+
         <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
             <div class="waller-wrapper flex flex-wrap justify-between w-full">
                 <div class="flex items-center cursor-pointer" (click)="copyMessage()" *ngIf="game?.gameAddress">
@@ -41,7 +41,7 @@
                 refresh.style.animation = 'rotate 0.5s'
                 ">
                     <div #refresh class="!w-[16px] line-refresh"></div>
-    
+
                     <p class="select-none">{{'nav.refresh' | translate}}</p>
                 </div>
                 <div *ngIf="editInfo.edit" class="icon cursor-pointer" (click)="editGame()">
@@ -50,14 +50,14 @@
                 </div>
             </div>
         </div>
-    
+
         <!-- Text -->
         <div class="flex max-w-[calc(100vw-40px)]">
             <p *ngIf="!game?.general?.description" class="font-medium">{{'description.descriptions_game_2' | translate}}</p>
             <p *ngIf="game?.general?.description" class="font-medium overflow-hidden">{{game?.general?.description}}</p>
         </div>
-    
-    
+
+
         <div class="play">
             <!-- <div class="flex flex-wrap gap-[13px]">
                 <div class="item-tag">
@@ -73,34 +73,34 @@
                     <p>{{'nav.avatars' | translate}}</p>
                 </div>
             </div> -->
-    
+
             <a class="w-full p-[0px] m-[0px]" href="{{game.connections.webpage}}" target="_blank">
                 <button class="totem-primary-button">Play</button>
             </a>
         </div>
-    
+
         <div class="graphic-wrapper">
             <div class="graphic">
                 <h4 class="title">{{game?.general?.name}} assets graphic:</h4>
                 <div class="cards">
-                    <div class="card">
+                    <div class="card" *ngIf="avatarUrl; else assetCardLoader">
                         <div class="img-wrapper">
-                            <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/avatar/' + randomId : defaultRenderer + '/avatar/' + randomId" alt="">
+                            <img [src]="avatarUrl" alt="">
                         </div>
                         <div class="bottom">
                             <p>Avatar example</p>
                         </div>
-        
+
                     </div>
-                    <div class="card">
+                    <div class="card" *ngIf="itemUrl; else assetCardLoader">
                         <div class="img-wrapper">
-                            <img [src]="game?.connections?.assetRenderer ? game?.connections?.assetRenderer + '/item/' + randomId : defaultRenderer + '/item/' + randomId" alt="">
+                            <img [src]="itemUrl" alt="">
                         </div>
                         <div class="bottom">
                             <p>Item example</p>
                         </div>
                     </div>
-        
+
                 </div>
             </div>
         </div>
@@ -121,3 +121,7 @@
     </div>
 
 </div>
+
+<ng-template #assetCardLoader>
+  <div class="asset-card-placeholder totem-skeleton"></div>
+</ng-template>
