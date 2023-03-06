@@ -24,7 +24,7 @@ export class AssetsListenerService {
 
   async listenTx(address: string, type: string) {
     const assetContract = AssetsABI;
-    console.log('item: ', this.itemEthAddress, '\n', 'avatar: ', this.avatarEthAddress);
+    //console.log('item: ', this.itemEthAddress, '\n', 'avatar: ', this.avatarEthAddress);
 
     const contractAddress = type === 'item' ? this.itemEthAddress || environment.ITEM_ETH_ADDRESS : this.avatarEthAddress || environment.AVATAR_ETH_ADDRESS;
     const contract = new this.web3.eth.Contract(assetContract, contractAddress);
@@ -34,7 +34,7 @@ export class AssetsListenerService {
     contract.events.Transfer(
       {fromBlock: (blockNumber - 100), filter: {to: address}},
       (error: any, event: any) => {
-        console.log(event)
+        //console.log(event)
       })
         .on("connected", (subscriptionId: any) => {
         })
@@ -74,11 +74,11 @@ export class AssetsListenerService {
     return this.buyAssetService.getAssetPriceAndContractAddress(type).pipe(tap((response: AssetTypeInfo) => {
       if (type === 'item') {
         this.itemEthAddress = response.contractAddress;
-        console.log('item: ', this.itemEthAddress);
+        //console.log('item: ', this.itemEthAddress);
       }
       if (type === 'avatar') {
         this.avatarEthAddress = response.contractAddress;
-        console.log('avatar: ', this.avatarEthAddress);
+        //console.log('avatar: ', this.avatarEthAddress);
       }
     }))
   }

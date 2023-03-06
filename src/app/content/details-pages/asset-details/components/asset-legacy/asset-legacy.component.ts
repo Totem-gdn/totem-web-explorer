@@ -91,7 +91,7 @@ export class AssetLegacyComponent implements OnInit {
       this.tabletViewCards = true;
       this.gridPlaceholders(1);
     }
-    console.log('VIEW CHECKED');
+    //console.log('VIEW CHECKED');
 
   }
 
@@ -104,7 +104,7 @@ export class AssetLegacyComponent implements OnInit {
         return of();
       })
       ).subscribe((response: LegacyResponse<Achievement[]>) => {
-          console.log(response);
+          //console.log(response);
           if (!response) return;
           this.legacy = [...this.legacy, ...response?.results];
           this.checkMedia(this.currentBpState);
@@ -150,7 +150,7 @@ export class AssetLegacyComponent implements OnInit {
   }
 
   gridPlaceholders(length: number) {
-    console.log(length);
+    //console.log(length);
 
     if (!this.legacy) return;
     if (this.legacy.length < length) {

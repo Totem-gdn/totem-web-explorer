@@ -30,7 +30,7 @@ export class WalletInfoComponent implements OnInit, OnDestroy {
         this.sub = this.route.paramMap
             .subscribe((params: ParamMap) => {
                 const address = params.get('address');
-                console.log('address', address)
+                //console.log('address', address)
                 if (!address) {
                     this.notFound = true;
                     return;
@@ -50,7 +50,7 @@ export class WalletInfoComponent implements OnInit, OnDestroy {
                     .pipe(take(1)))
 
                 forkJoin(obs).subscribe(res => {
-                    console.log('res', res)
+                    //console.log('res', res)
                     this.total = {
                         items: {all: res[0].meta.total, rare: 0, unique: 0},
                         avatars: {all: res[1].meta.total, rare: 0, unique: 0},

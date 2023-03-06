@@ -115,7 +115,7 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
   }
 
   getUserAssets(user: UserEntity) {
-    console.log('user', user)
+    //console.log('user', user)
     this.myAssetsStoreService.fetchMyAssets(user.wallet || '');
   }
 

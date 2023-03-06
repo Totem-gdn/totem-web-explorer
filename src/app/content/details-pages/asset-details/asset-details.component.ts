@@ -42,7 +42,7 @@ export class AssetDetailsComponent implements OnInit {
 
   @Input() type!: ASSET_TYPE;
   @Input() set item(asset: any) {
-    console.log(asset);
+    //console.log(asset);
 
     this.asset = asset;
     if (asset === null) this.notFound = true;
@@ -70,7 +70,7 @@ export class AssetDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     //this.createLegacy()
-    console.log('ASSET DETAILS');
+    //console.log('ASSET DETAILS');
 
     this.selectedGame$();
   }

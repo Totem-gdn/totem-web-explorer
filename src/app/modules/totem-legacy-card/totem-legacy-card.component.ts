@@ -74,7 +74,7 @@ export class TotemLegacyCardComponent implements OnInit, OnDestroy {
   getGameFromApi(id: string) {
     this.gamesService.fetchGame(id).subscribe((game: GameDetail) => {
       this.game = game;
-      console.log(this.game);
+      //console.log(this.game);
       this.setRenderer();
     })
   }
