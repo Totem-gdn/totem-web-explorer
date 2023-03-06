@@ -1,2 +1,40 @@
-<asset-details *ngIf="item" [type]="assetType.ITEM" [item]="item" [selectedGame]="getSelectedGame()"></asset-details>
+<asset-details *ngIf="item; else assetLoader" [type]="assetType.ITEM" [item]="item" [selectedGame]="getSelectedGame()"></asset-details>
 
+<ng-template #assetLoader>
+  <div *ngIf="!notFound" class="relative py-[24px] pb-[40px] px-[20px] lg:pt-[50px] flex flex-col items-center justify-start w-full h-full">
+    <div class="flex flex-col items-center justify-start w-full h-full max-w-[1560px]">
+      <div class="w-full flex flex-row smd:flex-nowrap flex-wrap justify-between smd:gap-4 xmd:max-h-[518px] lg:max-h-[480px] xl:max-h-[518px] xxl:max-h-[572px] h-full">
+        <div class="min-h-[291px] max-h-[291px] smd:max-h-[100%] h-full totem-skeleton w-full smd:max-w-[696px]"></div>
+
+        <div class="hidden smd:flex h-full w-full max-w-full xmd:max-w-[752px] flex-col justify-between gap-6">
+          <div class="w-full min-h-[52px] h-[52px] flex flex-row justify-between">
+            <div class="totem-skeleton w-1/2 h-full"></div>
+            <div class="totem-skeleton w-1/4 h-full"></div>
+          </div>
+          <div class="totem-skeleton w-full h-[75px]"></div>
+          <div class="totem-skeleton w-full h-[85px]"></div>
+          <div class="totem-skeleton w-full h-full max-h-[278px]"></div>
+        </div>
+
+
+      </div>
+      <div class="flex smd:hidden h-full w-full max-w-full xmd:max-w-[752px] flex-col justify-between gap-4 mt-4">
+        <div class="totem-skeleton w-full h-full max-h-[198px]"></div>
+        <div class="w-full h-[52px] flex flex-row justify-between mt-2">
+          <div class="totem-skeleton w-1/2 h-full"></div>
+          <div class="totem-skeleton w-1/4 h-full"></div>
+        </div>
+        <div class="totem-skeleton w-full h-[75px]"></div>
+        <div class="totem-skeleton w-full h-[85px]"></div>
+      </div>
+
+      <div class="hidden smd:flex flex-col w-full mt-10">
+        <div class="w-1/4 h-[35px] totem-skeleton"></div>
+        <div class="w-full min-h-[102px] h-[102px] totem-skeleton mt-6"></div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<not-found class="h-[calc(100vh-70px)]" *ngIf="notFound == true"></not-found>

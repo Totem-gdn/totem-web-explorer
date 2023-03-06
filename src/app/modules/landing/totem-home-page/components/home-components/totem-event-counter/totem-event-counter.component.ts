@@ -9,7 +9,7 @@ import { Subscription, timer } from 'rxjs';
 })
 export class TotemEventCounterComponent implements OnInit, OnDestroy {
   //
-  // get eventArr() { 
+  // get eventArr() {
   //   if(this.eventBanner) return [this.eventBanner, this.eventBanner, this.eventBanner];
   //   else return null;
   // }
@@ -22,7 +22,7 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
   minutes: number = 0;
   seconds: number = 0;
 
-  @Input() eventBanner: HomepageBlock | undefined = undefined;
+  @Input() eventBanners: HomepageBlock[] | null = null;
 
   fontSizeNumber: number = 0;
   heightForBanner!: number;
@@ -34,8 +34,9 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.calcSizeForBanner();
-    if (!this.eventBanner?.data?.eventDate?.date) return;
-    this.eventDate = new Date(this.eventBanner.data.eventDate.date);
+    if (!this.eventBanners) return;
+    if (!this.eventBanners[0]?.data?.eventDate?.date) return;
+    this.eventDate = new Date(this.eventBanners[0].data.eventDate.date);
 
     this.eventDateTime = this.eventDate.getTime();
     let currentDate: number = new Date().getTime();
@@ -64,7 +65,7 @@ export class TotemEventCounterComponent implements OnInit, OnDestroy {
   }
 
   goToEventPage(event: any) {
-    window.open(this.eventBanner!.data!.eventUrl, '_blank');
+    window.open(this.eventBanners![0].data!.eventUrl, '_blank');
   }
 
   ngOnDestroy(): void {
