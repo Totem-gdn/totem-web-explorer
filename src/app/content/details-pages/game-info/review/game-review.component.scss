@@ -26,6 +26,10 @@
         // gap: 15;
     }
 }
+.asset-card-placeholder {
+  aspect-ratio: 4/3;
+  width: 50%;
+}
 .wallet-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -103,7 +107,7 @@
         border: 1px solid $totem-divider-grey;
         border-radius: 16px;
         padding: 15px;
-    
+
         .title {
             margin-bottom: 15px;
         }
