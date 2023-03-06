@@ -17,6 +17,7 @@ import { fromEvent, Subject, takeUntil } from 'rxjs';
   ]
 })
 export class SliderWireframeComponent implements OnInit, OnDestroy {
+  get maxTransform() { return  this.slider.nativeElement.scrollWidth - ((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap) }
 
   constructor(private eventsService: EventsService) { }
 
@@ -38,7 +39,7 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   @Input() padding: number = 0;
 
   @Input() set assets(assets: any[] | null) {
-    if(assets == null) return;
+    if (assets == null) return;
     // this.slideWidth = this.type == 'game' ? 240 : this.type == 'asset' ? 240 : this.type == 'event' ? 384 : 496;
     this.cards = assets?.slice(0, 10);
     if (this.type == 'legacy') {
@@ -68,45 +69,19 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   handleWidth: number = 100;
   handlePosition: number = 0;
 
+  showArrows = {left: true, right: true};
+
   ngOnInit() {
     this.resize$();
     this.config();
     this.media$();
   }
 
-  onDragHandle(e: any, action: 'slider-transform' | 'set-transform' | 'event' = 'event') {
-    if(!this.handleTrack) return;
-    if (action == 'event') {
-      const moveTo = this.handlePosition + e.movementX;
-      this.handle.nativeElement.style.left = `${moveTo}px`;
-      this.handlePosition = moveTo;
-    }
-
-    if (action == 'slider-transform' || action == 'set-transform') {
-      this.handle.nativeElement.style.transition = 'none';
-      if(action == 'set-transform') this.handle.nativeElement.style.transition = 'left .3s';
-      let lastItems = this.slider.nativeElement.scrollWidth - ((this.slideWidth + this.gap) * this.itemsOnScreen - this.gap)
-      if(this.type == 'event') lastItems = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth;
-      const sliderShiftInPercent = 1 - -(this.currentTransform - lastItems) / lastItems;
-      const moveTo = (this.handleTrack.nativeElement.offsetWidth - this.handleWidth) * sliderShiftInPercent;
-
-      this.handle.nativeElement.style.left = `${moveTo}px`;
-      this.handlePosition = moveTo;
-    }
-  }
 
   calculateHandleWidth() {
     if (!this.cards?.length) return;
     this.handleWidth = this.handleTrackWidth / this.cards?.length;
     if (this.handleWidth < 50) this.handleWidth = 50;
-  }
-
-  onHover() {
-    this.hover = true;
-
-  }
-  onLeave() {
-    this.hover = false;
   }
 
   config() {
@@ -142,30 +117,86 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
   }
 
   onDrag(e: any) {
-    this.slider.nativeElement.style.transition = 'none';
     const transform = this.currentTransform - e.movementX;
-    if (!this.cards?.length) return;
-
-    this.currentTransform = transform;
-    this.slider.nativeElement.style.transform = `translateX(${-transform}px)`;
-    this.onDragHandle(this.currentTransform, 'slider-transform');
+    this.onDragSlider('drag', transform);
   }
 
   endDrag(e: any) {
-    this.slider.nativeElement.style.transition = 'transform .3s';
-    let index = Math.floor(this.currentTransform / (this.slideWidth + this.gap));
-    if (this.currentTransform / (this.slideWidth + this.gap) - index > 0.5 && this.cards?.length && index < this.cards?.length - 1) index++;
-    if(index < 0) index = 0;
-    if(this.cards?.length && index > this.cards.length - 1 - this.itemsOnScreen) index = this.cards.length - this.itemsOnScreen;
-    this.toggleSlides('to', index);
-    this.onDragHandle(this.currentTransform, 'set-transform');
+    this.onDragSlider('end', undefined);
   }
+
+  onDragSlider(action: 'start' | 'end' | 'drag' = 'drag', transform?: any) {
+    const slider = this.slider.nativeElement;
+
+    // If action is drag, then move slider with animation, otherwise without
+    slider.style.transition = action == 'drag' ? slider.style.transition = 'none' : slider.style.transition = 'transform .3s';
+
+    if (action == 'drag') {
+      if(transform < 0) this.showArrows.left = false; else this.showArrows.left = true;
+      if(transform > this.maxTransform) this.showArrows.right = false; else this.showArrows.right = true;
+
+      if(transform > this.maxTransform + this.minWidth || transform < -this.minWidth) return;
+
+      this.moveSlider(transform);
+      this.moveHandle('slider');
+
+    } else if (action == 'end') {
+      if(transform < 0) this.showArrows.left = false; else this.showArrows.left = true;
+      if(transform > this.maxTransform) this.showArrows.right = false; else this.showArrows.right = true;
+      if (!this.currentTransform) return;
+
+      const sliderItems = this.currentTransform / (this.slideWidth + this.gap);
+      let index = Math.floor(sliderItems);
+      if (sliderItems - index > 0.5 && this.cards?.length && index < this.cards?.length - 1) index++;
+
+      // If index is less than 0, then move slider to the first slide
+      if (index < 0) {
+        index = 0;
+      } else if (this.cards?.length && index > this.cards.length - 1 - this.itemsOnScreen) {
+        index = this.cards.length - this.itemsOnScreen
+      };
+      this.toggleSlides('to', index);
+      this.moveHandle('set-slider');
+    }
+  }
+
+  moveHandle(action: 'handle' | 'slider' | 'set-slider', e?: any) {
+    if (!this.handleTrack) return;
+
+    if (action == 'handle') {
+      const difference = e.movementX;
+      const sliderShiftInPercent = difference / (this.handleTrack.nativeElement.offsetWidth - this.handleWidth);
+      const scrollWidth = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth;
+      const shift = this.currentTransform - (scrollWidth * -sliderShiftInPercent);
+      if (!shift) return;
+      this.onDragSlider('drag', shift);
+
+    } else if (action == 'slider' || action == 'set-slider') {
+      this.handle.nativeElement.style.transition = 'none';
+      if (action == 'set-slider') this.handle.nativeElement.style.transition = 'left .3s';
+
+      let lastItems = this.maxTransform;
+      if (this.type == 'event') lastItems = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth;
+      const sliderShiftInPercent = 1 - -(this.currentTransform - lastItems) / lastItems;
+      const moveTo = (this.handleTrack.nativeElement.offsetWidth - this.handleWidth) * sliderShiftInPercent;
+
+      this.handle.nativeElement.style.left = `${moveTo}px`;
+      this.handlePosition = moveTo;
+    }
+
+  }
+
+  moveSlider(position: number) {
+    this.currentTransform = position;
+    this.slider.nativeElement.style.transform = `translateX(${-position}px)`;
+  }
+
 
   toggleSlides(direction: 'next' | 'prev' | 'to', index?: number) {
     if (!this.cards?.length) return;
     if (index != undefined) this.slideIndex = index;
 
-    if(direction != 'to') {
+    if (direction != 'to') {
       if (direction == 'next') {
         if (this.cards?.length && this.cards?.length - this.itemsOnScreen <= this.slideIndex) {
           this.slideIndex = 0;
@@ -178,8 +209,8 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
     }
 
     let transformWidth = (this.slideWidth + this.gap) * this.slideIndex;
-    if(this.type == 'event') {
-      if(transformWidth >= this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth) {
+    if (this.type == 'event') {
+      if (transformWidth >= this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth) {
         transformWidth = this.slider.nativeElement.scrollWidth - this.slider.nativeElement.offsetWidth
       }
     }
@@ -193,14 +224,14 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
 
   calculateSliderWidth() {
     const containerWidth = this.container.nativeElement.offsetWidth;
-    this.itemsOnScreen = 
-    this.type == 'legacy' ?
-    Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap)) :
-    this.type ==  'event' ?
-    Math.floor((containerWidth + this.gap) / (384 + this.gap)) :
-    Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap));
+    this.itemsOnScreen =
+      this.type == 'legacy' ?
+        Math.ceil((containerWidth + this.gap) / (this.minWidth + this.gap)) :
+        this.type == 'event' ?
+          Math.floor((containerWidth + this.gap) / (384 + this.gap)) :
+          Math.floor((containerWidth + this.gap) / (this.minWidth + this.gap));
 
-    if((this.type != 'event' && this.type != 'legacy') && this.itemsOnScreen < 2) this.itemsOnScreen = 2;
+    if ((this.type != 'event' && this.type != 'legacy') && this.itemsOnScreen < 2) this.itemsOnScreen = 2;
 
 
     this.slideWidth = (containerWidth - (this.gap * this.itemsOnScreen - this.gap)) / this.itemsOnScreen;

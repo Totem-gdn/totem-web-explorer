@@ -1,7 +1,7 @@
 <div class="w-full flex flex-col items-start justify-start mt-12">
   <div class="flex flex-row items-center flex-wrap w-full">
-    <p class="text-[32px] font-medium leading-[35px]">{{caption}}</p>
-    <totem-entity-selector class="w-full md:w-min text-[32px] font-medium leading-[35px] md:px-5" *ngIf="withGameSelector && (games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+    <p class="text-[26px] leading-[28px] md:text-[32px] font-medium md:leading-[35px] w-full sm:w-max">{{caption}}&nbsp;</p>
+    <totem-entity-selector class="text-[26px] leading-[28px] md:text-[32px] font-medium md:leading-[35px] mt-4 sm:mt-0" *ngIf="withGameSelector && (games$ | async)" [type]="'game'" [games]="(games$ | async)!"
       [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
   </div>
 
@@ -17,7 +17,7 @@
       [gap]="17"
       [mode]="'dots'"
       [type]="'legacy'"
-      [assets]="(games$ | async)">
+      [assets]="(legacies$ | async)">
     </slider-wireframe>
 
 

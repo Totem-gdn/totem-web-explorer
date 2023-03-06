@@ -1,0 +1,30 @@
+@import 'styles/scss/totem-variables';
+
+.max-2-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+          line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.profile-info {
+  background: rgba(35, 37, 47, 0.9);
+  border: 1px solid #323741;
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+}
+
+.navigation-item {
+  transition: background 0.22s ease-out;
+  &:hover {
+    background: $totem-black;
+  }
+}
+
+.user-wallet {
+  background: linear-gradient(218.03deg, rgba(255, 255, 255, 0) 2.64%, rgba(255, 255, 255, 0.05) 53.81%, rgba(255, 255, 255, 0) 100%), #23252F;
+  border: 1px solid #323741;
+  border-radius: 18px;
+}

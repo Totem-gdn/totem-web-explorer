@@ -69,11 +69,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.currentUser$.next(userToUse);
   }
 
-  getAccountMeta() {
-    this.subs.add(
-      this.profileService.getUserAssetsCount().subscribe()
-    );
-  }
+  // getAccountMeta() {
+  //   this.subs.add(
+  //     this.profileService.getUserAssetsCount().subscribe()
+  //   );
+  // }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

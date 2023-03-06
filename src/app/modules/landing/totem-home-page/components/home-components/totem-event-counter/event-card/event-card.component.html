@@ -1,5 +1,5 @@
 <div class="image-container"
-    [ngClass]="{'glow b-transparent': label == 'live', 'b-light-grey': label == 'comming'}">
+    [ngClass]="{'glow b-transparent': label == 'live', 'b-light-grey': label == 'coming'}">
 
     <div class="jam-info flex flex-col items-start justify-end">
         <div class="label">
@@ -19,31 +19,12 @@
                     eventBanner?.data?.eventDate?.blured && !eventBanner?.data?.eventDate?.shadowed ?
                     '0px 0px 4px #fff' : ''
                 }">
-                    {{eventBanner?.data?.eventDate?.date | date: 'MMMM M'}}th, {{eventBanner?.data?.eventDate?.date |
-                    date | date: 'ha z'}}
+                    {{eventBanner?.data?.eventDate?.date | date: eventBanner?.data?.eventDate?.format || 'MMMM M'}}
                 </p>
                 <p class="sub-title max-3-lines text-light-grey">
                     {{eventBanner?.data?.description || ('home.totem_is_joining_as' | translate)}}
                 </p>
-                <!-- <p
-                *ngFor="let line of eventBanner?.data?.titleLines; let i = index"
-                [ngStyle]="{
-                  'color': line.color,
-                  'font-size': eventBanner?.data?.titleFonts![i].size![fontSizeNumber] + 'px',
-                  'font-weight': line.fontWeight,
-                  'line-height': eventBanner?.data?.titleFonts![i].height![fontSizeNumber] + 'px',
-                  'text-shadow':
-                    line.blured && line.shadowed ?
-                    '0px 0px 4px #fff, #161616 0px 6px 22px' :
-                    !line.blured && line.shadowed ?
-                    '#161616 0px 6px 22px' :
-                    line.blured && !line.shadowed ?
-                    '0px 0px 4px #fff' : ''
-                }"
-                >
-                {{line.text}}
-              </p>
-              <p class="font-totem"
+              <!-- <p class="font-totem"
                 [ngStyle]="{
                   'color': eventBanner?.data?.eventDate?.color,
                   'font-size': eventBanner?.data?.eventFonts?.size![fontSizeNumber] + 'px',
@@ -62,6 +43,26 @@
               </p> -->
             </div>
         </div>
+    </div>
+    <div class="absolute inset-0 bottom-[125px] p-4 flex flex-col items-start justify-end">
+      <p
+      *ngFor="let line of eventBanner?.data?.titleLines; let i = index"
+      [ngStyle]="{
+        'color': line.color,
+        'font-size': eventBanner?.data?.titleFonts![i].size![fontSizeNumber] + 'px',
+        'font-weight': line.fontWeight,
+        'line-height': eventBanner?.data?.titleFonts![i].height![fontSizeNumber] + 'px',
+        'text-shadow':
+          line.blured && line.shadowed ?
+          '0px 0px 4px #fff, #161616 0px 6px 22px' :
+          !line.blured && line.shadowed ?
+          '#161616 0px 6px 22px' :
+          line.blured && !line.shadowed ?
+          '0px 0px 4px #fff' : ''
+      }"
+      >
+      {{line.text}}
+    </p>
     </div>
     <!-- <div class="gradient-face abs-full"></div> -->
     <img class="object-cover" loading="lazy"

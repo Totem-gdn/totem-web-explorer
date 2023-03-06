@@ -1,9 +1,9 @@
-<div class="min-w-[150px] sm:min-w-[240px] flex flex-col selected-asset-card h-[288px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToAsset(asset!)">
+<div class="min-w-[150px] sm:min-w-[220px] flex flex-col selected-asset-card h-[288px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToAsset(asset!)">
 
     <div *ngIf="asset?.rendererUrl" class="img-wrapper h-[190px] relative">
         <img
           (changeSrc)="showSpinner = $event"
-          class="object-cover h-full" loading="lazy"
+          class="object-fit h-full" loading="lazy"
           [src]="asset?.rendererUrl" alt="Not found"
           (error)="loadDefaultRenderer()">
 

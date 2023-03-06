@@ -67,6 +67,10 @@ export class ItemDescComponent implements OnInit, OnDestroy {
     this.user$();
   }
 
+  goToProfile() {
+    this.router.navigate([`/profile/${this.item?.owner}`]);
+  }
+
   setNewSelectedGame(game: GameDetail) {
     this.storeService.selectGame(game);
   }
@@ -90,7 +94,7 @@ export class ItemDescComponent implements OnInit, OnDestroy {
 
   updateAsset() {
     if (!this.item?.id) return;
-    this.assetsService.fetchAsset(this.item.id, this.type)
+    this.assetsService.fetchAsset(this.item.tokenId, this.type)
       .subscribe(asset => {
         this.item = asset;
       });

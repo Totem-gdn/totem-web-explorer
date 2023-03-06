@@ -36,6 +36,11 @@
     
 }
 
+.totem-skeleton {
+    height: 290px;
+    width: 20%;
+}
+
 .handle-container {
     position: relative;
     left: 0;
@@ -59,14 +64,15 @@
             height: 4px;
             background-color: $totem-violet;
             left: 0;
-            // &::after {
-            //     content: '';
-            //     position: absolute;
-            //      top: -50%;
-            //     // left: -50%;
-            //     //  width: 200%;
-            //     height: 200%;
-            // }
+
+        }
+        &::after {
+            content: '';
+            position: absolute;
+             top: -50%;
+            left: -50%;
+             width: 200%;
+            height: 400%;
         }
     }
 }

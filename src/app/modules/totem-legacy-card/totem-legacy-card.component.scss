@@ -15,7 +15,8 @@
     display: flex;
     // width: 496px;
     width: 100%;
-    max-width: 496px;
+    //max-width: 496px;
+    max-width: 696px;
     border-radius: 24px;
     gap: 15px;
     padding: 12px;
@@ -53,6 +54,11 @@
             position: absolute;
             padding: 2.5px 8px;
             inset: 12px auto auto 12px;
+            p {
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 18px;
+            }
         }
     }
 
@@ -61,10 +67,13 @@
     }
 
     .in-game {
-        justify-content: center;
+        justify-content: start;
         z-index: 1;
         width: 50%;
-        gap: 13px;
+
+        .description {
+          margin-top: 13px;
+        }
 
         .link {
             display: flex;
@@ -93,4 +102,41 @@
             }
         }
     }
+
+    @media (max-width: 1000px) {
+      height: 132px;
+      padding: 8px;
+      gap: 8px;
+      border-radius: 18px;
+      .img-wrapper {
+        width: 46%;
+        img {
+          border-radius: 12px;
+        }
+        .timestamp {
+          padding: 2px 8px;
+          inset: 4px auto auto 4px;
+        }
+      }
+      .in-game {
+        width: 54%;
+        .description {
+          margin-top: 10px;
+        }
+      }
+    }
+}
+
+.game-name {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.tooltip-wrapper {
+  background-color: $blur-black-darker;
+  border-radius: 24px;
+  @media (max-width: 1000px) {
+    border-radius: 18px;
+  }
 }

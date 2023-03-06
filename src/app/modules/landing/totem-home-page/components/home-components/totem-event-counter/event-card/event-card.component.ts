@@ -12,5 +12,5 @@ export class EventCardComponent {
     @Input() eventBanner: HomepageBlock | undefined = undefined;
     @Input() fontSizeNumber: number = 0;
     @Input() heightForBanner!: number;
-    @Input() label: 'live' | 'comming' = 'comming';
+    @Input() label: 'live' | 'coming' = 'coming';
 }

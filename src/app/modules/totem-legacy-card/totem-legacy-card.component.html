@@ -1,30 +1,61 @@
-<div class="wrapper">
+<div class="wrapper relative">
     <div class="gradient"></div>
-    <div class="img-wrapper">
-        <img [src]="renderer" alt="">
+    <!-- <div class="img-wrapper relative" *ngIf="game && renderer; else assetLoader"> -->
+    <div class="img-wrapper relative">
+        <img class="object-fill" [src]="renderer" alt="">
         <div class="timestamp">
             <p>{{game?.updatedAt | creationTime}}</p>
         </div>
+        <div class="absolute bottom-0 left-0 w-9 lg:w-12 h-9 lg:h-12 flex items-center justify-center" (click)="toggleCover()">
+          <mat-icon class="!w-6 !h-6" [svgIcon]="'line:share_link'"></mat-icon>
+        </div>
     </div>
 
-    <div class="in-game flex flex-col px-[8px]">
-        <div class="link">
-            <p class="leading-none">Link to source</p>
-            <mat-icon [svgIcon]="'line:share_link'"></mat-icon>
-        </div>
+    <div class="in-game flex flex-col lg:px-[8px] py-3 lg:py-0">
+        <!-- <div class="flex" *ngIf="game; else gameLoader"> -->
         <div class="flex">
-            <img class="w-[64px] h-[64px] rounded-xl mr-[12px]" [src]="game?.images?.smallThumbnail" alt="">
+            <img class="w-[50px] lg:w-[64px] h-[50px] lg:h-[64px] rounded-xl mr-[12px]" [src]="game?.images?.smallThumbnail" alt="">
             <div class="flex flex-col justify-center min-w-[0px]">
-                <p class="max-2-lines lh-1_2 ">{{game?.general?.name}} </p>
-                <span class="text-light-grey truncate">{{game?.general?.genre?.length ? game?.general?.genre![0] : ''}}</span>
+                <p class="max-2-lines lh-1_2 game-name">{{game?.general?.name || 'GAME NAME'}} </p>
+                <span class="text-light-grey truncate">{{game?.general?.genre?.length ? game?.general?.genre![0] : 'Action'}}</span>
             </div>
         </div>
 
-        <div class="flex flex-col">
+        <!-- <div class="flex flex-col" *ngIf="decodedDataToDisplay; else displayDataLoader"> -->
+        <div class="flex flex-col description">
             <!-- <p class="text-light-violet">Description: </p> -->
-            <span class="max-3-lines text-light-grey">Longer Legacy event description Ultricies risus ipsum viverra
-                quisque at maecenas. Vivamus tempus neque nec massa lectus consectetur imperdiet mattis facilisis. Id
-                facilisis sed ac ornare turpis. Nunc erat</span>
+            <span class="max-2-lines lg:max-3-lines text-light-grey">
+              {{decodedDescriptionToDisplay || 'The ' + type + ' with ID ' + legacy.assetId + ' was used in the game for the first time.'}}
+            </span>
+        </div>
+    </div>
+    <div inputEvents class="data-cover inset-0 absolute w-full h-full z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
+        <div @toggleSelector *ngIf="coverActive" class="tooltip-wrapper w-full h-full max-h-full overflow-y-auto flex flex-col py-4 px-5 items-start relative">
+            <p class="text-[16px] lg:text-[20px] leading-[17px] lg:leading-[22px] font-medium">Event data</p>
+            <p class="text-[14px] lg:text-[16px] leading-[16px] lg:leading-[20px] max-w-[90%] font-normal t-col-light-violet mt-2">
+              {{decodedDataToDisplay || decodedDescriptionToDisplay || 'The ' + type + ' with ID ' + legacy.assetId + ' was used in the game for the first time.'}}</p>
+            <div class="w-14 h-14 absolute right-0 top-0 flex items-center justify-center" (click)="coverActive = false">
+              <mat-icon class="t-col-white" [svgIcon]="'mat_outline:close'"></mat-icon>
+            </div>
         </div>
     </div>
 </div>
+
+<ng-template #gameLoader>
+  <div class="flex">
+    <div class="w-[64px] h-[64px] rounded-xl mr-[12px] totem-skeleton shrink-0"></div>
+    <div class="flex flex-col justify-center items-start w-full min-w-[0px]">
+        <div class="max-2-lines lh-1_2 h-5 w-full totem-skeleton"></div>
+        <div class="w-3/4 h-5 mt-1 totem-skeleton"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #assetLoader>
+  <div class="img-wrapper totem-skeleton"></div>
+</ng-template>
+
+<ng-template #displayDataLoader>
+  <div class="h-5 w-full totem-skeleton"></div>
+  <div class="h-5 w-1/2 totem-skeleton"></div>
+</ng-template>

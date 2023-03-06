@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { TotemSideselectorModule } from '@app/modules/totem-sideselector/totem-sideselector.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { LayoutComponentsModule } from '../components/layout-components.module';
+import { TotemProfileCoverModule } from '../components/totem-header/totem-profile-cover/totem-profile-cover.module';
 import { TotemSidenavModule } from '../components/totem-sidenav/totem-sidenav.module';
 import { TotemLayoutComponent } from './totem-layout.component';
 
@@ -14,11 +15,11 @@ import { TotemLayoutComponent } from './totem-layout.component';
     SharedModule,
     RouterModule,
     LayoutComponentsModule,
-    TotemSidenavModule, 
-    TotemSideselectorModule, 
-    MatIconModule, 
+    TotemSidenavModule,
+    TotemSideselectorModule,
+    MatIconModule,
     MatRippleModule,
-
+    TotemProfileCoverModule
 
   ],
   exports: [TotemLayoutComponent],

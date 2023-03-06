@@ -68,12 +68,36 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
   disableLoop = { disable: false, immutable: false };
   loop: any;
 
+  cardInterval: Subscription = new Subscription();
+  activeState: 'item' | 'avatar' | 'hovered' = 'item';
+
   ngAfterViewInit(): void {
     this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
       this.currentUser$.next(user);
     })
     this.updateAssets();
-    this.playAnimation();
+    //this.playAnimation();
+    this.startScript()
+  }
+
+  startScript() {
+    this.cardInterval?.unsubscribe();
+    this.cardInterval = timer(5000, 5000).subscribe(() => {
+      if (this.activeState === 'item') {
+        this.activeState = 'avatar';
+      } else {
+        this.activeState = 'item';
+      }
+    });
+  }
+
+  stopScript() {
+    this.cardInterval.unsubscribe();
+    this.activeState = 'hovered';
+    let countInterval = timer(5000).subscribe(() => {
+      this.startScript();
+      countInterval.unsubscribe();
+    })
   }
 
   updateAssets() {
@@ -101,7 +125,6 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       if (response?.item) this.assets[0].paymentInfo = response.item;
       if (response?.avatar) this.assets[1].paymentInfo = response.avatar;
       this.loading$.next(false);
-      console.log('ITEM AND AVATAR DATA FETCHED');
     })
   }
 

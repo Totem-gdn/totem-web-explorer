@@ -61,6 +61,10 @@ export class AssetsService {
         return forkJoin([...obsArray]);
     }
 
+    totalAssetsByWallet(wallet: string, type: AssetTypes) {
+        return this.http.get<any>(`${this.baseUrl}/assets/${type}s?owner=${wallet}`)
+    }
+
     handleAssets(type: AssetTypes, assets: AssetInfo[]) {
         for (let asset of assets) {
             asset.assetType = type;
@@ -72,7 +76,7 @@ export class AssetsService {
 
     }
 
-    fetchAsset(id: string, type: ASSET_TYPE) {
+    fetchAsset(id: number, type: ASSET_TYPE) {
         return this.http.get<AssetInfo>(`${this.baseUrl}/assets/${type}s/${id}`).pipe(map(asset => {
             asset.rarity = asset.tokenId % 100;
             return asset;

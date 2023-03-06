@@ -20,7 +20,7 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
   games$: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
   promoGame: HomepageBlock | undefined = undefined;
   promoVideo: HomepageBlock | undefined = undefined;
-  eventBanner: HomepageBlock | undefined = undefined;
+  eventBanners: HomepageBlock[] | null = null;
 
   loading$ = new BehaviorSubject<boolean>(false);
 
@@ -61,7 +61,7 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
       .subscribe((data: HomepageBlock[]) => {
 
         if (!data) return;
-
+        let blocks: HomepageBlock[] = [];
         data.forEach((block: HomepageBlock) => {
           if (block.type === BLOCK_TYPE.PROMO_GAME) {
             this.promoGame = block;
@@ -70,11 +70,44 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
             this.promoVideo = block;
           };
           if (block.type === BLOCK_TYPE.EVENT_BANNER) {
-            this.eventBanner = block;
+            blocks.push(block);
           };
         });
+        this.sortEventBanners(blocks);
 
       });
+  }
+
+  sortEventBanners(blocks: HomepageBlock[]) {
+    if (!blocks.length) return;
+    const sortedBanners: HomepageBlock[] = blocks.sort((a: HomepageBlock, b: HomepageBlock) => {
+      if (!a.data?.eventDate?.date) return 0;
+      if (!b.data?.eventDate?.date) return 0;
+      let aDate: Date = new Date(a.data.eventDate.date);
+      let bDate: Date = new Date(b.data.eventDate.date);
+      if (aDate.getTime() > bDate.getTime()) {
+        return 1;
+      }
+      if (aDate.getTime() < bDate.getTime()) {
+        return -1;
+      }
+      return 0;
+    });
+    this.eventBanners = sortedBanners;
+    //this.filterPassedEvents(sortedBanners);
+  }
+
+  filterPassedEvents(blocks: HomepageBlock[]) {
+    let yesterdayDate: number = new Date().getTime();
+    const yesterdayTimeStamp = yesterdayDate - 24*60*60*1000;
+
+    const filteredBlocks: HomepageBlock[] = blocks.filter((block: HomepageBlock) => {
+      if (!block.data?.eventDate?.date) return false;
+      let eventDate: Date = new Date(block.data?.eventDate?.date);
+      const timestamp: number = eventDate.getTime();
+      return timestamp > yesterdayTimeStamp;
+    })
+    this.eventBanners = filteredBlocks;
   }
 
 }

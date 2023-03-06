@@ -3,6 +3,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { Router, Scroll } from '@angular/router';
 import { Animations } from '@app/core/animations/animations';
 import { filter, delay, Subscription, timer } from 'rxjs';
+import { TotemHeaderService } from '../components/totem-header/totem-header.service';
 
 @Component({
   selector: 'totem-layout',
@@ -16,8 +17,11 @@ import { filter, delay, Subscription, timer } from 'rxjs';
 })
 export class TotemLayoutComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router,
-    private breakpointObserver: BreakpointObserver) { }
+  constructor(
+    private router: Router,
+    private totemHeaderService: TotemHeaderService,
+    private breakpointObserver: BreakpointObserver
+    ) { }
 
   @ViewChild('layout') layout?: ElementRef;
   routerSub?: Subscription;
@@ -27,8 +31,11 @@ export class TotemLayoutComponent implements OnInit, OnDestroy {
   toggleMobileSideselector: boolean = false;
   isScrolling: boolean = false;
 
+  coverOpened: boolean = false;
+
   ngOnInit(): void {
     this.observeTheScreen();
+    this.listenCoverState();
     this.routerSub = this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))
       .pipe(delay(1))
@@ -59,6 +66,14 @@ export class TotemLayoutComponent implements OnInit, OnDestroy {
             }
         })
     );
+  }
+
+  listenCoverState() {
+    this.subs.add(
+      this.totemHeaderService.coverOpened$.subscribe((state: boolean) => {
+        this.coverOpened = state;
+      })
+    )
   }
 
   onScroll(event: any) {

@@ -1,0 +1,127 @@
+<div class="rewiew relative" *ngIf="game">
+    <div class="flex flex-col sticky top-[100px]">
+        <h2 *ngIf="!game?.general?.name" class="mb-[25px]">{{'modules.dead_peats_unleashed' | translate}}</h2>
+        <h2 *ngIf="game?.general?.name" class="mb-[25px] text-3xl sm:text-4xl">{{game?.general?.name}}</h2>
+
+        <div class="flex flex-wrap justify-between pb-[12px] gap-[10px]">
+            <div class="waller-wrapper flex flex-wrap justify-between w-full">
+                <div class="flex items-center cursor-pointer" (click)="copyMessage()" *ngIf="game?.gameAddress">
+                    <h4 [cdkCopyToClipboard]="game?.gameAddress ? game?.gameAddress: game?.id"
+                        [cdkCopyToClipboardAttempts]="2" class="text-light-grey lh-3">Game ID:
+                </h4>
+                    <h4 class="ml-[5px] text-light-violet">{{game?.gameAddress ?
+                        game?.gameAddress.slice(0,6) + '...' + game?.gameAddress.slice(-4) : game?.id.slice(0,6) + '...' +
+                        game?.id.slice(-4)}}</h4>
+                    <mat-icon class="mb-[6px] ml-[5px] text-light-violet" [svgIcon]="'line:copy'"></mat-icon>
+                </div>
+                <div class="flex items-center">
+                    <h4 class="text-light-grey pr-[10px] lh-33">{{'modules.author' | translate}}:</h4>
+                    <h4 class="text-light-violet">{{game?.general?.author ? game?.general?.author : 'Triple Troping'}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Icons -->
+        <div class="icon-wrapper">
+            <div class="icon-set items-center">
+                <div class="icon select-none">
+                    <div class="!w-[20px] line-eye"></div>
+                    <p>{{game?.views ? game?.views : '0'}}</p>
+                </div>
+            </div>
+            <div class="icon-set">
+                <div class="icon cursor-pointer" (click)="share.share('Сheck out this game')">
+                    <share-button class="absolute" #share></share-button>
+                    <div class="!w-[14px] !h-[19px] line-share mt-[1px]"></div>
+                    <p class="select-none">{{'nav.share' | translate}}</p>
+                </div>
+                <div class="icon cursor-pointer" (click)="
+                loadGame(game.id);
+                refresh.style.animation = 'none';
+                refresh.offsetHeight;
+                refresh.style.animation = 'rotate 0.5s'
+                ">
+                    <div #refresh class="!w-[16px] line-refresh"></div>
+
+                    <p class="select-none">{{'nav.refresh' | translate}}</p>
+                </div>
+                <div *ngIf="editInfo.edit" class="icon cursor-pointer" (click)="editGame()">
+                    <div class="!w-[16px] !h-[19px] line-edit"></div>
+                    <p>{{'nav.edit' | translate}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text -->
+        <div class="flex max-w-[calc(100vw-40px)]">
+            <p *ngIf="!game?.general?.description" class="font-medium">{{'description.descriptions_game_2' | translate}}</p>
+            <p *ngIf="game?.general?.description" class="font-medium overflow-hidden">{{game?.general?.description}}</p>
+        </div>
+
+
+        <div class="play">
+            <!-- <div class="flex flex-wrap gap-[13px]">
+                <div class="item-tag">
+                    <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
+                    <p>{{'nav.players' | translate}}</p>
+                </div>
+                <div class="item-tag">
+                    <h4>{{game?.assets?.items || game?.assets?.items == 0 ? game?.assets?.items : '24.05.22'}}</h4>
+                    <p>{{'nav.items' | translate}}</p>
+                </div>
+                <div class="item-tag">
+                    <h4>{{game?.assets?.avatars || game?.assets?.avatars == 0 ? game?.assets?.avatars : '24.05.22'}}</h4>
+                    <p>{{'nav.avatars' | translate}}</p>
+                </div>
+            </div> -->
+
+            <a class="w-full p-[0px] m-[0px]" href="{{game.connections.webpage}}" target="_blank">
+                <button class="totem-primary-button">Play</button>
+            </a>
+        </div>
+
+        <div class="graphic-wrapper">
+            <div class="graphic">
+                <h4 class="title">{{game?.general?.name}} assets graphic:</h4>
+                <div class="cards">
+                    <div class="card" *ngIf="avatarUrl; else assetCardLoader">
+                        <div class="img-wrapper">
+                            <img [src]="avatarUrl" alt="">
+                        </div>
+                        <div class="bottom">
+                            <p>Avatar example</p>
+                        </div>
+
+                    </div>
+                    <div class="card" *ngIf="itemUrl; else assetCardLoader">
+                        <div class="img-wrapper">
+                            <img [src]="itemUrl" alt="">
+                        </div>
+                        <div class="bottom">
+                            <p>Item example</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="rewiew gap-[25px]" *ngIf="!game">
+    <div class="totem-skeleton w-[60%] h-[50px]"></div>
+
+    <div class="totem-skeleton w-[100%] h-[50px]"></div>
+    <div class="totem-skeleton w-[100%] h-[200px]"></div>
+    <div class="totem-skeleton w-[100%] h-[50px]"></div>
+
+    <div class="images-placeholders">
+        <div class="totem-skeleton"></div>
+        <div class="totem-skeleton"></div>
+
+    </div>
+
+</div>
+
+<ng-template #assetCardLoader>
+  <div class="asset-card-placeholder totem-skeleton"></div>
+</ng-template>

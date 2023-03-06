@@ -1,0 +1,76 @@
+<div class="flex flex-col items-start w-full relative">
+    <p class="title">Ownership History</p>
+    <div [ngStyle]="!showAll && showViewAll ? {'max-height':'417px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative p-4">
+        <div *ngIf="history.length; else noHistory" class="w-full h-full relative overflow-x-auto overflow-y-hidden ownership-table-wrapper pb-[16.5px]">
+            <div #grid class="ownership-table relative h-full w-full flex flex-col items-start justify-start min-w-[768px] gap-2" [ngClass]="{'pb-4' : showViewAll}">
+              <!-- <totem-legacy-card class="w-full" *ngFor="let prop of properties" [game]="_selectedGame!"></totem-legacy-card> -->
+              <ng-container *ngTemplateOutlet="tableHeader"></ng-container>
+              <ng-container *ngFor="let item of history">
+                <ng-container *ngTemplateOutlet="ownerBar, context: {item: item}"></ng-container>
+              </ng-container>
+            </div>
+
+        </div>
+        <div @toggleShadow *ngIf="!showAll && showViewAll" class="shadow-box absolute bottom-0 z-1"></div>
+    </div>
+
+    <div class="w-full h-0 flex items-center justify-center absolute bottom-0">
+        <div *ngIf="showViewAll" (click)="showMore(!showAll)" class="totem-show-more-button z-2">{{showAll ? 'Show less' : 'Show all'}}</div>
+    </div>
+</div>
+
+
+
+<!-- templates -->
+
+<ng-template #ownerBar let-item="item">
+  <div class="w-full ownership-row min-h-[54px] h-[54px] py-[7px] px-2 t-bg-dark-grey rounded-[4px]">
+
+    <div class="w-full ownership-table-item col-span-2 cursor-pointer" (click)="goToProfile(item?.to)">
+      <div class="w-full h-10 w-10 overflow-hidden rounded-full mr-4 shrink-0">
+        <ng-container *ngIf="item.to == user?.wallet">
+          <img class="h-full w-full object-cover" [src]="userIcon" alt="user-image" (error)="updateProfileImage()">
+        </ng-container>
+        <ng-container *ngIf="item.to != user?.wallet">
+          <img class="h-full w-full object-cover" [src]="'assets/icons/nav/account_circle.svg'" alt="user-image" (error)="updateProfileImage()">
+        </ng-container>
+
+      </div>
+      <p class="sliced-owner-wallet flex-row items-center">{{item?.to.slice(0, 16) + '...' + item?.to.slice(-4)}}</p>
+      <p class="owner-wallet flex-row items-center">{{item?.to}}</p>
+    </div>
+
+    <div class="w-full ownership-table-item">
+      <p>{{item?.createdAt | creationTime}}</p>
+    </div>
+
+    <div class="w-full ownership-table-item">
+      <p>{{item?.price}}$</p>
+    </div>
+
+    <div class="w-full ownership-table-item">
+      <p>{{'0'}}</p>
+    </div>
+
+    <div class="ownership-table-item tx-table-column cursor-pointer" (click)="goToTx(item?.hash)">
+      <mat-icon [svgIcon]="'mat_outline:open_in_new'"></mat-icon>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #tableHeader>
+  <div class="w-full ownership-header min-h-[32px] h-[32px] px-2 mb-2">
+    <p class="col-span-2">Owner adress</p>
+    <p>Date of purchase</p>
+    <p>Price</p>
+    <p>Games played</p>
+    <p class="w-6">TX</p>
+  </div>
+</ng-template>
+
+<ng-template #noHistory>
+  <div *ngIf="history?.length == 0" class="flex justify-center items-center w-full py-[22px]">
+    <p class="flex flex-rowtext-[18px] items-center leading-[20px] font-medium"><mat-icon class="mr-2" [svgIcon]="'mat_outline:history'"></mat-icon>{{'modules.history_empty' | translate}}</p>
+  </div>
+</ng-template>

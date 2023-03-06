@@ -1,12 +1,12 @@
-<div class="totem-event pl-[0px] lg:pl-[48px]" *ngIf="eventBanner">
+<div class="totem-event pl-[0px] lg:pl-[48px]" *ngIf="eventBanners?.length">
   <div class="totem-event-wrapper flex-wrap lg:flex-nowrap gap-[48px] justify-between">
     <div class="timer-container">
       <div class="title font-totem"
       [ngStyle]="{
-        'font-size': eventBanner.data?.titleSizes![fontSizeNumber] + 'px',
-        'line-height': eventBanner.data?.titleSizes![fontSizeNumber] + 'px'
+        'font-size': eventBanners![0].data?.titleSizes![fontSizeNumber] + 'px',
+        'line-height': eventBanners![0].data?.titleSizes![fontSizeNumber] + 'px'
       }"
-      >{{eventBanner.data?.title || 'GameJam+'}}</div>
+      >{{eventBanners![0].data?.title || 'GameJam+'}}</div>
 
       <div class="timer-block gap-[15px]">
         <h4>Event is going on:</h4>
@@ -41,13 +41,13 @@
 
     <div class="slider-wrapper">
       <!-- <div class=""></div> -->
-      <slider-wireframe 
-        class="ml-auto" 
-        [padding]="18" 
+      <slider-wireframe
+        class="ml-auto"
+        [padding]="18"
         [overflow]="'nowrap'"
-        [gap]="35" 
-        [type]="'event'" 
-        [assets]="[eventBanner, eventBanner, eventBanner]"
+        [gap]="35"
+        [type]="'event'"
+        [assets]="eventBanners"
         [position]="'right'"></slider-wireframe>
     </div>
   </div>

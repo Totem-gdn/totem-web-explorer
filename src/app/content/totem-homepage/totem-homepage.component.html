@@ -1,4 +1,7 @@
-<div class="totem-landing w-full h-full flex flex-col items-center justify-start px-4 sm:px-8 xxml:px-18">
+<div class="totem-landing w-full h-full flex flex-col items-center justify-start px-4 sm:px-8 xxml:px-18 relative">
+  <div class="absolute left-0 top-0 right-0 w-full min-h-[280px] h-full max-h-[480px] widget-background px-4">
+    <img class="absolute top-[6%] md:-top-[22%] left-0 min-w-full w-full min-h-[280px] md:min-h-[330px] object-cover" src="assets/images/widget-bg-face.webp" alt="">
+  </div>
   <div class="totem-landing-wrapper max-w-[1520px] w-full h-full">
     <ng-container *ngIf="!(loading$ | async); else loader">
       <totem-start-screen-cards></totem-start-screen-cards>
@@ -9,8 +12,8 @@
       </div>
       <totem-entity-slider [caption]="'The most popular Avatars'" [assetTypeSelected]="'avatar'"></totem-entity-slider>
       <totem-entity-slider [caption]="'The most popular Items'" [assetTypeSelected]="'item'"></totem-entity-slider>
-      <div class="mt-12" *ngIf="eventBanner">
-        <totem-event-counter [eventBanner]="eventBanner"></totem-event-counter>
+      <div class="mt-12" *ngIf="eventBanners && eventBanners.length">
+        <totem-event-counter [eventBanners]="eventBanners"></totem-event-counter>
       </div>
       <totem-entity-slider [caption]="'The most popular Games'" [assetTypeSelected]="'game'"></totem-entity-slider>
       <div class="my-12" *ngIf="promoVideo">
@@ -22,41 +25,42 @@
 
 <ng-template #loader>
   <div class="pb-6 mt-12 flex flex-row w-full items-end justify-between px-10">
-    <div class="flex flex-col items-start justify-between z-1 mr-6">
-      <span class="w-[360px] h-[432px] totem-skeleton"></span>
-      <span class="mt-6 w-[360px] h-[56px] totem-skeleton"></span>
+    <div class="smd:max-w-[328px] w-full flex flex-col items-start justify-between z-1 smd:mr-6">
+      <span class="w-[70%] h-[36px] flex smd:hidden mb-4 totem-skeleton"></span>
+      <span class="w-full h-[360px] totem-skeleton"></span>
+      <span class="mt-6 w-full h-[56px] totem-skeleton"></span>
     </div>
-    <div class="flex flex-col items-start justify-start w-full max-w-[1032px]">
-      <span class="w-[80%] h-[44px] totem-skeleton"></span>
-      <div class="w-full flex flex-row items-end justify-between mt-[34px]">
-        <div class="flex flex-col items-start justify-start">
-          <span class="w-[240px] h-[288px] totem-skeleton"></span>
-          <span class="mt-6 w-[240px] h-[56px] totem-skeleton"></span>
+    <div class="flex flex-col items-start justify-start w-full max-w-[1032px] hidden smd:flex">
+      <span class="w-[70%] h-[36px] totem-skeleton"></span>
+      <div class="w-full flex flex-row items-end justify-between mt-[24px] gap-3">
+        <div class="max-w-[320px] w-full flex flex-col items-start justify-start">
+          <span class="w-full h-[288px] totem-skeleton"></span>
+          <span class="mt-6 w-full h-[56px] totem-skeleton"></span>
         </div>
-        <div class="flex flex-col items-start justify-start">
-          <span class="w-[240px] h-[288px] totem-skeleton"></span>
-          <span class="mt-6 w-[240px] h-[56px] totem-skeleton"></span>
+        <div class="max-w-[320px] w-full hidden xl:flex flex-col items-start justify-start">
+          <span class="w-full h-[288px] totem-skeleton"></span>
+          <span class="mt-6 w-full h-[56px] totem-skeleton"></span>
         </div>
-        <div class="flex flex-col items-start justify-start">
-          <span class="w-[240px] h-[288px] totem-skeleton"></span>
-          <span class="mt-6 w-[240px] h-[56px] totem-skeleton"></span>
+        <div class="max-w-[320px] w-full hidden xxl:flex flex-col items-start justify-start">
+          <span class="w-full h-[288px] totem-skeleton"></span>
+          <span class="mt-6 w-full h-[56px] totem-skeleton"></span>
         </div>
-        <div class="flex flex-col items-start justify-start">
-          <span class="w-[240px] h-[288px] totem-skeleton"></span>
-          <span class="mt-6 w-[240px] h-[56px] totem-skeleton"></span>
+        <div class="max-w-[320px] w-full hidden xxml:flex flex-col items-start justify-start">
+          <span class="w-full h-[288px] totem-skeleton"></span>
+          <span class="mt-6 w-full h-[56px] totem-skeleton"></span>
         </div>
       </div>
     </div>
   </div>
   <div class="w-full mt-12 flex flex-col mb-12">
     <span class="w-[30%] h-[35px] totem-skeleton"></span>
-    <div class="flex flex-row w-full items-start justify-between mt-7">
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
-      <span class="w-[240px] h-[288px] totem-skeleton"></span>
+    <div class="flex flex-row w-full items-start justify-between mt-7 gap-3">
+      <span class="w-full max-w-[340px] h-[288px] totem-skeleton"></span>
+      <span class="w-full max-w-[340px] h-[288px] totem-skeleton"></span>
+      <span class="hidden sm:flex w-full max-w-[340px] h-[288px] totem-skeleton"></span>
+      <span class="hidden xl:flex w-full max-w-[340px] h-[288px] totem-skeleton"></span>
+      <span class="hidden xxl:flex w-full max-w-[340px] h-[288px] totem-skeleton"></span>
+      <span class="hidden xxml:flex w-full max-w-[340px] h-[288px] totem-skeleton"></span>
     </div>
   </div>
 
