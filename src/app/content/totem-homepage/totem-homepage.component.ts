@@ -92,8 +92,9 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
         return -1;
       }
       return 0;
-    })
-    this.filterPassedEvents(sortedBanners);
+    });
+    this.eventBanners = sortedBanners;
+    //this.filterPassedEvents(sortedBanners);
   }
 
   filterPassedEvents(blocks: HomepageBlock[]) {
