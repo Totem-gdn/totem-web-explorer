@@ -19,6 +19,7 @@ import { VersionDialogModule } from './core/dialogs/version-dialog/version-dialo
 import { IconsModule } from './core/icons/icons.module';
 import { TotemLayoutModule } from './layout/totem-layout/totem-layout.module';
 import { PaymentSuccessDialogModule } from './core/dialogs/payment-success-dialog/payment-success-dialog.module';
+import { APP_BASE_HREF } from '@angular/common';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,
@@ -54,6 +55,7 @@ const routerConfig: ExtraOptions = {
       useClass: AuthInterceptor,
       multi: true
     },
+    //{provide: APP_BASE_HREF, useValue: '/localhost:4200/'}
   ],
   bootstrap: [AppComponent]
 })
