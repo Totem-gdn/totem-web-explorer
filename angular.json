@@ -79,7 +79,8 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "baseHref": "./totem-explorer/"
             },
             "development": {
 
@@ -103,7 +104,8 @@
                   "output": "/",
                   "glob": "favicon.ico"
                 }
-              ]
+              ],
+              "baseHref": "./dev.totem-explorer/"
             },
             "local": {
               "fileReplacements": [
