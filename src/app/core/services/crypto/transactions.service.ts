@@ -35,4 +35,8 @@ export class TransactionsService {
   //  return this.http.post<CardPaymentResponse>(`${this.baseUrl}/payment/link/${paymentSystem}/${assetType}`, {successUrl: this.applicationUrl});
   //}
 
+  //buyAssetWithCard(assetType: string, owner: string, paymentSystem: 'withpaper' | 'stripe' = 'stripe'): Observable<CardPaymentResponse> {
+  //  return this.http.post<CardPaymentResponse>(`${this.baseUrl}/payment/link/${paymentSystem}/${assetType}`, {successUrl: this.applicationUrl});
+  //}
+
 }

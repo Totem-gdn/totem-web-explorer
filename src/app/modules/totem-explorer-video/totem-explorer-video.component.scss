@@ -3,10 +3,8 @@
 
 .wrapper {
   display: flex;
-  padding: 30px;
   background-color: $totem-dark-grey;
   border-radius: 18px;
-  gap: 90px;
 
   .video-block {
     flex-grow: 1;
@@ -15,7 +13,7 @@
     .video {
       width: 100%;
       aspect-ratio: 16/9;
-      border-radius: 24px;
+      border-radius: 18px;
     }
   }
 
@@ -27,7 +25,11 @@
     .text {
       margin: auto;
       width: 100%;
-      max-width: 400px;
+      max-width: 580px;
+      
+      @media screen and (max-width: 600px) {
+        max-width: 400px;
+      }
     }
   }
 
