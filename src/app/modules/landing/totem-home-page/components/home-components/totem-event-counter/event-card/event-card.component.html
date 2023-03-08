@@ -46,6 +46,7 @@
     </div>
     <div class="absolute inset-0 bottom-[125px] p-4 flex flex-col items-start justify-end">
       <p
+      class="font-totem uppercase"
       *ngFor="let line of eventBanner?.data?.titleLines; let i = index"
       [ngStyle]="{
         'color': line.color,
