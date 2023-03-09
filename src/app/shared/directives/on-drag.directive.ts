@@ -115,8 +115,8 @@ export class OnDragDirective implements OnDestroy {
         fromEvent(this.element.nativeElement, 'touchmove')
             .pipe(takeUntil(this.subs))
             .subscribe((e: any) => {
-                e.stopPropagation();
-                e.preventDefault();
+                // e.stopPropagation();
+                // e.preventDefault();
                 if(!this.mouseX) this.mouseX = e.targetTouches[0].pageX;
                 const difference = this.mouseX! - e.targetTouches[0].pageX;
 

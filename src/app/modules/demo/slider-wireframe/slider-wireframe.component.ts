@@ -146,14 +146,18 @@ export class SliderWireframeComponent implements OnInit, OnDestroy {
       if (!this.currentTransform) return;
 
       const sliderItems = this.currentTransform / (this.slideWidth + this.gap);
-      let index = Math.floor(sliderItems);
-      if (sliderItems - index > 0.5 && this.cards?.length && index < this.cards?.length - 1) index++;
-
+      let index = Math.round(sliderItems);
+      if (sliderItems - index > 0.25 && this.cards?.length && index < this.cards?.length - 1) {
+        index++;
+      } else if (sliderItems - index < -0.25 && index > 0) {
+        index--;
+      }
+      // console.log(sliderItems, index)
       // If index is less than 0, then move slider to the first slide
       if (index < 0) {
         index = 0;
       } else if (this.cards?.length && index > this.cards.length - 1 - this.itemsOnScreen) {
-        index = this.cards.length - this.itemsOnScreen
+        index = this.cards.length - this.itemsOnScreen;
       };
       this.toggleSlides('to', index);
       this.moveHandle('set-slider');

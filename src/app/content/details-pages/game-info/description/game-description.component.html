@@ -29,7 +29,7 @@
                 [selectedGame]="_game"></game-review>
 
             <div class="total">
-                <div class="item-tag">
+                <!-- <div class="item-tag">
                     <h4>{{_game?.assets?.items || _game?.assets?.items == 0 ? _game?.assets?.items : '24.05.22'}}</h4>
                     <p>{{'nav.players' | translate}}</p>
                 </div>
@@ -39,6 +39,20 @@
                 </div>
                 <div class="item-tag">
                     <h4>{{_game?.assets?.avatars || _game?.assets?.avatars == 0 ? _game?.assets?.avatars : '24.05.22'}}
+                    </h4>
+                    <p>{{'nav.avatars' | translate}}</p>
+                </div> -->
+
+                <!-- <div class="item-tag">
+                    <h4>{{_game?.assets?.items || _game?.assets?.items == 0 ? _game?.assets?.items : '24.05.22'}}</h4>
+                    <p>{{'nav.players' | translate}}</p>
+                </div> -->
+                <div class="item-tag">
+                    <h4>{{ totalItems }}</h4>
+                    <p>{{'nav.items' | translate}}</p>
+                </div>
+                <div class="item-tag">
+                    <h4>{{ totalAvatars }}
                     </h4>
                     <p>{{'nav.avatars' | translate}}</p>
                 </div>
