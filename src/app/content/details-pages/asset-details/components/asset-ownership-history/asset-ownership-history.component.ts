@@ -23,6 +23,71 @@ enum queries {
   xxl = '(min-width: 1440px)',
 }
 
+const itemOwners: any[] = [
+  {
+    tokenId: "929",
+    tokenType: "avatars",
+    from: "0",
+    to: "0x77Ca6849838DCeC40156baB4fB8b93a93794bE8a",
+    hash: "0x2ec03eb1ddac4dbe923641900eee894c56ffbaf276a5e2938269c92fc5ece86a",
+    price: "25",
+    createdAt: "2023-02-24T15:28:10.435Z",
+    icon: 'assets/images/item-img-1.png'
+  },
+  {
+    tokenId: "929",
+    tokenType: "avatars",
+    from: "0",
+    to: "0x75c5e1B82729da5C4660f777EF8D5780eBD41e82",
+    hash: "0x2ec03eb1ddac4dbe923641900eee894c56ffbaf276a5e2938269c92fc5ece86a",
+    price: "50",
+    createdAt: "2023-02-26T15:28:10.435Z",
+    icon: 'assets/images/item-img-2.png'
+  },
+  {
+    tokenId: "929",
+    tokenType: "avatars",
+    from: "0",
+    to: "0x989B9838669daa581724c8301b3d8075c61A6E94",
+    hash: "0x2ec03eb1ddac4dbe923641900eee894c56ffbaf276a5e2938269c92fc5ece86a",
+    price: "55",
+    createdAt: "2023-02-27T15:28:10.435Z",
+    icon: 'assets/images/item-img-4.png'
+  }
+]
+const avatarOwners: any[] = [
+  {
+    tokenId: "929",
+    tokenType: "avatars",
+    from: "0",
+    to: "0x37Ca6849838DCeC40156baB4fB8b93a93794bR0a",
+    hash: "0x2ec03eb1ddac4dbe923641900eee894c56ffbaf276a5e2938269c92fc5ece86a",
+    price: "25",
+    createdAt: "2023-02-23T15:28:10.435Z",
+    icon: 'assets/images/item-img-3.png'
+  },
+  {
+    tokenId: "929",
+    tokenType: "avatars",
+    from: "0",
+    to: "0x75c5e1B82729da5C4660f777EF8D5780eBD41e82",
+    hash: "0x2ec03eb1ddac4dbe923641900eee894c56ffbaf276a5e2938269c92fc5ece86a",
+    price: "50",
+    createdAt: "2023-02-24T15:28:10.435Z",
+    icon: 'assets/images/item-test.jpg'
+  },
+  {
+    tokenId: "929",
+    tokenType: "avatars",
+    from: "0",
+    to: "0x989B9838669daa581724c8301b3d8075c61A6E94",
+    hash: "0x2ec03eb1ddac4dbe923641900eee894c56ffbaf276a5e2938269c92fc5ece86a",
+    price: "55",
+    createdAt: "2023-02-29T15:28:10.435Z",
+    icon: 'assets/images/hero-background.png'
+  }
+]
+
 @Component({
     selector: 'asset-ownership-history',
     templateUrl: './asset-ownership-history.component.html',
@@ -83,6 +148,12 @@ export class AssetOwnershipHistoryComponent extends OnDestroyMixin implements On
     this.assetHistoryService.getHistory(this.type, id).pipe(
       untilComponentDestroyed(this),
     ).subscribe(history => {
+      if (id > 800 && id < 820) {
+        let owns: any[] = this.type === 'item' ? itemOwners : avatarOwners;
+        this.history = [...history, ...owns];
+        this.checkItemsAmountToCollapse();
+        return;
+      }
       this.history = history;
       this.checkItemsAmountToCollapse();
     })
