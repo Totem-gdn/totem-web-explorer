@@ -22,6 +22,58 @@ interface Tooltip {
   decodedData?: string;
 }
 
+const legacyDemo: any[] = [
+    {
+        recordId: "19",
+        playerAddress: "0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae",
+        assetId: "1026",
+        gameAddress: "0xBa2d41654B914a91C54ACb04F3981168d5432CB6",
+        timestamp: 1677718421,
+        data: "eyJkZXNjcmlwdGlvbiI6Ik5DQnRiMjV6ZEdWeWN5QnJhV3hzWldRZ1lYUWdiMjVsSUhScGJXVT0ifQ=="
+    },
+    {
+        recordId: "18",
+        playerAddress: "0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae",
+        assetId: "1026",
+        gameAddress: "0xBdddAA60C2F104cC9f4c65dE5A11e9c08636daBC",
+        timestamp: 1677715911,
+        data: "eyJkZXNjcmlwdGlvbiI6Ik5DQnRiMjV6ZEdWeWN5QnJhV3hzWldRZ1lYUWdiMjVsSUhScGJXVSJ9"
+    },
+    {
+        recordId: "17",
+        playerAddress: "0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae",
+        assetId: "1026",
+        gameAddress: "0x61C7f880456Ca104528cae53d4384993B60B5b79",
+        timestamp: 1677715895,
+        data: "eyJkZXNjcmlwdGlvbiI6Ik5DQnRiMjV6ZEdWeWN5QnJhV3hzWldRZ1lYUWdiMjVsSUhScGJXVSJ9"
+    },
+    {
+        recordId: "10",
+        playerAddress: "0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae",
+        assetId: "1026",
+        gameAddress: "0x797A0c9afAD07A5b30FA33dCD75FE81D3551C559",
+        timestamp: 1677710853,
+        data: "NCBtb25zdGVycyBraWxsZWQgYXQgb25lIHRpbWU="
+    },
+    {
+        recordId: "16",
+        playerAddress: "0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae",
+        assetId: "1026",
+        gameAddress: "0x2DBbfc43223fB1116dd4Db78cE18836EC5803b98",
+        timestamp: 1677715143,
+        data: "eyJkZXNjcmlwdGlvbiI6Ik5DQnRiMjV6ZEdWeWN5QnJhV3hzWldRZ1lYUWdiMjVsSUhScGJXVSJ9"
+    },
+    {
+        recordId: "15",
+        playerAddress: "0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae",
+        assetId: "1026",
+        gameAddress: "0x90B20911d81e213451308D1BB3F472880D61499B",
+        timestamp: 1677714799,
+        data: "eyJkZXNjcmlwdGlvbiI6Ik5DQnRiMjV6ZEdWeWN5QnJhV3hzWldRZ1lYUWdiMjVsSUhScGJXVSJ9"
+    }
+
+]
+
 @Component({
     selector: 'asset-legacy',
     templateUrl: './asset-legacy.component.html',
@@ -106,6 +158,23 @@ export class AssetLegacyComponent implements OnInit {
       ).subscribe((response: LegacyResponse<Achievement[]>) => {
           //console.log(response);
           if (!response) return;
+
+          if (this.tokenId > 800 && this.tokenId < 820) {
+            this.legacy = legacyDemo.map((legacy: any) => {
+              return {
+                ...legacy,
+                assetId: this.tokenId
+              }});
+            this.checkMedia(this.currentBpState);
+            if ((this.tableSize + (this.tableSize * this.currentPage)) >= response.total) {
+              this.showLoadMore = false;
+            } else {
+              this.showLoadMore = true;
+            }
+            this.loading$.next(false);
+            return;
+          }
+
           this.legacy = [...this.legacy, ...response?.results];
           this.checkMedia(this.currentBpState);
 
