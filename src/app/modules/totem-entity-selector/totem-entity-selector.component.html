@@ -15,23 +15,55 @@
     *ngIf="menuActive"
     [@toggleSelector]
     #dropdown
-    class="w-full min-w-[270px] md:w-[310px] max-w-[310px] absolute h-[200px] t-bg-violet top-[calc(100%+10px)] left-0 sm:left-auto smd:left-0 right-0 rounded-[8px] t-bg-grey overflow-hidden z-2"
+    class="asset-selector-dropdown w-full min-w-[270px] md:w-[310px] max-w-[310px] absolute h-[200px] top-[calc(100%+10px)] left-0 sm:left-auto smd:left-0 right-0 rounded-[8px] overflow-hidden z-2"
     >
     <div *ngIf="type === 'asset'" class="asset-selector-menu-wrapper w-full h-full overflow-x-hidden overflow-y-auto flex flex-col items-center justify-start p-2 rounded-[8px]">
       <ng-container *ngFor="let asset of assets">
         <div
-          class="w-full h-12 shrink-0 rounded-[12px] asset-selector-item flex flex-row items-center justify-start px-4 text-[16px] font-normal leading-[17px]"
+          class="w-full h-12 shrink-0 rounded-[12px] asset-selector-item flex flex-row items-center justify-start px-2 text-[16px] font-normal leading-[17px]"
           (click)="selectAsset(asset)">
-          Avatar ID: {{asset.tokenId}}
+          <div class="item-prev-icon h-10 w-10 relative rounded-[12px] overflow-hidden">
+            <img
+            calss="w-full h-full object-cover rounded-[12px]"
+              (changeSrc)="$event ? itemSpinner.style.display = 'block': itemSpinner.style.display = 'none'"
+              loading="lazy"
+              *ngIf="asset?.tokenId"
+              [src]="assetRendererUrl + '/' + 'avatar' + '/' + asset?.tokenId + '?width=50&height=50'"
+              alt="icon">
+            <div #itemSpinner class="absolute_center z-1 m-auto">
+              <totem-spinner [size]="'14'"></totem-spinner>
+            </div>
+          </div>
+          <div class="flex items-center justify-start">
+            <div class="item-name">ID: {{asset.tokenId}}</div>
+          </div>
+          <!-- Avatar ID: {{asset.tokenId}} -->
         </div>
       </ng-container>
     </div>
     <div *ngIf="type === 'game'" class="asset-selector-menu-wrapper w-full h-full overflow-x-hidden overflow-y-auto flex flex-col items-center justify-start p-2 rounded-[8px]">
       <ng-container *ngFor="let game of games">
         <div
-          class="w-full h-12 shrink-0 rounded-[12px] asset-selector-item flex flex-row items-center justify-start px-4 text-[16px] font-normal leading-[17px]"
+          class="w-full h-12 shrink-0 rounded-[12px] asset-selector-item flex flex-row gap-2 items-center justify-start px-2 text-[16px] font-normal leading-[17px]"
           (click)="selectGame(game)">
-          Game: {{game?.general?.name}}
+          <div class="item-prev-icon h-10 w-10 relative rounded-[12px] overflow-hidden shrink-0">
+            <img
+              calss="w-full h-full object-cover"
+              (changeSrc)="$event ? itemSpinner.style.display = 'block': itemSpinner.style.display = 'none'"
+              loading="lazy"
+              *ngIf="game?.images?.smallThumbnail"
+              [src]="game?.images?.smallThumbnail"
+              alt="icon">
+            <div #itemSpinner class="absolute_center z-1 m-auto">
+              <totem-spinner [size]="'14'"></totem-spinner>
+            </div>
+          </div>
+          <div class="flex flex-col items-start justify-center truncate max-w-full w-full gap-1">
+            <!-- <div class="item-name">{{game?.general?.name}}</div> -->
+            <div class="item-name truncate max-w-full w-full">{{game?.general?.name}}</div>
+            <div class="item-type text-[14px] leading-[15px] t-col-light-grey">{{game?.general?.genre && game.general?.genre?.length ? game?.general?.genre![0] : 'Action'}}</div>
+          </div>
+          <!-- Game: {{game?.general?.name}} -->
         </div>
       </ng-container>
     </div>
