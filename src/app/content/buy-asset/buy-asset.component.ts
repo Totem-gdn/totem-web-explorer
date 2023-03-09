@@ -24,6 +24,7 @@ import { environment } from '@env/environment';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, catchError, combineLatest, map, of, Subscription, timer } from 'rxjs';
+import { renderPaperCheckoutLink } from "@paperxyz/js-client-sdk"
 
 
 @Component({
@@ -79,6 +80,26 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
     //this.playAnimation();
     this.startScript()
   }
+
+
+
+
+  openCheckout() {
+    const paymentLinkHeaders = {
+      Authorization: `Bearer ac9ddee4-e8ba-4149-a412-a484960ba65e`,
+    };
+    renderPaperCheckoutLink({
+      checkoutLinkUrl: "https://withpaper.com/checkout-link-intent/?colorPrimary=%236dcbb6&colorBackground=%23163643&colorText=%23f0f0f0&borderRadius=2",
+    });
+  }
+
+
+
+
+
+
+
+
 
   startScript() {
     this.cardInterval?.unsubscribe();
@@ -168,7 +189,23 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
       }))
       .subscribe((data: CardPaymentResponse) => {
         if (data && data.url) {
-          this.openInNewWindow(data.url);
+          renderPaperCheckoutLink({
+            checkoutLinkUrl: `${data.url}?colorPrimary=%239A7ED7&colorBackground=%231d1f27&colorText=%23ffffff&borderRadius=24`,
+            onPaymentSucceeded({ transactionId }) {
+              console.log(transactionId);
+              console.log('SUCCEEED');
+            },
+            onTransferSucceeded({ transactionId, claimedTokens, }) {
+              console.log(transactionId, claimedTokens);
+              console.log('TRANFER SUCCEEED');
+            },
+            onModalClosed() {
+              console.log('MODAL CLOSED');
+              console.log('MODAL CLOSED');
+              console.log('MODAL CLOSED');
+            },
+          });
+          //this.openInNewWindow(data.url);
         }
         this.loading$.next(false);
       });

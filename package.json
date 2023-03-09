@@ -29,6 +29,7 @@
     "@material/slider": "^14.0.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "@paperxyz/js-client-sdk": "^0.0.49",
     "@types/keccak": "^3.0.1",
     "@types/readable-stream": "^2.3.14",
     "@w11k/ngx-componentdestroyed": "^5.0.2",
