@@ -3,6 +3,7 @@ import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { Animations } from '@app/core/animations/animations';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { StoreService } from '@app/core/store/store.service';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'totem-entity-selector',
@@ -17,6 +18,7 @@ export class TotemEntitySelectorComponent {
 
   menuActive: boolean = false;
   dropdown: ElementRef | undefined = undefined;
+  assetRendererUrl: string = environment.ASSET_RENDERER_URL;
   @ViewChild('dropdown', { static: false }) set content(content: ElementRef) {
     if(content) {
         this.dropdown = content;

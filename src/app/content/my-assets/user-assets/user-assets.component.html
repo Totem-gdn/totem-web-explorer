@@ -72,15 +72,15 @@
           <div class="flex flex-row flex-wrap xs:flex-nowrap items-end justify-between w-full">
             <div class="flex flex-row items-center flex-wrap md:flex-nowrap mt-1">
               <p class="text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium w-full sm:w-max">Showing assets in: &nbsp;</p>
-              <totem-entity-selector class="mt-7 sm:mt-0 pb-3 sm:pb-0 text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+              <totem-entity-selector class="mt-5 sm:mt-0 pb-3 sm:pb-0 text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
               [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
             </div>
             <totem-sort-button (sortSelected)="sortAssets('avatar', 1, $event)"></totem-sort-button>
           </div>
-          <div class="flex flex-wrap items-start justify-start gap-4 mt-6">
+          <div class="grid grid-cols-2 smd:flex smd:flex-wrap items-start justify-start gap-4 mt-6 w-full">
             <ng-container *ngIf="avatars$ | async as avatars">
               <ng-container *ngFor="let avatar of avatars">
-                <totem-asset-card class="w-full sm:w-min" [asset]="avatar"></totem-asset-card>
+                <totem-asset-card class="w-full smd:w-min" [asset]="avatar"></totem-asset-card>
               </ng-container>
             </ng-container>
           </div>
@@ -96,16 +96,16 @@
           <div class="flex flex-row flex-wrap xs:flex-nowrap items-end justify-between w-full">
             <div class="flex flex-row items-center flex-wrap md:flex-nowrap mt-1">
               <p class="text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium w-full sm:w-max">Showing assets in: &nbsp;</p>
-              <totem-entity-selector class="mt-7 sm:mt-0 pb-3 sm:pb-0 text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
+              <totem-entity-selector class="mt-5 sm:mt-0 pb-3 sm:pb-0 text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium" *ngIf="(games$ | async)" [type]="'game'" [games]="(games$ | async)!"
               [activeGame]="selectedGame$ | async" (gameSelected)="setGame($event)"></totem-entity-selector>
             </div>
             <totem-sort-button (sortSelected)="sortAssets('item', 1, $event)"></totem-sort-button>
           </div>
 
-          <div class="flex flex-wrap items-start justify-start gap-4 mt-6">
+          <div class="grid grid-cols-2 smd:flex smd:flex-wrap items-start justify-start gap-4 mt-6 w-full">
             <ng-container *ngIf="items$ | async as items">
               <ng-container *ngFor="let item of items">
-                <totem-asset-card class="w-full sm:w-min" [asset]="item"></totem-asset-card>
+                <totem-asset-card class="w-full smd:w-min" [asset]="item"></totem-asset-card>
               </ng-container>
             </ng-container>
           </div>
