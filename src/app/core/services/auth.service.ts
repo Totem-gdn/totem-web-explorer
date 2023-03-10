@@ -75,7 +75,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
       const userInfo = {
         idToken: token
       }
-      localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey }));
+      localStorage.setItem(StorageKey.USER_INFO, JSON.stringify({ userInfo, key: publicKey, typeOfAuth: 'external' }));
       //this.getUsersTokenGiveawayState();
 
     }
@@ -128,6 +128,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     await this.web3AuthService.logout();
     this.snackNotifierService.open('Signed out');
     localStorage.removeItem(StorageKey.USER_INFO);
+    localStorage.removeItem(StorageKey.OPEN_LOGIN);
     localStorage.removeItem('profile-image');
     this.userInfo$.next(null);
     this.router.navigate(['/']);
@@ -137,6 +138,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     this.snackNotifierService.open('Signed out');
     localStorage.removeItem('user-info');
     localStorage.removeItem('profile-image');
+    localStorage.removeItem(StorageKey.OPEN_LOGIN)
     this.userInfo$.next(null);
   }
 
