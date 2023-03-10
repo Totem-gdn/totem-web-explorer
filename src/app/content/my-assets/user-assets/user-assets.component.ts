@@ -1,11 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/snack-bar-notifier.service";
+import { StorageKey } from "@app/core/models/enums/storage-keys.enum";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
-import { UserEntity, UserAssetCountEntity, AccountMetaBody } from "@app/core/models/interfaces/user-interface.model";
+import { UserEntity, UserAssetCountEntity, AccountMetaBody, UserCountAssetBody } from "@app/core/models/interfaces/user-interface.model";
 import { UserStateService } from "@app/core/services/auth.service";
 import { ProfileService } from "@app/core/services/profile.service";
+import { MaxViewedAssetIdService } from "@app/core/services/utils/max-viewed-asset-id.service";
 import { MyAssetsStoreService } from "@app/core/store/my-assets-store.service";
 import { StoreService } from "@app/core/store/store.service";
 import { environment } from "@env/environment";
@@ -31,6 +33,11 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
 
   assetTotal: UserAssetCountEntity | undefined = undefined;
 
+  newItemsChecked: boolean = false;
+  newAvatarsChecked: boolean = false;
+  newAvatarsToGlow: AssetInfo[] = [];
+  newItemsToGlow: AssetInfo[] = [];
+
   @Input() customUser: UserEntity | null = null;
   @Input() set setTotal(total: UserAssetCountEntity | undefined) {
     if(!total) return;
@@ -48,6 +55,7 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
     private myAssetsStoreService: MyAssetsStoreService,
     private storeService: StoreService,
     private snackNotifierService: SnackNotifierService,
+    private maxViewedAssetIdService: MaxViewedAssetIdService,
     ) {
       this.routeValue$.next(this.router.url);
     }
@@ -95,14 +103,62 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
       this.myAssetsStoreService.items$
     ]).pipe(
       map(([avatars, items]) => { return { avatars, items } })).subscribe((data) => {
+        this.setGlowIfNewAvailable(data);
         this.avatars$.next(data.avatars);
         this.items$.next(data.items);
         this.setRendererUrlForAll();
       });
   }
 
+  setGlowIfNewAvailable(data: {avatars: AssetInfo[], items: AssetInfo[]}) {
+    if (data.avatars && data.avatars.length) {
+      if (this.newAvatarsChecked) return;
+      console.log(data.avatars);
+      console.log('called 1st time avatars');
+      let maxVievedAvatarId: number | undefined = this.maxViewedAssetIdService.getMaxIdFromStorage('avatar');
+      if (maxVievedAvatarId) {
+        let newAvatars: AssetInfo[] = [];
+        newAvatars = data.avatars.filter((avatar: AssetInfo) => {
+          return (avatar?.tokenId > maxVievedAvatarId!)
+          }
+        );
+        this.newAvatarsToGlow = newAvatars;
+        this.newAvatarsChecked = true;
+      }
+
+      const maxAvatarId = this.maxViewedAssetIdService.getMaxAssetId(data.avatars);
+      if (maxAvatarId) this.maxViewedAssetIdService.setMaxIdToStorage('avatar', maxAvatarId);
+    }
+
+    if (data.items && data.items.length) {
+      if (this.newItemsChecked) return;
+      console.log(data.items);
+      console.log('called 1st time items');
+      let maxVievedItemId: number | undefined = this.maxViewedAssetIdService.getMaxIdFromStorage('item');
+      if (maxVievedItemId) {
+        let newItems: AssetInfo[] = [];
+        newItems = data.items.filter((item: AssetInfo) => {
+          return (item?.tokenId > maxVievedItemId!)
+          }
+        );
+        this.newItemsToGlow = newItems;
+        this.newItemsChecked = true;
+      }
+
+      const maxItemId = this.maxViewedAssetIdService.getMaxAssetId(data.items);
+      if (maxItemId) this.maxViewedAssetIdService.setMaxIdToStorage('item', maxItemId);
+    }
+  }
+
+  isNewItem(item: AssetInfo): boolean {
+    return this.newItemsToGlow.some((asset: AssetInfo) => asset.tokenId === item.tokenId);
+  }
+  isNewAvatar(avatar: AssetInfo): boolean {
+    return this.newAvatarsToGlow.some((asset: AssetInfo) => asset.tokenId === avatar.tokenId);
+  }
+
   getAssetCount(user: UserEntity) {
-    if (!user.wallet) return;;
+    if (!user.wallet) return;
     this.profileService.getUserAssetsCount(user.wallet)
       .pipe(take(1))
       .subscribe((total: AccountMetaBody) => {
@@ -111,7 +167,7 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
           this.getUserAssets(user);
         }
     })
-    this.getUserAssets(user);
+    //this.getUserAssets(user);
   }
 
   getUserAssets(user: UserEntity) {
@@ -131,6 +187,10 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
   }
 
   // utils
+
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
 
   copied() {
     this.snackNotifierService.open('Copied to the clipboard');
@@ -201,5 +261,6 @@ export class UserAssetsComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
       this.subs.next();
       this.subs.complete();
+      this.myAssetsStoreService.resetData();
   }
 }

@@ -89,4 +89,12 @@ export class MyAssetsStoreService {
     });
   }
 
+
+  // utils
+
+  resetData() {
+    this.avatars.next([]);
+    this.items.next([]);
+  }
+
 }

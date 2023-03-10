@@ -86,19 +86,15 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
       profileImage: userInfo?.profileImage,
       wallet: wallet
     }
+    this.setUserAfterLogin();
     this.userInfo$.next(userToUse);
     return userInfo;
   }
 
-  private getUsersTokenGiveawayState() {
+  private setUserAfterLogin() {
     this.tokenGiveawayService.getActivity().pipe(
       untilComponentDestroyed(this),
-    ).subscribe((data: WelcomeUser) => {
-      if (data && data.welcomeTokens == 0) {
-        this.openWelcomeDialog();
-      }
-    })
-
+    ).subscribe();
   }
 
   private openWelcomeDialog() {
