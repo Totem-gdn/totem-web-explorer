@@ -192,17 +192,10 @@ export class TotemBuyAssetComponent implements AfterViewInit, OnDestroy {
           renderPaperCheckoutLink({
             checkoutLinkUrl: `${data.url}?colorPrimary=%239A7ED7&colorBackground=%231d1f27&colorText=%23ffffff&borderRadius=24`,
             onPaymentSucceeded({ transactionId }) {
-              console.log(transactionId);
               console.log('SUCCEEED');
             },
             onTransferSucceeded({ transactionId, claimedTokens, }) {
-              console.log(transactionId, claimedTokens);
               console.log('TRANFER SUCCEEED');
-            },
-            onModalClosed() {
-              console.log('MODAL CLOSED');
-              console.log('MODAL CLOSED');
-              console.log('MODAL CLOSED');
             },
           });
           //this.openInNewWindow(data.url);
