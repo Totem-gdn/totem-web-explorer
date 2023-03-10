@@ -12,6 +12,7 @@ import { OpenLoginUserInfo, UserEntity } from "../models/interfaces/user-interfa
 import { WelcomeUser } from "../models/interfaces/welcome-tokens.model";
 import { Web3AuthService } from "../web3auth/web3auth.service";
 import { TokenGiveawayService } from "./giveaway/token-giveaway.service";
+import { RandomIconGeneratorService } from "./utils/icon-generator.service";
 
 
 @Injectable({ providedIn: 'root' })
@@ -31,6 +32,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     private tokenGiveawayService: TokenGiveawayService,
     private welcomeDialogService: WelcomeDialogService,
     private transactionDialogService: TransactionDialogService,
+    private randomIconGeneratorService: RandomIconGeneratorService,
   ) {
     super();
   }
@@ -47,10 +49,10 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     this.loading$.next(false);
   }
 
-  async login() {
+  async login(redirectUrl?: string) {
     await this.web3AuthService.login();
     this.loading$.next(true);
-    const currentUser = await this.getUserInfoViaWeb3();
+    const currentUser = await this.getUserInfoViaWeb3(redirectUrl);
     this.gtag.event('login', {
       'event_label': `login user ${currentUser?.name} with provider ${currentUser?.typeOfLogin}`,
     });
@@ -58,7 +60,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     this.loading$.next(false);
   }
 
-  async getUserInfoViaWeb3() {
+  async getUserInfoViaWeb3(redirectUrl?: string) {
     const wallet: string = await this.web3AuthService.getAccounts();
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
     let token = userInfo?.idToken;
@@ -80,14 +82,21 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
 
     }
 
+    console.log(wallet);
+    const profileImage: string = userInfo?.profileImage ? userInfo?.profileImage : this.randomIconGeneratorService.getUserIcon(wallet);
+    //this.randomIconGeneratorService.getUserIcon(wallet);
+
     const userToUse: UserEntity = {
       name: userInfo?.name,
       email: userInfo?.email,
-      profileImage: userInfo?.profileImage,
+      profileImage: profileImage,
       wallet: wallet
     }
     this.setUserAfterLogin();
     this.userInfo$.next(userToUse);
+    if (redirectUrl) {
+      this.router.navigate([redirectUrl]);
+    }
     return userInfo;
   }
 
@@ -128,7 +137,6 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     await this.web3AuthService.logout();
     this.snackNotifierService.open('Signed out');
     localStorage.removeItem(StorageKey.USER_INFO);
-    localStorage.removeItem(StorageKey.OPEN_LOGIN);
     localStorage.removeItem('profile-image');
     this.userInfo$.next(null);
     this.router.navigate(['/']);
@@ -138,7 +146,6 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     this.snackNotifierService.open('Signed out');
     localStorage.removeItem('user-info');
     localStorage.removeItem('profile-image');
-    localStorage.removeItem(StorageKey.OPEN_LOGIN)
     this.userInfo$.next(null);
   }
 

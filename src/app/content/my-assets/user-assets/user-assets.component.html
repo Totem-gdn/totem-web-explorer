@@ -80,7 +80,7 @@
           <div class="grid grid-cols-2 smd:flex smd:flex-wrap items-start justify-start gap-4 mt-6 w-full">
             <ng-container *ngIf="avatars$ | async as avatars">
               <ng-container *ngFor="let avatar of avatars; trackBy: trackByFn">
-                <totem-asset-card [ngClass]="isNewAvatar(avatar) ? 'glow' : ''" class="w-full smd:w-min rounded-[24px]" [asset]="avatar"></totem-asset-card>
+                <totem-asset-card [ngClass]="isNewAvatar(avatar) && !customUser ? 'glow' : ''" class="w-full smd:w-min rounded-[24px]" [asset]="avatar"></totem-asset-card>
               </ng-container>
             </ng-container>
           </div>
@@ -105,7 +105,7 @@
           <div class="grid grid-cols-2 smd:flex smd:flex-wrap items-start justify-start gap-4 mt-6 w-full">
             <ng-container *ngIf="items$ | async as items">
               <ng-container *ngFor="let item of items; trackBy: trackByFn">
-                <totem-asset-card [ngClass]="isNewItem(item) ? 'glow' : ''" class="w-full smd:w-min rounded-[24px]" [asset]="item"></totem-asset-card>
+                <totem-asset-card [ngClass]="isNewItem(item) && !customUser ? 'glow' : ''" class="w-full smd:w-min rounded-[24px]" [asset]="item"></totem-asset-card>
               </ng-container>
             </ng-container>
           </div>

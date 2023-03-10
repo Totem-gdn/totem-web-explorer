@@ -24,7 +24,7 @@
       <p [ngStyle]="!isScrolling ? {'opacity': '1'} : {'opacity': '0'}" class="text-[14px] leading-[15px] font-medium ml-3">Select Game</p>
     </div>
     <totem-sideselector *ngIf="!toggleSideselector" [toggleState]="toggleMobileSideselector" (closeState)="toggleSelector($event)"></totem-sideselector>
-    <totem-profile-cover @toggleSelector *ngIf="coverOpened" class="w-full h-[calc(100%-80px)] z-2 fixed inset-0 !top-20"></totem-profile-cover>
+    <totem-profile-cover @toggleSelector *ngIf="coverOpened" class="w-full h-[calc(100%-80px)] z-10 fixed inset-0 !top-20"></totem-profile-cover>
 
     <!-- Footer -->
     <div class="footer">

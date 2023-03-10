@@ -11,6 +11,7 @@ import { UserStateService } from "@app/core/services/auth.service";
 import { AssetHistoryService } from "@app/core/services/crypto/asset-history.service";
 import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { TotemEventListenerService } from "@app/core/services/utils/global-event-listeners.service";
+import { RandomIconGeneratorService } from "@app/core/services/utils/icon-generator.service";
 import { StoreService } from "@app/core/store/store.service";
 import { environment } from "@env/environment";
 import { OnDestroyMixin, untilComponentDestroyed } from "@w11k/ngx-componentdestroyed";
@@ -124,6 +125,7 @@ export class AssetOwnershipHistoryComponent extends OnDestroyMixin implements On
     private assetHistoryService: AssetHistoryService,
     private userStateService: UserStateService,
     private router: Router,
+    private randomIconGeneratorService: RandomIconGeneratorService,
   ) {
     super();
   }
@@ -185,6 +187,10 @@ export class AssetOwnershipHistoryComponent extends OnDestroyMixin implements On
     if (this.user) {
       this.userIcon = 'assets/icons/nav/account_circle.svg';
     }
+  }
+
+  getUserIcon(wallet: string): string {
+    return this.randomIconGeneratorService.getUserIcon(wallet);
   }
 
   goToProfile(address: string) {
