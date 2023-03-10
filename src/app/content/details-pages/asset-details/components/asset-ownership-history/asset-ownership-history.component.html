@@ -32,7 +32,7 @@
           <img class="h-full w-full object-cover" [src]="userIcon" alt="user-image" (error)="updateProfileImage()">
         </ng-container>
         <ng-container *ngIf="item.to != user?.wallet">
-          <img class="h-full w-full object-cover" [src]="item?.icon || 'assets/icons/nav/account_circle.svg'" alt="user-image" (error)="updateProfileImage()">
+          <img class="h-full w-full object-cover" [src]="getUserIcon(item?.to) || 'assets/icons/nav/account_circle.svg'" alt="user-image" (error)="updateProfileImage()">
         </ng-container>
 
       </div>

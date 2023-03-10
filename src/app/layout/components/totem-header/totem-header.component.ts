@@ -143,8 +143,8 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
     this.cryptoUtilsService.updateBalance();
   }
 
-  logIn() {
-    this.userStateService.login();
+  logIn(redirectUrl?: string) {
+    this.userStateService.login(redirectUrl);
   }
 
   logOut() {
@@ -157,7 +157,7 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   navigateToMyAssets() {
     if (!this.currUser$.getValue()) {
-      this.logIn();
+      this.logIn('/profile/my-assets');
     } else {
       this.router.navigate(['/profile/my-assets']);
     }
