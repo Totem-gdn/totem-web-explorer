@@ -16,7 +16,8 @@
       <p class="text-[20px] leading-[22px] font-medium flex items-center cursor-pointer" [cdkCopyToClipboard]="user?.wallet || ''" [cdkCopyToClipboardAttempts]="2" (cdkCopyToClipboardCopied)="copied()">
           {{user?.slicedWallet || '0xasfasgas'}} <mat-icon class="!h-[18px] !w-[18px] ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon>
       </p>
-      <p class="text-[16px] leading-[17px] font-normal t-col-light-grey mt-[2px]">Balance: $ {{balance}}</p>
+      <p *ngIf="!(user?.name && user?.email)" class="text-[16px] leading-[17px] font-normal t-col-light-grey mt-[2px]">Balance: $ {{balance}}</p>
+      <p *ngIf="(user?.name && user?.email)" class="text-[16px] leading-[17px] font-normal t-col-light-grey mt-[2px]">Wallet address</p>
     </div>
     <div class="w-full mt-4 flex flex-col items-center justify-start">
       <div class="navigation-item w-full flex flex-row items-center justify-start py-3 px-3 cursor-pointer rounded-[12px]" (click)="onNavigateMessages()">

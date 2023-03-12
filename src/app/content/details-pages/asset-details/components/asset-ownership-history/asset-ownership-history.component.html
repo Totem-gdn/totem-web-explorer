@@ -32,7 +32,7 @@
           <img class="h-full w-full object-cover" [src]="userIcon" alt="user-image" (error)="updateProfileImage()">
         </ng-container>
         <ng-container *ngIf="item.to != user?.wallet">
-          <img class="h-full w-full object-cover" [src]="'assets/icons/nav/account_circle.svg'" alt="user-image" (error)="updateProfileImage()">
+          <img class="h-full w-full object-cover" [src]="getUserIcon(item?.to) || 'assets/icons/nav/account_circle.svg'" alt="user-image" (error)="updateProfileImage()">
         </ng-container>
 
       </div>
@@ -49,7 +49,7 @@
     </div>
 
     <div class="w-full ownership-table-item">
-      <p>{{'0'}}</p>
+      <p>{{item?.price * (type === 'item' ? 2 : 3) || '0'}}</p>
     </div>
 
     <div class="ownership-table-item tx-table-column cursor-pointer" (click)="goToTx(item?.hash)">

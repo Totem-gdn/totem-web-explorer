@@ -1,19 +1,19 @@
 <div class="wrapper relative">
     <div class="gradient"></div>
     <!-- <div class="img-wrapper relative" *ngIf="game && renderer; else assetLoader"> -->
-    <div class="img-wrapper relative">
+    <div class="img-wrapper relative" (click)="navigateToAsset(legacy.assetId)">
         <img class="object-fill" [src]="renderer" alt="">
         <div class="timestamp">
             <p>{{game?.updatedAt | creationTime}}</p>
         </div>
-        <div class="absolute bottom-0 left-0 w-9 lg:w-12 h-9 lg:h-12 flex items-center justify-center" (click)="toggleCover()">
-          <mat-icon class="!w-6 !h-6" [svgIcon]="'line:share_link'"></mat-icon>
+        <div class="cover-button absolute bottom-0 left-0 w-9 lg:w-12 h-9 lg:h-12 flex items-center justify-center" (click)="toggleCover(); $event.stopPropagation()">
+          <mat-icon class="!w-6 !h-6" [svgIcon]="'mat_outline:open_in_new'"></mat-icon>
         </div>
     </div>
 
     <div class="in-game flex flex-col lg:px-[8px] py-3 lg:py-0">
         <!-- <div class="flex" *ngIf="game; else gameLoader"> -->
-        <div class="flex">
+        <div class="flex" (click)="navigateToGame(game ? game : undefined)">
             <img class="w-[50px] lg:w-[64px] h-[50px] lg:h-[64px] rounded-xl mr-[12px]" [src]="game?.images?.smallThumbnail" alt="">
             <div class="flex flex-col justify-center min-w-[0px]">
                 <p class="max-2-lines lh-1_2 game-name">{{game?.general?.name || 'GAME NAME'}} </p>

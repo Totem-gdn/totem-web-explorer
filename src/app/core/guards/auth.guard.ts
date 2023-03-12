@@ -26,19 +26,25 @@ export class AuthGuard implements CanActivate {
         state: RouterStateSnapshot): boolean | Promise<boolean> {
         const isAuthenticated = this.userStateService.isLoggedIn();
 
-        const openLogin = JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!);
+        let userDataToGuard: any = null;
+        userDataToGuard = JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!);
+        const userData = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
+        if (userData && userData?.typeOfAuth && userData.typeOfAuth === 'external') {
+          userDataToGuard = userData.userInfo;
+        }
 
         const isAuthenticatedCache =
-            !!(openLogin?.idToken)
+            !!(userDataToGuard?.idToken)
             &&
             !!(this.baseStorageService.getItem(StorageKey.ADAPTER));
-
 
         if (!isAuthenticatedCache && !isAuthenticated) {
             this.router.navigate(['/']);
         }
+
         // add check on expire date Token
-        const jwtInfo = this.userStateService.parseJwt(openLogin.idToken);
+        const jwtInfo = this.userStateService.parseJwt(userDataToGuard?.idToken);
+
         const expDate = new Date(+(jwtInfo.exp + '000'));
         if (expDate < new Date() || this.web3.isLoggedIn() && !localStorage.getItem(StorageKey.USER_INFO)) {
           this.popupService.showColorPopup(COLOR_POPUP_TYPE.LOGOUT);

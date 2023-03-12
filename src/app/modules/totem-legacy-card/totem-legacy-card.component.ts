@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { RendererAvailableTypes } from '@app/core/models/interfaces/asset-info.model';
@@ -32,7 +33,8 @@ export class TotemLegacyCardComponent implements OnInit, OnDestroy {
   constructor(
     private storeService: StoreService,
     private gamesService: GamesService,
-    private totemLegacyCardService: TotemLegacyCardService
+    private totemLegacyCardService: TotemLegacyCardService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -118,6 +120,18 @@ export class TotemLegacyCardComponent implements OnInit, OnDestroy {
 
   setCustomRenderer(url: string, type: string, id?: number) {
     this.renderer = `${url}/${type}/${id}?width=400&height=400`;
+  }
+
+  navigateToGame(game?: GameDetail) {
+    if (!game) return;
+    this.router.navigate(['game', game.id]);
+  }
+
+  navigateToAsset(id?: number | string) {
+    console.log(id);
+
+    if (!id) return;
+    this.router.navigate([this.type, id]);
   }
 
   ngOnDestroy(): void {

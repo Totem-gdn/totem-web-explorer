@@ -31,6 +31,9 @@
     &:hover .in-game .description span {
         color: $white;
     }
+    &:hover .img-wrapper .cover-button {
+        color: $white;
+    }
 
     .img-wrapper {
         z-index: 1;
@@ -139,4 +142,9 @@
   @media (max-width: 1000px) {
     border-radius: 18px;
   }
+}
+
+.cover-button {
+  color: $totem-light-grey;
+  transition: color 0.3s ease-in-out;
 }

@@ -11,6 +11,7 @@ import { UserStateService } from "@app/core/services/auth.service";
 import { LegacyService } from "@app/core/services/crypto/legacy.service";
 import { DNAParserService } from "@app/core/services/utils/dna-parser.service";
 import { TotemEventListenerService } from "@app/core/services/utils/global-event-listeners.service";
+import { RandomIconGeneratorService } from "@app/core/services/utils/icon-generator.service";
 import { StoreService } from "@app/core/store/store.service";
 import { environment } from "@env/environment";
 import { Observable } from "rxjs";
@@ -42,6 +43,7 @@ export class AssetInformationComponent implements OnInit {
     private storeService: StoreService,
     private snackbarService: SnackNotifierService,
     private totemEventListenerService: TotemEventListenerService,
+    private randomIconGeneratorService: RandomIconGeneratorService,
   ) { }
 
   ngOnInit(): void {
@@ -144,6 +146,10 @@ export class AssetInformationComponent implements OnInit {
 
   }
 
+  getUserIcon(wallet: string): string {
+    return this.randomIconGeneratorService.getUserIcon(wallet);
+  }
+
   refreshAsset() {
     this.refreshEvent.emit('refresh');
   }
@@ -154,6 +160,10 @@ export class AssetInformationComponent implements OnInit {
 
   navigateToBuy() {
     this.router.navigate(['/buy']);
+  }
+
+  navigateToGame(game: GameDetail) {
+    this.router.navigate(['game', game.id]);
   }
 
 }
