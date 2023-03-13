@@ -22,7 +22,7 @@ interface Tooltip {
   decodedData?: string;
 }
 
-const legacyDemo: any[] = [
+/* const legacyDemo: any[] = [
     {
         recordId: "19",
         playerAddress: "0xb0B186E176c6ba778FFcB014db00b2e85d3F33Ae",
@@ -72,7 +72,7 @@ const legacyDemo: any[] = [
         data: "eyJkZXNjcmlwdGlvbiI6Ik5DQnRiMjV6ZEdWeWN5QnJhV3hzWldRZ1lYUWdiMjVsSUhScGJXVSJ9"
     }
 
-]
+] */
 
 @Component({
     selector: 'asset-legacy',
@@ -159,7 +159,7 @@ export class AssetLegacyComponent implements OnInit {
           //console.log(response);
           if (!response) return;
 
-          if (this.tokenId > 800 && this.tokenId < 820) {
+          /* if (this.tokenId > 800 && this.tokenId < 820) {
             this.legacy = legacyDemo.map((legacy: any) => {
               return {
                 ...legacy,
@@ -173,7 +173,7 @@ export class AssetLegacyComponent implements OnInit {
             }
             this.loading$.next(false);
             return;
-          }
+          } */
 
           this.legacy = [...this.legacy, ...response?.results];
           this.checkMedia(this.currentBpState);
