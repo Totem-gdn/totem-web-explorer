@@ -24,7 +24,7 @@ enum queries {
   xxl = '(min-width: 1440px)',
 }
 
-const itemOwners: any[] = [
+/* const itemOwners: any[] = [
   {
     tokenId: "929",
     tokenType: "avatars",
@@ -87,7 +87,7 @@ const avatarOwners: any[] = [
     createdAt: "2023-02-29T15:28:10.435Z",
     icon: 'assets/images/hero-background.png'
   }
-]
+] */
 
 @Component({
     selector: 'asset-ownership-history',
@@ -150,12 +150,12 @@ export class AssetOwnershipHistoryComponent extends OnDestroyMixin implements On
     this.assetHistoryService.getHistory(this.type, id).pipe(
       untilComponentDestroyed(this),
     ).subscribe(history => {
-      if (id > 800 && id < 820) {
+      /* if (id > 800 && id < 820) {
         let owns: any[] = this.type === 'item' ? itemOwners : avatarOwners;
         this.history = [...history, ...owns];
         this.checkItemsAmountToCollapse();
         return;
-      }
+      } */
       this.history = history;
       this.checkItemsAmountToCollapse();
     })
