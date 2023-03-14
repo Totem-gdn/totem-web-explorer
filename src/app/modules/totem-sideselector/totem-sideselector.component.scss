@@ -31,8 +31,8 @@
 
 .selected-game-card {
   position: relative;
-  border: 1px solid $totem-light-violet;
-  &:before {
+  //border: 1px solid $totem-light-violet;
+  /* &:before {
     content: '';
     position: absolute;
     width: 100%;
@@ -41,8 +41,8 @@
     inset: 0;
     background: $totem-select-gradient;
     z-index: -1;
-  }
-  //background: $totem-main-gradient;
+  } */
+  background: $totem-main-gradient;
 }
 
 .rounded-12 {
@@ -53,7 +53,7 @@
   position: relative;
   border: 2px solid transparent;
   transition: border 0.22s ease-out, background-color 0.22s ease-out;
-  &:before {
+  /* &:before {
     content: '';
     position: absolute;
     width: 100%;
@@ -63,17 +63,18 @@
     background: $totem-select-gradient;
     opacity: 0;
     z-index: -1;
-  }
+  } */
   &:hover {
     background-color: $totem-black;
   }
 }
 
 .game-card-selected {
-  border: 2px solid $totem-light-violet;
-  &:before {
+  border: 2px solid $totem-violet;
+  background-color: $totem-black;
+  /* &:before {
     opacity: 1;
-  }
+  } */
 }
 
 .no-renderer-game {
