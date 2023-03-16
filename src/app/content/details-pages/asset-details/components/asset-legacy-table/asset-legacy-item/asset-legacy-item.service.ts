@@ -27,13 +27,13 @@ export class AssetLegacyItemService {
       replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
       //the json is ok
       const parsedJson: {description: string} = JSON.parse(decodedData);
-      let decodedJson: { data: string, description: string } = {data: '', description: parsedJson?.description}; //description will be field, no need to decode
-      /* let decodedJson: { data: string, description: string } = this.decodeData(parsedJson?.description, true); */
+      //let decodedJson: { data: string, description: string } = {data: '', description: parsedJson?.description}; //description will be field, no need to decode
+      let decodedJson: { data: string, description: string } = this.decodeData(parsedJson?.description, true);
       if (!decodedJson.description) return { data: decodedJson.data, description: '' };
       return { data: decodedJson.data, description: decodedJson.description };
     } else {
       //the json is not ok
-      return { data: decodedData, description: '' };
+      return { data: decodedData, description: isJson ? decodedData : '' };
     }
   }
 
@@ -42,7 +42,7 @@ export class AssetLegacyItemService {
       let decodedData: string = window.atob(strToDec);
       return decodedData;
     }
-    return '';
+    return strToDec;
   }
 
 }

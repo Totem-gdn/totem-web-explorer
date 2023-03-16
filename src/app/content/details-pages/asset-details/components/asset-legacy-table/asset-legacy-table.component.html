@@ -10,10 +10,9 @@
         </div>
         <div @toggleShadow *ngIf="!showAll && showViewAll" class="shadow-box absolute bottom-0 z-1"></div>
     </div>
-
     <div class="w-full h-0 flex items-center justify-center absolute bottom-0">
-      <div *ngIf="showViewAll && (!showAll || !showLoadMore)" (click)="showMore(!showAll)" class="totem-show-more-button z-2">{{showAll ? 'Show less' : 'Show all'}}</div>
-      <div *ngIf="showAll && showLoadMore && !(loading$ | async); else buttonLoading" (click)="loadMore()" class="totem-show-more-button z-2">Load more</div>
+      <div *ngIf="showViewAll && (!showAll || !showLoadMore)" (click)="showMore(!showAll)" class="totem-show-more-button z-2">{{showAll ? 'Collapse' : 'Expand'}}</div>
+      <div [ngStyle]="disableButton ? {'pointer-events':'none', 'color': '#8A93A0', 'background': '#323741'} : {'pointer-events':'all'}" *ngIf="showAll && showLoadMore && !(loading$ | async); else buttonLoading" (click)="loadMore()" class="totem-show-more-button z-2">Load more</div>
     </div>
 </div>
 

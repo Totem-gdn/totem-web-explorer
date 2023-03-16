@@ -113,8 +113,14 @@
   font-size: 14px;
   line-height: 15px;
   cursor: pointer;
-  transition: background 0.33s ease-in-out;
+  transition: color 0.22s ease-out, border 0.22s ease-out, background 0.33s ease-in-out, box-shadow 0.33s ease-out;
   &:hover {
-    background: $totem-dark-grey;;
+    box-shadow: inset 0 -60px 0 0 white;
+    color: $totem-black;
+  }
+  &:disabled,
+  &[disabled]{
+    background: $totem-light-grey;
+    color: $totem-divider-grey;
   }
 }

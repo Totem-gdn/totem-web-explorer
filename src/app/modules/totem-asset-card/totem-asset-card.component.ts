@@ -9,6 +9,7 @@ import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.mo
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { environment } from '@env/environment';
+import { StoreService } from '@app/core/store/store.service';
 
 @Component({
   selector: 'totem-asset-card',
@@ -24,7 +25,7 @@ export class TotemAssetCardComponent {
               private favouritesService: FavouritesService,
               private web3Service: Web3AuthService,
               private messageService: SnackNotifierService,
-              private gameService: GamesService) {}
+              private storeService: StoreService) {}
 
   @Input() width = 'full';
   @Input() asset: AssetInfo | null = null;
@@ -34,6 +35,7 @@ export class TotemAssetCardComponent {
   ngOnInit() {
     if(!this.asset) return;
     this.asset.rarity = this.asset.tokenId % 100;
+    this.asset.games = this.storeService.gamesAmount;
   }
 
   goToAsset(asset: AssetInfo) {

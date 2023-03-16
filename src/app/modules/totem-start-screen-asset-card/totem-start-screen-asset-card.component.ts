@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { environment } from '@env/environment';
+import { StoreService } from '@app/core/store/store.service';
 
 @Component({
   selector: 'totem-start-screen-asset-card',
@@ -14,7 +15,7 @@ import { environment } from '@env/environment';
 })
 export class TotemStartScreenAssetCardComponent {
 
-  constructor(private router: Router,) {}
+  constructor(private router: Router, private storeService: StoreService) {}
 
   @Input() width = 'full';
   @Input() asset: AssetInfo | null = null;
@@ -24,6 +25,7 @@ export class TotemStartScreenAssetCardComponent {
   ngOnInit() {
     if(!this.asset) return;
     this.asset.rarity = this.asset.tokenId % 100;
+    this.asset.games = this.storeService.gamesAmount;
   }
 
   goToAsset(asset: AssetInfo) {
