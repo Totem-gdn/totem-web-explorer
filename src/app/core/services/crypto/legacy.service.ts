@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
-import { Achievement, ItemLegacy, Legacy, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
+import { Achievement, ItemLegacy, Legacy, LegacyData, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { environment } from "@env/environment";
 import { catchError, map, Observable, of } from "rxjs";
 
@@ -13,10 +13,19 @@ export class LegacyService {
 
     constructor(private http: HttpClient) {}
 
-    fetchLegacies(type: string, id: string | number, query?: string): Observable<LegacyResponse<Achievement[]>> {
+    fetchLegacies(type: string, id?: string | number, query?: string): Observable<LegacyResponse<LegacyData[]>> {
+        const checkedQuery: string | undefined = id ? query : query?.substring(1);
 
-        return this.http.get<LegacyResponse<Achievement[]>>(`${this.gdnApiUrl}/asset-legacy/${type}?assetId=${id}${query || ''}`).pipe(
-          catchError((error: any) => of())
+        return this.http.get<LegacyResponse<LegacyData[]>>(`${this.gdnApiUrl}/asset-legacy/${type}?${id ? 'assetId=' + id : ''}${checkedQuery || ''}`).pipe(
+          catchError((error: any) => of()),
+          map<LegacyResponse<LegacyData[]>, LegacyResponse<LegacyData[]>>((result: LegacyResponse<LegacyData[]>) => {
+            if (result.results && result.results.length) {
+              result.results.map((legacy: LegacyData) => {
+                legacy.type = type;
+              })
+            }
+            return result;
+          })
         );
 
         /* return this.http.get<Legacy>(`https://legacy-api.totem.gdn/${id}`); */

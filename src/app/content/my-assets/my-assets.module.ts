@@ -8,6 +8,7 @@ import { TotemEntitySelectorModule } from "@app/modules/totem-entity-selector/to
 import { TotemEntitySliderModule } from "@app/modules/totem-entity-slider/totem-entity-slider.module";
 import { TotemSortButtonModule } from "@app/modules/totem-sort-button/totem-sort-button.module";
 import { SharedModule } from "@app/shared/shared.module";
+import { AssetLegacyTableModule } from "../details-pages/asset-details/components/asset-legacy-table/asset-legacy-table.module";
 import { SortByComponent } from "../pages/components/sort-by/sort-by.component";
 import { SortByModule } from "../pages/components/sort-by/sort-by.module";
 import { MyAssetsComponent } from "./my-assets.component";
@@ -22,7 +23,8 @@ import { UserAssetsModule } from "./user-assets/user-assets.module";
         SharedModule,
         RouterModule.forChild(MyAssetsRoutes),
 
-        UserAssetsModule
+        UserAssetsModule,
+        AssetLegacyTableModule
     ],
     exports: [
         MyAssetsComponent

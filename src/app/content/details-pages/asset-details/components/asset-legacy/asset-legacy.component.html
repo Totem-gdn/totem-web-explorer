@@ -2,7 +2,7 @@
   <p class="title">Legacy events</p>
   <div [ngStyle]="!showAll && showViewAll ? {'max-height':'324px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative">
     <div *ngIf="legacy.length; else noLegacy" #grid class="relative h-full w-full p-4 grid grid-cols-1 smd:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xxl:grid-cols-3 gap-2" [ngClass]="{'pb-8' : showViewAll}">
-      <totem-legacy-card class="w-full" *ngFor="let item of legacy" [legacy]="item" [type]="type" [game]="_selectedGame!"></totem-legacy-card>
+      <totem-legacy-card class="w-full" *ngFor="let item of legacy" [legacy]="item" [type]="type"></totem-legacy-card>
       <div *ngFor="let placeholder of placeholders" class="legacy-placeholder-card w-full rounded-[24px]">
         <div class="line-item_placeholder"></div>
       </div>

@@ -1,6 +1,6 @@
 
 export interface Legacy {
-    achievements?: Achievement[];
+    achievements?: LegacyEvent[];
 }
 
 export interface Achievement {
@@ -18,6 +18,7 @@ export interface ItemLegacy {
 export interface LegacyData {
   assetId?: number;
   data?: string;
+  type?: string;
   gameAddress?: string;
   playerAddress?: string;
   recordId?: number;

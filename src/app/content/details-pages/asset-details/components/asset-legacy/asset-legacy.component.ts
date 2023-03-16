@@ -2,7 +2,7 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Animations } from "@app/core/animations/animations";
-import { Achievement, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
+import { Achievement, LegacyData, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { LegacyService } from "@app/core/services/crypto/legacy.service";
 import { TotemEventListenerService } from "@app/core/services/utils/global-event-listeners.service";
@@ -86,7 +86,7 @@ interface Tooltip {
 export class AssetLegacyComponent implements OnInit {
 
   _selectedGame: GameDetail | null = null;
-  legacy: any[] = [];
+  legacy: LegacyData[] = [];
   placeholders: any[] = [];
   currentBpState: BreakpointState | null = null;
   showViewAll: boolean = false;
@@ -155,7 +155,7 @@ export class AssetLegacyComponent implements OnInit {
       catchError((err: HttpErrorResponse) => {
         return of();
       })
-      ).subscribe((response: LegacyResponse<Achievement[]>) => {
+      ).subscribe((response: LegacyResponse<LegacyData[]>) => {
           //console.log(response);
           if (!response) return;
 

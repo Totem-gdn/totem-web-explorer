@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
-        <loc>https://dev.totem-explorer.com/</loc>
-        <lastmod>Wed Mar 08 2023 17:44:35 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://totem-explorer.com/</loc>
+        <lastmod>Wed Mar 15 2023 03:14:29 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>https://dev.totem-explorer.com/items</loc>
-        <lastmod>Wed Mar 08 2023 17:44:35 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://totem-explorer.com/items</loc>
+        <lastmod>Wed Mar 15 2023 03:14:29 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>https://dev.totem-explorer.com/avatars</loc>
-        <lastmod>Wed Mar 08 2023 17:44:35 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://totem-explorer.com/avatars</loc>
+        <lastmod>Wed Mar 15 2023 03:14:29 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>https://dev.totem-explorer.com/games</loc>
-        <lastmod>Wed Mar 08 2023 17:44:35 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://totem-explorer.com/games</loc>
+        <lastmod>Wed Mar 15 2023 03:14:29 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>https://dev.totem-explorer.com/help</loc>
-        <lastmod>Wed Mar 08 2023 17:44:35 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://totem-explorer.com/help</loc>
+        <lastmod>Wed Mar 15 2023 03:14:29 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>https://dev.totem-explorer.com/buy</loc>
-        <lastmod>Wed Mar 08 2023 17:44:35 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://totem-explorer.com/buy</loc>
+        <lastmod>Wed Mar 15 2023 03:14:29 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 
         <url>
-        <loc>https://dev.totem-explorer.com/terms-and-policy</loc>
-        <lastmod>Wed Mar 08 2023 17:44:35 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
+        <loc>https://totem-explorer.com/terms-and-policy</loc>
+        <lastmod>Wed Mar 15 2023 03:14:29 GMT+0200 (Восточная Европа, стандартное время)</lastmod>
         <changefreq>weekly</changefreq>
         </url>
 </urlset>

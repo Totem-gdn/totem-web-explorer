@@ -4,4 +4,4 @@ Disallow: /approve-game/
 Disallow: /submit-game/
 Allow: /
 
-Sitemap: https://dev.totem-explorer.com/sitemap.xml
+Sitemap: https://totem-explorer.com/sitemap.xml

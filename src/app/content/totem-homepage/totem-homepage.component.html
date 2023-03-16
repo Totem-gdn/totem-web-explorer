@@ -6,7 +6,10 @@
     <ng-container *ngIf="!(loading$ | async); else loader">
       <totem-start-screen-cards></totem-start-screen-cards>
       <totem-entity-slider [caption]="'Showing assets in: '" [withGameSelector]="true" [assetTypeSelected]="'item'"></totem-entity-slider>
-      <totem-entity-slider [caption]="'Legacy Events'" [assetTypeSelected]="'legacy'"></totem-entity-slider>
+      <!-- <totem-entity-slider [caption]="'Legacy Events'" [assetTypeSelected]="'legacy'"></totem-entity-slider> -->
+      <div class="mt-12">
+        <asset-legacy-table [pageType]="'main'"></asset-legacy-table>
+      </div>
       <div class="mt-12" *ngIf="promoGame">
         <totem-promo-game [game]="promoGame"></totem-promo-game>
       </div>
