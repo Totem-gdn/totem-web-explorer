@@ -39,6 +39,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
   showViewAll: boolean = false;
   showLoadMore: boolean = false;
   showAll: boolean = false;
+  disableButton: boolean = false;
   maxHeightOfGrid: number = 0;
   grid: ElementRef | undefined = undefined;
   user: UserEntity | null = null;
@@ -132,7 +133,8 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
 
           this.checkItemsAmountToCollapse();
           if ((this.tableSize + (this.tableSize * this.currentPage)) >= response.total) {
-            this.showLoadMore = false;
+            //this.showLoadMore = false;
+            this.disableButton = true;
           } else {
             this.showLoadMore = true;
           }
@@ -178,7 +180,8 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
 
       const calculatedTableSize: number = this.tableSize - 5;
       if ((calculatedTableSize + (calculatedTableSize * this.currentPage)) >= assetTotal) {
-        this.showLoadMore = false;
+        //this.showLoadMore = false;
+        this.disableButton = true;
       } else {
         this.showLoadMore = true;
       }

@@ -93,11 +93,11 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
       }
       return 0;
     });
-    this.eventBanners = sortedBanners;
-    //this.filterPassedEvents(sortedBanners);
+    //this.eventBanners = sortedBanners;
+    this.filterPassedEvents(sortedBanners);
   }
 
-  filterPassedEvents(blocks: HomepageBlock[]) {
+  /* filterPassedEvents(blocks: HomepageBlock[]) {
     let yesterdayDate: number = new Date().getTime();
     const yesterdayTimeStamp = yesterdayDate - 24*60*60*1000;
 
@@ -108,6 +108,31 @@ export class TotemHomepageComponent extends OnDestroyMixin implements OnInit, On
       return timestamp > yesterdayTimeStamp;
     })
     this.eventBanners = filteredBlocks;
+  } */
+
+  filterPassedEvents(blocks: HomepageBlock[]) {
+    let yesterdayDate: number = new Date().getTime();
+    const yesterdayTimeStamp = yesterdayDate - 24*60*60*1000;
+
+    const sortedBanners: HomepageBlock[] = blocks.sort((a: HomepageBlock, b: HomepageBlock) => {
+      if (!a.data?.eventDate?.date) return 0;
+      let aDate: Date = new Date(a.data.eventDate.date);
+      if (aDate.getTime() < yesterdayTimeStamp) {
+        return 1;
+      }
+      if (aDate.getTime() > yesterdayTimeStamp) {
+        return -1;
+      }
+      return 0;
+    });
+
+    /* const filteredBlocks: HomepageBlock[] = blocks.filter((block: HomepageBlock) => {
+      if (!block.data?.eventDate?.date) return false;
+      let eventDate: Date = new Date(block.data?.eventDate?.date);
+      const timestamp: number = eventDate.getTime();
+      return timestamp > yesterdayTimeStamp;
+    }) */
+    this.eventBanners = sortedBanners;
   }
 
 }
