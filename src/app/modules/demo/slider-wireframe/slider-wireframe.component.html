@@ -5,8 +5,8 @@
 
         <div (onDrag)="onDrag($event)" (startDrag)="startDrag($event)" (endDrag)="endDrag($event)" #wrapper class="wrapper">
             <div class="overflow-hidden" [style.padding]="padding + 'px'">
-                <div class="slider" #slider [style.gap]="gap + 'px'"
-                    [ngClass]="{'pt-[10px]': type == 'asset' || type == 'game'}">
+                <div class="slider" #slider [style.gap]="gap + 'px'">
+                    <!-- [ngClass]="{'pt-[10px]': type == 'asset' || type == 'game'}"> -->
 
                     <!-- Cards -->
                     <ng-container *ngIf="cards?.length">

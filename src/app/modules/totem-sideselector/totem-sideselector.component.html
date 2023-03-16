@@ -20,7 +20,7 @@
         <div class="items-wrapper w-full max-h-full h-full overflow-auto flex flex-col items-start justify-start">
           <ng-container *ngFor="let game of games$ | async; trackBy: trackByFn">
             <div
-              class="game-card h-[56px] w-full rounded-12 p-2 flex flex-row items-center justify-start cursor-pointer"
+              class="game-card h-[56px] w-full rounded-[18px] p-2 flex flex-row items-center justify-start cursor-pointer"
               [ngClass]="{'game-card-selected': game.checked, 'no-renderer-game': !game.connections?.assetRenderer}"
               (click)="selectGame(game)"
               >
@@ -41,7 +41,7 @@
 
 
 <ng-template #selectedGameTemplate let-game="selectedGame">
-  <div class="selected-game-card h-[91px] w-full p-2 flex flex-row items-center justify-start rounded-12 mt-4">
+  <div class="selected-game-card h-[91px] w-full p-2 flex flex-row items-center justify-start rounded-[18px] mt-4">
     <div class="w-[75px] h-[75px] rounded-12 overflow-hidden shrink-0">
       <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
     </div>

@@ -1,11 +1,11 @@
 {
-  "shortSHA": "ffb416bc",
-  "SHA": "ffb416bce79f2d43ae1c2b44a59c1671a668813a",
-  "branch": "font-fix-blocks",
-  "lastCommitAuthor": "'timoshchuk-web'",
-  "lastCommitTime": "'Wed Mar 8 10:28:55 2023 +0200'",
-  "lastCommitMessage": "updated payment method",
-  "lastCommitNumber": "1376",
-  "environment": "development",
-  "lastBuildTime": "2023-03-08T15:44:35.891Z"
+  "shortSHA": "6f276b60",
+  "SHA": "6f276b60b876aca935fa720a20672d867472cd93",
+  "branch": "main",
+  "lastCommitAuthor": "'Victor Tymoshchuk'",
+  "lastCommitTime": "'Wed Mar 15 00:50:53 2023 +0200'",
+  "lastCommitMessage": "Merge pull request #372 from Totem-gdn/dev\n\nselected state fix",
+  "lastCommitNumber": "1423",
+  "environment": "production",
+  "lastBuildTime": "2023-03-15T01:14:30.834Z"
 }

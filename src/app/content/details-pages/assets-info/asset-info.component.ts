@@ -3,7 +3,7 @@ import { SnackNotifierService } from "@app/components/utils/snack-bar-notifier/s
 import { Animations } from "@app/core/animations/animations";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { AssetInfo } from "@app/core/models/interfaces/asset-info.model";
-import { Achievement, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
+import { Achievement, LegacyData, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { GameDetail } from "@app/core/models/interfaces/submit-game-interface.model";
 import { AssetsService } from "@app/core/services/assets/assets.service";
 import { GamesService } from "@app/core/services/assets/games.service";
@@ -119,7 +119,7 @@ export class AssetInfoComponent implements AfterViewInit {
 
     getAssetLegacy(query?: string, asset?: AssetInfo) {
       let params: string = '&offset=0&limit=10';
-      this.legacyService.fetchLegacies(this.type, this._item?.tokenId!, params).subscribe((data: LegacyResponse<Achievement[]>) => {
+      this.legacyService.fetchLegacies(this.type, this._item?.tokenId!, params).subscribe((data: LegacyResponse<LegacyData[]>) => {
 
       })
     }

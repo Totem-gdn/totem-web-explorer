@@ -1,0 +1,46 @@
+<div class="flex flex-col items-start w-full relative">
+    <p class="title">Legacy events</p>
+    <div [ngStyle]="!showAll && showViewAll ? {'max-height':'417px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative p-4">
+        <div *ngIf="legacy.length; else noLegacy" class="w-full h-full relative overflow-x-auto overflow-y-hidden ownership-table-wrapper pb-[16.5px]">
+            <div #grid class="ownership-table relative h-full w-full flex flex-col items-start justify-start min-w-[872px] gap-2" [ngClass]="{'pb-4' : showViewAll}">
+              <ng-container *ngTemplateOutlet="tableHeader"></ng-container>
+              <asset-legacy-item class="w-full" *ngFor="let item of legacy" [legacy]="item" [type]="item.type!" [user]="user"></asset-legacy-item>
+            </div>
+
+        </div>
+        <div @toggleShadow *ngIf="!showAll && showViewAll" class="shadow-box absolute bottom-0 z-1"></div>
+    </div>
+    <div class="w-full h-0 flex items-center justify-center absolute bottom-0">
+      <div *ngIf="showViewAll && (!showAll || !showLoadMore)" (click)="showMore(!showAll)" class="totem-show-more-button z-2">{{showAll ? 'Collapse' : 'Expand'}}</div>
+      <div [ngStyle]="disableButton ? {'pointer-events':'none', 'color': '#8A93A0', 'background': '#323741'} : {'pointer-events':'all'}" *ngIf="showAll && showLoadMore && !(loading$ | async); else buttonLoading" (click)="loadMore()" class="totem-show-more-button z-2">Load more</div>
+    </div>
+</div>
+
+<!-- templates -->
+
+<ng-template #tableHeader>
+  <div class="w-full ownership-header min-h-[32px] h-[32px] px-2 mb-2">
+    <p class="w-full xl:min-w-[100%] xl:max-w-[100%] min-w-[200px] max-w-[200px]">Owner address</p>
+    <p>Game</p>
+    <p class="w-full xl:min-w-[100%] xl:max-w-[100%] min-w-[156px] max-w-[156px]">Type of Asset</p>
+    <p class="xxl:col-span-2">Description</p>
+    <p class="w-full min-w-[106px] max-w-[106px]">Date</p>
+    <p class="w-8">Data</p>
+  </div>
+</ng-template>
+
+<ng-template #noLegacy>
+  <div *ngIf="!(loading$ | async); else loading" class="flex justify-center items-center w-full py-[38px]">
+    <p class="flex flex-rowtext-[18px] items-center leading-[20px] font-medium"><mat-icon class="mr-2" [svgIcon]="'mat_outline:local_activity'"></mat-icon>Legacy empty</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="w-full h-full p-4">
+    <div class="flex w-full h-full min-h-[215px] totem-skeleton"></div>
+  </div>
+</ng-template>
+
+<ng-template #buttonLoading>
+  <div *ngIf="showAll && showLoadMore" class="z-2 totem-skeleton h-10 w-[121px]"></div>
+</ng-template>

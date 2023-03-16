@@ -47,6 +47,10 @@ export class StoreService {
   private games: BehaviorSubject<GameDetail[]> = new BehaviorSubject<GameDetail[]>([]);
   games$: Observable<GameDetail[]> = this.games.asObservable();
 
+  get gamesAmount(): number {
+    return this.games.getValue()?.length || 0;
+  }
+
   private legacy: BehaviorSubject<LegacyData[]> = new BehaviorSubject<LegacyData[]>([]);
   legacy$: Observable<LegacyData[]> = this.legacy.asObservable();
 
