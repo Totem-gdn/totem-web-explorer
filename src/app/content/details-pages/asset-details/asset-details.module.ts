@@ -9,6 +9,7 @@ import { SharedModule } from "@app/shared/shared.module";
 import { ItemPropertiesModule } from "../assets-info/components/properties/item-properties.module";
 import { AssetDetailsComponent } from "./asset-details.component";
 import { AssetInformationModule } from "./components/asset-information/asset-information.module";
+import { AssetLegacyTableModule } from "./components/asset-legacy-table/asset-legacy-table.module";
 import { AssetLegacyModule } from "./components/asset-legacy/asset-legacy.module";
 import { AssetOwnershipHistoryModule } from "./components/asset-ownership-history/asset-ownership-history.module";
 import { AssetPropertiesModule } from "./components/asset-properties/asset-properties.module";
@@ -31,6 +32,7 @@ import { AssetPropertiesModule } from "./components/asset-properties/asset-prope
         ItemPropertiesModule,
         AssetLegacyModule,
         AssetOwnershipHistoryModule,
+        AssetLegacyTableModule
     ],
     exports: [
         AssetDetailsComponent

@@ -31,6 +31,10 @@ export class TransactionsService {
     let imageUrl: string = `${environment.TOTEM_WEB_EXPLORER_URL}/assets/images/${assetType}-placeholder.webp`
     return this.http.post<CardPaymentResponse>(`${this.coreUrl}/payments/${paymentSystem}/${assetType}/link`, {successUrl: this.applicationUrl, ownerAddress: owner, imageUrl: imageUrl});
   }
+  
+  //buyAssetWithCard(assetType: string, owner: string, paymentSystem: 'withpaper' | 'stripe' = 'stripe'): Observable<CardPaymentResponse> {
+  //  return this.http.post<CardPaymentResponse>(`${this.baseUrl}/payment/link/${paymentSystem}/${assetType}`, {successUrl: this.applicationUrl});
+  //}
 
   //buyAssetWithCard(assetType: string, owner: string, paymentSystem: 'withpaper' | 'stripe' = 'stripe'): Observable<CardPaymentResponse> {
   //  return this.http.post<CardPaymentResponse>(`${this.baseUrl}/payment/link/${paymentSystem}/${assetType}`, {successUrl: this.applicationUrl});

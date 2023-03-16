@@ -3,7 +3,7 @@ import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/s
 import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
-import { Achievement, Legacy, LegacyEvent, LegacyResponse } from '@app/core/models/interfaces/legacy.model';
+import { Achievement, Legacy, LegacyData, LegacyEvent, LegacyResponse } from '@app/core/models/interfaces/legacy.model';
 import { LegacyService } from '@app/core/services/crypto/legacy.service';
 import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, take } from 'rxjs';
@@ -23,7 +23,7 @@ interface Tooltip {
 })
 export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
 
-  achievements!: Achievement[];
+  achievements!: LegacyData[];
   total: number = 0;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   readonly tableSize: number = 5; // change to change the row amount inside the table
@@ -49,7 +49,7 @@ export class ItemLegacyComponent extends OnDestroyMixin implements OnInit {
     this.loading$.next(true);
     this.legacyService.fetchLegacies(this.type, this.asset.tokenId, query).pipe(
         untilComponentDestroyed(this)
-      ).subscribe((response: LegacyResponse<Achievement[]>) => {
+      ).subscribe((response: LegacyResponse<LegacyData[]>) => {
         this.achievements = response?.results || [];
         this.total = response?.total || 0;
         this.loading$.next(false);

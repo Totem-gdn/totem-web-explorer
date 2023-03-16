@@ -9,7 +9,7 @@ export class RandomIconGeneratorService {
 
   getUserIcon(seed: string): string {
     const avatar = createAvatar(shapes, {
-      seed: seed,
+      seed: seed || '',
       size: 64,
       shape1: ["polygon","polygonFilled","line"]
     });

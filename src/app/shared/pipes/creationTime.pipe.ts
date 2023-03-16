@@ -6,6 +6,9 @@ import { Pipe, PipeTransform } from "@angular/core";
 
 export class TimeCreationPipe implements PipeTransform {
     transform(creationDate: any) : string {
+        if (typeof creationDate === 'number') {
+          creationDate = new Date(creationDate * 1000).toString();
+        }
         let delta = Math.abs(new Date().getTime() - new Date(creationDate).getTime()) / 1000;
         const days = Math.floor(delta / 86400);
         delta -= days * 86400;

@@ -7,12 +7,12 @@
                 <p>{{'modules.description' | translate}}</p>
                 <p>{{'modules.data' | translate}}</p>
             </div>
-            <div *ngFor="let achievement of achievements;let i = index;" class="text-light-grey transaction history-grid">
+            <!-- <div *ngFor="let achievement of achievements;let i = index;" class="text-light-grey transaction history-grid">
                 <span>{{achievement.timestamp  | date: 'MM.dd.yy hh:mm' }}</span>
                 <span>{{achievement.gameId}}</span>
                 <span>--</span>
                 <div class="dataWraper flex items-center  w-[130px] justify-between">
-                    
+
                     <span class="cursor-pointer" (click)="openTooltip($event, achievement.data)">
                         {{achievementData(achievement.data)}}
                     </span>
@@ -22,7 +22,7 @@
                         (cdkCopyToClipboardCopied)="onCopy()">
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="w-full flex flex-row items-center justify-end my-[10px]">
           <totem-pagination [size]="tableSize" [totalValue]="total" (paginationEvent)="paginationEvent($event)"></totem-pagination>
@@ -44,5 +44,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>

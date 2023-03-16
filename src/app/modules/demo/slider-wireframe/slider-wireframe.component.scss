@@ -8,7 +8,7 @@
 
     .wrapper {
         position: relative;
-        padding-top: 6px;
+        //padding-top: 6px;
         // touch-action: none;
         touch-action: pan-y;
         .slider {
@@ -35,7 +35,7 @@
         transform: translateX(50%) translateY(-50%);
     }
 
-    
+
 }
 
 .totem-skeleton {
@@ -62,7 +62,7 @@
             cursor: pointer;
             border-radius: 100px;
             transition: left .3s;
-            width: 100px;  
+            width: 100px;
             height: 4px;
             background-color: $totem-violet;
             left: 0;
