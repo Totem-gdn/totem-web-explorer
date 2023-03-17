@@ -31,6 +31,15 @@ const preselectedAsset: AssetInfo = {
 
 export class StoreService {
 
+  private totalItemsAmount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  get itemsAmount(): number {
+    return this.totalItemsAmount.getValue() || 0;
+  }
+  private totalAvatarsAmount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  get avatarsAmount(): number {
+    return this.totalAvatarsAmount.getValue() || 0;
+  }
+
   private selectedAsset: BehaviorSubject<AssetInfo | null> = new BehaviorSubject<AssetInfo | null>(null);
   selectedAsset$: Observable<AssetInfo | null> = this.selectedAsset.asObservable();
 
@@ -126,6 +135,8 @@ export class StoreService {
       take(1),
       map(([games, items, avatars]) => { return { games, items, avatars } })
     ).subscribe((data) => {
+      this.totalItemsAmount.next(data.items?.meta?.total);
+      this.totalAvatarsAmount.next(data.avatars?.meta?.total);
       this.games.next(data.games.data);
       this.items.next(data.items.data);
       this.avatars.next(data.avatars.data);
