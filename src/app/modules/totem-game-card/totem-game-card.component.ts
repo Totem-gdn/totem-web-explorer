@@ -7,6 +7,7 @@ import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/s
 import { FavouritesService } from '@app/modules/profile/dashboard/favourites/favourites.service';
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
+import { StoreService } from '@app/core/store/store.service';
 
 @Component({
   selector: 'totem-game-card',
@@ -19,12 +20,15 @@ export class TotemGameCardComponent {
               private favouritesService: FavouritesService,
               private web3Service: Web3AuthService,
               private messageService: SnackNotifierService,
-              private gameService: GamesService) {}
+              private storeService: StoreService) {}
 
   @Input() width = 'full';
   @Input() game: GameDetail | null = null;
 
   ngOnInit() {
+    if (!this.game) return;
+    this.game.assets!.items = this.storeService.itemsAmount;
+    this.game.assets!.avatars = this.storeService.avatarsAmount;
   }
 
   goToGame(game: GameDetail) {
