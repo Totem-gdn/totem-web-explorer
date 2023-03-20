@@ -23,8 +23,16 @@
             <p class="mt-1 font-medium text-[11px] lg:text-[12px] xxml:text-[14px] leading-[15px] text-[#8A939B]">Rarity</p>
           </div>
           <div class="flex flex-col items-start justify-start">
-            <p class="font-medium text-[13px] lg:text-[14px] xxml:text-[16px] leading-[17px]">{{asset?.games}}</p>
-            <p class="mt-1 font-medium text-[11px] lg:text-[12px] xxml:text-[14px] leading-[15px] text-[#8A939B]">Games used</p>
+            <!-- <p class="font-medium text-[13px] lg:text-[14px] xxml:text-[16px] leading-[17px]">{{asset?.games}}</p>
+            <p class="mt-1 font-medium text-[11px] lg:text-[12px] xxml:text-[14px] leading-[15px] text-[#8A939B]">Games used</p> -->
+            <div class="h-9 w-9 overflow-hidden rounded-full shrink-0 cursor-pointer" (click)="navigateToProfile(asset?.owner!)">
+              <ng-container *ngIf="(user$ | async) && (user$ | async)?.wallet == asset?.owner">
+                <img class="h-full w-full object-cover" [src]="(user$ | async)?.profileImage" alt="user-image">
+              </ng-container>
+              <ng-container *ngIf="!(user$ | async) || (user$ | async)?.wallet != asset?.owner">
+                <img class="h-full w-full object-cover" [src]="getUserIcon(asset?.owner!) || 'assets/icons/nav/account_circle.svg'" alt="user-image">
+              </ng-container>
+            </div>
           </div>
         </div>
     </div>

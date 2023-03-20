@@ -191,7 +191,7 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
   closeWithTimeout() {
     setTimeout(() => {
       this.showDropdown = false;
-    }, 100)
+    }, 150)
   }
 
   copied() {
