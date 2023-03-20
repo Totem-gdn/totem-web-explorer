@@ -10,6 +10,10 @@ import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
 import { environment } from '@env/environment';
 import { StoreService } from '@app/core/store/store.service';
+import { RandomIconGeneratorService } from '@app/core/services/utils/icon-generator.service';
+import { UserStateService } from '@app/core/services/auth.service';
+import { Observable } from 'rxjs';
+import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 
 @Component({
   selector: 'totem-asset-card',
@@ -21,16 +25,18 @@ import { StoreService } from '@app/core/store/store.service';
 })
 export class TotemAssetCardComponent {
 
+
   constructor(private router: Router,
               private favouritesService: FavouritesService,
-              private web3Service: Web3AuthService,
-              private messageService: SnackNotifierService,
+              private userService: UserStateService,
+              private randomIconGeneratorService: RandomIconGeneratorService,
               private storeService: StoreService) {}
 
   @Input() width = 'full';
   @Input() asset: AssetInfo | null = null;
   @Input() type!: ASSET_TYPE;
   showSpinner: boolean = false;
+  user$: Observable<UserEntity | null> = this.userService.currentUser;
 
   ngOnInit() {
     if(!this.asset) return;
@@ -46,6 +52,14 @@ export class TotemAssetCardComponent {
     if(!this.asset) return;
     let type = this.asset.assetType;
     this.asset.rendererUrl = `${environment.ASSET_RENDERER_URL}/${type}/${this.asset?.tokenId}?width=400&height=400`;
+  }
+
+  getUserIcon(wallet: string): string {
+    return this.randomIconGeneratorService.getUserIcon(wallet);
+  }
+
+  navigateToProfile(address: string) {
+    this.router.navigate(['/profile', address]);
   }
 
   /* onClickLike() {

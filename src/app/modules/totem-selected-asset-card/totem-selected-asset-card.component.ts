@@ -8,6 +8,10 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { StoreService } from '@app/core/store/store.service';
+import { RandomIconGeneratorService } from '@app/core/services/utils/icon-generator.service';
+import { UserStateService } from '@app/core/services/auth.service';
+import { Observable } from 'rxjs';
+import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 
 @Component({
   selector: 'totem-selected-asset-card',
@@ -18,12 +22,13 @@ export class SelectedAssetCardComponent {
 
   constructor(private router: Router,
               private favouritesService: FavouritesService,
-              private web3Service: Web3AuthService,
-              private messageService: SnackNotifierService,
+              private userService: UserStateService,
+              private randomIconGeneratorService: RandomIconGeneratorService,
               private storeService: StoreService) {}
 
   @Input() width = 'full';
   @Input() asset: AssetInfo | null = null;
+  user$: Observable<UserEntity | null> = this.userService.currentUser;
 
   ngOnInit() {
     if (!this.asset) return;
@@ -32,6 +37,14 @@ export class SelectedAssetCardComponent {
 
   goToAsset(asset: AssetInfo) {
     this.router.navigate([asset.assetType, asset.tokenId]);
+  }
+
+  getUserIcon(wallet: string): string {
+    return this.randomIconGeneratorService.getUserIcon(wallet);
+  }
+
+  navigateToProfile(address: string) {
+    this.router.navigate(['/profile', address]);
   }
   /* onClickLike() {
     if(!this.web3Service.isLoggedIn()) {
