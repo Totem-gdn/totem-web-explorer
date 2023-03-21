@@ -33,6 +33,11 @@ export class LegacyService {
         // return this.http.get<Legacy>(`https://legacy-api.totem.gdn/itemId-000000`);
     }
 
+    fetchGamesLegacies(query?: string) {
+      const checkedQuery: string | undefined = query?.substring(1);
+      return this.http.get<LegacyResponse<LegacyData[]>>(`${this.gdnApiUrl}/game-legacy?${checkedQuery || ''}`);
+    }
+
     createLegacyEvent(type: string, data: LegacyEvent): Observable<{txHash: string}> {
       return this.http.post<{txHash: string}>(`${this.gdnApiUrl}/asset-legacy/${type}`, data);
     }
