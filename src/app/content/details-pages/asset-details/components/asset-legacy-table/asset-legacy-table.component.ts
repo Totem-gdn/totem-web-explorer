@@ -52,6 +52,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
   @Input() type: string = '';
   @Input() pageType: 'asset' | 'main' | 'profile' = 'asset';
   @Input() tokenId: number = 0;
+  @Input() customUser: UserEntity | null = null;
 
   @ViewChild('grid', { static: false }) set gridWrapper(content: ElementRef) {
     if(content) {
@@ -211,7 +212,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
       this.getAllTypesLegacy(queryParam);
     }
     if (this.pageType === 'profile') {
-      queryParam += '&playerAddress=' + this.user?.wallet;
+      queryParam += '&playerAddress=' + this.customUser ? this.customUser?.wallet : this.user?.wallet;
       this.getAllTypesLegacy(queryParam);
     }
 

@@ -6,6 +6,7 @@ import { ProfileInformationComponent } from "@app/content/profile/containers/pro
 import { ProfileInformationModule } from "@app/content/profile/containers/profile-information/profile.information.module";
 import { NotFoundModule } from "@app/modules/specific/page-not-found/not-found/not-found.module";
 import { SharedModule } from "@app/shared/shared.module";
+import { AssetLegacyTableModule } from "../asset-details/components/asset-legacy-table/asset-legacy-table.module";
 import { WalletInfoComponent } from "./wallet-info.component";
 import { WalletInfoRoutes } from "./wallet-info.routing";
 
@@ -19,13 +20,14 @@ import { WalletInfoRoutes } from "./wallet-info.routing";
 
         ProfileInformationModule,
         NotFoundModule,
-        UserAssetsModule
+        UserAssetsModule,
+        AssetLegacyTableModule
     ],
     exports: [
        WalletInfoComponent
     ]
 })
 
-export class WalletInfoModule { 
+export class WalletInfoModule {
 
 }
