@@ -1,4 +1,4 @@
-<div class="flex flex-col selected-asset-card w-full h-[360px] xxml:h-[432px] flex-auto overflow-hidden rounded-[24px] cursor-pointer" (click)="goToAsset(asset!)">
+<a class="flex flex-col selected-asset-card w-full h-[360px] xxml:h-[432px] flex-auto overflow-hidden rounded-[24px] cursor-pointer" routerLink="/{{asset?.assetType}}/{{asset?.tokenId}}">
 
     <div *ngIf="asset?.rendererUrl" class="img-wrapper h-[238px] xxml:h-[289px]">
         <img class="object-fill h-full" loading="lazy" [src]="asset?.rendererUrl" alt="Not found">
@@ -27,16 +27,16 @@
           <div class="flex flex-col items-start justify-start">
             <!-- <p class="font-medium text-[16px] lg:text-[20px] xxml:text-[26px] leading-[17px] lg:leading-[22px] xxml:leading-[27px]">{{asset?.games}}</p>
             <p class="mt-1 font-medium text-[14px] lg:text-[18px] xxml:text-[20px] leading-[15px] lg:leading-[20px] xxml:leading-[22px] text-[#8A939B]">Games used</p> -->
-            <div class="h-9 lg:h-10 w-9 lg:w-10 overflow-hidden rounded-full shrink-0 cursor-pointer" (click)="navigateToProfile(asset?.owner!)">
+            <a routerLink="/profile/{{asset?.owner}}" class="h-9 lg:h-10 w-9 lg:w-10 overflow-hidden rounded-full shrink-0 cursor-pointer">
               <ng-container *ngIf="(user$ | async) && (user$ | async)?.wallet == asset?.owner">
                 <img class="h-full w-full object-cover" [src]="(user$ | async)?.profileImage" alt="user-image">
               </ng-container>
               <ng-container *ngIf="!(user$ | async) || (user$ | async)?.wallet != asset?.owner">
                 <img class="h-full w-full object-cover" [src]="getUserIcon(asset?.owner!) || 'assets/icons/nav/account_circle.svg'" alt="user-image">
               </ng-container>
-            </div>
+            </a>
           </div>
         </div>
     </div>
 
-</div>
+</a>

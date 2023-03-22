@@ -60,14 +60,14 @@
 <div class="w-full ownership-row min-h-[56px] h-[56px] py-[7px] px-2 t-bg-dark-grey rounded-[4px]">
 
     <div class="w-full ownership-table-item cursor-pointer xl:min-w-[100%] xl:max-w-[100%] min-w-[200px] max-w-[200px]">
-      <div class="w-full h-10 w-10 overflow-hidden rounded-full mr-2 shrink-0" (click)="navigateToProfile(legacy.playerAddress!)">
+      <a class="w-full h-10 w-10 overflow-hidden rounded-full mr-2 shrink-0" routerLink="/profile/{{legacy.playerAddress!}}">
         <ng-container *ngIf="user && legacy?.playerAddress == user?.wallet">
           <img class="h-full w-full object-cover" [src]="user.profileImage" alt="user-image" (error)="updateProfileImage()">
         </ng-container>
         <ng-container *ngIf="!user || legacy.playerAddress != user?.wallet">
           <img class="h-full w-full object-cover" [src]="getUserIcon(legacy.playerAddress!) || 'assets/icons/nav/account_circle.svg'" alt="user-image" (error)="updateProfileImage()">
         </ng-container>
-      </div>
+      </a>
       <p
         [cdkCopyToClipboard]="legacy.playerAddress || ''"
         [cdkCopyToClipboardAttempts]="2"
@@ -81,7 +81,7 @@
       <!-- <p class="owner-wallet flex-row items-center">{{legacy.playerAddress}}</p> -->
     </div>
 
-    <div class="w-full ownership-table-item cursor-pointer" (click)="navigateToGame(game)">
+    <a class="w-full ownership-table-item cursor-pointer" routerLink="/game/{{game?.id}}">
       <div class="w-full h-10 w-10 overflow-hidden t-bg-light-violet rounded-[12px] mr-2 shrink-0">
         <img class="h-full w-full object-cover" [src]="game?.images?.smallThumbnail" alt="">
       </div>
@@ -89,9 +89,9 @@
         <p class="game-name !text-[16px] !leading-[17px] w-full max-w-[100%] truncate">{{game?.general?.name || 'GAME NAME'}} </p>
         <p class="text-light-grey truncate">{{game?.general?.genre?.length ? game?.general?.genre![0] : 'Action'}}</p>
       </div>
-    </div>
+    </a>
 
-    <div class="w-full ownership-table-item cursor-pointer xl:min-w-[100%] xl:max-w-[100%] min-w-[156px] max-w-[156px]" (click)="navigateToAsset(legacy.assetId)">
+    <a class="w-full ownership-table-item cursor-pointer xl:min-w-[100%] xl:max-w-[100%] min-w-[156px] max-w-[156px]" routerLink="/{{legacy.type}}/{{legacy.assetId}}">
       <div class="w-full h-10 w-10 overflow-hidden t-bg-light-violet rounded-[12px] mr-2 shrink-0">
         <img class="h-full w-full object-fill" [src]="renderer" alt="">
       </div>
@@ -99,7 +99,7 @@
         <p class="capitalize !text-[16px] !leading-[17px]">{{type}}</p>
         <p>ID: {{legacy.assetId}}</p>
       </div>
-    </div>
+    </a>
 
     <div class="w-full xxl:col-span-2 ownership-table-item">
       <p class="max-2-lines max-w-[90%]">
@@ -114,7 +114,7 @@
     <div class="ownership-table-item w-8 cursor-pointer relative" [ngStyle]="{'pointer-events': coverActive ? 'none' : 'all'}" (click)="toggleCover()">
       <mat-icon [svgIcon]="'mat_outline:open_in_new'"></mat-icon>
 
-      <div inputEvents class="data-cover right-0 bottom-0 absolute w-[300px] min-h-[0px] h-[100px] z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
+      <!-- <div inputEvents class="data-cover right-0 bottom-0 absolute w-[300px] min-h-[0px] h-[100px] z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
         <div @toggleSelector *ngIf="coverActive" class="tooltip-wrapper w-full h-full max-h-full overflow-y-hidden flex flex-col items-start relative">
           <div class="w-full h-full max-h-full overflow-y-auto flex flex-col py-4 px-5 items-start relative">
             <p class="!text-[16px] !lg:text-[20px] !leading-[17px] !lg:leading-[22px] font-medium">Event data</p>
@@ -125,7 +125,21 @@
             </div>
           </div>
         </div>
-    </div>
+      </div> -->
+      <div inputEvents class="data-cover right-0 -bottom-[24px] absolute w-[300px] lg:w-[500px] min-h-[0px] h-[136px] z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
+        <div @toggleSelector *ngIf="coverActive" class="tooltip-wrapper w-full h-full max-h-full overflow-y-hidden flex flex-col items-start relative">
+          <div class="w-full h-full overflow-hidden flex flex-col py-2 px-5 items-start relative">
+            <p class="!text-[16px] !leading-[15px] font-medium my-1">Event data</p>
+            <div class="overflow-y-auto max-h-full h-full w-full">
+              <pre class="!text-[14px] !leading-[16px] max-w-[90%] font-normal t-col-light-violet mt-2 pb-1"
+            >{{decodedDataToDisplay || decodedDescriptionToDisplay || 'Legacy event happened with ID ' + legacy.assetId + ' ' + type + ' in ' + game?.general?.name + ' game.'}}</pre>
+            </div>
+            <div class="w-12 h-9 absolute right-0 top-0 flex items-center justify-center" (click)="coverActive = false; $event.stopPropagation()">
+              <mat-icon class="!w-4 !h-4 t-col-white" [svgIcon]="'mat_outline:close'"></mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
 

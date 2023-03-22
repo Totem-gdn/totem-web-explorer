@@ -1,10 +1,16 @@
 <div class="flex flex-col items-start w-full relative">
-    <p class="title">Legacy events</p>
+    <p class="title capitalize">{{pageType === 'legacy' ? type + 's' : ''}} Legacy events</p>
     <div [ngStyle]="!showAll && showViewAll ? {'max-height':'417px'} : showViewAll ? {'max-height': maxHeightOfGrid + 'px'} : {}" class="properties-wrapper w-full h-full rounded-[18px] mt-6 relative p-4">
         <div *ngIf="legacy.length; else noLegacy" class="w-full h-full relative overflow-x-auto overflow-y-hidden ownership-table-wrapper pb-[16.5px]">
-            <div #grid class="ownership-table relative h-full w-full flex flex-col items-start justify-start min-w-[872px] gap-2" [ngClass]="{'pb-4' : showViewAll}">
-              <ng-container *ngTemplateOutlet="tableHeader"></ng-container>
-              <asset-legacy-item class="w-full" *ngFor="let item of legacy" [legacy]="item" [type]="item.type!" [user]="user"></asset-legacy-item>
+            <div #grid class="ownership-table relative h-full w-full flex flex-col items-start justify-start min-w-[872px] gap-2" [ngStyle]="type === 'game' ? {'min-width': '600px'} : {}" [ngClass]="{'pb-4' : showViewAll}">
+              <ng-container *ngIf="type !== 'game'; else gamesTableContainer">
+                <ng-container *ngTemplateOutlet="tableHeader"></ng-container>
+                <asset-legacy-item class="w-full" *ngFor="let item of legacy" [legacy]="item" [type]="item.type!" [user]="user"></asset-legacy-item>
+              </ng-container>
+              <ng-template #gamesTableContainer>
+                <ng-container *ngTemplateOutlet="gamesTableHeader"></ng-container>
+                <game-legacy-item class="w-full" *ngFor="let item of legacy" [legacy]="item" [type]="item.type!" [user]="user"></game-legacy-item>
+              </ng-template>
             </div>
 
         </div>
@@ -25,6 +31,14 @@
     <p class="w-full xl:min-w-[100%] xl:max-w-[100%] min-w-[156px] max-w-[156px]">Type of Asset</p>
     <p class="xxl:col-span-2">Description</p>
     <p class="w-full min-w-[106px] max-w-[106px]">Date</p>
+    <p class="w-8">Data</p>
+  </div>
+</ng-template>
+<ng-template #gamesTableHeader>
+  <div class="w-full ownership-game-header min-h-[32px] h-[32px] px-2 mb-2">
+    <p>Game</p>
+    <p class="xl:col-span-2">Description</p>
+    <p class="">Date</p>
     <p class="w-8">Data</p>
   </div>
 </ng-template>

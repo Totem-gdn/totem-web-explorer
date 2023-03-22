@@ -43,9 +43,9 @@
 
 <ng-template #largeGameBar let-game="selectedGame">
   <ng-container *ngIf="game">
-    <div
+    <a
       class="mt-4 xxml:mt-6 w-full h-[66px] px-2 large-game-bar flex flex-row items-center justify-start cursor-pointer relative"
-      (click)="goToGame(game)">
+      routerLink="/game/{{game?.id}}">
       <div class="w-[50px] h-[50px] rounded-[12px] overflow-hidden shrink-0">
         <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
       </div>
@@ -59,13 +59,13 @@
       <div *ngIf="numberOfDisplayedCards == 0" @toggleSmallGameSelector (click)="selectNextGame(); $event.stopPropagation()" class="absolute -right-[52px] top-[10] change-game-button rounded-full flex items-center justify-center cursor-pointer z-2">
         <mat-icon class="!h-8 !w-8" [svgIcon]="'line:arrow_right'"></mat-icon>
       </div>
-    </div>
+    </a>
   </ng-container>
 </ng-template>
 
 <ng-template #smallGameBar let-game="game">
   <ng-container *ngIf="game">
-    <div class="mt-4 xxml:mt-6 max-w-[324px] w-full h-[66px] px-2 small-game-bar flex flex-row items-center justify-start cursor-pointer" (click)="goToGame(game)">
+    <a class="mt-4 xxml:mt-6 max-w-[324px] w-full h-[66px] px-2 small-game-bar flex flex-row items-center justify-start cursor-pointer" routerLink="/game/{{game?.id}}">
       <div class="w-[50px] h-[50px] rounded-[12px] overflow-hidden shrink-0">
         <img class="w-full h-full object-cover" [src]="game.images?.smallThumbnail" alt="Thumb">
       </div>
@@ -73,6 +73,6 @@
         <p class="text-[16px] font-normal leading-[17px]">{{game.general?.name}}</p>
         <p class="text-[14px] font-medium leading-[15px] mt-1 t-col-light-grey">{{game.general?.genre![0]}}</p>
       </div>
-    </div>
+    </a>
   </ng-container>
 </ng-template>

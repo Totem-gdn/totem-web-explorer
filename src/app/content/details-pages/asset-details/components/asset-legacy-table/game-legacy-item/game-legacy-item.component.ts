@@ -14,15 +14,15 @@ import { StoreService } from '@app/core/store/store.service';
 import { environment } from '@env/environment';
 import { catchError, Observable, of, Subject, takeUntil } from 'rxjs';
 import { DecodedLegacy } from '../models/legacy-processing.interface';
-import { AssetLegacyItemService } from './asset-legacy-item.service';
+import { GameLegacyItemService } from './game-legacy-item.service';
 
 @Component({
-  selector: 'asset-legacy-item',
-  templateUrl: './asset-legacy-item.component.html',
-  styleUrls: ['./asset-legacy-item.component.scss'],
+  selector: 'game-legacy-item',
+  templateUrl: './game-legacy-item.component.html',
+  styleUrls: ['./game-legacy-item.component.scss'],
   animations: Animations.animations
 })
-export class AssetLegacyItemComponent implements OnInit, OnDestroy {
+export class GameLegacyItemComponent implements OnInit, OnDestroy {
 
   subject = new Subject();
   @Input() legacy!: LegacyData;
@@ -39,7 +39,7 @@ export class AssetLegacyItemComponent implements OnInit, OnDestroy {
   constructor(
     private storeService: StoreService,
     private gamesService: GamesService,
-    private assetLegacyItemService: AssetLegacyItemService,
+    private assetLegacyItemService: GameLegacyItemService,
     private router: Router,
     private randomIconGeneratorService: RandomIconGeneratorService,
     private snackbarService: SnackNotifierService,

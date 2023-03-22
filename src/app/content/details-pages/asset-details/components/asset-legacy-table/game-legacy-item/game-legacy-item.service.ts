@@ -6,7 +6,7 @@ import { DecodedLegacy, JsonDecodeStep } from "../models/legacy-processing.inter
 
 @Injectable({providedIn: 'root'})
 
-export class AssetLegacyItemService {
+export class GameLegacyItemService {
 
   constructor(
     private http: HttpClient
@@ -16,35 +16,13 @@ export class AssetLegacyItemService {
     return this.http.get<RendererAvailableTypes>(`${url}/info`);
   }
 
-  /* decodeData(data?: string, isJson: boolean = false): { data: string, description: string } {
-    if (!data) {
-      return { data: '', description: '' };
-    }
-    let decodedData: string = this.tryToDecodeData(data);
-    if (!decodedData) return { data: '', description: '' };
 
-    if (/^[\],:{}\s]*$/.test(decodedData.replace(/\\["\\\/bfnrtu]/g, '@').
-      replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
-      replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-      //the json is ok
-      const parsedJson: {description: string} = JSON.parse(decodedData);
-      //let decodedJson: { data: string, description: string } = {data: '', description: parsedJson?.description}; //description will be field, no need to decode
-      let decodedJson: { data: string, description: string } = this.decodeData(parsedJson?.description, true);
-      if (!decodedJson.description) return { data: decodedJson.data, description: '' };
-      return { data: decodedJson.data, description: decodedJson.description };
-    } else {
-      //the json is not ok
-      return { data: decodedData, description: isJson ? decodedData : '' };
-    }
-  }
-
-  tryToDecodeData(strToDec: string): string {
-    if (/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$/.test(strToDec)) {
-      let decodedData: string = window.atob(strToDec);
-      return decodedData;
-    }
-    return strToDec;
-  } */
+  // CASE DATA = 'Killed monster';
+  // CASE DATA = 'SGSSDFHDFW262teWT2teWET2t=='  -->  'Killed monster';
+  // CASE DATA = 'asAgdsg25DFHDFW262teWT3fgewh2='  -->  '{asdgln: asdfsdf, sadknsgd: sdfsa}' // JSON base64 NO DESCRIPTION;
+  // CASE DATA = 'asAgdsg25DFHDFW262teWT3fgewh2='  -->  '{asdgln: asdfsdf, sadknsgd: sdfsa, description: Killed monster}' // DESCRIPTION string;
+  // CASE DATA = 'asAgdsg25DFHDFW262teWT3fgewh2='  -->  '{description: asAgdsg25DFHDFW262teWT3fgewh2=}' // DESCRIPTION ENCODED BASE64 STRING;
+  // CASE DATA = 'asAgdsg25DFHDFW262teWT3fgewh2='  -->  '{description: asAgdsg25DFHDFW262teWT3fgewh2={dasdg, sdgs}}' // DESCRIPTION ENCODED BASE64 JSON;
 
   decodeData(data?: string | any): DecodedLegacy {
     if (!data) {
