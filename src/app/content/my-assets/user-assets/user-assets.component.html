@@ -68,7 +68,7 @@
 
       <ng-container *ngIf="!(assetsLoading$ | async) && assetTotal; else assetLoader">
         <ng-container *ngIf="assetTotal && assetTotal?.avatars?.all; else noAvatars">
-          <p class="text-[18px] leading-[20px] font-medium mt-10">You have <span class="text-[18px] leading-[20px] font-medium t-col-light-violet">{{assetTotal.avatars.all || 0}}</span> avatars</p>
+          <p class="text-[18px] leading-[20px] font-medium mt-10">{{customUser ? 'This user has' : 'You have'}} <span class="text-[18px] leading-[20px] font-medium t-col-light-violet">{{assetTotal.avatars.all || 0}}</span> avatars</p>
           <div class="flex flex-row flex-wrap xs:flex-nowrap items-end justify-between w-full">
             <div class="flex flex-row items-center flex-wrap md:flex-nowrap mt-1">
               <p class="text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium w-full sm:w-max">Showing assets in: &nbsp;</p>
@@ -92,7 +92,7 @@
       <div class="w-full h-[1px] my-11 t-bg-divider-grey"></div>
       <ng-container *ngIf="!(assetsLoading$ | async) && assetTotal; else assetLoader">
         <ng-container *ngIf="assetTotal && assetTotal?.items?.all; else noItems">
-          <p class="text-[18px] leading-[20px] font-medium">You have <span class="text-[18px] leading-[20px] font-medium t-col-light-violet">{{assetTotal.items.all || 0}}</span> items</p>
+          <p class="text-[18px] leading-[20px] font-medium">{{customUser ? 'This user has' : 'You have'}} <span class="text-[18px] leading-[20px] font-medium t-col-light-violet">{{assetTotal.items.all || 0}}</span> items</p>
           <div class="flex flex-row flex-wrap xs:flex-nowrap items-end justify-between w-full">
             <div class="flex flex-row items-center flex-wrap md:flex-nowrap mt-1">
               <p class="text-[26px] leading-[28px] md:text-[32px] md:leading-[35px] font-medium w-full sm:w-max">Showing assets in: &nbsp;</p>
@@ -161,9 +161,11 @@
     <div class="dark-cover w-full h-full inset-0 absolute z-2"></div>
     <div class="w-full h-full inset-0 absolute z-3 flex items-center justify-center">
       <div class="flex flex-col items-center justify-center">
-        <p class="text-[24px] leading-[27px] md:text-[32px] md:leading-[35px] font-medium text-center px-4">You don't have any {{type}}s</p>
-        <p class="text-[14px] leading-[19px] md:text-[16px] md:leading-[21px] font-normal max-w-[255px] md:max-w-[295px] w-full mt-2 t-col-light-grey text-center">You can purchase unique created assets by following this link</p>
-        <button class="totem-primary-button !rounded-[12px] w-[208px] h-12 text-[20px] leading-[22px] font-semibold !px-7 !mt-4" (click)="goToBuy()">Purchase</button>
+        <p class="text-[24px] leading-[27px] md:text-[32px] md:leading-[35px] font-medium text-center px-4">{{customUser ? "This user doesn't" : "You don't"}} have any {{type}}s</p>
+        <ng-container *ngIf="!customUser">
+          <p class="text-[14px] leading-[19px] md:text-[16px] md:leading-[21px] font-normal max-w-[255px] md:max-w-[295px] w-full mt-2 t-col-light-grey text-center">You can purchase unique created assets by following this link</p>
+          <button class="totem-primary-button !rounded-[12px] w-[208px] h-12 text-[20px] leading-[22px] font-semibold !px-7 !mt-4" (click)="goToBuy()">Purchase</button>
+        </ng-container>
       </div>
     </div>
   </div>

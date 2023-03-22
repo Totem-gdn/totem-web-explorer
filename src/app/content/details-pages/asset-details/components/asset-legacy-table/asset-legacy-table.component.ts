@@ -50,8 +50,9 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
   currentPage: number = 0;
   owner!: string;
   @Input() type: string = '';
-  @Input() pageType: 'asset' | 'main' | 'profile' = 'asset';
+  @Input() pageType: 'asset' | 'main' | 'profile' | 'legacy' = 'asset';
   @Input() tokenId: number = 0;
+  @Input() customUser: UserEntity | null = null;
 
   @ViewChild('grid', { static: false }) set gridWrapper(content: ElementRef) {
     if(content) {
@@ -119,9 +120,32 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
     });
   }
 
-  getLegacyOfAsset(query?: string) {
+  getLegacyOfAsset(query?: string, noId?: boolean) {
     this.loading$.next(true);
-    this.legacyService.fetchLegacies(this.type, this.tokenId, query).pipe(
+    this.legacyService.fetchLegacies(this.type, noId ? undefined : this.tokenId, query).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return of();
+      })
+      ).subscribe((response: LegacyResponse<LegacyData[]>) => {
+          //console.log(response);
+          if (!response) return;
+          this.legacy = [...this.legacy, ...response?.results];
+          console.log(this.legacy);
+
+          this.checkItemsAmountToCollapse();
+          if ((this.tableSize + (this.tableSize * this.currentPage)) >= response.total) {
+            //this.showLoadMore = false;
+            this.disableButton = true;
+          } else {
+            this.showLoadMore = true;
+          }
+          this.loading$.next(false);
+
+      });
+  }
+  getLegacyOfGames(query?: string) {
+    this.loading$.next(true);
+    this.legacyService.fetchGamesLegacies(query).pipe(
       catchError((err: HttpErrorResponse) => {
         return of();
       })
@@ -200,7 +224,9 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
     this.currentPage += 1;
     console.log(this.pageType);
 
-    const calculatedTableSize: number = this.pageType !== 'asset' ? (this.tableSize - 5) : this.tableSize;
+    const pageWithMixedAssetsLegacies: boolean = this.pageType !== 'asset' && this.pageType !== 'legacy';
+
+    const calculatedTableSize: number = pageWithMixedAssetsLegacies ? (this.tableSize - 5) : this.tableSize;
     queryParam += '&offset=' + (this.currentPage * calculatedTableSize).toString();
     queryParam += '&limit=' + calculatedTableSize;
 
@@ -211,8 +237,19 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
       this.getAllTypesLegacy(queryParam);
     }
     if (this.pageType === 'profile') {
-      queryParam += '&playerAddress=' + this.user?.wallet;
+      queryParam += '&playerAddress=' + this.customUser ? this.customUser?.wallet : this.user?.wallet;
       this.getAllTypesLegacy(queryParam);
+    }
+    if (this.pageType === 'legacy') {
+      if (this.type === 'game') {
+        this.getLegacyOfGames(queryParam);
+      }
+      if (this.type === 'item') {
+        this.getLegacyOfAsset(queryParam, true);
+      }
+      if (this.type === 'avatars') {
+        this.getLegacyOfAsset(queryParam, true);
+      }
     }
 
   }

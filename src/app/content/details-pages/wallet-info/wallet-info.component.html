@@ -2,12 +2,14 @@
     <div class="w-full">
       <profile-information [ownerMode]="false" [user]="user"></profile-information>
     </div>
-  
+
     <div class="w-full pr-4 md:pr-16 pl-4 md:pl-16">
       <!-- <router-outlet></router-outlet> -->
       <user-assets [setTotal]="total" *ngIf="user" [customUser]="user"></user-assets>
+      <div *ngIf="user" class="mt-11 w-full">
+        <asset-legacy-table [customUser]="user" [pageType]="'profile'"></asset-legacy-table>
+      </div>
     </div>
 </div>
 
 <not-found *ngIf="notFound"></not-found>
-  
