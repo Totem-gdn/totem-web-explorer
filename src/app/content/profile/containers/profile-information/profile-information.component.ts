@@ -7,6 +7,7 @@ import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
 import { UserStateService } from '@app/core/services/auth.service';
 import { ProfileService } from '@app/core/services/profile.service';
+import { RandomIconGeneratorService } from '@app/core/services/utils/icon-generator.service';
 import { Gtag } from 'angular-gtag';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
@@ -29,6 +30,7 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
     private metaTag: Meta,
     private profileService: ProfileService,
     private snackNotifierService: SnackNotifierService,
+    private randomIconGeneratorService: RandomIconGeneratorService,
     private gtag: Gtag) {
   }
 
@@ -79,6 +81,10 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
 
   copied() {
     this.snackNotifierService.open('Copied to the clipboard');
+  }
+
+  getUserIcon(wallet: string): string {
+    return this.randomIconGeneratorService.getUserIcon(wallet);
   }
 
 }
