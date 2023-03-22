@@ -79,6 +79,13 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
     if (this.pageType === 'asset') {
       this.getLegacyOfAsset(`&offset=0&limit=${this.tableSize}`);
     }
+    if (this.pageType === 'legacy') {
+      if (this.type === 'game') {
+        this.getLegacyOfGames(`&offset=0&limit=${this.tableSize}`);
+        return;
+      }
+      this.getLegacyOfAsset(`&offset=0&limit=${this.tableSize}`, true);
+    }
     if (this.pageType === 'main') {
       const calculatedTableSize: number = this.tableSize - 5;
       this.getAllTypesLegacy(`&offset=0&limit=${calculatedTableSize}`);
@@ -130,15 +137,18 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
           //console.log(response);
           if (!response) return;
           this.legacy = [...this.legacy, ...response?.results];
-          console.log(this.legacy);
+          //console.log(this.legacy);
 
-          this.checkItemsAmountToCollapse();
+          //this.checkItemsAmountToCollapse();
           if ((this.tableSize + (this.tableSize * this.currentPage)) >= response.total) {
             //this.showLoadMore = false;
             this.disableButton = true;
           } else {
             this.showLoadMore = true;
           }
+          setTimeout(() => {
+            this.checkItemsAmountToCollapse();
+          }, 0);
           this.loading$.next(false);
 
       });
@@ -153,15 +163,18 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
           //console.log(response);
           if (!response) return;
           this.legacy = [...this.legacy, ...response?.results];
-          console.log(this.legacy);
+          //console.log(this.legacy);
 
-          this.checkItemsAmountToCollapse();
+          //this.checkItemsAmountToCollapse();
           if ((this.tableSize + (this.tableSize * this.currentPage)) >= response.total) {
             //this.showLoadMore = false;
             this.disableButton = true;
           } else {
             this.showLoadMore = true;
           }
+          setTimeout(() => {
+            this.checkItemsAmountToCollapse();
+          }, 0);
           this.loading$.next(false);
 
       });
@@ -188,7 +201,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
       //console.log(response);
       if (!response.items && !response.avatars) return;
       const newLegacy = [...this.legacy, ...response?.items.results, ...response?.avatars.results];
-      console.log(this.legacy);
+      //console.log(this.legacy);
       const sortedLegacy: LegacyData[] = newLegacy.sort((a: LegacyData, b: LegacyData) => {
         if (!a.timestamp && !b.timestamp) return 0;
         if (a.timestamp! > b.timestamp!) {
@@ -222,7 +235,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
   paginateToNextPage() {
     let queryParam: string = '';
     this.currentPage += 1;
-    console.log(this.pageType);
+    //console.log(this.pageType);
 
     const pageWithMixedAssetsLegacies: boolean = this.pageType !== 'asset' && this.pageType !== 'legacy';
 
@@ -247,7 +260,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
       if (this.type === 'item') {
         this.getLegacyOfAsset(queryParam, true);
       }
-      if (this.type === 'avatars') {
+      if (this.type === 'avatar') {
         this.getLegacyOfAsset(queryParam, true);
       }
     }

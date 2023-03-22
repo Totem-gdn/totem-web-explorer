@@ -1,0 +1,250 @@
+@import "styles/scss/totem-variables";
+@import "styles/scss/variables";
+
+.gradient {
+    background: $violet-light-gradient;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    position: absolute;
+    inset: 0;
+}
+
+.wrapper {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    // width: 496px;
+    width: 100%;
+    //max-width: 496px;
+    max-width: 696px;
+    border-radius: 24px;
+    gap: 15px;
+    padding: 12px;
+    height: 215px;
+    background-color: $totem-grey;
+    background: $totem-grey;
+    cursor: pointer;
+
+    &:hover .gradient {
+        opacity: 1;
+    }
+    &:hover .in-game .description span {
+        color: $white;
+    }
+    &:hover .img-wrapper .cover-button {
+        color: $white;
+    }
+
+    .img-wrapper {
+        z-index: 1;
+        position: relative;
+        width: 50%;
+        height: 100%;
+        img {
+            background-color: $totem-dark-grey;
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            // height: 100%;
+            // margin-bottom: 8px;
+        }
+        .timestamp {
+            background: rgba(42, 44, 56, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            position: absolute;
+            padding: 2.5px 8px;
+            inset: 12px auto auto 12px;
+            p {
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 18px;
+            }
+        }
+    }
+
+    .lh-1_2 {
+        line-height: 1.2;
+    }
+
+    .in-game {
+        justify-content: start;
+        z-index: 1;
+        width: 50%;
+
+        .description {
+          margin-top: 13px;
+        }
+
+        .link {
+            display: flex;
+            border-bottom: 1px solid $totem-divider-grey;
+            height: 32px;
+            min-height: 32px;
+            width: 100%;
+            color: $totem-light-grey;
+            justify-content: space-between;
+            mat-icon {
+
+            }
+            p {
+                font-size: 18px;
+
+                font-weight: 500;
+            }
+        }
+        span {
+            color: $totem-light-grey;
+        }
+        .description {
+            span {
+                transition: color 0.3s ease-in-out;
+                color: $totem-light-grey;
+            }
+        }
+    }
+
+    @media (max-width: 1000px) {
+      height: 132px;
+      padding: 8px;
+      gap: 8px;
+      border-radius: 18px;
+      .img-wrapper {
+        width: 46%;
+        img {
+          border-radius: 12px;
+        }
+        .timestamp {
+          padding: 2px 8px;
+          inset: 4px auto auto 4px;
+        }
+      }
+      .in-game {
+        width: 54%;
+        .description {
+          margin-top: 10px;
+        }
+      }
+    }
+}
+
+.game-name {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.tooltip-wrapper {
+  background-color: $blur-black-darker;
+  border-radius: 18px;
+  border: 1px solid $totem-divider-grey;
+}
+
+.cover-button {
+  color: $totem-light-grey;
+  transition: color 0.3s ease-in-out;
+}
+
+.properties-wrapper {
+  border: 1px solid $totem-divider-grey;
+  overflow: hidden;
+  transition: max-height 0.33s ease-out;
+  will-change: max-height;
+}
+
+.placeholder {
+  background-color: $totem-dark-grey;
+  display: flex;
+  justify-content: center;
+  .line-item_placeholder {
+      color: $totem-black;
+  }
+}
+
+.shadow-box {
+  height: 96px;
+  width: 100%;
+  background: linear-gradient(180deg, #1D1F27 -4.51%, rgba(17, 18, 22, 0) 100%);
+  transform: matrix(1, 0, 0, -1, 0, 0);
+  pointer-events: none;
+}
+
+.tooltip {
+  // top: 0;
+  // left: 0;
+  pointer-events:none;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.33s ease-out, visibility 0.33s ease-out;
+  z-index: 1;
+  position: absolute;
+  padding: 14px;
+  background: $blur-black;
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  color: $totem-light-grey;
+}
+
+.data-cover {
+  ::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,0);
+  }
+}
+
+.ownership-row, .ownership-header {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(min-content, max-content);
+  @media (max-width: 1279px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(min-content, max-content);
+  }
+}
+
+.ownership-game-header {
+  border-bottom: 1px solid $totem-divider-grey;
+  p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.ownership-table-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.ownership-table-wrapper {
+  transform: rotateX(180deg);
+}
+
+.ownership-table {
+  transform: rotateX(180deg);
+}
+
+.tx-table-column {
+  width: 32px;
+}
+
+.owner-wallet {
+  display: flex;
+  @media (max-width: 1439px) {
+    display: none;
+  }
+}
+.sliced-owner-wallet {
+  display: none;
+  @media (max-width: 1439px) {
+    display: flex;
+  }
+}
