@@ -9,6 +9,7 @@ import { TotemLegacyCardModule } from "@app/modules/totem-legacy-card/totem-lega
 import { SharedModule } from "@app/shared/shared.module";
 import { AssetLegacyItemModule } from "./asset-legacy-item/asset-legacy-item.module";
 import { AssetLegacyTableComponent } from "./asset-legacy-table.component";
+import { GameLegacyItemModule } from "./game-legacy-item/game-legacy-item.module";
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { AssetLegacyTableComponent } from "./asset-legacy-table.component";
       FlexLayoutModule,
       NotFoundModule,
       AssetLegacyItemModule,
+      GameLegacyItemModule,
       MatIconModule,
       ClipboardModule,
     ],

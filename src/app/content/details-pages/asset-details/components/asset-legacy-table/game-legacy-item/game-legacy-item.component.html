@@ -1,0 +1,43 @@
+<div class="w-full ownership-row min-h-[56px] h-[56px] py-[7px] px-2 t-bg-dark-grey rounded-[4px]">
+
+    <a class="w-full ownership-table-item cursor-pointer" routerLink="/game/{{game?.id}}">
+      <div class="w-full h-10 w-10 overflow-hidden t-bg-light-violet rounded-[12px] mr-2 shrink-0">
+        <img class="h-full w-full object-cover" [src]="game?.images?.smallThumbnail" alt="">
+      </div>
+      <div class="flex flex-col items-start justify-center w-full max-w-[100%] truncate">
+        <p class="game-name !text-[16px] !leading-[17px] w-full max-w-[90%] truncate">{{game?.general?.name || 'GAME NAME'}} </p>
+        <p class="text-light-grey truncate">{{game?.general?.genre?.length ? game?.general?.genre![0] : 'Action'}}</p>
+      </div>
+    </a>
+
+    <div class="w-full xl:col-span-2 ownership-table-item">
+      <p class="max-2-lines max-w-[90%]">
+        {{decodedDescriptionToDisplay || 'Legacy event happened in ' + game?.general?.name + ' game.'}}
+      </p>
+    </div>
+
+    <div class="w-full ownership-table-item min-w-[106px] max-w-[106px]">
+      <p>{{legacy.timestamp | creationTime}}</p>
+    </div>
+
+    <div class="ownership-table-item w-8 cursor-pointer relative" [ngStyle]="{'pointer-events': coverActive ? 'none' : 'all'}" (click)="toggleCover()">
+      <mat-icon [svgIcon]="'mat_outline:open_in_new'"></mat-icon>
+
+      <div inputEvents class="data-cover right-0 -bottom-[24px] absolute w-[300px] lg:w-[500px] min-h-[0px] h-[136px] z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
+        <div @toggleSelector *ngIf="coverActive" class="tooltip-wrapper w-full h-full max-h-full overflow-y-hidden flex flex-col items-start relative">
+          <div class="w-full h-full overflow-hidden flex flex-col py-2 px-5 items-start relative">
+            <p class="!text-[16px] !leading-[15px] font-medium my-1">Event data</p>
+            <div class="overflow-y-auto max-h-full h-full w-full">
+              <pre class="!text-[14px] !leading-[16px] max-w-[90%] font-normal t-col-light-violet mt-2 pb-1"
+            >{{decodedDataToDisplay || decodedDescriptionToDisplay || 'Legacy event happened in ' + game?.general?.name + ' game.'}}</pre>
+            </div>
+            <div class="w-12 h-9 absolute right-0 top-0 flex items-center justify-center" (click)="coverActive = false; $event.stopPropagation()">
+              <mat-icon class="!w-4 !h-4 t-col-white" [svgIcon]="'mat_outline:close'"></mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</div>

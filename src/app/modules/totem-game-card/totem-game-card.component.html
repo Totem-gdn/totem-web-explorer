@@ -1,4 +1,4 @@
-<div class="flex flex-col selected-game-card min-w-[180px] max-w-[392px] w-full h-[278px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" (click)="goToGame(game!)">
+<a class="flex flex-col selected-game-card min-w-[180px] max-w-[392px] w-full h-[278px] flex-auto overflow-hidden rounded-[24px] cursor-pointer totem-hover" routerLink="/game/{{game?.id}}">
     <div *ngIf="game?.images?.cardThumbnail" class="img-wrapper h-[180px]">
         <img class="object-cover h-full" loading="lazy" [src]="game?.images?.cardThumbnail" alt="Not found">
     </div>
@@ -23,4 +23,4 @@
         </div>
     </div>
 
-</div>
+</a>
