@@ -44,7 +44,6 @@ export class DemoGameInfoComponent extends OnDestroyMixin implements OnInit, OnD
     ngOnInit() {
         this.routeParams$();
         this.sliderGames();
-        this.userInfo();
     }
 
     routeParams$() {
@@ -57,6 +56,7 @@ export class DemoGameInfoComponent extends OnDestroyMixin implements OnInit, OnD
                 this.gameService.fetchGame(id).subscribe({
                     next: game => {
                         this.game = game;
+                        this.userInfo();
                     },
                     error: () => {
                         this.pageNotFound = true;
