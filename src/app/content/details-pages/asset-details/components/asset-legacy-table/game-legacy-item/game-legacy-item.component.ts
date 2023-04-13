@@ -31,6 +31,7 @@ export class GameLegacyItemComponent implements OnInit, OnDestroy {
   @Input() type: string = '';
   @Input() user: UserEntity | null = null;
 
+  player: string | undefined = undefined;
   decodedDataToDisplay: string = '';
   decodedDescriptionToDisplay: string = '';
   coverActive: boolean = false;
@@ -59,6 +60,8 @@ export class GameLegacyItemComponent implements OnInit, OnDestroy {
     if (decodedData.description) {
       this.decodedDescriptionToDisplay = decodedData.description;
     }
+    this.player = decodedData?.player;
+    //console.log(this.player);
   }
 
   toggleCover() {

@@ -161,10 +161,7 @@
 
 .ownership-game-header {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(min-content, max-content);
-  @media (max-width: 1279px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(min-content, max-content);
-  }
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(min-content, max-content) minmax(min-content, max-content);
 }
 
 .ownership-header, .ownership-game-header {

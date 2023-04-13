@@ -196,7 +196,7 @@
     grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(min-content, max-content) minmax(min-content, max-content);
   }
   @media (max-width: 1279px) {
-    grid-template-columns: minmax(min-content, max-content) minmax(0, 1fr) minmax(min-content, max-content) minmax(0, 1fr) minmax(min-content, max-content) minmax(min-content, max-content);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(min-content, max-content) minmax(0, 1fr) minmax(min-content, max-content) minmax(min-content, max-content);
   }
 }
 
