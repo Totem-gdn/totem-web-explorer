@@ -59,7 +59,7 @@
 
 <div class="w-full ownership-row min-h-[56px] h-[56px] py-[7px] px-2 t-bg-dark-grey rounded-[4px]">
 
-    <div class="w-full ownership-table-item cursor-pointer xl:min-w-[100%] xl:max-w-[100%] min-w-[200px] max-w-[200px]">
+    <div class="w-full ownership-table-item cursor-pointer xl:min-w-[100%] xl:max-w-[100%] min-w-[220px] max-w-[220px]">
       <a class="w-full h-10 w-10 overflow-hidden rounded-full mr-2 shrink-0" routerLink="/profile/{{legacy.playerAddress!}}">
         <ng-container *ngIf="user && legacy?.playerAddress == user?.wallet">
           <img class="h-full w-full object-cover" [src]="user.profileImage" alt="user-image" (error)="updateProfileImage()">
@@ -112,7 +112,7 @@
     </div>
 
     <div class="ownership-table-item w-8 cursor-pointer relative" [ngStyle]="{'pointer-events': coverActive ? 'none' : 'all'}" (click)="toggleCover()">
-      <mat-icon [svgIcon]="'mat_outline:open_in_new'"></mat-icon>
+      <mat-icon [svgIcon]="'mat_outline:info'"></mat-icon>
 
       <!-- <div inputEvents class="data-cover right-0 bottom-0 absolute w-[300px] min-h-[0px] h-[100px] z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
         <div @toggleSelector *ngIf="coverActive" class="tooltip-wrapper w-full h-full max-h-full overflow-y-hidden flex flex-col items-start relative">

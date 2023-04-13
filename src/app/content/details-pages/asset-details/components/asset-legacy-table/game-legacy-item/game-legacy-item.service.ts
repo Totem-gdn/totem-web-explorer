@@ -26,16 +26,16 @@ export class GameLegacyItemService {
 
   decodeData(data?: string | any): DecodedLegacy {
     if (!data) {
-      return { data: '', description: '' };
+      return { data: '', description: '', player: '' };
     }
     if (typeof data === 'object') {
       const stringifiedData: any = JSON.stringify(data, undefined, 2);
-      return { data: stringifiedData, description: ''};
+      return { data: stringifiedData, description: '', player: ''};
     }
     let decodedData: string = this.tryToDecodeData(data);
-    if (!decodedData) return { data: '', description: '' };
+    if (!decodedData) return { data: '', description: '', player: '' };
 
-    let dataToReturn: DecodedLegacy = {data: '', description: ''}; // Declaring object to return
+    let dataToReturn: DecodedLegacy = {data: '', description: '', player: ''}; // Declaring object to return
 
     const firstCheckResponse: JsonDecodeStep = this.decodePossibleJson(decodedData);
 
@@ -45,10 +45,13 @@ export class GameLegacyItemService {
   }
 
   processDataCheck(checkedData: JsonDecodeStep): DecodedLegacy {
-    let dataToReturn: DecodedLegacy = {data: '', description: ''};
+    console.log('checkd: ', checkedData);
+
+    let dataToReturn: DecodedLegacy = {data: '', description: '', player: ''};
 
     if (checkedData.data) {
       dataToReturn.data = checkedData.data;
+      dataToReturn.player = checkedData?.player;
     }
 
     if (checkedData.isJson) {
@@ -60,8 +63,14 @@ export class GameLegacyItemService {
       if (secondCheckResponse.isJson) {
         dataToReturn.data = secondCheckResponse.data;
         dataToReturn.description = secondCheckResponse.description;
+        if (secondCheckResponse?.player) {
+          dataToReturn.player = secondCheckResponse.player;
+        }
       } else {
-        dataToReturn.description = secondCheckResponse.data
+        dataToReturn.description = secondCheckResponse.data;
+        if (secondCheckResponse?.player) {
+          dataToReturn.player = secondCheckResponse.player;
+        }
       }
 //
       return dataToReturn;
@@ -81,8 +90,10 @@ export class GameLegacyItemService {
       const dataToReturn: string = JSON.stringify(parsedJson, undefined, 2);
 
       let description: string = parsedJson?.description;
+      let player: string = parsedJson?.player ? parsedJson.player : '-';
+      //console.log({data: dataToReturn, isJson: true, description: description ? description : undefined, player: player});
 
-      return { data: dataToReturn, isJson: true, description: description ? description : undefined };
+      return { data: dataToReturn, isJson: true, description: description ? description : undefined, player: player };
 
     } else {
       //the json is not ok
