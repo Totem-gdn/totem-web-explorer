@@ -10,10 +10,26 @@
       </div>
     </a>
 
-    <div class="w-full xl:col-span-2 ownership-table-item">
+    <div class="w-full ownership-table-item">
       <p class="max-2-lines max-w-[90%]">
         {{decodedDescriptionToDisplay || 'Legacy event happened in ' + game?.general?.name + ' game.'}}
       </p>
+    </div>
+
+    <div class="w-full ownership-table-item">
+      <a *ngIf="player" class="w-full h-10 w-10 overflow-hidden rounded-full mr-2 shrink-0" routerLink="/profile/{{player}}">
+        <ng-container *ngIf="user && player == user?.wallet">
+          <img class="h-full w-full object-cover" [src]="user.profileImage" alt="user-image" (error)="updateProfileImage()">
+        </ng-container>
+        <ng-container *ngIf="!user || player != user?.wallet">
+          <img class="h-full w-full object-cover" [src]="player ? getUserIcon(player) : 'assets/icons/nav/account_circle.svg'" alt="user-image" (error)="updateProfileImage()">
+        </ng-container>
+      </a>
+      <p
+        [cdkCopyToClipboard]="player || ''"
+        [cdkCopyToClipboardAttempts]="2"
+        (cdkCopyToClipboardCopied)="walletCopied()"
+        class="cursor-pointer flex flex-row items-center !text-[16px] !leading-[17px]">{{player ? (player.slice(0, 6) + '...' + player.slice(-4)) : '-'}} <mat-icon *ngIf="player" class="!w-4 !h-4 ml-1" [svgIcon]="'mat_outline:content_copy'"></mat-icon></p>
     </div>
 
     <div class="w-full ownership-table-item min-w-[106px] max-w-[106px]">
@@ -21,7 +37,7 @@
     </div>
 
     <div class="ownership-table-item w-8 cursor-pointer relative" [ngStyle]="{'pointer-events': coverActive ? 'none' : 'all'}" (click)="toggleCover()">
-      <mat-icon [svgIcon]="'mat_outline:open_in_new'"></mat-icon>
+      <mat-icon [svgIcon]="'mat_outline:info'"></mat-icon>
 
       <div inputEvents class="data-cover right-0 -bottom-[24px] absolute w-[300px] lg:w-[500px] min-h-[0px] h-[136px] z-4" [ngStyle]="{'pointer-events': coverActive ? 'all' : 'none'}" (blur)="coverActive = false" #coverRef>
         <div @toggleSelector *ngIf="coverActive" class="tooltip-wrapper w-full h-full max-h-full overflow-y-hidden flex flex-col items-start relative">

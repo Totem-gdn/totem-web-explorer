@@ -53,6 +53,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
   @Input() pageType: 'asset' | 'main' | 'profile' | 'legacy' = 'asset';
   @Input() tokenId: number = 0;
   @Input() customUser: UserEntity | null = null;
+  @Input() simpleTitle: boolean = false;
 
   @ViewChild('grid', { static: false }) set gridWrapper(content: ElementRef) {
     if(content) {
