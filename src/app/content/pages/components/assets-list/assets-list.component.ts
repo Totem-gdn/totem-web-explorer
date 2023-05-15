@@ -113,9 +113,10 @@ export class AssetsListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadGames(page: number, list: 'latest' | 'popular' = 'latest', action: 'set' | 'push' = 'push') {
-    this.gamesService.fetchGames(page, list)
+    this.gamesService.fetchGames(page, list, undefined, 0)
       .subscribe(games => {
-        if(this.type == 'game') this.title = `Showing ${games.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'}`
+        if(this.type == 'game') this.title = `Play ${games.meta.total} Pre-Released Totem games`
+        //if(this.type == 'game') this.title = `Showing ${games.meta.total} Totem ${this.type.toLowerCase().charAt(0).toUpperCase() + this.type.slice(1) + 's'}`
         if(action == 'push') {
           for(let game of games.data) {
             if(!this.games) this.games = [];

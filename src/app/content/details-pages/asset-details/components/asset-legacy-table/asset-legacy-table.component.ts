@@ -116,7 +116,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
       this.user = user;
       if (this.pageType === 'profile') {
         const calculatedTableSize: number = this.tableSize - 5;
-        this.getAllTypesLegacy(`&offset=0&limit=${calculatedTableSize}&playerAddress=${this.user.wallet}`);
+        this.getAllTypesLegacy(`&offset=0&limit=${calculatedTableSize}&playerAddress=${this.customUser ? this.customUser?.wallet : this.user.wallet}`);
       }
     });
   }
@@ -251,7 +251,7 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
       this.getAllTypesLegacy(queryParam);
     }
     if (this.pageType === 'profile') {
-      queryParam += '&playerAddress=' + this.customUser ? this.customUser?.wallet : this.user?.wallet;
+      queryParam += `&playerAddress=${this.customUser ? this.customUser?.wallet : this.user?.wallet}`;
       this.getAllTypesLegacy(queryParam);
     }
     if (this.pageType === 'legacy') {
