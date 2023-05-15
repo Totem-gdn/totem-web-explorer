@@ -251,9 +251,6 @@ export class AssetLegacyTableComponent extends OnDestroyMixin implements OnInit 
       this.getAllTypesLegacy(queryParam);
     }
     if (this.pageType === 'profile') {
-      console.log(queryParam);
-      console.log((this.customUser ? this.customUser?.wallet : this.user?.wallet), this.customUser?.wallet, this.user?.wallet);
-
       queryParam += `&playerAddress=${this.customUser ? this.customUser?.wallet : this.user?.wallet}`;
       this.getAllTypesLegacy(queryParam);
     }
