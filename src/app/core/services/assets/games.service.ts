@@ -44,8 +44,8 @@ export class GamesService {
     return this.http.get<GameDetail>(`${this.baseUrl}/games/${id}`);
   }
 
-  fetchGames(page: number, list: 'latest' | 'popular' = 'latest', owner: string | undefined = undefined) {
-    const url = owner ? `${this.baseUrl}/games?page=${page}&list=${list}&owner=${owner}` : `${this.baseUrl}/games?page=${page}&list=${list}`;
+  fetchGames(page: number, list: 'latest' | 'popular' = 'latest', owner: string | undefined = undefined, released?: number) {
+    const url = owner ? `${this.baseUrl}/games?page=${page}&list=${list}&owner=${owner}` : `${this.baseUrl}/games?page=${page}&list=${list}${released === 1 ? '&released=1' : released === 0 ? '&released=0' : ''}`;
 
 
     return this.http.get<ApiResponse<GameDetail[]>>(url)

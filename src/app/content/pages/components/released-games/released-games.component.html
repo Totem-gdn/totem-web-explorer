@@ -1,0 +1,49 @@
+<div class="wrapper" *ngIf="games?.length; else loader">
+    <div class="header">
+        <div class="flex flex-row items-center flex-wrap w-full">
+            <p class="text-[26px] leading-[28px] md:text-[32px] font-medium md:leading-[35px] w-full md:w-max md:mr-3">{{title}}</p>
+        </div>
+        <totem-sort-button (sortSelected)="loadGames(page, $event, 'set')"></totem-sort-button>
+    </div>
+
+    <div class="list flex flex-wrap gap-4 justify-items-center" *ngIf="type == 'game'">
+        <totem-game-card *ngFor="let game of games" [game]="game"></totem-game-card>
+    </div>
+
+    <div *ngIf="(games?.length && games != null) && loadMoreActive"
+        class="flex justify-center mt-[30px]">
+        <button @fade-in-out class="totem-primary-button" (click)="loadMore()">Load More</button>
+    </div>
+</div>
+
+<ng-template #loader>
+  <div class="wrapper flex flex-col">
+    <div class="flex flex-row w-full mb-[30px] mt-4">
+      <span class="h-[36px] w-[40%] totem-skeleton"></span>
+    </div>
+    <div class="w-full flex flex-row gap-4 relative">
+      <div class="w-full sm:max-w-[280px] h-[288px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden sm:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden smd:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden xl:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden xxl:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+      <div class="hidden xxml:flex w-full h-[288px] sm:max-w-[280px]">
+        <ng-container *ngTemplateOutlet="placeholderCard"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #placeholderCard>
+  <div class="w-full h-full totem-skeleton"></div>
+</ng-template>
