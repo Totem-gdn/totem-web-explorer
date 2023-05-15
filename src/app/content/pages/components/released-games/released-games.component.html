@@ -6,7 +6,7 @@
         <totem-sort-button (sortSelected)="loadGames(page, $event, 'set')"></totem-sort-button>
     </div>
 
-    <div class="list flex flex-wrap gap-4 justify-items-center" *ngIf="type == 'game'">
+    <div class="list grid md:flex grid-cols-1 xsm:grid-cols-2 md:grid-cols-none md:flex-wrap gap-4 justify-items-center">
         <totem-game-card *ngFor="let game of games" [game]="game"></totem-game-card>
     </div>
 

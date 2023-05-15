@@ -32,3 +32,9 @@
         font-size: 20px;
     }
 }
+
+@media (max-width: 767px) {
+  totem-game-card {
+    max-width: unset;
+  }
+}
