@@ -1,12 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Animations } from '@app/core/animations/animations';
 import { ASSET_TYPE } from '@app/core/models/enums/asset-types.enum';
+import { GameStats } from '@app/core/models/interfaces/game-stats.interface';
 import {
   GameDetail,
   GameSlide,
 } from '@app/core/models/interfaces/submit-game-interface.model';
 import { AssetsService } from '@app/core/services/assets/assets.service';
-import { take } from 'rxjs';
+import { LegacyService } from '@app/core/services/crypto/legacy.service';
+import { BehaviorSubject, catchError, of, take } from 'rxjs';
 
 @Component({
   selector: 'game-description',
@@ -18,8 +21,8 @@ import { take } from 'rxjs';
   animations: [Animations.animations],
 })
 export class GameDescriptionComponent {
-  constructor(private assetsService: AssetsService) {}
-
+  constructor(private legacyService: LegacyService, private assetsService: AssetsService) {}
+  statsLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   toggleDropdown = false;
   @Input() editInfo: { edit: boolean; gameId: string } = {
     edit: false,
@@ -84,6 +87,20 @@ export class GameDescriptionComponent {
       .subscribe((assets) => {
         this.totalItems = assets.meta.total;
       });
+    this.statsLoading$.next(true);
+    this.legacyService.getGameStatistics(this._game.id!).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log(err);
+        this.statsLoading$.next(false);
+        return of()
+      })
+    ).subscribe((data: GameStats) => {
+      //console.log('GAME STATS:', data);
+      this._game.players = data.users;
+      this._game.assets!.avatars = data.avatars;
+      this._game.assets!.items = data.items;
+      this.statsLoading$.next(false);
+    });
   }
 
   onChangeSlide(image: GameSlide) {

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
+import { GameStats } from "@app/core/models/interfaces/game-stats.interface";
 import { Achievement, ItemLegacy, Legacy, LegacyData, LegacyEvent, LegacyResponse } from "@app/core/models/interfaces/legacy.model";
 import { environment } from "@env/environment";
 import { catchError, map, Observable, of } from "rxjs";
@@ -80,5 +81,12 @@ export class LegacyService {
         }
 
         return formattedLegacies;
+    }
+
+    getGameStatistics(id: string): Observable<GameStats> {
+      if (!id) {
+        return of();
+      }
+      return this.http.get<GameStats>(`${this.gdnApiUrl}/asset-legacy/statistics/${id}`);
     }
 }
