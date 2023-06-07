@@ -8,6 +8,10 @@ import { FavouritesService } from '@app/modules/profile/dashboard/favourites/fav
 import { GameDetail } from '@app/core/models/interfaces/submit-game-interface.model';
 import { AssetInfo } from '@app/core/models/interfaces/asset-info.model';
 import { StoreService } from '@app/core/store/store.service';
+import { LegacyService } from '@app/core/services/crypto/legacy.service';
+import { BehaviorSubject, catchError, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { GameStats } from '@app/core/models/interfaces/game-stats.interface';
 
 @Component({
   selector: 'totem-game-card',
@@ -16,8 +20,10 @@ import { StoreService } from '@app/core/store/store.service';
 })
 export class TotemGameCardComponent {
 
+  statsLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(private router: Router,
-              private favouritesService: FavouritesService,
+              private legacyService: LegacyService,
               private web3Service: Web3AuthService,
               private messageService: SnackNotifierService,
               private storeService: StoreService) {}
@@ -29,6 +35,20 @@ export class TotemGameCardComponent {
     if (!this.game) return;
     this.game.assets!.items = this.storeService.itemsAmount;
     this.game.assets!.avatars = this.storeService.avatarsAmount;
+    this.statsLoading$.next(true);
+    this.legacyService.getGameStatistics(this.game.id!).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log(err);
+        this.statsLoading$.next(false);
+        return of()
+      })
+    ).subscribe((data: GameStats) => {
+      //console.log(data);
+      this.game!.players = data.users;
+      this.game!.assets!.avatars = data.avatars;
+      this.game!.assets!.items = data.items;
+      this.statsLoading$.next(false);
+    });
   }
 
   goToGame(game: GameDetail) {

@@ -45,7 +45,7 @@ export class GameLegacyItemService {
   }
 
   processDataCheck(checkedData: JsonDecodeStep): DecodedLegacy {
-    console.log('checkd: ', checkedData);
+    //console.log('checkd: ', checkedData);
 
     let dataToReturn: DecodedLegacy = {data: '', description: '', player: ''};
 
