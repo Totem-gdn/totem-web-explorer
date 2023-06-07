@@ -28,7 +28,7 @@
             <game-review class="min-w-fit w-full lg:w-[40%] mb-[32px] flex lg:hidden" [editInfo]="editInfo"
                 [selectedGame]="_game"></game-review>
 
-            <div class="total">
+            <div *ngIf="!(statsLoading$ | async); else statsLoading" class="total">
                 <!-- <div class="item-tag">
                     <h4>{{_game?.assets?.items || _game?.assets?.items == 0 ? _game?.assets?.items : '24.05.22'}}</h4>
                     <p>{{'nav.players' | translate}}</p>
@@ -48,15 +48,25 @@
                     <p>{{'nav.players' | translate}}</p>
                 </div> -->
                 <div class="item-tag">
-                    <h4>{{ totalItems }}</h4>
+                    <h4>{{ _game.players || 0 }}</h4>
+                    <p>{{'nav.players' | translate}}</p>
+                </div>
+                <div class="item-tag">
+                    <h4>{{ _game.assets?.items || 0 }}</h4>
                     <p>{{'nav.items' | translate}}</p>
                 </div>
                 <div class="item-tag">
-                    <h4>{{ totalAvatars }}
-                    </h4>
+                    <h4>{{ _game.assets?.avatars || 0 }}</h4>
                     <p>{{'nav.avatars' | translate}}</p>
                 </div>
             </div>
+            <ng-template #statsLoading>
+              <div class="total h-[90px] flex flex-row">
+                <span class="flex !rounded-[12px] h-full grow totem-skeleton"></span>
+                <span class="flex !rounded-[12px] h-full grow totem-skeleton"></span>
+                <span class="flex !rounded-[12px] h-full grow totem-skeleton"></span>
+              </div>
+            </ng-template>
 
 
             <div *ngIf="_game?.general?.fullDescription" class="flex flex-col mt-[30px]">
