@@ -63,7 +63,7 @@ export class DNAParserService {
     }
 
     async processJSON(json: any[], type: string, id: number | null = null) {
-        const url = 'https://matic-mumbai.chainstacklabs.com'
+        const url = 'https://rpc-mumbai.maticvigil.com'
         let contract = ''
         if (type == ASSET_TYPE.ITEM) {
             contract = environment.ITEM_ETH_ADDRESS
