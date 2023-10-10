@@ -57,7 +57,6 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initUserAndLoadingListener();
-    this.initBalanceListener();
     this.initCoverListener();
     this.currentRoute = this.router.url;
     this.router.events.subscribe((event) => {
@@ -70,13 +69,6 @@ export class TotemHeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  initBalanceListener() {
-    this.cryptoUtilsService.tokenBalance$.subscribe((balance: TokenBalance) => {
-
-      this.usdcBalance = balance.usdc;
-    })
   }
 
   initUserAndLoadingListener() {
