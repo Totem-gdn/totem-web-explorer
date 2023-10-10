@@ -85,10 +85,9 @@
           #dropdown
           @toggleSelector
           *ngIf="profileDropdownOpened"
-          class="absolute !w-[328px] !h-[321px] right-0 top-[63px]">
+          class="absolute !w-[328px] !h-[408px] right-0 top-[63px]">
             <totem-user-profile-dropdown
               class="w-full h-full relative"
-              [balance]="usdcBalance"
               [user]="currUser$ | async"
               (closedEvent)="toggleDropdown($event)">
             </totem-user-profile-dropdown>
