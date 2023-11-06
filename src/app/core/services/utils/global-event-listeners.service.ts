@@ -70,7 +70,6 @@ export class TotemEventListenerService {
     this.observeTheScreen();
     this.storeService.getAssetsAndGames();
     this.storeService.getLegacies();
-    //this.getQueryParamsAfterPayment();
     this.listenWindow();
   }
 

@@ -3,6 +3,9 @@
 .w3a-parent-container #w3a-modal li.w3a-adapter-item:last-child {
   display: none !important;
 }
+.w3a-parent-container .col-span-2 {
+  grid-column: unset !important;
+}
 #w3a-modal {
   // border: 1px solid $totem-light-grey !important;
   backdrop-filter: blur(40px) !important;

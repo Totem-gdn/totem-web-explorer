@@ -41,11 +41,11 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
   async initAccount() {
     this.loading$.next(true);
     await this.web3AuthService.init();
-    const isLoggedIn = this.web3AuthService.isLoggedIn();
+    const accounts = await this.web3AuthService.getAccounts();
     //this.loading$.next(false);
-    if (isLoggedIn) {
+    if (accounts?.length > 0) {
       await this.getUserInfoViaWeb3();
-    }
+    } 
     this.loading$.next(false);
   }
 
