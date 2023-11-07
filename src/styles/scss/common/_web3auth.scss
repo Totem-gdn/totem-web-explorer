@@ -184,6 +184,7 @@
 }
 
 .w3ajs-email-passwordless-form button,
+.w3ajs-passwordless-form button,
 .w3a-external-toggle button {
   background-color: $totem-violet !important;
   color: $totem-white !important;
@@ -202,6 +203,14 @@
   img {
     display: none !important;
   }
+}
+.w3a-group--passwordless .w3a-group__title {
+  &::after {
+    position: absolute;
+    content: "Email";
+    visibility: visible;
+  }
+  visibility: hidden !important;
 }
 .w3a-spinner-power {
   display: none !important;
