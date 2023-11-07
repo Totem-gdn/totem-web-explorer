@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
         let userDataToGuard: any = null;
         userDataToGuard = JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!);
         const userData = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
-        if (userData && userData?.typeOfAuth && userData.typeOfAuth === 'external') {
+        if (userData) {
           userDataToGuard = userData.userInfo;
         }
 
