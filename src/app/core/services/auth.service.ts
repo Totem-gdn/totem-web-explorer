@@ -41,9 +41,11 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
   async initAccount() {
     this.loading$.next(true);
     await this.web3AuthService.init();
-    const accounts = await this.web3AuthService.getAccounts();
-    //this.loading$.next(false);
-    if (accounts?.length > 0) {
+    // const accounts = await this.web3AuthService.getAccounts();
+    const isLoggedIn = this.web3AuthService.isLoggedIn();
+    // console.log('is loggedin', isLoggedIn)
+    // // this.loading$.next(false);
+    if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
     } 
     this.loading$.next(false);
@@ -61,6 +63,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
   }
 
   async getUserInfoViaWeb3(redirectUrl?: string) {
+    console.log('get user')
     const wallet: string = await this.web3AuthService.getAccounts();
     const userInfo: OpenLoginUserInfo | undefined = await this.web3AuthService.getUserInfo();
     let token = userInfo?.idToken;
