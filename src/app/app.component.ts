@@ -34,6 +34,7 @@ export class AppComponent {
     private sWService: ServiceWorkerService,
   ) {
 
+    
     AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
     this.userStateService.initAccount();
     this.sWService.listenNewVersion();
