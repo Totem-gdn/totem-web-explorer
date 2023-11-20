@@ -1,7 +1,7 @@
 <div class="w-full ownership-row min-h-[56px] h-[56px] py-[7px] px-2 t-bg-dark-grey rounded-[4px]">
 
     <a class="w-full ownership-table-item cursor-pointer" routerLink="/game/{{game?.id}}">
-      <div class="w-full h-10 w-10 overflow-hidden t-bg-light-violet rounded-[12px] mr-2 shrink-0">
+      <div class="w-full h-10 !w-10 overflow-hidden t-bg-light-violet rounded-[12px] mr-2 shrink-0">
         <img class="h-full w-full object-cover" [src]="game?.images?.smallThumbnail" alt="">
       </div>
       <div class="flex flex-col items-start justify-center w-full max-w-[100%] truncate">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="w-full ownership-table-item">
-      <a *ngIf="player" class="w-full h-10 w-10 overflow-hidden rounded-full mr-2 shrink-0" routerLink="/profile/{{player}}">
+      <a *ngIf="player" class="w-full h-10 !w-10 overflow-hidden rounded-full mr-2 shrink-0" routerLink="/profile/{{player}}">
         <ng-container *ngIf="user && player == user?.wallet">
           <img class="h-full w-full object-cover" [src]="user.profileImage" alt="user-image" (error)="updateProfileImage()">
         </ng-container>

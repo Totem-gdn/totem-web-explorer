@@ -27,7 +27,7 @@
   <div class="w-full ownership-row min-h-[54px] h-[54px] py-[7px] px-2 t-bg-dark-grey rounded-[4px]">
 
     <div class="w-full ownership-table-item col-span-2 cursor-pointer" (click)="goToProfile(item?.to)">
-      <div class="w-full h-10 w-10 overflow-hidden rounded-full mr-4 shrink-0">
+      <div class="w-full h-10 !w-10 overflow-hidden rounded-full mr-4 shrink-0">
         <ng-container *ngIf="item.to == user?.wallet">
           <img class="h-full w-full object-cover" [src]="userIcon" alt="user-image" (error)="updateProfileImage()">
         </ng-container>
