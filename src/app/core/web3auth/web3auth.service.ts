@@ -211,13 +211,10 @@ export class Web3AuthService {
     };
 
     isLoggedIn(): boolean {
-        if (this.provider) {
+        if (this.web3auth?.connected) {
             return true;
         } else {
             return false;
         }
     }
-
-
-
 }
