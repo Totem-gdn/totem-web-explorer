@@ -1,0 +1,50 @@
+@import 'styles/scss/totem-variables';
+@import 'styles/scss/variables';
+
+:host {
+  justify-content: center;
+}
+
+.space-card {
+  background-color: #2A2C38;
+}
+
+.col-grey {
+  color: $light-grey;
+}
+
+.space-id, .proposal-state {
+  padding: 4px 10px;
+  border-radius: 12px;
+  background-color: $totem-violet;
+  color: $totem-white;
+}
+
+.proposal-state {
+  background-color: $totem-pink;
+}
+
+.option-item {
+  background-color: $totem-dark-grey;
+  border: 1px solid $white;
+  transition: background 0.11s ease-out;
+  &:hover {
+    background-color: $totem-light-violet;
+  }
+  &.selected {
+    background-color: $totem-light-violet;
+  }
+}
+
+.divider {
+  width: 100%;
+  border-top: 1px solid $totem-divider-grey;
+}
+
+.link-to-snapshot {
+  text-decoration: underline;
+}
+
+.vp-by-strategie {
+  background-color: $totem-violet;
+}

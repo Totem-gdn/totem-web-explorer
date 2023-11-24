@@ -34,6 +34,7 @@ export const AppRoutes: Route[] = [
 
 
       { path: 'submit-game', loadChildren: () => import('@app/modules/specific/add-your-game/add-your-game.module').then(m => m.AddYourGameModule), canActivate: [AuthGuard] },
+      { path: 'voting', loadChildren: () => import('@app/content/voting/voting.module').then(m => m.VotingModule), canActivate: [AuthGuard]},
 
       // { path: 'game/:id', loadChildren: () => import('@app/modules/landing/pages/game-info/game-info.module').then(m => m.GameInfoModule) },
       // { path: 'avatar/:id', loadChildren: () => import('@app/modules/landing/pages/assets-info/avatar-info/avatar-info.module').then(m => m.AvatarInfoModule) },

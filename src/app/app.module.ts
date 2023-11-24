@@ -8,7 +8,7 @@ import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
 import { UserStateService } from './core/services/auth.service';
 import { AuthGuard } from './core/guards/auth.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { GtagModule } from 'angular-gtag';
 import { environment } from '@env/environment';
@@ -20,6 +20,7 @@ import { IconsModule } from './core/icons/icons.module';
 import { TotemLayoutModule } from './layout/totem-layout/totem-layout.module';
 import { PaymentSuccessDialogModule } from './core/dialogs/payment-success-dialog/payment-success-dialog.module';
 import { APP_BASE_HREF } from '@angular/common';
+import { GraphQLModule } from './graphql.module';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,
@@ -45,6 +46,8 @@ const routerConfig: ExtraOptions = {
       registrationStrategy: 'registerImmediately',
     }),
     IconsModule,
+    GraphQLModule,
+    HttpClientModule,
   ],
   providers: [
     UserStateService,

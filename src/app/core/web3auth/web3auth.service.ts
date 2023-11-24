@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES, OPENLOGIN_NETWORK, SafeEventEmitterProvider } from "@web3auth/base";
 import { Web3Auth } from '@web3auth/modal';
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { BehaviorSubject, Observable } from "rxjs";
@@ -21,32 +21,22 @@ export class Web3AuthService {
     init = async () => {
         this.web3auth = new Web3Auth({
             clientId,
-
+            web3AuthNetwork: OPENLOGIN_NETWORK.MAINNET,
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
                 rpcTarget: "https://rpc-mumbai.maticvigil.com"
             },
-            // uiConfig: {
-            //     theme: ''
-            // }
         });
 
         const web3auth = this.web3auth;
-        
-        const openloginAdapter = new OpenloginAdapter({
-            adapterSettings: {
-                network: 'mainnet'
-            },
-        })
-        web3auth.configureAdapter(openloginAdapter);
 
         await web3auth.initModal();
 
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
-        
+
         if (web3auth.provider) {
-            // this.provider = web3auth.provider;
+            this.provider = web3auth.provider;
         }
 
         this.isModalLoaded = true;
@@ -211,7 +201,7 @@ export class Web3AuthService {
     };
 
     isLoggedIn(): boolean {
-        if (this.provider) {
+        if (this.web3auth?.connected) {
             return true;
         } else {
             return false;

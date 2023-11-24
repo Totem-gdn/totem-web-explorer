@@ -16,7 +16,7 @@ export class SnackNotifierService {
             verticalPosition: 'bottom',
             horizontalPosition: 'right',
             panelClass: 'totem-snackbar',
-            duration: 4600
+            duration: 5600
         })
     }
 }
