@@ -181,7 +181,7 @@ export class VotingComponent implements OnInit, OnDestroy {
   lastProposalVotingState: {
     voted: boolean;
     choice: number;
-    created: number;
+    created?: number;
   } = {
     voted: false,
     choice: 0,
@@ -393,6 +393,11 @@ export class VotingComponent implements OnInit, OnDestroy {
     let vote: any;
     try {
       vote = await this.snapshotService.castAVote(proposal, choice);
+      this.lastProposalVotingState = {
+        voted: true,
+        choice: choice,
+      }
+      this.snackNotifierService.open('You have successfully voted!');
     } catch (err) {
       /* {error: string; error_description: string} */
       this.loading$.next(false);
