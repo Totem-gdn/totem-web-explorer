@@ -47,7 +47,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     // // this.loading$.next(false);
     if (isLoggedIn) {
       await this.getUserInfoViaWeb3();
-    } 
+    }
     this.loading$.next(false);
   }
 
