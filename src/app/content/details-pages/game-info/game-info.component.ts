@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { ASSET_TYPE } from "@app/core/models/enums/asset-types.enum";
 import { SubmitGame } from "@app/core/models/interfaces/submit-game-interface.model";
@@ -27,7 +28,8 @@ export class DemoGameInfoComponent extends OnDestroyMixin implements OnInit, OnD
         private gameService: GamesService,
         private userStateService: UserStateService,
         private gtag: Gtag,
-        private assetsServic: AssetsService
+        private assetsServic: AssetsService,
+        private titleService: Title
     ) {
         super();
         this.gtag.event('page_view');
@@ -56,6 +58,7 @@ export class DemoGameInfoComponent extends OnDestroyMixin implements OnInit, OnD
                 this.gameService.fetchGame(id).subscribe({
                     next: game => {
                         this.game = game;
+                        this.titleService.setTitle(this.game?.general?.name ? `${this.game?.general?.name} | Totem Explorer` : 'Totem Explorer');
                         this.userInfo();
                     },
                     error: () => {
@@ -83,6 +86,10 @@ export class DemoGameInfoComponent extends OnDestroyMixin implements OnInit, OnD
                 }
             }
         })
+    }
+
+    override ngOnDestroy(): void {
+      this.titleService.setTitle('Totem Explorer');
     }
 
     // game$() {
