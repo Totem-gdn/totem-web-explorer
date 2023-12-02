@@ -18,23 +18,23 @@ export interface SnapshotSpace {
   };
 }
 
-export interface SnapshotVotes {
-  id: string;
-  voter: string;
-  vp: number;
-  vp_by_strategy: [number, number];
-  vp_state: string;
-  created: number;
-  proposal: {
+export interface SnapshotVote {
+  id?: string;
+  voter?: string;
+  vp?: number;
+  vp_by_strategy?: [number, number];
+  vp_state?: string;
+  created?: number;
+  proposal?: {
     id: string;
     __typename: string;
   };
   choice: number;
-  space: {
+  space?: {
     id: string;
     __typename: string;
   };
-  __typename: string;
+  __typename?: string;
 }
 
 export interface SnapshotFollows {
@@ -59,7 +59,10 @@ export interface SnapshotProposal {
   type: ProposalType;
   body: string;
   choices: string[];
-  options: ProposalOption[];
+  options: ProposalOption[]; // custom
+  vote?: SnapshotVote; // custom
+  votingPower?: SnapshotVotingPower; // custom
+  loading: boolean;
   start: number;
   end: number;
   snapshot: string;
