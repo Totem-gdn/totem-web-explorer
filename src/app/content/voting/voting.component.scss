@@ -22,6 +22,15 @@
 
 .proposal-state {
   background-color: $totem-pink;
+  &.active {
+    background: #13ad63;
+  }
+  &.pending {
+    background-color: $totem-light-grey;
+  }
+  &.closed {
+    background-color: $light-violet;
+  }
 }
 
 .option-item {
@@ -32,8 +41,14 @@
     background-color: $totem-light-violet;
   }
   &.selected {
-    background-color: $totem-light-violet;
+    background: $totem-main-gradient;
   }
+}
+
+.vp-s {
+  background-color: $totem-violet;
+  padding: 4px 10px;
+  border-radius: 12px;
 }
 
 .divider {

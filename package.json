@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@angular/service-worker": "^14.2.9",
+    "@apollo/client": "^3.0.0",
     "@dicebear/collection": "^5.3.4",
     "@dicebear/core": "^5.3.4",
     "@ethersproject/providers": "^5.7.2",
@@ -55,10 +56,12 @@
     "crypto-browserify": "^3.12.0",
     "elliptic": "^6.5.4",
     "express": "^4.18.2",
+    "graphql": "^16",
     "gzipper": "^7.1.0",
     "http": "^0.0.1-security",
     "https": "^1.0.0",
     "https-browserify": "^1.0.0",
+    "moment": "^2.29.4",
     "ng-particles": "^3.3.2",
     "ngx-image-compress": "^13.1.13",
     "ngx-image-cropper": "^6.2.2",
@@ -77,9 +80,7 @@
     "tsparticles-engine": "^2.3.2",
     "url": "^0.11.3",
     "web3": "^1.8.1",
-    "zone.js": "~0.11.4",
-    "@apollo/client": "^3.0.0",
-    "graphql": "^16"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.1",

@@ -1,4 +1,134 @@
-<div class="w-full max-w-[1012px] flex flex-row items-start pb-12 px-10 pt-10 gap-8">
+<div class="w-full max-w-[860px] flex flex-col items-start justify-start pb-12 px-5 md:px-10 pt-10 gap-8">
+  <div class="w-full flex flex-col">
+    <p class="text-[40px] leading-[44px] lg:text-[44px] lg:leading-[48px] font-semibold">Vote on Totem Proposals</p>
+    <p class="text-[16px] leading-[22px] font-normal mt-6">This page allows community members to participate in the DAO governance using their totem-explorer website. Any <a class="underline" href="https://totem.gdn/bin/view/The-Totem-Tribe/Governance/The-Totem-Token/" target="_blank">Totem Token</a> holder can vote on any proposal based on the <a class="underline" href="https://totem.gdn/bin/view/The-Totem-Tribe/Governance/The-Totem-Token/Token-Generation-and-Distribution/" target="_blank">Totem token they hold</a>. Users who hold their tokens in a crypto wallet can use snapshot.org directly to cast their votes. This page allows you to vote with the tokens held in your totem-explorer.com account.</p>
+    <div class="max-w-[590px] w-full p-4 t-bg-violet rounded-[18px] mt-6">
+      You can review all governance proposals and their information on the <a class="underline" href="https://demo.snapshot.org/#/totemgdn.eth" target="_blank">snapshot.org</a> website
+    </div>
+  </div>
+  <div *ngIf="!(loading$ | async); else proposalLoader">
+    <p class="text-[26px] leading-[28px] md:text-[32px] font-medium md:leading-[35px] mt-4">Proposals</p>
+
+    <ng-container *ngIf="(currentUser$ | async) as user">
+      <div class="flex items-center p-5 mt-5 w-fit space-card rounded-[18px]">
+        <div class="flex items-center flex-wrap">
+          <div class="flex items-center">
+            <mat-icon class="mr-[6px] !w-4 !h-auto" [svgIcon]="'mat_outline:info'"></mat-icon>
+            <p>You are voting with your address:</p>
+          </div>
+          <div class="flex items-center">
+            <a class="underline mx-1 hidden lg:flex" [href]="'https://mumbai.polygonscan.com/address/'+user?.wallet" target="_blank">{{user?.wallet}}</a>
+            <a class="underline mx-1 flex lg:hidden" [href]="'https://mumbai.polygonscan.com/address/'+user?.wallet" target="_blank">{{slice(user.wallet!)}}</a>
+            <mat-icon
+            [cdkCopyToClipboard]="user?.wallet || ''"
+            [cdkCopyToClipboardAttempts]="2"
+            (cdkCopyToClipboardCopied)="copied()"
+            class="cursor-pointer !h-[16px] !w-[16px]" [svgIcon]="'mat_outline:content_copy'"></mat-icon>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="flex flex-col w-full gap-6 mt-6">
+      <!--  -->
+      <div *ngIf="noActiveProposals" class="w-full px-5 py-6 flex justify-center space-card rounded-[18px]">
+        <p class="col-grey text-[16px] font-[500]">No active proposal at this time</p>
+      </div>
+      <!--  -->
+      <div *ngFor="let proposal of (proposals$ | async)" class="w-full h-max flex flex-col space-card p-5 rounded-[18px]">
+
+        <div class="flex items-center justify-between gap-y-1 gap-x-4 flex-wrap">
+          <p class="text-[16px] font-[700]">{{proposal.title}}</p>
+          <div class="flex gap-4 items-center">
+            <a [href]="'https://demo.snapshot.org/#/totemgdn.eth/proposal/'+proposal.id" target="_blank" class="underline">View on Snapshot.org</a>
+            <span [ngClass]="proposal.state" class="proposal-state capitalize text-[16px] font-[500]">{{proposal.state}}</span>
+          </div>
+        </div>
+
+        <p *ngIf="proposal.body" class="text-[14px] font-[500] mt-3 col-grey">{{proposal.body}}</p>
+        <div class="divider mt-3"></div>
+        <p class="text-[20px] font-[700] mt-4 flex items-center">{{proposal.vote ? 'Voted' : 'Cast your Vote'}} <mat-icon *ngIf="proposal.vote" class="ml-[6px] !w-4 !h-auto text-[#21B96F]" [svgIcon]="'mat_outline:check_circle'"></mat-icon></p>
+        <div class="flex flex-col gap-3 w-full mt-4 items-center">
+
+          <div
+          class="w-full h-[40px] option-item flex items-center justify-center rounded-[18px] cursor-pointer"
+          *ngFor="let option of proposal.options"
+          [ngClass]="{'selected': option.selected || proposal.vote?.choice === option.id}"
+          [ngStyle]="{'pointer-events': proposal.vote || proposal.state !== 'active' ? 'none' : 'all'}"
+          (click)="selectOption(option, proposal.options)">
+            <p class="text-[16px] font-[500]">{{proposal.vote?.choice === option.id ? 'Your Vote: ' : ''}}{{option.value}}</p>
+          </div>
+
+          <button *ngIf="!proposal.loading" [disabled]="proposal.vote || proposal.state !== 'active'" matRipple class="totem-primary-button w-full h-12 text-[20px] font-semibold leading-[22px] !mt-2" (click)="castVote(proposal)">{{ proposal.vote ? 'Successfully voted' : 'Vote'}}</button>
+          <div *ngIf="proposal.loading" class="w-full h-12 shrink-0 flex items-center justify-center mt-2">
+            <totem-spinner></totem-spinner>
+          </div>
+        </div>
+        <div class="divider mt-5"></div>
+        <div class="flex flex-row flex-wrap items-center justify-between gap-y-1 gap-x-6 mt-4">
+
+<!--
+          <div class="flex items-center gap-1">
+            <p class="text-[14px] font-[500] col-grey">Start date:</p>
+            <p *ngIf="proposal.state !== 'pending'" class="text-[14px] font-[500]">{{proposal.start * 1000 | date:'dd/MM/yyyy h:mm a'}}</p>
+            <p *ngIf="proposal.state == 'pending'" class="text-[14px] font-[500]">{{getDate(proposal.start * 1000)}}</p>
+          </div> -->
+          <div class="flex items-center flex-row flex-wrap gap-y-1 gap-x-6">
+            <div class="flex items-center gap-1" *ngIf="proposal.state == 'pending'">
+              <p class="text-[14px] font-[500]">Start {{getDate(proposal.start * 1000)}}</p>
+            </div>
+
+            <div class="flex items-center gap-1" *ngIf="proposal.state == 'active'">
+              <p class="text-[14px] font-[500]">Ends {{getDate(proposal.end * 1000)}}</p>
+            </div>
+
+            <div class="flex items-center gap-1" *ngIf="proposal.state == 'closed'">
+              <p class="text-[14px] font-[500] col-grey">Ended {{getDate(proposal.end * 1000)}}</p>
+            </div>
+
+            <div class="flex items-center gap-1">
+              <p class="text-[14px] font-[500] col-grey">Voting system:</p>
+              <p class="text-[14px] font-[500] capitalize">{{proposal.type}}</p>
+            </div>
+          </div>
+          <div class="flex items-center flex-row flex-wrap gap-y-1 gap-x-2">
+            <p *ngIf="proposal?.votingPower?.vp_by_strategy?.length" class="text-[14px] font-[500] col-grey">Your Voting Power by strategies:</p>
+            <div class="vp-s" *ngFor="let vp of proposal.votingPower?.vp_by_strategy">
+              <p class="text-[14px] font-[500] capitalize">{{vp}}</p>
+            </div>
+          </div>
+          <!-- <div class="flex items-center gap-1">
+            <p class="text-[14px] font-[500] col-grey">End date:</p>
+            <p class="text-[14px] font-[500]">{{proposal.end * 1000 | date:'dd/MM/yyyy h:mm a'}}</p>
+          </div>
+
+          <div class="flex items-center gap-1">
+            <p class="text-[14px] font-[500] col-grey">Snapshot:</p>
+            <a class="text-[14px] font-[500] flex items-center gap-1" [href]="'https://mumbai.polygonscan.com/block/'+proposal.snapshot" target="_blank">
+            {{proposal.snapshot | number:'1.0':'en-US'}} <mat-icon class="!w-4 !h-4" [svgIcon]="'mat_outline:open_in_new'"></mat-icon></a>
+          </div> -->
+
+        </div>
+      </div>
+      <div class="w-full flex justify-center mt-2 mb-6">
+        <a class="text-[16px] underline" href="https://demo.snapshot.org/#/totemgdn.eth" target="_blank">View more on Snapshot.org</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #proposalLoader>
+  <div class="w-full flex flex-col">
+    <span class="w-[20%] h-[35px] totem-skeleton mt-4"></span>
+    <span class="w-[60%] h-[64px] totem-skeleton mt-5"></span>
+    <div class="flex flex-wrap w-full items-start justify-start h-[240px] mt-6">
+      <span class="w-full h-full totem-skeleton"></span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- <div class="w-full max-w-[1012px] flex flex-row items-start pb-12 px-10 pt-10 gap-8">
   <div class="w-full min-w-[276px] max-w-[300px] h-max">
     <ng-container *ngIf="(space$ | async) as space; else spaceLoader">
       <p class="text-[20px] font-[700]">Space</p>
@@ -81,21 +211,6 @@
 
     </ng-container>
   </div>
-  <!-- <div class="w-full min-w-[226px] max-w-[300px] h-max">
-    <ng-container *ngIf="(proposal$ | async) as proposal; else infoLoader">
-      <p class="text-[20px] font-[700]">Information</p>
-      <div class="w-full flex flex-col p-5 rounded-[18px] space-card mt-4">
-        <div class="grid grid-cols-3 gap-2">
-        <p class="text-[14px] font-[500] col-grey">V. system</p>
-        <p class="text-[14px] font-[500] col-span-2 capitalize">{{proposal.type}}</p>
-        <p class="text-[14px] font-[500] col-grey">Start date</p>
-        <p class="text-[14px] font-[500] col-span-2">{{proposal.start * 1000 | date:'dd/MM/yyyy h:mm a'}}</p>
-        <p class="text-[14px] font-[500] col-grey">End date</p>
-        <p class="text-[14px] font-[500] col-span-2">{{proposal.end * 1000 | date:'dd/MM/yyyy h:mm a'}}</p>
-        </div>
-      </div>
-    </ng-container>
-  </div> -->
 
 </div>
 <ng-template #spaceLoader>
@@ -121,4 +236,4 @@
       <span class="w-full h-full totem-skeleton"></span>
     </div>
   </div>
-</ng-template>
+</ng-template> -->

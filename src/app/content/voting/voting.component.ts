@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SnackNotifierService } from '@app/components/utils/snack-bar-notifier/snack-bar-notifier.service';
-import { ProposalOption, SnapshotApiResponse, SnapshotFollows, SnapshotProposal, SnapshotSpace, SnapshotVotes, SnapshotVotingPower, SnapshotVotingPowerResponse } from '@app/core/models/interfaces/snapshot.interface';
+import { ProposalOption, SnapshotApiResponse, SnapshotFollows, SnapshotProposal, SnapshotSpace, SnapshotVote, SnapshotVotingPower, SnapshotVotingPowerResponse } from '@app/core/models/interfaces/snapshot.interface';
 import { UserEntity } from '@app/core/models/interfaces/user-interface.model';
 import { UserStateService } from '@app/core/services/auth.service';
 import { SnapshotService } from '@app/core/services/snapshot/snapshot.service';
 import { Apollo, gql } from 'apollo-angular';
-import { BehaviorSubject, Observable, Subscription, catchError, map, of, tap } from 'rxjs';
-
+import { BehaviorSubject, Observable, Subscription, catchError, combineLatest, delay, map, of, switchMap, tap } from 'rxjs';
+import moment from 'moment';
 enum OrderDirection {
   ASC="asc",
   DESC="desc"
@@ -167,6 +167,7 @@ export class VotingComponent implements OnInit, OnDestroy {
 
   space$: Observable<SnapshotSpace | null> = new Observable();
   proposal$: Observable<SnapshotProposal | null> = new Observable();
+  proposals$: BehaviorSubject<SnapshotProposal[]> = new BehaviorSubject<SnapshotProposal[]>([]);
   votingPower$: Observable<any | null> = new Observable();
   subs: Subscription = new Subscription();
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -187,6 +188,8 @@ export class VotingComponent implements OnInit, OnDestroy {
     choice: 0,
     created: 0
   }
+  currTime: number = Date.now();
+  noActiveProposals: boolean = false;
 
   constructor(
     private snapshotService: SnapshotService,
@@ -198,7 +201,9 @@ export class VotingComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.subs.add(
       this.userStateService.isLoading.subscribe((value: boolean) => {
-        this.loading$.next(value);
+        if (!this.loading$.getValue()) {
+          this.loading$.next(value);
+        }
       })
     )
 
@@ -213,7 +218,12 @@ export class VotingComponent implements OnInit, OnDestroy {
     )
   }
 
+  getDate(time: number) {
+    return moment(time).fromNow();
+  }
+
   getFollows() {
+    this.loading$.next(true);
     this.apollo
       .watchQuery({
         query: GET_FOLLOWS,
@@ -225,7 +235,7 @@ export class VotingComponent implements OnInit, OnDestroy {
       })
       .valueChanges.pipe(
         catchError((err: HttpErrorResponse) => {
-          //console.log(err);
+          this.loading$.next(false);
           return of();
         }),
         tap((res: any) => {
@@ -238,8 +248,8 @@ export class VotingComponent implements OnInit, OnDestroy {
           const isFollowingTotem: boolean = data.some((follow: SnapshotFollows) => follow.space.id === this.totemSpace);
           if (isFollowingTotem) {
             console.log('Follows TOTEM SPACE +');
-            this.getSpaceInfo();
-            this.getSpaceProposals();
+            //this.getSpaceInfo();
+            this.getSpaceProposals('active');
           } else {
             this.joinASpaceAndGetInfo();
           }
@@ -251,10 +261,169 @@ export class VotingComponent implements OnInit, OnDestroy {
       await this.snapshotService.joinASpace();
     } catch (err) {
       console.log(err);
+      this.loading$.next(false);
       this.snackNotifierService.open((err as string));
     }
-    this.getSpaceInfo();
-    this.getSpaceProposals();
+    //this.getSpaceInfo();
+    this.getSpaceProposals('active');
+  }
+
+  getSpaceProposals(state: 'active' | 'pending' | 'closed') {
+    this.apollo
+      .watchQuery<any, GetProposals>({
+        query: GET_SPACE_PROPOSALS,
+        variables: {
+          first: state === 'active' ? 20 : 2,
+          skip: 0,
+          space_in: [this.totemSpace],
+          state: state,
+          orderBy: "created",
+          orderDirection: OrderDirection.DESC
+        }
+      })
+      .valueChanges.pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.snackNotifierService.open(err?.error?.message || err?.message);
+          this.loading$.next(false);
+          return of();
+        }),
+        switchMap((data: SnapshotApiResponse<SnapshotProposal>) => {
+          return this.getMyVotesAndProcessProposals(data);
+        }),
+        delay(250),
+        switchMap((data: SnapshotProposal[]) => {
+          return this.getVPForProposalsAndProcess(data);
+        }),
+        delay(250)
+      ).subscribe((data: SnapshotProposal[]) => {
+          //console.log(data);
+          const currentProposals: SnapshotProposal[] = this.proposals$.getValue();
+          this.proposals$.next([...currentProposals, ...data]);
+          if (state === 'active') {
+            if (!data?.length) {
+              this.noActiveProposals = true;
+            }
+            this.getSpaceProposals('pending');
+            return;
+          }
+          if (state === 'pending') {
+            this.getSpaceProposals('closed');
+            return;
+          }
+          this.loading$.next(false);
+          //console.log(this.proposals$.getValue());
+      });
+  }
+
+  getVPForProposalsAndProcess(proposals: SnapshotProposal[]): Observable<SnapshotProposal[]> {
+    if (!proposals?.length) return of([]);
+    const requests: Observable<SnapshotProposal>[] = proposals.map((proposal: SnapshotProposal) => {
+      if (proposal.state === 'pending') {
+        return of(proposal);
+      }
+      return this.getVotingPower(proposal);
+    });
+    return combineLatest([...requests]).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackNotifierService.open(err?.error?.message || err?.message);
+        return of();
+      })
+    );
+  }
+
+  getMyVotesAndProcessProposals(response: SnapshotApiResponse<SnapshotProposal>): Observable<SnapshotProposal[]> {
+    if (!response?.data.proposals?.length) return of([]);
+    const proposals: SnapshotProposal[] = response.data.proposals.map((proposal: SnapshotProposal) => {
+      return {
+        ...proposal,
+        loading: false,
+        options: proposal.choices.map((choice: string, i: number) => {
+          return {
+            id: i+1,
+            value: choice,
+            selected: false
+          }
+        })
+      }
+    });
+    const requests: Observable<SnapshotProposal>[] = proposals.map((proposal: SnapshotProposal) => {
+      if (proposal.state === 'pending') {
+        return of(proposal);
+      }
+      return this.getMyVotes(proposal);
+    });
+    return combineLatest([...requests]).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackNotifierService.open(err?.error?.message || err?.message);
+        return of();
+      })
+    );
+  }
+
+  getMyVotes(proposal: SnapshotProposal): Observable<SnapshotProposal> {
+    return this.apollo
+    .watchQuery<any, any>({
+      query: GET_MY_VOTES,
+      variables: {
+        first: 20,
+        skip: 0,
+        voter: this.currentUser$.getValue()?.wallet,
+        space: this.totemSpace,
+        proposal: proposal.id,
+        orderBy: "created",
+        orderDirection: OrderDirection.DESC
+      }
+    })
+    .valueChanges.pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackNotifierService.open(err?.error?.message || err?.message);
+        return of();
+      }),
+      map((result: SnapshotApiResponse<SnapshotVote>) => {
+        const votes: SnapshotVote[] = result.data.votes?.length ? result.data.votes : [];
+        const voteIsCreated: SnapshotVote | undefined = votes.find((item: SnapshotVote) => item.proposal?.id === proposal.id);
+        return {
+          ...proposal,
+          vote: voteIsCreated,
+        } as SnapshotProposal;
+      })
+    )/* .subscribe((data: SnapshotVote[] | null) => {
+      if (!data) return;
+      console.log('MY VOTES: ', data);
+      const voteIsCreated: SnapshotVote | undefined = data.find((item: SnapshotVote) => item.proposal.id === proposalId);
+      if (voteIsCreated) {
+        this.lastProposalVotingState = {
+          voted: true,
+          choice: voteIsCreated.choice,
+          created: voteIsCreated.created
+        }
+        console.log(this.lastProposalVotingState);
+      }
+    }) */
+  }
+
+  getVotingPower(proposal: SnapshotProposal): Observable<SnapshotProposal> {
+    return this.apollo
+    .watchQuery<any, any>({
+      query: GET_VOTING_POWER,
+      variables: {
+        voter: this.currentUser$.getValue()?.wallet,
+        space: this.totemSpace,
+        proposal: proposal.id
+      }
+    })
+    .valueChanges.pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackNotifierService.open(err?.error?.message || err?.message);
+        return of();
+      }),
+      map((result: {data: SnapshotVotingPowerResponse}) => {
+        return {
+          ...proposal,
+          votingPower: result?.data?.vp || undefined
+        }
+      })
+    )
   }
 
   getSpaceInfo() {
@@ -284,103 +453,6 @@ export class VotingComponent implements OnInit, OnDestroy {
       )
   }
 
-  getSpaceProposals() {
-    this.proposal$ = this.apollo
-      .watchQuery<any, GetProposals>({
-        query: GET_SPACE_PROPOSALS,
-        variables: {
-          first: 20,
-          skip: 0,
-          space_in: [this.totemSpace],
-          state: "active",
-          orderBy: "created",
-          orderDirection: OrderDirection.DESC
-        }
-      })
-      .valueChanges.pipe(
-        tap((res: any) => {
-          //console.log(res);
-        }
-        ),
-        map((result: SnapshotApiResponse<SnapshotProposal>) => {
-          if (!result.data.proposals?.length) return null;
-          const proposal: SnapshotProposal = result.data.proposals[0];
-          return {
-            ...proposal,
-            options: proposal.choices.map((choice: string, i: number) => {
-              return {
-                id: i+1,
-                value: choice,
-                selected: false
-              }
-            })
-          }
-        }),
-        tap((data: SnapshotProposal | null) => {
-          //console.log(data);
-          if (data) {
-            this.getVotingPower(data.id);
-            this.getMyVotes(data.id);
-          }
-        })
-      );
-  }
-
-  getVotingPower(proposalId: string) {
-    this.apollo
-    .watchQuery<any, any>({
-      query: GET_VOTING_POWER,
-      variables: {
-        voter: this.currentUser$.getValue()?.wallet,
-        space: this.totemSpace,
-        proposal: proposalId
-      }
-    })
-    .valueChanges.pipe(
-      map((result: {data: SnapshotVotingPowerResponse}) => result.data)
-    ).subscribe((data: SnapshotVotingPowerResponse) => {
-      console.log(data);
-      if (data) {
-        this.myVotingPower = data.vp;
-      }
-    })
-  }
-
-  getMyVotes(proposalId: string) {
-    this.apollo
-    .watchQuery<any, any>({
-      query: GET_MY_VOTES,
-      variables: {
-        first: 20,
-        skip: 0,
-        voter: this.currentUser$.getValue()?.wallet,
-        space: this.totemSpace,
-        proposal: proposalId,
-        orderBy: "created",
-        orderDirection: OrderDirection.DESC
-      }
-    })
-    .valueChanges.pipe(
-      tap((res: any) => {
-        //console.log(res);
-      }
-      ),
-      map((result: SnapshotApiResponse<SnapshotVotes>) => result.data.votes?.length ? result.data.votes : null)
-    ).subscribe((data: SnapshotVotes[] | null) => {
-      if (!data) return;
-      console.log('MY VOTES: ', data);
-      const voteIsCreated: SnapshotVotes | undefined = data.find((item: SnapshotVotes) => item.proposal.id === proposalId);
-      if (voteIsCreated) {
-        this.lastProposalVotingState = {
-          voted: true,
-          choice: voteIsCreated.choice,
-          created: voteIsCreated.created
-        }
-        console.log(this.lastProposalVotingState);
-      }
-    })
-  }
-
   async castVote(proposal: SnapshotProposal) {
     console.log(proposal);
     const option: ProposalOption | undefined = proposal.options.find((option: ProposalOption) => option.selected === true);
@@ -388,19 +460,20 @@ export class VotingComponent implements OnInit, OnDestroy {
       this.snackNotifierService.open('Select at least one option to cast a vote');
       return;
     }
-    this.loading$.next(true);
+    //this.loading$.next(true);
+    proposal.loading = true;
     const choice: number = option.id;
     let vote: any;
     try {
       vote = await this.snapshotService.castAVote(proposal, choice);
-      this.lastProposalVotingState = {
-        voted: true,
+      proposal.vote = {
         choice: choice,
       }
       this.snackNotifierService.open('You have successfully voted!');
     } catch (err) {
       /* {error: string; error_description: string} */
-      this.loading$.next(false);
+      //this.loading$.next(false);
+      proposal.loading = false;
       console.log(err);
       let errorText: string = (err as {error: string; error_description: string}).error_description || '';
       if ((err as {error: string; error_description: string}).error_description === 'failed vote validation') {
@@ -409,7 +482,8 @@ export class VotingComponent implements OnInit, OnDestroy {
       this.snackNotifierService.open(errorText);
     }
     console.log(vote);
-    this.loading$.next(false);
+    //this.loading$.next(false);
+    proposal.loading = false;
   }
 
   selectOption(option: ProposalOption, options: ProposalOption[]) {
