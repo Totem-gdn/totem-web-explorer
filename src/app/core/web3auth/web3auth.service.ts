@@ -196,7 +196,9 @@ export class Web3AuthService {
         if (!this.web3auth) {
             return;
         }
-        await this.web3auth.logout();
+        if (this.web3auth?.connected) {
+          await this.web3auth?.logout();
+        }
         this.provider = null;
     };
 

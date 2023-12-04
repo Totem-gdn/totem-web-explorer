@@ -39,6 +39,9 @@ export class AuthGuard implements CanActivate {
             !!(this.baseStorageService.getItem(StorageKey.ADAPTER));
 
         if (!isAuthenticatedCache && !isAuthenticated) {
+            if (route.data['canAccess'] === 'allow-with-login') {
+              return true;
+            }
             this.router.navigate(['/']);
         }
 
@@ -49,6 +52,9 @@ export class AuthGuard implements CanActivate {
         if (expDate < new Date() || this.web3.isLoggedIn() && !localStorage.getItem(StorageKey.USER_INFO)) {
           this.popupService.showColorPopup(COLOR_POPUP_TYPE.LOGOUT);
           this.userStateService.logoutWithoutRedirect();
+          if (route.data['canAccess'] === 'allow-with-login') {
+            return true;
+          }
         }
         return isAuthenticatedCache || isAuthenticated;
     }
