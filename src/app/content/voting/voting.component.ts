@@ -199,6 +199,17 @@ export class VotingComponent implements OnInit, OnDestroy {
     ) {}
 
   async ngOnInit() {
+    this.initListeners();
+    if (!this.userStateService.isLoggedInComplex()) {
+      await this.userStateService.login();
+    }
+  }
+
+  async logIn() {
+    await this.userStateService.login();
+  }
+
+  initListeners() {
     this.subs.add(
       this.userStateService.isLoading.subscribe((value: boolean) => {
         if (!this.loading$.getValue()) {
@@ -206,7 +217,6 @@ export class VotingComponent implements OnInit, OnDestroy {
         }
       })
     )
-
     this.subs.add(
       this.userStateService.currentUser.subscribe(async user => {
         if (user) {

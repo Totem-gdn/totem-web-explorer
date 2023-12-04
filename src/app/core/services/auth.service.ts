@@ -13,6 +13,7 @@ import { WelcomeUser } from "../models/interfaces/welcome-tokens.model";
 import { Web3AuthService } from "../web3auth/web3auth.service";
 import { TokenGiveawayService } from "./giveaway/token-giveaway.service";
 import { RandomIconGeneratorService } from "./utils/icon-generator.service";
+import { BaseStorageService } from "./utils/base-storage.service";
 
 
 @Injectable({ providedIn: 'root' })
@@ -33,6 +34,7 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
     private welcomeDialogService: WelcomeDialogService,
     private transactionDialogService: TransactionDialogService,
     private randomIconGeneratorService: RandomIconGeneratorService,
+    private baseStorageService: BaseStorageService
   ) {
     super();
   }
@@ -154,6 +156,36 @@ export class UserStateService extends OnDestroyMixin implements OnDestroy {
 
   isLoggedIn(): boolean {
     return this.web3AuthService.isLoggedIn();
+  }
+
+  isLoggedInComplex(): boolean {
+      const isAuthenticated = this.isLoggedIn();
+
+      let userDataToGuard: any = null;
+      userDataToGuard = JSON.parse(this.baseStorageService.getItem(StorageKey.OPEN_LOGIN)!);
+      const userData = JSON.parse(localStorage.getItem(StorageKey.USER_INFO)!);
+      if (userData) {
+        userDataToGuard = userData.userInfo;
+      }
+
+      const isAuthenticatedCache =
+          !!(userDataToGuard?.idToken)
+          &&
+          !!(this.baseStorageService.getItem(StorageKey.ADAPTER));
+
+      if (!isAuthenticatedCache && !isAuthenticated) {
+          return false;
+      }
+
+      // add check on expire date Token
+      const jwtInfo = this.parseJwt(userDataToGuard?.idToken);
+
+      const expDate = new Date(+(jwtInfo.exp + '000'));
+      if (expDate < new Date() || this.web3AuthService.isLoggedIn() && !localStorage.getItem(StorageKey.USER_INFO)) {
+        this.logoutWithoutRedirect();
+        return false;
+      }
+      return isAuthenticatedCache || isAuthenticated;
   }
 
   parseJwt(token: string | undefined) {
