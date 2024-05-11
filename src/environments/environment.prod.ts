@@ -20,5 +20,8 @@ export const environment = {
 
   ITEM_ETH_ADDRESS: '0xEc9C96eF9b90a950057EDbe40B42385f3b1cE78C',
   AVATAR_ETH_ADDRESS: '0x11dBDbF2e6D262c2fe7e73ace1A60c6862dC14dE',
-  GEM_ETH_ADDRESS: '0x981AE243e701bDbA0f6be830921c4F662ba90cE4'
+  GEM_ETH_ADDRESS: '0x981AE243e701bDbA0f6be830921c4F662ba90cE4',
+
+  ALCHEMY_SOCKET_URL: 'wss://polygon-mainnet.g.alchemy.com/v2/8R3Mg6KDymXjWk6vwzinEkqwwmgWduZD',
+  ALCHEMY_HTTPS_URL: 'https://polygon-mainnet.g.alchemy.com/v2/8R3Mg6KDymXjWk6vwzinEkqwwmgWduZD',
 };

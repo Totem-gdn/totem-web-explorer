@@ -82,7 +82,7 @@ export class Web3AuthService {
     }
 
     isReceiptedMatic(hash: string) {
-      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx'));
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider(environment.ALCHEMY_SOCKET_URL));
       const interval1 = setInterval( async () => {
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
           if (err) {
@@ -97,7 +97,7 @@ export class Web3AuthService {
       }, 1000);
     }
     isReceiptedUsdc(hash: string) {
-      this.web3 = new Web3(new Web3.providers.WebsocketProvider('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx'));
+      this.web3 = new Web3(new Web3.providers.WebsocketProvider(environment.ALCHEMY_SOCKET_URL));
       const interval2 = setInterval( async () => {
         await this.web3.eth.getTransactionReceipt(hash, (err: any, res: any) => {
           if (err) {

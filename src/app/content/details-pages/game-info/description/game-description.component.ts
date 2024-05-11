@@ -88,6 +88,7 @@ export class GameDescriptionComponent {
         this.totalItems = assets.meta.total;
       });
     this.statsLoading$.next(true);
+    if (!this._game) return;
     this.legacyService.getGameStatistics(this._game.id!).pipe(
       catchError((err: HttpErrorResponse) => {
         console.log(err);

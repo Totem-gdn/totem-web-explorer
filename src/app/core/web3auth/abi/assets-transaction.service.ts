@@ -13,7 +13,7 @@ import { AssetTypeInfo } from "@app/core/models/interfaces/asset-info.model";
 export class AssetsListenerService {
 
   public assetTxState: BehaviorSubject<null | 'error' | 'success'> = new BehaviorSubject<null | 'error' | 'success'>(null);
-  private web3 = new Web3('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx');
+  private web3 = new Web3(environment.ALCHEMY_SOCKET_URL);
   itemEthAddress: string = '';
   avatarEthAddress: string = '';
 
