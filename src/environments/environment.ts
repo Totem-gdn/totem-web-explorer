@@ -16,7 +16,7 @@ export const environment = {
   BLOCKCHAIN_CONFIG: {
     name: 'mumbai',
     chainId: "0x13881",
-    rpcTarget: "https://rpc-mumbai.maticvigil.com",
+    rpcTarget: "https://polygon-testnet.public.blastapi.io",
   },
 
   // ITEM_ETH_ADDRESS: '0xfC5654489b23379ebE98BaF37ae7017130B45086',
