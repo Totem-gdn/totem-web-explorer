@@ -5,6 +5,7 @@ import { TOKEN } from "@app/core/models/enums/token.enum";
 import { TokenBalance } from "@app/core/models/interfaces/token-balance.modle";
 import { GetTokensABI, TotemTokenABI } from "@app/core/web3auth/abi/getTokens.abi";
 import { Web3AuthService } from "@app/core/web3auth/web3auth.service";
+import { environment } from "@env/environment";
 import { log } from "@web3auth/base";
 import { BehaviorSubject } from "rxjs";
 import Web3 from "web3";
@@ -115,7 +116,7 @@ export class CryptoUtilsService
 
     async getTOTBalance(): Promise<string> {
         const web3 = new Web3(this.web3.provider as any);
-        const web3Totem = new Web3(new Web3.providers.HttpProvider("https://polygon-mainnet.g.alchemy.com/v2/8R3Mg6KDymXjWk6vwzinEkqwwmgWduZD"));
+        const web3Totem = new Web3(new Web3.providers.HttpProvider(environment.ALCHEMY_HTTPS_URL));
         //const web3 = new Web3(new Web3.providers.WebsocketProvider('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx'));
         const accounts = await web3.eth.getAccounts();
         const minABI: any = [
