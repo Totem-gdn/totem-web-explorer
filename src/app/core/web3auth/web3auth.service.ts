@@ -46,7 +46,7 @@ export class Web3AuthService {
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
 
         if (web3auth.provider) {
-            // this.provider = web3auth.provider;
+          this.provider = web3auth.provider;
         }
 
         this.isModalLoaded = true;
