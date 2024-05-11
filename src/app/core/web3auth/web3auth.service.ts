@@ -25,7 +25,7 @@ export class Web3AuthService {
             chainConfig: {
                 chainNamespace: CHAIN_NAMESPACES.EIP155,
                 chainId: "0x13881",
-                rpcTarget: "https://rpc-mumbai.maticvigil.com"
+                rpcTarget: environment.BLOCKCHAIN_CONFIG.rpcTarget
             },
             // uiConfig: {
             //     theme: ''
@@ -33,7 +33,7 @@ export class Web3AuthService {
         });
 
         const web3auth = this.web3auth;
-        
+
         const openloginAdapter = new OpenloginAdapter({
             adapterSettings: {
                 network: 'mainnet'
@@ -44,7 +44,7 @@ export class Web3AuthService {
         await web3auth.initModal();
 
         document.getElementById('w3a-container')!.style.visibility = 'hidden';
-        
+
         if (web3auth.provider) {
             // this.provider = web3auth.provider;
         }
